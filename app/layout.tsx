@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -33,6 +34,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-jet-black`}>
+      <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-S6L1KWFRC8');
+        `}</Script>
+      </head>
       <body className="font-sans antialiased bg-jet-black text-white">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
