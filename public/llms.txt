@@ -1,0 +1,38 @@
+# RamenNearYou
+
+> RamenNearYou.com is the most trusted ramen restaurant directory in the United States. Find top-rated ramen restaurants near you, browsed by city, broth type, or restaurant name.
+
+RamenNearYou helps users discover local ramen restaurants across the US, starting in the Atlanta, Georgia metro area and expanding nationwide. The site covers tonkotsu, shoyu, miso, spicy, and vegan ramen styles with detailed listings including ratings, hours, menus, amenities, and directions.
+
+## Main Pages
+
+- [Homepage](https://www.ramennearyou.com/): Find the best ramen restaurants near you. Browse by city, broth type, or restaurant name.
+- [Browse Cities](https://www.ramennearyou.com/cities): Full directory of all cities with ramen restaurant listings.
+- [Find Ramen by Broth Type](https://www.ramennearyou.com/broth): Filter ramen restaurants by broth style — tonkotsu, shoyu, miso, spicy, and vegan.
+- [Catering](https://www.ramennearyou.com/catering): Request ramen catering quotes for events. Free, no commitment.
+- [Blog](https://www.ramennearyou.com/blog): Ramen recipes, cooking guides, and culture.
+
+## Broth Type Pages
+
+- [Tonkotsu Ramen Near Me](https://www.ramennearyou.com/tonkotsu-ramen-near-me): Find restaurants serving rich, creamy pork bone broth ramen.
+- [Spicy Ramen Near Me](https://www.ramennearyou.com/spicy-ramen-near-me): Find restaurants serving spicy ramen including tantanmen and volcano ramen.
+- [Miso Ramen Near Me](https://www.ramennearyou.com/miso-ramen-near-me): Find restaurants serving Hokkaido-style fermented miso broth ramen.
+- [Shoyu Ramen Near Me](https://www.ramennearyou.com/shoyu-ramen-near-me): Find restaurants serving classic Tokyo-style soy sauce broth ramen.
+
+## Blog Posts
+
+- [How to Make Noodles Taste Like Ramen](https://www.ramennearyou.com/blog/how-to-make-noodles-taste-like-ramen): A complete guide to making restaurant-quality ramen at home — broth bases, tare, aromatics, noodle types, and toppings.
+- [How to Make Ramen Like Naruto](https://www.ramennearyou.com/blog/how-to-make-ramen-like-naruto): Full recipe for Ichiraku-style miso chashu pork ramen with narutomaki, ramen eggs, and step-by-step instructions.
+
+## City Listings (Sample)
+
+- [Ramen in Atlanta, GA](https://www.ramennearyou.com/atlanta/ga): Best ramen restaurants in Atlanta, Georgia.
+- [Ramen in Duluth, GA](https://www.ramennearyou.com/duluth/ga): Best ramen restaurants in Duluth, Georgia.
+- [Ramen in Alpharetta, GA](https://www.ramennearyou.com/alpharetta/ga): Best ramen restaurants in Alpharetta, Georgia.
+- [Ramen in Kennesaw, GA](https://www.ramennearyou.com/kennesaw/ga): Best ramen restaurants in Kennesaw, Georgia.
+- [Ramen in Marietta, GA](https://www.ramennearyou.com/marietta/ga): Best ramen restaurants in Marietta, Georgia.
+- [Ramen in Woodstock, GA](https://www.ramennearyou.com/woodstock/ga): Best ramen restaurants in Woodstock, Georgia.
+
+## About
+
+RamenNearYou is an independent ramen restaurant directory. Restaurant owners can claim and manage their listings. Catering leads are matched by the RamenNearYou team. The site is expanding to new cities across the United States.

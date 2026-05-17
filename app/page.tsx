@@ -46,24 +46,31 @@ export default function HomePage() {
         <BrowseBroth />
 
         <BrothNearMeSection
+          title="Tonkotsu Ramen Near Me"
+          description="Discover rich, creamy tonkotsu ramen near you. Slow-simmered pork bone broth with deep umami flavor — the most indulgent and iconic bowl in Japanese ramen."
+          href="/tonkotsu-ramen-near-me"
+          restaurants={sorted.slice(0, 4)}
+        />
+
+        <BrothNearMeSection
           title="Spicy Ramen Near Me"
           description="Craving heat? These top-rated ramen restaurants near you serve bold, spicy broths — from tantanmen and chili oil to volcano ramen with tongue-tingling fire."
           href="/spicy-ramen-near-me"
-          restaurants={sorted.slice(0, 4)}
+          restaurants={sorted.slice(4, 8)}
         />
 
         <BrothNearMeSection
           title="Miso Ramen Near Me"
           description="Find rich, fermented miso ramen near you. Hokkaido-style miso broth with corn, butter, and thick noodles — one of the most warming bowls in Japanese cuisine."
           href="/miso-ramen-near-me"
-          restaurants={sorted.slice(4, 8)}
+          restaurants={sorted.slice(8, 12)}
         />
 
         <BrothNearMeSection
           title="Shoyu Ramen Near Me"
           description="Discover classic shoyu ramen near you. The original Tokyo-style soy sauce broth — clear, savory, and balanced. The perfect entry point into great ramen."
           href="/shoyu-ramen-near-me"
-          restaurants={sorted.slice(8, 12)}
+          restaurants={sorted.slice(12, 16)}
         />
 
         <LeadGenBanner />
