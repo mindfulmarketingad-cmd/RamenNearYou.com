@@ -80,7 +80,7 @@ export default function BrothPage() {
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4">
-          Browse by Broth Type
+          Find Ramen by Broth Type
         </h1>
         <p className="text-[#B0B3BB] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
           Every bowl starts with the broth. Find ramen restaurants by the style that suits your taste.
