@@ -4,8 +4,8 @@ import Footer from '@/components/footer'
 import CateringForm from './catering-form'
 
 export const metadata: Metadata = {
-  title: 'Ramen Catering for Events — RamenNearYou',
-  description: 'Need ramen catering for your event? Tell us your details and we\'ll connect you with the best ramen caterers in Atlanta.',
+  title: 'Ramen Catering for Events',
+  description: 'Need ramen catering for your event? Tell us your details and we\'ll personally match you with the best ramen caterers in your city — free, no commitment.',
 }
 
 export default function CateringPage() {

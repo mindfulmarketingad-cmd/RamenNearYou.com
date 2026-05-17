@@ -13,7 +13,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { q } = await searchParams
   return {
-    title: q ? `"${q}" — Ramen Search | RamenNearYou` : 'Search Ramen Restaurants | RamenNearYou',
+    title: q ? `"${q}" — Ramen Search` : 'Search Ramen Restaurants',
+    description: q
+      ? `Search results for "${q}" — find top-rated ramen restaurants by name, city, or zip code.`
+      : 'Search ramen restaurants by name, city, or zip code. Find ratings, hours, menus, and directions.',
   }
 }
 

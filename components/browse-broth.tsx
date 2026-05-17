@@ -71,7 +71,7 @@ export default function BrowseBroth() {
           {brothTypes.map((broth) => (
             <Link
               key={broth.slug}
-              href={`#broth-${broth.slug}`}
+              href="/broth"
               className="fade-up group flex flex-col gap-3 p-6 rounded-xl bg-[#2F323A] border border-white/5 hover:border-[#77567A] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20"
             >
               <span className="text-3xl" role="img" aria-label={broth.name}>{broth.emoji}</span>

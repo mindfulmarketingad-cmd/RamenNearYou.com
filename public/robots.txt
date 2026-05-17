@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /auth/
+Disallow: /admin/
+Disallow: /claim/
+Disallow: /api/
+
+Sitemap: https://www.ramennearyou.com/sitemap.xml

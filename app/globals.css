@@ -106,3 +106,45 @@
     transform: translateY(0);
   }
 }
+
+/* Blog prose styles */
+.prose-ramen {
+  color: #B0B3BB;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.prose-ramen p {
+  margin-bottom: 1.25rem;
+}
+.prose-ramen h2 {
+  font-family: var(--font-serif), 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-ramen h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-ramen ul, .prose-ramen ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-ramen ul { list-style-type: disc; }
+.prose-ramen ol { list-style-type: decimal; }
+.prose-ramen li {
+  margin-bottom: 0.4rem;
+}
+.prose-ramen strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+.prose-ramen em {
+  color: #d4c5d6;
+  font-style: italic;
+}

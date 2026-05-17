@@ -1,30 +1,23 @@
 import Link from 'next/link'
-import { UtensilsCrossed } from 'lucide-react'
+import Image from 'next/image'
 
 const footerLinks = {
   Browse: [
-    { label: 'Cities', href: '#cities' },
-    { label: 'Broth Types', href: '#broth' },
-    { label: 'New Listings', href: '#new' },
-    { label: 'Top Rated', href: '#top' },
-  ],
-  Catering: [
-    { label: 'Event Catering', href: '#catering' },
-    { label: 'Get Quotes', href: '#quotes' },
-    { label: 'Corporate Events', href: '#corporate' },
-    { label: 'Weddings', href: '#weddings' },
+    { label: 'Browse Cities', href: '/cities' },
+    { label: 'Broth Types', href: '/broth' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Catering', href: '/catering' },
   ],
   Cities: [
-    { label: 'Atlanta, GA', href: '#' },
-    { label: 'Nashville, TN', href: '#' },
-    { label: 'Austin, TX', href: '#' },
-    { label: 'Chicago, IL', href: '#' },
+    { label: 'Atlanta, GA', href: '/atlanta/ga' },
+    { label: 'Nashville, TN', href: '/cities' },
+    { label: 'Austin, TX', href: '/cities' },
+    { label: 'Chicago, IL', href: '/cities' },
   ],
-  Company: [
-    { label: 'About', href: '#about' },
-    { label: 'Submit a Restaurant', href: '#submit' },
-    { label: 'Advertise', href: '#advertise' },
-    { label: 'Contact', href: '#contact' },
+  Restaurants: [
+    { label: 'List Your Restaurant', href: '/list' },
+    { label: 'Claim a Listing', href: '/cities' },
+    { label: 'Get Catering Leads', href: '/catering' },
   ],
 }
 
@@ -32,17 +25,15 @@ export default function Footer() {
   return (
     <footer className="bg-[#1E2026] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-4">
-              <div className="w-8 h-8 rounded-full bg-[#77567A] flex items-center justify-center flex-shrink-0">
-                <UtensilsCrossed className="w-4 h-4 text-white" />
-              </div>
+              <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={32} height={32} className="flex-shrink-0" />
               <span className="font-serif text-base font-bold text-white">RamenNearYou</span>
             </Link>
             <p className="text-[#B0B3BB] text-sm leading-relaxed">
-              The #1 ramen directory, one city at a time.
+              The most trusted ramen restaurant directory. Find top-rated ramen near you — searched by city, broth type, or name.
             </p>
           </div>
 
@@ -89,7 +80,11 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[#B0B3BB] text-xs">
           <p>&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
-          <p>Currently serving Atlanta, GA &mdash; expanding soon</p>
+          <div className="flex items-center gap-4">
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+            <Link href="/catering" className="hover:text-white transition-colors">Catering</Link>
+            <Link href="/cities" className="hover:text-white transition-colors">Cities</Link>
+          </div>
         </div>
       </div>
     </footer>

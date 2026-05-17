@@ -12,6 +12,7 @@ const navLinks = [
   { label: 'Browse Cities', href: '/cities' },
   { label: 'Broth Types', href: '/broth' },
   { label: 'Catering', href: '/catering' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Submit a Restaurant', href: '#submit' },
 ]
 

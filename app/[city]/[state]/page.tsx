@@ -16,8 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!restaurants.length) return {}
   const { city: cityName, stateCode } = restaurants[0]
   return {
-    title: `Ramen In ${cityName} ${stateCode}`,
-    description: `Browse ${restaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Find ratings, hours, menus, and more.`,
+    title: `Best Ramen Restaurants in ${cityName}, ${stateCode}`,
+    description: `Find the best ramen restaurants in ${cityName}, ${stateCode}. Browse ${restaurants.length} top-rated spots with ratings, hours, menus, and directions.`,
+    alternates: {
+      canonical: `https://www.ramennearyou.com/${city}/${state}`,
+    },
+    openGraph: {
+      title: `Best Ramen Restaurants in ${cityName}, ${stateCode}`,
+      description: `Find the best ramen restaurants in ${cityName}, ${stateCode}. Browse ${restaurants.length} top-rated spots.`,
+      url: `https://www.ramennearyou.com/${city}/${state}`,
+    },
   }
 }
 
@@ -52,15 +60,40 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+      { '@type': 'ListItem', position: 2, name: `Ramen in ${cityName}, ${stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
+    ],
+  }
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Best Ramen Restaurants in ${cityName}, ${stateCode}`,
+    description: `Top-rated ramen restaurants in ${cityName}, ${stateCode}`,
+    numberOfItems: restaurants.length,
+    itemListElement: restaurants.map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.ramennearyou.com/${city}/${state}/${r.slug}`,
+      name: r.name,
+    })),
+  }
+
   return (
     <main className="min-h-screen bg-[#2F323A]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Navbar />
 
       {/* Hero banner */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-b border-white/5">
         <div className="max-w-7xl mx-auto">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white">{cityName}, {stateCode}</span>
@@ -68,7 +101,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
           <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">
-            Ramen In {cityName} {stateCode}
+            Best Ramen Restaurants in {cityName}, {stateCode}
           </h1>
           <p className="text-[#B0B3BB] text-lg">
             {restaurants.length} restaurants found · {stateName}
@@ -94,7 +127,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                       alt={r.name}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      unoptimized
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[#77567A]/30">

@@ -59,21 +59,11 @@ export default function Hero() {
       <div className="absolute inset-0 noise-texture pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#77567A]/50 bg-[#77567A]/10 text-[#B0B3BB] text-xs font-medium mb-6 uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#77567A] inline-block" />
-          Atlanta, GA &mdash; Expanding Soon
-        </div>
-
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-3">
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-5">
           Ramen Near Me
         </h1>
-        <p className="font-serif text-2xl sm:text-3xl font-semibold text-white mb-5 text-balance">
-          Find Your Best Local Ramen
-        </p>
         <p className="text-[#B0B3BB] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
-          Looking for the best ramen? We&apos;ve curated top-rated ramen restaurants across Atlanta and beyond.
-          Search by restaurant name, city, or zip code.
+          Find the best ramen near me — top-rated ramen restaurants searched by city, broth type, or restaurant name.
         </p>
 
         {/* Search bar */}

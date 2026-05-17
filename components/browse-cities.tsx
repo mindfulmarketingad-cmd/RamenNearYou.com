@@ -36,9 +36,6 @@ export default function BrowseCities() {
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
             Find Ramen By City
           </h2>
-          <p className="mt-4 text-[#B0B3BB] max-w-xl mx-auto leading-relaxed">
-            We&apos;re building the most complete ramen map in the country, one city at a time.
-          </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

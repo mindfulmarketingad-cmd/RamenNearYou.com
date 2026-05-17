@@ -15,15 +15,38 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+  metadataBase: new URL('https://www.ramennearyou.com'),
+  title: {
+    default: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    template: '%s | RamenNearYou',
+  },
   description:
-    'Discover top-rated ramen restaurants near you. Browse by city, neighborhood, or broth type. Starting in Atlanta, GA — expanding nationwide.',
-  generator: 'v0.app',
-  keywords: ['ramen', 'ramen near me', 'ramen restaurants', 'Atlanta ramen', 'tonkotsu', 'shoyu', 'miso ramen'],
+    'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name. Tonkotsu, miso, shoyu, spicy & vegan options.',
+  keywords: ['ramen near me', 'ramen restaurants', 'best ramen', 'tonkotsu ramen', 'miso ramen', 'shoyu ramen', 'ramen near me Atlanta', 'local ramen'],
   openGraph: {
-    title: 'RamenNearYou — Find the Best Local Ramen',
-    description: 'The #1 ramen directory, one city at a time.',
+    title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    description: 'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name.',
     type: 'website',
+    url: 'https://www.ramennearyou.com',
+    siteName: 'RamenNearYou',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/images/hero-ramen.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'RamenNearYou — Find the Best Ramen Near You',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    description: 'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name.',
+    images: ['/images/hero-ramen.jpg'],
+  },
+  alternates: {
+    canonical: 'https://www.ramennearyou.com',
   },
 }
 

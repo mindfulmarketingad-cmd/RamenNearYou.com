@@ -23,9 +23,19 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const { city, state, restaurant } = await params
   const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
+  const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
   return {
-    title: `${r.name} — Ramen in ${r.city}, ${r.stateCode} | RamenNearYou`,
-    description: r.description || `${r.name} is a ramen restaurant in ${r.city}, ${r.stateCode}. ${r.rating ? `Rated ${r.rating}/5` : ''} with ${r.reviewCount} reviews.`,
+    title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
+    description: r.description
+      ? `${r.description.slice(0, 140)}…`
+      : `${r.name} is a ramen restaurant in ${r.city}, ${r.stateCode}.${r.rating ? ` Rated ${r.rating}/5` : ''} ${r.reviewCount > 0 ? `with ${r.reviewCount.toLocaleString()} reviews.` : ''}`,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
+      description: r.description || `Top-rated ramen in ${r.city}, ${r.stateCode}.`,
+      url,
+      images: r.photo ? [{ url: r.photo, alt: r.name }] : [],
+    },
   }
 }
 
@@ -61,14 +71,54 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
   const totalReviews = Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0)
 
+  const restaurantSchema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Restaurant',
+    name: r.name,
+    servesCuisine: 'Ramen',
+    url: `https://www.ramennearyou.com/${city}/${state}/${restaurant}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: r.address,
+      addressLocality: r.city,
+      addressRegion: r.stateCode,
+      addressCountry: 'US',
+    },
+    ...(r.phone && { telephone: r.phone }),
+    ...(r.website && { sameAs: r.website }),
+    ...(r.photo && { image: r.photo }),
+    ...(r.rating && r.reviewCount > 0 && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: r.rating.toFixed(1),
+        reviewCount: r.reviewCount,
+        bestRating: '5',
+        worstRating: '1',
+      },
+    }),
+    ...(r.priceRange && { priceRange: r.priceRange }),
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+      { '@type': 'ListItem', position: 2, name: `${r.city}, ${r.stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
+      { '@type': 'ListItem', position: 3, name: r.name, item: `https://www.ramennearyou.com/${city}/${state}/${restaurant}` },
+    ],
+  }
+
   return (
     <main className="min-h-screen bg-[#2F323A]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
       {/* Hero photo */}
       <div className="relative w-full h-64 sm:h-80 bg-[#1E2026] mt-16">
         {r.photo ? (
-          <Image src={r.photo} alt={r.name} fill className="object-cover" unoptimized />
+          <Image src={r.photo} alt={r.name} fill className="object-cover" sizes="100vw" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <Utensils className="w-16 h-16 text-[#77567A]/30" />
@@ -80,7 +130,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6 flex-wrap">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6 flex-wrap">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <Link href={`/${city}/${state}`} className="hover:text-white transition-colors">
