@@ -103,7 +103,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">
             Best Ramen Restaurants in {cityName}, {stateCode}
           </h1>
-          <p className="text-[#B0B3BB] text-lg">
+          <p className="text-[#B0B3BB] text-lg mb-1">
+            Browse Ramen Restaurants In {cityName}, {stateCode}.
+          </p>
+          <p className="text-[#B0B3BB]/60 text-sm">
             {restaurants.length} restaurants found · {stateName}
           </p>
         </div>
