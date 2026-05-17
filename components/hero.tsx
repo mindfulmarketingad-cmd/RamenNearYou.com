@@ -68,7 +68,7 @@ export default function Hero() {
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-3">
           Ramen Near Me
         </h1>
-        <p className="font-serif text-2xl sm:text-3xl font-semibold text-[#77567A] mb-5 text-balance">
+        <p className="font-serif text-2xl sm:text-3xl font-semibold text-white mb-5 text-balance">
           Find Your Best Local Ramen
         </p>
         <p className="text-[#B0B3BB] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
