@@ -8,6 +8,7 @@ export const metadata = { title: 'List Your Restaurant — RamenNearYou' }
 
 export default async function ListPage() {
   const supabase = await createClient()
+  if (!supabase) redirect('/auth/login?redirectTo=/list')
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/auth/login?redirectTo=/list')
 

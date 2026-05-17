@@ -5783,3 +5783,21 @@ export function getCities() {
   }
   return Array.from(map.values()).sort((a,b) => b.count - a.count)
 }
+
+export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
+export type BrothType = typeof BROTH_TYPES[number]
+
+export function getBrothTypes(r: Restaurant): BrothType[] {
+  const text = `${r.name} ${r.description} ${r.subtypes}`.toLowerCase()
+  const types: BrothType[] = []
+  if (text.includes('tonkotsu')) types.push('Tonkotsu')
+  if (text.includes('shoyu')) types.push('Shoyu')
+  if (text.includes('miso') || text.includes('hokkaido')) types.push('Miso')
+  if (text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') || text.includes('tori paitan')) types.push('Spicy')
+  if (r.amenities.veganOptions) types.push('Vegan')
+  return types
+}
+
+export function getRestaurantsByBrothType(type: BrothType): Restaurant[] {
+  return restaurants.filter(r => getBrothTypes(r).includes(type))
+}

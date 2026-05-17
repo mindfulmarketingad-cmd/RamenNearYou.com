@@ -9,7 +9,7 @@ import type { User } from '@supabase/supabase-js'
 
 const navLinks = [
   { label: 'Browse Cities', href: '/cities' },
-  { label: 'Broth Types', href: '#broth' },
+  { label: 'Broth Types', href: '/broth' },
   { label: 'Catering', href: '#catering' },
   { label: 'Submit a Restaurant', href: '#submit' },
 ]

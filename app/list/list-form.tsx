@@ -52,6 +52,11 @@ export default function ListForm({ userId }: ListFormProps) {
 
     // Check Supabase listings table for duplicates
     const supabase = createClient()
+    if (!supabase) {
+      setError({ message: 'Authentication service unavailable. Please try again later.' })
+      setLoading(false)
+      return
+    }
     const { data: existing } = await supabase
       .from('listings')
       .select('id')

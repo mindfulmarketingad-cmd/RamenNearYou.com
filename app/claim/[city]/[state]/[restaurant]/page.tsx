@@ -1,5 +1,4 @@
-import { redirect } from 'next/navigation'
-import { notFound } from 'next/navigation'
+import { redirect, notFound } from 'next/navigation'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ClaimForm from './claim-form'
@@ -12,10 +11,11 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
   if (!r) notFound()
 
   const supabase = await createClient()
+  if (!supabase) redirect(`/auth/login?redirectTo=/claim/${city}/${state}/${restaurant}`)
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect(`/auth/login?redirectTo=/claim/${city}/${state}/${restaurant}`)
 
-  // Check if already claimed
   const { data: existingClaim } = await supabase
     .from('claims')
     .select('id, status')
@@ -35,7 +35,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
               This listing has already been claimed (status: {existingClaim.status}). If you believe this is an error, please contact us.
             </div>
           ) : (
-            <ClaimForm userId={user.id} restaurant={r} />
+            <ClaimForm userId={user.id} userEmail={user.email ?? ''} restaurant={r} />
           )}
         </div>
       </section>
