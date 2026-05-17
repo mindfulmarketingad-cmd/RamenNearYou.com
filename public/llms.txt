@@ -32,6 +32,11 @@ RamenNearYou helps users discover local ramen restaurants across the US, startin
 - [Ramen in Kennesaw, GA](https://www.ramennearyou.com/kennesaw/ga): Best ramen restaurants in Kennesaw, Georgia.
 - [Ramen in Marietta, GA](https://www.ramennearyou.com/marietta/ga): Best ramen restaurants in Marietta, Georgia.
 - [Ramen in Woodstock, GA](https://www.ramennearyou.com/woodstock/ga): Best ramen restaurants in Woodstock, Georgia.
+- [Ramen in Augusta, GA](https://www.ramennearyou.com/augusta/ga): Best ramen restaurants in Augusta, Georgia.
+- [Ramen in Newnan, GA](https://www.ramennearyou.com/newnan/ga): Best ramen restaurants in Newnan, Georgia.
+- [Ramen in Carrollton, GA](https://www.ramennearyou.com/carrollton/ga): Best ramen restaurants in Carrollton, Georgia.
+- [Ramen in Athens, GA](https://www.ramennearyou.com/athens/ga): Best ramen restaurants in Athens, Georgia.
+- [Ramen in Mableton, GA](https://www.ramennearyou.com/mableton/ga): Best ramen restaurants in Mableton, Georgia.
 
 ## About
 
