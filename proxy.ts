@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const PROTECTED = ['/list', '/claim']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // If Supabase env vars aren't configured yet, pass through all requests
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     return NextResponse.next({ request })
