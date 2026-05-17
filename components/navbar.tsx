@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X, UtensilsCrossed } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 const navLinks = [
   { label: 'Browse Cities', href: '/cities' },
   { label: 'Broth Types', href: '/broth' },
-  { label: 'Catering', href: '#catering' },
+  { label: 'Catering', href: '/catering' },
   { label: 'Submit a Restaurant', href: '#submit' },
 ]
 
@@ -56,9 +57,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-full bg-[#77567A] flex items-center justify-center flex-shrink-0">
-              <UtensilsCrossed className="w-4 h-4 text-white" />
-            </div>
+            <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
             <span className="font-serif text-lg font-bold text-white tracking-tight group-hover:text-[#77567A] transition-colors">
               RamenNearYou
             </span>
