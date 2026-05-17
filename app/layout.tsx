@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'RamenNearYou — Find the Best Local Ramen Restaurants',
+  title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
   description:
     'Discover top-rated ramen restaurants near you. Browse by city, neighborhood, or broth type. Starting in Atlanta, GA — expanding nationwide.',
   generator: 'v0.app',

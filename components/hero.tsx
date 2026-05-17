@@ -30,10 +30,10 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-3">
-          Find Your Best<br />Local Ramen
+          Ramen Near Me
         </h1>
         <p className="font-serif text-2xl sm:text-3xl font-semibold text-[#77567A] mb-5 text-balance">
-          Ramen Near You
+          Find Your Best Local Ramen
         </p>
 
         {/* Body */}

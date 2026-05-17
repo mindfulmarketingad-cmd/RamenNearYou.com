@@ -19,8 +19,9 @@ export async function generateStaticParams() {
   )
 }
 
-export async function generateMetadata({ params }: { params: { city: string; state: string; restaurant: string } }) {
-  const r = getRestaurant(params.city, params.state, params.restaurant)
+export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
+  const { city, state, restaurant } = await params
+  const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
   return {
     title: `${r.name} — Ramen in ${r.city}, ${r.stateCode} | RamenNearYou`,
@@ -53,8 +54,9 @@ function AmenityBadge({ active, label }: { active: boolean; label: string }) {
   )
 }
 
-export default function RestaurantPage({ params }: { params: { city: string; state: string; restaurant: string } }) {
-  const r = getRestaurant(params.city, params.state, params.restaurant)
+export default async function RestaurantPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
+  const { city, state, restaurant } = await params
+  const r = getRestaurant(city, state, restaurant)
   if (!r) notFound()
 
   const totalReviews = Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0)
@@ -81,7 +83,7 @@ export default function RestaurantPage({ params }: { params: { city: string; sta
         <nav className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6 flex-wrap">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
-          <Link href={`/${params.city}/${params.state}`} className="hover:text-white transition-colors">
+          <Link href={`/${city}/${state}`} className="hover:text-white transition-colors">
             {r.city}, {r.stateCode}
           </Link>
           <ChevronRight className="w-3 h-3" />

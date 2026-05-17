@@ -10,8 +10,8 @@ export async function generateStaticParams() {
   return getCities().map((c) => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
-export async function generateMetadata({ params }: { params: { city: string; state: string } }) {
-  const { city, state } = params
+export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {
+  const { city, state } = await params
   const restaurants = getRestaurantsByCity(city, state)
   if (!restaurants.length) return {}
   const { city: cityName, stateCode } = restaurants[0]
@@ -45,8 +45,8 @@ function Badge({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function CityPage({ params }: { params: { city: string; state: string } }) {
-  const { city, state } = params
+export default async function CityPage({ params }: { params: Promise<{ city: string; state: string }> }) {
+  const { city, state } = await params
   const restaurants = getRestaurantsByCity(city, state)
   if (!restaurants.length) notFound()
 
