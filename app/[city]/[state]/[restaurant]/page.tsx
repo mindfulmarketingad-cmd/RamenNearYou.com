@@ -240,9 +240,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <p className="text-[#B0B3BB] text-sm leading-relaxed">
                 Claim your free listing to add photos, update your hours, and reach more ramen lovers.
               </p>
-              <button className="w-full px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+              <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
                 Claim This Listing
-              </button>
+              </Link>
             </div>
           </div>
         </div>

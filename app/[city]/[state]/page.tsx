@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!restaurants.length) return {}
   const { city: cityName, stateCode } = restaurants[0]
   return {
-    title: `Ramen Restaurants in ${cityName}, ${stateCode} — RamenNearYou`,
+    title: `Ramen In ${cityName} ${stateCode}`,
     description: `Browse ${restaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Find ratings, hours, menus, and more.`,
   }
 }
@@ -68,7 +68,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
           <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">
-            Ramen in {cityName}, {stateCode}
+            Ramen In {cityName} {stateCode}
           </h1>
           <p className="text-[#B0B3BB] text-lg">
             {restaurants.length} restaurants found · {stateName}
