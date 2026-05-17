@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.ramennearyou.com'),
   title: {
     default: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
-    template: '%s | RamenNearYou',
+    template: '%s | Ramen Near You',
   },
   description:
     'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name. Tonkotsu, miso, shoyu, spicy & vegan options.',
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     description: 'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name.',
     type: 'website',
     url: 'https://www.ramennearyou.com',
-    siteName: 'RamenNearYou',
+    siteName: 'Ramen Near You',
     locale: 'en_US',
     images: [
       {
         url: '/images/hero-ramen.jpg',
         width: 1200,
         height: 630,
-        alt: 'RamenNearYou — Find the Best Ramen Near You',
+        alt: 'Ramen Near You — Find the Best Ramen Near You',
       },
     ],
   },
