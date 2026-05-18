@@ -40,7 +40,7 @@ export default function FeaturedListings() {
               <span className="text-amber-400 text-xs font-medium uppercase tracking-widest">Featured Listings</span>
             </div>
             <p className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
-              Be the First Featured Restaurant
+              Be the First Featured Ramen Restaurant
             </p>
             <p className="text-[#B0B3BB] text-base max-w-xl mx-auto mb-8">
               Get your ramen restaurant in front of thousands of ramen lovers. Featured listings appear at the top of the homepage.

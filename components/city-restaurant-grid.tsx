@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Phone, Star, Navigation } from 'lucide-react'
+import { MapPin, Phone, Star, Navigation, BadgeCheck } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
 
 function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -44,9 +44,10 @@ interface Props {
   restaurants: Restaurant[]
   city: string
   state: string
+  verifiedSlugs?: string[]
 }
 
-export default function CityRestaurantGrid({ restaurants, city, state }: Props) {
+export default function CityRestaurantGrid({ restaurants, city, state, verifiedSlugs = [] }: Props) {
   const [userPos, setUserPos] = useState<{ lat: number; lng: number } | null>(null)
 
   useEffect(() => {
@@ -99,9 +100,17 @@ export default function CityRestaurantGrid({ restaurants, city, state }: Props) 
             {/* Content */}
             <div className="flex flex-col flex-1 p-5 gap-3">
               <div>
-                <h2 className="font-semibold text-white text-base leading-snug group-hover:text-[#77567A] transition-colors line-clamp-1">
-                  {r.name}
-                </h2>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="font-semibold text-white text-base leading-snug group-hover:text-[#77567A] transition-colors line-clamp-1">
+                    {r.name}
+                  </h2>
+                  {verifiedSlugs.includes(r.slug) && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 text-xs font-semibold shrink-0">
+                      <BadgeCheck className="w-3 h-3" />
+                      Verified
+                    </span>
+                  )}
+                </div>
                 {(r.rating || r.reviewCount > 0) && (
                   <div className="flex items-center gap-2 mt-1">
                     <StarRating rating={r.rating} />
