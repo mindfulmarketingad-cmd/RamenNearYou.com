@@ -7,6 +7,8 @@ const footerLinks = {
     { label: 'Broth Types', href: '/broth' },
     { label: 'Blog', href: '/blog' },
     { label: 'Catering', href: '/catering' },
+    { label: 'FAQ', href: '/faq' },
+    { label: 'Contact', href: '/contact' },
   ],
   Cities: [
     { label: 'Atlanta, GA', href: '/atlanta/ga' },
@@ -84,6 +86,8 @@ export default function Footer() {
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link href="/catering" className="hover:text-white transition-colors">Catering</Link>
             <Link href="/cities" className="hover:text-white transition-colors">Cities</Link>
+            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
         </div>
       </div>
