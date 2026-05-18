@@ -6,7 +6,7 @@ import Footer from '@/components/footer'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Browse Ramen By City — RamenNearYou',
+  title: 'Find Ramen Near You',
   description: 'Find ramen restaurants in cities across Georgia and beyond. Browse our full directory by city.',
 }
 
@@ -26,7 +26,7 @@ export default function CitiesPage() {
             <span className="text-white">Browse Cities</span>
           </nav>
           <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Browse Cities</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Find Ramen Near You</h1>
           <p className="text-[#B0B3BB] text-lg">{cities.length} cities · {cities.reduce((sum, c) => sum + c.count, 0)} restaurants listed</p>
         </div>
       </section>
