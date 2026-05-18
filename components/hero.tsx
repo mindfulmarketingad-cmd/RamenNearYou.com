@@ -49,7 +49,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pb-16 sm:pb-20 bg-[#2F323A]">
+    <section className="relative min-h-[80vh] flex items-center justify-center pb-16 sm:pb-20 bg-[#2F323A]">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
