@@ -1,9 +1,16 @@
 import Link from 'next/link'
-import { UtensilsCrossed, ChevronRight } from 'lucide-react'
-import { getCities } from '@/lib/restaurants'
+import Image from 'next/image'
+import { MapPin, ChevronRight } from 'lucide-react'
+import { getCities, restaurants } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import type { Metadata } from 'next'
+
+function getCityPhoto(citySlug: string, stateSlug: string): string | null {
+  return restaurants
+    .filter((r) => r.citySlug === citySlug && r.stateSlug === stateSlug && r.photo)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))[0]?.photo ?? null
+}
 
 export const metadata: Metadata = {
   title: 'Find Ramen Near You',
@@ -37,31 +44,47 @@ export default function CitiesPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {cities.map((city) => {
               const featured = city.citySlug === 'atlanta'
+              const photo = getCityPhoto(city.citySlug, city.stateSlug)
               return (
                 <Link
                   key={`${city.citySlug}-${city.stateSlug}`}
                   href={`/${city.citySlug}/${city.stateSlug}`}
-                  className={`group relative flex flex-col gap-3 p-5 rounded-xl bg-[#1E2026] border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 ${
+                  className={`group relative rounded-xl overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 ${
                     featured
                       ? 'border-[#77567A] shadow-md shadow-[#77567A]/10'
-                      : 'border-white/5 hover:border-[#77567A]'
+                      : 'border-white/5 hover:border-[#77567A]/50'
                   }`}
                 >
-                  {featured && (
-                    <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#77567A]/20 text-[#77567A] text-xs font-medium">
-                      Featured
-                    </span>
-                  )}
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    featured ? 'bg-[#77567A]/20' : 'bg-white/5 group-hover:bg-[#77567A]/10 transition-colors'
-                  }`}>
-                    <UtensilsCrossed className={`w-5 h-5 ${featured ? 'text-[#77567A]' : 'text-[#B0B3BB] group-hover:text-[#77567A] transition-colors'}`} />
+                  {/* Photo */}
+                  <div className="relative h-36 sm:h-40 bg-[#1E2026] overflow-hidden">
+                    {photo ? (
+                      <Image
+                        src={photo}
+                        alt={`Ramen in ${city.city}, ${city.stateCode}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <MapPin className="w-8 h-8 text-[#77567A]/20" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1c22] via-[#1a1c22]/30 to-transparent" />
+                    {featured && (
+                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#77567A]/90 text-white text-xs font-medium backdrop-blur-sm">
+                        Featured
+                      </span>
+                    )}
                   </div>
-                  <div>
-                    <p className="font-semibold text-white text-base">{city.city}</p>
-                    <p className="text-[#B0B3BB] text-xs">{city.stateCode}</p>
+                  {/* Info */}
+                  <div className="bg-[#1E2026] px-4 py-3">
+                    <p className="font-semibold text-white text-sm leading-tight">{city.city}</p>
+                    <div className="flex items-center justify-between mt-0.5">
+                      <p className="text-[#B0B3BB] text-xs">{city.stateCode}</p>
+                      <p className="text-[#77567A] text-xs font-medium">{city.count} spots</p>
+                    </div>
                   </div>
-                  <p className="text-[#77567A] text-xs font-medium">{city.count} Spots</p>
                 </Link>
               )
             })}
