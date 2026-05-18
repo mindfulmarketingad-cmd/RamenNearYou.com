@@ -39,17 +39,25 @@ export default function SignupPage() {
     }
 
     setLoading(true)
-    const supabase = createClient()
-    const { error } = await supabase.auth.signUp({ email, password })
-
-    if (error) {
-      setErrors({ form: error.message })
+    try {
+      const supabase = createClient()
+      if (!supabase) {
+        setErrors({ form: 'Authentication service is not configured. Please contact support.' })
+        setLoading(false)
+        return
+      }
+      const { error } = await supabase.auth.signUp({ email, password })
+      if (error) {
+        setErrors({ form: error.message })
+        setLoading(false)
+        return
+      }
+      setSuccess(true)
+    } catch (err) {
+      setErrors({ form: err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.' })
+    } finally {
       setLoading(false)
-      return
     }
-
-    setSuccess(true)
-    setLoading(false)
   }
 
   if (success) {
