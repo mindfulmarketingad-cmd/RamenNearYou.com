@@ -1,5 +1,6 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
+import FeaturedListings from '@/components/featured-listings'
 import BrowseCities from '@/components/browse-cities'
 import BrowseBroth from '@/components/browse-broth'
 import BrothNearMeSection from '@/components/broth-near-me-section'
@@ -42,6 +43,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#2F323A]">
         <Navbar />
         <Hero />
+        <FeaturedListings />
         <BrowseCities />
         <BrowseBroth />
 
