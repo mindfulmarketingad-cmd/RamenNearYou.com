@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ListForm from './list-form'
@@ -8,7 +10,12 @@ export const metadata: Metadata = {
   description: 'Submit your ramen restaurant to the Ramen Near You directory. Free listing, reviewed within 2–3 business days.',
 }
 
-export default function ListPage() {
+export default async function ListPage() {
+  const supabase = await createClient()
+  if (!supabase) redirect('/auth/login?redirectTo=/list')
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/auth/login?redirectTo=/list')
+
   return (
     <main className="min-h-screen bg-[#2F323A]">
       <Navbar />
