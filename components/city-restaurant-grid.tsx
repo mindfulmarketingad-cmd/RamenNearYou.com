@@ -32,12 +32,28 @@ function StarRating({ rating }: { rating: number | null }) {
   )
 }
 
-function Badge({ children }: { children: React.ReactNode }) {
+function Badge({ children, variant = 'default' }: { children: React.ReactNode; variant?: 'default' | 'broth' | 'spicy' | 'vegan' }) {
+  const styles = {
+    default: 'bg-[#77567A]/15 text-[#77567A]',
+    broth: 'bg-blue-500/10 text-blue-300',
+    spicy: 'bg-red-500/10 text-red-400',
+    vegan: 'bg-green-500/10 text-green-400',
+  }
   return (
-    <span className="px-2 py-0.5 rounded-full bg-[#77567A]/15 text-[#77567A] text-xs font-medium">
+    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${styles[variant]}`}>
       {children}
     </span>
   )
+}
+
+function getBrothType(name: string, description: string): string | null {
+  const text = (name + ' ' + description).toLowerCase()
+  if (text.includes('tonkotsu')) return 'Tonkotsu'
+  if (text.includes('tsukemen')) return 'Tsukemen'
+  if (text.includes('miso')) return 'Miso'
+  if (text.includes('shoyu')) return 'Shoyu'
+  if (text.includes('shio')) return 'Shio'
+  return null
 }
 
 interface Props {
@@ -124,13 +140,24 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 <span className="line-clamp-2">{r.address}</span>
               </div>
 
-              {/* Amenity badges */}
+              {/* Badges */}
               <div className="flex flex-wrap gap-1.5">
-                {r.amenities.dineIn && <Badge>Dine-in</Badge>}
-                {r.amenities.takeout && <Badge>Takeout</Badge>}
-                {r.amenities.delivery && <Badge>Delivery</Badge>}
-                {r.amenities.veganOptions && <Badge>Vegan</Badge>}
-                {r.amenities.acceptsReservations && <Badge>Reservations</Badge>}
+                {(() => {
+                  const brothType = getBrothType(r.name, r.description)
+                  const isSpicy = (r.name + ' ' + r.description).toLowerCase().includes('spicy')
+                  return (
+                    <>
+                      {brothType && <Badge variant="broth">{brothType}</Badge>}
+                      {isSpicy && <Badge variant="spicy">Spicy</Badge>}
+                      {r.amenities.veganOptions && <Badge variant="vegan">Vegan-Friendly</Badge>}
+                      {r.amenities.dineIn && <Badge>Dine-in</Badge>}
+                      {r.amenities.takeout && <Badge>Takeout</Badge>}
+                      {r.amenities.delivery && <Badge>Delivery</Badge>}
+                      {r.amenities.outdoorSeating && <Badge>Outdoor Seating</Badge>}
+                      {r.amenities.acceptsReservations && <Badge>Reservations</Badge>}
+                    </>
+                  )
+                })()}
               </div>
 
               <div className="mt-auto pt-2 border-t border-white/5 flex items-center justify-between">
