@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Search, ChevronDown, MapPin, Star } from 'lucide-react'
+import { Search, ChevronDown, MapPin, Star, Navigation } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 import type { Restaurant } from '@/lib/restaurants'
 
@@ -131,6 +131,17 @@ export default function Hero() {
               Find Ramen
             </button>
           </form>
+
+          {/* Find Near Me button */}
+          <div className="mt-3 flex justify-center">
+            <Link
+              href="/searchmap"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all duration-200 backdrop-blur-sm"
+            >
+              <Navigation className="w-4 h-4 text-[#77567A]" />
+              Find Ramen Near Me
+            </Link>
+          </div>
 
           {/* Autocomplete dropdown */}
           {showResults && (
