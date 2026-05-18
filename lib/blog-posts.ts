@@ -240,8 +240,6 @@ export const blogPosts: BlogPost[] = [
 </ul>
     `.trim(),
   },
-]
-
   {
     slug: 'best-ramen-in-atlanta-georgia',
     title: 'Best Ramen in Atlanta Georgia — Top 10 Restaurants',
