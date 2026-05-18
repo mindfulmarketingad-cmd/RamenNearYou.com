@@ -80,6 +80,12 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center gap-3 ml-2">
                 <Link
+                  href="/saved"
+                  className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                >
+                  Saved
+                </Link>
+                <Link
                   href="/list"
                   className="px-4 py-2 rounded-md bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
                 >
@@ -148,14 +154,23 @@ export default function Navbar() {
               List Your Restaurant
             </Link>
             {user ? (
-              <div className="mt-2 flex items-center justify-between py-2">
-                <span className="text-sm text-[#B0B3BB]">{user.email}</span>
-                <button
-                  onClick={handleSignOut}
-                  className="text-sm text-[#77567A] hover:text-[#77567A]/80 transition-colors"
+              <div className="mt-2 flex flex-col gap-1">
+                <Link
+                  href="/saved"
+                  className="py-2 text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                  onClick={() => setMobileOpen(false)}
                 >
-                  Sign Out
-                </button>
+                  Saved Restaurants
+                </Link>
+                <div className="flex items-center justify-between py-2 border-t border-white/5">
+                  <span className="text-sm text-[#B0B3BB]">{user.email}</span>
+                  <button
+                    onClick={handleSignOut}
+                    className="text-sm text-[#77567A] hover:text-[#77567A]/80 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             ) : (
               <Link

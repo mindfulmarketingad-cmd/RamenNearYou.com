@@ -8,6 +8,7 @@ import {
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import SaveButton from '@/components/save-button'
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -156,7 +157,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <span key={s} className="px-2 py-0.5 rounded-full bg-[#77567A]/15 text-[#77567A] text-xs">{s.trim()}</span>
                 ))}
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">{r.name}</h1>
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">{r.name}</h1>
+                <SaveButton slug={r.slug} restaurantName={r.name} />
+              </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-3">
                   <StarRating rating={r.rating} />
