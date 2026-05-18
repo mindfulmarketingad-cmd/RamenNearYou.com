@@ -5,6 +5,7 @@ import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaura
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
+import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
   return getCities().map((c) => ({ city: c.citySlug, state: c.stateSlug }))
@@ -37,6 +38,18 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
+
+  const supabase = await createClient()
+  let verifiedSlugs: string[] = []
+  if (supabase) {
+    const slugs = restaurants.map(r => r.slug)
+    const { data } = await supabase
+      .from('claims')
+      .select('restaurant_slug')
+      .in('restaurant_slug', slugs)
+      .eq('status', 'approved')
+    verifiedSlugs = data?.map(d => d.restaurant_slug) ?? []
+  }
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -105,7 +118,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <p className="text-white font-semibold text-sm mb-6">
             {restaurants.length} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {cityName}, {stateCode}
           </p>
-          <CityRestaurantGrid restaurants={restaurants} city={city} state={state} />
+          <CityRestaurantGrid restaurants={restaurants} city={city} state={state} verifiedSlugs={verifiedSlugs} />
         </div>
       </section>
 

@@ -3,13 +3,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
-  Utensils, ExternalLink, Crown
+  Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
 import ReviewSection from '@/components/review-section'
+import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -70,6 +71,18 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const { city, state, restaurant } = await params
   const r = getRestaurant(city, state, restaurant)
   if (!r) notFound()
+
+  const supabase = await createClient()
+  let isVerified = false
+  if (supabase) {
+    const { data } = await supabase
+      .from('claims')
+      .select('id')
+      .eq('restaurant_slug', r.slug)
+      .eq('status', 'approved')
+      .maybeSingle()
+    isVerified = !!data
+  }
 
   const totalReviews = Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0)
 
@@ -159,7 +172,15 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 ))}
               </div>
               <div className="flex items-start justify-between gap-4 mb-3">
-                <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">{r.name}</h1>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">{r.name}</h1>
+                  {isVerified && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 text-xs font-semibold">
+                      <BadgeCheck className="w-3.5 h-3.5" />
+                      Verified
+                    </span>
+                  )}
+                </div>
                 <SaveButton slug={r.slug} restaurantName={r.name} />
               </div>
               {(r.rating || r.reviewCount > 0) && (
