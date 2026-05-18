@@ -43,14 +43,14 @@ export default function FeaturedListings() {
               Be the First Featured Restaurant
             </h2>
             <p className="text-[#B0B3BB] text-base max-w-xl mx-auto mb-8">
-              Get your ramen restaurant in front of thousands of ramen lovers. Featured listings appear at the top of the homepage for only $29.99/month.
+              Get your ramen restaurant in front of thousands of ramen lovers. Featured listings appear at the top of the homepage.
             </p>
             <Link
               href="/featured/apply"
               className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-[#1E2026] font-semibold rounded-lg text-sm transition-colors"
             >
               <Crown className="w-4 h-4" />
-              Apply for a Featured Listing — $29.99/mo
+              Apply for a Featured Listing
             </Link>
           </div>
         </section>
