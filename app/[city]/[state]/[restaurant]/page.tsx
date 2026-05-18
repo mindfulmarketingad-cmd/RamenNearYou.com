@@ -9,6 +9,7 @@ import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from 
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
+import ReviewSection from '@/components/review-section'
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -223,6 +224,12 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <AmenityBadge active={r.amenities.creditCards} label="Credit Cards" />
               </div>
             </section>
+
+            {/* Community reviews */}
+            <ReviewSection
+              restaurantSlug={r.slug}
+              restaurantName={r.name}
+            />
 
             {/* Review breakdown */}
             {totalReviews > 0 && (

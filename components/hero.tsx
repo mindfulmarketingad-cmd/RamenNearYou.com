@@ -49,7 +49,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 sm:pb-20">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pb-16 sm:pb-20 bg-[#2F323A]">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -186,7 +186,7 @@ export default function Hero() {
       </div>
 
       {/* Wave curve into next section */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none">
+      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px">
         <svg
           viewBox="0 0 1440 80"
           xmlns="http://www.w3.org/2000/svg"

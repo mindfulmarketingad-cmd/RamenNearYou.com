@@ -14,6 +14,7 @@ const navLinks = [
   { label: 'Catering', href: '/catering' },
   { label: 'Blog', href: '/blog' },
   { label: 'Submit a Restaurant', href: '/list' },
+  { label: 'Get Featured', href: '/featured/apply', highlight: true },
 ]
 
 export default function Navbar() {
@@ -70,7 +71,11 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                className={
+                  (link as { highlight?: boolean }).highlight
+                    ? 'text-sm text-amber-400 hover:text-amber-300 font-medium transition-colors'
+                    : 'text-sm text-[#B0B3BB] hover:text-white transition-colors'
+                }
               >
                 {link.label}
               </Link>
