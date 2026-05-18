@@ -49,7 +49,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pb-16 sm:pb-20 bg-[#2F323A]">
+    <section className="relative min-h-[80vh] flex items-center justify-center pb-16 sm:pb-20 bg-[#2F323A]">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -58,7 +58,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[#2F323A]/75" />
       <div className="absolute inset-0 noise-texture pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-5">
           Ramen Near Me
         </h1>
