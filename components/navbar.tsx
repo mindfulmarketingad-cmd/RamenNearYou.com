@@ -13,7 +13,7 @@ const navLinks = [
   { label: 'Broth Types', href: '/broth' },
   { label: 'Catering', href: '/catering' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Submit a Restaurant', href: '#submit' },
+  { label: 'Submit a Restaurant', href: '/list' },
 ]
 
 export default function Navbar() {
