@@ -40,8 +40,7 @@ export default function BrowseCities() {
     <section id="cities" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#2F323A] noise-texture" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Nationwide Directory</p>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
+<h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
             Find Ramen By City
           </h2>
         </div>
