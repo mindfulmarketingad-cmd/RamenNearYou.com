@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -126,6 +126,18 @@ export default function Navbar() {
             )}
           </nav>
 
+          {/* Catering hotline */}
+          <a
+            href="tel:+13412034429"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#77567A]/10 hover:bg-[#77567A]/20 border border-[#77567A]/20 transition-colors group"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#77567A]" />
+            <div className="text-right">
+              <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
+              <p className="text-xs font-semibold text-white group-hover:text-[#77567A] transition-colors leading-none">(341) 203-4429</p>
+            </div>
+          </a>
+
           {/* Mobile toggle */}
           <button
             className="lg:hidden text-white p-2"
@@ -140,6 +152,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-[#2F323A] border-t border-white/10 px-4 pb-4">
+          <a
+            href="tel:+13412034429"
+            className="flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#77567A]/10 border border-[#77567A]/20"
+          >
+            <Phone className="w-4 h-4 text-[#77567A] shrink-0" />
+            <div>
+              <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
+              <p className="text-sm font-semibold text-white leading-none">(341) 203-4429</p>
+            </div>
+          </a>
           <nav className="flex flex-col gap-1 pt-2">
             {navLinks.map((link) => (
               <Link
