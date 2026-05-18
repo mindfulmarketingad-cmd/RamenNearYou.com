@@ -10,12 +10,6 @@ const footerLinks = {
     { label: 'FAQ', href: '/faq' },
     { label: 'Contact', href: '/contact' },
   ],
-  Cities: [
-    { label: 'Atlanta, GA', href: '/atlanta/ga' },
-    { label: 'Nashville, TN', href: '/cities' },
-    { label: 'Austin, TX', href: '/cities' },
-    { label: 'Chicago, IL', href: '/cities' },
-  ],
   Restaurants: [
     { label: 'List Your Restaurant', href: '/list' },
     { label: 'Claim a Listing', href: '/cities' },
