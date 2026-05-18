@@ -49,7 +49,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 sm:pb-20">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -174,9 +174,19 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#B0B3BB]/50 text-xs">
-        <div className="w-px h-8 bg-gradient-to-b from-transparent to-[#77567A]/60 rounded-full" />
+      {/* Wave curve into next section */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none">
+        <svg
+          viewBox="0 0 1440 80"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="w-full h-16 sm:h-20 block"
+        >
+          <path
+            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+            fill="#2F323A"
+          />
+        </svg>
       </div>
     </section>
   )
