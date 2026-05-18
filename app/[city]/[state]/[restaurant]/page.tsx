@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
-  Utensils, ExternalLink
+  Utensils, ExternalLink, Crown
 } from 'lucide-react'
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
@@ -303,6 +303,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </p>
               <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
                 Claim This Listing
+              </Link>
+              <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                <Crown className="w-4 h-4" />
+                Make This A Featured Listing
               </Link>
             </div>
           </div>
