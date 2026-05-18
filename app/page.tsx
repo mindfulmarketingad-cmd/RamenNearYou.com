@@ -1,11 +1,9 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
-import BrowseCities from '@/components/browse-cities'
 import BrowseBroth from '@/components/browse-broth'
 import BrothNearMeSection from '@/components/broth-near-me-section'
 import LeadGenBanner from '@/components/lead-gen-banner'
-import RecentlyAdded from '@/components/recently-added'
 import Footer from '@/components/footer'
 import { restaurants } from '@/lib/restaurants'
 
@@ -44,7 +42,6 @@ export default function HomePage() {
         <Navbar />
         <Hero />
         <FeaturedListings />
-        <BrowseCities />
         <BrowseBroth />
 
         <BrothNearMeSection
@@ -76,7 +73,6 @@ export default function HomePage() {
         />
 
         <LeadGenBanner />
-        <RecentlyAdded />
         <Footer />
       </main>
     </>
