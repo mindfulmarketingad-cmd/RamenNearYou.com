@@ -4,7 +4,6 @@ import FeaturedListings from '@/components/featured-listings'
 import BrowseBroth from '@/components/browse-broth'
 import BrothNearMeSection from '@/components/broth-near-me-section'
 import LeadGenBanner from '@/components/lead-gen-banner'
-import RecentlyAdded from '@/components/recently-added'
 import Footer from '@/components/footer'
 import { restaurants } from '@/lib/restaurants'
 
@@ -74,7 +73,6 @@ export default function HomePage() {
         />
 
         <LeadGenBanner />
-        <RecentlyAdded />
         <Footer />
       </main>
     </>
