@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -53,6 +54,31 @@ function FilterChip({
 }
 
 export default function SearchMapPage() {
+  return <Suspense><SearchMapInner /></Suspense>
+}
+
+function SearchMapInner() {
+  const searchParams = useSearchParams()
+  const cityParam = searchParams.get('city')
+  const stateParam = searchParams.get('state')
+
+  const cityRestaurants = useMemo(() => {
+    if (!cityParam || !stateParam) return null
+    return restaurants.filter(r => r.citySlug === cityParam && r.stateSlug === stateParam)
+  }, [cityParam, stateParam])
+
+  const cityCenter = useMemo(() => {
+    if (!cityRestaurants?.length) return null
+    const withCoords = cityRestaurants.filter(r => r.latitude && r.longitude)
+    if (!withCoords.length) return null
+    return {
+      lat: withCoords.reduce((s, r) => s + r.latitude!, 0) / withCoords.length,
+      lng: withCoords.reduce((s, r) => s + r.longitude!, 0) / withCoords.length,
+    }
+  }, [cityRestaurants])
+
+  const cityName = cityRestaurants?.[0] ? `${cityRestaurants[0].city}, ${cityRestaurants[0].stateCode}` : null
+
   const [geoState, setGeoState] = useState<GeoState>('idle')
   const [userPos, setUserPos] = useState<{ lat: number; lng: number } | null>(null)
   const [geoError, setGeoError] = useState('')
@@ -65,7 +91,7 @@ export default function SearchMapPage() {
   const [selectedBroths, setSelectedBroths] = useState<Set<string>>(new Set())
 
   const activeFilterCount =
-    (distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
+    (cityParam ? 0 : distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
 
   function togglePrice(p: string) {
     setSelectedPrices(prev => {
@@ -105,9 +131,10 @@ export default function SearchMapPage() {
     )
   }
 
-  useEffect(() => { requestLocation() }, [])
+  useEffect(() => { if (!cityParam) requestLocation() }, [cityParam])
 
   const nearby = useMemo(() => {
+    if (cityParam) return []
     if (!userPos) return []
     const maxKm = milesToKm(distanceMiles)
     return restaurants
@@ -118,10 +145,13 @@ export default function SearchMapPage() {
       }))
       .filter((r) => r.distKm <= maxKm)
       .sort((a, b) => a.distKm - b.distKm)
-  }, [userPos, distanceMiles])
+  }, [userPos, distanceMiles, cityParam])
 
   const filtered = useMemo(() => {
-    return nearby.filter((r) => {
+    const base = cityParam
+      ? (cityRestaurants ?? []).map(r => ({ ...r, distKm: 0 }))
+      : nearby
+    return base.filter((r) => {
       if (selectedPrices.size > 0) {
         const price = r.priceRange || ''
         if (!selectedPrices.has(price)) return false
@@ -132,7 +162,7 @@ export default function SearchMapPage() {
       }
       return true
     })
-  }, [nearby, selectedPrices, selectedBroths])
+  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants])
 
   const handleSelect = useCallback((slug: string) => {
     setSelectedSlug(slug)
@@ -140,8 +170,11 @@ export default function SearchMapPage() {
     el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [])
 
+  // ── City mode: bypass geolocation entirely ──────────────────────────────────
+  const effectivePos = cityParam ? cityCenter : userPos
+
   // ── Geo permission screens ──────────────────────────────────────────────────
-  if (geoState === 'idle' || geoState === 'loading') {
+  if (!cityParam && (geoState === 'idle' || geoState === 'loading')) {
     return (
       <main className="min-h-screen bg-[#2F323A] flex flex-col">
         <Navbar />
@@ -172,7 +205,7 @@ export default function SearchMapPage() {
     )
   }
 
-  if (geoState === 'denied') {
+  if (!cityParam && geoState === 'denied') {
     return (
       <main className="min-h-screen bg-[#2F323A] flex flex-col">
         <Navbar />
@@ -215,8 +248,8 @@ export default function SearchMapPage() {
                   )}
                 </p>
                 <p className="text-[#B0B3BB] text-xs mt-0.5 flex items-center gap-1">
-                  <Navigation className="w-3 h-3 text-[#77567A]" />
-                  within {distanceMiles} mi
+                  <MapPin className="w-3 h-3 text-[#77567A]" />
+                  {cityName ? cityName : `within ${distanceMiles} mi`}
                 </p>
               </div>
               <button
@@ -240,20 +273,22 @@ export default function SearchMapPage() {
             {/* Filter panel */}
             {showFilters && (
               <div className="mt-3 space-y-3 pt-3 border-t border-white/5">
-                {/* Distance */}
-                <div>
-                  <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {DISTANCE_OPTIONS.map((d) => (
-                      <FilterChip
-                        key={d}
-                        label={`${d} mi`}
-                        active={distanceMiles === d}
-                        onClick={() => setDistanceMiles(d)}
-                      />
-                    ))}
+                {/* Distance — hidden in city mode */}
+                {!cityParam && (
+                  <div>
+                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {DISTANCE_OPTIONS.map((d) => (
+                        <FilterChip
+                          key={d}
+                          label={`${d} mi`}
+                          active={distanceMiles === d}
+                          onClick={() => setDistanceMiles(d)}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Price */}
                 <div>
@@ -373,11 +408,11 @@ export default function SearchMapPage() {
 
         {/* Map */}
         <div className="flex-1 relative">
-          {userPos && (
+          {effectivePos && (
             <RamenMap
               restaurants={filtered}
-              userLat={userPos.lat}
-              userLng={userPos.lng}
+              userLat={effectivePos.lat}
+              userLng={effectivePos.lng}
               selectedSlug={selectedSlug}
               onSelect={handleSelect}
             />
@@ -389,7 +424,7 @@ export default function SearchMapPage() {
               {/* Count row */}
               <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
                 <span className="text-sm text-white font-medium">
-                  {filtered.length} spot{filtered.length !== 1 ? 's' : ''} within {distanceMiles} mi
+                  {filtered.length} spot{filtered.length !== 1 ? 's' : ''}{cityName ? ` in ${cityName}` : ` within ${distanceMiles} mi`}
                 </span>
                 <button
                   onClick={() => setShowFilters(v => !v)}
@@ -407,15 +442,17 @@ export default function SearchMapPage() {
               {/* Mobile filter panel */}
               {showFilters && (
                 <div className="px-4 py-3 space-y-3">
-                  {/* Distance */}
-                  <div>
-                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {DISTANCE_OPTIONS.map((d) => (
-                        <FilterChip key={d} label={`${d} mi`} active={distanceMiles === d} onClick={() => setDistanceMiles(d)} />
-                      ))}
+                  {/* Distance — hidden in city mode */}
+                  {!cityParam && (
+                    <div>
+                      <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {DISTANCE_OPTIONS.map((d) => (
+                          <FilterChip key={d} label={`${d} mi`} active={distanceMiles === d} onClick={() => setDistanceMiles(d)} />
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   {/* Price */}
                   <div>
                     <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Price</p>

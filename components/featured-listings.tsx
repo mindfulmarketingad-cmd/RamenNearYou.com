@@ -39,9 +39,9 @@ export default function FeaturedListings() {
               <Crown className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-amber-400 text-xs font-medium uppercase tracking-widest">Featured Listings</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
+            <p className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
               Be the First Featured Restaurant
-            </h2>
+            </p>
             <p className="text-[#B0B3BB] text-base max-w-xl mx-auto mb-8">
               Get your ramen restaurant in front of thousands of ramen lovers. Featured listings appear at the top of the homepage.
             </p>

@@ -7715,3 +7715,32 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
 export function getRestaurantsByBrothType(type: BrothType): Restaurant[] {
   return restaurants.filter(r => getBrothTypes(r).includes(type))
 }
+
+export function getNearbyCities(citySlug: string, stateSlug: string, maxCount = 6): Array<{ city: string; stateCode: string; citySlug: string; stateSlug: string; count: number; distanceMiles: number }> {
+  const cityRestaurants = restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug && r.latitude && r.longitude)
+  if (!cityRestaurants.length) return []
+
+  const avgLat = cityRestaurants.reduce((s, r) => s + r.latitude!, 0) / cityRestaurants.length
+  const avgLng = cityRestaurants.reduce((s, r) => s + r.longitude!, 0) / cityRestaurants.length
+
+  const cities = getCities()
+  const results: Array<{ city: string; stateCode: string; citySlug: string; stateSlug: string; count: number; distanceMiles: number }> = []
+
+  for (const c of cities) {
+    if (c.citySlug === citySlug && c.stateSlug === stateSlug) continue
+    const cityRests = restaurants.filter(r => r.citySlug === c.citySlug && r.stateSlug === c.stateSlug && r.latitude && r.longitude)
+    if (!cityRests.length) continue
+    const cLat = cityRests.reduce((s, r) => s + r.latitude!, 0) / cityRests.length
+    const cLng = cityRests.reduce((s, r) => s + r.longitude!, 0) / cityRests.length
+
+    const R = 3958.8
+    const dLat = (cLat - avgLat) * Math.PI / 180
+    const dLng = (cLng - avgLng) * Math.PI / 180
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(avgLat * Math.PI / 180) * Math.cos(cLat * Math.PI / 180) * Math.sin(dLng / 2) ** 2
+    const distanceMiles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    if (distanceMiles <= 60) results.push({ ...c, distanceMiles })
+  }
+
+  return results.sort((a, b) => a.distanceMiles - b.distanceMiles).slice(0, maxCount)
+}
