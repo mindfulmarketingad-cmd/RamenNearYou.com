@@ -11,9 +11,9 @@ export type Restaurant = {
   phone: string; website: string; address: string; street: string;
   city: string; county: string; state: string; stateCode: string; postalCode: string;
   latitude: number | null; longitude: number | null;
-  rating: number | null; reviewCount: number; reviewsPerScore: Record<string,number>;
+  rating: number | null; reviewCount: number; reviewsPerScore: Record<string,number> | null;
   photosCount: number; photo: string; logo: string; businessStatus: string;
-  hours: Record<string, string[]>; priceRange: string;
+  hours: Record<string, string[]> | null; priceRange: string;
   description: string; menuLink: string; orderLinks: string; googleMapsLink: string;
   placeId: string; subtypes: string; amenities: Amenities;
 }

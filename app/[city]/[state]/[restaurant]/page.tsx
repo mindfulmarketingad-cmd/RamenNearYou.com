@@ -92,7 +92,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     isVerified = !!data
   }
 
-  const totalReviews = Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0)
+  const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
 
   const restaurantSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -206,7 +206,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             )}
 
             {/* Hours */}
-            {Object.keys(r.hours).length > 0 && (
+            {r.hours && Object.keys(r.hours).length > 0 && (
               <section>
                 <h2 className="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <Clock className="w-5 h-5 text-[#77567A]" />
@@ -263,7 +263,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <h2 className="font-serif text-xl font-bold text-white mb-4">Rating Breakdown</h2>
                 <div className="bg-[#1E2026] rounded-xl border border-white/5 p-5 space-y-3">
                   {[5,4,3,2,1].map((score) => {
-                    const count = Number(r.reviewsPerScore[String(score)] ?? 0)
+                    const count = Number(r.reviewsPerScore?.[String(score)] ?? 0)
                     const pct = totalReviews > 0 ? (count / totalReviews) * 100 : 0
                     return (
                       <div key={score} className="flex items-center gap-3">
