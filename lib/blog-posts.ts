@@ -170,6 +170,150 @@ const atlantaTop10: RestaurantCard[] = [
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'best-low-sodium-instant-ramen',
+    title: '5 Best Low Sodium Instant Ramen (Ranked by Taste & Health)',
+    description: 'Looking for low sodium instant ramen that actually tastes good? We ranked the 5 best options — with sodium counts, honest taste notes, and where to buy them on Amazon.',
+    date: 'May 19, 2026',
+    readTime: '6 min read',
+    category: 'Buying Guides',
+    content: `<p>Regular instant ramen is one of the saltiest foods on the planet — a single packet can pack anywhere from <strong>1,000 to over 1,700mg of sodium</strong>, nearly your entire daily recommended limit in one bowl. But the good news? A new generation of better-for-you ramen brands has arrived, and the best ones taste genuinely great. Whether you're watching your blood pressure, cutting back on processed foods, or just want a clean weeknight meal, these five picks deliver real ramen flavor without the sodium overload.</p>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
+
+<div style="margin-bottom:2.5rem;">
+  <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#77567A;margin-bottom:0.25rem;">#1 — Best Overall</p>
+  <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1rem;">Lotus Foods Organic Millet &amp; Brown Rice Ramen</h2>
+  <a href="https://amzn.to/4fxcIUd" target="_blank" rel="noopener sponsored" style="display:block;margin-bottom:1.25rem;">
+    <img src="https://m.media-amazon.com/images/I/71OZzGpJekL._SL1200_.jpg" alt="Lotus Foods Organic Millet &amp; Brown Rice Ramen" style="width:100%;max-width:480px;border-radius:12px;display:block;" onerror="this.src='/images/hero-ramen.jpg'" />
+  </a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;">🧂 470mg sodium per serving</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Gluten-Free</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">USDA Organic</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Vegan</span>
+  </div>
+  <p>Lotus Foods makes some of the most thoughtfully crafted instant noodles on the market, and their Millet &amp; Brown Rice Ramen is the standout pick for anyone serious about reducing sodium without giving up convenience or flavor. At just <strong>470mg per serving</strong> — less than a third of what you'd get in a standard Maruchan packet — this is genuinely low-sodium ramen.</p>
+  <p>The noodles are made from a blend of organic millet and brown rice, giving them a slightly chewy, satisfying texture that holds up well in broth. The seasoning packets come in several flavors (Jade Pearl Rice, Miso, Wakame Tamari), and each delivers a clean umami depth without the artificial aftertaste common in budget instant ramen. It's also certified gluten-free, making it a reliable option for anyone with gluten sensitivities.</p>
+  <p>The only tradeoff: at roughly $3–4 per pack, it costs more than conventional instant ramen. But for the quality, ingredient list, and sodium reduction, it's worth every cent.</p>
+  <ul style="padding-left:1.25rem;margin:1rem 0;color:#b0b3bb;">
+    <li style="margin-bottom:0.4rem;">✅ Lowest sodium on this list at 470mg</li>
+    <li style="margin-bottom:0.4rem;">✅ Certified gluten-free &amp; USDA organic</li>
+    <li style="margin-bottom:0.4rem;">✅ Multiple flavor options, including miso and wakame</li>
+    <li style="margin-bottom:0.4rem;">⚠️ Pricier than conventional instant ramen</li>
+  </ul>
+  <a href="https://amzn.to/4fxcIUd" target="_blank" rel="noopener sponsored" style="display:inline-block;background:#77567A;color:white;font-weight:600;font-size:0.875rem;padding:0.6rem 1.25rem;border-radius:8px;text-decoration:none;margin-top:0.5rem;">Check Price on Amazon →</a>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
+
+<div style="margin-bottom:2.5rem;">
+  <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#77567A;margin-bottom:0.25rem;">#2 — Best Plant-Based</p>
+  <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1rem;">Dr. McDougall's Right Foods Ramen Noodle Soup</h2>
+  <a href="https://amzn.to/4dQLd6S" target="_blank" rel="noopener sponsored" style="display:block;margin-bottom:1.25rem;">
+    <img src="https://m.media-amazon.com/images/I/81QjR1P7fCL._SL1200_.jpg" alt="Dr. McDougall's Right Foods Ramen Noodle Soup" style="width:100%;max-width:480px;border-radius:12px;display:block;" onerror="this.src='/images/hero-ramen.jpg'" />
+  </a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;">🧂 510mg sodium per serving</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">100% Vegan</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Non-GMO</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Cup Format</span>
+  </div>
+  <p>Dr. McDougall's has been making whole-food, plant-based convenience meals since the 1990s, and their ramen noodle soup cups are among the best-tasting low-sodium instant noodles available. At around <strong>510mg of sodium</strong> per serving and with a short, recognizable ingredient list, these cups are a go-to for health-conscious ramen lovers who still want something quick.</p>
+  <p>The cup format is a major convenience win — just add boiling water, stir, and you're done in 5 minutes. Flavors like Miso, Pad Thai, and Chicken-Style (vegan) are consistently well-seasoned, with a soup base that tastes noticeably more complex than typical budget brands. The noodles are thinner than restaurant ramen but cook evenly and have a pleasant bite.</p>
+  <p>These cups are widely available in natural grocery stores like Whole Foods and Sprouts, and they ship well on Amazon. If you're stocking up for work lunches or a pantry staple, buying a 6-pack drops the per-cup cost significantly.</p>
+  <ul style="padding-left:1.25rem;margin:1rem 0;color:#b0b3bb;">
+    <li style="margin-bottom:0.4rem;">✅ Convenient cup format — no pot needed</li>
+    <li style="margin-bottom:0.4rem;">✅ Fully vegan with clean ingredients</li>
+    <li style="margin-bottom:0.4rem;">✅ Multiple bold flavors including Pad Thai</li>
+    <li style="margin-bottom:0.4rem;">⚠️ Thinner noodles than traditional ramen</li>
+  </ul>
+  <a href="https://amzn.to/4dQLd6S" target="_blank" rel="noopener sponsored" style="display:inline-block;background:#77567A;color:white;font-weight:600;font-size:0.875rem;padding:0.6rem 1.25rem;border-radius:8px;text-decoration:none;margin-top:0.5rem;">Check Price on Amazon →</a>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
+
+<div style="margin-bottom:2.5rem;">
+  <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#77567A;margin-bottom:0.25rem;">#3 — Best for Purists</p>
+  <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1rem;">Koyo Organic Ramen (Reduced Sodium)</h2>
+  <a href="https://amzn.to/4tOYHFd" target="_blank" rel="noopener sponsored" style="display:block;margin-bottom:1.25rem;">
+    <img src="https://m.media-amazon.com/images/I/71p7OA0HJXL._SL1200_.jpg" alt="Koyo Organic Ramen Reduced Sodium" style="width:100%;max-width:480px;border-radius:12px;display:block;" onerror="this.src='/images/hero-ramen.jpg'" />
+  </a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;">🧂 390mg sodium per serving</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">USDA Organic</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">No MSG</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Vegan</span>
+  </div>
+  <p>If you want the lowest sodium count on this list without sacrificing a traditional ramen noodle experience, Koyo is your brand. Their Reduced Sodium line comes in at an impressive <strong>390mg of sodium per serving</strong> — less than a quarter of what you'd find in standard instant ramen — while still delivering a savory, satisfying broth.</p>
+  <p>Koyo uses USDA-certified organic ingredients and avoids MSG, artificial flavors, and preservatives entirely. The noodles themselves are made from organic wheat flour and have a pleasantly firm texture that's closer to restaurant ramen than most instant options. Flavors like Garlic Pepper, Mushroom, and Tofu Miso each have a distinct, balanced profile that doesn't taste watered-down or bland despite the lower salt content.</p>
+  <p>Koyo is the pick for the health-focused ramen enthusiast who treats instant noodles as a canvas to build on — add a soft-boiled egg, some roasted nori, and a drizzle of sesame oil and you have a genuinely impressive bowl.</p>
+  <ul style="padding-left:1.25rem;margin:1rem 0;color:#b0b3bb;">
+    <li style="margin-bottom:0.4rem;">✅ Second-lowest sodium on this list at 390mg</li>
+    <li style="margin-bottom:0.4rem;">✅ No MSG, no artificial ingredients</li>
+    <li style="margin-bottom:0.4rem;">✅ Great base for building up your own toppings</li>
+    <li style="margin-bottom:0.4rem;">⚠️ Less widely available in stores — best ordered online</li>
+  </ul>
+  <a href="https://amzn.to/4tOYHFd" target="_blank" rel="noopener sponsored" style="display:inline-block;background:#77567A;color:white;font-weight:600;font-size:0.875rem;padding:0.6rem 1.25rem;border-radius:8px;text-decoration:none;margin-top:0.5rem;">Check Price on Amazon →</a>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
+
+<div style="margin-bottom:2.5rem;">
+  <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#77567A;margin-bottom:0.25rem;">#4 — Best Korean Style</p>
+  <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1rem;">Nongshim Soon Veggie Noodle Soup</h2>
+  <a href="https://amzn.to/4dQLd6S" target="_blank" rel="noopener sponsored" style="display:block;margin-bottom:1.25rem;">
+    <img src="https://m.media-amazon.com/images/I/71yEhiAzeyL._SL1200_.jpg" alt="Nongshim Soon Veggie Noodle Soup" style="width:100%;max-width:480px;border-radius:12px;display:block;" onerror="this.src='/images/hero-ramen.jpg'" />
+  </a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;">🧂 860mg sodium per serving</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Vegan</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Korean Style</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Mild Heat</span>
+  </div>
+  <p>Nongshim's Shin Ramyun is one of the world's best-selling instant ramen — but it packs a punishing 1,790mg of sodium per serving. Enter the <strong>Soon Veggie Noodle Soup</strong>: Nongshim's milder, veggie-forward, lower-sodium alternative. At <strong>860mg per serving</strong>, it's still higher than the other picks on this list, but it's dramatically cleaner than regular Korean ramyun and remains one of the most flavorful instant noodles you can buy.</p>
+  <p>Soon Veggie has a light, clean broth — slightly savory with gentle heat and a hint of mushroom. The noodles are thick, springy, and satisfying in the characteristic Korean ramyun style. It's fully vegan, making it one of the few mainstream Korean instant noodles that doesn't use any animal-derived ingredients in the seasoning.</p>
+  <p>If you're transitioning from full-sodium Korean ramen and want something that still delivers that same chewy noodle satisfaction and bold broth energy but with a bit more restraint, Soon Veggie is the most natural step down. It's also the easiest pick on this list to find at most grocery stores.</p>
+  <ul style="padding-left:1.25rem;margin:1rem 0;color:#b0b3bb;">
+    <li style="margin-bottom:0.4rem;">✅ Best Korean-style noodle texture on the list</li>
+    <li style="margin-bottom:0.4rem;">✅ Widely available in grocery stores nationwide</li>
+    <li style="margin-bottom:0.4rem;">✅ Fully vegan — no animal-derived ingredients</li>
+    <li style="margin-bottom:0.4rem;">⚠️ Higher sodium than others on this list (860mg)</li>
+  </ul>
+  <a href="https://amzn.to/4dQLd6S" target="_blank" rel="noopener sponsored" style="display:inline-block;background:#77567A;color:white;font-weight:600;font-size:0.875rem;padding:0.6rem 1.25rem;border-radius:8px;text-decoration:none;margin-top:0.5rem;">Check Price on Amazon →</a>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
+
+<div style="margin-bottom:2.5rem;">
+  <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#77567A;margin-bottom:0.25rem;">#5 — Best Craft Pick</p>
+  <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1rem;">Mike's Mighty Good Craft Ramen</h2>
+  <a href="https://amzn.to/4tOYHFd" target="_blank" rel="noopener sponsored" style="display:block;margin-bottom:1.25rem;">
+    <img src="https://m.media-amazon.com/images/I/91a-P7mBXqL._SL1200_.jpg" alt="Mike's Mighty Good Craft Ramen" style="width:100%;max-width:480px;border-radius:12px;display:block;" onerror="this.src='/images/hero-ramen.jpg'" />
+  </a>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:600;">🧂 630mg sodium per serving</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Organic</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Air-Dried Noodles</span>
+    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#b0b3bb;padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;">Cup &amp; Pack Format</span>
+  </div>
+  <p>Mike's Mighty Good positioned itself from day one as the "craft" alternative to budget instant ramen — and the branding holds up. At <strong>630mg of sodium per serving</strong> and made with organic, non-GMO ingredients, it hits a sweet spot between health-conscious eating and genuine ramen enjoyment.</p>
+  <p>What sets Mike's apart is the <strong>air-dried noodle process</strong>. Unlike the fried noodles in most instant ramen (which adds fat and changes the texture), Mike's noodles are dried with air, producing a cleaner ingredient list and a lighter, more authentic noodle texture. The broth options — Pork Tonkotsu, Spicy Beef, Chicken, and Vegetarian Miso — each taste noticeably more developed than comparable price-range competitors.</p>
+  <p>Available in both cup and packet format, Mike's is a strong everyday option for someone who wants the ease of instant ramen with ingredient quality they can feel good about. The Spicy Beef and Pork Tonkotsu varieties in particular punch well above their weight class in terms of depth of flavor.</p>
+  <ul style="padding-left:1.25rem;margin:1rem 0;color:#b0b3bb;">
+    <li style="margin-bottom:0.4rem;">✅ Air-dried noodles for better texture and fewer calories</li>
+    <li style="margin-bottom:0.4rem;">✅ Solid flavor variety including a proper Tonkotsu</li>
+    <li style="margin-bottom:0.4rem;">✅ Available in cups and packets</li>
+    <li style="margin-bottom:0.4rem;">⚠️ Slightly pricier than mainstream brands</li>
+  </ul>
+  <a href="https://amzn.to/4tOYHFd" target="_blank" rel="noopener sponsored" style="display:inline-block;background:#77567A;color:white;font-weight:600;font-size:0.875rem;padding:0.6rem 1.25rem;border-radius:8px;text-decoration:none;margin-top:0.5rem;">Check Price on Amazon →</a>
+</div>`,
+    outroContent: `<h2>The Verdict: Which Low Sodium Instant Ramen Should You Buy?</h2>
+<p>If we had to pick just one, <strong>Lotus Foods Organic Millet &amp; Brown Rice Ramen</strong> is the best all-around low sodium instant ramen you can buy today. At just 470mg of sodium per serving — paired with organic, gluten-free ingredients and genuinely satisfying flavor — it beats the competition on every metric that matters for health-conscious eaters. It costs a bit more than your average $0.25 packet, but the difference in quality and the savings on sodium make it the clear winner.</p>
+<p>For those who want the convenience of a cup, <strong>Dr. McDougall's</strong> is the closest runner-up. And if you're not ready to leave Korean-style noodles behind, <strong>Nongshim Soon Veggie</strong> is the smartest reduction — still half the sodium of regular ramyun with all the chewy noodle satisfaction intact.</p>
+<p>However you like your ramen, there's never been a better time to go lower sodium. These brands prove that eating well and eating deliciously aren't mutually exclusive — even when dinner comes out of a packet.</p>
+<p style="font-size:0.75rem;color:#6b7280;margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06);">This post contains affiliate links. If you purchase through our links, we may earn a small commission at no extra cost to you. We only recommend products we genuinely believe in.</p>`,
+  },
+  {
     slug: 'ramen-catering-near-me',
     title: 'Ramen Catering Near Me — 10 Atlanta Spots Worth Calling',
     description: 'Looking for ramen catering near me? These 10 Atlanta ramen restaurants are your best bets for events, corporate lunches, and private parties. Call ahead to confirm availability.',
