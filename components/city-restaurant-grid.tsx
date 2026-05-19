@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { MapPin, Phone, Star, Navigation, BadgeCheck, Utensils, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
+import { MapPin, Phone, Star, Navigation, BadgeCheck, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
 import { isOpenNow } from '@/lib/hours'
+import RestaurantImage from '@/components/restaurant-image'
 
 function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -327,20 +327,13 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             >
               {/* Photo */}
               <div className="relative w-full sm:w-48 shrink-0 h-44 sm:h-auto bg-[#2F323A]">
-                {r.photo ? (
-                  <Image
-                    src={r.photo}
-                    alt={r.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 640px) 100vw, 192px"
-                    unoptimized
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[#77567A]/20">
-                    <Utensils className="w-10 h-10" />
-                  </div>
-                )}
+                <RestaurantImage
+                  src={r.photo}
+                  alt={r.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 100vw, 192px"
+                />
                 {r.priceRange && (
                   <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur-sm">
                     {r.priceRange}
