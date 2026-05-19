@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FeaturedApplyForm from './featured-form'
@@ -14,12 +12,6 @@ export default async function FeaturedApplyPage({
 }: {
   searchParams: Promise<{ cancelled?: string }>
 }) {
-  const supabase = await createClient()
-  if (!supabase) redirect('/auth/login?redirectTo=/featured/apply')
-
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login?redirectTo=/featured/apply')
-
   const { cancelled } = await searchParams
 
   return (
