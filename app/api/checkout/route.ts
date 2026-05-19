@@ -3,10 +3,10 @@ import Stripe from 'stripe'
 import { createClient } from '@/lib/supabase/server'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ramennearyou.com'
+const PRODUCT_ID = 'prod_UXwa3Bh0tBx1h7'
 
 export async function POST(request: Request) {
   const supabase = await createClient()
-  if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -14,13 +14,20 @@ export async function POST(request: Request) {
   const stripeKey = process.env.STRIPE_SECRET_KEY
   if (!stripeKey) return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 })
 
-  const priceId = process.env.STRIPE_FEATURED_PRICE_ID
-  if (!priceId) return NextResponse.json({ error: 'Stripe price not configured' }, { status: 500 })
-
   const { listing_id } = await request.json()
   if (!listing_id) return NextResponse.json({ error: 'Missing listing_id' }, { status: 400 })
 
   const stripe = new Stripe(stripeKey)
+
+  // Use explicit price ID if set, otherwise look up the active price from the product
+  let priceId = process.env.STRIPE_FEATURED_PRICE_ID
+  if (!priceId) {
+    const prices = await stripe.prices.list({ product: PRODUCT_ID, active: true, limit: 1 })
+    if (!prices.data.length) {
+      return NextResponse.json({ error: 'No active price found for featured listing product' }, { status: 500 })
+    }
+    priceId = prices.data[0].id
+  }
 
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
