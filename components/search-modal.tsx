@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, ArrowRight } from 'lucide-react'
+import { Search, ArrowRight, Star } from 'lucide-react'
 import { restaurants } from '@/lib/restaurants'
 
 interface Props {
@@ -92,13 +92,36 @@ export default function SearchModal({ open, onClose }: Props) {
                 onClick={() => handleSelect(r.citySlug, r.stateSlug, r.slug)}
                 className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-white/5 transition-colors text-left group"
               >
-                <div>
-                  <p className="text-white text-sm font-medium">{r.name}</p>
-                  <p className="text-[#B0B3BB] text-xs">
-                    {r.city}, {r.stateCode}
-                  </p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-white text-sm font-medium truncate">{r.name}</p>
+                  <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                    <span className="text-[#B0B3BB] text-xs shrink-0">
+                      {r.city}, {r.stateCode}
+                    </span>
+                    {r.rating && (
+                      <span className="flex items-center gap-0.5 text-xs text-amber-400 shrink-0">
+                        <Star className="w-3 h-3 fill-amber-400" />
+                        {r.rating.toFixed(1)}
+                      </span>
+                    )}
+                    {r.priceRange && (
+                      <span className="px-1.5 py-0.5 rounded bg-white/5 text-[#B0B3BB] text-[10px] font-medium shrink-0">
+                        {r.priceRange}
+                      </span>
+                    )}
+                    {r.amenities.dineIn && (
+                      <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                        Dine-in
+                      </span>
+                    )}
+                    {r.amenities.delivery && (
+                      <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                        Delivery
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#B0B3BB]/40 group-hover:text-[#B0B3BB] transition-colors shrink-0" />
+                <ArrowRight className="w-4 h-4 text-[#B0B3BB]/40 group-hover:text-[#B0B3BB] transition-colors shrink-0 ml-3" />
               </button>
             ))
           ) : (

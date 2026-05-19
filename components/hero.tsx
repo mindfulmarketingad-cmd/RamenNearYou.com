@@ -182,14 +182,31 @@ export default function Hero() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium truncate">{r.name}</p>
-                      <p className="text-[#B0B3BB] text-xs truncate">{r.address}</p>
-                    </div>
-                    {r.rating && (
-                      <div className="flex items-center gap-1 shrink-0">
-                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                        <span className="text-white/60 text-xs">{r.rating.toFixed(1)}</span>
+                      <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                        <p className="text-[#B0B3BB] text-xs truncate">{r.city}, {r.stateCode}</p>
+                        {r.rating && (
+                          <span className="flex items-center gap-0.5 text-xs text-amber-400 shrink-0">
+                            <Star className="w-3 h-3 fill-amber-400" />
+                            {r.rating.toFixed(1)}
+                          </span>
+                        )}
+                        {r.priceRange && (
+                          <span className="px-1.5 py-0.5 rounded bg-white/5 text-[#B0B3BB] text-[10px] font-medium shrink-0">
+                            {r.priceRange}
+                          </span>
+                        )}
+                        {r.amenities.dineIn && (
+                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                            Dine-in
+                          </span>
+                        )}
+                        {r.amenities.delivery && (
+                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                            Delivery
+                          </span>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </button>
                 </li>
               ))}
