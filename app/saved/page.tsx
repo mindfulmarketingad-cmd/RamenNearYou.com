@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 
 export default async function SavedPage() {
   const supabase = await createClient()
-  if (!supabase) redirect('/auth/login?redirectTo=/saved')
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/auth/login?redirectTo=/saved')
