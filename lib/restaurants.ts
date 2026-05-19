@@ -6887,7 +6887,7 @@ export const restaurants: Restaurant[] = [
   },
   {
     "name": "Sushi One & Bobalicious Café",
-    "slug": "sushi-one-bobalicious-café",
+    "slug": "sushi-one-bobalicious-cafe",
     "citySlug": "watkinsville",
     "stateSlug": "ga",
     "phone": "+1 706-552-0488",
@@ -7547,7 +7547,7 @@ export const restaurants: Restaurant[] = [
   },
   {
     "name": "One Sushi Korean Japanese Café",
-    "slug": "one-sushi-korean-japanese-café",
+    "slug": "one-sushi-korean-japanese-cafe",
     "citySlug": "sandy-springs",
     "stateSlug": "ga",
     "phone": "+1 770-804-8155",
