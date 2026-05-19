@@ -11,6 +11,7 @@ import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
 import ReviewSection from '@/components/review-section'
+import RestaurantImage from '@/components/restaurant-image'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -138,13 +139,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
       {/* Hero photo */}
       <div className="relative w-full h-64 sm:h-80 bg-[#1E2026] mt-16">
-        {r.photo ? (
-          <Image src={r.photo} alt={r.name} fill className="object-cover" sizes="100vw" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <Utensils className="w-16 h-16 text-[#77567A]/30" />
-          </div>
-        )}
+        <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="100vw" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
       </div>
 
@@ -356,20 +351,13 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#77567A]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
                   <div className="relative h-36 bg-[#2F323A] overflow-hidden flex-shrink-0">
-                    {n.photo ? (
-                      <Image
-                        src={n.photo}
-                        alt={n.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Utensils className="w-8 h-8 text-[#77567A]/20" />
-                      </div>
-                    )}
+                    <RestaurantImage
+                      src={n.photo}
+                      alt={n.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
                     {n.priceRange && (
                       <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs font-medium">

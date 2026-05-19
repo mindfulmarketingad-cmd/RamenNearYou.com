@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Heart, MapPin, Star, Utensils } from 'lucide-react'
+import { Heart, MapPin, Star } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { restaurants } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -72,19 +72,12 @@ export default async function SavedPage() {
                   className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#77567A]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
                   <div className="relative h-44 bg-[#2F323A] overflow-hidden flex-shrink-0">
-                    {r.photo ? (
-                      <Image
-                        src={r.photo}
-                        alt={r.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Utensils className="w-10 h-10 text-[#77567A]/20" />
-                      </div>
-                    )}
+                    <RestaurantImage
+                      src={r.photo}
+                      alt={r.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
                   </div>
 
