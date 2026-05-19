@@ -20386,13 +20386,38 @@ export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as co
 export type BrothType = typeof BROTH_TYPES[number]
 
 export function getBrothTypes(r: Restaurant): BrothType[] {
-  const text = `${r.name} ${r.description} ${r.subtypes}`.toLowerCase()
+  const name = r.name.toLowerCase()
+  const text = `${name} ${r.description ?? ''} ${r.subtypes ?? ''}`.toLowerCase()
+  const nameWords = name.split(/\s+/)
   const types: BrothType[] = []
-  if (text.includes('tonkotsu')) types.push('Tonkotsu')
-  if (text.includes('shoyu')) types.push('Shoyu')
-  if (text.includes('miso') || text.includes('hokkaido')) types.push('Miso')
-  if (text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') || text.includes('tori paitan')) types.push('Spicy')
+
+  if (
+    name.includes('jinya ramen') || name.includes('tatsu-ya') || name.includes('ramen tatsu') ||
+    text.includes('tonkotsu') || text.includes('pork bone') || text.includes('hakata ramen') ||
+    text.includes('hakata style') || text.includes('hakata-style')
+  ) types.push('Tonkotsu')
+
+  if (
+    text.includes('shoyu') || text.includes('soy sauce broth') || text.includes('soy broth') ||
+    text.includes('tokyo ramen') || text.includes('tokyo-style') || text.includes('tokyo style') ||
+    text.includes('shoyu tare') || text.includes('soy-based')
+  ) types.push('Shoyu')
+
+  if (
+    name.includes('moonlight miso') || nameWords.includes('miso') || nameWords.includes('sapporo') ||
+    text.includes('miso ramen') || text.includes('miso broth') || text.includes('miso base') ||
+    text.includes('miso tare') || text.includes('sapporo ramen') || text.includes('sapporo style') ||
+    text.includes('hokkaido') || text.includes('red miso') || text.includes('white miso')
+  ) types.push('Miso')
+
+  if (
+    text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') ||
+    text.includes('tori paitan') || text.includes('chili oil') || text.includes('doubanjiang') ||
+    text.includes('fire ramen') || text.includes('hot ramen')
+  ) types.push('Spicy')
+
   if (r.amenities.veganOptions) types.push('Vegan')
+
   return types
 }
 

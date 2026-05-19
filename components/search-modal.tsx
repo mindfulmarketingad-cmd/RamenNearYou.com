@@ -73,6 +73,12 @@ export default function SearchModal({ open, onClose }: Props) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && query.trim()) {
+                onClose()
+                router.push(`/search?q=${encodeURIComponent(query.trim())}`)
+              }
+            }}
             placeholder="Search restaurants, cities…"
             className="flex-1 bg-transparent text-white text-sm placeholder-[#B0B3BB]/60 outline-none"
           />
@@ -128,6 +134,15 @@ export default function SearchModal({ open, onClose }: Props) {
             <p className="px-4 py-6 text-center text-sm text-[#B0B3BB]">
               No restaurants found
             </p>
+          )}
+
+          {trimmed && results.length > 0 && (
+            <button
+              onClick={() => { onClose(); router.push(`/search?q=${encodeURIComponent(trimmed)}`) }}
+              className="w-full px-4 py-3 text-center text-[#77567A] text-xs font-medium hover:bg-white/5 transition-colors border-t border-white/5"
+            >
+              See all results for &ldquo;{trimmed}&rdquo; →
+            </button>
           )}
         </div>
       </div>
