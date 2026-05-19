@@ -8,10 +8,10 @@ export async function GET(request: Request) {
   const slug = searchParams.get('slug')
   if (!slug) return NextResponse.json({ reviews: [] })
 
-  const admin = createAdminClient()
-  if (!admin) return NextResponse.json({ reviews: [] })
+  // Try admin client first (bypasses RLS), fall back to anon client
+  const client = createAdminClient() ?? (await createClient())
 
-  const { data } = await admin
+  const { data } = await client
     .from('reviews')
     .select('*')
     .eq('restaurant_slug', slug)
@@ -24,7 +24,6 @@ export async function GET(request: Request) {
 // POST /api/reviews — submit a review (auth required)
 export async function POST(request: Request) {
   const supabase = await createClient()
-  if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -42,16 +41,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Max 5 photos per review' }, { status: 400 })
   }
 
-  const admin = createAdminClient()
-  if (!admin) return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  // Use admin client if available (bypasses RLS), otherwise use authenticated session
+  const insertClient = createAdminClient() ?? supabase
 
   // Prevent duplicate review from same user on same restaurant
-  const { data: existing } = await admin
+  const { data: existing } = await insertClient
     .from('reviews')
     .select('id')
     .eq('restaurant_slug', restaurant_slug)
     .eq('user_id', user.id)
-    .single()
+    .maybeSingle()
 
   if (existing) {
     return NextResponse.json({ error: 'You already reviewed this restaurant' }, { status: 409 })
@@ -59,7 +58,7 @@ export async function POST(request: Request) {
 
   const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous'
 
-  const { data, error } = await admin
+  const { data, error } = await insertClient
     .from('reviews')
     .insert({
       restaurant_slug,
@@ -80,7 +79,6 @@ export async function POST(request: Request) {
 // DELETE /api/reviews?id=...
 export async function DELETE(request: Request) {
   const supabase = await createClient()
-  if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -89,10 +87,8 @@ export async function DELETE(request: Request) {
   const id = searchParams.get('id')
   if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
 
-  const admin = createAdminClient()
-  if (!admin) return NextResponse.json({ error: 'Server error' }, { status: 500 })
-
-  await admin.from('reviews').delete().eq('id', id).eq('user_id', user.id)
+  const deleteClient = createAdminClient() ?? supabase
+  await deleteClient.from('reviews').delete().eq('id', id).eq('user_id', user.id)
 
   return NextResponse.json({ ok: true })
 }
