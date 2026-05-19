@@ -130,17 +130,25 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <p className="text-white font-semibold text-lg mb-6">Ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
-                <Link
-                  key={`${c.citySlug}-${c.stateSlug}`}
-                  href={`/${c.citySlug}/${c.stateSlug}`}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E2026] border border-white/5 hover:border-[#77567A]/40 transition-colors group"
-                >
-                  <MapPin className="w-3.5 h-3.5 text-[#77567A] shrink-0" />
-                  <span>
-                    <span className="text-white text-sm font-medium group-hover:text-[#77567A] transition-colors">{c.city}, {c.stateCode}</span>
-                    <span className="text-[#B0B3BB]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
-                  </span>
-                </Link>
+                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-white/5 hover:border-[#77567A]/40 transition-colors group bg-[#1E2026]">
+                  <Link
+                    href={`/${c.citySlug}/${c.stateSlug}`}
+                    className="flex items-center gap-2 px-4 py-2.5"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#77567A] shrink-0" />
+                    <span>
+                      <span className="text-white text-sm font-medium group-hover:text-[#77567A] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-[#B0B3BB]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
+                    </span>
+                  </Link>
+                  <Link
+                    href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
+                    title="View on map"
+                    className="flex items-center px-3 border-l border-white/5 text-[#B0B3BB]/50 hover:text-[#77567A] hover:bg-[#77567A]/10 transition-colors"
+                  >
+                    <Map className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               ))}
             </div>
           </div>

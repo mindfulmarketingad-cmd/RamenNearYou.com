@@ -84,7 +84,7 @@ export default function BrothNearMeSection({
             href={href}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#77567A]/40 text-[#77567A] text-sm font-medium hover:bg-[#77567A]/10 transition-colors"
           >
-            See all {restaurants.length} locations →
+            See all locations →
           </Link>
         </div>
       </div>
