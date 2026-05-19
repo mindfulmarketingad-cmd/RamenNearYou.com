@@ -390,6 +390,16 @@ function SearchMapInner() {
             )}
           </div>
 
+          {/* Submit a listing CTA */}
+          <div className="p-3 border-t border-white/5 bg-[#1E2026]">
+            <Link
+              href="/list"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-[#77567A]/30 bg-[#77567A]/10 hover:bg-[#77567A]/20 text-[#b07db5] text-xs font-semibold transition-colors"
+            >
+              + Submit a Listing
+            </Link>
+          </div>
+
           {/* View listing link */}
           {selectedSlug && (() => {
             const r = filtered.find(x => x.slug === selectedSlug)
