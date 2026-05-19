@@ -52,15 +52,23 @@ const restaurantIconActive = L.divIcon({
   popupAnchor: [0, -38],
 })
 
+export interface MapBounds {
+  north: number
+  south: number
+  east: number
+  west: number
+}
+
 interface Props {
   restaurants: Restaurant[]
   userLat: number
   userLng: number
   selectedSlug: string | null
   onSelect: (slug: string) => void
+  onUserMove?: (bounds: MapBounds) => void
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, onSelect }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, onSelect, onUserMove }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -127,6 +135,28 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
       markersRef.current[r.slug] = marker
     })
   }, [ready, restaurants, selectedSlug, onSelect])
+
+  // Emit bounds when user manually moves/zooms (not on programmatic pan)
+  useEffect(() => {
+    if (!ready || !mapRef.current || !onUserMove) return
+    const map = mapRef.current
+    function emit() {
+      if (!mapRef.current) return
+      const b = mapRef.current.getBounds()
+      onUserMove?.({
+        north: b.getNorth(),
+        south: b.getSouth(),
+        east: b.getEast(),
+        west: b.getWest(),
+      })
+    }
+    map.on('dragend', emit)
+    map.on('zoomend', emit)
+    return () => {
+      map.off('dragend', emit)
+      map.off('zoomend', emit)
+    }
+  }, [ready, onUserMove])
 
   // Update active marker icon + pan to it
   useEffect(() => {

@@ -5,15 +5,22 @@ import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, SlidersHorizontal, X, ArrowUpDown } from 'lucide-react'
+import { MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, SlidersHorizontal, X, ArrowUpDown, Search } from 'lucide-react'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
+import type { MapBounds } from '@/components/ramen-map'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), { ssr: false, loading: () => (
   <div className="w-full h-full flex items-center justify-center bg-[#1E2026]">
     <Loader2 className="w-8 h-8 text-[#77567A] animate-spin" />
   </div>
 )})
+
+function boundsRoughlyEqual(a: MapBounds, b: MapBounds) {
+  const e = 0.0005
+  return Math.abs(a.north - b.north) < e && Math.abs(a.south - b.south) < e
+    && Math.abs(a.east - b.east) < e && Math.abs(a.west - b.west) < e
+}
 
 const DISTANCE_OPTIONS = [5, 10, 20, 50] as const
 type DistanceMiles = typeof DISTANCE_OPTIONS[number]
@@ -99,6 +106,20 @@ function SearchMapInner() {
   const [selectedBroths, setSelectedBroths] = useState<Set<string>>(new Set())
   const [sortBy, setSortBy] = useState<SortBy>('distance')
 
+  // "Search this area" state
+  const [visibleBounds, setVisibleBounds] = useState<MapBounds | null>(null)
+  const [searchedBounds, setSearchedBounds] = useState<MapBounds | null>(null)
+
+  const showSearchAreaButton = !!visibleBounds && (!searchedBounds || !boundsRoughlyEqual(visibleBounds, searchedBounds))
+
+  function handleSearchThisArea() {
+    if (visibleBounds) setSearchedBounds(visibleBounds)
+  }
+
+  function clearAreaSearch() {
+    setSearchedBounds(null)
+  }
+
   const activeFilterCount =
     (cityParam ? 0 : distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
 
@@ -157,9 +178,25 @@ function SearchMapInner() {
   }, [userPos, distanceMiles, cityParam])
 
   const filtered = useMemo(() => {
-    const base = cityParam
-      ? (cityRestaurants ?? []).map(r => ({ ...r, distKm: 0 }))
-      : nearby
+    let base: (typeof restaurants[number] & { distKm: number })[]
+    if (searchedBounds) {
+      base = restaurants
+        .filter(r => r.latitude && r.longitude)
+        .filter(r =>
+          r.latitude! <= searchedBounds.north &&
+          r.latitude! >= searchedBounds.south &&
+          r.longitude! <= searchedBounds.east &&
+          r.longitude! >= searchedBounds.west
+        )
+        .map(r => ({
+          ...r,
+          distKm: userPos ? haversineKm(userPos.lat, userPos.lng, r.latitude!, r.longitude!) : 0,
+        }))
+    } else if (cityParam) {
+      base = (cityRestaurants ?? []).map(r => ({ ...r, distKm: 0 }))
+    } else {
+      base = nearby
+    }
     const afterFilter = base.filter((r) => {
       if (selectedPrices.size > 0) {
         const price = r.priceRange || ''
@@ -175,9 +212,9 @@ function SearchMapInner() {
     if (sortBy === 'rating') sorted.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     else if (sortBy === 'reviews') sorted.sort((a, b) => b.reviewCount - a.reviewCount)
     else if (sortBy === 'alpha') sorted.sort((a, b) => a.name.localeCompare(b.name))
-    else sorted.sort((a, b) => a.distKm - b.distKm) // 'distance'
+    else sorted.sort((a, b) => a.distKm - b.distKm)
     return sorted
-  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants, sortBy])
+  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants, sortBy, searchedBounds, userPos])
 
   const handleSelect = useCallback((slug: string) => {
     setSelectedSlug(slug)
@@ -457,7 +494,34 @@ function SearchMapInner() {
               userLng={effectivePos.lng}
               selectedSlug={selectedSlug}
               onSelect={handleSelect}
+              onUserMove={setVisibleBounds}
             />
+          )}
+
+          {/* "Search this area" button — appears after user pans/zooms */}
+          {showSearchAreaButton && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
+              <button
+                onClick={handleSearchThisArea}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
+              >
+                <Search className="w-4 h-4" />
+                Search this area
+              </button>
+            </div>
+          )}
+
+          {/* Active area filter indicator */}
+          {searchedBounds && (
+            <div className="absolute top-4 right-4 z-[1000]">
+              <button
+                onClick={clearAreaSearch}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1E2026] border border-white/15 hover:border-white/30 text-[#B0B3BB] hover:text-white text-xs font-medium shadow-lg transition-colors"
+              >
+                <X className="w-3 h-3" />
+                Clear area filter
+              </button>
+            </div>
           )}
 
           {/* Mobile bottom sheet — filter bar + result count */}

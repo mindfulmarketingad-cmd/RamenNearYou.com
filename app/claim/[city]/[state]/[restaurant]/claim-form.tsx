@@ -3,14 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { MapPin, Phone, Globe, Clock, User, CheckCircle } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
 import type { Restaurant } from '@/lib/restaurants'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const ROLES = ['Owner', 'General Manager', 'Authorized Representative', 'Other']
 
 interface ClaimFormProps {
-  userId: string
   userEmail: string
   restaurant: Restaurant
 }
@@ -21,16 +19,19 @@ function fieldClass(hasValue: boolean) {
   }`
 }
 
-export default function ClaimForm({ userId, userEmail, restaurant }: ClaimFormProps) {
+export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
   const initialHours = Object.fromEntries(
-    DAY_ORDER.map((day) => [
-      day,
-      restaurant.hours[day]
-        ? restaurant.hours[day][0] === 'Closed'
-          ? 'Closed'
-          : restaurant.hours[day].join(' · ')
-        : '',
-    ])
+    DAY_ORDER.map((day) => {
+      const slots = restaurant.hours?.[day]
+      return [
+        day,
+        slots
+          ? slots[0] === 'Closed'
+            ? 'Closed'
+            : slots.join(' · ')
+          : '',
+      ]
+    })
   )
 
   const [info, setInfo] = useState({
@@ -68,13 +69,6 @@ export default function ClaimForm({ userId, userEmail, restaurant }: ClaimFormPr
     setError('')
     setLoading(true)
 
-    const supabase = createClient()
-    if (!supabase) {
-      setError('Authentication service unavailable. Please try again later.')
-      setLoading(false)
-      return
-    }
-
     const message = JSON.stringify({
       role: contact.role,
       corrections: {
@@ -86,29 +80,31 @@ export default function ClaimForm({ userId, userEmail, restaurant }: ClaimFormPr
       },
     })
 
-    const { error: insertError } = await supabase.from('claims').insert({
-      user_id: userId,
-      restaurant_slug: restaurant.slug,
-      restaurant_name: restaurant.name,
-      restaurant_city: restaurant.city,
-      contact_name: contact.name.trim(),
-      contact_email: contact.email.trim(),
-      message,
-      status: 'pending',
-    })
-
-    if (insertError) {
-      setError(
-        insertError.code === '23505'
-          ? 'This listing has already been claimed. If you believe this is an error, please contact us.'
-          : insertError.message
-      )
+    try {
+      const res = await fetch('/api/claims', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          restaurant_slug: restaurant.slug,
+          restaurant_name: restaurant.name,
+          restaurant_city: restaurant.city,
+          contact_name: contact.name.trim(),
+          contact_email: contact.email.trim(),
+          message,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error ?? 'Failed to submit claim.')
+        setLoading(false)
+        return
+      }
+      setSuccess(true)
+    } catch {
+      setError('Network error. Please try again.')
+    } finally {
       setLoading(false)
-      return
     }
-
-    setSuccess(true)
-    setLoading(false)
   }
 
   if (success) {

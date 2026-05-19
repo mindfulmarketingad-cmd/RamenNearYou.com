@@ -59,5 +59,34 @@ export async function POST(request: Request) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  if (process.env.RESEND_API_KEY && process.env.ADMIN_EMAIL) {
+    try {
+      const { Resend } = await import('resend')
+      const resend = new Resend(process.env.RESEND_API_KEY)
+      await resend.emails.send({
+        from: 'Ramen Near You <notifications@ramennearyou.com>',
+        to: process.env.ADMIN_EMAIL,
+        replyTo: user.email ?? undefined,
+        subject: `⭐ New Featured Listing Application — ${restaurant_name} (${city}, ${state_code})`,
+        html: `
+          <h2>New Featured Listing Application</h2>
+          <table cellpadding="6" style="border-collapse:collapse;width:100%;max-width:500px">
+            <tr><td><strong>Restaurant</strong></td><td>${restaurant_name}</td></tr>
+            <tr><td><strong>Location</strong></td><td>${address}, ${city}, ${state_code}</td></tr>
+            <tr><td><strong>Phone</strong></td><td>${phone || '—'}</td></tr>
+            <tr><td><strong>Website</strong></td><td>${website ? `<a href="${website}">${website}</a>` : '—'}</td></tr>
+            <tr><td><strong>Submitted by</strong></td><td>${user.email}</td></tr>
+            <tr><td><strong>Photos</strong></td><td>${photos?.length ?? 0}</td></tr>
+          </table>
+          ${description ? `<h3>Description</h3><p style="white-space:pre-wrap">${description}</p>` : ''}
+          <hr />
+          <p style="color:#888;font-size:12px">Review in Supabase → featured_listings.</p>
+        `,
+      })
+    } catch (e) {
+      console.error('Featured email error:', e)
+    }
+  }
+
   return NextResponse.json({ listing: data })
 }

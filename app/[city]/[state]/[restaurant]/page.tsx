@@ -10,6 +10,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
+import VisitButton from '@/components/visit-button'
 import ReviewSection from '@/components/review-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
@@ -82,6 +83,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
   const supabase = await createClient()
   let isVerified = false
+  let visitCount = 0
   if (supabase) {
     const { data } = await supabase
       .from('claims')
@@ -90,6 +92,12 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       .eq('status', 'approved')
       .maybeSingle()
     isVerified = !!data
+
+    const { count } = await supabase
+      .from('restaurant_visits')
+      .select('id', { count: 'exact', head: true })
+      .eq('restaurant_slug', r.slug)
+    visitCount = count ?? 0
   }
 
   const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
@@ -183,7 +191,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <VisitButton slug={r.slug} restaurantName={r.name} initialCount={visitCount} />
                   <SaveButton slug={r.slug} restaurantName={r.name} />
                   <ShareButton name={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
                 </div>
