@@ -952,7 +952,7 @@ const duluthTop10: RestaurantCard[] = [
     reviewCount: 258,
     address: '3780 Old Norcross Rd #108, Duluth, GA 30096',
     phone: '+1 678-587-5853',
-    description: 'A unique Duluth hybrid pairing Japanese ramen with Taiwanese bubble tea. Kyuramen's broth is rich and layered, and the boba pairing turns a bowl into a full experience. Vegan-friendly options available.',
+    description: "A unique Duluth hybrid pairing Japanese ramen with Taiwanese bubble tea. Kyuramen's broth is rich and layered, and the boba pairing turns a bowl into a full experience. Vegan-friendly options available.",
     photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEJgbkNKCq3ByEWYpqQamVsvKisNW3ZeVCnF1V-OOIdrCmh5ifKgEwt0ZjNtiZEMJYDf5pZqhiRbc5tzcIvekXog21N74zua7S8CblvzfogNBkmWX_3Pa9Wg2n4Bu9cRSOsoQbeKGRaTdyA=w800-h500-k-no',
     slug: 'kyuramen-x-tbaar-duluth',
     citySlug: 'duluth',
