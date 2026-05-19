@@ -15,6 +15,11 @@ const footerLinks = {
     { label: 'Claim a Listing', href: '/cities' },
     { label: 'Get Catering Leads', href: '/catering' },
   ],
+  Company: [
+    { label: 'About', href: '/about' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Terms of Service', href: '/terms-of-service' },
+  ],
 }
 
 export default function Footer() {
@@ -77,11 +82,12 @@ export default function Footer() {
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[#B0B3BB] text-xs">
           <p>&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
           <div className="flex items-center gap-4">
+            <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-            <Link href="/catering" className="hover:text-white transition-colors">Catering</Link>
             <Link href="/cities" className="hover:text-white transition-colors">Cities</Link>
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms</Link>
           </div>
         </div>
       </div>

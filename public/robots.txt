@@ -4,5 +4,7 @@ Disallow: /auth/
 Disallow: /admin/
 Disallow: /claim/
 Disallow: /api/
+Disallow: /list
+Disallow: /saved
 
 Sitemap: https://www.ramennearyou.com/sitemap.xml

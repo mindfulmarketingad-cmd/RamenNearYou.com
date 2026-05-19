@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
+import CookieConsent from '@/components/cookie-consent'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -58,16 +59,26 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-jet-black`}>
       <head>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
-        <Script id="gtag-init" strategy="afterInteractive">{`
+        <Script id="gtag-consent-default" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500,
+          });
+        `}</Script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
           gtag('js', new Date());
           gtag('config', 'G-S6L1KWFRC8');
         `}</Script>
       </head>
       <body className="font-sans antialiased bg-jet-black text-white">
         {children}
+        <CookieConsent />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
