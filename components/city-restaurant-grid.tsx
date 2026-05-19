@@ -50,16 +50,65 @@ function Badge({ children, variant }: { children: React.ReactNode; variant: Badg
 }
 
 const BROTH_KEYWORDS: { label: string; terms: string[] }[] = [
-  { label: 'Tonkotsu', terms: ['tonkotsu'] },
-  { label: 'Tsukemen', terms: ['tsukemen'] },
-  { label: 'Miso',     terms: ['miso'] },
-  { label: 'Shoyu',    terms: ['shoyu'] },
-  { label: 'Shio',     terms: ['shio'] },
-  { label: 'Chicken',  terms: ['tori paitan', 'chicken broth', 'chicken ramen'] },
+  {
+    label: 'Tonkotsu',
+    terms: [
+      'tonkotsu', 'pork bone broth', 'hakata ramen', 'hakata style',
+      'jinya ramen', 'tatsu-ya', 'tatsuya ramen', 'ramen tatsu',
+    ],
+  },
+  {
+    label: 'Tsukemen',
+    terms: ['tsukemen', 'dipping ramen', 'dipping noodle', 'okiboru'],
+  },
+  {
+    label: 'Miso',
+    terms: [
+      'miso ramen', 'miso broth', 'miso soup', 'miso base',
+      'moonlight miso', 'sapporo ramen', 'sapporo style',
+      'red miso', 'white miso', 'miso tare',
+    ],
+  },
+  {
+    label: 'Shoyu',
+    terms: [
+      'shoyu', 'soy sauce broth', 'soy broth', 'tokyo ramen',
+      'tokyo style', 'tokyo-style', 'shoyu tare', 'soy-based',
+    ],
+  },
+  {
+    label: 'Shio',
+    terms: [
+      'shio', 'salt broth', 'shio tare', 'salt-based ramen',
+      'clear broth ramen', 'shio ramen',
+    ],
+  },
+  {
+    label: 'Chicken',
+    terms: [
+      'tori paitan', 'chicken broth', 'chicken ramen', 'chicken-based',
+      'tori ramen', 'paitan', 'kin notori', 'kin no tori',
+      'chicken bone broth', 'poultry broth',
+    ],
+  },
 ]
 
 function detectBroth(r: Restaurant): string | null {
-  const text = (r.name + ' ' + r.description + ' ' + r.subtypes).toLowerCase()
+  const name = r.name.toLowerCase()
+  const text = (name + ' ' + (r.description ?? '') + ' ' + (r.subtypes ?? '')).toLowerCase()
+
+  // Chain-specific overrides by restaurant name substring
+  if (name.includes('jinya ramen')) return 'Tonkotsu'
+  if (name.includes('okiboru')) return 'Tsukemen'
+  if (name.includes('kin notori') || name.includes('kin no tori')) return 'Chicken'
+  if (name.includes('tatsu-ya') || name.includes('ramen tatsu')) return 'Tonkotsu'
+  if (name.includes('moonlight miso')) return 'Miso'
+
+  // Special: "miso" or "sapporo" standalone in name strongly implies miso ramen
+  const nameWords = name.split(/\s+/)
+  if (nameWords.includes('miso')) return 'Miso'
+  if (nameWords.includes('sapporo')) return 'Miso'
+
   for (const { label, terms } of BROTH_KEYWORDS) {
     if (terms.some((t) => text.includes(t))) return label
   }
