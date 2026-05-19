@@ -5,9 +5,18 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Search, ChevronDown, MapPin, Star, Navigation } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
-import type { Restaurant } from '@/lib/restaurants'
+import { restaurants, type Restaurant } from '@/lib/restaurants'
 
 const brothTypes = ['All', 'Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan']
+
+const slideImages: string[] = [
+  '/images/hero-ramen.jpg',
+  ...restaurants
+    .filter((r) => r.photo && r.rating && r.rating >= 4.3)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, 7)
+    .map((r) => r.photo!),
+]
 
 export default function Hero() {
   const router = useRouter()
@@ -16,7 +25,15 @@ export default function Hero() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Restaurant[]>([])
   const [showResults, setShowResults] = useState(false)
+  const [activeSlide, setActiveSlide] = useState(0)
   const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveSlide((i) => (i + 1) % slideImages.length)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [])
 
   useEffect(() => {
     const hits = searchRestaurants(query)
@@ -50,12 +67,19 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center pb-16 sm:pb-20 bg-[#2F323A]">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/images/hero-ramen.jpg)' }}
-      />
-      <div className="absolute inset-0 bg-[#2F323A]/75" />
+      {/* Background slideshow */}
+      {slideImages.map((src, i) => (
+        <div
+          key={src}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${src})`,
+            opacity: i === activeSlide ? 1 : 0,
+            transition: 'opacity 1.5s ease-in-out',
+          }}
+        />
+      ))}
+      <div className="absolute inset-0 bg-[#2F323A]/70" />
       <div className="absolute inset-0 noise-texture pointer-events-none" />
 
       <div className="relative z-20 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">

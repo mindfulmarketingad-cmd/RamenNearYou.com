@@ -22,6 +22,11 @@ function LoginForm() {
     setLoading(true)
 
     const supabase = createClient()
+    if (!supabase) {
+      setError('Authentication service is unavailable. Please try again later.')
+      setLoading(false)
+      return
+    }
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
 
     if (signInError) {
