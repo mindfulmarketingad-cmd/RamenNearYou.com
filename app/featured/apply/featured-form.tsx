@@ -87,24 +87,9 @@ export default function FeaturedApplyForm() {
       }
       const { listing } = await res.json()
 
-      // 3. Create Stripe checkout session
+      // 3. Redirect to Stripe payment
       setStep('redirecting')
-      const checkoutRes = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listing_id: listing.id }),
-      })
-      if (!checkoutRes.ok) {
-        const { error: err } = await checkoutRes.json()
-        throw new Error(err || 'Failed to create checkout')
-      }
-      const { url } = await checkoutRes.json()
-      if (url) {
-        window.location.href = url
-      } else {
-        // Stripe not configured — go to success with pending state
-        router.push(`/featured/success?listing_id=${listing.id}`)
-      }
+      window.location.href = `https://buy.stripe.com/fZu6oIbeqbx68QCeK2frW02?client_reference_id=${listing.id}`
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
       setStep('form')
