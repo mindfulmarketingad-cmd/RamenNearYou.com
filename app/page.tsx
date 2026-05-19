@@ -33,6 +33,11 @@ const websiteSchema = {
 
 const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
 
+const veganRestaurants = sorted.filter((r) => r.amenities.veganOptions)
+const vegetarianRestaurants = sorted.filter((r) => r.amenities.vegetarianOptions)
+const koreanRestaurants = sorted.filter((r) => r.subtypes?.toLowerCase().includes('korean'))
+const japaneseRestaurants = sorted.filter((r) => r.subtypes?.toLowerCase().includes('japanese'))
+
 export default function HomePage() {
   return (
     <>
@@ -70,6 +75,34 @@ export default function HomePage() {
           description="Discover classic shoyu ramen near you. The original Tokyo-style soy sauce broth — clear, savory, and balanced. The perfect entry point into great ramen."
           href="/shoyu-ramen-near-me"
           restaurants={sorted.slice(12, 16)}
+        />
+
+        <BrothNearMeSection
+          title="Vegan Ramen Near Me"
+          description="Find delicious vegan ramen near you. Plant-based broths with rich umami depth — from mushroom dashi to creamy sesame — proving ramen doesn't need meat to be extraordinary."
+          href="/vegan-ramen-near-me"
+          restaurants={veganRestaurants.slice(0, 4)}
+        />
+
+        <BrothNearMeSection
+          title="Vegetarian Ramen Near Me"
+          description="Discover vegetarian ramen near you. Hearty vegetable broths, miso-based soups, and egg-topped bowls — satisfying ramen options for plant-forward diners."
+          href="/vegetarian-ramen-near-me"
+          restaurants={vegetarianRestaurants.slice(0, 4)}
+        />
+
+        <BrothNearMeSection
+          title="Korean Ramen Near Me"
+          description="Find Korean-style ramen near you. Explore bold, spicy ramyeon-inspired bowls, kimchi broths, and Korean-Japanese fusion spots serving unforgettable noodle dishes."
+          href="/korean-ramen-near-me"
+          restaurants={koreanRestaurants.slice(0, 4)}
+        />
+
+        <BrothNearMeSection
+          title="Japanese Ramen Near Me"
+          description="Discover authentic Japanese ramen near you. From traditional Tokyo shoyu to Sapporo miso and Hakata tonkotsu — real Japanese ramen crafted with generations of technique."
+          href="/japanese-ramen-near-me"
+          restaurants={japaneseRestaurants.slice(0, 4)}
         />
 
         <LeadGenBanner />
