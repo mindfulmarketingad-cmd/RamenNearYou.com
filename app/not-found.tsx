@@ -1,0 +1,119 @@
+import Link from 'next/link'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import { ChevronRight } from 'lucide-react'
+
+const SITEMAP = [
+  {
+    heading: 'Find Ramen',
+    links: [
+      { label: 'Homepage', href: '/' },
+      { label: 'Search Restaurants', href: '/search' },
+      { label: 'Ramen Near Me (Map)', href: '/searchmap' },
+      { label: 'Browse All Cities', href: '/cities' },
+    ],
+  },
+  {
+    heading: 'Browse by Type',
+    links: [
+      { label: 'Tonkotsu Ramen', href: '/broth' },
+      { label: 'Shoyu Ramen', href: '/broth' },
+      { label: 'Miso Ramen', href: '/broth' },
+      { label: 'Spicy Ramen', href: '/broth' },
+      { label: 'Vegan Ramen', href: '/broth' },
+    ],
+  },
+  {
+    heading: 'For Restaurants',
+    links: [
+      { label: 'List Your Restaurant', href: '/list' },
+      { label: 'Get Featured', href: '/featured/apply' },
+      { label: 'Claim Your Listing', href: '/claim' },
+    ],
+  },
+  {
+    heading: 'Discover',
+    links: [
+      { label: 'Ramen Blog', href: '/blog' },
+      { label: 'Catering Services', href: '/catering' },
+      { label: 'Ramen Ambassador', href: '/ambassador' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'FAQ', href: '/faq' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Terms of Service', href: '/terms-of-service' },
+    ],
+  },
+]
+
+export default function NotFound() {
+  return (
+    <main className="min-h-screen bg-[#2F323A]">
+      <Navbar />
+
+      <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-white/5">
+        <div className="max-w-2xl mx-auto">
+          <p className="font-serif text-8xl font-bold text-[#77567A] mb-4">404</p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
+            Page not found
+          </h1>
+          <p className="text-[#B0B3BB] text-base leading-relaxed mb-8">
+            The page you&apos;re looking for doesn&apos;t exist or may have moved.
+            Here&apos;s a map of everything on the site.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/"
+              className="px-5 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-semibold hover:bg-[#8a6a8d] transition-colors"
+            >
+              Go Home
+            </Link>
+            <Link
+              href="/search"
+              className="px-5 py-2.5 rounded-lg border border-white/10 text-[#B0B3BB] text-sm font-medium hover:text-white hover:border-white/25 transition-colors"
+            >
+              Search Restaurants
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-white text-sm font-semibold uppercase tracking-widest mb-8 text-center">
+            Site Map
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+            {SITEMAP.map((section) => (
+              <div key={section.heading}>
+                <h3 className="text-[#77567A] text-xs font-semibold uppercase tracking-widest mb-3">
+                  {section.heading}
+                </h3>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.label + link.href}>
+                      <Link
+                        href={link.href}
+                        className="flex items-center gap-1 text-[#B0B3BB] text-sm hover:text-white transition-colors group"
+                      >
+                        <ChevronRight className="w-3 h-3 text-[#77567A]/50 group-hover:text-[#77567A] transition-colors shrink-0" />
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}

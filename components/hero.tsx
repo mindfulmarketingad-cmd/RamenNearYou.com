@@ -5,18 +5,9 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Search, ChevronDown, MapPin, Star, Navigation } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
-import { restaurants, type Restaurant } from '@/lib/restaurants'
+import { type Restaurant } from '@/lib/restaurants'
 
 const brothTypes = ['All', 'Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan']
-
-const slideImages: string[] = [
-  '/images/hero-ramen.jpg',
-  ...restaurants
-    .filter((r) => r.photo && r.rating && r.rating >= 4.3)
-    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-    .slice(0, 7)
-    .map((r) => r.photo!),
-]
 
 export default function Hero() {
   const router = useRouter()
@@ -25,15 +16,7 @@ export default function Hero() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Restaurant[]>([])
   const [showResults, setShowResults] = useState(false)
-  const [activeSlide, setActiveSlide] = useState(0)
   const wrapperRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActiveSlide((i) => (i + 1) % slideImages.length)
-    }, 5000)
-    return () => clearInterval(id)
-  }, [])
 
   useEffect(() => {
     const hits = searchRestaurants(query)
@@ -56,7 +39,9 @@ export default function Hero() {
     e.preventDefault()
     if (!query.trim()) return
     setShowResults(false)
-    router.push(`/search?q=${encodeURIComponent(query.trim())}`)
+    const params = new URLSearchParams({ q: query.trim() })
+    if (brothType !== 'All') params.set('broth', brothType)
+    router.push(`/search?${params.toString()}`)
   }
 
   function handleSelect(r: Restaurant) {
@@ -66,27 +51,15 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center pb-16 sm:pb-20 bg-[#2F323A]">
-      {/* Background slideshow */}
-      {slideImages.map((src, i) => (
-        <div
-          key={src}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${src})`,
-            opacity: i === activeSlide ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out',
-          }}
-        />
-      ))}
-      <div className="absolute inset-0 bg-[#2F323A]/70" />
-      <div className="absolute inset-0 noise-texture pointer-events-none" />
-
-      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-5">
+    <section className="relative bg-white pb-16 sm:pb-20 pt-28">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <p className="text-[#77567A] text-xs font-semibold uppercase tracking-widest mb-4">
+          Ramen Directory
+        </p>
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight text-balance mb-5">
           Ramen Near Me
         </h1>
-        <p className="text-[#B0B3BB] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+        <p className="text-[#4A4D55] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
           Find the best ramen near me — top-rated ramen restaurants searched by city, broth type, or restaurant name.
         </p>
 
@@ -160,9 +133,9 @@ export default function Hero() {
           <div className="mt-3 flex justify-center">
             <Link
               href="/searchmap"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all duration-200 backdrop-blur-sm"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#77567A]/10 hover:bg-[#77567A]/20 border border-[#77567A]/25 text-[#77567A] text-sm font-medium transition-all duration-200"
             >
-              <Navigation className="w-4 h-4 text-[#77567A]" />
+              <Navigation className="w-4 h-4" />
               Find Ramen Near Me
             </Link>
           </div>
@@ -182,14 +155,31 @@ export default function Hero() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium truncate">{r.name}</p>
-                      <p className="text-[#B0B3BB] text-xs truncate">{r.address}</p>
-                    </div>
-                    {r.rating && (
-                      <div className="flex items-center gap-1 shrink-0">
-                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                        <span className="text-white/60 text-xs">{r.rating.toFixed(1)}</span>
+                      <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                        <p className="text-[#B0B3BB] text-xs truncate">{r.city}, {r.stateCode}</p>
+                        {r.rating && (
+                          <span className="flex items-center gap-0.5 text-xs text-amber-400 shrink-0">
+                            <Star className="w-3 h-3 fill-amber-400" />
+                            {r.rating.toFixed(1)}
+                          </span>
+                        )}
+                        {r.priceRange && (
+                          <span className="px-1.5 py-0.5 rounded bg-white/5 text-[#B0B3BB] text-[10px] font-medium shrink-0">
+                            {r.priceRange}
+                          </span>
+                        )}
+                        {r.amenities.dineIn && (
+                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                            Dine-in
+                          </span>
+                        )}
+                        {r.amenities.delivery && (
+                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                            Delivery
+                          </span>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </button>
                 </li>
               ))}
@@ -197,7 +187,7 @@ export default function Hero() {
                 <li>
                   <button
                     type="button"
-                    onClick={handleSubmit as any}
+                    onClick={handleSubmit as unknown as React.MouseEventHandler}
                     className="w-full px-4 py-3 text-center text-[#77567A] text-xs font-medium hover:bg-white/5 transition-colors"
                   >
                     See all results for &ldquo;{query}&rdquo; →
@@ -209,7 +199,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Wave curve into next section */}
+      {/* Wave into dark body */}
       <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px">
         <svg
           viewBox="0 0 1440 80"
