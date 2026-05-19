@@ -5,10 +5,11 @@ import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
-import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
+import { getRestaurant, getRestaurantsByCity, getCities } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
+import ShareButton from '@/components/share-button'
 import ReviewSection from '@/components/review-section'
 import { createClient } from '@/lib/supabase/server'
 
@@ -71,6 +72,11 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const { city, state, restaurant } = await params
   const r = getRestaurant(city, state, restaurant)
   if (!r) notFound()
+
+  const nearbyRestaurants = getRestaurantsByCity(city, state)
+    .filter((n) => n.slug !== r.slug)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, 4)
 
   const supabase = await createClient()
   let isVerified = false
@@ -181,7 +187,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                     </span>
                   )}
                 </div>
-                <SaveButton slug={r.slug} restaurantName={r.name} />
+                <div className="flex items-center gap-2">
+                  <SaveButton slug={r.slug} restaurantName={r.name} />
+                  <ShareButton name={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-3">
@@ -333,6 +342,70 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           </div>
         </div>
       </div>
+
+      {nearbyRestaurants.length > 0 && (
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-2">More in {r.city}</p>
+            <h2 className="font-serif text-2xl font-bold text-white mb-6">Nearby Ramen Restaurants</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {nearbyRestaurants.map((n) => (
+                <Link
+                  key={n.slug}
+                  href={`/${city}/${state}/${n.slug}`}
+                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#77567A]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                >
+                  <div className="relative h-36 bg-[#2F323A] overflow-hidden flex-shrink-0">
+                    {n.photo ? (
+                      <Image
+                        src={n.photo}
+                        alt={n.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Utensils className="w-8 h-8 text-[#77567A]/20" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
+                    {n.priceRange && (
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs font-medium">
+                        {n.priceRange}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-4 flex flex-col flex-1 gap-1.5">
+                    <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#77567A] transition-colors line-clamp-1">
+                      {n.name}
+                    </h3>
+                    {n.rating && (
+                      <div className="flex items-center gap-1.5">
+                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                        <span className="text-white/70 text-xs">{n.rating.toFixed(1)}</span>
+                        <span className="text-white/30 text-xs">({n.reviewCount.toLocaleString()})</span>
+                      </div>
+                    )}
+                    {n.address && (
+                      <p className="text-[#B0B3BB]/60 text-xs line-clamp-1">{n.address}</p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href={`/${city}/${state}`}
+                className="inline-flex items-center gap-1.5 text-sm text-[#77567A] hover:text-[#77567A]/80 transition-colors font-medium"
+              >
+                See all ramen in {r.city}, {r.stateCode} →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </main>
