@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map } from 'lucide-react'
+import { MapPin, ChevronRight, Map, Star } from 'lucide-react'
 import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
+import CityFollowButton from '@/components/city-follow-button'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -108,6 +109,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               <Map className="w-3.5 h-3.5" />
               View City Map
             </Link>
+            <CityFollowButton city={city} state={state} />
           </div>
         </div>
       </section>
@@ -154,6 +156,34 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           </div>
         </section>
       )}
+
+      {/* Ambassador CTA */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#77567A]/30 via-[#1E2026] to-[#1E2026] border border-[#77567A]/30 p-8 sm:p-10">
+            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <span className="text-amber-400 text-xs font-semibold uppercase tracking-widest">City Ambassador Program</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2">
+                  Be the voice of ramen in {cityName}
+                </h2>
+                <p className="text-[#B0B3BB] text-sm leading-relaxed max-w-lg">
+                  Help your city&apos;s ramen lovers find the best bowls. As a RamenNearYou ambassador you&apos;ll write reviews, spotlight new spots, and grow the community.
+                </p>
+              </div>
+              <Link
+                href={`/ambassador?city=${encodeURIComponent(cityName)}`}
+                className="shrink-0 px-6 py-3 rounded-xl bg-[#77567A] text-white text-sm font-semibold hover:bg-[#8a6a8d] transition-colors"
+              >
+                Apply Now →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </main>

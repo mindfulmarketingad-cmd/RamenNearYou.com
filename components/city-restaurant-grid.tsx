@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, Star, Navigation, BadgeCheck, Utensils, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
+import { isOpenNow } from '@/lib/hours'
 
 function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -71,12 +72,6 @@ const RATING_OPTIONS = [
   { label: '4.0+', value: 4.0 },
   { label: '3.5+', value: 3.5 },
 ]
-const SORT_OPTIONS = [
-  { label: 'Top Rated',     value: 'rating' },
-  { label: 'Most Reviews',  value: 'reviews' },
-  { label: 'Nearest',       value: 'distance' },
-]
-
 function FilterPill({
   active,
   onClick,
@@ -112,7 +107,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
   const [showFilters, setShowFilters] = useState(false)
 
   // Filter state
-  const [sort, setSort]         = useState<string>('rating')
+  const [sort, setSort]         = useState<string>('default')
   const [broth, setBroth]       = useState<string | null>(null)
   const [prices, setPrices]     = useState<string[]>([])
   const [minRating, setMinRating] = useState<number | null>(null)
@@ -139,9 +134,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     )
   }, [])
 
-  // Switch to distance sort automatically once we get location
   useEffect(() => {
-    if (userPos && sort === 'rating') setSort('distance')
+    if (userPos && sort === 'default') setSort('distance')
   }, [userPos]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function togglePrice(p: string) {
@@ -165,18 +159,14 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
       distance: userPos && r.latitude && r.longitude
         ? haversineMiles(userPos.lat, userPos.lng, r.latitude, r.longitude)
         : null,
+      openStatus: isOpenNow(r.hours),
     }))
 
-    // Broth filter
+    if (sort === 'openNow') list = list.filter(({ openStatus }) => openStatus === true)
+
     if (broth) list = list.filter(({ brothType }) => brothType === broth)
-
-    // Price filter
     if (prices.length) list = list.filter(({ r }) => prices.includes(r.priceRange))
-
-    // Rating filter
     if (minRating) list = list.filter(({ r }) => (r.rating ?? 0) >= minRating)
-
-    // Feature filters
     if (features.includes('vegan'))        list = list.filter(({ r }) => r.amenities.veganOptions)
     if (features.includes('vegetarian'))   list = list.filter(({ r }) => r.amenities.vegetarianOptions)
     if (features.includes('delivery'))     list = list.filter(({ r }) => r.amenities.delivery)
@@ -187,11 +177,20 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     if (features.includes('bar'))          list = list.filter(({ r }) => r.amenities.alcohol)
     if (features.includes('parking'))      list = list.filter(({ r }) => r.amenities.parking)
 
-    // Sort
     if (sort === 'distance' && userPos) {
       list.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity))
+    } else if (sort === 'alpha') {
+      list.sort((a, b) => a.r.name.localeCompare(b.r.name))
     } else if (sort === 'reviews') {
       list.sort((a, b) => b.r.reviewCount - a.r.reviewCount)
+    } else if (sort === 'price') {
+      list.sort((a, b) => (a.r.priceRange ?? '').length - (b.r.priceRange ?? '').length)
+    } else if (sort === 'veg') {
+      list.sort((a, b) => {
+        const aVeg = a.r.amenities.veganOptions || a.r.amenities.vegetarianOptions ? 0 : 1
+        const bVeg = b.r.amenities.veganOptions || b.r.amenities.vegetarianOptions ? 0 : 1
+        return aVeg - bVeg
+      })
     } else {
       list.sort((a, b) => (b.r.rating ?? 0) - (a.r.rating ?? 0))
     }
@@ -204,7 +203,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     setPrices([])
     setMinRating(null)
     setFeatures([])
-    setSort('rating')
+    setSort('default')
   }
 
   return (
@@ -213,20 +212,19 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
       <div className="mb-6 space-y-3">
         {/* Top row: sort + toggle */}
         <div className="flex items-center justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[#B0B3BB] text-xs font-medium">Sort:</span>
-            {SORT_OPTIONS.map((opt) => (
-              <FilterPill
-                key={opt.value}
-                active={sort === opt.value}
-                onClick={() => setSort(opt.value)}
-              >
-                {opt.value === 'distance' && !userPos ? (
-                  <span className="flex items-center gap-1"><Navigation className="w-3 h-3" />{opt.label}</span>
-                ) : opt.label}
-              </FilterPill>
-            ))}
-          </div>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="bg-[#1E2026] border border-white/10 text-white text-sm rounded-lg px-3 py-1.5 outline-none cursor-pointer"
+          >
+            <option value="default">Default (by rating)</option>
+            <option value="alpha">Alphabetical</option>
+            <option value="rating">Highest Rated</option>
+            <option value="reviews">Most Reviewed</option>
+            <option value="price">Price (low→high)</option>
+            <option value="veg">Vegan First</option>
+            <option value="openNow">Open Now</option>
+          </select>
           <button
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
@@ -317,7 +315,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
       {/* Cards */}
       <div className="flex flex-col gap-4">
-        {filtered.map(({ r, brothType, distance }) => {
+        {filtered.map(({ r, brothType, distance, openStatus }) => {
           const isSpicy = (r.name + ' ' + r.description).toLowerCase().includes('spicy')
           const isVerified = verifiedSlugs.includes(r.slug)
 
@@ -346,6 +344,11 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 {r.priceRange && (
                   <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur-sm">
                     {r.priceRange}
+                  </span>
+                )}
+                {openStatus !== null && (
+                  <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-xs font-medium backdrop-blur-sm ${openStatus ? 'bg-emerald-900/80 text-emerald-400' : 'bg-red-900/80 text-red-400'}`}>
+                    {openStatus ? '● Open' : '● Closed'}
                   </span>
                 )}
                 {distance !== null && (

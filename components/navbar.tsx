@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Phone, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
+import SearchModal from '@/components/search-modal'
 
 const navLinks = [
   { label: 'Browse Cities', href: '/cities' },
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -55,7 +57,6 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-18">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
             <span className="font-serif text-lg font-bold text-white tracking-tight group-hover:text-[#77567A] transition-colors">
@@ -63,7 +64,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
@@ -79,7 +79,14 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Auth state */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-lg text-[#B0B3BB] hover:text-white hover:bg-white/5 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
             {user ? (
               <div className="flex items-center gap-3 ml-2">
                 <Link
@@ -95,9 +102,11 @@ export default function Navbar() {
                   List Your Restaurant
                 </Link>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#77567A]/30 border border-[#77567A]/50 flex items-center justify-center text-xs font-bold text-[#77567A]">
-                    {userInitial}
-                  </div>
+                  <Link href="/profile">
+                    <div className="w-8 h-8 rounded-full bg-[#77567A]/30 border border-[#77567A]/50 flex items-center justify-center text-xs font-bold text-[#77567A]">
+                      {userInitial}
+                    </div>
+                  </Link>
                   <button
                     onClick={handleSignOut}
                     className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
@@ -124,7 +133,6 @@ export default function Navbar() {
             )}
           </nav>
 
-          {/* Catering hotline */}
           <a
             href="tel:+13412034429"
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#77567A]/10 hover:bg-[#77567A]/20 border border-[#77567A]/20 transition-colors group"
@@ -136,18 +144,25 @@ export default function Navbar() {
             </div>
           </a>
 
-          {/* Mobile toggle */}
-          <button
-            className="lg:hidden text-white p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-1">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-lg text-[#B0B3BB] hover:text-white hover:bg-white/5 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              className="text-white p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-[#2F323A] border-t border-white/10 px-4 pb-4">
           <a
@@ -209,6 +224,8 @@ export default function Navbar() {
           </nav>
         </div>
       )}
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }
