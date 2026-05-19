@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   Utensils, ExternalLink, Crown, BadgeCheck
@@ -13,6 +14,8 @@ import ShareButton from '@/components/share-button'
 import ReviewSection from '@/components/review-section'
 import RestaurantImage from '@/components/restaurant-image'
 import { createClient } from '@/lib/supabase/server'
+
+const RestaurantMiniMap = dynamic(() => import('@/components/restaurant-mini-map'), { ssr: false })
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -334,6 +337,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 Make This A Featured Listing
               </Link>
             </div>
+
+            {/* Mini map */}
+            {r.latitude && r.longitude && (
+              <RestaurantMiniMap
+                lat={r.latitude}
+                lng={r.longitude}
+                name={r.name}
+                address={r.address}
+                directionsUrl={
+                  r.googleMapsLink ||
+                  `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(r.address)}`
+                }
+              />
+            )}
           </div>
         </div>
       </div>
