@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, SlidersHorizontal, X } from 'lucide-react'
+import { MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, SlidersHorizontal, X, ArrowUpDown } from 'lucide-react'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 
@@ -20,6 +20,14 @@ type DistanceMiles = typeof DISTANCE_OPTIONS[number]
 
 const BROTH_OPTIONS = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
 const PRICE_OPTIONS = ['$', '$$', '$$$', '$$$$'] as const
+
+type SortBy = 'distance' | 'rating' | 'reviews' | 'alpha'
+const SORT_OPTIONS: { value: SortBy; label: string }[] = [
+  { value: 'distance', label: 'Nearest first' },
+  { value: 'rating', label: 'Highest rated' },
+  { value: 'reviews', label: 'Most reviewed' },
+  { value: 'alpha', label: 'A → Z' },
+]
 
 function milesToKm(miles: number) { return miles * 1.60934 }
 function kmToMiles(km: number) { return km * 0.621371 }
@@ -89,6 +97,7 @@ function SearchMapInner() {
   const [distanceMiles, setDistanceMiles] = useState<DistanceMiles>(20)
   const [selectedPrices, setSelectedPrices] = useState<Set<string>>(new Set())
   const [selectedBroths, setSelectedBroths] = useState<Set<string>>(new Set())
+  const [sortBy, setSortBy] = useState<SortBy>('distance')
 
   const activeFilterCount =
     (cityParam ? 0 : distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
@@ -151,7 +160,7 @@ function SearchMapInner() {
     const base = cityParam
       ? (cityRestaurants ?? []).map(r => ({ ...r, distKm: 0 }))
       : nearby
-    return base.filter((r) => {
+    const afterFilter = base.filter((r) => {
       if (selectedPrices.size > 0) {
         const price = r.priceRange || ''
         if (!selectedPrices.has(price)) return false
@@ -162,7 +171,13 @@ function SearchMapInner() {
       }
       return true
     })
-  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants])
+    const sorted = [...afterFilter]
+    if (sortBy === 'rating') sorted.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    else if (sortBy === 'reviews') sorted.sort((a, b) => b.reviewCount - a.reviewCount)
+    else if (sortBy === 'alpha') sorted.sort((a, b) => a.name.localeCompare(b.name))
+    else sorted.sort((a, b) => a.distKm - b.distKm) // 'distance'
+    return sorted
+  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants, sortBy])
 
   const handleSelect = useCallback((slug: string) => {
     setSelectedSlug(slug)
@@ -252,22 +267,39 @@ function SearchMapInner() {
                   {cityName ? cityName : `within ${distanceMiles} mi`}
                 </p>
               </div>
-              <button
-                onClick={() => setShowFilters(v => !v)}
-                className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  showFilters || activeFilterCount > 0
-                    ? 'bg-[#77567A] text-white'
-                    : 'bg-white/5 text-[#B0B3BB] hover:bg-white/10 hover:text-white border border-white/10'
-                }`}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowFilters(v => !v)}
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    showFilters || activeFilterCount > 0
+                      ? 'bg-[#77567A] text-white'
+                      : 'bg-white/5 text-[#B0B3BB] hover:bg-white/10 hover:text-white border border-white/10'
+                  }`}
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  Filters
+                  {activeFilterCount > 0 && (
+                    <span className="w-4 h-4 rounded-full bg-white text-[#77567A] text-[10px] font-bold flex items-center justify-center">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Sort row */}
+            <div className="flex items-center gap-2 mt-2">
+              <ArrowUpDown className="w-3 h-3 text-[#B0B3BB] shrink-0" />
+              <span className="text-[#B0B3BB] text-xs">Sort:</span>
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value as SortBy)}
+                className="flex-1 bg-[#2F323A] border border-white/10 text-white text-xs rounded-lg px-2 py-1 outline-none focus:border-[#77567A] transition-colors cursor-pointer"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                Filters
-                {activeFilterCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-white text-[#77567A] text-[10px] font-bold flex items-center justify-center">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </button>
+                {SORT_OPTIONS.map(o => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
             </div>
 
             {/* Filter panel */}
@@ -452,6 +484,15 @@ function SearchMapInner() {
               {/* Mobile filter panel */}
               {showFilters && (
                 <div className="px-4 py-3 space-y-3">
+                  {/* Sort */}
+                  <div>
+                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Sort by</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {SORT_OPTIONS.map(o => (
+                        <FilterChip key={o.value} label={o.label} active={sortBy === o.value} onClick={() => setSortBy(o.value)} />
+                      ))}
+                    </div>
+                  </div>
                   {/* Distance — hidden in city mode */}
                   {!cityParam && (
                     <div>

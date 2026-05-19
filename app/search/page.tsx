@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Suspense } from 'react'
 import { MapPin, Phone, Star, ChevronRight, Search } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import SortSelect from './sort-select'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; sort?: string }>
 }): Promise<Metadata> {
   const { q } = await searchParams
   return {
@@ -50,14 +52,26 @@ function Badge({ children }: { children: React.ReactNode }) {
   )
 }
 
+function sortResults(
+  results: ReturnType<typeof searchRestaurants>,
+  sort: string,
+) {
+  const copy = [...results]
+  if (sort === 'rating') return copy.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+  if (sort === 'reviews') return copy.sort((a, b) => b.reviewCount - a.reviewCount)
+  if (sort === 'alpha') return copy.sort((a, b) => a.name.localeCompare(b.name))
+  return copy // 'relevant' — keep search-score order
+}
+
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; sort?: string }>
 }) {
-  const { q } = await searchParams
+  const { q, sort = 'relevant' } = await searchParams
   const query = q?.trim() ?? ''
-  const results = query ? searchRestaurants(query) : []
+  const raw = query ? searchRestaurants(query) : []
+  const results = sortResults(raw, sort)
 
   return (
     <main className="min-h-screen bg-[#2F323A]">
@@ -109,6 +123,20 @@ export default async function SearchPage({
           </form>
         </div>
       </section>
+
+      {/* Sort bar */}
+      {results.length > 0 && (
+        <section className="py-3 px-4 sm:px-6 lg:px-8 border-b border-white/5 bg-[#1E2026]/60">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <p className="text-[#B0B3BB] text-xs">
+              {results.length} result{results.length !== 1 ? 's' : ''}
+            </p>
+            <Suspense fallback={null}>
+              <SortSelect current={sort} />
+            </Suspense>
+          </div>
+        </section>
+      )}
 
       {/* Results */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
