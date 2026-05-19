@@ -20,8 +20,19 @@ export async function GET(request: Request) {
         },
       },
     })
+
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) return NextResponse.redirect(`${origin}${next}`)
+    if (!error) {
+      // Ensure a user_profiles row exists for this user
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        await supabase.from('user_profiles').upsert(
+          { user_id: user.id, display_name: user.user_metadata?.display_name ?? '' },
+          { onConflict: 'user_id', ignoreDuplicates: true }
+        )
+      }
+      return NextResponse.redirect(`${origin}${next}`)
+    }
   }
 
   return NextResponse.redirect(`${origin}/auth/login?error=auth_callback_error`)
