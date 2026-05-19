@@ -12,6 +12,7 @@ import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
 import ReviewSection from '@/components/review-section'
 import RestaurantImage from '@/components/restaurant-image'
+import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -334,6 +335,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 Make This A Featured Listing
               </Link>
             </div>
+
+            {/* Mini map */}
+            {r.latitude && r.longitude && (
+              <RestaurantMiniMapClient
+                lat={r.latitude}
+                lng={r.longitude}
+                name={r.name}
+                address={r.address}
+                directionsUrl={
+                  r.googleMapsLink ||
+                  `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(r.address)}`
+                }
+              />
+            )}
           </div>
         </div>
       </div>
