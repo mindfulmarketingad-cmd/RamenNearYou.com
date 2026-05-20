@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Crown, MapPin, Gift, Search, Check, Minus } from 'lucide-react'
+import { searchRestaurants } from '@/lib/search'
 import { restaurants } from '@/lib/restaurants'
 
 const TIERS = [
@@ -73,15 +74,8 @@ function RestaurantSearch() {
   const [open, setOpen] = useState(false)
 
   const matches = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return restaurants.slice(0, 50)
-    return restaurants
-      .filter(r =>
-        r.name.toLowerCase().includes(q) ||
-        r.city.toLowerCase().includes(q) ||
-        r.stateCode.toLowerCase().includes(q)
-      )
-      .slice(0, 50)
+    if (!query.trim()) return restaurants.slice(0, 50)
+    return searchRestaurants(query).slice(0, 50)
   }, [query])
 
   return (
