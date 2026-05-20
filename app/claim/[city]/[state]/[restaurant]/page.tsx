@@ -35,7 +35,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
               This listing has already been claimed (status: {existingClaim.status}). If you believe this is an error, please contact us.
             </div>
           ) : (
-            <ClaimForm userId={user.id} userEmail={user.email ?? ''} restaurant={r} />
+            <ClaimForm userEmail={user.email ?? ''} restaurant={r} />
           )}
         </div>
       </section>

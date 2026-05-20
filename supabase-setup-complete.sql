@@ -121,15 +121,21 @@ END $$;
 
 CREATE TABLE IF NOT EXISTS public.ambassador_applications (
   id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id      uuid REFERENCES auth.users(id) ON DELETE SET NULL,
   name         text NOT NULL,
   email        text NOT NULL,
   city         text,
   instagram    text,
   tiktok       text,
-  why          text,
+  why_apply    text,
+  experience   text,
   status       text NOT NULL DEFAULT 'pending',
   created_at   timestamptz DEFAULT now()
 );
+
+ALTER TABLE public.ambassador_applications ADD COLUMN IF NOT EXISTS user_id uuid REFERENCES auth.users(id) ON DELETE SET NULL;
+ALTER TABLE public.ambassador_applications ADD COLUMN IF NOT EXISTS why_apply text;
+ALTER TABLE public.ambassador_applications ADD COLUMN IF NOT EXISTS experience text;
 
 ALTER TABLE public.ambassador_applications ENABLE ROW LEVEL SECURITY;
 
@@ -151,14 +157,21 @@ CREATE TABLE IF NOT EXISTS public.catering_leads (
   name         text NOT NULL,
   email        text NOT NULL,
   phone        text,
-  company      text,
+  event_type   text,
+  guest_count  text,
   event_date   text,
-  guests       text,
-  city         text,
-  message      text,
+  location     text,
+  budget       text,
+  notes        text,
   status       text NOT NULL DEFAULT 'new',
   created_at   timestamptz DEFAULT now()
 );
+
+ALTER TABLE public.catering_leads ADD COLUMN IF NOT EXISTS event_type text;
+ALTER TABLE public.catering_leads ADD COLUMN IF NOT EXISTS guest_count text;
+ALTER TABLE public.catering_leads ADD COLUMN IF NOT EXISTS location text;
+ALTER TABLE public.catering_leads ADD COLUMN IF NOT EXISTS budget text;
+ALTER TABLE public.catering_leads ADD COLUMN IF NOT EXISTS notes text;
 
 ALTER TABLE public.catering_leads ENABLE ROW LEVEL SECURITY;
 
@@ -180,6 +193,7 @@ CREATE TABLE IF NOT EXISTS public.claims (
   user_id           uuid REFERENCES auth.users(id) ON DELETE SET NULL,
   restaurant_slug   text NOT NULL,
   restaurant_name   text,
+  restaurant_city   text,
   contact_name      text,
   contact_email     text,
   contact_phone     text,
@@ -187,6 +201,8 @@ CREATE TABLE IF NOT EXISTS public.claims (
   status            text NOT NULL DEFAULT 'pending',
   created_at        timestamptz DEFAULT now()
 );
+
+ALTER TABLE public.claims ADD COLUMN IF NOT EXISTS restaurant_city text;
 
 ALTER TABLE public.claims ENABLE ROW LEVEL SECURITY;
 
@@ -280,3 +296,53 @@ DO $$ BEGIN
       USING (auth.uid() = user_id);
   END IF;
 END $$;
+
+
+-- ─── restaurant_visits ──────────────────────────────────────
+-- Tracks how many unique visitors have marked a restaurant as visited.
+-- One row per (restaurant_slug, visitor_token) — token is a UUID stored in
+-- the visitor's localStorage so anonymous users can also contribute.
+
+CREATE TABLE IF NOT EXISTS public.restaurant_visits (
+  id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  restaurant_slug text NOT NULL,
+  visitor_token   text NOT NULL,
+  user_id         uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at      timestamptz DEFAULT now(),
+  UNIQUE (restaurant_slug, visitor_token)
+);
+
+CREATE INDEX IF NOT EXISTS restaurant_visits_slug_idx
+  ON public.restaurant_visits (restaurant_slug);
+
+ALTER TABLE public.restaurant_visits ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_visits' AND policyname = 'Anyone can read visit counts'
+  ) THEN
+    CREATE POLICY "Anyone can read visit counts"
+      ON public.restaurant_visits FOR SELECT
+      USING (true);
+  END IF;
+END $$;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_visits' AND policyname = 'Anyone can record a visit'
+  ) THEN
+    CREATE POLICY "Anyone can record a visit"
+      ON public.restaurant_visits FOR INSERT
+      WITH CHECK (true);
+  END IF;
+END $$;
+
+
+-- ─── user_profiles extra columns ─────────────────────────────
+-- The profile page edits these fields; ensure they all exist.
+
+ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS instagram text;
+ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS tiktok text;
+ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS twitter text;
+ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS favorite_broth text;
+ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS ramen_count int;

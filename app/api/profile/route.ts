@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
 
 export async function GET() {
@@ -7,7 +8,9 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { data: profile } = await supabase
+  const client = createAdminClient() ?? supabase
+
+  const { data: profile } = await client
     .from('user_profiles')
     .select('*')
     .eq('user_id', user.id)
@@ -36,13 +39,18 @@ export async function PUT(request: Request) {
   if (favorite_broth !== undefined) upsertData.favorite_broth = favorite_broth
   if (ramen_count !== undefined) upsertData.ramen_count = ramen_count
 
-  const { data: profile, error } = await supabase
+  const client = createAdminClient() ?? supabase
+
+  const { data: profile, error } = await client
     .from('user_profiles')
     .upsert(upsertData, { onConflict: 'user_id' })
     .select()
     .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) {
+    console.error('Profile upsert error:', error.message)
+    return NextResponse.json({ error: 'Failed to save profile.' }, { status: 500 })
+  }
 
   return NextResponse.json({ profile })
 }

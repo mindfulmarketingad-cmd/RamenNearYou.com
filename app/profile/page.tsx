@@ -3,10 +3,14 @@
 import { useState, useEffect, useRef, FormEvent, ChangeEvent } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Camera } from 'lucide-react'
+import { Camera, Heart, CheckCircle2, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createClient } from '@/lib/supabase/client'
+import { getSavedSlugs } from '@/lib/saves'
+import { getVisitedSlugs } from '@/lib/visits'
+import SavedSection from './saved-section'
+import CitiesSection from './cities-section'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
@@ -36,8 +40,10 @@ export default function ProfilePage() {
 
   const [user, setUser] = useState<User | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
-  const [profile, setProfile] = useState<Profile | null>(null)
+  const [, setProfile] = useState<Profile | null>(null)
   const [savesCount, setSavesCount] = useState<number | null>(null)
+  const [visitsCount, setVisitsCount] = useState<number | null>(null)
+  const [followsCount, setFollowsCount] = useState<number | null>(null)
 
   const [displayName, setDisplayName] = useState('')
   const [bio, setBio] = useState('')
@@ -84,9 +90,21 @@ export default function ProfilePage() {
         }
       })
 
-    fetch('/api/saves')
-      .then((r) => r.json())
-      .then(({ saves }) => setSavesCount(Array.isArray(saves) ? saves.length : 0))
+    setSavesCount(getSavedSlugs().length)
+    setVisitsCount(getVisitedSlugs().length)
+
+    function onStorage(e: StorageEvent) {
+      if (e.key === 'ramennearyou:saves') setSavesCount(getSavedSlugs().length)
+      if (e.key === 'ramennearyou:visits') setVisitsCount(getVisitedSlugs().length)
+    }
+    window.addEventListener('storage', onStorage)
+
+    fetch('/api/city-follows')
+      .then(r => r.json())
+      .then(({ follows }) => setFollowsCount(Array.isArray(follows) ? follows.length : 0))
+      .catch(() => setFollowsCount(0))
+
+    return () => window.removeEventListener('storage', onStorage)
   }, [user])
 
   async function handlePhotoChange(e: ChangeEvent<HTMLInputElement>) {
@@ -324,25 +342,53 @@ export default function ProfilePage() {
 
           <div className="mt-6 bg-[#1E2026] border border-white/10 rounded-xl p-6">
             <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Stats</h2>
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               <div>
                 <p className="text-2xl font-bold text-white">{savesCount ?? '—'}</p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Saved Restaurants</p>
+                <p className="text-[#B0B3BB] text-xs mt-1">Saved</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">
-                  {ramenCount !== '' && ramenCount !== null ? ramenCount : (profile?.ramen_count ?? '—')}
-                </p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Ramen Visited</p>
+                <p className="text-2xl font-bold text-white">{visitsCount ?? '—'}</p>
+                <p className="text-[#B0B3BB] text-xs mt-1">Visited</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-white leading-snug">
+                <p className="text-2xl font-bold text-white">{followsCount ?? '—'}</p>
+                <p className="text-[#B0B3BB] text-xs mt-1">Cities Followed</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white leading-snug pt-1.5">
                   {user.created_at ? formatMemberSince(user.created_at) : '—'}
                 </p>
                 <p className="text-[#B0B3BB] text-xs mt-1">Member Since</p>
               </div>
             </div>
           </div>
+
+          <section className="mt-8">
+            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+              <Heart className="w-4 h-4 text-red-400 fill-red-400" />
+              Saved Restaurants
+            </h2>
+            <SavedSection />
+          </section>
+
+          <section className="mt-8">
+            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+              <MapPin className="w-4 h-4 text-[#77567A]" />
+              Cities You Follow
+            </h2>
+            <CitiesSection />
+          </section>
+
+          <section className="mt-8">
+            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Visited Restaurants
+            </h2>
+            <p className="text-[#B0B3BB] text-xs mb-2">
+              You&apos;ve marked <span className="text-white font-semibold">{visitsCount ?? 0}</span> restaurant{visitsCount === 1 ? '' : 's'} as visited.
+            </p>
+          </section>
         </div>
       </main>
 
