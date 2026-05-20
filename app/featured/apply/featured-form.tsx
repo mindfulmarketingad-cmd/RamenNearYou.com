@@ -60,9 +60,6 @@ const FEATURES: { label: string; values: [FeatureValue, FeatureValue, FeatureVal
   { label: 'City page top placement',        values: [false, true, true] },
   { label: 'Photos showcased',               values: [false, 'Up to 4', 'Up to 8'] },
   { label: 'Homepage placement',             values: [false, false, true] },
-  { label: 'Nationwide search top results',  values: [false, false, true] },
-  { label: 'Priority support',               values: [false, false, true] },
-  { label: 'Cancel anytime',                 values: [false, true, true] },
 ]
 
 function FeatureCell({ value, checkColor }: { value: FeatureValue; checkColor: string }) {
