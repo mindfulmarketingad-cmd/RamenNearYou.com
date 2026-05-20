@@ -367,6 +367,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   Get Featured
                 </Link>
               </div>
+            ) : isVerified ? (
+              <div className="bg-gradient-to-br from-white/5 to-[#1E2026] rounded-xl border border-white/10 p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="w-5 h-5 text-white/40" />
+                  <h3 className="font-semibold text-white/60">Restaurant Already Claimed</h3>
+                </div>
+                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+                  This listing has already been claimed by its owner.
+                </p>
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                  <Crown className="w-4 h-4" />
+                  Make This A Featured Listing
+                </Link>
+              </div>
             ) : (
               <div className="bg-gradient-to-br from-[#77567A]/20 to-[#1E2026] rounded-xl border border-[#77567A]/30 p-6 space-y-3">
                 <h3 className="font-semibold text-white">Own this restaurant?</h3>
