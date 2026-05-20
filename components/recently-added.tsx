@@ -87,7 +87,7 @@ export default function RecentlyAdded() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#2F323A] noise-texture" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Fresh Listings</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Fresh Listings</p>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
             Newly Listed Restaurants
           </h2>
@@ -97,7 +97,7 @@ export default function RecentlyAdded() {
           {restaurants.map((r) => (
             <div
               key={r.id}
-              className="fade-up group flex flex-col rounded-xl bg-[#1E2026] border border-white/5 overflow-hidden hover:border-[#77567A]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30"
+              className="fade-up group flex flex-col rounded-xl bg-[#1E2026] border border-white/5 overflow-hidden hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30"
             >
               {/* Photo */}
               <div className="relative h-48 overflow-hidden">
@@ -120,7 +120,7 @@ export default function RecentlyAdded() {
 
                 <div className="flex items-center gap-3 text-sm text-[#B0B3BB]">
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#77567A]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
                     {r.city}
                   </span>
                   <span className="flex items-center gap-1">
@@ -130,7 +130,7 @@ export default function RecentlyAdded() {
                 </div>
 
                 <div className="mt-auto pt-2">
-                  <button className="w-full py-2.5 rounded-lg border border-[#77567A]/50 text-[#77567A] text-sm font-medium hover:bg-[#77567A] hover:text-white transition-all duration-200">
+                  <button className="w-full py-2.5 rounded-lg border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-white transition-all duration-200">
                     View Restaurant
                   </button>
                 </div>

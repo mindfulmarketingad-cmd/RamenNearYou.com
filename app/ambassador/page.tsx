@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#77567A] transition-colors'
+  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors'
 
 export default function AmbassadorPage() {
   const [user, setUser] = useState<User | null | undefined>(undefined)
@@ -78,15 +78,15 @@ export default function AmbassadorPage() {
               <p className="text-[#B0B3BB] mb-4">You need to be signed in to apply.</p>
               <Link
                 href="/auth/login?redirectTo=/ambassador"
-                className="inline-block px-6 py-3 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+                className="inline-block px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
               >
                 Sign in to apply
               </Link>
             </div>
           ) : submitted ? (
-            <div className="bg-[#1E2026] border border-[#77567A]/30 rounded-xl p-8 text-center">
-              <div className="w-12 h-12 rounded-full bg-[#77567A]/20 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[#77567A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-[#1E2026] border border-[#B57F50]/30 rounded-xl p-8 text-center">
+              <div className="w-12 h-12 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#B57F50]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -190,7 +190,7 @@ export default function AmbassadorPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full px-6 py-3 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? 'Submitting…' : 'Submit Application'}
               </button>

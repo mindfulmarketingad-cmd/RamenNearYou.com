@@ -135,7 +135,7 @@ function FilterPill({
       onClick={onClick}
       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all whitespace-nowrap ${
         active
-          ? 'bg-[#77567A] border-[#77567A] text-white'
+          ? 'bg-[#B57F50] border-[#B57F50] text-white'
           : 'bg-white/5 border-white/10 text-[#B0B3BB] hover:border-white/25 hover:text-white'
       }`}
     >
@@ -278,7 +278,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
               activeFilterCount > 0
-                ? 'bg-[#77567A]/20 border-[#77567A]/50 text-[#77567A]'
+                ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#B57F50]'
                 : 'bg-white/5 border-white/10 text-[#B0B3BB] hover:border-white/25 hover:text-white'
             }`}
           >
@@ -357,7 +357,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
         <p className="text-[#B0B3BB] text-sm mb-4">
           {filtered.length} restaurant{filtered.length !== 1 ? 's' : ''} match your filters
           {filtered.length === 0 && (
-            <button onClick={clearAll} className="ml-2 text-[#77567A] hover:underline">Clear filters</button>
+            <button onClick={clearAll} className="ml-2 text-[#B57F50] hover:underline">Clear filters</button>
           )}
         </p>
       )}
@@ -372,7 +372,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             <Link
               key={r.slug}
               href={`/${city}/${state}/${r.slug}`}
-              className="group flex flex-col sm:flex-row bg-[#1E2026] rounded-xl border border-white/5 hover:border-[#77567A]/50 transition-all duration-200 hover:shadow-lg hover:shadow-black/30 overflow-hidden"
+              className="group flex flex-col sm:flex-row bg-[#1E2026] rounded-xl border border-white/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:shadow-lg hover:shadow-black/30 overflow-hidden"
             >
               {/* Photo */}
               <div className="relative w-full sm:w-48 shrink-0 h-44 sm:h-auto bg-[#2F323A]">
@@ -394,7 +394,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   </span>
                 )}
                 {distance !== null && (
-                  <span className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/70 text-[#77567A] text-xs font-medium backdrop-blur-sm">
+                  <span className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/70 text-[#B57F50] text-xs font-medium backdrop-blur-sm">
                     <Navigation className="w-2.5 h-2.5" />
                     {distance.toFixed(1)} mi
                   </span>
@@ -405,7 +405,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
               <div className="flex flex-col flex-1 p-5 gap-3 min-w-0">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h2 className="font-semibold text-white text-lg leading-snug group-hover:text-[#77567A] transition-colors">
+                    <h2 className="font-semibold text-white text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
                       {r.name}
                     </h2>
                     {isVerified && (
@@ -424,7 +424,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 </div>
 
                 <div className="flex items-center gap-1.5 text-[#B0B3BB] text-xs">
-                  <MapPin className="w-3.5 h-3.5 shrink-0 text-[#77567A]" />
+                  <MapPin className="w-3.5 h-3.5 shrink-0 text-[#B57F50]" />
                   <span>{r.address}</span>
                 </div>
 
@@ -455,7 +455,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                       </span>
                     )}
                   </div>
-                  <span className="text-[#77567A] text-xs font-semibold group-hover:underline">
+                  <span className="text-[#B57F50] text-xs font-semibold group-hover:underline">
                     View listing →
                   </span>
                 </div>

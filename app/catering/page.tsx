@@ -14,7 +14,7 @@ export default function CateringPage() {
       <Navbar />
       <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Event Catering</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Event Catering</p>
           <h1 className="font-serif text-4xl font-bold text-white mb-3">
             Ramen Catering Quotes
           </h1>

@@ -49,7 +49,7 @@ export default async function OwnerDashboardPage() {
             <p className="text-[#B0B3BB] text-sm mb-5">Find your restaurant and submit a claim to start managing its listing.</p>
             <Link
               href="/cities"
-              className="inline-block px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+              className="inline-block px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
             >
               Browse Cities
             </Link>
@@ -65,7 +65,7 @@ export default async function OwnerDashboardPage() {
                   <div className="min-w-0">
                     <p className="text-white font-medium truncate">{c.restaurant_name}</p>
                     <p className="text-[#B0B3BB] text-xs flex items-center gap-1 mt-1">
-                      <MapPin className="w-3 h-3 text-[#77567A]" /> {c.restaurant_city}
+                      <MapPin className="w-3 h-3 text-[#B57F50]" /> {c.restaurant_city}
                     </p>
                   </div>
                   <span className="shrink-0 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-medium flex items-center gap-1">
@@ -93,7 +93,7 @@ export default async function OwnerDashboardPage() {
                         </span>
                       </div>
                       <p className="text-[#B0B3BB] text-xs flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#77567A]" /> {c.restaurant_city}
+                        <MapPin className="w-3 h-3 text-[#B57F50]" /> {c.restaurant_city}
                       </p>
                     </div>
                     <div className="flex gap-2 shrink-0">

@@ -136,7 +136,7 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
     >
       <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none hover:bg-white/[0.03] transition-colors">
         <h2 className="font-semibold text-white text-base leading-snug">{question}</h2>
-        <ChevronDown className="w-4 h-4 text-[#77567A] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+        <ChevronDown className="w-4 h-4 text-[#B57F50] shrink-0 transition-transform duration-200 group-open:rotate-180" />
       </summary>
       <div className="px-6 pb-5">
         <p className="text-[#B0B3BB] text-sm leading-relaxed">{answer}</p>
@@ -157,7 +157,7 @@ export default function FaqPage() {
 
         {/* Header */}
         <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4">
             Ramen FAQ
           </h1>
@@ -192,7 +192,7 @@ export default function FaqPage() {
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/cities"
-                className="px-5 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+                className="px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
               >
                 Browse by City
               </Link>

@@ -26,7 +26,7 @@ export default function LeadGenBanner() {
   }, [])
 
   return (
-    <section id="catering" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#77567A]" ref={ref}>
+    <section id="catering" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#B57F50]" ref={ref}>
       <div className="max-w-4xl mx-auto text-center">
         <p className="fade-up text-white/60 text-xs font-medium uppercase tracking-widest mb-4">Event Catering</p>
         <h2 className="fade-up font-serif text-4xl sm:text-5xl font-bold text-white leading-tight text-balance mb-5">

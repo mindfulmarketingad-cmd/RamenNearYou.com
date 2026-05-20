@@ -92,7 +92,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <span className="text-white">{cityName}, {stateCode}</span>
           </nav>
 
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">
             Ramen In {cityName}, {stateCode}
           </h1>
@@ -105,7 +105,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             </span>
             <Link
               href={`/searchmap?city=${city}&state=${state}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#77567A]/15 hover:bg-[#77567A]/25 text-[#77567A] text-xs font-medium transition-colors border border-[#77567A]/20"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
             >
               <Map className="w-3.5 h-3.5" />
               View City Map
@@ -136,25 +136,25 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       {nearbyCities.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
             <p className="text-white font-semibold text-lg mb-6">Ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
-                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-white/5 hover:border-[#77567A]/40 transition-colors group bg-[#1E2026]">
+                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-white/5 hover:border-[#B57F50]/40 transition-colors group bg-[#1E2026]">
                   <Link
                     href={`/${c.citySlug}/${c.stateSlug}`}
                     className="flex items-center gap-2 px-4 py-2.5"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#77567A] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
                     <span>
-                      <span className="text-white text-sm font-medium group-hover:text-[#77567A] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-white text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
                       <span className="text-[#B0B3BB]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
                   <Link
                     href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
                     title="View on map"
-                    className="flex items-center px-3 border-l border-white/5 text-[#B0B3BB]/50 hover:text-[#77567A] hover:bg-[#77567A]/10 transition-colors"
+                    className="flex items-center px-3 border-l border-white/5 text-[#B0B3BB]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
                   >
                     <Map className="w-3.5 h-3.5" />
                   </Link>
@@ -168,7 +168,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       {/* Ambassador CTA */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#77567A]/30 via-[#1E2026] to-[#1E2026] border border-[#77567A]/30 p-8 sm:p-10">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#B57F50]/30 via-[#1E2026] to-[#1E2026] border border-[#B57F50]/30 p-8 sm:p-10">
             <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
@@ -184,7 +184,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               </div>
               <Link
                 href={`/ambassador?city=${encodeURIComponent(cityName)}`}
-                className="shrink-0 px-6 py-3 rounded-xl bg-[#77567A] text-white text-sm font-semibold hover:bg-[#8a6a8d] transition-colors"
+                className="shrink-0 px-6 py-3 rounded-xl bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
               >
                 Apply Now →
               </Link>

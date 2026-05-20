@@ -55,8 +55,8 @@ export default function BrowseCities() {
                 href={`/${city.citySlug}/${city.stateSlug}`}
                 className={`fade-up group relative rounded-xl overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 ${
                   featured
-                    ? 'border-[#77567A] shadow-md shadow-[#77567A]/10'
-                    : 'border-white/5 hover:border-[#77567A]/50'
+                    ? 'border-[#B57F50] shadow-md shadow-[#B57F50]/10'
+                    : 'border-white/5 hover:border-[#B57F50]/50'
                 }`}
               >
                 {/* Photo */}
@@ -71,12 +71,12 @@ export default function BrowseCities() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-[#1E2026]">
-                      <MapPin className="w-8 h-8 text-[#77567A]/20" />
+                      <MapPin className="w-8 h-8 text-[#B57F50]/20" />
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1c22] via-[#1a1c22]/30 to-transparent" />
                   {featured && (
-                    <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#77567A]/90 text-white text-xs font-medium backdrop-blur-sm">
+                    <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#B57F50]/90 text-white text-xs font-medium backdrop-blur-sm">
                       Featured
                     </span>
                   )}
@@ -87,7 +87,7 @@ export default function BrowseCities() {
                   <p className="font-semibold text-white text-sm leading-tight">{city.city}</p>
                   <div className="flex items-center justify-between mt-0.5">
                     <p className="text-[#B0B3BB] text-xs">{city.stateCode}</p>
-                    <p className="text-[#77567A] text-xs font-medium">{city.count} spots</p>
+                    <p className="text-[#B57F50] text-xs font-medium">{city.count} spots</p>
                   </div>
                 </div>
               </Link>

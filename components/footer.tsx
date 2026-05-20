@@ -71,7 +71,7 @@ export default function Footer() {
                 placeholder="your@email.com"
                 className="flex-1 px-4 py-3 bg-[#2F323A] text-white placeholder-[#B0B3BB]/50 text-sm outline-none min-w-0 sm:min-w-[220px]"
               />
-              <button className="px-5 py-3 bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-medium transition-colors whitespace-nowrap">
+              <button className="px-5 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors whitespace-nowrap">
                 Subscribe
               </button>
             </div>

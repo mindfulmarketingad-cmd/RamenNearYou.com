@@ -134,7 +134,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
               placeholder="Share your experience — broth, noodles, service, atmosphere…"
               rows={4}
               maxLength={1000}
-              className="w-full bg-[#2F323A] border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder-[#B0B3BB]/40 outline-none focus:border-[#77567A]/50 resize-none"
+              className="w-full bg-[#2F323A] border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder-[#B0B3BB]/40 outline-none focus:border-[#B57F50]/50 resize-none"
             />
             <p className="text-white/30 text-xs text-right mt-1">{body.length}/1000</p>
           </div>
@@ -162,7 +162,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-16 h-16 rounded-lg border border-dashed border-white/20 hover:border-[#77567A]/50 flex flex-col items-center justify-center gap-1 text-[#B0B3BB] hover:text-[#77567A] transition-colors"
+                  className="w-16 h-16 rounded-lg border border-dashed border-white/20 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#B0B3BB] hover:text-[#B57F50] transition-colors"
                 >
                   <ImagePlus className="w-5 h-5" />
                   <span className="text-[10px]">Add</span>
@@ -186,7 +186,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 bg-[#77567A] hover:bg-[#8a6a8d] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
             {submitting ? 'Submitting…' : 'Submit Review'}

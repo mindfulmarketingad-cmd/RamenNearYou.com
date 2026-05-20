@@ -48,7 +48,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-18">
           <Link href="/" className="flex items-center gap-2 group">
             <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
-            <span className="font-serif text-lg font-bold text-white tracking-tight group-hover:text-[#77567A] transition-colors">
+            <span className="font-serif text-lg font-bold text-white tracking-tight group-hover:text-[#B57F50] transition-colors">
               RamenNearYou
             </span>
           </Link>
@@ -86,13 +86,13 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/list"
-                  className="px-4 py-2 rounded-md bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+                  className="px-4 py-2 rounded-md bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
                 >
                   List Your Restaurant
                 </Link>
                 <div className="flex items-center gap-2">
                   <Link href="/profile">
-                    <div className="w-8 h-8 rounded-full bg-[#77567A]/30 border border-[#77567A]/50 flex items-center justify-center text-xs font-bold text-[#77567A]">
+                    <div className="w-8 h-8 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
                       {userInitial}
                     </div>
                   </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
               <div className="flex items-center gap-3 ml-2">
                 <Link
                   href="/list"
-                  className="px-4 py-2 rounded-md bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+                  className="px-4 py-2 rounded-md bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
                 >
                   List Your Restaurant
                 </Link>
@@ -124,12 +124,12 @@ export default function Navbar() {
 
           <a
             href="tel:+13412034429"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#77567A]/10 hover:bg-[#77567A]/20 border border-[#77567A]/20 transition-colors group"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 border border-[#B57F50]/20 transition-colors group"
           >
-            <Phone className="w-3.5 h-3.5 text-[#77567A]" />
+            <Phone className="w-3.5 h-3.5 text-[#B57F50]" />
             <div className="text-right">
               <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
-              <p className="text-xs font-semibold text-white group-hover:text-[#77567A] transition-colors leading-none">(341) 203-4429</p>
+              <p className="text-xs font-semibold text-white group-hover:text-[#B57F50] transition-colors leading-none">(341) 203-4429</p>
             </div>
           </a>
 
@@ -156,9 +156,9 @@ export default function Navbar() {
         <div className="lg:hidden bg-[#2F323A] border-t border-white/10 px-4 pb-4">
           <a
             href="tel:+13412034429"
-            className="flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#77567A]/10 border border-[#77567A]/20"
+            className="flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#B57F50]/10 border border-[#B57F50]/20"
           >
-            <Phone className="w-4 h-4 text-[#77567A] shrink-0" />
+            <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
             <div>
               <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
               <p className="text-sm font-semibold text-white leading-none">(341) 203-4429</p>
@@ -177,7 +177,7 @@ export default function Navbar() {
             ))}
             <Link
               href="/list"
-              className="mt-2 px-4 py-2 rounded-md bg-[#77567A] text-white text-sm font-medium text-center hover:bg-[#8a6a8d] transition-colors"
+              className="mt-2 px-4 py-2 rounded-md bg-[#B57F50] text-white text-sm font-medium text-center hover:bg-[#c8934f] transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               List Your Restaurant
@@ -195,7 +195,7 @@ export default function Navbar() {
                   <span className="text-sm text-[#B0B3BB]">{user.email}</span>
                   <button
                     onClick={handleSignOut}
-                    className="text-sm text-[#77567A] hover:text-[#77567A]/80 transition-colors"
+                    className="text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors"
                   >
                     Sign Out
                   </button>

@@ -16,7 +16,7 @@ export default function BrothNearMeSection({
   description,
   href,
   restaurants,
-  accentColor = '#77567A',
+  accentColor = '#B57F50',
 }: BrothNearMeSectionProps) {
   const preview = restaurants.slice(0, 4)
 
@@ -30,7 +30,7 @@ export default function BrothNearMeSection({
           </div>
           <Link
             href={href}
-            className="flex-shrink-0 flex items-center gap-2 text-sm font-medium text-[#77567A] hover:text-white transition-colors group"
+            className="flex-shrink-0 flex items-center gap-2 text-sm font-medium text-[#B57F50] hover:text-white transition-colors group"
           >
             View all locations
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -42,7 +42,7 @@ export default function BrothNearMeSection({
             <Link
               key={r.slug}
               href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-              className="group flex flex-col bg-[#2F323A] rounded-xl border border-white/5 hover:border-[#77567A]/50 transition-all duration-200 hover:-translate-y-1 overflow-hidden"
+              className="group flex flex-col bg-[#2F323A] rounded-xl border border-white/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 overflow-hidden"
             >
               <div className="relative w-full h-32 bg-[#1E2026] overflow-hidden">
                 {r.photo ? (
@@ -55,16 +55,16 @@ export default function BrothNearMeSection({
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Utensils className="w-8 h-8 text-[#77567A]/30" />
+                    <Utensils className="w-8 h-8 text-[#B57F50]/30" />
                   </div>
                 )}
               </div>
               <div className="p-3 flex-1 flex flex-col gap-1">
-                <p className="font-semibold text-white text-sm leading-snug group-hover:text-[#77567A] transition-colors line-clamp-2">
+                <p className="font-semibold text-white text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-2">
                   {r.name}
                 </p>
                 <div className="flex items-center gap-1 text-[#B0B3BB] text-xs">
-                  <MapPin className="w-3 h-3 shrink-0 text-[#77567A]" />
+                  <MapPin className="w-3 h-3 shrink-0 text-[#B57F50]" />
                   <span className="truncate">{r.city}, {r.stateCode}</span>
                 </div>
                 {r.rating && (
@@ -82,7 +82,7 @@ export default function BrothNearMeSection({
         <div className="mt-6 text-center">
           <Link
             href={href}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#77567A]/40 text-[#77567A] text-sm font-medium hover:bg-[#77567A]/10 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors"
           >
             See all locations →
           </Link>

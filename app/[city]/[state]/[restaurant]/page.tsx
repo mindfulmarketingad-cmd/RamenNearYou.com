@@ -65,8 +65,8 @@ function StarRating({ rating, size = 'md' }: { rating: number | null; size?: 'sm
 
 function AmenityBadge({ active, label }: { active: boolean; label: string }) {
   return (
-    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#77567A]/15 text-[#77567A]' : 'bg-white/5 text-[#B0B3BB]/50 line-through'}`}>
-      <span className={`w-2 h-2 rounded-full ${active ? 'bg-[#77567A]' : 'bg-white/20'}`} />
+    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#B57F50]/15 text-[#B57F50]' : 'bg-white/5 text-[#B0B3BB]/50 line-through'}`}>
+      <span className={`w-2 h-2 rounded-full ${active ? 'bg-[#B57F50]' : 'bg-white/20'}`} />
       {label}
     </div>
   )
@@ -199,7 +199,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <span className="px-2 py-0.5 rounded-full bg-white/10 text-white/60 text-xs">{r.priceRange}</span>
                 )}
                 {r.subtypes && r.subtypes.split(',').slice(0, 2).map((s) => (
-                  <span key={s} className="px-2 py-0.5 rounded-full bg-[#77567A]/15 text-[#77567A] text-xs">{s.trim()}</span>
+                  <span key={s} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs">{s.trim()}</span>
                 ))}
               </div>
               <div className="flex items-start justify-between gap-4 mb-3">
@@ -239,7 +239,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             {r.hours && Object.keys(r.hours).length > 0 && (
               <section>
                 <h2 className="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#77567A]" />
+                  <Clock className="w-5 h-5 text-[#B57F50]" />
                   Hours
                 </h2>
                 <div className="bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden">
@@ -318,31 +318,31 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <h3 className="font-semibold text-white">Contact &amp; Location</h3>
               {r.address && (
                 <div className="flex items-start gap-3 text-sm">
-                  <MapPin className="w-4 h-4 text-[#77567A] mt-0.5 shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
                   <span className="text-[#B0B3BB]">{r.address}</span>
                 </div>
               )}
               {r.phone && (
                 <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
-                  <Phone className="w-4 h-4 text-[#77567A] shrink-0" />
+                  <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
                   {r.phone}
                 </a>
               )}
               {r.website && (
                 <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
-                  <Globe className="w-4 h-4 text-[#77567A] shrink-0" />
+                  <Globe className="w-4 h-4 text-[#B57F50] shrink-0" />
                   <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
                   <ExternalLink className="w-3 h-3 shrink-0" />
                 </OutboundLink>
               )}
               {r.googleMapsLink && (
-                <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+                <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   <MapPin className="w-4 h-4" />
                   Get Directions
                 </OutboundLink>
               )}
               {r.menuLink && (
-                <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#77567A] text-[#77567A] text-sm font-medium hover:bg-[#77567A]/10 transition-colors">
+                <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
                   <Utensils className="w-4 h-4" />
                   View Menu
                 </OutboundLink>
@@ -382,12 +382,12 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </Link>
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-[#77567A]/20 to-[#1E2026] rounded-xl border border-[#77567A]/30 p-6 space-y-3">
+              <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#1E2026] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
                 <h3 className="font-semibold text-white">Own this restaurant?</h3>
                 <p className="text-[#B0B3BB] text-sm leading-relaxed">
                   Claim your free listing to add photos, update your hours, and reach more ramen lovers.
                 </p>
-                <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+                <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   Claim This Listing
                 </Link>
                 <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
@@ -417,14 +417,14 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       {nearbyRestaurants.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-2">More in {r.city}</p>
+            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">More in {r.city}</p>
             <h2 className="font-serif text-2xl font-bold text-white mb-6">Nearby Ramen Restaurants</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {nearbyRestaurants.map((n) => (
                 <Link
                   key={n.slug}
                   href={`/${city}/${state}/${n.slug}`}
-                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#77567A]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
                   <div className="relative h-36 bg-[#2F323A] overflow-hidden flex-shrink-0">
                     <RestaurantImage
@@ -442,7 +442,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                     )}
                   </div>
                   <div className="p-4 flex flex-col flex-1 gap-1.5">
-                    <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#77567A] transition-colors line-clamp-1">
+                    <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                       {n.name}
                     </h3>
                     {n.rating && (
@@ -462,7 +462,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             <div className="mt-6 text-center">
               <Link
                 href={`/${city}/${state}`}
-                className="inline-flex items-center gap-1.5 text-sm text-[#77567A] hover:text-[#77567A]/80 transition-colors font-medium"
+                className="inline-flex items-center gap-1.5 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors font-medium"
               >
                 See all ramen in {r.city}, {r.stateCode} →
               </Link>

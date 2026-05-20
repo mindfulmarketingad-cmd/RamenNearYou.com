@@ -27,7 +27,7 @@ export default function CateringForm() {
       setForm(prev => ({ ...prev, [key]: e.target.value }))
   }
 
-  const inputClass = 'w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors'
+  const inputClass = 'w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -56,8 +56,8 @@ export default function CateringForm() {
   if (success) {
     return (
       <div className="bg-[#1E2026] rounded-xl border border-white/5 p-8 text-center">
-        <div className="w-14 h-14 rounded-full bg-[#77567A]/20 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-7 h-7 text-[#77567A]" />
+        <div className="w-14 h-14 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="w-7 h-7 text-[#B57F50]" />
         </div>
         <h2 className="font-serif text-2xl font-bold text-white mb-2">Request Received!</h2>
         <p className="text-[#B0B3BB] leading-relaxed">
@@ -136,7 +136,7 @@ export default function CateringForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 rounded-lg bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? 'Sending…' : 'Get Free Quotes'}
       </button>

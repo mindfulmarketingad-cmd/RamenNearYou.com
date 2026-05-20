@@ -54,7 +54,7 @@ function LoginForm() {
           value={email}
           onChange={e => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors"
+          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
         />
       </div>
       <div>
@@ -65,19 +65,19 @@ function LoginForm() {
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors"
+          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
-        className="w-full px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? 'Signing in…' : 'Sign in'}
       </button>
       <p className="text-center text-sm text-[#B0B3BB]">
         Don&apos;t have an account?{' '}
-        <Link href="/auth/signup" className="text-[#77567A] hover:text-[#77567A]/80 transition-colors">
+        <Link href="/auth/signup" className="text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
           Create one
         </Link>
       </p>
@@ -91,7 +91,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-9 h-9 rounded-full bg-[#77567A] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[#B57F50] flex items-center justify-center">
               <UtensilsCrossed className="w-4 h-4 text-white" />
             </div>
             <span className="font-serif text-xl font-bold text-white">RamenNearYou</span>

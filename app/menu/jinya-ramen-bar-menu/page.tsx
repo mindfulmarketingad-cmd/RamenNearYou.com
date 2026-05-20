@@ -292,7 +292,7 @@ export default function JinyaMenuPage() {
         {/* Hero */}
         <section className="px-4 sm:px-6 lg:px-8 pb-10 border-b border-white/5">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Restaurant Menu</p>
+            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Restaurant Menu</p>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
               JINYA Ramen Bar Menu
             </h1>
@@ -300,10 +300,10 @@ export default function JinyaMenuPage() {
               The full <strong className="text-white">JINYA Ramen Bar menu</strong> — covering every ramen bowl, small plate, salad, rice bowl, dessert, and cocktail. Items and availability may vary by location.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-xs text-[#B0B3BB]/60">
-              <Link href="/atlanta/ga/jinya-ramen-bar-buckhead" className="hover:text-[#77567A] transition-colors underline underline-offset-2">
+              <Link href="/atlanta/ga/jinya-ramen-bar-buckhead" className="hover:text-[#B57F50] transition-colors underline underline-offset-2">
                 JINYA Ramen Bar – Buckhead, Atlanta →
               </Link>
-              <Link href="/atlanta/ga/jinya-ramen-bar-poncey-highland" className="hover:text-[#77567A] transition-colors underline underline-offset-2">
+              <Link href="/atlanta/ga/jinya-ramen-bar-poncey-highland" className="hover:text-[#B57F50] transition-colors underline underline-offset-2">
                 JINYA Ramen Bar – Poncey Highland, Atlanta →
               </Link>
             </div>
@@ -346,7 +346,7 @@ export default function JinyaMenuPage() {
                       <div className="flex items-start justify-between gap-4">
                         <p className="font-semibold text-white text-sm leading-snug">{item.name}</p>
                         {item.note && (
-                          <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-[#77567A]/15 text-[#77567A] font-medium whitespace-nowrap">
+                          <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] font-medium whitespace-nowrap">
                             {item.note}
                           </span>
                         )}
@@ -369,13 +369,13 @@ export default function JinyaMenuPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/atlanta/ga/jinya-ramen-bar-buckhead"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
               >
                 JINYA Buckhead →
               </Link>
               <Link
                 href="/atlanta/ga/jinya-ramen-bar-poncey-highland"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#77567A]/15 border border-[#77567A]/30 text-[#b07db5] text-sm font-medium hover:bg-[#77567A]/25 transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50]/15 border border-[#B57F50]/30 text-[#c8934f] text-sm font-medium hover:bg-[#B57F50]/25 transition-colors"
               >
                 JINYA Poncey Highland →
               </Link>

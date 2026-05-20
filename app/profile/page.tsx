@@ -15,7 +15,7 @@ import CitiesSection from './cities-section'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#77567A] transition-colors'
+  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors'
 
 const brothOptions = ['Tonkotsu', 'Miso', 'Shoyu', 'Shio', 'Tsukemen', 'Chicken', 'All of them!']
 
@@ -200,7 +200,7 @@ export default function ProfilePage() {
                       className="w-20 h-20 rounded-full object-cover border-2 border-white/10"
                     />
                   ) : (
-                    <div className="w-20 h-20 rounded-full bg-[#77567A]/20 border-2 border-[#77567A]/30 flex items-center justify-center text-2xl font-bold text-[#77567A]">
+                    <div className="w-20 h-20 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center text-2xl font-bold text-[#B57F50]">
                       {userInitial}
                     </div>
                   )}
@@ -335,7 +335,7 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full px-6 py-3 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {saving ? 'Saving…' : 'Save Profile'}
             </button>
@@ -393,7 +393,7 @@ export default function ProfilePage() {
 
           <section className="mt-8">
             <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              <MapPin className="w-4 h-4 text-[#77567A]" />
+              <MapPin className="w-4 h-4 text-[#B57F50]" />
               Cities You Follow
             </h2>
             <CitiesSection />

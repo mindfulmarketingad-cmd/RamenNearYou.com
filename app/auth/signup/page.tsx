@@ -64,14 +64,14 @@ export default function SignupPage() {
     return (
       <main className="min-h-screen bg-[#2F323A] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
-          <div className="w-16 h-16 rounded-full bg-[#77567A]/20 flex items-center justify-center mx-auto mb-6">
-            <UtensilsCrossed className="w-7 h-7 text-[#77567A]" />
+          <div className="w-16 h-16 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-6">
+            <UtensilsCrossed className="w-7 h-7 text-[#B57F50]" />
           </div>
           <h1 className="font-serif text-3xl font-bold text-white mb-3">Check your email</h1>
           <p className="text-[#B0B3BB] leading-relaxed mb-6">
             We&apos;ve sent a confirmation link to <span className="text-white">{email}</span>. Click it to activate your account.
           </p>
-          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
             Back to sign in
           </Link>
         </div>
@@ -84,7 +84,7 @@ export default function SignupPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-9 h-9 rounded-full bg-[#77567A] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[#B57F50] flex items-center justify-center">
               <UtensilsCrossed className="w-4 h-4 text-white" />
             </div>
             <span className="font-serif text-xl font-bold text-white">RamenNearYou</span>
@@ -107,7 +107,7 @@ export default function SignupPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors"
+                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
               />
               {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
             </div>
@@ -119,7 +119,7 @@ export default function SignupPage() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Minimum 8 characters"
-                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors"
+                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
               />
               {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password}</p>}
             </div>
@@ -131,20 +131,20 @@ export default function SignupPage() {
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
                 placeholder="Re-enter your password"
-                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors"
+                className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
               />
               {errors.confirmPassword && <p className="mt-1 text-xs text-red-400">{errors.confirmPassword}</p>}
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating account…' : 'Create account'}
             </button>
             <p className="text-center text-sm text-[#B0B3BB]">
               Already have an account?{' '}
-              <Link href="/auth/login" className="text-[#77567A] hover:text-[#77567A]/80 transition-colors">
+              <Link href="/auth/login" className="text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
                 Sign in
               </Link>
             </p>

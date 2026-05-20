@@ -30,7 +30,7 @@ export default function SortSelect({ current }: { current: string }) {
         id="sort-select"
         value={current}
         onChange={handleChange}
-        className="bg-[#1E2026] border border-white/10 text-white text-xs rounded-lg px-2.5 py-1.5 outline-none focus:border-[#77567A] transition-colors cursor-pointer"
+        className="bg-[#1E2026] border border-white/10 text-white text-xs rounded-lg px-2.5 py-1.5 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
       >
         {SORT_OPTIONS.map(o => (
           <option key={o.value} value={o.value}>{o.label}</option>

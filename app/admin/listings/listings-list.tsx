@@ -76,9 +76,9 @@ function ListingCard({ listing, onUpdate }: { listing: Listing; onUpdate: (id: s
         {/* Quick info row */}
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#B0B3BB]/70 mb-4">
           {listing.phone && <span>📞 {listing.phone}</span>}
-          {listing.website && <a href={listing.website} target="_blank" rel="noopener noreferrer" className="text-[#77567A] hover:underline">🌐 Website</a>}
+          {listing.website && <a href={listing.website} target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">🌐 Website</a>}
           {listing.owner_name && <span>👤 {listing.owner_name}</span>}
-          {listing.owner_email && <a href={`mailto:${listing.owner_email}`} className="text-[#77567A] hover:underline">✉ {listing.owner_email}</a>}
+          {listing.owner_email && <a href={`mailto:${listing.owner_email}`} className="text-[#B57F50] hover:underline">✉ {listing.owner_email}</a>}
         </div>
 
         {expanded && (
