@@ -6,42 +6,62 @@ interface Props {
   stateCode: string
 }
 
+const PHOTO_COUNT = 4
+
 export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
   return (
-    <div className="relative flex flex-col sm:flex-row bg-[#1E2026] rounded-xl border border-amber-500/25 overflow-hidden shadow-xl shadow-amber-900/10 ring-1 ring-amber-500/10">
+    <div className="relative bg-[#1E2026] rounded-xl border border-amber-500/25 overflow-hidden shadow-xl shadow-amber-900/10 ring-1 ring-amber-500/10">
 
       {/* Glow edge */}
       <div className="absolute inset-0 pointer-events-none rounded-xl bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
 
-      {/* Photo area — styled placeholder */}
-      <div className="relative w-full sm:w-48 shrink-0 h-44 sm:h-auto bg-gradient-to-br from-[#2a1f2e] via-[#1E2026] to-[#1a2420] overflow-hidden">
-        {/* Abstract ramen bowl illustration */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-              <Utensils className="w-10 h-10 text-amber-500/40" />
+      {/* Scrollable photo gallery */}
+      <div className="relative">
+        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+          {Array.from({ length: PHOTO_COUNT }).map((_, i) => (
+            <div
+              key={i}
+              className="relative shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-44 snap-start bg-gradient-to-br from-[#2a1f2e] via-[#1E2026] to-[#1a2420] border-r border-white/5 last:border-r-0 overflow-hidden"
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative">
+                  <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                    <Utensils className="w-7 h-7 text-amber-500/40" />
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-0 opacity-10" style={{
+                backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
+                backgroundSize: '20px 20px',
+              }} />
+              <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white/50 text-[10px] font-medium backdrop-blur-sm">
+                {i + 1} / {PHOTO_COUNT}
+              </span>
             </div>
-            <div className="absolute inset-0 rounded-full animate-ping bg-amber-500/5" />
-          </div>
+          ))}
         </div>
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
-          backgroundSize: '20px 20px',
-        }} />
-        {/* Price badge placeholder */}
-        <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white/40 text-xs font-medium backdrop-blur-sm">
-          $$
-        </span>
+
         {/* Featured badge */}
-        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-xs font-bold shadow-lg shadow-amber-500/30">
+        <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-xs font-bold shadow-lg shadow-amber-500/30 z-10">
           <Crown className="w-3 h-3" />
           Featured
+        </div>
+
+        {/* Price badge */}
+        <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 text-white/40 text-xs font-medium backdrop-blur-sm z-10">
+          $$
+        </span>
+
+        {/* Scroll hint dots */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+          {Array.from({ length: PHOTO_COUNT }).map((_, i) => (
+            <span key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-white' : 'bg-white/30'}`} />
+          ))}
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1 p-5 gap-3 min-w-0">
+      <div className="flex flex-col p-5 gap-3 min-w-0">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <h2 className="font-semibold text-white/60 text-lg leading-snug italic">
@@ -68,11 +88,11 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
         </div>
 
         <p className="text-[#B0B3BB] text-sm leading-relaxed line-clamp-2">
-          This is where your restaurant&apos;s story goes. Featured listings appear at the top of every search in {cityName} — putting your bowls in front of every local ramen lover before they see anyone else.
+          Up to 4 photos of your space, your bowls, and your team — scrollable right here at the top of every search in {cityName}. Put your ramen in front of every local ramen lover before they see anyone else.
         </p>
 
         <div className="flex flex-wrap gap-1.5">
-          {['Top Placement', 'Verified Badge', 'Up to 4 Photos', 'Dine-in', 'Takeout'].map(tag => (
+          {['Top Placement', 'Verified Badge', '4 Photo Gallery', 'Dine-in', 'Takeout'].map(tag => (
             <span key={tag} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#B0B3BB]">
               {tag}
             </span>
