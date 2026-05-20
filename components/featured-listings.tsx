@@ -29,35 +29,7 @@ export default function FeaturedListings() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading || listings.length === 0) {
-    // Show "Get Featured" CTA when no listings yet
-    if (!loading && listings.length === 0) {
-      return (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#2F323A]">
-          <div className="max-w-7xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
-              <Crown className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-amber-400 text-xs font-medium uppercase tracking-widest">Featured Listings</span>
-            </div>
-            <p className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
-              Be the First Featured Ramen Restaurant
-            </p>
-            <p className="text-[#B0B3BB] text-base max-w-xl mx-auto mb-8">
-              Get your ramen restaurant in front of thousands of ramen lovers. Featured listings appear at the top of the homepage.
-            </p>
-            <Link
-              href="/featured/apply"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-[#1E2026] font-semibold rounded-lg text-sm transition-colors"
-            >
-              <Crown className="w-4 h-4" />
-              Apply for a Featured Listing
-            </Link>
-          </div>
-        </section>
-      )
-    }
-    return null
-  }
+  if (loading || listings.length === 0) return null
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#2F323A]">

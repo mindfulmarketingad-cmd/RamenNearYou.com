@@ -346,3 +346,30 @@ ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS tiktok text;
 ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS twitter text;
 ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS favorite_broth text;
 ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS ramen_count int;
+
+-- ─── outbound_clicks ─────────────────────────────────────────
+-- Tracks clicks to external URLs (website, directions, menu, etc.)
+
+CREATE TABLE IF NOT EXISTS public.outbound_clicks (
+  id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  restaurant_slug text NOT NULL,
+  restaurant_name text,
+  destination     text NOT NULL,
+  url             text,
+  created_at      timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS outbound_clicks_slug_idx
+  ON public.outbound_clicks (restaurant_slug);
+
+ALTER TABLE public.outbound_clicks ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'outbound_clicks' AND policyname = 'Anyone can record outbound click'
+  ) THEN
+    CREATE POLICY "Anyone can record outbound click"
+      ON public.outbound_clicks FOR INSERT
+      WITH CHECK (true);
+  END IF;
+END $$;
