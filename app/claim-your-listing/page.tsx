@@ -18,7 +18,7 @@ export default function ClaimYourListingPage() {
             <span className="text-emerald-600 text-xs font-medium uppercase tracking-widest">Free Forever</span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
-            Claim Your Listing
+            Claim Your Free Listing
           </h1>
           <p className="text-[#6B6862] leading-relaxed max-w-md mx-auto">
             Already listed on Ramen Near You? Claim your restaurant to manage your page, update details, and respond to reviews — completely free.
