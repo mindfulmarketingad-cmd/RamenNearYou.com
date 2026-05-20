@@ -14,6 +14,7 @@ import VisitButton from '@/components/visit-button'
 import ReviewSection from '@/components/review-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
+import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -308,25 +309,23 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </a>
               )}
               {r.website && (
-                <a href={r.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
+                <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
                   <Globe className="w-4 h-4 text-[#77567A] shrink-0" />
                   <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
                   <ExternalLink className="w-3 h-3 shrink-0" />
-                </a>
+                </OutboundLink>
               )}
               {r.googleMapsLink && (
-                <a href={r.googleMapsLink} target="_blank" rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+                <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
                   <MapPin className="w-4 h-4" />
                   Get Directions
-                </a>
+                </OutboundLink>
               )}
               {r.menuLink && (
-                <a href={r.menuLink} target="_blank" rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#77567A] text-[#77567A] text-sm font-medium hover:bg-[#77567A]/10 transition-colors">
+                <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#77567A] text-[#77567A] text-sm font-medium hover:bg-[#77567A]/10 transition-colors">
                   <Utensils className="w-4 h-4" />
                   View Menu
-                </a>
+                </OutboundLink>
               )}
             </div>
 

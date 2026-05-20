@@ -39,7 +39,7 @@ const PAID_TIERS = [
       'Priority support',
       'Cancel anytime',
     ],
-    stripeUrl: 'https://buy.stripe.com/fZu6oIbeqbx68QCeK2frW02',
+    stripeUrl: 'https://buy.stripe.com/cNi00k2HUgRqff0gSafrW03',
     highlight: false,
     color: 'border-white/10',
     badgeColor: 'bg-white/5 border-white/10 text-white/60',
