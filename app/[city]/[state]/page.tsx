@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map, Star, Crown } from 'lucide-react'
+import { MapPin, ChevronRight, Map, Star } from 'lucide-react'
 import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
 import CityFollowButton from '@/components/city-follow-button'
+import CityFeaturedCTA from '@/components/city-featured-cta'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -117,30 +118,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       {/* Business owner featured listing CTA */}
       <section className="pt-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent border border-amber-500/30 p-6 sm:p-7">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center">
-                  <Crown className="w-5 h-5 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-amber-400 text-xs font-semibold uppercase tracking-widest mb-1">Own a ramen shop in {cityName}?</p>
-                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-white mb-1">
-                    Get featured at the top of {cityName}&apos;s ramen page
-                  </h2>
-                  <p className="text-[#B0B3BB] text-sm leading-relaxed max-w-2xl">
-                    Reach every local diner searching for ramen in {cityName}, {stateCode}. Featured spots appear above the list with extra photos and a verified badge — starting at $29.99/mo. Or claim your existing listing free.
-                  </p>
-                </div>
-              </div>
-              <Link
-                href={`/featured/apply?city=${encodeURIComponent(cityName)}&state=${stateCode}`}
-                className="shrink-0 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-bold transition-colors whitespace-nowrap"
-              >
-                Get Featured →
-              </Link>
-            </div>
-          </div>
+          <CityFeaturedCTA cityName={cityName} stateCode={stateCode} />
         </div>
       </section>
 
