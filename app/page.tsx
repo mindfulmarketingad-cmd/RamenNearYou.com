@@ -1,6 +1,7 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
+import HomepageFeaturedCTA from '@/components/homepage-featured-cta'
 import BrowseBroth from '@/components/browse-broth'
 import BrothNearMeSection from '@/components/broth-near-me-section'
 import LeadGenBanner from '@/components/lead-gen-banner'
@@ -47,6 +48,7 @@ export default function HomePage() {
         <Navbar />
         <Hero />
         <FeaturedListings />
+        <HomepageFeaturedCTA />
         <BrowseBroth />
 
         <BrothNearMeSection

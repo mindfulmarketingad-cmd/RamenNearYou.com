@@ -26,7 +26,7 @@ export default async function FeaturedApplyPage({
             Put Your Restaurant on the Map
           </h1>
           <p className="text-[#B0B3BB] leading-relaxed max-w-2xl mx-auto">
-            Choose the placement that fits your goals — from local city exposure to full homepage visibility in front of thousands of ramen lovers every month.
+            Claim your existing listing for free, or boost your visibility with a city or homepage featured placement in front of thousands of ramen lovers every month.
           </p>
         </div>
 

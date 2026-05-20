@@ -6,6 +6,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
 import CityFollowButton from '@/components/city-follow-button'
+import CityFeaturedCTA from '@/components/city-featured-cta'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -111,6 +112,13 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             </Link>
             <CityFollowButton city={city} state={state} />
           </div>
+        </div>
+      </section>
+
+      {/* Business owner featured listing CTA */}
+      <section className="pt-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <CityFeaturedCTA cityName={cityName} stateCode={stateCode} />
         </div>
       </section>
 
