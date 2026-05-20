@@ -14,7 +14,7 @@ interface ClaimFormProps {
 }
 
 function fieldClass(hasValue: boolean) {
-  return `w-full px-4 py-3 bg-[#2F323A] border rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#77567A] transition-colors ${
+  return `w-full px-4 py-3 bg-[#2F323A] border rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors ${
     hasValue ? 'border-white/10' : 'border-white/10'
   }`
 }
@@ -110,8 +110,8 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
   if (success) {
     return (
       <div className="bg-[#1E2026] rounded-xl border border-white/5 p-8 text-center">
-        <div className="w-14 h-14 rounded-full bg-[#77567A]/20 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-7 h-7 text-[#77567A]" />
+        <div className="w-14 h-14 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="w-7 h-7 text-[#B57F50]" />
         </div>
         <h2 className="font-serif text-2xl font-bold text-white mb-2">Claim Submitted!</h2>
         <p className="text-[#B0B3BB] leading-relaxed">
@@ -120,7 +120,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
         </p>
         <Link
           href={`/${restaurant.citySlug}/${restaurant.stateSlug}/${restaurant.slug}`}
-          className="inline-block mt-6 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors"
+          className="inline-block mt-6 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors"
         >
           Back to Listing
         </Link>
@@ -139,7 +139,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 1: Restaurant details */}
       <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
-          <MapPin className="w-4 h-4 text-[#77567A]" />
+          <MapPin className="w-4 h-4 text-[#B57F50]" />
           <h2 className="font-serif text-lg font-bold text-white">Restaurant Details</h2>
         </div>
         <p className="text-[#B0B3BB] text-xs leading-relaxed">
@@ -206,7 +206,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 2: Hours */}
       <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-3">
         <div className="flex items-center gap-2 mb-1">
-          <Clock className="w-4 h-4 text-[#77567A]" />
+          <Clock className="w-4 h-4 text-[#B57F50]" />
           <h2 className="font-serif text-lg font-bold text-white">Business Hours</h2>
         </div>
         <p className="text-[#B0B3BB] text-xs">Use &ldquo;Closed&rdquo; for days you&apos;re not open. Format: 11:00 AM – 10:00 PM</p>
@@ -219,7 +219,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
                 value={hours[day]}
                 onChange={(e) => setHours((prev) => ({ ...prev, [day]: e.target.value }))}
                 placeholder="e.g. 11:00 AM – 10:00 PM or Closed"
-                className="flex-1 px-3 py-2 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/40 text-sm outline-none focus:border-[#77567A] transition-colors"
+                className="flex-1 px-3 py-2 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/40 text-sm outline-none focus:border-[#B57F50] transition-colors"
               />
             </div>
           ))}
@@ -229,7 +229,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 3: Contact info */}
       <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
-          <User className="w-4 h-4 text-[#77567A]" />
+          <User className="w-4 h-4 text-[#B57F50]" />
           <h2 className="font-serif text-lg font-bold text-white">Your Information</h2>
         </div>
 
@@ -260,7 +260,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
           <select
             value={contact.role}
             onChange={(e) => setContact((prev) => ({ ...prev, role: e.target.value }))}
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#77567A] transition-colors appearance-none cursor-pointer"
+            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors appearance-none cursor-pointer"
           >
             {ROLES.map((r) => (
               <option key={r} value={r}>{r}</option>
@@ -279,7 +279,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
             className="sr-only"
           />
           <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-            confirmed ? 'bg-[#77567A] border-[#77567A]' : 'border-white/20 group-hover:border-[#77567A]/50'
+            confirmed ? 'bg-[#B57F50] border-[#B57F50]' : 'border-white/20 group-hover:border-[#B57F50]/50'
           }`}>
             {confirmed && (
               <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -297,7 +297,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       <button
         type="submit"
         disabled={loading || !confirmed}
-        className="w-full px-4 py-3 rounded-lg bg-[#77567A] text-white text-sm font-semibold hover:bg-[#8a6a8d] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {loading ? 'Submitting claim…' : 'Submit Claim'}
       </button>

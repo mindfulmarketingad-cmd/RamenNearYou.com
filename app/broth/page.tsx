@@ -78,7 +78,7 @@ export default function BrothPage() {
 
       {/* Header */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
+        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4">
           Find Ramen by Broth Type
         </h1>
@@ -123,7 +123,7 @@ export default function BrothPage() {
             onClick={() => setSelected('All')}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
               selected === 'All'
-                ? 'bg-[#77567A] border-[#77567A] text-white'
+                ? 'bg-[#B57F50] border-[#B57F50] text-white'
                 : 'border-white/10 text-[#B0B3BB] hover:border-white/30 hover:text-white'
             }`}
           >
@@ -135,7 +135,7 @@ export default function BrothPage() {
               onClick={() => setSelected(selected === type ? 'All' : type)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                 selected === type
-                  ? 'bg-[#77567A] border-[#77567A] text-white'
+                  ? 'bg-[#B57F50] border-[#B57F50] text-white'
                   : 'border-white/10 text-[#B0B3BB] hover:border-white/30 hover:text-white'
               }`}
             >
@@ -162,7 +162,7 @@ export default function BrothPage() {
               <p className="text-[#B0B3BB] text-lg mb-2">No restaurants found for this broth type yet.</p>
               <p className="text-[#B0B3BB]/50 text-sm">
                 Own a restaurant with this broth?{' '}
-                <Link href="/list" className="text-[#77567A] hover:underline">List it here.</Link>
+                <Link href="/list" className="text-[#B57F50] hover:underline">List it here.</Link>
               </p>
             </div>
           ) : (
@@ -171,7 +171,7 @@ export default function BrothPage() {
                 <Link
                   key={r.slug}
                   href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#77567A]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
                   {/* Photo */}
                   <div className="relative h-40 bg-[#2F323A] overflow-hidden flex-shrink-0">
@@ -185,7 +185,7 @@ export default function BrothPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Utensils className="w-10 h-10 text-[#77567A]/20" />
+                        <Utensils className="w-10 h-10 text-[#B57F50]/20" />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
@@ -194,11 +194,11 @@ export default function BrothPage() {
                   {/* Content */}
                   <div className="p-4 flex flex-col flex-1 gap-2">
                     <div>
-                      <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#77567A] transition-colors line-clamp-1">
+                      <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                         {r.name}
                       </h3>
                       <p className="flex items-center gap-1 text-xs text-[#B0B3BB] mt-0.5">
-                        <MapPin className="w-3 h-3 text-[#77567A] flex-shrink-0" />
+                        <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
                         {r.city}, {r.stateCode}
                       </p>
                     </div>

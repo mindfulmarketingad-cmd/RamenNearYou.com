@@ -79,7 +79,7 @@ export default function FeaturedListings() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Utensils className="w-10 h-10 text-[#77567A]/30" />
+                      <Utensils className="w-10 h-10 text-[#B57F50]/30" />
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026]/80 to-transparent" />
@@ -103,7 +103,7 @@ export default function FeaturedListings() {
                     {listing.restaurant_name}
                   </h3>
                   <p className="flex items-center gap-1 text-[#B0B3BB] text-xs mb-2">
-                    <MapPin className="w-3 h-3 text-[#77567A] shrink-0" />
+                    <MapPin className="w-3 h-3 text-[#B57F50] shrink-0" />
                     {listing.city}, {listing.state_code}
                   </p>
                   {listing.description && (
@@ -116,14 +116,14 @@ export default function FeaturedListings() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-[#77567A]/15 hover:bg-[#77567A]/25 text-[#b07db5] text-xs font-medium rounded-lg transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-medium rounded-lg transition-colors"
                     >
                       Visit Website <ChevronRight className="w-3 h-3" />
                     </a>
                   ) : (
                     <Link
                       href={href}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-[#77567A]/15 hover:bg-[#77567A]/25 text-[#b07db5] text-xs font-medium rounded-lg transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-medium rounded-lg transition-colors"
                     >
                       View Listing <ChevronRight className="w-3 h-3" />
                     </Link>

@@ -10,28 +10,28 @@
   --card-foreground: #ffffff;
   --popover: #1E2026;
   --popover-foreground: #ffffff;
-  --primary: #77567A;
+  --primary: #B57F50;
   --primary-foreground: #ffffff;
   --secondary: #1E2026;
   --secondary-foreground: #ffffff;
   --muted: #1E2026;
   --muted-foreground: #B0B3BB;
-  --accent: #77567A;
+  --accent: #B57F50;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: rgba(255,255,255,0.08);
   --input: rgba(255,255,255,0.08);
-  --ring: #77567A;
+  --ring: #B57F50;
   --radius: 0.625rem;
   --sidebar: #1E2026;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #77567A;
+  --sidebar-primary: #B57F50;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #2F323A;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255,255,255,0.08);
-  --sidebar-ring: #77567A;
+  --sidebar-ring: #B57F50;
 }
 
 @theme inline {
@@ -71,7 +71,7 @@
 
   /* Brand colors */
   --color-jet-black: #2F323A;
-  --color-dusty-lavender: #77567A;
+  --color-copper: #B57F50;
   --color-card-dark: #1E2026;
   --color-secondary-text: #B0B3BB;
 }
@@ -89,12 +89,6 @@
 }
 
 @layer utilities {
-  .noise-texture {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-  }
-
   .fade-up {
     opacity: 0;
     transform: translateY(24px);

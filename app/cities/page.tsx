@@ -95,7 +95,7 @@ export default function CitiesPage() {
             <ChevronRight className="w-3 h-3" />
             <span className="text-white">Browse Cities</span>
           </nav>
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Find Ramen Near You</h1>
           <p className="text-[#B0B3BB] text-lg">
             {totalRestaurants.toLocaleString()} restaurants across {totalCities} cities in {liveStates} states
@@ -115,7 +115,7 @@ export default function CitiesPage() {
                 {/* State heading */}
                 <div className="flex items-center gap-3 mb-4">
                   <h2 className="font-serif text-xl font-bold text-white">{state.name}</h2>
-                  <span className="text-[#77567A] text-xs font-semibold uppercase tracking-widest">{state.code}</span>
+                  <span className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest">{state.code}</span>
                   {!hasData && (
                     <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#B0B3BB] text-xs">
                       Coming soon
@@ -132,8 +132,8 @@ export default function CitiesPage() {
                           className="flex items-center justify-between px-4 py-3 bg-[#1E2026] hover:bg-[#252830] transition-colors group"
                         >
                           <span className="flex items-center gap-2">
-                            <MapPin className="w-3.5 h-3.5 text-[#77567A] shrink-0" />
-                            <span className="text-white text-sm font-medium group-hover:text-[#b07db5] transition-colors">
+                            <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                            <span className="text-white text-sm font-medium group-hover:text-[#c8934f] transition-colors">
                               {city.city}, {city.stateCode}
                             </span>
                           </span>

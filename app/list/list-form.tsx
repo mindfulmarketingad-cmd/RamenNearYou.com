@@ -65,7 +65,7 @@ export default function ListForm() {
         </p>
         <Link
           href="/"
-          className="inline-block mt-6 px-5 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#8a6a8d] transition-colors"
+          className="inline-block mt-6 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
         >
           Back to Home
         </Link>
@@ -87,37 +87,37 @@ export default function ListForm() {
         )}
 
         <div>
-          <label className="block text-sm text-[#B0B3BB] mb-1.5">Restaurant Name <span className="text-[#77567A]">*</span></label>
+          <label className="block text-sm text-[#B0B3BB] mb-1.5">Restaurant Name <span className="text-[#B57F50]">*</span></label>
           <input
             name="name" required value={form.name} onChange={handleChange}
             placeholder="e.g. Hakata Ramen House"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-[#B0B3BB] mb-1.5">Street Address <span className="text-[#77567A]">*</span></label>
+          <label className="block text-sm text-[#B0B3BB] mb-1.5">Street Address <span className="text-[#B57F50]">*</span></label>
           <input
             name="address" required value={form.address} onChange={handleChange}
             placeholder="e.g. 123 Peachtree St NE"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
           />
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div className="col-span-2 sm:col-span-1">
-            <label className="block text-sm text-[#B0B3BB] mb-1.5">City <span className="text-[#77567A]">*</span></label>
+            <label className="block text-sm text-[#B0B3BB] mb-1.5">City <span className="text-[#B57F50]">*</span></label>
             <input
               name="city" required value={form.city} onChange={handleChange}
               placeholder="Atlanta"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
           <div>
-            <label className="block text-sm text-[#B0B3BB] mb-1.5">State <span className="text-[#77567A]">*</span></label>
+            <label className="block text-sm text-[#B0B3BB] mb-1.5">State <span className="text-[#B57F50]">*</span></label>
             <select
               name="state" required value={form.state} onChange={handleChange}
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#77567A] transition-colors appearance-none"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors appearance-none"
             >
               {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
@@ -127,7 +127,7 @@ export default function ListForm() {
             <input
               name="zip" value={form.zip} onChange={handleChange}
               placeholder="30309"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function ListForm() {
             <input
               name="phone" type="tel" value={form.phone} onChange={handleChange}
               placeholder="+1 404-555-0100"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
           <div>
@@ -146,7 +146,7 @@ export default function ListForm() {
             <input
               name="website" type="url" value={form.website} onChange={handleChange}
               placeholder="https://yourrestaurant.com"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function ListForm() {
           <input
             name="hours" value={form.hours} onChange={handleChange}
             placeholder="e.g. Mon–Fri 11am–9pm, Sat–Sun 12pm–10pm"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
           />
         </div>
 
@@ -170,7 +170,7 @@ export default function ListForm() {
                 onClick={() => toggleBroth(type)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                   brothTypes.includes(type)
-                    ? 'bg-[#77567A] border-[#77567A] text-white'
+                    ? 'bg-[#B57F50] border-[#B57F50] text-white'
                     : 'border-white/10 text-[#B0B3BB] hover:border-white/30 hover:text-white'
                 }`}
               >
@@ -185,7 +185,7 @@ export default function ListForm() {
           <textarea
             name="description" rows={4} value={form.description} onChange={handleChange}
             placeholder="Tell ramen lovers what makes your restaurant special — broth style, signature dishes, atmosphere…"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors resize-none"
+            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors resize-none"
           />
         </div>
       </div>
@@ -200,7 +200,7 @@ export default function ListForm() {
             <input
               name="ownerName" value={form.ownerName} onChange={handleChange}
               placeholder="Jane Smith"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
           <div>
@@ -208,7 +208,7 @@ export default function ListForm() {
             <input
               name="ownerEmail" type="email" value={form.ownerEmail} onChange={handleChange}
               placeholder="owner@yourrestaurant.com"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#77567A] transition-colors"
+              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/50 text-sm outline-none focus:border-[#B57F50] transition-colors"
             />
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function ListForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full py-3.5 rounded-lg bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'submitting' ? 'Submitting…' : 'Submit for Review'}
       </button>

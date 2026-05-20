@@ -144,7 +144,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Reason for approval or rejection…"
-                className="w-full px-3 py-2 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/40 text-sm outline-none focus:border-[#77567A] transition-colors resize-none"
+                className="w-full px-3 py-2 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/40 text-sm outline-none focus:border-[#B57F50] transition-colors resize-none"
               />
             </div>
           )}
@@ -206,7 +206,7 @@ export default function ClaimsList({ initialClaims }: { initialClaims: Claim[] }
             onClick={() => setFilter(f)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
               filter === f
-                ? 'bg-[#77567A] text-white'
+                ? 'bg-[#B57F50] text-white'
                 : 'bg-[#2F323A] text-[#B0B3BB] hover:text-white'
             }`}
           >

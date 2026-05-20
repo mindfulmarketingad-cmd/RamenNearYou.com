@@ -12,14 +12,14 @@ const PIN_HTML = `
   ">
     <div style="
       width:36px;height:36px;
-      background:#77567A;
+      background:#B57F50;
       border:3px solid white;
       border-radius:50% 50% 50% 0;
       transform:rotate(-45deg);
       box-shadow:0 3px 10px rgba(0,0,0,0.35);
       display:flex;align-items:center;justify-content:center;
     ">
-      <span style="transform:rotate(45deg);font-size:15px;line-height:1;margin-top:1px">🍜</span>
+      <div style="width:9px;height:9px;border-radius:50%;background:white;transform:rotate(45deg)"></div>
     </div>
   </div>
 `
@@ -99,7 +99,7 @@ export default function RestaurantMiniMap({ lat, lng, name, address, directionsU
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#77567A] text-white text-xs font-semibold hover:bg-[#8a6a8d] transition-colors whitespace-nowrap"
+          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors whitespace-nowrap"
         >
           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden>
             <path d="M21.71 11.29l-9-9a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42l9 9a1 1 0 0 0 1.42 0l9-9a1 1 0 0 0 0-1.42zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>

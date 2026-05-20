@@ -27,7 +27,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
       <Navbar />
       <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <p className="text-[#77567A] text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
           <h1 className="font-serif text-4xl font-bold text-white mb-2">Claim {r.name}</h1>
           <p className="text-[#B0B3BB] mb-8">{r.address}</p>
           {existingClaim ? (

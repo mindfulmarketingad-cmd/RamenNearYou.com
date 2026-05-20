@@ -112,7 +112,7 @@ export default function HomepageFeaturedCTA() {
                   <span className="text-white/50 text-sm">5.0 (your reviews)</span>
                   <span className="text-white/30">·</span>
                   <span className="flex items-center gap-1 text-[#B0B3BB]/60 text-sm">
-                    <MapPin className="w-3.5 h-3.5 text-[#77567A]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
                     Your City, ST
                   </span>
                 </div>

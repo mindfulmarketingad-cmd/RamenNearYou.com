@@ -53,7 +53,7 @@ export default function CookieConsent() {
           <strong className="text-white">Google Analytics</strong> and{' '}
           <strong className="text-white">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
           use of cookies.{' '}
-          <Link href="/privacy-policy" className="text-[#77567A] hover:underline">
+          <Link href="/privacy-policy" className="text-[#B57F50] hover:underline">
             Privacy Policy
           </Link>
         </p>
@@ -66,7 +66,7 @@ export default function CookieConsent() {
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 rounded-lg bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-medium transition-colors"
+            className="px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors"
           >
             Accept All
           </button>

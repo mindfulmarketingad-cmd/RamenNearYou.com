@@ -101,7 +101,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
         </div>
         <button
           onClick={handleWriteReview}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-[#77567A]/15 hover:bg-[#77567A]/25 text-[#b07db5] transition-colors border border-[#77567A]/20"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] transition-colors border border-[#B57F50]/20"
         >
           {userId ? (
             <><PenLine className="w-3.5 h-3.5" /> Write a Review</>
@@ -119,7 +119,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
           <p className="text-[#B0B3BB] text-sm mb-3">No reviews yet. Be the first!</p>
           <button
             onClick={handleWriteReview}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-medium rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-lg transition-colors"
           >
             <PenLine className="w-4 h-4" />
             Write a Review

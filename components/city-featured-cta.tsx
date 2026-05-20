@@ -83,7 +83,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
         </div>
 
         <div className="flex items-center gap-1.5 text-[#B0B3BB]/50 text-xs">
-          <MapPin className="w-3.5 h-3.5 shrink-0 text-[#77567A]" />
+          <MapPin className="w-3.5 h-3.5 shrink-0 text-[#B57F50]" />
           <span>{cityName}, {stateCode}</span>
         </div>
 

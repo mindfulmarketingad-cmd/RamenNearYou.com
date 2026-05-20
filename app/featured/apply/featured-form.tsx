@@ -60,9 +60,6 @@ const FEATURES: { label: string; values: [FeatureValue, FeatureValue, FeatureVal
   { label: 'City page top placement',        values: [false, true, true] },
   { label: 'Photos showcased',               values: [false, 'Up to 4', 'Up to 8'] },
   { label: 'Homepage placement',             values: [false, false, true] },
-  { label: 'Nationwide search top results',  values: [false, false, true] },
-  { label: 'Priority support',               values: [false, false, true] },
-  { label: 'Cancel anytime',                 values: [false, true, true] },
 ]
 
 function FeatureCell({ value, checkColor }: { value: FeatureValue; checkColor: string }) {
@@ -137,22 +134,19 @@ export default function FeaturedTiers() {
           return (
             <div
               key={tier.id}
-              className={`${tier.headerBg} p-5 border-b border-white/10 text-center relative ${!isLast ? 'border-r border-white/10' : ''} ${tier.highlight ? 'ring-inset ring-1 ring-amber-500/30' : ''}`}
+              className={`${tier.headerBg} px-5 pb-5 border-b border-white/10 text-center ${tier.badge ? 'pt-3' : 'pt-5'} ${!isLast ? 'border-r border-white/10' : ''} ${tier.highlight ? 'ring-inset ring-1 ring-amber-500/30' : ''}`}
             >
-              {tier.highlight && (
-                <div className="absolute -top-px left-0 right-0 h-0.5 bg-amber-500 rounded-t-sm" />
-              )}
-              <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-medium mb-3 ${tier.badgeColor}`}>
-                <Icon className={`w-3 h-3 ${tier.iconColor}`} />
-                {tier.label}
-              </div>
               {tier.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <div className="flex justify-center mb-3">
                   <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
                     {tier.badge}
                   </span>
                 </div>
               )}
+              <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-medium mb-3 ${tier.badgeColor}`}>
+                <Icon className={`w-3 h-3 ${tier.iconColor}`} />
+                {tier.label}
+              </div>
               <div className="flex items-baseline justify-center gap-1">
                 <span className="text-2xl font-bold text-white">{tier.price}</span>
               </div>

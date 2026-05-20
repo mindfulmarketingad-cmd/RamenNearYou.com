@@ -17,7 +17,7 @@ const userIcon = L.divIcon({
   className: '',
   html: `<div style="
     width:18px;height:18px;border-radius:50%;
-    background:#77567A;border:3px solid white;
+    background:#B57F50;border:3px solid white;
     box-shadow:0 2px 8px rgba(0,0,0,0.4);
   "></div>`,
   iconSize: [18, 18],
@@ -28,11 +28,11 @@ const restaurantIcon = L.divIcon({
   className: '',
   html: `<div style="
     width:32px;height:32px;border-radius:50% 50% 50% 0;
-    background:#77567A;border:2px solid white;
+    background:#B57F50;border:2px solid white;
     transform:rotate(-45deg);
     box-shadow:0 2px 6px rgba(0,0,0,0.35);
     display:flex;align-items:center;justify-content:center;
-  "><span style="transform:rotate(45deg);font-size:14px;line-height:1">🍜</span></div>`,
+  "><div style="width:8px;height:8px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -34],
@@ -42,11 +42,11 @@ const restaurantIconActive = L.divIcon({
   className: '',
   html: `<div style="
     width:36px;height:36px;border-radius:50% 50% 50% 0;
-    background:#b07db5;border:3px solid white;
+    background:#c8934f;border:3px solid white;
     transform:rotate(-45deg);
-    box-shadow:0 2px 10px rgba(119,86,122,0.7);
+    box-shadow:0 2px 10px rgba(181,127,80,0.7);
     display:flex;align-items:center;justify-content:center;
-  "><span style="transform:rotate(45deg);font-size:15px;line-height:1">🍜</span></div>`,
+  "><div style="width:9px;height:9px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
   iconSize: [36, 36],
   iconAnchor: [18, 36],
   popupAnchor: [0, -38],
@@ -95,8 +95,8 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     // 20-mile radius circle (~32km)
     L.circle([userLat, userLng], {
       radius: 32187,
-      color: '#77567A',
-      fillColor: '#77567A',
+      color: '#B57F50',
+      fillColor: '#B57F50',
       fillOpacity: 0.05,
       weight: 1.5,
       dashArray: '6 4',
@@ -128,7 +128,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
           <div style="min-width:160px">
             <strong style="font-size:13px">${r.name}</strong><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
-            ${r.rating ? `<br/><span style="font-size:11px">⭐ ${r.rating.toFixed(1)} (${r.reviewCount.toLocaleString()})</span>` : ''}
+            ${r.rating ? `<br/><span style="font-size:11px;color:#B57F50">${r.rating.toFixed(1)} (${r.reviewCount.toLocaleString()})</span>` : ''}
           </div>
         `)
         .on('click', () => onSelect(r.slug))

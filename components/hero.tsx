@@ -53,7 +53,7 @@ export default function Hero() {
   return (
     <section className="relative bg-white pb-16 sm:pb-20 pt-28">
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <p className="text-[#77567A] text-xs font-semibold uppercase tracking-widest mb-4">
+        <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
         </p>
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight text-balance mb-5">
@@ -96,7 +96,7 @@ export default function Hero() {
                         onClick={() => { setBrothType(type); setDropdownOpen(false) }}
                         className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                           brothType === type
-                            ? 'bg-[#77567A]/20 text-[#77567A]'
+                            ? 'bg-[#B57F50]/20 text-[#B57F50]'
                             : 'text-[#B0B3BB] hover:bg-white/5 hover:text-white'
                         }`}
                       >
@@ -122,7 +122,7 @@ export default function Hero() {
             {/* Submit button */}
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 px-6 py-4 bg-[#77567A] hover:bg-[#8a6a8d] text-white text-sm font-semibold transition-colors whitespace-nowrap"
+              className="flex items-center justify-center gap-2 px-6 py-4 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors whitespace-nowrap"
             >
               <Search className="w-4 h-4" />
               Find Ramen
@@ -133,7 +133,7 @@ export default function Hero() {
           <div className="mt-3 flex justify-center">
             <Link
               href="/searchmap"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#77567A]/10 hover:bg-[#77567A]/20 border border-[#77567A]/25 text-[#77567A] text-sm font-medium transition-all duration-200"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#B57F50]/10 hover:bg-[#B57F50]/20 border border-[#B57F50]/25 text-[#B57F50] text-sm font-medium transition-all duration-200"
             >
               <Navigation className="w-4 h-4" />
               Find Ramen Near Me
@@ -150,8 +150,8 @@ export default function Hero() {
                     onClick={() => handleSelect(r)}
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-left border-b border-white/5 last:border-0"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-[#77567A]/15 flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-[#77567A]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#B57F50]/15 flex items-center justify-center shrink-0">
+                      <MapPin className="w-4 h-4 text-[#B57F50]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium truncate">{r.name}</p>
@@ -169,12 +169,12 @@ export default function Hero() {
                           </span>
                         )}
                         {r.amenities.dineIn && (
-                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                          <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#B57F50] text-[10px] font-medium shrink-0">
                             Dine-in
                           </span>
                         )}
                         {r.amenities.delivery && (
-                          <span className="px-1.5 py-0.5 rounded bg-[#77567A]/15 text-[#77567A] text-[10px] font-medium shrink-0">
+                          <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#B57F50] text-[10px] font-medium shrink-0">
                             Delivery
                           </span>
                         )}
@@ -188,7 +188,7 @@ export default function Hero() {
                   <button
                     type="button"
                     onClick={handleSubmit as unknown as React.MouseEventHandler}
-                    className="w-full px-4 py-3 text-center text-[#77567A] text-xs font-medium hover:bg-white/5 transition-colors"
+                    className="w-full px-4 py-3 text-center text-[#B57F50] text-xs font-medium hover:bg-white/5 transition-colors"
                   >
                     See all results for &ldquo;{query}&rdquo; →
                   </button>
