@@ -56,7 +56,7 @@ export default function Hero() {
         <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
         </p>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#F5F4F0] leading-tight text-balance mb-5">
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight text-balance mb-5">
           Ramen Near Me
         </h1>
         <p className="text-[#4A4D55] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
