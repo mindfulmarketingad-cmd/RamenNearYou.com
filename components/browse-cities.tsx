@@ -37,10 +37,10 @@ export default function BrowseCities() {
   }, [])
 
   return (
-    <section id="cities" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#2F323A] noise-texture" ref={sectionRef}>
+    <section id="cities" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff] noise-texture" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-<h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
+<h2 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] text-balance">
             Find Ramen By City
           </h2>
         </div>
@@ -56,11 +56,11 @@ export default function BrowseCities() {
                 className={`fade-up group relative rounded-xl overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 ${
                   featured
                     ? 'border-[#B57F50] shadow-md shadow-[#B57F50]/10'
-                    : 'border-white/5 hover:border-[#B57F50]/50'
+                    : 'border-black/5 hover:border-[#B57F50]/50'
                 }`}
               >
                 {/* Photo */}
-                <div className="relative h-36 sm:h-40 bg-[#1E2026] overflow-hidden">
+                <div className="relative h-36 sm:h-40 bg-[#F5F4F0] overflow-hidden">
                   {photo ? (
                     <Image
                       src={photo}
@@ -70,23 +70,23 @@ export default function BrowseCities() {
                       unoptimized
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#1E2026]">
+                    <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
                       <MapPin className="w-8 h-8 text-[#B57F50]/20" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1c22] via-[#1a1c22]/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#ECEAE4] via-[#ECEAE4]/30 to-transparent" />
                   {featured && (
-                    <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#B57F50]/90 text-white text-xs font-medium backdrop-blur-sm">
+                    <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#B57F50]/90 text-[#1E2026] text-xs font-medium backdrop-blur-sm">
                       Featured
                     </span>
                   )}
                 </div>
 
                 {/* Info */}
-                <div className="bg-[#1E2026] px-4 py-3">
-                  <p className="font-semibold text-white text-sm leading-tight">{city.city}</p>
+                <div className="bg-[#F5F4F0] px-4 py-3">
+                  <p className="font-semibold text-[#1E2026] text-sm leading-tight">{city.city}</p>
                   <div className="flex items-center justify-between mt-0.5">
-                    <p className="text-[#B0B3BB] text-xs">{city.stateCode}</p>
+                    <p className="text-[#6B6862] text-xs">{city.stateCode}</p>
                     <p className="text-[#B57F50] text-xs font-medium">{city.count} spots</p>
                   </div>
                 </div>

@@ -17,13 +17,13 @@ export default async function ListPage() {
   if (!user) redirect('/auth/login?redirectTo=/list')
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
       <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Free Listing</p>
-          <h1 className="font-serif text-4xl font-bold text-white mb-2">Submit Your Restaurant</h1>
-          <p className="text-[#B0B3BB] mb-8 leading-relaxed">
+          <h1 className="font-serif text-4xl font-bold text-[#1E2026] mb-2">Submit Your Restaurant</h1>
+          <p className="text-[#6B6862] mb-8 leading-relaxed">
             Fill out the form below to submit your ramen restaurant. We review every submission before it goes live — usually within 2–3 business days.
           </p>
           <ListForm />

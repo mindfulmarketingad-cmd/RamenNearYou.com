@@ -77,30 +77,30 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   }
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Navbar />
 
       {/* Hero banner */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-b border-white/5">
+      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
         <div className="max-w-7xl mx-auto">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-white">{cityName}, {stateCode}</span>
+            <span className="text-[#1E2026]">{cityName}, {stateCode}</span>
           </nav>
 
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
             Ramen In {cityName}, {stateCode}
           </h1>
-          <p className="text-[#B0B3BB] text-lg mb-4">
+          <p className="text-[#6B6862] text-lg mb-4">
             Browse Ramen Restaurants In {cityName}, {stateCode}.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-[#B0B3BB]/60 text-sm">
+            <span className="text-[#6B6862]/60 text-sm">
               {restaurants.length} restaurant{restaurants.length !== 1 ? 's' : ''} · {stateName}
             </span>
             <Link
@@ -125,7 +125,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       {/* Listings */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <p className="text-white font-semibold text-sm mb-6">
+          <p className="text-[#1E2026] font-semibold text-sm mb-6">
             {restaurants.length} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {cityName}, {stateCode}
           </p>
           <CityRestaurantGrid restaurants={restaurants} city={city} state={state} verifiedSlugs={verifiedSlugs} />
@@ -134,27 +134,27 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
       {/* Nearby cities */}
       {nearbyCities.length > 0 && (
-        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
           <div className="max-w-7xl mx-auto">
             <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
-            <p className="text-white font-semibold text-lg mb-6">Ramen near {cityName}</p>
+            <p className="text-[#1E2026] font-semibold text-lg mb-6">Ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
-                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-white/5 hover:border-[#B57F50]/40 transition-colors group bg-[#1E2026]">
+                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
                   <Link
                     href={`/${c.citySlug}/${c.stateSlug}`}
                     className="flex items-center gap-2 px-4 py-2.5"
                   >
                     <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
                     <span>
-                      <span className="text-white text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
-                      <span className="text-[#B0B3BB]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
+                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
                   <Link
                     href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
                     title="View on map"
-                    className="flex items-center px-3 border-l border-white/5 text-[#B0B3BB]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
+                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
                   >
                     <Map className="w-3.5 h-3.5" />
                   </Link>
@@ -166,19 +166,19 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       )}
 
       {/* Ambassador CTA */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
         <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#B57F50]/30 via-[#1E2026] to-[#1E2026] border border-[#B57F50]/30 p-8 sm:p-10">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#B57F50]/30 via-[#F5F4F0] to-[#F5F4F0] border border-[#B57F50]/30 p-8 sm:p-10">
             <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                   <span className="text-amber-400 text-xs font-semibold uppercase tracking-widest">City Ambassador Program</span>
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2">
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
                   Be the voice of ramen in {cityName}
                 </h2>
-                <p className="text-[#B0B3BB] text-sm leading-relaxed max-w-lg">
+                <p className="text-[#6B6862] text-sm leading-relaxed max-w-lg">
                   Help your city&apos;s ramen lovers find the best bowls. As a RamenNearYou ambassador you&apos;ll write reviews, spotlight new spots, and grow the community.
                 </p>
               </div>

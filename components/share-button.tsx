@@ -36,7 +36,7 @@ export default function ShareButton({ name, url }: Props) {
     <div className="relative">
       <button
         onClick={nativeShare}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-[#B0B3BB] hover:border-white/25 hover:text-white transition-all text-sm font-medium"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-black/8 bg-black/5 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026] transition-all text-sm font-medium"
       >
         <Share2 className="w-4 h-4" />
         Share
@@ -45,14 +45,14 @@ export default function ShareButton({ name, url }: Props) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full mt-2 z-50 w-52 bg-[#1E2026] border border-white/10 rounded-xl shadow-2xl overflow-hidden">
-            <p className="px-4 py-2.5 text-xs font-medium text-[#B0B3BB] border-b border-white/5">Share this restaurant</p>
+          <div className="absolute right-0 top-full mt-2 z-50 w-52 bg-[#F5F4F0] border border-black/8 rounded-xl shadow-2xl overflow-hidden">
+            <p className="px-4 py-2.5 text-xs font-medium text-[#6B6862] border-b border-black/5">Share this restaurant</p>
             <a
               href={twitterUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-sm text-[#B0B3BB] hover:bg-white/5 hover:text-white transition-colors"
+              className="flex items-center gap-3 px-4 py-3 text-sm text-[#6B6862] hover:bg-black/5 hover:text-[#1E2026] transition-colors"
             >
               <Twitter className="w-4 h-4" />
               Share on X / Twitter
@@ -62,14 +62,14 @@ export default function ShareButton({ name, url }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-sm text-[#B0B3BB] hover:bg-white/5 hover:text-white transition-colors border-t border-white/5"
+              className="flex items-center gap-3 px-4 py-3 text-sm text-[#6B6862] hover:bg-black/5 hover:text-[#1E2026] transition-colors border-t border-black/5"
             >
               <Facebook className="w-4 h-4" />
               Share on Facebook
             </a>
             <button
               onClick={copyLink}
-              className="flex w-full items-center gap-3 px-4 py-3 text-sm text-[#B0B3BB] hover:bg-white/5 hover:text-white transition-colors border-t border-white/5"
+              className="flex w-full items-center gap-3 px-4 py-3 text-sm text-[#6B6862] hover:bg-black/5 hover:text-[#1E2026] transition-colors border-t border-black/5"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Link2 className="w-4 h-4" />}
               {copied ? 'Link copied!' : 'Copy link'}

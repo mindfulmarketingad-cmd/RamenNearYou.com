@@ -99,67 +99,67 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
         </div>
       )}
 
-      <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-4">
-        <h2 className="font-serif text-lg font-bold text-white">Listing Content</h2>
+      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
+        <h2 className="font-serif text-lg font-bold text-[#1E2026]">Listing Content</h2>
 
         <div>
-          <label className="block text-xs text-[#B0B3BB] mb-1.5 uppercase tracking-wide">Description</label>
+          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Description</label>
           <textarea
             rows={4}
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="Tell customers what makes your ramen special…"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
+            className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs text-[#B0B3BB] mb-1.5 uppercase tracking-wide">Phone</label>
+            <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Phone</label>
             <input
               type="tel"
               value={phone}
               onChange={e => setPhone(e.target.value)}
               placeholder="+1 555-123-4567"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+              className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B0B3BB] mb-1.5 uppercase tracking-wide">Website</label>
+            <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Website</label>
             <input
               type="url"
               value={website}
               onChange={e => setWebsite(e.target.value)}
               placeholder="https://yourrestaurant.com"
-              className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+              className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs text-[#B0B3BB] mb-1.5 uppercase tracking-wide">Menu Link</label>
+          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Menu Link</label>
           <input
             type="url"
             value={menuLink}
             onChange={e => setMenuLink(e.target.value)}
             placeholder="https://yourrestaurant.com/menu"
-            className="w-full px-4 py-3 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+            className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
           />
         </div>
       </div>
 
-      <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-3">
-        <h2 className="font-serif text-lg font-bold text-white">Business Hours</h2>
-        <p className="text-[#B0B3BB] text-xs">Format: <span className="text-white">11AM-10PM</span> or use <span className="text-white">Closed</span>. Separate multiple shifts with <span className="text-white">·</span></p>
+      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-3">
+        <h2 className="font-serif text-lg font-bold text-[#1E2026]">Business Hours</h2>
+        <p className="text-[#6B6862] text-xs">Format: <span className="text-[#1E2026]">11AM-10PM</span> or use <span className="text-[#1E2026]">Closed</span>. Separate multiple shifts with <span className="text-[#1E2026]">·</span></p>
         <div className="space-y-2 pt-1">
           {DAY_ORDER.map(day => (
             <div key={day} className="flex items-center gap-3">
-              <span className="text-[#B0B3BB] text-sm w-24 flex-shrink-0">{day}</span>
+              <span className="text-[#6B6862] text-sm w-24 flex-shrink-0">{day}</span>
               <input
                 value={hours[day]}
                 onChange={e => setHours(prev => ({ ...prev, [day]: e.target.value }))}
                 placeholder="11AM-10PM"
-                className="flex-1 px-3 py-2 bg-[#2F323A] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/40 text-sm outline-none focus:border-sky-500 transition-colors"
+                className="flex-1 px-3 py-2 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/40 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
           ))}

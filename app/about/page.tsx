@@ -12,17 +12,17 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-b border-white/5">
+      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Our Story</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-5">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-5">
             The Ramen Directory Built for Ramen Lovers
           </h1>
-          <p className="text-[#B0B3BB] text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl mx-auto">
             RamenNearYou is the most comprehensive directory of ramen restaurants in the United States —
             helping food lovers find their perfect bowl, one city at a time.
           </p>
@@ -35,15 +35,15 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Our Mission</p>
-              <h2 className="font-serif text-3xl font-bold text-white mb-4">
+              <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">
                 Every city has great ramen. We help you find it.
               </h2>
-              <p className="text-[#B0B3BB] leading-relaxed mb-4">
+              <p className="text-[#6B6862] leading-relaxed mb-4">
                 Ramen is more than a meal — it&apos;s an experience. Whether you&apos;re chasing a perfectly rich tonkotsu
                 broth, a spicy tantanmen that hits every note, or a vegan bowl that surprises you at every sip,
                 the right bowl is out there.
               </p>
-              <p className="text-[#B0B3BB] leading-relaxed">
+              <p className="text-[#6B6862] leading-relaxed">
                 We built RamenNearYou to cut through the noise. No generic food blogs. No outdated lists.
                 Just a clean, focused directory of real ramen restaurants — organized by city, broth type,
                 amenities, and ratings — so you can find what you&apos;re looking for fast.
@@ -56,10 +56,10 @@ export default function AboutPage() {
                 { icon: Star, label: 'Reviews Indexed', value: '50K+' },
                 { icon: Phone, label: 'Catering Requests', value: 'Growing' },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="bg-[#1E2026] rounded-xl border border-white/5 p-5 text-center">
+                <div key={label} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5 text-center">
                   <Icon className="w-6 h-6 text-[#B57F50] mx-auto mb-2" />
-                  <p className="text-white font-bold text-xl font-serif">{value}</p>
-                  <p className="text-[#B0B3BB] text-xs mt-1">{label}</p>
+                  <p className="text-[#1E2026] font-bold text-xl font-serif">{value}</p>
+                  <p className="text-[#6B6862] text-xs mt-1">{label}</p>
                 </div>
               ))}
             </div>
@@ -68,10 +68,10 @@ export default function AboutPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-y border-white/5">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-y border-black/5">
         <div className="max-w-4xl mx-auto">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3 text-center">How It Works</p>
-          <h2 className="font-serif text-3xl font-bold text-white mb-10 text-center">
+          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-10 text-center">
             Finding great ramen near you is simple
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -94,8 +94,8 @@ export default function AboutPage() {
             ].map(({ step, title, description }) => (
               <div key={step} className="flex flex-col gap-3">
                 <span className="text-[#B57F50] font-serif text-4xl font-bold opacity-60">{step}</span>
-                <h3 className="text-white font-semibold text-lg">{title}</h3>
-                <p className="text-[#B0B3BB] text-sm leading-relaxed">{description}</p>
+                <h3 className="text-[#1E2026] font-semibold text-lg">{title}</h3>
+                <p className="text-[#6B6862] text-sm leading-relaxed">{description}</p>
               </div>
             ))}
           </div>
@@ -106,13 +106,13 @@ export default function AboutPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Data &amp; Accuracy</p>
-          <h2 className="font-serif text-3xl font-bold text-white mb-4">Our Data</h2>
-          <p className="text-[#B0B3BB] leading-relaxed mb-4">
+          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">Our Data</h2>
+          <p className="text-[#6B6862] leading-relaxed mb-4">
             Restaurant information on RamenNearYou is compiled from publicly available sources and verified
             owner submissions. We strive to keep listings accurate, but hours, menus, and contact details
             can change. We always recommend confirming directly with the restaurant before your visit.
           </p>
-          <p className="text-[#B0B3BB] leading-relaxed">
+          <p className="text-[#6B6862] leading-relaxed">
             Restaurant owners can{' '}
             <Link href="/cities" className="text-[#B57F50] hover:underline">claim their listing</Link>
             {' '}to update their information, add photos, and keep their page current at no cost.
@@ -121,10 +121,10 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-t border-white/5">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-3xl font-bold text-white mb-4">Ready to find your next bowl?</h2>
-          <p className="text-[#B0B3BB] mb-8">Browse ramen restaurants near you across the United States.</p>
+          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">Ready to find your next bowl?</h2>
+          <p className="text-[#6B6862] mb-8">Browse ramen restaurants near you across the United States.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/cities"
@@ -134,7 +134,7 @@ export default function AboutPage() {
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-lg border border-white/10 hover:border-[#B57F50]/40 text-[#B0B3BB] hover:text-white font-medium text-sm transition-colors"
+              className="px-6 py-3 rounded-lg border border-black/8 hover:border-[#B57F50]/40 text-[#6B6862] hover:text-[#1E2026] font-medium text-sm transition-colors"
             >
               Contact Us
             </Link>

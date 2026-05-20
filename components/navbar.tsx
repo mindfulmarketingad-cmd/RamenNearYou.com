@@ -43,12 +43,12 @@ export default function Navbar() {
   const userInitial = user?.email ? user.email[0].toUpperCase() : null
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#1E2026] shadow-lg border-b border-white/5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F5F4F0] shadow-lg border-b border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-18">
           <Link href="/" className="flex items-center gap-2 group">
             <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
-            <span className="font-serif text-lg font-bold text-white tracking-tight group-hover:text-[#B57F50] transition-colors">
+            <span className="font-serif text-lg font-bold text-[#1E2026] tracking-tight group-hover:text-[#B57F50] transition-colors">
               RamenNearYou
             </span>
           </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
                 className={
                   (link as { highlight?: boolean }).highlight
                     ? 'text-sm text-amber-400 hover:text-amber-300 font-medium transition-colors'
-                    : 'text-sm text-[#B0B3BB] hover:text-white transition-colors'
+                    : 'text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors'
                 }
               >
                 {link.label}
@@ -70,7 +70,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-[#B0B3BB] hover:text-white hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
               aria-label="Search"
             >
               <Search className="w-4 h-4" />
@@ -80,7 +80,7 @@ export default function Navbar() {
               <div className="flex items-center gap-3 ml-2">
                 <Link
                   href="/saved"
-                  className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                  className="text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
                 >
                   Saved
                 </Link>
@@ -98,7 +98,7 @@ export default function Navbar() {
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                    className="text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
                   >
                     Sign Out
                   </button>
@@ -114,7 +114,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/auth/login"
-                  className="text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                  className="text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
                 >
                   Sign In
                 </Link>
@@ -128,21 +128,21 @@ export default function Navbar() {
           >
             <Phone className="w-3.5 h-3.5 text-[#B57F50]" />
             <div className="text-right">
-              <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
-              <p className="text-xs font-semibold text-white group-hover:text-[#B57F50] transition-colors leading-none">(341) 203-4429</p>
+              <p className="text-[10px] text-[#6B6862]/70 leading-none mb-0.5">Catering Hotline</p>
+              <p className="text-xs font-semibold text-[#1E2026] group-hover:text-[#B57F50] transition-colors leading-none">(341) 203-4429</p>
             </div>
           </a>
 
           <div className="lg:hidden flex items-center gap-1">
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-[#B0B3BB] hover:text-white hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
             </button>
             <button
-              className="text-white p-2"
+              className="text-[#1E2026] p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -153,15 +153,15 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden bg-[#2F323A] border-t border-white/10 px-4 pb-4">
+        <div className="lg:hidden bg-[#ffffff] border-t border-black/8 px-4 pb-4">
           <a
             href="tel:+13412034429"
             className="flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#B57F50]/10 border border-[#B57F50]/20"
           >
             <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
             <div>
-              <p className="text-[10px] text-[#B0B3BB]/70 leading-none mb-0.5">Catering Hotline</p>
-              <p className="text-sm font-semibold text-white leading-none">(341) 203-4429</p>
+              <p className="text-[10px] text-[#6B6862]/70 leading-none mb-0.5">Catering Hotline</p>
+              <p className="text-sm font-semibold text-[#1E2026] leading-none">(341) 203-4429</p>
             </div>
           </a>
           <nav className="flex flex-col gap-1 pt-2">
@@ -169,7 +169,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="py-2 text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
@@ -186,13 +186,13 @@ export default function Navbar() {
               <div className="mt-2 flex flex-col gap-1">
                 <Link
                   href="/saved"
-                  className="py-2 text-sm text-[#B0B3BB] hover:text-white transition-colors"
+                  className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   Saved Restaurants
                 </Link>
-                <div className="flex items-center justify-between py-2 border-t border-white/5">
-                  <span className="text-sm text-[#B0B3BB]">{user.email}</span>
+                <div className="flex items-center justify-between py-2 border-t border-black/5">
+                  <span className="text-sm text-[#6B6862]">{user.email}</span>
                   <button
                     onClick={handleSignOut}
                     className="text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors"
@@ -204,7 +204,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="mt-1 py-2 text-sm text-[#B0B3BB] hover:text-white transition-colors text-center"
+                className="mt-1 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors text-center"
                 onClick={() => setMobileOpen(false)}
               >
                 Sign In

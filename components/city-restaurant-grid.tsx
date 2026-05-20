@@ -26,7 +26,7 @@ function StarRating({ rating }: { rating: number | null }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-white/20'}`}
+          className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-[#1E2026]/20'}`}
         />
       ))}
     </span>
@@ -40,7 +40,7 @@ function Badge({ children, variant }: { children: React.ReactNode; variant: Badg
     broth:   'bg-indigo-500/20 border border-indigo-400/40 text-indigo-300',
     spicy:   'bg-red-500/20 border border-red-400/40 text-red-300',
     vegan:   'bg-emerald-500/20 border border-emerald-400/40 text-emerald-300',
-    amenity: 'bg-white/5 border border-white/10 text-[#B0B3BB]',
+    amenity: 'bg-black/5 border border-black/8 text-[#6B6862]',
   }
   return (
     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[variant]}`}>
@@ -135,8 +135,8 @@ function FilterPill({
       onClick={onClick}
       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all whitespace-nowrap ${
         active
-          ? 'bg-[#B57F50] border-[#B57F50] text-white'
-          : 'bg-white/5 border-white/10 text-[#B0B3BB] hover:border-white/25 hover:text-white'
+          ? 'bg-[#B57F50] border-[#B57F50] text-[#1E2026]'
+          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026]'
       }`}
     >
       {children}
@@ -264,7 +264,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="bg-[#1E2026] border border-white/10 text-white text-sm rounded-lg px-3 py-1.5 outline-none cursor-pointer"
+            className="bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm rounded-lg px-3 py-1.5 outline-none cursor-pointer"
           >
             <option value="default">Default (by rating)</option>
             <option value="alpha">Alphabetical</option>
@@ -279,7 +279,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
               activeFilterCount > 0
                 ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#B57F50]'
-                : 'bg-white/5 border-white/10 text-[#B0B3BB] hover:border-white/25 hover:text-white'
+                : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026]'
             }`}
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -290,10 +290,10 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
         {/* Expanded filter panel */}
         {showFilters && (
-          <div className="bg-[#1E2026] border border-white/5 rounded-xl p-4 space-y-4">
+          <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-4 space-y-4">
             {/* Broth */}
             <div>
-              <p className="text-[#B0B3BB] text-xs font-medium mb-2">Broth Type</p>
+              <p className="text-[#6B6862] text-xs font-medium mb-2">Broth Type</p>
               <div className="flex flex-wrap gap-2">
                 {BROTH_KEYWORDS.map(({ label }) => (
                   <FilterPill key={label} active={broth === label} onClick={() => setBroth(broth === label ? null : label)}>
@@ -305,7 +305,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
             {/* Price */}
             <div>
-              <p className="text-[#B0B3BB] text-xs font-medium mb-2">Price Range</p>
+              <p className="text-[#6B6862] text-xs font-medium mb-2">Price Range</p>
               <div className="flex flex-wrap gap-2">
                 {PRICE_OPTIONS.map((p) => (
                   <FilterPill key={p} active={prices.includes(p)} onClick={() => togglePrice(p)}>
@@ -317,7 +317,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
             {/* Min Rating */}
             <div>
-              <p className="text-[#B0B3BB] text-xs font-medium mb-2">Minimum Rating</p>
+              <p className="text-[#6B6862] text-xs font-medium mb-2">Minimum Rating</p>
               <div className="flex flex-wrap gap-2">
                 {RATING_OPTIONS.map(({ label, value }) => (
                   <FilterPill key={label} active={minRating === value} onClick={() => setMinRating(minRating === value ? null : value)}>
@@ -329,7 +329,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
             {/* Features */}
             <div>
-              <p className="text-[#B0B3BB] text-xs font-medium mb-2">Features</p>
+              <p className="text-[#6B6862] text-xs font-medium mb-2">Features</p>
               <div className="flex flex-wrap gap-2">
                 {FEATURE_OPTIONS.map(({ label, key }) => (
                   <FilterPill key={key} active={features.includes(key)} onClick={() => toggleFeature(key)}>
@@ -343,7 +343,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             {activeFilterCount > 0 && (
               <button
                 onClick={clearAll}
-                className="flex items-center gap-1 text-xs text-[#B0B3BB] hover:text-white transition-colors"
+                className="flex items-center gap-1 text-xs text-[#6B6862] hover:text-[#1E2026] transition-colors"
               >
                 <X className="w-3.5 h-3.5" /> Clear all filters
               </button>
@@ -354,7 +354,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
       {/* Results count */}
       {activeFilterCount > 0 && (
-        <p className="text-[#B0B3BB] text-sm mb-4">
+        <p className="text-[#6B6862] text-sm mb-4">
           {filtered.length} restaurant{filtered.length !== 1 ? 's' : ''} match your filters
           {filtered.length === 0 && (
             <button onClick={clearAll} className="ml-2 text-[#B57F50] hover:underline">Clear filters</button>
@@ -372,10 +372,10 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             <Link
               key={r.slug}
               href={`/${city}/${state}/${r.slug}`}
-              className="group flex flex-col sm:flex-row bg-[#1E2026] rounded-xl border border-white/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:shadow-lg hover:shadow-black/30 overflow-hidden"
+              className="group flex flex-col sm:flex-row bg-[#F5F4F0] rounded-xl border border-black/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:shadow-lg hover:shadow-black/30 overflow-hidden"
             >
               {/* Photo */}
-              <div className="relative w-full sm:w-48 shrink-0 h-44 sm:h-auto bg-[#2F323A]">
+              <div className="relative w-full sm:w-48 shrink-0 h-44 sm:h-auto bg-[#ffffff]">
                 <RestaurantImage
                   src={r.photo}
                   alt={r.name}
@@ -384,7 +384,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   sizes="(max-width: 640px) 100vw, 192px"
                 />
                 {r.priceRange && (
-                  <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur-sm">
+                  <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-[#1E2026] text-xs font-medium backdrop-blur-sm">
                     {r.priceRange}
                   </span>
                 )}
@@ -405,7 +405,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
               <div className="flex flex-col flex-1 p-5 gap-3 min-w-0">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h2 className="font-semibold text-white text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
+                    <h2 className="font-semibold text-[#1E2026] text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
                       {r.name}
                     </h2>
                     {isVerified && (
@@ -418,18 +418,18 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   {(r.rating || r.reviewCount > 0) && (
                     <div className="flex items-center gap-2">
                       <StarRating rating={r.rating} />
-                      <span className="text-white/50 text-xs">{r.rating?.toFixed(1)} ({r.reviewCount.toLocaleString()} reviews)</span>
+                      <span className="text-[#1E2026]/50 text-xs">{r.rating?.toFixed(1)} ({r.reviewCount.toLocaleString()} reviews)</span>
                     </div>
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[#B0B3BB] text-xs">
+                <div className="flex items-center gap-1.5 text-[#6B6862] text-xs">
                   <MapPin className="w-3.5 h-3.5 shrink-0 text-[#B57F50]" />
                   <span>{r.address}</span>
                 </div>
 
                 {r.description && (
-                  <p className="text-[#B0B3BB] text-sm leading-relaxed line-clamp-2">{r.description}</p>
+                  <p className="text-[#6B6862] text-sm leading-relaxed line-clamp-2">{r.description}</p>
                 )}
 
                 <div className="flex flex-wrap gap-1.5">
@@ -446,8 +446,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   {r.amenities.parking && <Badge variant="amenity">Parking</Badge>}
                 </div>
 
-                <div className="mt-auto pt-2 border-t border-white/5 flex items-center justify-between gap-3 flex-wrap">
-                  <div className="flex items-center gap-3 text-xs text-[#B0B3BB]/60">
+                <div className="mt-auto pt-2 border-t border-black/5 flex items-center justify-between gap-3 flex-wrap">
+                  <div className="flex items-center gap-3 text-xs text-[#6B6862]/60">
                     {r.phone && (
                       <span className="flex items-center gap-1">
                         <Phone className="w-3 h-3" />

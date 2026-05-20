@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors'
+  'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors'
 
 export default function AmbassadorPage() {
   const [user, setUser] = useState<User | null | undefined>(undefined)
@@ -56,26 +56,26 @@ export default function AmbassadorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#2F323A] flex flex-col">
+    <div className="min-h-screen bg-[#ffffff] flex flex-col">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-4">
               Become a City Ambassador
             </h1>
-            <p className="text-[#B0B3BB] text-base leading-relaxed">
+            <p className="text-[#6B6862] text-base leading-relaxed">
               Represent your city&apos;s ramen scene. Help us surface the best bowls, write reviews,
               and grow the RamenNearYou community.
             </p>
           </div>
 
           {user === undefined ? (
-            <div className="text-center text-[#B0B3BB] text-sm py-12">Loading&hellip;</div>
+            <div className="text-center text-[#6B6862] text-sm py-12">Loading&hellip;</div>
           ) : user === null ? (
-            <div className="bg-[#1E2026] border border-white/10 rounded-xl p-8 text-center">
-              <p className="text-[#B0B3BB] mb-4">You need to be signed in to apply.</p>
+            <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-8 text-center">
+              <p className="text-[#6B6862] mb-4">You need to be signed in to apply.</p>
               <Link
                 href="/auth/login?redirectTo=/ambassador"
                 className="inline-block px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
@@ -84,25 +84,25 @@ export default function AmbassadorPage() {
               </Link>
             </div>
           ) : submitted ? (
-            <div className="bg-[#1E2026] border border-[#B57F50]/30 rounded-xl p-8 text-center">
+            <div className="bg-[#F5F4F0] border border-[#B57F50]/30 rounded-xl p-8 text-center">
               <div className="w-12 h-12 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-[#B57F50]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="font-serif text-xl font-bold text-white mb-2">Application received!</h2>
-              <p className="text-[#B0B3BB] text-sm">
+              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-2">Application received!</h2>
+              <p className="text-[#6B6862] text-sm">
                 We&apos;ll review it and get back to you within 3&ndash;5 business days.
               </p>
             </div>
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="bg-[#1E2026] border border-white/10 rounded-xl p-6 sm:p-8 space-y-5"
+              className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6 sm:p-8 space-y-5"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-sm font-medium">Full Name</label>
+                  <label className="text-[#1E2026] text-sm font-medium">Full Name</label>
                   <input
                     type="text"
                     required
@@ -113,7 +113,7 @@ export default function AmbassadorPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-sm font-medium">Email</label>
+                  <label className="text-[#1E2026] text-sm font-medium">Email</label>
                   <input
                     type="email"
                     required
@@ -127,7 +127,7 @@ export default function AmbassadorPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-sm font-medium">Your City</label>
+                  <label className="text-[#1E2026] text-sm font-medium">Your City</label>
                   <input
                     type="text"
                     required
@@ -138,12 +138,12 @@ export default function AmbassadorPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white text-sm font-medium">
+                  <label className="text-[#1E2026] text-sm font-medium">
                     Instagram Handle{' '}
-                    <span className="text-[#B0B3BB] font-normal">(optional)</span>
+                    <span className="text-[#6B6862] font-normal">(optional)</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B0B3BB] text-sm select-none">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">
                       @
                     </span>
                     <input
@@ -158,7 +158,7 @@ export default function AmbassadorPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">
+                <label className="text-[#1E2026] text-sm font-medium">
                   Why do you want to be an ambassador?
                 </label>
                 <textarea
@@ -172,7 +172,7 @@ export default function AmbassadorPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Describe your ramen experience</label>
+                <label className="text-[#1E2026] text-sm font-medium">Describe your ramen experience</label>
                 <textarea
                   required
                   rows={4}

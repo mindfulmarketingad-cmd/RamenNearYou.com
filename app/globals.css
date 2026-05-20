@@ -4,33 +4,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #2F323A;
-  --foreground: #ffffff;
-  --card: #1E2026;
-  --card-foreground: #ffffff;
-  --popover: #1E2026;
-  --popover-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #1E2026;
+  --card: #F5F4F0;
+  --card-foreground: #1E2026;
+  --popover: #F5F4F0;
+  --popover-foreground: #1E2026;
   --primary: #B57F50;
   --primary-foreground: #ffffff;
-  --secondary: #1E2026;
-  --secondary-foreground: #ffffff;
-  --muted: #1E2026;
-  --muted-foreground: #B0B3BB;
+  --secondary: #F5F4F0;
+  --secondary-foreground: #1E2026;
+  --muted: #F5F4F0;
+  --muted-foreground: #6B6862;
   --accent: #B57F50;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: rgba(255,255,255,0.08);
-  --input: rgba(255,255,255,0.08);
+  --border: rgba(0,0,0,0.08);
+  --input: rgba(0,0,0,0.08);
   --ring: #B57F50;
   --radius: 0.625rem;
-  --sidebar: #1E2026;
-  --sidebar-foreground: #ffffff;
+  --sidebar: #F5F4F0;
+  --sidebar-foreground: #1E2026;
   --sidebar-primary: #B57F50;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2F323A;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255,255,255,0.08);
+  --sidebar-accent: #ffffff;
+  --sidebar-accent-foreground: #1E2026;
+  --sidebar-border: rgba(0,0,0,0.08);
   --sidebar-ring: #B57F50;
 }
 
@@ -70,10 +70,9 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Brand colors */
-  --color-jet-black: #2F323A;
   --color-copper: #B57F50;
-  --color-card-dark: #1E2026;
-  --color-secondary-text: #B0B3BB;
+  --color-card-light: #F5F4F0;
+  --color-secondary-text: #6B6862;
 }
 
 @layer base {
@@ -111,7 +110,7 @@
 
 /* Blog prose styles */
 .prose-ramen {
-  color: #B0B3BB;
+  color: #4A4640;
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -122,14 +121,14 @@
   font-family: var(--font-serif), 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1E2026;
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }
 .prose-ramen h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #1E2026;
   margin-top: 1.75rem;
   margin-bottom: 0.5rem;
 }
@@ -143,10 +142,10 @@
   margin-bottom: 0.4rem;
 }
 .prose-ramen strong {
-  color: #ffffff;
+  color: #1E2026;
   font-weight: 600;
 }
 .prose-ramen em {
-  color: #d4c5d6;
+  color: #6B6862;
   font-style: italic;
 }

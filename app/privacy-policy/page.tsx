@@ -12,19 +12,19 @@ export default function PrivacyPolicyPage() {
   const lastUpdated = 'May 19, 2026'
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Privacy Policy</h1>
-          <p className="text-[#B0B3BB] text-sm mb-12">Last updated: {lastUpdated}</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Privacy Policy</h1>
+          <p className="text-[#6B6862] text-sm mb-12">Last updated: {lastUpdated}</p>
 
-          <div className="prose prose-invert max-w-none space-y-10 text-[#B0B3BB] leading-relaxed">
+          <div className="prose prose-invert max-w-none space-y-10 text-[#6B6862] leading-relaxed">
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">1. Introduction</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">1. Introduction</h2>
               <p>
                 RamenNearYou (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the website{' '}
                 <a href="https://www.ramennearyou.com" className="text-[#B57F50] hover:underline">
@@ -37,25 +37,25 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">2. Information We Collect</h2>
-              <h3 className="text-white text-base font-medium mt-4 mb-2">Information You Provide</h3>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">2. Information We Collect</h2>
+              <h3 className="text-[#1E2026] text-base font-medium mt-4 mb-2">Information You Provide</h3>
               <ul className="list-disc list-inside space-y-1">
-                <li><strong className="text-white">Contact form:</strong> name, email address, and message when you submit our contact form.</li>
-                <li><strong className="text-white">Account registration:</strong> email address and password when you create an account.</li>
-                <li><strong className="text-white">Restaurant listings:</strong> business name, address, phone, and other details when you submit or claim a restaurant listing.</li>
-                <li><strong className="text-white">Catering inquiries:</strong> contact details and event information submitted through our catering form.</li>
+                <li><strong className="text-[#1E2026]">Contact form:</strong> name, email address, and message when you submit our contact form.</li>
+                <li><strong className="text-[#1E2026]">Account registration:</strong> email address and password when you create an account.</li>
+                <li><strong className="text-[#1E2026]">Restaurant listings:</strong> business name, address, phone, and other details when you submit or claim a restaurant listing.</li>
+                <li><strong className="text-[#1E2026]">Catering inquiries:</strong> contact details and event information submitted through our catering form.</li>
               </ul>
 
-              <h3 className="text-white text-base font-medium mt-4 mb-2">Information Collected Automatically</h3>
+              <h3 className="text-[#1E2026] text-base font-medium mt-4 mb-2">Information Collected Automatically</h3>
               <ul className="list-disc list-inside space-y-1">
-                <li><strong className="text-white">Log data:</strong> IP address, browser type and version, pages visited, time and date of visits, time spent on pages, and referring URL.</li>
-                <li><strong className="text-white">Device data:</strong> device type, operating system, and screen resolution.</li>
-                <li><strong className="text-white">Cookies and similar technologies:</strong> see Section 4 below for full details.</li>
+                <li><strong className="text-[#1E2026]">Log data:</strong> IP address, browser type and version, pages visited, time and date of visits, time spent on pages, and referring URL.</li>
+                <li><strong className="text-[#1E2026]">Device data:</strong> device type, operating system, and screen resolution.</li>
+                <li><strong className="text-[#1E2026]">Cookies and similar technologies:</strong> see Section 4 below for full details.</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">3. How We Use Your Information</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">3. How We Use Your Information</h2>
               <ul className="list-disc list-inside space-y-1">
                 <li>Respond to contact inquiries and catering requests.</li>
                 <li>Provide, operate, and improve the restaurant directory.</li>
@@ -69,23 +69,23 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">4. Cookies &amp; Tracking Technologies</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">4. Cookies &amp; Tracking Technologies</h2>
               <p className="mb-3">
                 We use cookies and similar tracking technologies to operate the Site and serve relevant advertisements.
                 A cookie is a small file stored on your device. You can instruct your browser to refuse all cookies or
                 to indicate when a cookie is being sent, but some features of the Site may not function properly without them.
               </p>
 
-              <h3 className="text-white text-base font-medium mt-4 mb-2">Types of Cookies We Use</h3>
+              <h3 className="text-[#1E2026] text-base font-medium mt-4 mb-2">Types of Cookies We Use</h3>
               <div className="space-y-3">
                 <div>
-                  <p className="text-white text-sm font-medium">Essential / Session Cookies</p>
+                  <p className="text-[#1E2026] text-sm font-medium">Essential / Session Cookies</p>
                   <p className="text-sm">Required for authentication and core site functionality (e.g., keeping you logged in). Set by our authentication provider, Supabase.</p>
                 </div>
                 <div>
-                  <p className="text-white text-sm font-medium">Analytics Cookies</p>
+                  <p className="text-[#1E2026] text-sm font-medium">Analytics Cookies</p>
                   <p className="text-sm">
-                    We use <strong className="text-white">Google Analytics</strong> (GA4) to understand how visitors interact with our Site.
+                    We use <strong className="text-[#1E2026]">Google Analytics</strong> (GA4) to understand how visitors interact with our Site.
                     Google Analytics sets cookies that collect information such as the number of visitors, pages visited, and traffic sources.
                     This information helps us improve the Site. Google&apos;s use of this data is governed by the{' '}
                     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
@@ -99,9 +99,9 @@ export default function PrivacyPolicyPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-white text-sm font-medium">Advertising Cookies</p>
+                  <p className="text-[#1E2026] text-sm font-medium">Advertising Cookies</p>
                   <p className="text-sm">
-                    We use <strong className="text-white">Google AdSense</strong> to display advertisements on our Site.
+                    We use <strong className="text-[#1E2026]">Google AdSense</strong> to display advertisements on our Site.
                     Google AdSense and its partners use cookies (including the DoubleClick cookie) to serve ads based on
                     your prior visits to this website or other websites. These cookies allow Google and its partners to
                     serve ads based on your interests. You can opt out of personalized advertising by visiting{' '}
@@ -123,27 +123,27 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">5. Third-Party Services</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">5. Third-Party Services</h2>
               <p className="mb-3">We share information with the following third-party service providers as necessary to operate our Site:</p>
               <div className="space-y-2">
                 <div className="flex gap-3">
-                  <span className="text-white font-medium min-w-[140px]">Google Analytics</span>
+                  <span className="text-[#1E2026] font-medium min-w-[140px]">Google Analytics</span>
                   <span>Site analytics and traffic measurement. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="text-white font-medium min-w-[140px]">Google AdSense</span>
+                  <span className="text-[#1E2026] font-medium min-w-[140px]">Google AdSense</span>
                   <span>Display advertising. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="text-white font-medium min-w-[140px]">Supabase</span>
+                  <span className="text-[#1E2026] font-medium min-w-[140px]">Supabase</span>
                   <span>Authentication and database. <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="text-white font-medium min-w-[140px]">Stripe</span>
+                  <span className="text-[#1E2026] font-medium min-w-[140px]">Stripe</span>
                   <span>Payment processing for featured listings. <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="text-white font-medium min-w-[140px]">Vercel</span>
+                  <span className="text-[#1E2026] font-medium min-w-[140px]">Vercel</span>
                   <span>Website hosting and infrastructure. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">6. Data Retention</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">6. Data Retention</h2>
               <p>
                 We retain personal data for as long as necessary to provide our services and comply with legal
                 obligations. Contact form submissions are retained for up to 2 years. Account data is retained
@@ -162,17 +162,17 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">7. Your Rights</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">7. Your Rights</h2>
               <p className="mb-3">
                 Depending on your location, you may have the following rights regarding your personal data:
               </p>
               <ul className="list-disc list-inside space-y-1">
-                <li><strong className="text-white">Access:</strong> request a copy of the personal data we hold about you.</li>
-                <li><strong className="text-white">Correction:</strong> request that we correct inaccurate or incomplete data.</li>
-                <li><strong className="text-white">Deletion:</strong> request deletion of your personal data (&ldquo;right to be forgotten&rdquo;).</li>
-                <li><strong className="text-white">Objection:</strong> object to our processing of your data for direct marketing or analytics.</li>
-                <li><strong className="text-white">Portability:</strong> receive your data in a structured, machine-readable format.</li>
-                <li><strong className="text-white">Opt-out of personalized ads:</strong> visit <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Google Ads Settings</a>.</li>
+                <li><strong className="text-[#1E2026]">Access:</strong> request a copy of the personal data we hold about you.</li>
+                <li><strong className="text-[#1E2026]">Correction:</strong> request that we correct inaccurate or incomplete data.</li>
+                <li><strong className="text-[#1E2026]">Deletion:</strong> request deletion of your personal data (&ldquo;right to be forgotten&rdquo;).</li>
+                <li><strong className="text-[#1E2026]">Objection:</strong> object to our processing of your data for direct marketing or analytics.</li>
+                <li><strong className="text-[#1E2026]">Portability:</strong> receive your data in a structured, machine-readable format.</li>
+                <li><strong className="text-[#1E2026]">Opt-out of personalized ads:</strong> visit <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Google Ads Settings</a>.</li>
               </ul>
               <p className="mt-3">
                 To exercise any of these rights, contact us at{' '}
@@ -184,7 +184,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">8. Children&apos;s Privacy</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">8. Children&apos;s Privacy</h2>
               <p>
                 Our Site is not directed to children under the age of 13. We do not knowingly collect personal
                 information from children under 13. If you believe we have inadvertently collected such information,
@@ -193,7 +193,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">9. Security</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">9. Security</h2>
               <p>
                 We implement industry-standard security measures to protect your personal information, including
                 SSL/TLS encryption for data in transit, hashed passwords, and access controls. However, no method
@@ -202,7 +202,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">10. Changes to This Policy</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">10. Changes to This Policy</h2>
               <p>
                 We may update this Privacy Policy from time to time. We will notify you of any material changes
                 by updating the &ldquo;Last updated&rdquo; date at the top of this page. Your continued use of the Site after
@@ -211,12 +211,12 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">11. Contact Us</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">11. Contact Us</h2>
               <p>
                 If you have questions or concerns about this Privacy Policy, please contact us:
               </p>
-              <div className="mt-3 p-4 bg-[#1E2026] rounded-xl border border-white/5 text-sm">
-                <p className="text-white font-medium">RamenNearYou</p>
+              <div className="mt-3 p-4 bg-[#F5F4F0] rounded-xl border border-black/5 text-sm">
+                <p className="text-[#1E2026] font-medium">RamenNearYou</p>
                 <p>Email: <a href="mailto:privacy@ramennearyou.com" className="text-[#B57F50] hover:underline">privacy@ramennearyou.com</a></p>
                 <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#B57F50] hover:underline">www.ramennearyou.com/contact</a></p>
               </div>

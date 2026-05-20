@@ -32,7 +32,7 @@ export default function FeaturedListings() {
   if (loading || listings.length === 0) return null
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#2F323A]">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
@@ -41,7 +41,7 @@ export default function FeaturedListings() {
               <Crown className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-amber-400 text-xs font-medium uppercase tracking-widest">Featured Listings</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">
               Top Ramen Spots Near You
             </h2>
           </div>
@@ -65,10 +65,10 @@ export default function FeaturedListings() {
             return (
               <article
                 key={listing.id}
-                className="group bg-[#1E2026] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-300"
+                className="group bg-[#F5F4F0] rounded-2xl overflow-hidden border border-black/5 hover:border-amber-500/30 transition-all duration-300"
               >
                 {/* Photo */}
-                <div className="relative h-48 bg-[#2F323A] overflow-hidden">
+                <div className="relative h-48 bg-[#ffffff] overflow-hidden">
                   {listing.photos[0] ? (
                     <Image
                       src={listing.photos[0]}
@@ -82,7 +82,7 @@ export default function FeaturedListings() {
                       <Utensils className="w-10 h-10 text-[#B57F50]/30" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026]/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0]/80 to-transparent" />
                   {/* Photo count dots */}
                   {listing.photos.length > 1 && (
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
@@ -91,7 +91,7 @@ export default function FeaturedListings() {
                       ))}
                     </div>
                   )}
-                  <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-xs font-bold">
+                  <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-[#F5F4F0] text-xs font-bold">
                     <Crown className="w-3 h-3" />
                     Featured
                   </div>
@@ -99,15 +99,15 @@ export default function FeaturedListings() {
 
                 {/* Info */}
                 <div className="p-4">
-                  <h3 className="font-semibold text-white text-base leading-snug mb-1 group-hover:text-amber-400 transition-colors">
+                  <h3 className="font-semibold text-[#1E2026] text-base leading-snug mb-1 group-hover:text-amber-400 transition-colors">
                     {listing.restaurant_name}
                   </h3>
-                  <p className="flex items-center gap-1 text-[#B0B3BB] text-xs mb-2">
+                  <p className="flex items-center gap-1 text-[#6B6862] text-xs mb-2">
                     <MapPin className="w-3 h-3 text-[#B57F50] shrink-0" />
                     {listing.city}, {listing.state_code}
                   </p>
                   {listing.description && (
-                    <p className="text-[#B0B3BB] text-xs leading-relaxed line-clamp-2 mb-3">
+                    <p className="text-[#6B6862] text-xs leading-relaxed line-clamp-2 mb-3">
                       {listing.description}
                     </p>
                   )}

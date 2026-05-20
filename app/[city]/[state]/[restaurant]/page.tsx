@@ -57,7 +57,7 @@ function StarRating({ rating, size = 'md' }: { rating: number | null; size?: 'sm
   return (
     <span className="flex items-center gap-0.5">
       {[1,2,3,4,5].map((i) => (
-        <Star key={i} className={`${cls} ${i <= full ? 'text-amber-400 fill-amber-400' : i === full+1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-white/20'}`} />
+        <Star key={i} className={`${cls} ${i <= full ? 'text-amber-400 fill-amber-400' : i === full+1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-[#1E2026]/20'}`} />
       ))}
     </span>
   )
@@ -65,7 +65,7 @@ function StarRating({ rating, size = 'md' }: { rating: number | null; size?: 'sm
 
 function AmenityBadge({ active, label }: { active: boolean; label: string }) {
   return (
-    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#B57F50]/15 text-[#B57F50]' : 'bg-white/5 text-[#B0B3BB]/50 line-through'}`}>
+    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#B57F50]/15 text-[#B57F50]' : 'bg-black/5 text-[#6B6862]/50 line-through'}`}>
       <span className={`w-2 h-2 rounded-full ${active ? 'bg-[#B57F50]' : 'bg-white/20'}`} />
       {label}
     </div>
@@ -162,28 +162,28 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   }
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
       {/* Hero photo */}
-      <div className="relative w-full h-64 sm:h-80 bg-[#1E2026] mt-16">
+      <div className="relative w-full h-64 sm:h-80 bg-[#F5F4F0] mt-16">
         <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="100vw" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
       </div>
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6 flex-wrap">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
+          <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
-          <Link href={`/${city}/${state}`} className="hover:text-white transition-colors">
+          <Link href={`/${city}/${state}`} className="hover:text-[#1E2026] transition-colors">
             {r.city}, {r.stateCode}
           </Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-white">{r.name}</span>
+          <span className="text-[#1E2026]">{r.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -196,7 +196,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-medium">Open</span>
                 )}
                 {r.priceRange && (
-                  <span className="px-2 py-0.5 rounded-full bg-white/10 text-white/60 text-xs">{r.priceRange}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-black/8 text-[#1E2026]/60 text-xs">{r.priceRange}</span>
                 )}
                 {r.subtypes && r.subtypes.split(',').slice(0, 2).map((s) => (
                   <span key={s} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs">{s.trim()}</span>
@@ -204,7 +204,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex flex-wrap items-center gap-3">
-                  <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">{r.name}</h1>
+                  <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">{r.name}</h1>
                   {isVerified && (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
                       <BadgeCheck className="w-3.5 h-3.5" />
@@ -221,8 +221,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-3">
                   <StarRating rating={r.rating} />
-                  <span className="text-white font-semibold">{r.rating?.toFixed(1)}</span>
-                  <span className="text-[#B0B3BB] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  <span className="text-[#1E2026] font-semibold">{r.rating?.toFixed(1)}</span>
+                  <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
                 </div>
               )}
             </div>
@@ -230,25 +230,25 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             {/* Description */}
             {r.description && (
               <section>
-                <h2 className="font-serif text-xl font-bold text-white mb-3">About</h2>
-                <p className="text-[#B0B3BB] leading-relaxed">{r.description}</p>
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">About</h2>
+                <p className="text-[#6B6862] leading-relaxed">{r.description}</p>
               </section>
             )}
 
             {/* Hours */}
             {r.hours && Object.keys(r.hours).length > 0 && (
               <section>
-                <h2 className="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4 flex items-center gap-2">
                   <Clock className="w-5 h-5 text-[#B57F50]" />
                   Hours
                 </h2>
-                <div className="bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden">
+                <div className="bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden">
                   {DAY_ORDER.map((day) => {
                     const slots = r.hours?.[day]
                     return (
-                      <div key={day} className="flex justify-between items-center px-5 py-3 border-b border-white/5 last:border-0">
-                        <span className="text-white text-sm font-medium w-28">{day}</span>
-                        <span className="text-[#B0B3BB] text-sm text-right">
+                      <div key={day} className="flex justify-between items-center px-5 py-3 border-b border-black/5 last:border-0">
+                        <span className="text-[#1E2026] text-sm font-medium w-28">{day}</span>
+                        <span className="text-[#6B6862] text-sm text-right">
                           {!slots || slots[0] === 'Closed' ? (
                             <span className="text-red-400/70">Closed</span>
                           ) : (
@@ -264,7 +264,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
             {/* Amenities */}
             <section>
-              <h2 className="font-serif text-xl font-bold text-white mb-4">Amenities &amp; Features</h2>
+              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">Amenities &amp; Features</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 <AmenityBadge active={r.amenities.dineIn} label="Dine-in" />
                 <AmenityBadge active={r.amenities.takeout} label="Takeout" />
@@ -290,19 +290,19 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             {/* Review breakdown */}
             {totalReviews > 0 && (
               <section>
-                <h2 className="font-serif text-xl font-bold text-white mb-4">Rating Breakdown</h2>
-                <div className="bg-[#1E2026] rounded-xl border border-white/5 p-5 space-y-3">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">Rating Breakdown</h2>
+                <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5 space-y-3">
                   {[5,4,3,2,1].map((score) => {
                     const count = Number(r.reviewsPerScore?.[String(score)] ?? 0)
                     const pct = totalReviews > 0 ? (count / totalReviews) * 100 : 0
                     return (
                       <div key={score} className="flex items-center gap-3">
-                        <span className="text-[#B0B3BB] text-xs w-4 text-right">{score}</span>
+                        <span className="text-[#6B6862] text-xs w-4 text-right">{score}</span>
                         <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
-                        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="flex-1 h-1.5 bg-black/5 rounded-full overflow-hidden">
                           <div className="h-full bg-amber-400 rounded-full" style={{ width: `${pct}%` }} />
                         </div>
-                        <span className="text-[#B0B3BB] text-xs w-8">{count}</span>
+                        <span className="text-[#6B6862] text-xs w-8">{count}</span>
                       </div>
                     )
                   })}
@@ -314,22 +314,22 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Contact card */}
-            <div className="bg-[#1E2026] rounded-xl border border-white/5 p-6 space-y-4">
-              <h3 className="font-semibold text-white">Contact &amp; Location</h3>
+            <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
+              <h3 className="font-semibold text-[#1E2026]">Contact &amp; Location</h3>
               {r.address && (
                 <div className="flex items-start gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
-                  <span className="text-[#B0B3BB]">{r.address}</span>
+                  <span className="text-[#6B6862]">{r.address}</span>
                 </div>
               )}
               {r.phone && (
-                <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
+                <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
                   <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
                   {r.phone}
                 </a>
               )}
               {r.website && (
-                <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#B0B3BB] hover:text-white transition-colors">
+                <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
                   <Globe className="w-4 h-4 text-[#B57F50] shrink-0" />
                   <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
                   <ExternalLink className="w-3 h-3 shrink-0" />
@@ -351,46 +351,46 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
             {/* Claim listing CTA */}
             {isOwner ? (
-              <div className="bg-gradient-to-br from-sky-500/20 to-[#1E2026] rounded-xl border border-sky-500/30 p-6 space-y-3">
+              <div className="bg-gradient-to-br from-sky-500/20 to-[#F5F4F0] rounded-xl border border-sky-500/30 p-6 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-sky-400" />
-                  <h3 className="font-semibold text-white">You own this listing</h3>
+                  <h3 className="font-semibold text-[#1E2026]">You own this listing</h3>
                 </div>
-                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+                <p className="text-[#6B6862] text-sm leading-relaxed">
                   Update your description, hours, phone, website and menu link.
                 </p>
                 <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
                   Manage Listing
                 </Link>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
                   <Crown className="w-4 h-4" />
                   Get Featured
                 </Link>
               </div>
             ) : isVerified ? (
-              <div className="bg-gradient-to-br from-white/5 to-[#1E2026] rounded-xl border border-white/10 p-6 space-y-3">
+              <div className="bg-gradient-to-br from-white/5 to-[#F5F4F0] rounded-xl border border-black/8 p-6 space-y-3">
                 <div className="flex items-center gap-2">
-                  <BadgeCheck className="w-5 h-5 text-white/40" />
-                  <h3 className="font-semibold text-white/60">Restaurant Already Claimed</h3>
+                  <BadgeCheck className="w-5 h-5 text-[#1E2026]/40" />
+                  <h3 className="font-semibold text-[#1E2026]/60">Restaurant Already Claimed</h3>
                 </div>
-                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+                <p className="text-[#6B6862] text-sm leading-relaxed">
                   This listing has already been claimed by its owner.
                 </p>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
                   <Crown className="w-4 h-4" />
                   Make This A Featured Listing
                 </Link>
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#1E2026] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
-                <h3 className="font-semibold text-white">Own this restaurant?</h3>
-                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+              <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#F5F4F0] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
+                <h3 className="font-semibold text-[#1E2026]">Own this restaurant?</h3>
+                <p className="text-[#6B6862] text-sm leading-relaxed">
                   Claim your free listing to add photos, update your hours, and reach more ramen lovers.
                 </p>
                 <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   Claim This Listing
                 </Link>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
                   <Crown className="w-4 h-4" />
                   Make This A Featured Listing
                 </Link>
@@ -415,18 +415,18 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       </div>
 
       {nearbyRestaurants.length > 0 && (
-        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
           <div className="max-w-7xl mx-auto">
             <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">More in {r.city}</p>
-            <h2 className="font-serif text-2xl font-bold text-white mb-6">Nearby Ramen Restaurants</h2>
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">Nearby Ramen Restaurants</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {nearbyRestaurants.map((n) => (
                 <Link
                   key={n.slug}
                   href={`/${city}/${state}/${n.slug}`}
-                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                  className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
-                  <div className="relative h-36 bg-[#2F323A] overflow-hidden flex-shrink-0">
+                  <div className="relative h-36 bg-[#ffffff] overflow-hidden flex-shrink-0">
                     <RestaurantImage
                       src={n.photo}
                       alt={n.name}
@@ -434,26 +434,26 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
                     {n.priceRange && (
-                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs font-medium">
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-[#1E2026] text-xs font-medium">
                         {n.priceRange}
                       </span>
                     )}
                   </div>
                   <div className="p-4 flex flex-col flex-1 gap-1.5">
-                    <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                    <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                       {n.name}
                     </h3>
                     {n.rating && (
                       <div className="flex items-center gap-1.5">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                        <span className="text-white/70 text-xs">{n.rating.toFixed(1)}</span>
-                        <span className="text-white/30 text-xs">({n.reviewCount.toLocaleString()})</span>
+                        <span className="text-[#1E2026]/70 text-xs">{n.rating.toFixed(1)}</span>
+                        <span className="text-[#1E2026]/30 text-xs">({n.reviewCount.toLocaleString()})</span>
                       </div>
                     )}
                     {n.address && (
-                      <p className="text-[#B0B3BB]/60 text-xs line-clamp-1">{n.address}</p>
+                      <p className="text-[#6B6862]/60 text-xs line-clamp-1">{n.address}</p>
                     )}
                   </div>
                 </Link>

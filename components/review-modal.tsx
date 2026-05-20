@@ -82,16 +82,16 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm">
-      <div className="w-full sm:max-w-lg bg-[#1E2026] rounded-t-2xl sm:rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+      <div className="w-full sm:max-w-lg bg-[#F5F4F0] rounded-t-2xl sm:rounded-2xl border border-black/8 shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-black/5">
           <div>
-            <h2 className="text-white font-semibold">Write a Review</h2>
-            <p className="text-[#B0B3BB] text-xs mt-0.5 truncate">{restaurantName}</p>
+            <h2 className="text-[#1E2026] font-semibold">Write a Review</h2>
+            <p className="text-[#6B6862] text-xs mt-0.5 truncate">{restaurantName}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#B0B3BB] hover:text-white hover:bg-white/5 transition-colors"
+            className="p-1.5 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -100,7 +100,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
         <form onSubmit={handleSubmit} className="px-5 py-5 space-y-5">
           {/* Star rating */}
           <div>
-            <label className="text-[#B0B3BB] text-xs font-medium mb-2 block">Your Rating *</label>
+            <label className="text-[#6B6862] text-xs font-medium mb-2 block">Your Rating *</label>
             <div className="flex gap-1.5">
               {[1, 2, 3, 4, 5].map((s) => (
                 <button
@@ -115,7 +115,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                     className={`w-8 h-8 transition-colors ${
                       s <= (hoverRating || rating)
                         ? 'text-amber-400 fill-amber-400'
-                        : 'text-white/20'
+                        : 'text-[#1E2026]/20'
                     }`}
                   />
                 </button>
@@ -125,8 +125,8 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
 
           {/* Review text */}
           <div>
-            <label className="text-[#B0B3BB] text-xs font-medium mb-2 block">
-              Your Review <span className="text-white/30">(optional)</span>
+            <label className="text-[#6B6862] text-xs font-medium mb-2 block">
+              Your Review <span className="text-[#1E2026]/30">(optional)</span>
             </label>
             <textarea
               value={body}
@@ -134,19 +134,19 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
               placeholder="Share your experience — broth, noodles, service, atmosphere…"
               rows={4}
               maxLength={1000}
-              className="w-full bg-[#2F323A] border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder-[#B0B3BB]/40 outline-none focus:border-[#B57F50]/50 resize-none"
+              className="w-full bg-[#ffffff] border border-black/8 rounded-lg px-4 py-3 text-[#1E2026] text-sm placeholder-[#9B9490]/40 outline-none focus:border-[#B57F50]/50 resize-none"
             />
-            <p className="text-white/30 text-xs text-right mt-1">{body.length}/1000</p>
+            <p className="text-[#1E2026]/30 text-xs text-right mt-1">{body.length}/1000</p>
           </div>
 
           {/* Photo upload */}
           <div>
-            <label className="text-[#B0B3BB] text-xs font-medium mb-2 block">
-              Photos <span className="text-white/30">(up to 5)</span>
+            <label className="text-[#6B6862] text-xs font-medium mb-2 block">
+              Photos <span className="text-[#1E2026]/30">(up to 5)</span>
             </label>
             <div className="flex flex-wrap gap-2">
               {previews.map((src, i) => (
-                <div key={i} className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#2F323A] shrink-0">
+                <div key={i} className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#ffffff] shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt="" className="w-full h-full object-cover" />
                   <button
@@ -154,7 +154,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                     onClick={() => removePhoto(i)}
                     className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
                   >
-                    <Trash2 className="w-4 h-4 text-white" />
+                    <Trash2 className="w-4 h-4 text-[#1E2026]" />
                   </button>
                 </div>
               ))}
@@ -162,7 +162,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-16 h-16 rounded-lg border border-dashed border-white/20 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#B0B3BB] hover:text-[#B57F50] transition-colors"
+                  className="w-16 h-16 rounded-lg border border-dashed border-black/12 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#6B6862] hover:text-[#B57F50] transition-colors"
                 >
                   <ImagePlus className="w-5 h-5" />
                   <span className="text-[10px]">Add</span>
@@ -186,7 +186,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-[#1E2026] font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
             {submitting ? 'Submitting…' : 'Submit Review'}

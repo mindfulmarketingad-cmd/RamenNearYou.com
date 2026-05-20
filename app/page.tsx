@@ -44,7 +44,7 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-      <main className="min-h-screen bg-[#2F323A]">
+      <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
         <Hero />
         <FeaturedListings />
