@@ -94,7 +94,7 @@ function RestaurantSearch() {
           onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
           onFocus={() => setOpen(true)}
           placeholder="Search your restaurant…"
-          className="w-full pl-8 pr-3 py-2 rounded-lg bg-[#ffffff] border border-black/8 text-[#1E2026] text-xs placeholder-white/40 focus:outline-none focus:border-emerald-500/50"
+          className="w-full pl-8 pr-3 py-2 rounded-lg bg-[#ffffff] border border-black/8 text-[#1E2026] text-xs placeholder-[#9B9490] focus:outline-none focus:border-[#B57F50]/50"
         />
       </div>
       {open && (
@@ -122,7 +122,7 @@ function RestaurantSearch() {
 
 export default function FeaturedTiers() {
   return (
-    <div className="rounded-2xl border border-black/8 overflow-hidden bg-[#F5F4F0]">
+    <div className="rounded-2xl border border-black/8 bg-[#F5F4F0]">
       {/* Tier header columns */}
       <div className="grid grid-cols-4">
         {/* Empty top-left cell */}
