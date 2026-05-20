@@ -22,15 +22,15 @@ export default function SortSelect({ current }: { current: string }) {
 
   return (
     <div className="flex items-center gap-2">
-      <ArrowUpDown className="w-3.5 h-3.5 text-[#B0B3BB] shrink-0" />
-      <label htmlFor="sort-select" className="text-[#B0B3BB] text-xs font-medium whitespace-nowrap">
+      <ArrowUpDown className="w-3.5 h-3.5 text-[#6B6862] shrink-0" />
+      <label htmlFor="sort-select" className="text-[#6B6862] text-xs font-medium whitespace-nowrap">
         Sort by
       </label>
       <select
         id="sort-select"
         value={current}
         onChange={handleChange}
-        className="bg-[#1E2026] border border-white/10 text-white text-xs rounded-lg px-2.5 py-1.5 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
+        className="bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-xs rounded-lg px-2.5 py-1.5 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
       >
         {SORT_OPTIONS.map(o => (
           <option key={o.value} value={o.value}>{o.label}</option>

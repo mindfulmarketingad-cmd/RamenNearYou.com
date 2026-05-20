@@ -11,7 +11,7 @@ import Navbar from '@/components/navbar'
 import type { MapBounds } from '@/components/ramen-map'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), { ssr: false, loading: () => (
-  <div className="w-full h-full flex items-center justify-center bg-[#1E2026]">
+  <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
     <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
   </div>
 )})
@@ -60,7 +60,7 @@ function FilterChip({
       className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
         active
           ? 'bg-[#B57F50] text-white'
-          : 'bg-white/5 text-[#B0B3BB] hover:bg-white/10 hover:text-white border border-white/10'
+          : 'bg-black/5 text-[#6B6862] hover:bg-black/8 hover:text-[#1E2026] border border-black/8'
       }`}
     >
       {label}
@@ -228,7 +228,7 @@ function SearchMapInner() {
   // ── Geo permission screens ──────────────────────────────────────────────────
   if (!cityParam && (geoState === 'idle' || geoState === 'loading')) {
     return (
-      <main className="min-h-screen bg-[#2F323A] flex flex-col">
+      <main className="min-h-screen bg-[#ffffff] flex flex-col">
         <Navbar />
         <div className="flex-1 flex flex-col items-center justify-center gap-5 px-4 text-center">
           <div className="w-16 h-16 rounded-full bg-[#B57F50]/20 flex items-center justify-center">
@@ -236,12 +236,12 @@ function SearchMapInner() {
               ? <Loader2 className="w-7 h-7 text-[#B57F50] animate-spin" />
               : <Navigation className="w-7 h-7 text-[#B57F50]" />}
           </div>
-          <h1 className="font-serif text-2xl font-bold text-white">
+          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">
             {geoState === 'loading' ? 'Getting your location…' : 'Ramen Near Me'}
           </h1>
           {geoState === 'idle' && (
             <>
-              <p className="text-[#B0B3BB] text-sm max-w-xs">
+              <p className="text-[#6B6862] text-sm max-w-xs">
                 We&apos;ll show all ramen restaurants within 20 miles of your current location.
               </p>
               <button
@@ -259,12 +259,12 @@ function SearchMapInner() {
 
   if (!cityParam && geoState === 'denied') {
     return (
-      <main className="min-h-screen bg-[#2F323A] flex flex-col">
+      <main className="min-h-screen bg-[#ffffff] flex flex-col">
         <Navbar />
         <div className="flex-1 flex flex-col items-center justify-center gap-5 px-4 text-center">
           <MapPin className="w-10 h-10 text-[#B57F50]/50" />
-          <h1 className="font-serif text-2xl font-bold text-white">Location access denied</h1>
-          <p className="text-[#B0B3BB] text-sm max-w-xs">{geoError || 'Enable location in your browser settings and try again.'}</p>
+          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">Location access denied</h1>
+          <p className="text-[#6B6862] text-sm max-w-xs">{geoError || 'Enable location in your browser settings and try again.'}</p>
           <div className="flex gap-3 flex-wrap justify-center">
             <button
               onClick={requestLocation}
@@ -272,7 +272,7 @@ function SearchMapInner() {
             >
               Try Again
             </button>
-            <Link href="/cities" className="px-5 py-2.5 border border-white/10 text-[#B0B3BB] hover:text-white text-sm font-medium rounded-lg transition-colors">
+            <Link href="/cities" className="px-5 py-2.5 border border-black/8 text-[#6B6862] hover:text-[#1E2026] text-sm font-medium rounded-lg transition-colors">
               Browse by City
             </Link>
           </div>
@@ -283,23 +283,23 @@ function SearchMapInner() {
 
   // ── Map view ────────────────────────────────────────────────────────────────
   return (
-    <main className="h-screen flex flex-col overflow-hidden bg-[#2F323A]">
+    <main className="h-screen flex flex-col overflow-hidden bg-[#ffffff]">
       <Navbar />
 
       <div className="flex flex-1 overflow-hidden pt-16">
         {/* Left panel */}
-        <div className="w-full sm:w-80 lg:w-96 flex flex-col bg-[#1E2026] border-r border-white/5 overflow-hidden shrink-0 hidden sm:flex">
+        <div className="w-full sm:w-80 lg:w-96 flex flex-col bg-[#F5F4F0] border-r border-black/5 overflow-hidden shrink-0 hidden sm:flex">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-white/5">
+          <div className="px-4 py-3 border-b border-black/5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-white font-semibold text-sm">
+                <p className="text-[#1E2026] font-semibold text-sm">
                   {filtered.length} spot{filtered.length !== 1 ? 's' : ''}
                   {activeFilterCount > 0 && (
-                    <span className="text-[#B0B3BB] font-normal"> (filtered)</span>
+                    <span className="text-[#6B6862] font-normal"> (filtered)</span>
                   )}
                 </p>
-                <p className="text-[#B0B3BB] text-xs mt-0.5 flex items-center gap-1">
+                <p className="text-[#6B6862] text-xs mt-0.5 flex items-center gap-1">
                   <MapPin className="w-3 h-3 text-[#B57F50]" />
                   {cityName ? cityName : `within ${distanceMiles} mi`}
                 </p>
@@ -310,7 +310,7 @@ function SearchMapInner() {
                   className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     showFilters || activeFilterCount > 0
                       ? 'bg-[#B57F50] text-white'
-                      : 'bg-white/5 text-[#B0B3BB] hover:bg-white/10 hover:text-white border border-white/10'
+                      : 'bg-black/5 text-[#6B6862] hover:bg-black/8 hover:text-[#1E2026] border border-black/8'
                   }`}
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -326,12 +326,12 @@ function SearchMapInner() {
 
             {/* Sort row */}
             <div className="flex items-center gap-2 mt-2">
-              <ArrowUpDown className="w-3 h-3 text-[#B0B3BB] shrink-0" />
-              <span className="text-[#B0B3BB] text-xs">Sort:</span>
+              <ArrowUpDown className="w-3 h-3 text-[#6B6862] shrink-0" />
+              <span className="text-[#6B6862] text-xs">Sort:</span>
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as SortBy)}
-                className="flex-1 bg-[#2F323A] border border-white/10 text-white text-xs rounded-lg px-2 py-1 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
+                className="flex-1 bg-[#ffffff] border border-black/8 text-[#1E2026] text-xs rounded-lg px-2 py-1 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
               >
                 {SORT_OPTIONS.map(o => (
                   <option key={o.value} value={o.value}>{o.label}</option>
@@ -341,11 +341,11 @@ function SearchMapInner() {
 
             {/* Filter panel */}
             {showFilters && (
-              <div className="mt-3 space-y-3 pt-3 border-t border-white/5">
+              <div className="mt-3 space-y-3 pt-3 border-t border-black/5">
                 {/* Distance — hidden in city mode */}
                 {!cityParam && (
                   <div>
-                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
+                    <p className="text-[#6B6862] text-xs font-medium mb-1.5">Distance</p>
                     <div className="flex flex-wrap gap-1.5">
                       {DISTANCE_OPTIONS.map((d) => (
                         <FilterChip
@@ -361,7 +361,7 @@ function SearchMapInner() {
 
                 {/* Price */}
                 <div>
-                  <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Price</p>
+                  <p className="text-[#6B6862] text-xs font-medium mb-1.5">Price</p>
                   <div className="flex flex-wrap gap-1.5">
                     {PRICE_OPTIONS.map((p) => (
                       <FilterChip
@@ -376,7 +376,7 @@ function SearchMapInner() {
 
                 {/* Broth type */}
                 <div>
-                  <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Broth Type</p>
+                  <p className="text-[#6B6862] text-xs font-medium mb-1.5">Broth Type</p>
                   <div className="flex flex-wrap gap-1.5">
                     {BROTH_OPTIONS.map((b) => (
                       <FilterChip
@@ -392,7 +392,7 @@ function SearchMapInner() {
                 {activeFilterCount > 0 && (
                   <button
                     onClick={clearFilters}
-                    className="flex items-center gap-1 text-xs text-[#B0B3BB] hover:text-white transition-colors"
+                    className="flex items-center gap-1 text-xs text-[#6B6862] hover:text-[#1E2026] transition-colors"
                   >
                     <X className="w-3 h-3" />
                     Clear all filters
@@ -406,7 +406,7 @@ function SearchMapInner() {
           <div className="flex-1 overflow-y-auto divide-y divide-white/5">
             {filtered.length === 0 ? (
               <div className="p-6 text-center">
-                <p className="text-[#B0B3BB] text-sm">No ramen restaurants match your filters.</p>
+                <p className="text-[#6B6862] text-sm">No ramen restaurants match your filters.</p>
                 {activeFilterCount > 0 && (
                   <button onClick={clearFilters} className="text-[#B57F50] text-xs hover:underline mt-2 inline-block">
                     Clear filters →
@@ -421,10 +421,10 @@ function SearchMapInner() {
                     key={r.slug}
                     id={`card-${r.slug}`}
                     onClick={() => setSelectedSlug(r.slug)}
-                    className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-white/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                    className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
                   >
                     {/* Thumbnail */}
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#2F323A] shrink-0">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#ffffff] shrink-0">
                       {r.photo ? (
                         <Image src={r.photo} alt={r.name} fill className="object-cover" unoptimized />
                       ) : (
@@ -435,24 +435,24 @@ function SearchMapInner() {
                     </div>
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-white'}`}>{r.name}</p>
-                      <p className="text-[#B0B3BB] text-xs truncate">{r.city}, {r.stateCode}</p>
+                      <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                      <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                       <div className="flex items-center gap-2 mt-0.5">
                         {r.rating && (
-                          <span className="flex items-center gap-0.5 text-xs text-white/60">
+                          <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
                             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                             {r.rating.toFixed(1)}
                           </span>
                         )}
                         {r.priceRange && (
-                          <span className="text-xs text-white/40">{r.priceRange}</span>
+                          <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>
                         )}
                         <span className="text-[#B57F50] text-xs font-medium">
                           {kmToMiles(r.distKm).toFixed(1)} mi
                         </span>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-white/20 shrink-0 self-center" />
+                    <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
                   </button>
                 )
               })
@@ -460,7 +460,7 @@ function SearchMapInner() {
           </div>
 
           {/* Submit a listing CTA */}
-          <div className="p-3 border-t border-white/5 bg-[#1E2026]">
+          <div className="p-3 border-t border-black/5 bg-[#F5F4F0]">
             <Link
               href="/list"
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-[#B57F50]/30 bg-[#B57F50]/10 hover:bg-[#B57F50]/20 text-[#c8934f] text-xs font-semibold transition-colors"
@@ -473,7 +473,7 @@ function SearchMapInner() {
           {selectedSlug && (() => {
             const r = filtered.find(x => x.slug === selectedSlug)
             return r ? (
-              <div className="p-3 border-t border-white/5">
+              <div className="p-3 border-t border-black/5">
                 <Link
                   href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                   className="block w-full py-2.5 text-center text-sm font-medium bg-[#B57F50] hover:bg-[#c8934f] text-white rounded-lg transition-colors"
@@ -516,7 +516,7 @@ function SearchMapInner() {
             <div className="absolute top-4 right-4 z-[1000]">
               <button
                 onClick={clearAreaSearch}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1E2026] border border-white/15 hover:border-white/30 text-[#B0B3BB] hover:text-white text-xs font-medium shadow-lg transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-white/15 hover:border-white/30 text-[#6B6862] hover:text-[#1E2026] text-xs font-medium shadow-lg transition-colors"
               >
                 <X className="w-3 h-3" />
                 Clear area filter
@@ -526,10 +526,10 @@ function SearchMapInner() {
 
           {/* Mobile bottom sheet — filter bar + result count */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 sm:hidden z-[999] w-[calc(100%-2rem)] max-w-sm">
-            <div className="bg-[#1E2026] border border-white/10 rounded-2xl shadow-xl overflow-hidden">
+            <div className="bg-[#F5F4F0] border border-black/8 rounded-2xl shadow-xl overflow-hidden">
               {/* Count row */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
-                <span className="text-sm text-white font-medium">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/5">
+                <span className="text-sm text-[#1E2026] font-medium">
                   {filtered.length} spot{filtered.length !== 1 ? 's' : ''}{cityName ? ` in ${cityName}` : ` within ${distanceMiles} mi`}
                 </span>
                 <button
@@ -537,7 +537,7 @@ function SearchMapInner() {
                   className={`flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full transition-colors ${
                     showFilters || activeFilterCount > 0
                       ? 'bg-[#B57F50] text-white'
-                      : 'text-[#B0B3BB] bg-white/5'
+                      : 'text-[#6B6862] bg-black/5'
                   }`}
                 >
                   <SlidersHorizontal className="w-3 h-3" />
@@ -550,7 +550,7 @@ function SearchMapInner() {
                 <div className="px-4 py-3 space-y-3">
                   {/* Sort */}
                   <div>
-                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Sort by</p>
+                    <p className="text-[#6B6862] text-xs font-medium mb-1.5">Sort by</p>
                     <div className="flex flex-wrap gap-1.5">
                       {SORT_OPTIONS.map(o => (
                         <FilterChip key={o.value} label={o.label} active={sortBy === o.value} onClick={() => setSortBy(o.value)} />
@@ -560,7 +560,7 @@ function SearchMapInner() {
                   {/* Distance — hidden in city mode */}
                   {!cityParam && (
                     <div>
-                      <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Distance</p>
+                      <p className="text-[#6B6862] text-xs font-medium mb-1.5">Distance</p>
                       <div className="flex flex-wrap gap-1.5">
                         {DISTANCE_OPTIONS.map((d) => (
                           <FilterChip key={d} label={`${d} mi`} active={distanceMiles === d} onClick={() => setDistanceMiles(d)} />
@@ -570,7 +570,7 @@ function SearchMapInner() {
                   )}
                   {/* Price */}
                   <div>
-                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Price</p>
+                    <p className="text-[#6B6862] text-xs font-medium mb-1.5">Price</p>
                     <div className="flex flex-wrap gap-1.5">
                       {PRICE_OPTIONS.map((p) => (
                         <FilterChip key={p} label={p} active={selectedPrices.has(p)} onClick={() => togglePrice(p)} />
@@ -579,7 +579,7 @@ function SearchMapInner() {
                   </div>
                   {/* Broth */}
                   <div>
-                    <p className="text-[#B0B3BB] text-xs font-medium mb-1.5">Broth Type</p>
+                    <p className="text-[#6B6862] text-xs font-medium mb-1.5">Broth Type</p>
                     <div className="flex flex-wrap gap-1.5">
                       {BROTH_OPTIONS.map((b) => (
                         <FilterChip key={b} label={b} active={selectedBroths.has(b)} onClick={() => toggleBroth(b)} />
@@ -587,7 +587,7 @@ function SearchMapInner() {
                     </div>
                   </div>
                   {activeFilterCount > 0 && (
-                    <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#B0B3BB] hover:text-white">
+                    <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#6B6862] hover:text-[#1E2026]">
                       <X className="w-3 h-3" /> Clear all
                     </button>
                   )}

@@ -28,7 +28,7 @@ function StarDisplay({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map(i => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i <= rating ? 'text-amber-400 fill-amber-400' : 'text-white/20'}`}
+          className={`w-3.5 h-3.5 ${i <= rating ? 'text-amber-400 fill-amber-400' : 'text-[#1E2026]/20'}`}
         />
       ))}
     </span>
@@ -88,14 +88,14 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
       {/* Section header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h2 className="font-serif text-xl font-bold text-white">
+          <h2 className="font-serif text-xl font-bold text-[#1E2026]">
             Community Reviews
           </h2>
           {avgRating && (
             <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
               <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
               <span className="text-amber-400 text-xs font-semibold">{avgRating.toFixed(1)}</span>
-              <span className="text-white/40 text-xs">({reviews.length})</span>
+              <span className="text-[#1E2026]/40 text-xs">({reviews.length})</span>
             </span>
           )}
         </div>
@@ -113,10 +113,10 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
 
       {/* Review cards */}
       {loading ? (
-        <div className="text-[#B0B3BB] text-sm">Loading reviews…</div>
+        <div className="text-[#6B6862] text-sm">Loading reviews…</div>
       ) : reviews.length === 0 ? (
-        <div className="bg-[#1E2026] rounded-xl border border-white/5 p-8 text-center">
-          <p className="text-[#B0B3BB] text-sm mb-3">No reviews yet. Be the first!</p>
+        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8 text-center">
+          <p className="text-[#6B6862] text-sm mb-3">No reviews yet. Be the first!</p>
           <button
             onClick={handleWriteReview}
             className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-lg transition-colors"
@@ -128,21 +128,21 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
       ) : (
         <div className="space-y-4">
           {visible.map(review => (
-            <article key={review.id} className="bg-[#1E2026] rounded-xl border border-white/5 p-5">
+            <article key={review.id} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-white text-sm font-medium">{review.user_display_name}</span>
+                    <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
                     <StarDisplay rating={review.rating} />
                   </div>
-                  <p className="text-white/30 text-xs">
+                  <p className="text-[#1E2026]/30 text-xs">
                     {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
                 </div>
                 {userId === review.user_id && (
                   <button
                     onClick={() => handleDelete(review.id)}
-                    className="p-1.5 text-white/20 hover:text-red-400 transition-colors rounded"
+                    className="p-1.5 text-[#1E2026]/20 hover:text-red-400 transition-colors rounded"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -150,7 +150,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
               </div>
 
               {review.body && (
-                <p className="text-[#B0B3BB] text-sm leading-relaxed mb-3">{review.body}</p>
+                <p className="text-[#6B6862] text-sm leading-relaxed mb-3">{review.body}</p>
               )}
 
               {review.photos.length > 0 && (
@@ -159,13 +159,13 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                     <button
                       key={i}
                       onClick={() => setLightbox(src)}
-                      className="relative w-20 h-20 rounded-lg overflow-hidden bg-[#2F323A] hover:opacity-80 transition-opacity"
+                      className="relative w-20 h-20 rounded-lg overflow-hidden bg-[#ffffff] hover:opacity-80 transition-opacity"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={src} alt="" className="w-full h-full object-cover" />
                       {i === 0 && review.photos.length > 1 && (
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                          <ImageIcon className="w-4 h-4 text-white/70" />
+                          <ImageIcon className="w-4 h-4 text-[#1E2026]/70" />
                         </div>
                       )}
                     </button>
@@ -178,7 +178,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
           {reviews.length > 3 && !showAll && (
             <button
               onClick={() => setShowAll(true)}
-              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[#B0B3BB] hover:text-white text-sm transition-colors border border-white/5 rounded-xl hover:bg-white/5"
+              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[#6B6862] hover:text-[#1E2026] text-sm transition-colors border border-black/5 rounded-xl hover:bg-black/5"
             >
               <ChevronDown className="w-4 h-4" />
               Show all {reviews.length} reviews

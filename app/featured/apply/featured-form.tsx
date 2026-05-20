@@ -31,7 +31,7 @@ const TIERS = [
     iconColor: 'text-amber-400',
     headerBg: 'bg-amber-500/10',
     checkColor: 'text-amber-400',
-    buttonColor: 'bg-amber-500 hover:bg-amber-400 text-[#1E2026]',
+    buttonColor: 'bg-amber-500 hover:bg-amber-400 text-[#F5F4F0]',
     stripeUrl: 'https://buy.stripe.com/fZu6oIbeqbx68QCeK2frW02',
   },
   {
@@ -40,11 +40,11 @@ const TIERS = [
     label: 'Homepage Featured',
     price: '$129.99',
     period: 'per month',
-    badgeColor: 'bg-white/5 border-white/10 text-white/60',
-    iconColor: 'text-white/70',
-    headerBg: 'bg-white/5',
-    checkColor: 'text-white/80',
-    buttonColor: 'bg-white hover:bg-white/90 text-[#1E2026]',
+    badgeColor: 'bg-black/5 border-black/8 text-[#1E2026]/60',
+    iconColor: 'text-[#1E2026]/70',
+    headerBg: 'bg-black/5',
+    checkColor: 'text-[#1E2026]/80',
+    buttonColor: 'bg-white hover:bg-white/90 text-[#F5F4F0]',
     stripeUrl: 'https://buy.stripe.com/cNi00k2HUgRqff0gSafrW03',
   },
 ]
@@ -63,7 +63,7 @@ const FEATURES: { label: string; values: [FeatureValue, FeatureValue, FeatureVal
 ]
 
 function FeatureCell({ value, checkColor }: { value: FeatureValue; checkColor: string }) {
-  if (value === false) return <Minus className="w-4 h-4 text-white/15 mx-auto" />
+  if (value === false) return <Minus className="w-4 h-4 text-[#1E2026]/15 mx-auto" />
   if (value === true) return <Check className={`w-4 h-4 ${checkColor} mx-auto`} strokeWidth={2.5} />
   return <span className={`text-xs font-medium ${checkColor}`}>{value}</span>
 }
@@ -87,30 +87,30 @@ function RestaurantSearch() {
   return (
     <div className="relative">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#1E2026]/40" />
         <input
           type="text"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
           onFocus={() => setOpen(true)}
           placeholder="Search your restaurant…"
-          className="w-full pl-8 pr-3 py-2 rounded-lg bg-[#2F323A] border border-white/10 text-white text-xs placeholder-white/40 focus:outline-none focus:border-emerald-500/50"
+          className="w-full pl-8 pr-3 py-2 rounded-lg bg-[#ffffff] border border-black/8 text-[#1E2026] text-xs placeholder-[#9B9490] focus:outline-none focus:border-[#B57F50]/50"
         />
       </div>
       {open && (
-        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto bg-[#2F323A] border border-white/10 rounded-lg shadow-xl">
+        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto bg-[#ffffff] border border-black/8 rounded-lg shadow-xl">
           {matches.length === 0 ? (
-            <div className="p-3 text-xs text-white/50">No restaurants match.</div>
+            <div className="p-3 text-xs text-[#1E2026]/50">No restaurants match.</div>
           ) : (
             matches.map(r => (
               <Link
                 key={r.slug}
                 href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                className="block px-3 py-2 hover:bg-emerald-500/10 transition-colors border-b border-white/5 last:border-b-0"
+                className="block px-3 py-2 hover:bg-emerald-500/10 transition-colors border-b border-black/5 last:border-b-0"
                 onClick={() => setOpen(false)}
               >
-                <div className="text-xs text-white font-medium">{r.name}</div>
-                <div className="text-[10px] text-white/50">{r.city}, {r.stateCode}</div>
+                <div className="text-xs text-[#1E2026] font-medium">{r.name}</div>
+                <div className="text-[10px] text-[#1E2026]/50">{r.city}, {r.stateCode}</div>
               </Link>
             ))
           )}
@@ -122,11 +122,11 @@ function RestaurantSearch() {
 
 export default function FeaturedTiers() {
   return (
-    <div className="rounded-2xl border border-white/10 overflow-hidden bg-[#1E2026]">
+    <div className="rounded-2xl border border-black/8 bg-[#F5F4F0]">
       {/* Tier header columns */}
       <div className="grid grid-cols-4">
         {/* Empty top-left cell */}
-        <div className="p-5 border-b border-white/10 border-r" />
+        <div className="p-5 border-b border-black/8 border-r" />
 
         {TIERS.map((tier, i) => {
           const Icon = tier.icon
@@ -134,11 +134,11 @@ export default function FeaturedTiers() {
           return (
             <div
               key={tier.id}
-              className={`${tier.headerBg} px-5 pb-5 border-b border-white/10 text-center ${tier.badge ? 'pt-3' : 'pt-5'} ${!isLast ? 'border-r border-white/10' : ''} ${tier.highlight ? 'ring-inset ring-1 ring-amber-500/30' : ''}`}
+              className={`${tier.headerBg} px-5 pb-5 border-b border-black/8 text-center ${tier.badge ? 'pt-3' : 'pt-5'} ${!isLast ? 'border-r border-black/8' : ''} ${tier.highlight ? 'ring-inset ring-1 ring-amber-500/30' : ''}`}
             >
               {tier.badge && (
                 <div className="flex justify-center mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-[#F5F4F0] text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
                     {tier.badge}
                   </span>
                 </div>
@@ -148,9 +148,9 @@ export default function FeaturedTiers() {
                 {tier.label}
               </div>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-2xl font-bold text-white">{tier.price}</span>
+                <span className="text-2xl font-bold text-[#1E2026]">{tier.price}</span>
               </div>
-              <div className="text-white/40 text-xs mt-0.5">{tier.period}</div>
+              <div className="text-[#1E2026]/40 text-xs mt-0.5">{tier.period}</div>
             </div>
           )
         })}
@@ -159,15 +159,15 @@ export default function FeaturedTiers() {
       {/* Feature rows */}
       {FEATURES.map((feature, fi) => (
         <div key={feature.label} className={`grid grid-cols-4 ${fi % 2 === 0 ? 'bg-white/[0.02]' : ''}`}>
-          <div className="px-5 py-3 border-r border-white/10 flex items-center">
-            <span className="text-sm text-[#B0B3BB]">{feature.label}</span>
+          <div className="px-5 py-3 border-r border-black/8 flex items-center">
+            <span className="text-sm text-[#6B6862]">{feature.label}</span>
           </div>
           {TIERS.map((tier, ti) => {
             const isLast = ti === TIERS.length - 1
             return (
               <div
                 key={tier.id}
-                className={`px-5 py-3 flex items-center justify-center ${!isLast ? 'border-r border-white/10' : ''} ${tier.highlight ? 'bg-amber-500/[0.03]' : ''}`}
+                className={`px-5 py-3 flex items-center justify-center ${!isLast ? 'border-r border-black/8' : ''} ${tier.highlight ? 'bg-amber-500/[0.03]' : ''}`}
               >
                 <FeatureCell value={feature.values[ti]} checkColor={tier.checkColor} />
               </div>
@@ -177,9 +177,9 @@ export default function FeaturedTiers() {
       ))}
 
       {/* CTA row */}
-      <div className="grid grid-cols-4 border-t border-white/10">
-        <div className="p-5 border-r border-white/10 flex items-center">
-          <span className="text-xs text-white/30">Get started today</span>
+      <div className="grid grid-cols-4 border-t border-black/8">
+        <div className="p-5 border-r border-black/8 flex items-center">
+          <span className="text-xs text-[#1E2026]/30">Get started today</span>
         </div>
         {TIERS.map((tier, i) => {
           const Icon = tier.icon
@@ -187,12 +187,12 @@ export default function FeaturedTiers() {
           return (
             <div
               key={tier.id}
-              className={`p-4 flex flex-col gap-2 ${!isLast ? 'border-r border-white/10' : ''} ${tier.highlight ? 'bg-amber-500/[0.03]' : ''}`}
+              className={`p-4 flex flex-col gap-2 ${!isLast ? 'border-r border-black/8' : ''} ${tier.highlight ? 'bg-amber-500/[0.03]' : ''}`}
             >
               {tier.id === 'free' ? (
                 <>
                   <RestaurantSearch />
-                  <p className="text-white/25 text-[10px] text-center">Select your restaurant to claim</p>
+                  <p className="text-[#1E2026]/25 text-[10px] text-center">Select your restaurant to claim</p>
                 </>
               ) : (
                 <>
@@ -203,7 +203,7 @@ export default function FeaturedTiers() {
                     <Icon className="w-3.5 h-3.5" />
                     Get {tier.label}
                   </a>
-                  <p className="text-white/25 text-[10px] text-center">Secure payment via Stripe</p>
+                  <p className="text-[#1E2026]/25 text-[10px] text-center">Secure payment via Stripe</p>
                 </>
               )}
             </div>

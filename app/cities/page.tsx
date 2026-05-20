@@ -84,20 +84,20 @@ export default function CitiesPage() {
   const liveStates = byState.size
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
       {/* Header */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#1E2026] border-b border-white/5">
+      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
         <div className="max-w-5xl mx-auto">
-          <nav className="flex items-center gap-1.5 text-xs text-[#B0B3BB] mb-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <nav className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-white">Browse Cities</span>
+            <span className="text-[#1E2026]">Browse Cities</span>
           </nav>
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Find Ramen Near You</h1>
-          <p className="text-[#B0B3BB] text-lg">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Find Ramen Near You</h1>
+          <p className="text-[#6B6862] text-lg">
             {totalRestaurants.toLocaleString()} restaurants across {totalCities} cities in {liveStates} states
           </p>
         </div>
@@ -114,30 +114,30 @@ export default function CitiesPage() {
               <div key={state.code}>
                 {/* State heading */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="font-serif text-xl font-bold text-white">{state.name}</h2>
+                  <h2 className="font-serif text-xl font-bold text-[#1E2026]">{state.name}</h2>
                   <span className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest">{state.code}</span>
                   {!hasData && (
-                    <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#B0B3BB] text-xs">
+                    <span className="px-2 py-0.5 rounded-full bg-black/5 border border-black/8 text-[#6B6862] text-xs">
                       Coming soon
                     </span>
                   )}
                 </div>
 
                 {hasData ? (
-                  <ul className="divide-y divide-white/5 rounded-xl border border-white/5 overflow-hidden">
+                  <ul className="divide-y divide-white/5 rounded-xl border border-black/5 overflow-hidden">
                     {stateCities.map((city) => (
                       <li key={`${city.citySlug}-${city.stateSlug}`}>
                         <Link
                           href={`/${city.citySlug}/${city.stateSlug}`}
-                          className="flex items-center justify-between px-4 py-3 bg-[#1E2026] hover:bg-[#252830] transition-colors group"
+                          className="flex items-center justify-between px-4 py-3 bg-[#F5F4F0] hover:bg-[#252830] transition-colors group"
                         >
                           <span className="flex items-center gap-2">
                             <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
-                            <span className="text-white text-sm font-medium group-hover:text-[#c8934f] transition-colors">
+                            <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#c8934f] transition-colors">
                               {city.city}, {city.stateCode}
                             </span>
                           </span>
-                          <span className="text-[#B0B3BB] text-xs shrink-0 ml-4">
+                          <span className="text-[#6B6862] text-xs shrink-0 ml-4">
                             {city.count} Ramen Restaurant{city.count !== 1 ? 's' : ''}
                           </span>
                         </Link>
@@ -145,7 +145,7 @@ export default function CitiesPage() {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-[#B0B3BB]/50 text-sm italic pl-1">
+                  <p className="text-[#6B6862]/50 text-sm italic pl-1">
                     No listings yet — check back soon.
                   </p>
                 )}

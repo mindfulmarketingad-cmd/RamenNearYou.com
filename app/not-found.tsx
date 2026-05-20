@@ -53,16 +53,16 @@ const SITEMAP = [
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
-      <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-white/5">
+      <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-black/5">
         <div className="max-w-2xl mx-auto">
           <p className="font-serif text-8xl font-bold text-[#B57F50] mb-4">404</p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
             Page not found
           </h1>
-          <p className="text-[#B0B3BB] text-base leading-relaxed mb-8">
+          <p className="text-[#6B6862] text-base leading-relaxed mb-8">
             The page you&apos;re looking for doesn&apos;t exist or may have moved.
             Here&apos;s a map of everything on the site.
           </p>
@@ -75,7 +75,7 @@ export default function NotFound() {
             </Link>
             <Link
               href="/search"
-              className="px-5 py-2.5 rounded-lg border border-white/10 text-[#B0B3BB] text-sm font-medium hover:text-white hover:border-white/25 transition-colors"
+              className="px-5 py-2.5 rounded-lg border border-black/8 text-[#6B6862] text-sm font-medium hover:text-[#1E2026] hover:border-black/15 transition-colors"
             >
               Search Restaurants
             </Link>
@@ -85,7 +85,7 @@ export default function NotFound() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-white text-sm font-semibold uppercase tracking-widest mb-8 text-center">
+          <h2 className="text-[#1E2026] text-sm font-semibold uppercase tracking-widest mb-8 text-center">
             Site Map
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -99,7 +99,7 @@ export default function NotFound() {
                     <li key={link.label + link.href}>
                       <Link
                         href={link.href}
-                        className="flex items-center gap-1 text-[#B0B3BB] text-sm hover:text-white transition-colors group"
+                        className="flex items-center gap-1 text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors group"
                       >
                         <ChevronRight className="w-3 h-3 text-[#B57F50]/50 group-hover:text-[#B57F50] transition-colors shrink-0" />
                         {link.label}

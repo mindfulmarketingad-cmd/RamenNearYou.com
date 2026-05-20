@@ -46,12 +46,12 @@ export default function CookieConsent() {
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 bg-[#1E2026] border-t border-white/10 shadow-2xl">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 bg-[#F5F4F0] border-t border-black/8 shadow-2xl">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-        <p className="text-[#B0B3BB] text-sm leading-relaxed max-w-2xl">
+        <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">
           We use cookies to analyze site traffic and display personalized ads via{' '}
-          <strong className="text-white">Google Analytics</strong> and{' '}
-          <strong className="text-white">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
+          <strong className="text-[#1E2026]">Google Analytics</strong> and{' '}
+          <strong className="text-[#1E2026]">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
           use of cookies.{' '}
           <Link href="/privacy-policy" className="text-[#B57F50] hover:underline">
             Privacy Policy
@@ -60,7 +60,7 @@ export default function CookieConsent() {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={handleDecline}
-            className="px-4 py-2 rounded-lg border border-white/10 text-[#B0B3BB] hover:text-white text-sm font-medium transition-colors hover:border-white/20"
+            className="px-4 py-2 rounded-lg border border-black/8 text-[#6B6862] hover:text-[#1E2026] text-sm font-medium transition-colors hover:border-black/12"
           >
             Decline
           </button>

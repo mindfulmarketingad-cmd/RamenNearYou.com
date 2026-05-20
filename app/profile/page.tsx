@@ -15,7 +15,7 @@ import CitiesSection from './cities-section'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white text-sm outline-none focus:border-[#B57F50] transition-colors'
+  'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors'
 
 const brothOptions = ['Tonkotsu', 'Miso', 'Shoyu', 'Shio', 'Tsukemen', 'Chicken', 'All of them!']
 
@@ -166,10 +166,10 @@ export default function ProfilePage() {
 
   if (!authChecked) {
     return (
-      <div className="min-h-screen bg-[#2F323A] flex flex-col">
+      <div className="min-h-screen bg-[#ffffff] flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center">
-          <p className="text-[#B0B3BB] text-sm">Loading&hellip;</p>
+          <p className="text-[#6B6862] text-sm">Loading&hellip;</p>
         </main>
         <Footer />
       </div>
@@ -179,16 +179,16 @@ export default function ProfilePage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-[#2F323A] flex flex-col">
+    <div className="min-h-screen bg-[#ffffff] flex flex-col">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <h1 className="font-serif text-3xl font-bold text-white mb-8">My Profile</h1>
+          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-8">My Profile</h1>
 
           <form onSubmit={handleSave} className="space-y-6">
-            <div className="bg-[#1E2026] border border-white/10 rounded-xl p-6">
-              <h2 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Photo</h2>
+            <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6">
+              <h2 className="text-[#1E2026] font-semibold text-sm mb-4 uppercase tracking-wider">Photo</h2>
               <div className="flex items-center gap-5">
                 <div className="relative flex-shrink-0">
                   {avatarUrl ? (
@@ -197,7 +197,7 @@ export default function ProfilePage() {
                       alt="Avatar"
                       width={80}
                       height={80}
-                      className="w-20 h-20 rounded-full object-cover border-2 border-white/10"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-black/8"
                     />
                   ) : (
                     <div className="w-20 h-20 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center text-2xl font-bold text-[#B57F50]">
@@ -210,12 +210,12 @@ export default function ProfilePage() {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploadingPhoto}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm hover:bg-white/10 transition-colors disabled:opacity-60"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/5 border border-black/8 text-[#1E2026] text-sm hover:bg-black/8 transition-colors disabled:opacity-60"
                   >
                     <Camera className="w-4 h-4" />
                     {uploadingPhoto ? 'Uploading…' : 'Change photo'}
                   </button>
-                  <p className="text-[#B0B3BB] text-xs mt-1.5">JPG, PNG or GIF, max 8 MB</p>
+                  <p className="text-[#6B6862] text-xs mt-1.5">JPG, PNG or GIF, max 8 MB</p>
                 </div>
                 <input
                   ref={fileInputRef}
@@ -227,11 +227,11 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="bg-[#1E2026] border border-white/10 rounded-xl p-6 space-y-5">
-              <h2 className="text-white font-semibold text-sm uppercase tracking-wider">Profile Info</h2>
+            <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6 space-y-5">
+              <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider">Profile Info</h2>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Display Name</label>
+                <label className="text-[#1E2026] text-sm font-medium">Display Name</label>
                 <input
                   type="text"
                   value={displayName}
@@ -243,8 +243,8 @@ export default function ProfilePage() {
 
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-white text-sm font-medium">Bio</label>
-                  <span className="text-[#B0B3BB] text-xs">{bio.length}/200</span>
+                  <label className="text-[#1E2026] text-sm font-medium">Bio</label>
+                  <span className="text-[#6B6862] text-xs">{bio.length}/200</span>
                 </div>
                 <textarea
                   rows={3}
@@ -257,7 +257,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Favorite Broth</label>
+                <label className="text-[#1E2026] text-sm font-medium">Favorite Broth</label>
                 <select
                   value={favoriteBroth}
                   onChange={(e) => setFavoriteBroth(e.target.value)}
@@ -271,7 +271,7 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Ramen Restaurants Visited</label>
+                <label className="text-[#1E2026] text-sm font-medium">Ramen Restaurants Visited</label>
                 <input
                   type="number"
                   min={0}
@@ -283,13 +283,13 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="bg-[#1E2026] border border-white/10 rounded-xl p-6 space-y-5">
-              <h2 className="text-white font-semibold text-sm uppercase tracking-wider">Social Links</h2>
+            <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6 space-y-5">
+              <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider">Social Links</h2>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Instagram</label>
+                <label className="text-[#1E2026] text-sm font-medium">Instagram</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B0B3BB] text-sm select-none">@</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">@</span>
                   <input
                     type="text"
                     value={instagram}
@@ -301,9 +301,9 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">TikTok</label>
+                <label className="text-[#1E2026] text-sm font-medium">TikTok</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B0B3BB] text-sm select-none">T@</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">T@</span>
                   <input
                     type="text"
                     value={tiktok}
@@ -315,9 +315,9 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white text-sm font-medium">Twitter / X</label>
+                <label className="text-[#1E2026] text-sm font-medium">Twitter / X</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B0B3BB] text-sm select-none">@</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">@</span>
                   <input
                     type="text"
                     value={twitter}
@@ -341,26 +341,26 @@ export default function ProfilePage() {
             </button>
           </form>
 
-          <div className="mt-6 bg-[#1E2026] border border-white/10 rounded-xl p-6">
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Stats</h2>
+          <div className="mt-6 bg-[#F5F4F0] border border-black/8 rounded-xl p-6">
+            <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">Stats</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               <div>
-                <p className="text-2xl font-bold text-white">{savesCount ?? '—'}</p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Saved</p>
+                <p className="text-2xl font-bold text-[#1E2026]">{savesCount ?? '—'}</p>
+                <p className="text-[#6B6862] text-xs mt-1">Saved</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{visitsCount ?? '—'}</p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Visited</p>
+                <p className="text-2xl font-bold text-[#1E2026]">{visitsCount ?? '—'}</p>
+                <p className="text-[#6B6862] text-xs mt-1">Visited</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{followsCount ?? '—'}</p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Cities Followed</p>
+                <p className="text-2xl font-bold text-[#1E2026]">{followsCount ?? '—'}</p>
+                <p className="text-[#6B6862] text-xs mt-1">Cities Followed</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-white leading-snug pt-1.5">
+                <p className="text-sm font-semibold text-[#1E2026] leading-snug pt-1.5">
                   {user.created_at ? formatMemberSince(user.created_at) : '—'}
                 </p>
-                <p className="text-[#B0B3BB] text-xs mt-1">Member Since</p>
+                <p className="text-[#6B6862] text-xs mt-1">Member Since</p>
               </div>
             </div>
           </div>
@@ -375,8 +375,8 @@ export default function ProfilePage() {
                   <BadgeCheck className="w-5 h-5 text-sky-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">Own a ramen shop?</p>
-                  <p className="text-[#B0B3BB] text-xs">Manage your verified listings and edit content.</p>
+                  <p className="text-[#1E2026] font-semibold text-sm">Own a ramen shop?</p>
+                  <p className="text-[#6B6862] text-xs">Manage your verified listings and edit content.</p>
                 </div>
               </div>
               <span className="text-sky-400 text-sm font-semibold group-hover:underline">Owner Dashboard →</span>
@@ -384,7 +384,7 @@ export default function ProfilePage() {
           </section>
 
           <section className="mt-8">
-            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
               <Heart className="w-4 h-4 text-red-400 fill-red-400" />
               Saved Restaurants
             </h2>
@@ -392,7 +392,7 @@ export default function ProfilePage() {
           </section>
 
           <section className="mt-8">
-            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
               <MapPin className="w-4 h-4 text-[#B57F50]" />
               Cities You Follow
             </h2>
@@ -400,12 +400,12 @@ export default function ProfilePage() {
           </section>
 
           <section className="mt-8">
-            <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               Visited Restaurants
             </h2>
-            <p className="text-[#B0B3BB] text-xs mb-2">
-              You&apos;ve marked <span className="text-white font-semibold">{visitsCount ?? 0}</span> restaurant{visitsCount === 1 ? '' : 's'} as visited.
+            <p className="text-[#6B6862] text-xs mb-2">
+              You&apos;ve marked <span className="text-[#1E2026] font-semibold">{visitsCount ?? 0}</span> restaurant{visitsCount === 1 ? '' : 's'} as visited.
             </p>
           </section>
         </div>

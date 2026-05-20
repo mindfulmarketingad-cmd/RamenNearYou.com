@@ -73,16 +73,16 @@ export default function BrothPage() {
   }, [selected, tagged])
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
       {/* Header */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4">
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
           Find Ramen by Broth Type
         </h1>
-        <p className="text-[#B0B3BB] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+        <p className="text-[#6B6862] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
           Every bowl starts with the broth. Find ramen restaurants by the style that suits your taste.
         </p>
       </section>
@@ -100,14 +100,14 @@ export default function BrothPage() {
                 className={`text-left p-4 rounded-xl border transition-all duration-200 ${
                   isActive
                     ? `${meta.border} ring-1 ring-inset ring-white/10`
-                    : `border-white/5 bg-[#1E2026] hover:border-white/15`
+                    : `border-black/5 bg-[#F5F4F0] hover:border-white/15`
                 }`}
               >
-                <p className={`text-base font-semibold mb-1 ${isActive ? meta.color : 'text-white'}`}>
+                <p className={`text-base font-semibold mb-1 ${isActive ? meta.color : 'text-[#1E2026]'}`}>
                   {meta.label}
                 </p>
-                <p className="text-[#B0B3BB] text-xs leading-snug mb-2">{meta.description}</p>
-                <p className={`text-xs font-medium ${isActive ? meta.color : 'text-[#B0B3BB]/60'}`}>
+                <p className="text-[#6B6862] text-xs leading-snug mb-2">{meta.description}</p>
+                <p className={`text-xs font-medium ${isActive ? meta.color : 'text-[#6B6862]/60'}`}>
                   {counts[type]} restaurant{counts[type] !== 1 ? 's' : ''}
                 </p>
               </button>
@@ -123,8 +123,8 @@ export default function BrothPage() {
             onClick={() => setSelected('All')}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
               selected === 'All'
-                ? 'bg-[#B57F50] border-[#B57F50] text-white'
-                : 'border-white/10 text-[#B0B3BB] hover:border-white/30 hover:text-white'
+                ? 'bg-[#B57F50] border-[#B57F50] text-[#1E2026]'
+                : 'border-black/8 text-[#6B6862] hover:border-white/30 hover:text-[#1E2026]'
             }`}
           >
             All ({counts.All})
@@ -135,8 +135,8 @@ export default function BrothPage() {
               onClick={() => setSelected(selected === type ? 'All' : type)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                 selected === type
-                  ? 'bg-[#B57F50] border-[#B57F50] text-white'
-                  : 'border-white/10 text-[#B0B3BB] hover:border-white/30 hover:text-white'
+                  ? 'bg-[#B57F50] border-[#B57F50] text-[#1E2026]'
+                  : 'border-black/8 text-[#6B6862] hover:border-white/30 hover:text-[#1E2026]'
               }`}
             >
               {brothMeta[type].label} ({counts[type]})
@@ -159,8 +159,8 @@ export default function BrothPage() {
         <div className="max-w-7xl mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-[#B0B3BB] text-lg mb-2">No restaurants found for this broth type yet.</p>
-              <p className="text-[#B0B3BB]/50 text-sm">
+              <p className="text-[#6B6862] text-lg mb-2">No restaurants found for this broth type yet.</p>
+              <p className="text-[#6B6862]/50 text-sm">
                 Own a restaurant with this broth?{' '}
                 <Link href="/list" className="text-[#B57F50] hover:underline">List it here.</Link>
               </p>
@@ -171,10 +171,10 @@ export default function BrothPage() {
                 <Link
                   key={r.slug}
                   href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="group flex flex-col bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                  className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
                 >
                   {/* Photo */}
-                  <div className="relative h-40 bg-[#2F323A] overflow-hidden flex-shrink-0">
+                  <div className="relative h-40 bg-[#ffffff] overflow-hidden flex-shrink-0">
                     {r.photo ? (
                       <Image
                         src={r.photo}
@@ -188,16 +188,16 @@ export default function BrothPage() {
                         <Utensils className="w-10 h-10 text-[#B57F50]/20" />
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
                   </div>
 
                   {/* Content */}
                   <div className="p-4 flex flex-col flex-1 gap-2">
                     <div>
-                      <h3 className="font-semibold text-white text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                      <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                         {r.name}
                       </h3>
-                      <p className="flex items-center gap-1 text-xs text-[#B0B3BB] mt-0.5">
+                      <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
                         <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
                         {r.city}, {r.stateCode}
                       </p>
@@ -205,10 +205,10 @@ export default function BrothPage() {
 
                     <div className="flex items-center justify-between mt-auto">
                       {r.rating ? (
-                        <span className="flex items-center gap-1 text-xs text-white/60">
+                        <span className="flex items-center gap-1 text-xs text-[#1E2026]/60">
                           <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                           {r.rating.toFixed(1)}
-                          <span className="text-white/30">({r.reviewCount.toLocaleString()})</span>
+                          <span className="text-[#1E2026]/30">({r.reviewCount.toLocaleString()})</span>
                         </span>
                       ) : <span />}
 

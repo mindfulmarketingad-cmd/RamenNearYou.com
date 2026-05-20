@@ -287,19 +287,19 @@ export default function JinyaMenuPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#1a1c22] pt-24 pb-20">
+      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20">
 
         {/* Hero */}
-        <section className="px-4 sm:px-6 lg:px-8 pb-10 border-b border-white/5">
+        <section className="px-4 sm:px-6 lg:px-8 pb-10 border-b border-black/5">
           <div className="max-w-4xl mx-auto">
             <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Restaurant Menu</p>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4 leading-tight">
               JINYA Ramen Bar Menu
             </h1>
-            <p className="text-[#B0B3BB] text-lg leading-relaxed max-w-2xl">
-              The full <strong className="text-white">JINYA Ramen Bar menu</strong> — covering every ramen bowl, small plate, salad, rice bowl, dessert, and cocktail. Items and availability may vary by location.
+            <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl">
+              The full <strong className="text-[#1E2026]">JINYA Ramen Bar menu</strong> — covering every ramen bowl, small plate, salad, rice bowl, dessert, and cocktail. Items and availability may vary by location.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3 text-xs text-[#B0B3BB]/60">
+            <div className="mt-6 flex flex-wrap gap-3 text-xs text-[#6B6862]/60">
               <Link href="/atlanta/ga/jinya-ramen-bar-buckhead" className="hover:text-[#B57F50] transition-colors underline underline-offset-2">
                 JINYA Ramen Bar – Buckhead, Atlanta →
               </Link>
@@ -311,7 +311,7 @@ export default function JinyaMenuPage() {
         </section>
 
         {/* Photo */}
-        <section className="px-4 sm:px-6 lg:px-8 py-10 border-b border-white/5">
+        <section className="px-4 sm:px-6 lg:px-8 py-10 border-b border-black/5">
           <div className="max-w-4xl mx-auto">
             <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden">
               <Image
@@ -321,7 +321,7 @@ export default function JinyaMenuPage() {
                 className="object-cover"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a1c22]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#ECEAE4]/60 to-transparent" />
             </div>
           </div>
         </section>
@@ -331,20 +331,20 @@ export default function JinyaMenuPage() {
           <div className="max-w-4xl mx-auto space-y-12">
             {menu.map((section) => (
               <div key={section.heading}>
-                <div className="flex items-baseline gap-3 mb-5 pb-3 border-b border-white/10">
-                  <h2 className="font-serif text-2xl font-bold text-white">{section.heading}</h2>
+                <div className="flex items-baseline gap-3 mb-5 pb-3 border-b border-black/8">
+                  <h2 className="font-serif text-2xl font-bold text-[#1E2026]">{section.heading}</h2>
                   {section.note && (
-                    <span className="text-[#B0B3BB]/50 text-xs">{section.note}</span>
+                    <span className="text-[#6B6862]/50 text-xs">{section.note}</span>
                   )}
                 </div>
                 <div className="grid gap-4">
                   {section.items.map((item) => (
                     <div
                       key={item.name}
-                      className="flex flex-col gap-1 p-4 rounded-xl bg-[#2F323A] border border-white/5"
+                      className="flex flex-col gap-1 p-4 rounded-xl bg-[#ffffff] border border-black/5"
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <p className="font-semibold text-white text-sm leading-snug">{item.name}</p>
+                        <p className="font-semibold text-[#1E2026] text-sm leading-snug">{item.name}</p>
                         {item.note && (
                           <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] font-medium whitespace-nowrap">
                             {item.note}
@@ -352,7 +352,7 @@ export default function JinyaMenuPage() {
                         )}
                       </div>
                       {item.description && (
-                        <p className="text-[#B0B3BB] text-xs leading-relaxed">{item.description}</p>
+                        <p className="text-[#6B6862] text-xs leading-relaxed">{item.description}</p>
                       )}
                     </div>
                   ))}
@@ -364,8 +364,8 @@ export default function JinyaMenuPage() {
 
         {/* CTA */}
         <section className="px-4 sm:px-6 lg:px-8 pt-16">
-          <div className="max-w-4xl mx-auto pt-10 border-t border-white/10">
-            <p className="text-[#B0B3BB] text-sm mb-4">Find JINYA Ramen Bar locations in Atlanta</p>
+          <div className="max-w-4xl mx-auto pt-10 border-t border-black/8">
+            <p className="text-[#6B6862] text-sm mb-4">Find JINYA Ramen Bar locations in Atlanta</p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/atlanta/ga/jinya-ramen-bar-buckhead"

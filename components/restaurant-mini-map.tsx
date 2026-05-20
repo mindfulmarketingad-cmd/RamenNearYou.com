@@ -85,15 +85,15 @@ export default function RestaurantMiniMap({ lat, lng, name, address, directionsU
   }, [])
 
   return (
-    <div className="rounded-xl overflow-hidden border border-white/5">
+    <div className="rounded-xl overflow-hidden border border-black/5">
       {/* Map */}
       <div ref={containerRef} style={{ height: 200 }} className="w-full" />
 
       {/* Directions bar */}
-      <div className="bg-[#1E2026] px-4 py-3 flex items-center justify-between gap-3 border-t border-white/5">
+      <div className="bg-[#F5F4F0] px-4 py-3 flex items-center justify-between gap-3 border-t border-black/5">
         <div className="min-w-0">
-          <p className="text-white text-xs font-semibold truncate">{name}</p>
-          <p className="text-[#B0B3BB] text-xs truncate">{address}</p>
+          <p className="text-[#1E2026] text-xs font-semibold truncate">{name}</p>
+          <p className="text-[#6B6862] text-xs truncate">{address}</p>
         </div>
         <a
           href={directionsUrl}

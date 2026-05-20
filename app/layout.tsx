@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-jet-black`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-white`}>
       <head>
         <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
         <Script id="gtag-consent-default" strategy="beforeInteractive">{`
@@ -77,7 +77,7 @@ export default function RootLayout({
           gtag('config', 'G-S6L1KWFRC8');
         `}</Script>
       </head>
-      <body className="font-sans antialiased bg-jet-black text-white">
+      <body className="font-sans antialiased bg-white text-[#1E2026]">
         {children}
         <CookieConsent />
         {process.env.NODE_ENV === 'production' && <Analytics />}

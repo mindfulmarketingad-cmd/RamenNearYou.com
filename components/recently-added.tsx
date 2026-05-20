@@ -84,11 +84,11 @@ export default function RecentlyAdded() {
   }, [])
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#2F323A] noise-texture" ref={sectionRef}>
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff] noise-texture" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Fresh Listings</p>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white text-balance">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] text-balance">
             Newly Listed Restaurants
           </h2>
         </div>
@@ -97,7 +97,7 @@ export default function RecentlyAdded() {
           {restaurants.map((r) => (
             <div
               key={r.id}
-              className="fade-up group flex flex-col rounded-xl bg-[#1E2026] border border-white/5 overflow-hidden hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30"
+              className="fade-up group flex flex-col rounded-xl bg-[#F5F4F0] border border-black/5 overflow-hidden hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30"
             >
               {/* Photo */}
               <div className="relative h-48 overflow-hidden">
@@ -106,19 +106,19 @@ export default function RecentlyAdded() {
                   alt={r.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1E2026] to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] to-transparent" />
               </div>
 
               {/* Content */}
               <div className="flex flex-col flex-1 p-5 gap-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-semibold text-white text-base leading-snug">{r.name}</h3>
+                  <h3 className="font-semibold text-[#1E2026] text-base leading-snug">{r.name}</h3>
                   <span className={`flex-shrink-0 px-2 py-0.5 rounded-full border text-xs font-medium ${brothColors[r.broth]}`}>
                     {r.broth}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 text-sm text-[#B0B3BB]">
+                <div className="flex items-center gap-3 text-sm text-[#6B6862]">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
                     {r.city}
@@ -130,7 +130,7 @@ export default function RecentlyAdded() {
                 </div>
 
                 <div className="mt-auto pt-2">
-                  <button className="w-full py-2.5 rounded-lg border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-white transition-all duration-200">
+                  <button className="w-full py-2.5 rounded-lg border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-[#1E2026] transition-all duration-200">
                     View Restaurant
                   </button>
                 </div>

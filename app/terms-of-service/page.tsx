@@ -12,19 +12,19 @@ export default function TermsOfServicePage() {
   const lastUpdated = 'May 19, 2026'
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
 
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Terms of Service</h1>
-          <p className="text-[#B0B3BB] text-sm mb-12">Last updated: {lastUpdated}</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Terms of Service</h1>
+          <p className="text-[#6B6862] text-sm mb-12">Last updated: {lastUpdated}</p>
 
-          <div className="space-y-10 text-[#B0B3BB] leading-relaxed">
+          <div className="space-y-10 text-[#6B6862] leading-relaxed">
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
               <p>
                 By accessing or using RamenNearYou.com (&ldquo;the Site,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), you agree to be bound
                 by these Terms of Service (&ldquo;Terms&rdquo;). If you do not agree to these Terms, please do not use the Site.
@@ -33,7 +33,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">2. Description of Service</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">2. Description of Service</h2>
               <p>
                 RamenNearYou is an online directory of ramen restaurants across the United States. We provide
                 information about ramen restaurants including location, ratings, hours, and menu information
@@ -43,11 +43,11 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">3. Accuracy of Restaurant Information</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">3. Accuracy of Restaurant Information</h2>
               <p>
                 Restaurant information on the Site (including hours, menus, pricing, and contact details) is
                 sourced from publicly available data and user submissions. We make reasonable efforts to keep
-                this information accurate and up to date, but <strong className="text-white">we do not guarantee
+                this information accurate and up to date, but <strong className="text-[#1E2026]">we do not guarantee
                 the accuracy, completeness, or timeliness of any restaurant information</strong>. Always confirm
                 directly with the restaurant before visiting. RamenNearYou is not responsible for any
                 inconvenience caused by outdated or incorrect information.
@@ -55,7 +55,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">4. User Accounts</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">4. User Accounts</h2>
               <p className="mb-3">
                 Some features of the Site require you to create an account. When creating an account, you agree to:
               </p>
@@ -71,7 +71,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">5. Restaurant Listings &amp; Claims</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">5. Restaurant Listings &amp; Claims</h2>
               <p className="mb-3">
                 Restaurant owners may claim their listing and submit updated information. By submitting a listing claim or update, you represent and warrant that:
               </p>
@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">6. Acceptable Use</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">6. Acceptable Use</h2>
               <p className="mb-3">You agree not to:</p>
               <ul className="list-disc list-inside space-y-1">
                 <li>Use the Site for any unlawful purpose or in violation of any applicable laws.</li>
@@ -101,7 +101,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">7. Intellectual Property</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">7. Intellectual Property</h2>
               <p>
                 All content on the Site — including text, graphics, logos, images, and software — is the property
                 of RamenNearYou or its content suppliers and is protected by applicable intellectual property laws.
@@ -114,7 +114,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">8. Third-Party Links &amp; Advertising</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">8. Third-Party Links &amp; Advertising</h2>
               <p>
                 The Site may contain links to third-party websites and display advertisements from third-party
                 advertising networks including Google AdSense. We are not responsible for the content, privacy
@@ -124,7 +124,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">9. Disclaimer of Warranties</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">9. Disclaimer of Warranties</h2>
               <p>
                 THE SITE AND ALL CONTENT ARE PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES OF ANY KIND,
                 EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, RAMENNEARYOU DISCLAIMS ALL
@@ -135,7 +135,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">10. Limitation of Liability</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">10. Limitation of Liability</h2>
               <p>
                 TO THE MAXIMUM EXTENT PERMITTED BY LAW, RAMENNEARYOU AND ITS OFFICERS, DIRECTORS, EMPLOYEES,
                 AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
@@ -145,7 +145,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">11. Indemnification</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">11. Indemnification</h2>
               <p>
                 You agree to indemnify and hold harmless RamenNearYou and its affiliates, officers, agents,
                 and employees from any claims, losses, damages, or expenses (including reasonable attorneys&apos; fees)
@@ -154,7 +154,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">12. Governing Law</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">12. Governing Law</h2>
               <p>
                 These Terms shall be governed by and construed in accordance with the laws of the United States,
                 without regard to conflict of law principles. Any disputes arising under these Terms shall be
@@ -163,7 +163,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">13. Changes to Terms</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">13. Changes to Terms</h2>
               <p>
                 We reserve the right to modify these Terms at any time. We will update the &ldquo;Last updated&rdquo; date
                 when changes are made. Your continued use of the Site after any changes constitutes your
@@ -172,12 +172,12 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-white text-xl font-semibold mb-3">14. Contact Us</h2>
+              <h2 className="text-[#1E2026] text-xl font-semibold mb-3">14. Contact Us</h2>
               <p>
                 If you have questions about these Terms, please contact us:
               </p>
-              <div className="mt-3 p-4 bg-[#1E2026] rounded-xl border border-white/5 text-sm">
-                <p className="text-white font-medium">RamenNearYou</p>
+              <div className="mt-3 p-4 bg-[#F5F4F0] rounded-xl border border-black/5 text-sm">
+                <p className="text-[#1E2026] font-medium">RamenNearYou</p>
                 <p>Email: <a href="mailto:legal@ramennearyou.com" className="text-[#B57F50] hover:underline">legal@ramennearyou.com</a></p>
                 <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#B57F50] hover:underline">www.ramennearyou.com/contact</a></p>
               </div>

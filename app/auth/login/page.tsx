@@ -47,25 +47,25 @@ function LoginForm() {
         </div>
       )}
       <div>
-        <label className="block text-sm text-[#B0B3BB] mb-1.5">Email</label>
+        <label className="block text-sm text-[#6B6862] mb-1.5">Email</label>
         <input
           type="email"
           required
           value={email}
           onChange={e => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+          className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
         />
       </div>
       <div>
-        <label className="block text-sm text-[#B0B3BB] mb-1.5">Password</label>
+        <label className="block text-sm text-[#6B6862] mb-1.5">Password</label>
         <input
           type="password"
           required
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="w-full px-4 py-3 bg-[#1E2026] border border-white/10 rounded-lg text-white placeholder-[#B0B3BB]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+          className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
         />
       </div>
       <button
@@ -75,7 +75,7 @@ function LoginForm() {
       >
         {loading ? 'Signing in…' : 'Sign in'}
       </button>
-      <p className="text-center text-sm text-[#B0B3BB]">
+      <p className="text-center text-sm text-[#6B6862]">
         Don&apos;t have an account?{' '}
         <Link href="/auth/signup" className="text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
           Create one
@@ -87,20 +87,20 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-[#2F323A] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
             <div className="w-9 h-9 rounded-full bg-[#B57F50] flex items-center justify-center">
-              <UtensilsCrossed className="w-4 h-4 text-white" />
+              <UtensilsCrossed className="w-4 h-4 text-[#1E2026]" />
             </div>
-            <span className="font-serif text-xl font-bold text-white">RamenNearYou</span>
+            <span className="font-serif text-xl font-bold text-[#1E2026]">RamenNearYou</span>
           </Link>
-          <h1 className="font-serif text-3xl font-bold text-white mb-2">Welcome back</h1>
-          <p className="text-[#B0B3BB] text-sm">Sign in to manage your listings</p>
+          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Welcome back</h1>
+          <p className="text-[#6B6862] text-sm">Sign in to manage your listings</p>
         </div>
-        <div className="bg-[#1E2026] rounded-xl border border-white/5 p-8">
-          <Suspense fallback={<div className="text-[#B0B3BB] text-sm text-center">Loading…</div>}>
+        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8">
+          <Suspense fallback={<div className="text-[#6B6862] text-sm text-center">Loading…</div>}>
             <LoginForm />
           </Suspense>
         </div>

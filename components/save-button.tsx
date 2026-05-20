@@ -23,7 +23,7 @@ export default function SaveButton({ slug, restaurantName }: { slug: string; res
       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 text-sm font-medium ${
         saved
           ? 'bg-red-500/15 border-red-500/40 text-red-400 hover:bg-red-500/25'
-          : 'bg-white/5 border-white/10 text-[#B0B3BB] hover:border-white/25 hover:text-white'
+          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026]'
       }`}
     >
       <Heart className={`w-4 h-4 transition-all ${saved ? 'fill-red-400 text-red-400' : ''}`} />

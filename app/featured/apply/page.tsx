@@ -15,17 +15,17 @@ export default async function FeaturedApplyPage({
   const { cancelled } = await searchParams
 
   return (
-    <main className="min-h-screen bg-[#2F323A]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-20">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
             <span className="text-amber-400 text-xs font-medium uppercase tracking-widest">Featured Listings</span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Put Your Restaurant on the Map
           </h1>
-          <p className="text-[#B0B3BB] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#6B6862] leading-relaxed max-w-2xl mx-auto">
             Claim your existing listing for free, or boost your visibility with a city or homepage featured placement in front of thousands of ramen lovers every month.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default async function FeaturedApplyPage({
 
         <FeaturedTiers />
 
-        <p className="text-center text-white/30 text-xs mt-8">
+        <p className="text-center text-[#1E2026]/30 text-xs mt-8">
           After checkout, email{' '}
           <a href="mailto:hello@ramennearyou.com" className="text-amber-400/60 hover:text-amber-400 transition-colors">
             hello@ramennearyou.com
