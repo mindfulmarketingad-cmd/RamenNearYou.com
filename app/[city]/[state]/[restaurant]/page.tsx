@@ -5,7 +5,7 @@ import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
-import { getRestaurant, getRestaurantsByCity, getCities } from '@/lib/restaurants'
+import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
@@ -74,8 +74,9 @@ function AmenityBadge({ active, label }: { active: boolean; label: string }) {
 
 export default async function RestaurantPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
-  const r = getRestaurant(city, state, restaurant)
-  if (!r) notFound()
+  const original = getRestaurant(city, state, restaurant)
+  if (!original) notFound()
+  const r = { ...original } as Restaurant
 
   const nearbyRestaurants = getRestaurantsByCity(city, state)
     .filter((n) => n.slug !== r.slug)
@@ -85,14 +86,33 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const supabase = await createClient()
   let isVerified = false
   let visitCount = 0
+  let isOwner = false
   if (supabase) {
     const { data } = await supabase
       .from('claims')
-      .select('id')
+      .select('id, user_id')
       .eq('restaurant_slug', r.slug)
       .eq('status', 'approved')
       .maybeSingle()
     isVerified = !!data
+
+    if (data?.user_id) {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user && user.id === data.user_id) isOwner = true
+    }
+
+    const { data: ov } = await supabase
+      .from('restaurant_overrides')
+      .select('description, phone, website, menu_link, hours')
+      .eq('restaurant_slug', r.slug)
+      .maybeSingle()
+    if (ov) {
+      if (ov.description?.trim()) r.description = ov.description
+      if (ov.phone?.trim())       r.phone       = ov.phone
+      if (ov.website?.trim())     r.website     = ov.website
+      if (ov.menu_link?.trim())   r.menuLink    = ov.menu_link
+      if (ov.hours && Object.keys(ov.hours).length > 0) r.hours = ov.hours
+    }
 
     const { count } = await supabase
       .from('restaurant_visits')
@@ -186,7 +206,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <div className="flex flex-wrap items-center gap-3">
                   <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">{r.name}</h1>
                   {isVerified && (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 text-xs font-semibold">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
                       <BadgeCheck className="w-3.5 h-3.5" />
                       Verified
                     </span>
@@ -224,7 +244,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </h2>
                 <div className="bg-[#1E2026] rounded-xl border border-white/5 overflow-hidden">
                   {DAY_ORDER.map((day) => {
-                    const slots = r.hours[day]
+                    const slots = r.hours?.[day]
                     return (
                       <div key={day} className="flex justify-between items-center px-5 py-3 border-b border-white/5 last:border-0">
                         <span className="text-white text-sm font-medium w-28">{day}</span>
@@ -330,19 +350,38 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             </div>
 
             {/* Claim listing CTA */}
-            <div className="bg-gradient-to-br from-[#77567A]/20 to-[#1E2026] rounded-xl border border-[#77567A]/30 p-6 space-y-3">
-              <h3 className="font-semibold text-white">Own this restaurant?</h3>
-              <p className="text-[#B0B3BB] text-sm leading-relaxed">
-                Claim your free listing to add photos, update your hours, and reach more ramen lovers.
-              </p>
-              <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
-                Claim This Listing
-              </Link>
-              <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
-                <Crown className="w-4 h-4" />
-                Make This A Featured Listing
-              </Link>
-            </div>
+            {isOwner ? (
+              <div className="bg-gradient-to-br from-sky-500/20 to-[#1E2026] rounded-xl border border-sky-500/30 p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="w-5 h-5 text-sky-400" />
+                  <h3 className="font-semibold text-white">You own this listing</h3>
+                </div>
+                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+                  Update your description, hours, phone, website and menu link.
+                </p>
+                <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
+                  Manage Listing
+                </Link>
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                  <Crown className="w-4 h-4" />
+                  Get Featured
+                </Link>
+              </div>
+            ) : (
+              <div className="bg-gradient-to-br from-[#77567A]/20 to-[#1E2026] rounded-xl border border-[#77567A]/30 p-6 space-y-3">
+                <h3 className="font-semibold text-white">Own this restaurant?</h3>
+                <p className="text-[#B0B3BB] text-sm leading-relaxed">
+                  Claim your free listing to add photos, update your hours, and reach more ramen lovers.
+                </p>
+                <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#77567A] text-white text-sm font-medium hover:bg-[#77567A]/80 transition-colors">
+                  Claim This Listing
+                </Link>
+                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#1E2026] text-sm font-semibold transition-colors">
+                  <Crown className="w-4 h-4" />
+                  Make This A Featured Listing
+                </Link>
+              </div>
+            )}
 
             {/* Mini map */}
             {r.latitude && r.longitude && (

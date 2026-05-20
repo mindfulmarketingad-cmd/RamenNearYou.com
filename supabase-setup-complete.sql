@@ -203,6 +203,8 @@ CREATE TABLE IF NOT EXISTS public.claims (
 );
 
 ALTER TABLE public.claims ADD COLUMN IF NOT EXISTS restaurant_city text;
+ALTER TABLE public.claims ADD COLUMN IF NOT EXISTS admin_note text;
+ALTER TABLE public.claims ADD COLUMN IF NOT EXISTS reviewed_at timestamptz;
 
 ALTER TABLE public.claims ENABLE ROW LEVEL SECURITY;
 
@@ -348,7 +350,6 @@ ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS favorite_broth text;
 ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS ramen_count int;
 
 -- ─── outbound_clicks ─────────────────────────────────────────
--- Tracks clicks to external URLs (website, directions, menu, etc.)
 
 CREATE TABLE IF NOT EXISTS public.outbound_clicks (
   id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -373,3 +374,58 @@ DO $$ BEGIN
       WITH CHECK (true);
   END IF;
 END $$;
+
+-- ─── restaurant_overrides ───────────────────────────────────
+-- Owner-edited content for claimed restaurants. Overrides static lib/restaurants.ts data.
+
+CREATE TABLE IF NOT EXISTS public.restaurant_overrides (
+  restaurant_slug text PRIMARY KEY,
+  user_id         uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  description     text,
+  phone           text,
+  website         text,
+  menu_link       text,
+  hours           jsonb,
+  updated_at      timestamptz DEFAULT now()
+);
+
+ALTER TABLE public.restaurant_overrides ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_overrides' AND policyname = 'Public reads overrides'
+  ) THEN
+    CREATE POLICY "Public reads overrides"
+      ON public.restaurant_overrides FOR SELECT
+      USING (true);
+  END IF;
+END $$;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_overrides' AND policyname = 'Owners write own override'
+  ) THEN
+    CREATE POLICY "Owners write own override"
+      ON public.restaurant_overrides FOR ALL
+      USING (auth.uid() = user_id)
+      WITH CHECK (auth.uid() = user_id);
+  END IF;
+END $$;
+
+-- ─── restaurant_edits ────────────────────────────────────────
+-- Audit log of every field edit made by an owner. Powers admin notifications.
+
+CREATE TABLE IF NOT EXISTS public.restaurant_edits (
+  id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  restaurant_slug text NOT NULL,
+  user_id         uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  field_name      text NOT NULL,
+  old_value       text,
+  new_value       text,
+  created_at      timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS restaurant_edits_slug_idx
+  ON public.restaurant_edits (restaurant_slug);
+
+ALTER TABLE public.restaurant_edits ENABLE ROW LEVEL SECURITY;

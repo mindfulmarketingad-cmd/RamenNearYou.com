@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef, FormEvent, ChangeEvent } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Camera, Heart, CheckCircle2, MapPin } from 'lucide-react'
+import Link from 'next/link'
+import { Camera, Heart, CheckCircle2, MapPin, BadgeCheck } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createClient } from '@/lib/supabase/client'
@@ -363,6 +364,24 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
+
+          <section className="mt-8">
+            <Link
+              href="/owner"
+              className="flex items-center justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-sky-500/15 via-sky-500/5 to-transparent border border-sky-500/30 hover:border-sky-500/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-sky-500/20 flex items-center justify-center">
+                  <BadgeCheck className="w-5 h-5 text-sky-400" />
+                </div>
+                <div>
+                  <p className="text-white font-semibold text-sm">Own a ramen shop?</p>
+                  <p className="text-[#B0B3BB] text-xs">Manage your verified listings and edit content.</p>
+                </div>
+              </div>
+              <span className="text-sky-400 text-sm font-semibold group-hover:underline">Owner Dashboard →</span>
+            </Link>
+          </section>
 
           <section className="mt-8">
             <h2 className="flex items-center gap-2 text-white font-semibold text-sm uppercase tracking-wider mb-4">

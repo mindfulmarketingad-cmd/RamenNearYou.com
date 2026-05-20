@@ -409,7 +409,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                       {r.name}
                     </h2>
                     {isVerified && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 text-xs font-semibold shrink-0">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold shrink-0">
                         <BadgeCheck className="w-3 h-3" />
                         Verified
                       </span>
