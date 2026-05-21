@@ -1385,6 +1385,300 @@ blogPosts.push({
   outroContent: `<h2>Where to Eat the Best Ramen in Houston, TX</h2><p>Houston's ramen scene is unusually deep for the South — anchored by five different JINYA locations all rated 4.8 or higher, plus standout independents like Mensho and creative one-offs like Space City Birria. We love starting at JINYA Heights Waterworks for the city's highest-rated bowl, hitting JINYA Midtown when we want the energy of Houston's busiest ramen room, and saving Mensho for when we want something more adventurous. Wherever you land in the city — from Clear Lake to FM 1960 to downtown — there's a serious bowl within driving distance.</p>`,
 })
 
+const sacramentoTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Village of OM Plant Kitchen',
+    rating: 4.8,
+    reviewCount: 197,
+    address: '1915 S St, Sacramento, CA 95811',
+    phone: '+1 279-222-4819',
+    description: "Sacramento's highest-rated ramen destination is fully plant-based — and it earns every star. Village of OM's creative vegan ramen bowls, craft cocktails, and warm Midtown vibe have built a devoted following of 197 reviewers who keep returning. We love the rich, layered broth that proves you don't need meat to make a serious bowl.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG21bZ9YNaibO8rARc2gA_MdE-RU6Hkrjv2r0l3ry1ycTzZdPrS8kM3iRJl5Uw-5FOeFh2nbr2_wtmjoSAJkQS5zWcHQ-k8BhO5LFzd0sEQUHPmyahBnkfuJluDbpaWBpk2iFYrzViAsV4=w800-h500-k-no',
+    slug: 'village-of-om-plant-kitchen',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Plant-Based', 'Midtown'],
+  },
+  {
+    rank: 2,
+    name: 'Pier 50 Sushi - Arden',
+    rating: 4.7,
+    reviewCount: 471,
+    address: '1735 Arden Wy #200, Sacramento, CA 95815',
+    phone: '+1 855-477-7894',
+    description: "Pier 50 in Arden keeps 471 reviewers happy with a menu that balances sushi and ramen at a 4.7-star level few restaurants sustain. We brought our whole crew here and everyone found something to love — the ramen broth is deep and warming, the sushi rolls are fresh, and the sake list seals the deal.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEXChgDFulW4-QlhGsqTRbpcEM_Y9FUB_kyoQJkafVLY-Uxtu4FbyO8dL0wNg9K-VXe-CdpHnduDvIMLwQdACzmIX9QV-WX7CTxAdRJRWzde2PzUJ694ln6sm6mpH5FwWNUVyZ-EZUZa44e=w800-h500-k-no',
+    slug: 'pier-50-sushi-arden',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Sushi & Ramen', 'Japanese', 'Arden'],
+  },
+  {
+    rank: 3,
+    name: 'Pipo Ramen & Rice',
+    rating: 4.7,
+    reviewCount: 170,
+    address: '6511 Savings Pl Suite 140 & 145, Sacramento, CA 95828',
+    phone: '+1 916-594-9226',
+    description: "South Sacramento's best-kept ramen secret — Pipo's intimate dining room and focused menu translate into a 4.7-star average that rivals anyone in the city. We tried their signature ramen bowl and left convinced this south-side spot deserves far more foot traffic. The portions are generous and the broth is nothing short of excellent.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGm98g6SlB0RdiCBP2gGFs_QLpg0JLi8Mwk4Ud6aIiadzUD39dYvokL8BTzKAUIsGOEvn2h8TJi1VZPzNyp5_Y0iLVw6T5Wd8Mhmyk0FOmHOc4YzDVTn2DM-aZ5HEhoVUQteUaF=w800-h500-k-no',
+    slug: 'pipo-ramen-rice',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Ramen & Rice', 'South Sacramento', 'Local Gem'],
+  },
+  {
+    rank: 4,
+    name: 'Mikuni',
+    rating: 4.6,
+    reviewCount: 2974,
+    address: '1530 J St STE 150, Sacramento, CA 95814',
+    phone: '+1 916-447-2112',
+    description: "Sacramento's most-reviewed Japanese restaurant and a Downtown institution. Mikuni's 4.6-star rating across nearly 3,000 reviews reflects a restaurant that consistently delivers — stylish space, solid ramen bowls, exceptional sushi, and a bar program worth lingering over. We love how this place feels like a special occasion even on a Tuesday night.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6i3a1zFVoRUKm1sBTa0BVQrxq9mDqpi5PUjIwfyiTJifyysuuM5PVBUAH50gkfGqdhXkbpf2pEVQp5JJD6Y-AvWMo0I4QHAJnWLtSH8mli7etYESFIpSvBef9u7IbyqTJFRoi=w800-h500-k-no',
+    slug: 'mikuni',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Japanese', 'Downtown', 'Sushi & Ramen'],
+  },
+  {
+    rank: 5,
+    name: 'Ryujin Ramen House',
+    rating: 4.6,
+    reviewCount: 2177,
+    address: '1831 S St #100, Sacramento, CA 95811',
+    phone: '+1 916-341-0488',
+    description: "Ryujin is the ramen purist's top pick in Sacramento — 2,177 reviews at 4.6 stars for a menu that covers all the classics plus some surprises like small plates, curries, and snow cones. We love the cozy Midtown energy and the fact that everything on the menu feels intentional. Arrive early on weekends — the line forms fast.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEotE9OA8wBVbEickX-XdTeNA1BacBQRbMuzXqb3dkzYFK2dUI81Z-tSgiFJ-TBuVYq53xU8m94ZWgdUF6-m7qdBgIWzDemNlL1O9rl9oQTReGLkuphCjkx0pA2B_SQ6_T_ymHPg=w800-h500-k-no',
+    slug: 'ryujin-ramen-house',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Ramen', 'Midtown', 'Vegan Options'],
+  },
+  {
+    rank: 6,
+    name: 'Origami Asian Grill',
+    rating: 4.6,
+    reviewCount: 491,
+    address: '4801 Folsom Blvd, Sacramento, CA 95819',
+    phone: '+1 916-400-3075',
+    description: "East Sacramento's answer to casual Japanese dining — Origami blends ramen, fried chicken, banh mi, and rice bowls under one roof with a patio that fills up on good-weather days. 4.6 stars from 491 reviewers says this neighborhood spot earns its loyal regulars. We brought friends here on a Friday night and the noodle bowls were the unanimous favorite.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGhN5GlDvlHE21Pei-LddZ7Jq-CP-Vk7jwcoLnwmhnZ816JktqoNcXfer5Ug-uN8iTKyo5KT2fRwzbrqF5_kLAUkRNjW1nP3M8rQ5wWILFDTFac6EA_kldF-R82xy_Cspx5I7dC=w800-h500-k-no',
+    slug: 'origami-asian-grill',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Asian Fusion', 'East Sacramento', 'Patio'],
+  },
+  {
+    rank: 7,
+    name: 'Fukumi Ramen - Natomas',
+    rating: 4.6,
+    reviewCount: 55,
+    address: '4630 Natomas Blvd Ste 130, Sacramento, CA 95835',
+    phone: '+1 916-668-7580',
+    description: "Fukumi is Natomas's newest and most exciting ramen entry — 4.6 stars from an early crowd that's clearly been waiting for a spot this good in North Sacramento. Open seven days a week and laser-focused on quality ramen with a drinks menu to match. We tried it shortly after opening and came away certain this one will grow a much bigger following quickly.",
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhE_FSOcAAFnGpBMmfcoH1_NB6aORkhV-HYhpR1EmpQ5AHRCHeiGMtE1SJHM7X3V6PvUosLDOGyv0PQtcuw7cNCaupnmpEmj_MkMOhu8cSPNkx0VAqrI6MNkru_keayiBs21bpbG21-iw46c_T2Gi5Z1WAAd-iSTTvdcQMY6eLfftuVilN4GCuNq=w800-h500-k-no',
+    slug: 'fukumi-ramen-natomas',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Ramen', 'Natomas', 'New Favorite'],
+  },
+  {
+    rank: 8,
+    name: 'The Izakaya',
+    rating: 4.5,
+    reviewCount: 781,
+    address: '5651 Freeport Blvd, Sacramento, CA 95822',
+    phone: '+1 916-391-1378',
+    description: "South Sac's neighborhood izakaya — 781 reviews at 4.5 stars for a casual Japanese room that does noodle soups, sushi, and a strong beer-and-sake program without pretension. We love that The Izakaya is open every day and feels equally at home for a quick lunch ramen or a lingering weeknight dinner. The miso broth bowls are especially good.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGGeihFcp9gXBXZTbRihN1SqqiI5P7e_1TB2e_AGEGcjWHAYzTC1Q7XHJMoLSe26RGZGCPpmnDo6ze0_KSC4og82L9DjOe239RlQF44xIF0-r7kn4nSa5NSb-NySJaMxVFfZK_b3g=w800-h500-k-no',
+    slug: 'the-izakaya',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Izakaya', 'South Sacramento', 'Sushi & Ramen'],
+  },
+  {
+    rank: 9,
+    name: 'Ramen House Tenjin',
+    rating: 4.5,
+    reviewCount: 260,
+    address: '7485 Rush River Dr # 740, Sacramento, CA 95831',
+    phone: '+1 916-661-6656',
+    description: "Pocket neighborhood's ramen destination — Tenjin brought a focused, Japanese-style ramen menu to the south side of Sacramento and local diners responded with 4.5 stars across 260 reviews. We tried the tonkotsu and it held up against anything in Midtown. Closed Mondays, but Tuesday through Sunday it's one of the most consistent bowls in the city.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGygjiY7yEEaLx0gZVWKisX_0kDNWFTM5Vf9zYr5rsBbNTfjpMRbNup57xAxEXWWb0WUh3k9kAWiAP9GZ2yvDsSJz-Rz3cJ6XImaD_yU82Hrs0BFUKH7cUPVKwjiz5Okoh3y5GL=w800-h500-k-no',
+    slug: 'ramen-house-tenjin',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Ramen', 'Pocket', 'Vegan Options'],
+  },
+  {
+    rank: 10,
+    name: 'Soku Ramen Bar',
+    rating: 4.5,
+    reviewCount: 243,
+    address: '1221 Alhambra Blvd #107, Sacramento, CA 95816',
+    phone: '+1 916-882-6888',
+    description: "East Sacramento's Alhambra corridor has a sleeper ramen hit in Soku — 4.5 stars from a neighborhood crowd that values consistent quality and a vegan-friendly menu. We love the welcoming room and a drinks program that makes this feel like a proper night out, not just a noodle stop. Open six days a week and worth every visit.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF9eh57qxX9Mzc99eMkEDokSQA9tWmu3nUZSfn-u77BbgKifU2ubkqYSCTreZGVgg5kuj2NueYLbyKLsVmo-GG2YAYyhBmvslXos_HogiFVtIpF_beFIF0kOEJdv5nXM8MYufGnLQ=w800-h500-k-no',
+    slug: 'soku-ramen-bar',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Ramen', 'East Sacramento', 'Vegan Options'],
+  },
+]
+
+blogPosts.push({
+  slug: 'best-ramen-in-sacramento-ca',
+  title: 'Best Ramen in Sacramento CA — Top 10 Restaurants',
+  description: 'Looking for the best ramen in Sacramento CA? We ranked the top 10 ramen restaurants in Sacramento by Google rating and review count — from Midtown to Natomas to South Sac.',
+  date: 'May 21, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'The 10 Best Ramen Spots In Sacramento, CA',
+  content: `<p>We ate our way through Sacramento's ramen scene from Midtown to Natomas, from East Sac to the south side — and we brought you the ten spots we love most. Sacramento's ramen landscape is more diverse than most visitors expect: a fully vegan kitchen holding the city's top rating, a century-old-style izakaya concept on Freeport, and a cluster of Midtown purists who've been perfecting their broth for years. We ranked every bowl by Google rating and review volume, then cross-checked it with what locals are actually ordering. Here's what we found.</p>`,
+  restaurantCards: sacramentoTop10,
+  outroContent: `<h2>Where to Eat the Best Ramen in Sacramento, CA</h2><p>Sacramento's ramen scene rewards the curious eater. We love starting with Village of OM for the city's most surprising bowl — fully plant-based and genuinely excellent — then heading to Ryujin Ramen House on S Street when we want the classic Midtown ramen experience that built Sacramento's reputation. For a big group dinner, Mikuni on J Street handles a crowd without missing a beat. And if you're on the south or west side, The Izakaya on Freeport and Ramen House Tenjin in Pocket are exactly the kind of neighborhood spots that make this city's food scene so good. Wherever you are in Sacramento, a serious bowl is within reach.</p>`,
+})
+
+blogPosts.push({
+  slug: 'is-ramen-unhealthy-or-healthy',
+  title: 'Is Ramen Unhealthy or Healthy? The Honest Answer',
+  description: 'Is ramen unhealthy or healthy? The short answer: it depends on the bowl. Restaurant ramen can be a balanced meal — instant ramen is a different story. Here is what actually matters.',
+  date: 'May 21, 2026',
+  readTime: '4 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>Ramen can be either healthy or unhealthy — it depends entirely on the bowl.</strong> A fresh restaurant-made ramen with housemade broth, fresh noodles, eggs, vegetables, and lean protein is a balanced one-bowl meal that delivers protein, carbs, fats, and micronutrients in roughly the same ratios nutritionists recommend. A 19-cent instant ramen brick eaten alone, on the other hand, is a sodium bomb that's mostly refined carbs and saturated fat with almost no protein, fiber, or vegetables. The word "ramen" covers both, which is why the answer is "it depends" — and why understanding the difference is the only thing that matters.</p>
+
+<p>We love ramen, and we cook and eat it weekly. Here is the framework we use to tell a healthy bowl from a problem one.</p>
+
+<h2>What makes a ramen bowl healthy</h2>
+<p>A well-built ramen bowl is closer to a Japanese-style stew than to fast food. A typical restaurant tonkotsu or shoyu bowl runs roughly 500–700 calories with 25–35 grams of protein, generous fiber from scallions, bamboo shoots, mushrooms, corn, and bok choy, and meaningful amounts of B vitamins, iron, and selenium from the egg and pork or chicken. The broth — even the rich-looking ones — is mostly water, gelatin from long-simmered bones, and umami compounds, none of which are nutritionally harmful.</p>
+
+<p>The healthiest ramen bowls we make at home swap out half the noodles for extra vegetables, add a soft-boiled egg, use a lean protein like chicken thigh or tofu, and lean on miso or chicken-based broths instead of the richest pork tonkotsu.</p>
+
+<h2>What makes a ramen bowl unhealthy</h2>
+<p>The two real culprits are sodium and the instant-noodle format. A single packet of instant ramen with the full seasoning packet typically contains 1,500–2,000 milligrams of sodium — most of the FDA's daily recommended limit in one meal. Add the fact that the noodles are deep-fried (which is how the brick shape is preserved) and you get a meal that's high in saturated fat, refined carbs, and salt while being low in protein and fiber.</p>
+
+<p>Even restaurant ramen can land in the 1,800–2,500 mg sodium range. If you have high blood pressure or a heart condition, that's worth knowing — and we cover bowl-by-bowl strategies for managing it in our diabetic-friendly ramen guide.</p>
+
+<h2>How to make any ramen bowl healthier</h2>
+<p>We follow five habits and they apply to restaurant ramen and instant noodles alike: drink only half the broth, double the vegetables (spinach, bok choy, mushrooms, scallions), add a soft-boiled egg for protein, choose a leaner broth (miso, shoyu, chicken paitan) over the heaviest tonkotsu, and use only half the seasoning packet if you're cooking instant. With those changes, even a $0.19 ramen brick becomes a reasonable weeknight meal.</p>
+
+<p>The bottom line: ramen is as healthy as you build it. The dish itself is neutral. What you put in the bowl and how often you eat it determine whether it earns a place in a balanced diet.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-ramen-for-diabetics',
+  title: 'What Is the Best Ramen for Diabetics? A Practical Guide',
+  description: 'What is the best ramen for diabetics? The best ramen for diabetics is a low-sodium, broth-based bowl with extra protein, vegetables, and reduced noodles — here is exactly what to order.',
+  date: 'May 21, 2026',
+  readTime: '5 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>The best ramen for diabetics is a clear, broth-based bowl — a shio (salt), shoyu (soy), or miso ramen — built with extra protein and vegetables, fewer noodles, and as little added sodium as possible.</strong> Skip the deep-fried instant noodles and the rich, fatty tonkotsu pork-bone broths when you can. Look instead for chicken paitan, dashi-based shoyu, or vegetable miso bowls that you can customize: half noodles, a soft-boiled egg, extra greens, and lean protein like grilled chicken or tofu. That combination flattens the blood sugar curve and keeps the meal within reasonable carbohydrate and sodium limits.</p>
+
+<p>We've spent a lot of time cooking ramen at home for friends and family members managing type 2 diabetes, and we brought together everything we've learned into one practical guide.</p>
+
+<h2>Why standard ramen is a problem for diabetics</h2>
+<p>A typical bowl of ramen has two diabetes-relevant issues. First, the noodles themselves are refined wheat flour — a fast-digesting carbohydrate that can push blood sugar up quickly, especially in a 60–80 gram serving. Second, the sodium load (often 1,500–2,500 mg in a single bowl) is significant for anyone managing hypertension alongside diabetes, which is a very common combination.</p>
+
+<p>The good news: ramen is endlessly customizable, and most ramen restaurants will happily accommodate modifications if you ask.</p>
+
+<h2>The best ramen styles for diabetics, ranked</h2>
+<p><strong>1. Miso ramen.</strong> Fermented soybean paste broth offers some protein, the bold flavor means you can get away with less added salt at the table, and miso has been associated with modest blood-sugar benefits in some studies. Ask for extra vegetables and a soft-boiled egg.</p>
+
+<p><strong>2. Shio (salt) ramen.</strong> The lightest, clearest broth in the ramen family. Lower fat content than tonkotsu, easier to portion-control. A great base for adding extra protein and greens.</p>
+
+<p><strong>3. Chicken shoyu or paitan.</strong> Chicken-based broths are leaner than pork. Shoyu adds soy-sauce depth without the heavy creaminess of tonkotsu.</p>
+
+<p><strong>4. Vegetable or vegan ramen.</strong> When done right (mushroom dashi, miso base), vegan ramen is often the lowest-calorie, lowest-saturated-fat option on a menu and lets you load up on plant fiber.</p>
+
+<h2>How we order ramen for blood-sugar control</h2>
+<p>We follow five rules every time. <strong>One:</strong> ask for half noodles, and supplement with extra bok choy, mushrooms, or bean sprouts to fill the bowl. <strong>Two:</strong> always add a soft-boiled egg (ajitama) for protein and fat that slows glucose absorption. <strong>Three:</strong> add lean protein — chicken, tofu, or a small portion of chashu. <strong>Four:</strong> drink only half the broth to cut sodium roughly in half. <strong>Five:</strong> eat the protein and vegetables first, noodles last — eating order has been shown in clinical studies to reduce post-meal blood sugar spikes.</p>
+
+<h2>What to avoid</h2>
+<p>Instant ramen with the full seasoning packet is the worst option for diabetics — refined carbs, deep-fried noodles, and a full day's sodium in one meal. Tonkotsu bowls with extra chashu, extra fat, and corn are the second-worst — that combination delivers a heavy load of saturated fat plus fast carbs. Tsukemen (dipping ramen) usually involves more concentrated dipping broth and a larger noodle portion, so it's also worth approaching cautiously.</p>
+
+<p>None of this means a person with diabetes can't enjoy ramen. We've watched friends keep their A1C in target ranges while eating ramen weekly — they just learned to order it the right way. Use the five rules above, choose miso or shio over tonkotsu, and ramen becomes a balanced meal instead of a blood-sugar problem.</p>
+
+<p><em>This is general information, not medical advice. Talk to your doctor or a registered dietitian about how ramen fits in your individual diabetes management plan.</em></p>`,
+})
+
+blogPosts.push({
+  slug: 'why-do-people-put-eggs-in-ramen',
+  title: 'Why Do People Put Eggs in Ramen? The Real Reason',
+  description: 'Why do people put eggs in ramen? Eggs add protein, richness, and creaminess that balance the broth — and the marinated soft-boiled egg (ajitama) is a defining element of authentic Japanese ramen.',
+  date: 'May 21, 2026',
+  readTime: '4 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>People put eggs in ramen because the egg adds protein, richness, and silky texture that balance the salty, fatty broth — and because the marinated soft-boiled egg (called ajitama or ajitsuke tamago) is a defining traditional component of authentic Japanese ramen.</strong> When you crack a properly cooked ajitama and the jammy yolk runs into the broth, it thickens and enriches the soup in a way nothing else does. It also turns ramen from a noodle soup into a complete meal — adding roughly 6 grams of high-quality protein and a load of vitamins (B12, choline, vitamin D, selenium) that the noodles and broth alone don't provide.</p>
+
+<p>We've made hundreds of ajitama at home and ordered them in ramen shops across the country, and we brought you the full story of why this one ingredient matters so much.</p>
+
+<h2>The cultural history: ajitama as a ramen ritual</h2>
+<p>The soft-boiled marinated egg became a standard ramen topping in postwar Japan, when ramen shops began competing on the small details that distinguished one shop's bowl from another. A perfectly cooked egg — whites firm, yolk still molten at the center — soaked overnight in soy sauce, mirin, and dashi became one of those signature touches. Today, ajitama is considered as essential to a complete bowl as the noodles themselves at most ramen-ya in Japan.</p>
+
+<p>The egg's slightly sweet, salty marinade complements the broth without overwhelming it, and the contrast between the cool, jammy yolk and the hot soup is what ramen fans love most.</p>
+
+<h2>The flavor science: why the egg makes ramen taste better</h2>
+<p>Ramen broth is heavy on umami and salt. The egg yolk contributes fat and emulsifiers that bind those flavors together and coat the noodles as you eat. The yolk also adds a sweet, creamy counterpoint to the salty broth — exactly the same role yolks play in carbonara or hollandaise. When the yolk breaks into the soup, it thickens the broth slightly and makes each subsequent slurp feel more luxurious. That texture transformation is the reason many ramen lovers we know would never order a bowl without one.</p>
+
+<h2>The nutrition: ramen with egg is a much better meal</h2>
+<p>A standard bowl of ramen is heavy on carbohydrates and sodium and lighter on protein than most people realize. A single egg adds about 6 grams of high-quality complete protein, healthy fats, vitamin B12, choline (important for brain health), vitamin D, and selenium. That converts ramen from a primarily carb-and-sodium meal into a much more balanced one. We always recommend adding an egg if you're eating instant ramen at home, both for nutrition and for the same flavor reason restaurants do it.</p>
+
+<h2>How to make a perfect ramen egg at home</h2>
+<p>Our method: bring water to a rolling boil, gently lower in cold eggs straight from the fridge, and cook for exactly 6 minutes 30 seconds. Transfer immediately to an ice bath for at least two minutes, then peel under running water. Soak the peeled eggs in a marinade of equal parts soy sauce, mirin, and water (plus a splash of dashi if you have it) for 4–12 hours in the fridge. Slice in half lengthwise and place on top of your ramen just before eating.</p>
+
+<p>The result is exactly what you get at a good ramen shop: firm white, glossy jammy yolk, and a salty-sweet seasoned shell that adds depth to every bite. Once you've eaten ramen with a proper ajitama, you'll understand why people put eggs in ramen — and why most of us never go back.</p>`,
+})
+
+blogPosts.push({
+  slug: 'e-ramen-atlanta-review',
+  title: 'E Ramen Atlanta Review: Midtown\'s Most Acclaimed Bowl',
+  description: 'A full review of E Ramen + in Midtown Atlanta — the Dark Knight, the E Signature, the Dirty Vegan, and whether this 4.6-star ramen shop lives up to its reputation. With real customer reviews.',
+  date: 'May 21, 2026',
+  readTime: '6 min read',
+  category: 'Reviews',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p>E Ramen + sits in a sleek, contemporary space at 1110 West Peachtree in Midtown Atlanta, and on most nights there's a wait — for good reason. With a 4.6-star Google rating across more than 1,000 reviews and another 485 reviews on Yelp, this Midtown ramen shop has quietly become one of the most consistently praised Japanese restaurants in the city. We've eaten here multiple times over the past year and brought you a full review of what works, what doesn't, and what to order.</p>
+
+<h2>The space</h2>
+<p>E Ramen + occupies a contemporary, minimalist room on the ground floor of a Midtown high-rise. Dark wood, warm lighting, and a long bar give it the feeling of a serious ramen-ya rather than a casual noodle counter. The restaurant is closed on Mondays — Tuesday through Sunday it runs an evening service from noon through 9:30 or 10:30 PM depending on the night. Reservations are accepted and recommended, especially on weekends; the room is not large, and walk-in waits on Friday and Saturday nights routinely hit 45 minutes.</p>
+
+<p>Reviewers consistently call out the atmosphere. "Beautiful decor and kind people with good service" comes up across both Google and Yelp, as does the observation that the dining room feels both date-night appropriate and casual enough for a weeknight bowl.</p>
+
+<h2>The menu: what to order</h2>
+<p><strong>The E Signature Ramen.</strong> This is the bowl that built the restaurant's reputation — and the one we order first every time. Real reviewers describe the broth as "so creamy and full of flavor" and one Yelper went as far as to call it "might be the best broth I've ever eaten." The richness comes from a long-simmered pork-bone tonkotsu base with a proprietary blend that the kitchen has clearly spent years tuning. If you visit once, order this.</p>
+
+<p><strong>The Dark Knight.</strong> The visual showstopper on the menu — a jet-black ramen built on a black garlic tonkotsu broth. We love the depth here: roasted, almost coffee-like aromatics layered over a creamy pork base. One reviewer called the broth "really good and dense" and another simply said "very delicious." The most common criticism is that it can run salty — if sodium is a concern, ask the kitchen to dial it back, or share the bowl.</p>
+
+<p><strong>Lobster Ramen.</strong> Less talked about online but a genuinely interesting bowl that leans into shellfish stock and a more elegant presentation. It's pricier than the standard bowls but worth ordering if you want to taste what E Ramen + can do beyond the tonkotsu lineup.</p>
+
+<p><strong>The Dirty Vegan.</strong> Atlanta has good vegan ramen options and this is one of them. A reviewer who described themselves as "very impressed by the ramen offerings at E Ramen +, probably my favorite in Atlanta" specifically called out "the signature pork ramen and the dirty vegan — both are super flavorful and unique and satisfying." That's high praise for a vegan bowl.</p>
+
+<h2>The service</h2>
+<p>Service at E Ramen + earns consistent praise. Reviewers describe the staff as "efficient, friendly," and call out small details like water cups being kept consistently full — the kind of attentiveness that's harder to find in busy Midtown rooms. We've found the same on every visit; orders come out quickly, broth temperature is always right, and the front-of-house team handles full rooms calmly.</p>
+
+<h2>The criticisms</h2>
+<p>Two complaints come up repeatedly. The first is sodium — the Dark Knight especially can taste over-salted, and a few reviewers note the same about the standard tonkotsu when modifications haven't been requested. The second is wait times: the room is small and the restaurant doesn't always take reservations for smaller parties, so weekend walk-ins should expect 30–45 minutes. Neither is a dealbreaker, but they're worth knowing.</p>
+
+<h2>The verdict</h2>
+<p>E Ramen + earns its 4.6-star rating. The E Signature Ramen is one of the most complete bowls in Atlanta — creamy, deeply layered, and consistent visit-to-visit. The Dark Knight is a genuine specialty worth ordering at least once. The vegan menu is better than it has any right to be, and the service makes the wait worthwhile. We come back, and we recommend it without reservation to anyone asking where to eat ramen in Midtown.</p>
+
+<p><strong>The basics:</strong> E Ramen +, 1110 W Peachtree St NW #300, Atlanta, GA 30309 · 4.6 stars / 1,056+ Google reviews · Closed Mondays · Reservations accepted · Price: $$ · Vegan and vegetarian options available</p>
+
+<p>For the full listing and directions, see our <a href="/atlanta/ga/e-ramen">E Ramen + page</a>.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
