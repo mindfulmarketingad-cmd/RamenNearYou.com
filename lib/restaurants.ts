@@ -33702,6 +33702,27 @@ export function getCities() {
   return Array.from(map.values()).sort((a,b) => b.count - a.count)
 }
 
+export function getStates() {
+  const map = new Map<string, { state: string; stateCode: string; stateSlug: string; count: number; cityCount: number; citySlugs: Set<string> }>()
+  for (const r of restaurants) {
+    const key = r.stateSlug
+    let entry = map.get(key)
+    if (!entry) {
+      entry = { state: r.state, stateCode: r.stateCode, stateSlug: r.stateSlug, count: 0, cityCount: 0, citySlugs: new Set() }
+      map.set(key, entry)
+    }
+    entry.count++
+    entry.citySlugs.add(r.citySlug)
+  }
+  return Array.from(map.values())
+    .map(e => ({ state: e.state, stateCode: e.stateCode, stateSlug: e.stateSlug, count: e.count, cityCount: e.citySlugs.size }))
+    .sort((a, b) => b.count - a.count)
+}
+
+export function getRestaurantsByState(stateSlug: string) {
+  return restaurants.filter(r => r.stateSlug === stateSlug)
+}
+
 export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
 export type BrothType = typeof BROTH_TYPES[number]
 
