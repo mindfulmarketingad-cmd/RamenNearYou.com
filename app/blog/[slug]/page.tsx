@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <article className="mt-8">
-            <header className="mb-10">
+            <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">
                   {post.category}
@@ -163,16 +163,50 @@ export default async function BlogPostPage({ params }: Props) {
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.title}
               </h1>
-              <p className="text-[#6B6862] text-lg leading-relaxed">{post.description}</p>
+              <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
+              {post.author && (
+                <div className="flex items-center gap-2.5">
+                  <Image
+                    src={post.author.avatar}
+                    alt={post.author.name}
+                    width={36}
+                    height={36}
+                    className="rounded-full border border-black/8"
+                    unoptimized
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-[#1E2026]">{post.author.name}</p>
+                    <p className="text-xs text-[#6B6862]/60">{post.date}</p>
+                  </div>
+                </div>
+              )}
             </header>
+
+            {post.headerImage && (
+              <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
+                <Image
+                  src={post.headerImage}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            )}
 
             <div
               className="prose-ramen"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
+            {post.listHeading && (
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
+                {post.listHeading}
+              </h2>
+            )}
+
             {post.restaurantCards && post.restaurantCards.length > 0 && (
-              <div className="mt-8 flex flex-col gap-5">
+              <div className="mt-2 flex flex-col gap-5">
                 {post.restaurantCards.map((card) => (
                   <RestaurantCardItem key={card.slug} card={card} />
                 ))}
