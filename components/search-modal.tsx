@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search, ArrowRight, Star } from 'lucide-react'
+import { searchRestaurants } from '@/lib/search'
 import { restaurants } from '@/lib/restaurants'
 
 interface Props {
@@ -33,16 +34,7 @@ export default function SearchModal({ open, onClose }: Props) {
   const trimmed = query.trim().toLowerCase()
 
   const results = trimmed
-    ? restaurants
-        .filter(
-          (r) =>
-            r.name.toLowerCase().includes(trimmed) ||
-            r.city.toLowerCase().includes(trimmed) ||
-            r.postalCode.startsWith(trimmed) ||
-            (r.description && r.description.toLowerCase().includes(trimmed))
-        )
-        .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-        .slice(0, 8)
+    ? searchRestaurants(trimmed).slice(0, 8)
     : restaurants
         .filter((r) => r.rating !== null)
         .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
