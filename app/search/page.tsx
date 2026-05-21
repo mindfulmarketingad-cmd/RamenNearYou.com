@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
-import { MapPin, Phone, Star, ChevronRight, Search } from 'lucide-react'
+import { MapPin, Phone, Star, ChevronRight, Search, Map } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -131,9 +131,20 @@ export default async function SearchPage({
             <p className="text-[#6B6862] text-xs">
               {results.length} result{results.length !== 1 ? 's' : ''}
             </p>
-            <Suspense fallback={null}>
-              <SortSelect current={sort} />
-            </Suspense>
+            <div className="flex items-center gap-3">
+              {query && (
+                <Link
+                  href={`/searchmap?q=${encodeURIComponent(query)}`}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-medium transition-colors whitespace-nowrap"
+                >
+                  <Map className="w-3.5 h-3.5" />
+                  View on Map
+                </Link>
+              )}
+              <Suspense fallback={null}>
+                <SortSelect current={sort} />
+              </Suspense>
+            </div>
           </div>
         </section>
       )}
