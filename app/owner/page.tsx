@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { BadgeCheck, MapPin, Edit3, Clock } from 'lucide-react'
+import { BadgeCheck, MapPin, Edit3, Clock, Crown } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createClient } from '@/lib/supabase/server'
@@ -41,6 +41,20 @@ export default async function OwnerDashboardPage() {
           <p className="text-sky-400 text-xs font-medium uppercase tracking-widest mb-2">Owner Dashboard</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">My Restaurants</h1>
           <p className="text-[#6B6862] text-sm">Manage content for restaurants you&apos;ve claimed.</p>
+        </div>
+
+        {/* Featured listing shortcut */}
+        <div className="mb-8 flex items-center justify-between gap-4 bg-amber-500/5 border border-amber-500/20 rounded-xl px-5 py-4">
+          <div className="flex items-center gap-3">
+            <Crown className="w-4 h-4 text-amber-400 shrink-0" />
+            <p className="text-[#1E2026] text-sm">Have a featured listing? View your analytics dashboard.</p>
+          </div>
+          <Link
+            href="/featured/dashboard"
+            className="shrink-0 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold transition-colors"
+          >
+            Featured Dashboard
+          </Link>
         </div>
 
         {approved.length === 0 && pending.length === 0 && (

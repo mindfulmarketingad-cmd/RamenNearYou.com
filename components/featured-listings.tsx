@@ -18,6 +18,14 @@ type FeaturedListing = {
   restaurant_slug: string | null
 }
 
+function fireAnalytics(listing_id: string, event_type: 'view' | 'click') {
+  fetch('/api/featured/analytics', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ listing_id, event_type }),
+  }).catch(() => {})
+}
+
 export default function FeaturedListings() {
   const [listings, setListings] = useState<FeaturedListing[]>([])
   const [loading, setLoading] = useState(true)
@@ -25,7 +33,11 @@ export default function FeaturedListings() {
   useEffect(() => {
     fetch('/api/featured')
       .then(r => r.json())
-      .then(({ listings }) => setListings(listings ?? []))
+      .then(({ listings: data }) => {
+        setListings(data ?? [])
+        // Fire a view event for each listing that rendered
+        ;(data ?? []).forEach((l: FeaturedListing) => fireAnalytics(l.id, 'view'))
+      })
       .finally(() => setLoading(false))
   }, [])
 
@@ -100,6 +112,7 @@ export default function FeaturedListings() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => fireAnalytics(listing.id, 'click')}
                       className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
                     >
                       Visit Website <ChevronRight className="w-3 h-3" />
@@ -107,6 +120,7 @@ export default function FeaturedListings() {
                   ) : (
                     <Link
                       href={href}
+                      onClick={() => fireAnalytics(listing.id, 'click')}
                       className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
                     >
                       View Listing <ChevronRight className="w-3 h-3" />

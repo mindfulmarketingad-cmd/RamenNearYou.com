@@ -38,8 +38,14 @@ export default async function FeaturedSuccessPage({
 
         <div className="space-y-3">
           <Link
-            href="/"
+            href="/featured/dashboard"
             className="block w-full py-3 bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] font-semibold rounded-xl transition-colors"
+          >
+            View My Dashboard
+          </Link>
+          <Link
+            href="/"
+            className="block w-full py-3 border border-black/8 text-[#6B6862] hover:text-[#1E2026] rounded-xl transition-colors text-sm"
           >
             View Homepage
           </Link>
