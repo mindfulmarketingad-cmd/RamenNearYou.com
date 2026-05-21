@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map } from 'lucide-react'
+import { MapPin, ChevronRight, Map as MapIcon } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -140,7 +140,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
                     title="View on map"
                     className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
                   >
-                    <Map className="w-3.5 h-3.5" />
+                    <MapIcon className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               ))}
