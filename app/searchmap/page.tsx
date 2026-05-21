@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, SlidersHorizontal, X, ArrowUpDown, Search } from 'lucide-react'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
+import { searchRestaurants } from '@/lib/search'
 import Navbar from '@/components/navbar'
 import type { MapBounds } from '@/components/ramen-map'
 
@@ -76,23 +77,36 @@ function SearchMapInner() {
   const searchParams = useSearchParams()
   const cityParam = searchParams.get('city')
   const stateParam = searchParams.get('state')
+  const qParam = searchParams.get('q')?.trim() ?? ''
+
+  const qRestaurants = useMemo(() => {
+    if (!qParam) return null
+    return searchRestaurants(qParam)
+  }, [qParam])
 
   const cityRestaurants = useMemo(() => {
     if (!cityParam || !stateParam) return null
     return restaurants.filter(r => r.citySlug === cityParam && r.stateSlug === stateParam)
   }, [cityParam, stateParam])
 
-  const cityCenter = useMemo(() => {
-    if (!cityRestaurants?.length) return null
-    const withCoords = cityRestaurants.filter(r => r.latitude && r.longitude)
+  const queryCenter = useMemo(() => {
+    const list = qRestaurants ?? cityRestaurants
+    if (!list?.length) return null
+    const withCoords = list.filter(r => r.latitude && r.longitude)
     if (!withCoords.length) return null
     return {
       lat: withCoords.reduce((s, r) => s + r.latitude!, 0) / withCoords.length,
       lng: withCoords.reduce((s, r) => s + r.longitude!, 0) / withCoords.length,
     }
-  }, [cityRestaurants])
+  }, [qRestaurants, cityRestaurants])
 
-  const cityName = cityRestaurants?.[0] ? `${cityRestaurants[0].city}, ${cityRestaurants[0].stateCode}` : null
+  const cityCenter = queryCenter
+
+  const cityName = qParam
+    ? `"${qParam}"`
+    : cityRestaurants?.[0]
+      ? `${cityRestaurants[0].city}, ${cityRestaurants[0].stateCode}`
+      : null
 
   const [geoState, setGeoState] = useState<GeoState>('idle')
   const [userPos, setUserPos] = useState<{ lat: number; lng: number } | null>(null)
@@ -121,7 +135,7 @@ function SearchMapInner() {
   }
 
   const activeFilterCount =
-    (cityParam ? 0 : distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
+    ((cityParam || qParam) ? 0 : distanceMiles !== 20 ? 1 : 0) + selectedPrices.size + selectedBroths.size
 
   function togglePrice(p: string) {
     setSelectedPrices(prev => {
@@ -161,10 +175,10 @@ function SearchMapInner() {
     )
   }
 
-  useEffect(() => { if (!cityParam) requestLocation() }, [cityParam])
+  useEffect(() => { if (!cityParam && !qParam) requestLocation() }, [cityParam, qParam])
 
   const nearby = useMemo(() => {
-    if (cityParam) return []
+    if (cityParam || qParam) return []
     if (!userPos) return []
     const maxKm = milesToKm(distanceMiles)
     return restaurants
@@ -175,7 +189,7 @@ function SearchMapInner() {
       }))
       .filter((r) => r.distKm <= maxKm)
       .sort((a, b) => a.distKm - b.distKm)
-  }, [userPos, distanceMiles, cityParam])
+  }, [userPos, distanceMiles, cityParam, qParam])
 
   const filtered = useMemo(() => {
     let base: (typeof restaurants[number] & { distKm: number })[]
@@ -188,6 +202,13 @@ function SearchMapInner() {
           r.longitude! <= searchedBounds.east &&
           r.longitude! >= searchedBounds.west
         )
+        .map(r => ({
+          ...r,
+          distKm: userPos ? haversineKm(userPos.lat, userPos.lng, r.latitude!, r.longitude!) : 0,
+        }))
+    } else if (qParam) {
+      base = (qRestaurants ?? [])
+        .filter(r => r.latitude && r.longitude)
         .map(r => ({
           ...r,
           distKm: userPos ? haversineKm(userPos.lat, userPos.lng, r.latitude!, r.longitude!) : 0,
@@ -214,7 +235,7 @@ function SearchMapInner() {
     else if (sortBy === 'alpha') sorted.sort((a, b) => a.name.localeCompare(b.name))
     else sorted.sort((a, b) => a.distKm - b.distKm)
     return sorted
-  }, [nearby, selectedPrices, selectedBroths, cityParam, cityRestaurants, sortBy, searchedBounds, userPos])
+  }, [nearby, selectedPrices, selectedBroths, cityParam, qParam, cityRestaurants, qRestaurants, sortBy, searchedBounds, userPos])
 
   const handleSelect = useCallback((slug: string) => {
     setSelectedSlug(slug)
@@ -222,11 +243,11 @@ function SearchMapInner() {
     el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [])
 
-  // ── City mode: bypass geolocation entirely ──────────────────────────────────
-  const effectivePos = cityParam ? cityCenter : userPos
+  // ── City/query mode: bypass geolocation entirely ────────────────────────────
+  const effectivePos = (cityParam || qParam) ? cityCenter : userPos
 
   // ── Geo permission screens ──────────────────────────────────────────────────
-  if (!cityParam && (geoState === 'idle' || geoState === 'loading')) {
+  if (!cityParam && !qParam && (geoState === 'idle' || geoState === 'loading')) {
     return (
       <main className="min-h-screen bg-[#ffffff] flex flex-col">
         <Navbar />
@@ -257,7 +278,7 @@ function SearchMapInner() {
     )
   }
 
-  if (!cityParam && geoState === 'denied') {
+  if (!cityParam && !qParam && geoState === 'denied') {
     return (
       <main className="min-h-screen bg-[#ffffff] flex flex-col">
         <Navbar />
@@ -342,8 +363,8 @@ function SearchMapInner() {
             {/* Filter panel */}
             {showFilters && (
               <div className="mt-3 space-y-3 pt-3 border-t border-black/5">
-                {/* Distance — hidden in city mode */}
-                {!cityParam && (
+                {/* Distance — hidden in city/query mode */}
+                {!cityParam && !qParam && (
                   <div>
                     <p className="text-[#6B6862] text-xs font-medium mb-1.5">Distance</p>
                     <div className="flex flex-wrap gap-1.5">

@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Gift, Search, Check } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
-import { restaurants } from '@/lib/restaurants'
 
 const PERKS = [
   'Claim your existing listing',
@@ -18,7 +17,7 @@ export default function ClaimSearch() {
   const [open, setOpen] = useState(false)
 
   const matches = useMemo(() => {
-    if (!query.trim()) return restaurants.slice(0, 50)
+    if (!query.trim()) return []
     return searchRestaurants(query).slice(0, 50)
   }, [query])
 
@@ -61,8 +60,10 @@ export default function ClaimSearch() {
 
         {open && (
           <div className="absolute z-10 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-[#ffffff] border border-black/8 rounded-xl shadow-xl">
-            {matches.length === 0 ? (
-              <div className="p-4 text-sm text-[#6B6862]">No restaurants match.</div>
+            {!query.trim() ? (
+              <div className="p-4 text-sm text-[#6B6862]">Type your restaurant name to search…</div>
+            ) : matches.length === 0 ? (
+              <div className="p-4 text-sm text-[#6B6862]">No restaurants found for &ldquo;{query}&rdquo;</div>
             ) : (
               matches.map(r => (
                 <Link
