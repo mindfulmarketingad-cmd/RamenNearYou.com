@@ -371,7 +371,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
           return (
             <Link
               key={r.slug}
-              href={`/${city}/${state}/${r.slug}`}
+              href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
               className="group flex flex-col sm:flex-row bg-[#F5F4F0] rounded-xl border border-black/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:shadow-lg hover:shadow-black/30 overflow-hidden"
             >
               {/* Photo */}
