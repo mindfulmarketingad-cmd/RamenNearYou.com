@@ -1679,6 +1679,85 @@ blogPosts.push({
 <p>For the full listing and directions, see our <a href="/atlanta/ga/e-ramen">E Ramen + page</a>.</p>`,
 })
 
+blogPosts.push({
+  slug: 'what-is-the-spiciest-noodles-in-the-world',
+  title: 'What Is the Spiciest Noodles in the World?',
+  description: 'What is the spiciest noodles in the world? Samyang\'s 2x Spicy Buldak Ramen and South Korea\'s Nuclear Fire Noodles top most heat rankings — but the world record holder might surprise you.',
+  date: 'May 21, 2026',
+  readTime: '5 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>The spiciest noodles in the world are widely considered to be Samyang's 2x Spicy Buldak Ramen (also known as Nuclear Fire Noodles), which clock in at approximately 10,000 Scoville Heat Units (SHU) — roughly four times hotter than a jalapeño.</strong> In competitive rankings and food-challenge circles, Samyang's 2x version consistently comes out on top among mass-produced instant noodles available worldwide. For context: a jalapeño sits around 2,500–8,000 SHU, a habanero hits 100,000–350,000 SHU, and the original Buldak (Samyang Fire Noodles) is about 4,400 SHU. The 2x version doubles that and has been responsible for millions of social media challenge videos and more than a few urgent trips to the sink.</p>
+
+<p>We've eaten our way through the spiciest noodle lineup the world has to offer, and we brought you the definitive ranking.</p>
+
+<h2>The top 5 spiciest noodles in the world</h2>
+
+<p><strong>1. Samyang 2x Spicy Buldak Ramen — ~10,000 SHU.</strong> The gold standard of nuclear instant noodles. Originally launched as a limited edition, the 2x version became a permanent product after becoming one of the most-watched food-challenge items on social media. The heat comes from a blend of capsaicin extract and dried chili powder coating the stir-fried noodles. The flavor underneath — chicken and soy sauce — is actually quite good if you can tolerate the burn. This is the benchmark every other spicy noodle is judged against.</p>
+
+<p><strong>2. Samyang 3x Spicy Buldak Ramen — ~13,000 SHU.</strong> Samyang pushed further. The 3x version was released in limited quantities and is significantly harder to find outside of Korea, but it holds the highest Scoville rating among Samyang's retail lineup. Only for people who found the 2x manageable.</p>
+
+<p><strong>3. Nongshim Shin Ramyun Black — ~2,700 SHU.</strong> A more moderate entry from Korea's other dominant instant noodle brand. Not in the same heat category as Buldak, but among broadly available spicy ramen it delivers consistent, peppery heat and a much more complex beef-and-mushroom broth than most fire-noodle competitors. A favorite for people who want genuine spice without the capsaicin-challenge format.</p>
+
+<p><strong>4. Indomie Mi Goreng Pedas (Indonesia) — variable SHU.</strong> Indonesia's beloved stir-fried instant noodle in spicy variants. The heat level varies by regional edition — the versions sold within Indonesia run noticeably hotter than the export version. The spiciest domestic editions are genuinely intense and are often overlooked in Western spicy-noodle discussions.</p>
+
+<p><strong>5. Mama Tom Yum Spicy — Thailand.</strong> Thailand's most popular instant noodle brand in the spicy tom yum flavor combines sharp galangal and lemongrass heat with a chili punch that's different in character from Korean capsaicin-forward noodles — citrusy, bright, and surprisingly deep. Not the hottest on this list by SHU count but the kind of complex spice that lingers and builds.</p>
+
+<h2>Beyond instant noodles: the spiciest restaurant noodles in the world</h2>
+<p>If you're looking beyond instant noodles, the title gets contested. Malatang and Chengdu mala hot pot noodles from Sichuan, China use a combination of dried chili and Sichuan peppercorn that creates a numbing, tongue-coating heat known as málà (麻辣) — different from capsaicin heat but arguably more disorienting. Some Sichuan restaurants use a chili oil base that tests upward of 50,000 SHU in the finished dish.</p>
+
+<p>In the US, certain ramen restaurants offer challenge bowls built with ghost pepper (1,000,000 SHU) or Carolina Reaper extract (over 2,000,000 SHU) — these exist purely as endurance tests and are not meant to be enjoyed as food in any traditional sense.</p>
+
+<h2>How spicy noodle heat is measured</h2>
+<p>The Scoville scale measures capsaicin concentration — the compound that causes the burning sensation in hot peppers. A Scoville reading above 5,000 SHU is genuinely spicy for most people. Above 10,000 SHU is where casual tolerance ends. Above 100,000 SHU is where the ghost-pepper challenge-video genre lives. Samyang 2x at ~10,000 SHU sits right at the edge of what most people can enjoy vs. endure.</p>
+
+<h2>Tips for eating extremely spicy noodles</h2>
+<p>We've learned these the hard way. Dairy (milk, yogurt, cheese) neutralizes capsaicin far more effectively than water — capsaicin is fat-soluble and water just spreads it. Eat something fatty before you start: bread, rice, or a spoonful of peanut butter lines the stomach and slows absorption. Use only half the sauce packet your first time. Do not touch your face or eyes after handling the sauce. And eat slowly — the burn peaks a few minutes in, not immediately.</p>`,
+})
+
+blogPosts.push({
+  slug: 'what-are-the-hottest-noodles-in-the-world',
+  title: 'What Are the Hottest Noodles in the World?',
+  description: 'What are the hottest noodles in the world? From Samyang Fire Noodles to ghost pepper challenge ramen, here is the complete ranking of the world\'s hottest noodles by Scoville rating.',
+  date: 'May 21, 2026',
+  readTime: '5 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>The hottest noodles in the world — in terms of verified Scoville Heat Units — are specialty restaurant challenge bowls using Carolina Reaper or Pepper X extract, which can exceed 2,000,000 SHU. Among commercially available noodles that anyone can buy, Samyang's 2x Spicy Buldak Ramen at approximately 10,000 SHU and the limited 3x version at roughly 13,000 SHU are the hottest widely distributed noodle products on earth.</strong> If the question is what you can actually order or buy, Samyang wins. If the question is what exists somewhere in the world in any form, the answer is a small number of challenge-restaurant bowls built with concentrated pepper extract that are closer to science experiments than food.</p>
+
+<p>We put together the complete guide — instant noodles, restaurant ramen, and the outer edge of what "hot noodles" means worldwide.</p>
+
+<h2>Hottest instant noodles, ranked by Scoville</h2>
+
+<p><strong>Samyang 3x Spicy Buldak Ramen — ~13,000 SHU.</strong> The current heat king among mass-produced instant noodles. Released in limited batches by South Korea's Samyang Foods, the 3x version is not always available outside Korea but has been sold internationally through import stores and online retailers. Capsaicin-forward, with a thick, dark sauce that coats every noodle strand evenly. The burn starts within seconds and peaks around the two-minute mark.</p>
+
+<p><strong>Samyang 2x Spicy Buldak Ramen — ~10,000 SHU.</strong> The most famous of the fire noodle lineup and the one that sparked (pun intended) the global Korean fire noodle challenge. Available in most Asian grocery stores worldwide and on Amazon. This is the benchmark. If you can finish a full pack comfortably, you have above-average capsaicin tolerance.</p>
+
+<p><strong>Samyang Original Buldak (Fire Noodles) — ~4,400 SHU.</strong> The original version that started the Buldak phenomenon in 2012. Hot enough to challenge casual spice eaters but manageable for anyone with moderate heat tolerance. The chicken-soy flavor is more detectable here than in the hotter versions because the sauce isn't drowning the palate.</p>
+
+<p><strong>Nongshim Shin Ramyun — ~2,700 SHU.</strong> The world's best-selling spicy instant ramen by volume. A beef-and-mushroom broth with a consistent, pleasant chili kick — not in the fire-noodle category but the gold standard for everyday spicy ramen. Available in virtually every country on earth.</p>
+
+<p><strong>Indomie Goreng Pedas — variable, up to ~3,000 SHU.</strong> Indonesia's domestic market gets a hotter version of this beloved stir-fried noodle than the export version. The spice profile is different from Korean fire noodles — more fragrant, with shrimp paste and aromatics underneath the chili heat.</p>
+
+<h2>Hottest restaurant noodles in the world</h2>
+
+<p><strong>Ghost pepper ramen — ~1,000,000 SHU base pepper.</strong> A number of ramen shops in the US, UK, and Australia offer ghost pepper (Bhut jolokia) ramen challenge bowls. At 1,000,000 SHU, the ghost pepper is roughly 100x hotter than a jalapeño. These bowls typically require a liability waiver and often come with a time limit. The broth is usually a red-black oil-slick that smells of capsaicin before it hits the table.</p>
+
+<p><strong>Carolina Reaper challenge bowls — 1,500,000–2,200,000 SHU.</strong> The Carolina Reaper held the Guinness World Record for hottest pepper for several years and is the basis for the most extreme challenge-format noodle bowls. A handful of restaurants worldwide offer ramen or noodle dishes with Reaper extract. These are not designed to be finished — many restaurants offer prizes to customers who complete them within a time limit without dairy or water.</p>
+
+<p><strong>Pepper X-based dishes — 2,693,000 SHU.</strong> Pepper X, developed by Ed Curlin (creator of the Carolina Reaper), is the current record holder for hottest pepper as of 2023. No mainstream noodle product uses it commercially, but a small number of extreme food challenge venues have incorporated it into dishes. At this heat level, the "food" description begins to break down — the experience is physiological rather than culinary.</p>
+
+<h2>The spiciest ramen you can actually enjoy</h2>
+<p>This is the question we get most often, and the honest answer is Samyang's original Buldak at 4,400 SHU. It's genuinely hot — enough to build a sweat and create that endorphin afterglow — but built around a real, flavorful sauce that tastes of roasted chicken and soy. The 2x version is where enjoyment becomes a matter of personal threshold. Beyond that, most people are eating for the challenge rather than the food.</p>
+
+<p>For restaurant ramen that's genuinely spicy and genuinely delicious, we love Sichuan-style mala broths — the combination of dried chili and Sichuan peppercorn creates a numbing, complex heat that's unlike anything in the instant noodle world and builds slowly enough that you can enjoy the meal before the heat takes over.</p>
+
+<h2>How to handle extreme heat</h2>
+<p>The same rules apply at every heat level: dairy over water (capsaicin is fat-soluble, water spreads it), eat something fatty beforehand, go slowly, and know your limit before you hit it. If you're attempting a ghost pepper or Reaper challenge, bring a friend, have a glass of cold whole milk on standby, and accept that the experience may continue for several hours after you finish the bowl.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
