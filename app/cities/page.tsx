@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { ChevronRight, MapPin } from 'lucide-react'
-import { getCities } from '@/lib/restaurants'
+import { ChevronRight, MapPin, ExternalLink } from 'lucide-react'
+import { getCities, getStates } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import type { Metadata } from 'next'
@@ -66,6 +66,7 @@ const ALL_STATES: { name: string; code: string; slug: string }[] = [
 
 export default function CitiesPage() {
   const cities = getCities()
+  const statesWithData = new Set(getStates().map(s => s.stateSlug))
 
   // Group cities by state code
   const byState = new Map<string, typeof cities>()
@@ -78,6 +79,9 @@ export default function CitiesPage() {
   for (const [, list] of byState) {
     list.sort((a, b) => b.count - a.count)
   }
+
+  // Build slug lookup: stateCode → stateSlug
+  const stateSlugByCode = new Map(getStates().map(s => [s.stateCode, s.stateSlug]))
 
   const totalCities = cities.length
   const totalRestaurants = cities.reduce((s, c) => s + c.count, 0)
@@ -114,7 +118,14 @@ export default function CitiesPage() {
               <div key={state.code}>
                 {/* State heading */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="font-serif text-xl font-bold text-[#1E2026]">{state.name}</h2>
+                  {hasData ? (
+                    <Link href={`/${stateSlugByCode.get(state.code)}`} className="font-serif text-xl font-bold text-[#1E2026] hover:text-[#B57F50] transition-colors flex items-center gap-1.5">
+                      {state.name}
+                      <ExternalLink className="w-3.5 h-3.5 text-[#B57F50]/60" />
+                    </Link>
+                  ) : (
+                    <h2 className="font-serif text-xl font-bold text-[#1E2026]">{state.name}</h2>
+                  )}
                   <span className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest">{state.code}</span>
                   {!hasData && (
                     <span className="px-2 py-0.5 rounded-full bg-black/5 border border-black/8 text-[#6B6862] text-xs">

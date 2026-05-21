@@ -22,6 +22,16 @@ const footerLinks = {
   ],
 }
 
+const stateLinks = [
+  { label: 'Ramen in California', href: '/ca' },
+  { label: 'Ramen in New York', href: '/ny' },
+  { label: 'Ramen in Texas', href: '/tx' },
+  { label: 'Ramen in Florida', href: '/fl' },
+  { label: 'Ramen in Georgia', href: '/ga' },
+  { label: 'Ramen in New Jersey', href: '/nj' },
+  { label: 'Ramen in Utah', href: '/ut' },
+]
+
 export default function Footer() {
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
@@ -56,6 +66,20 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* State directory links */}
+        <div className="mt-12 pt-10 border-t border-black/5">
+          <h4 className="text-[#1E2026] text-sm font-semibold mb-4">Ramen by State</h4>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {stateLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Newsletter */}
