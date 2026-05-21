@@ -92,7 +92,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative bg-white pb-16 sm:pb-20 pt-28">
+    <section className="relative z-30 bg-white pb-16 sm:pb-20 pt-28">
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
@@ -248,7 +248,7 @@ export default function Hero() {
       </div>
 
       {/* Wave into dark body */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px">
+      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px pointer-events-none">
         <svg
           viewBox="0 0 1440 80"
           xmlns="http://www.w3.org/2000/svg"
@@ -258,6 +258,13 @@ export default function Hero() {
           <path
             d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
             fill="#ffffff"
+          />
+          <path
+            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40"
+            fill="none"
+            stroke="#1E2026"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
           />
         </svg>
       </div>
