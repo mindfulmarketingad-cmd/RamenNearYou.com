@@ -93,7 +93,7 @@ export default function Hero() {
 
   return (
     <section className="relative z-30 bg-white pb-16 sm:pb-20 pt-28">
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-20 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
         </p>
