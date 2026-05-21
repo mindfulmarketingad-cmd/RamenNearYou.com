@@ -137,6 +137,7 @@ export default function NavbarClient({ cities, states }: Props) {
   const [mobileCityOpen, setMobileCityOpen] = useState(false)
   const [mobileStateOpen, setMobileStateOpen] = useState(false)
   const [mobileCityQuery, setMobileCityQuery] = useState('')
+  const [mobileStateQuery, setMobileStateQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -180,6 +181,14 @@ export default function NavbarClient({ cities, states }: Props) {
           c.stateCode.toLowerCase().includes(mobileCityQuery.toLowerCase())
       )
     : cities
+
+  const filteredMobileStates = mobileStateQuery.trim()
+    ? states.filter(
+        (s) =>
+          s.state.toLowerCase().includes(mobileStateQuery.toLowerCase()) ||
+          s.stateCode.toLowerCase().includes(mobileStateQuery.toLowerCase())
+      )
+    : states
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#F5F4F0] shadow-lg border-b border-black/5">
@@ -309,7 +318,7 @@ export default function NavbarClient({ cities, states }: Props) {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#ffffff] border-t border-black/8 px-4 pb-4">
+        <div className="lg:hidden bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
           <a
             href="tel:+13412034429"
             className="flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#B57F50]/10 border border-[#B57F50]/20"
@@ -365,30 +374,45 @@ export default function NavbarClient({ cities, states }: Props) {
             {/* Ramen By State accordion */}
             <div>
               <button
-                onClick={() => setMobileStateOpen(!mobileStateOpen)}
+                onClick={() => { setMobileStateOpen(!mobileStateOpen); setMobileStateQuery('') }}
                 className="w-full flex items-center justify-between py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
               >
                 Ramen By State
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileStateOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileStateOpen && (
-                <ul className="mb-2 rounded-lg border border-black/5 divide-y divide-black/5">
-                  {states.map((s) => (
-                    <li key={s.stateSlug}>
-                      <Link
-                        href={`/${s.stateSlug}`}
-                        onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-between px-3 py-2.5 bg-[#F5F4F0] hover:bg-[#ebe9e4] transition-colors"
-                      >
-                        <span className="flex items-center gap-2">
-                          <span className="text-sm text-[#1E2026]">{s.state}</span>
-                          <span className="text-xs font-semibold text-[#B57F50]">{s.stateCode}</span>
-                        </span>
-                        <span className="text-xs text-[#9B9490]">{s.count} spots</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <div className="pb-2">
+                  <div className="relative mb-2">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
+                    <input
+                      type="text"
+                      placeholder="Search states…"
+                      value={mobileStateQuery}
+                      onChange={(e) => setMobileStateQuery(e.target.value)}
+                      className="w-full pl-8 pr-3 py-2 text-sm bg-[#F5F4F0] rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490]"
+                    />
+                  </div>
+                  <ul className="max-h-48 overflow-y-auto rounded-lg border border-black/5 divide-y divide-black/5">
+                    {filteredMobileStates.map((s) => (
+                      <li key={s.stateSlug}>
+                        <Link
+                          href={`/${s.stateSlug}`}
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center justify-between px-3 py-2.5 bg-[#F5F4F0] hover:bg-[#ebe9e4] transition-colors"
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="text-sm text-[#1E2026]">{s.state}</span>
+                            <span className="text-xs font-semibold text-[#B57F50]">{s.stateCode}</span>
+                          </span>
+                          <span className="text-xs text-[#9B9490]">{s.count} spots</span>
+                        </Link>
+                      </li>
+                    ))}
+                    {filteredMobileStates.length === 0 && (
+                      <li className="px-4 py-3 text-sm text-[#9B9490] text-center">No states found</li>
+                    )}
+                  </ul>
+                </div>
               )}
             </div>
 

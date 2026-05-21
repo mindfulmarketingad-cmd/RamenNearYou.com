@@ -8,12 +8,23 @@ export function searchRestaurants(query: string): Restaurant[] {
   const seen = new Set<string>()
   const scored: { r: Restaurant; score: number }[] = []
 
+  // Detect zip-code query: 5 digits, optionally with partial input
+  const isZipQuery = /^\d{3,5}$/.test(q)
+
   for (const r of restaurants) {
     if (seen.has(r.slug)) continue
     seen.add(r.slug)
 
     const name = (r.name ?? '').toLowerCase()
     const city = (r.city ?? '').toLowerCase()
+    const zip  = (r.postalCode ?? '').toLowerCase()
+    const addr = (r.address ?? '').toLowerCase()
+
+    // Zip code match — prefix match so partial entry (e.g. "902") still works
+    if (isZipQuery && zip.startsWith(q)) {
+      scored.push({ r, score: q.length === 5 ? 3 : 1 })
+      continue
+    }
 
     // Whole-phrase name match (highest)
     if (name.includes(q)) {
@@ -28,8 +39,8 @@ export function searchRestaurants(query: string): Restaurant[] {
       continue
     }
 
-    // City/other field match — only include if no name-based results beat it
-    if (tokens.some(t => city.includes(t))) {
+    // City, zip, or address match
+    if (tokens.some(t => city.includes(t) || zip.startsWith(t) || addr.includes(t))) {
       scored.push({ r, score: 0 })
     }
   }

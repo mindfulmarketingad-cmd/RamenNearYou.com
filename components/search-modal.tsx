@@ -38,6 +38,7 @@ export default function SearchModal({ open, onClose }: Props) {
           (r) =>
             r.name.toLowerCase().includes(trimmed) ||
             r.city.toLowerCase().includes(trimmed) ||
+            r.postalCode.startsWith(trimmed) ||
             (r.description && r.description.toLowerCase().includes(trimmed))
         )
         .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
@@ -79,7 +80,7 @@ export default function SearchModal({ open, onClose }: Props) {
                 router.push(`/search?q=${encodeURIComponent(query.trim())}`)
               }
             }}
-            placeholder="Search restaurants, cities…"
+            placeholder="Search by name, city, or zip code…"
             className="flex-1 bg-transparent text-[#1E2026] text-sm placeholder-[#9B9490]/60 outline-none"
           />
         </div>
