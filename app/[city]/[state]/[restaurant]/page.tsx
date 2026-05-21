@@ -156,8 +156,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
-      { '@type': 'ListItem', position: 2, name: `${r.city}, ${r.stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
-      { '@type': 'ListItem', position: 3, name: r.name, item: `https://www.ramennearyou.com/${city}/${state}/${restaurant}` },
+      { '@type': 'ListItem', position: 2, name: `Ramen in ${r.state}`, item: `https://www.ramennearyou.com/${state}` },
+      { '@type': 'ListItem', position: 3, name: `${r.city}, ${r.stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
+      { '@type': 'ListItem', position: 4, name: r.name, item: `https://www.ramennearyou.com/${city}/${state}/${restaurant}` },
     ],
   }
 
@@ -178,6 +179,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
           <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href={`/${state}`} className="hover:text-[#1E2026] transition-colors">
+            {r.state}
+          </Link>
           <ChevronRight className="w-3 h-3" />
           <Link href={`/${city}/${state}`} className="hover:text-[#1E2026] transition-colors">
             {r.city}, {r.stateCode}
@@ -459,12 +464,18 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </Link>
               ))}
             </div>
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               <Link
                 href={`/${city}/${state}`}
                 className="inline-flex items-center gap-1.5 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors font-medium"
               >
                 See all ramen in {r.city}, {r.stateCode} →
+              </Link>
+              <Link
+                href={`/${state}`}
+                className="inline-flex items-center gap-1.5 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors font-medium"
+              >
+                Browse all ramen in {r.state} →
               </Link>
             </div>
           </div>
