@@ -23,6 +23,9 @@ export interface BlogPost {
   content: string
   restaurantCards?: RestaurantCard[]
   outroContent?: string
+  headerImage?: string
+  author?: { name: string; avatar: string }
+  listHeading?: string
 }
 
 const atlantaTop10: RestaurantCard[] = [
@@ -715,9 +718,12 @@ export const blogPosts: BlogPost[] = [
     date: 'May 18, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>Finding the best ramen noodles in Atlanta means knowing where the broth is housemade, the noodles are cooked to order, and the toppings are worth the price. Atlanta's ramen scene has matured fast — the city now has enough standout spots that choosing the right bowl takes some research. We ranked the top 10 based on Google ratings, review volume, and what keeps regulars coming back.</p>`,
+    headerImage: '/hero-ramen.jpg',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+    listHeading: 'The 10 Best Ramen Noodle Bowls In Atlanta',
+    content: `<p>We tried every serious ramen spot in Atlanta so you don't have to start from scratch. Finding the best ramen noodles in Atlanta means knowing where the broth is housemade, the noodles are cooked to order, and the toppings are worth the price. We love what Atlanta's ramen scene has become — the city has matured fast, and we brought you the top 10 ranked by Google ratings, review volume, and what keeps regulars coming back week after week.</p>`,
     restaurantCards: atlantaTop10,
-    outroContent: `<h2>The Bottom Line on Atlanta Ramen Noodles</h2><p>The best ramen noodles in Atlanta come from kitchens that treat the noodle as seriously as the broth — and the restaurants on this list all do. Okiboru leads on craft, JINYA Buckhead leads on consistency, and spots like Kin NoTori and TENSAN are raising the city's overall standard. Wherever you land, Atlanta's ramen scene is worth exploring bowl by bowl.</p>`,
+    outroContent: `<h2>The Bottom Line on Atlanta Ramen Noodles</h2><p>The best ramen noodles in Atlanta come from kitchens that treat the noodle as seriously as the broth — and the restaurants on this list all do. We tried them so you can walk in with confidence. Okiboru leads on craft, JINYA Buckhead leads on consistency, and spots like Kin NoTori and TENSAN are raising the city's overall standard. We love what Atlanta is doing with ramen, and we brought you the definitive list. Wherever you land, Atlanta's ramen scene is worth exploring bowl by bowl.</p>`,
   },
   {
     slug: 'best-ramen-in-atlanta',
