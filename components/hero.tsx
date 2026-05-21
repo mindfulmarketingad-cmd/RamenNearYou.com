@@ -8,6 +8,7 @@ import { searchRestaurants } from '@/lib/search'
 import { type Restaurant } from '@/lib/restaurants'
 
 const brothTypes = ['All', 'Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan']
+const CITIES = ['in Atlanta', 'in Hampton', 'in Los Angeles', 'in Dallas', 'in Houston', 'in Denver']
 
 export default function Hero() {
   const router = useRouter()
@@ -17,6 +18,46 @@ export default function Hero() {
   const [results, setResults] = useState<Restaurant[]>([])
   const [showResults, setShowResults] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
+
+  // Typing animation state
+  const [displayCity, setDisplayCity] = useState('')
+  const [cityIdx, setCityIdx] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [cursorVisible, setCursorVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => setCursorVisible(v => !v), 530)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const target = CITIES[cityIdx]
+
+    if (isPaused) {
+      const t = setTimeout(() => { setIsPaused(false); setIsDeleting(true) }, 1600)
+      return () => clearTimeout(t)
+    }
+
+    if (isDeleting) {
+      if (displayCity.length === 0) {
+        const t = setTimeout(() => {
+          setIsDeleting(false)
+          setCityIdx(i => (i + 1) % CITIES.length)
+        }, 250)
+        return () => clearTimeout(t)
+      }
+      const t = setTimeout(() => setDisplayCity(s => s.slice(0, -1)), 38)
+      return () => clearTimeout(t)
+    }
+
+    if (displayCity.length < target.length) {
+      const t = setTimeout(() => setDisplayCity(target.slice(0, displayCity.length + 1)), 72)
+      return () => clearTimeout(t)
+    }
+
+    setIsPaused(true)
+  }, [displayCity, cityIdx, isDeleting, isPaused])
 
   useEffect(() => {
     const hits = searchRestaurants(query)
@@ -56,8 +97,15 @@ export default function Hero() {
         <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
         </p>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight text-balance mb-5">
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight mb-5">
           Ramen Near Me
+          <span className="block text-[#B57F50] min-h-[1.15em]">
+            {displayCity}
+            <span
+              className="inline-block w-[3px] h-[0.85em] bg-[#B57F50] align-middle ml-1 -mb-0.5 rounded-sm"
+              style={{ opacity: cursorVisible ? 1 : 0, transition: 'opacity 0.1s' }}
+            />
+          </span>
         </h1>
         <p className="text-[#4A4D55] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
           Find the best ramen near me — top-rated ramen restaurants searched by city, broth type, or restaurant name.
