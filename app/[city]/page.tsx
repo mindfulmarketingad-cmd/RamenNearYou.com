@@ -95,7 +95,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{state}</span>
+            <span className="text-[#1E2026]">Ramen in {state}</span>
           </nav>
 
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>

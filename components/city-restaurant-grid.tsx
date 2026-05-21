@@ -259,6 +259,19 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     <div>
       {/* Filter bar */}
       <div className="mb-6 space-y-3">
+        {/* Quick broth filter — always visible */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[#6B6862] text-xs font-medium uppercase tracking-wider mr-1">Broth:</span>
+          <FilterPill active={broth === null} onClick={() => setBroth(null)}>
+            All
+          </FilterPill>
+          {BROTH_KEYWORDS.map(({ label }) => (
+            <FilterPill key={label} active={broth === label} onClick={() => setBroth(broth === label ? null : label)}>
+              {label}
+            </FilterPill>
+          ))}
+        </div>
+
         {/* Top row: sort + toggle */}
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <select

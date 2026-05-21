@@ -58,7 +58,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
-      { '@type': 'ListItem', position: 2, name: `Ramen in ${cityName}, ${stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
+      { '@type': 'ListItem', position: 2, name: `Ramen in ${stateName}`, item: `https://www.ramennearyou.com/${state}` },
+      { '@type': 'ListItem', position: 3, name: `Ramen in ${cityName}, ${stateCode}`, item: `https://www.ramennearyou.com/${city}/${state}` },
     ],
   }
 
@@ -86,8 +87,12 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
         <div className="max-w-7xl mx-auto">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href={`/${state}`} className="hover:text-[#1E2026] transition-colors">
+              {stateName}
+            </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1E2026]">{cityName}, {stateCode}</span>
           </nav>
@@ -164,6 +169,25 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           </div>
         </section>
       )}
+
+      {/* Up to state pillar */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-black/5">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">
+            Looking beyond {cityName}?
+          </h2>
+          <p className="text-[#6B6862] text-sm mb-5 max-w-xl mx-auto">
+            Browse our complete directory of ramen restaurants across {stateName} — every city, every spot.
+          </p>
+          <Link
+            href={`/${state}`}
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+          >
+            See all ramen in {stateName} →
+          </Link>
+        </div>
+      </section>
 
       {/* Ambassador CTA */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
