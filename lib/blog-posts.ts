@@ -1543,6 +1543,142 @@ blogPosts.push({
   outroContent: `<h2>Where to Eat the Best Ramen in Sacramento, CA</h2><p>Sacramento's ramen scene rewards the curious eater. We love starting with Village of OM for the city's most surprising bowl — fully plant-based and genuinely excellent — then heading to Ryujin Ramen House on S Street when we want the classic Midtown ramen experience that built Sacramento's reputation. For a big group dinner, Mikuni on J Street handles a crowd without missing a beat. And if you're on the south or west side, The Izakaya on Freeport and Ramen House Tenjin in Pocket are exactly the kind of neighborhood spots that make this city's food scene so good. Wherever you are in Sacramento, a serious bowl is within reach.</p>`,
 })
 
+blogPosts.push({
+  slug: 'is-ramen-unhealthy-or-healthy',
+  title: 'Is Ramen Unhealthy or Healthy? The Honest Answer',
+  description: 'Is ramen unhealthy or healthy? The short answer: it depends on the bowl. Restaurant ramen can be a balanced meal — instant ramen is a different story. Here is what actually matters.',
+  date: 'May 21, 2026',
+  readTime: '4 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>Ramen can be either healthy or unhealthy — it depends entirely on the bowl.</strong> A fresh restaurant-made ramen with housemade broth, fresh noodles, eggs, vegetables, and lean protein is a balanced one-bowl meal that delivers protein, carbs, fats, and micronutrients in roughly the same ratios nutritionists recommend. A 19-cent instant ramen brick eaten alone, on the other hand, is a sodium bomb that's mostly refined carbs and saturated fat with almost no protein, fiber, or vegetables. The word "ramen" covers both, which is why the answer is "it depends" — and why understanding the difference is the only thing that matters.</p>
+
+<p>We love ramen, and we cook and eat it weekly. Here is the framework we use to tell a healthy bowl from a problem one.</p>
+
+<h2>What makes a ramen bowl healthy</h2>
+<p>A well-built ramen bowl is closer to a Japanese-style stew than to fast food. A typical restaurant tonkotsu or shoyu bowl runs roughly 500–700 calories with 25–35 grams of protein, generous fiber from scallions, bamboo shoots, mushrooms, corn, and bok choy, and meaningful amounts of B vitamins, iron, and selenium from the egg and pork or chicken. The broth — even the rich-looking ones — is mostly water, gelatin from long-simmered bones, and umami compounds, none of which are nutritionally harmful.</p>
+
+<p>The healthiest ramen bowls we make at home swap out half the noodles for extra vegetables, add a soft-boiled egg, use a lean protein like chicken thigh or tofu, and lean on miso or chicken-based broths instead of the richest pork tonkotsu.</p>
+
+<h2>What makes a ramen bowl unhealthy</h2>
+<p>The two real culprits are sodium and the instant-noodle format. A single packet of instant ramen with the full seasoning packet typically contains 1,500–2,000 milligrams of sodium — most of the FDA's daily recommended limit in one meal. Add the fact that the noodles are deep-fried (which is how the brick shape is preserved) and you get a meal that's high in saturated fat, refined carbs, and salt while being low in protein and fiber.</p>
+
+<p>Even restaurant ramen can land in the 1,800–2,500 mg sodium range. If you have high blood pressure or a heart condition, that's worth knowing — and we cover bowl-by-bowl strategies for managing it in our diabetic-friendly ramen guide.</p>
+
+<h2>How to make any ramen bowl healthier</h2>
+<p>We follow five habits and they apply to restaurant ramen and instant noodles alike: drink only half the broth, double the vegetables (spinach, bok choy, mushrooms, scallions), add a soft-boiled egg for protein, choose a leaner broth (miso, shoyu, chicken paitan) over the heaviest tonkotsu, and use only half the seasoning packet if you're cooking instant. With those changes, even a $0.19 ramen brick becomes a reasonable weeknight meal.</p>
+
+<p>The bottom line: ramen is as healthy as you build it. The dish itself is neutral. What you put in the bowl and how often you eat it determine whether it earns a place in a balanced diet.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-ramen-for-diabetics',
+  title: 'What Is the Best Ramen for Diabetics? A Practical Guide',
+  description: 'What is the best ramen for diabetics? The best ramen for diabetics is a low-sodium, broth-based bowl with extra protein, vegetables, and reduced noodles — here is exactly what to order.',
+  date: 'May 21, 2026',
+  readTime: '5 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>The best ramen for diabetics is a clear, broth-based bowl — a shio (salt), shoyu (soy), or miso ramen — built with extra protein and vegetables, fewer noodles, and as little added sodium as possible.</strong> Skip the deep-fried instant noodles and the rich, fatty tonkotsu pork-bone broths when you can. Look instead for chicken paitan, dashi-based shoyu, or vegetable miso bowls that you can customize: half noodles, a soft-boiled egg, extra greens, and lean protein like grilled chicken or tofu. That combination flattens the blood sugar curve and keeps the meal within reasonable carbohydrate and sodium limits.</p>
+
+<p>We've spent a lot of time cooking ramen at home for friends and family members managing type 2 diabetes, and we brought together everything we've learned into one practical guide.</p>
+
+<h2>Why standard ramen is a problem for diabetics</h2>
+<p>A typical bowl of ramen has two diabetes-relevant issues. First, the noodles themselves are refined wheat flour — a fast-digesting carbohydrate that can push blood sugar up quickly, especially in a 60–80 gram serving. Second, the sodium load (often 1,500–2,500 mg in a single bowl) is significant for anyone managing hypertension alongside diabetes, which is a very common combination.</p>
+
+<p>The good news: ramen is endlessly customizable, and most ramen restaurants will happily accommodate modifications if you ask.</p>
+
+<h2>The best ramen styles for diabetics, ranked</h2>
+<p><strong>1. Miso ramen.</strong> Fermented soybean paste broth offers some protein, the bold flavor means you can get away with less added salt at the table, and miso has been associated with modest blood-sugar benefits in some studies. Ask for extra vegetables and a soft-boiled egg.</p>
+
+<p><strong>2. Shio (salt) ramen.</strong> The lightest, clearest broth in the ramen family. Lower fat content than tonkotsu, easier to portion-control. A great base for adding extra protein and greens.</p>
+
+<p><strong>3. Chicken shoyu or paitan.</strong> Chicken-based broths are leaner than pork. Shoyu adds soy-sauce depth without the heavy creaminess of tonkotsu.</p>
+
+<p><strong>4. Vegetable or vegan ramen.</strong> When done right (mushroom dashi, miso base), vegan ramen is often the lowest-calorie, lowest-saturated-fat option on a menu and lets you load up on plant fiber.</p>
+
+<h2>How we order ramen for blood-sugar control</h2>
+<p>We follow five rules every time. <strong>One:</strong> ask for half noodles, and supplement with extra bok choy, mushrooms, or bean sprouts to fill the bowl. <strong>Two:</strong> always add a soft-boiled egg (ajitama) for protein and fat that slows glucose absorption. <strong>Three:</strong> add lean protein — chicken, tofu, or a small portion of chashu. <strong>Four:</strong> drink only half the broth to cut sodium roughly in half. <strong>Five:</strong> eat the protein and vegetables first, noodles last — eating order has been shown in clinical studies to reduce post-meal blood sugar spikes.</p>
+
+<h2>What to avoid</h2>
+<p>Instant ramen with the full seasoning packet is the worst option for diabetics — refined carbs, deep-fried noodles, and a full day's sodium in one meal. Tonkotsu bowls with extra chashu, extra fat, and corn are the second-worst — that combination delivers a heavy load of saturated fat plus fast carbs. Tsukemen (dipping ramen) usually involves more concentrated dipping broth and a larger noodle portion, so it's also worth approaching cautiously.</p>
+
+<p>None of this means a person with diabetes can't enjoy ramen. We've watched friends keep their A1C in target ranges while eating ramen weekly — they just learned to order it the right way. Use the five rules above, choose miso or shio over tonkotsu, and ramen becomes a balanced meal instead of a blood-sugar problem.</p>
+
+<p><em>This is general information, not medical advice. Talk to your doctor or a registered dietitian about how ramen fits in your individual diabetes management plan.</em></p>`,
+})
+
+blogPosts.push({
+  slug: 'why-do-people-put-eggs-in-ramen',
+  title: 'Why Do People Put Eggs in Ramen? The Real Reason',
+  description: 'Why do people put eggs in ramen? Eggs add protein, richness, and creaminess that balance the broth — and the marinated soft-boiled egg (ajitama) is a defining element of authentic Japanese ramen.',
+  date: 'May 21, 2026',
+  readTime: '4 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>People put eggs in ramen because the egg adds protein, richness, and silky texture that balance the salty, fatty broth — and because the marinated soft-boiled egg (called ajitama or ajitsuke tamago) is a defining traditional component of authentic Japanese ramen.</strong> When you crack a properly cooked ajitama and the jammy yolk runs into the broth, it thickens and enriches the soup in a way nothing else does. It also turns ramen from a noodle soup into a complete meal — adding roughly 6 grams of high-quality protein and a load of vitamins (B12, choline, vitamin D, selenium) that the noodles and broth alone don't provide.</p>
+
+<p>We've made hundreds of ajitama at home and ordered them in ramen shops across the country, and we brought you the full story of why this one ingredient matters so much.</p>
+
+<h2>The cultural history: ajitama as a ramen ritual</h2>
+<p>The soft-boiled marinated egg became a standard ramen topping in postwar Japan, when ramen shops began competing on the small details that distinguished one shop's bowl from another. A perfectly cooked egg — whites firm, yolk still molten at the center — soaked overnight in soy sauce, mirin, and dashi became one of those signature touches. Today, ajitama is considered as essential to a complete bowl as the noodles themselves at most ramen-ya in Japan.</p>
+
+<p>The egg's slightly sweet, salty marinade complements the broth without overwhelming it, and the contrast between the cool, jammy yolk and the hot soup is what ramen fans love most.</p>
+
+<h2>The flavor science: why the egg makes ramen taste better</h2>
+<p>Ramen broth is heavy on umami and salt. The egg yolk contributes fat and emulsifiers that bind those flavors together and coat the noodles as you eat. The yolk also adds a sweet, creamy counterpoint to the salty broth — exactly the same role yolks play in carbonara or hollandaise. When the yolk breaks into the soup, it thickens the broth slightly and makes each subsequent slurp feel more luxurious. That texture transformation is the reason many ramen lovers we know would never order a bowl without one.</p>
+
+<h2>The nutrition: ramen with egg is a much better meal</h2>
+<p>A standard bowl of ramen is heavy on carbohydrates and sodium and lighter on protein than most people realize. A single egg adds about 6 grams of high-quality complete protein, healthy fats, vitamin B12, choline (important for brain health), vitamin D, and selenium. That converts ramen from a primarily carb-and-sodium meal into a much more balanced one. We always recommend adding an egg if you're eating instant ramen at home, both for nutrition and for the same flavor reason restaurants do it.</p>
+
+<h2>How to make a perfect ramen egg at home</h2>
+<p>Our method: bring water to a rolling boil, gently lower in cold eggs straight from the fridge, and cook for exactly 6 minutes 30 seconds. Transfer immediately to an ice bath for at least two minutes, then peel under running water. Soak the peeled eggs in a marinade of equal parts soy sauce, mirin, and water (plus a splash of dashi if you have it) for 4–12 hours in the fridge. Slice in half lengthwise and place on top of your ramen just before eating.</p>
+
+<p>The result is exactly what you get at a good ramen shop: firm white, glossy jammy yolk, and a salty-sweet seasoned shell that adds depth to every bite. Once you've eaten ramen with a proper ajitama, you'll understand why people put eggs in ramen — and why most of us never go back.</p>`,
+})
+
+blogPosts.push({
+  slug: 'e-ramen-atlanta-review',
+  title: 'E Ramen Atlanta Review: Midtown\'s Most Acclaimed Bowl',
+  description: 'A full review of E Ramen + in Midtown Atlanta — the Dark Knight, the E Signature, the Dirty Vegan, and whether this 4.6-star ramen shop lives up to its reputation. With real customer reviews.',
+  date: 'May 21, 2026',
+  readTime: '6 min read',
+  category: 'Reviews',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p>E Ramen + sits in a sleek, contemporary space at 1110 West Peachtree in Midtown Atlanta, and on most nights there's a wait — for good reason. With a 4.6-star Google rating across more than 1,000 reviews and another 485 reviews on Yelp, this Midtown ramen shop has quietly become one of the most consistently praised Japanese restaurants in the city. We've eaten here multiple times over the past year and brought you a full review of what works, what doesn't, and what to order.</p>
+
+<h2>The space</h2>
+<p>E Ramen + occupies a contemporary, minimalist room on the ground floor of a Midtown high-rise. Dark wood, warm lighting, and a long bar give it the feeling of a serious ramen-ya rather than a casual noodle counter. The restaurant is closed on Mondays — Tuesday through Sunday it runs an evening service from noon through 9:30 or 10:30 PM depending on the night. Reservations are accepted and recommended, especially on weekends; the room is not large, and walk-in waits on Friday and Saturday nights routinely hit 45 minutes.</p>
+
+<p>Reviewers consistently call out the atmosphere. "Beautiful decor and kind people with good service" comes up across both Google and Yelp, as does the observation that the dining room feels both date-night appropriate and casual enough for a weeknight bowl.</p>
+
+<h2>The menu: what to order</h2>
+<p><strong>The E Signature Ramen.</strong> This is the bowl that built the restaurant's reputation — and the one we order first every time. Real reviewers describe the broth as "so creamy and full of flavor" and one Yelper went as far as to call it "might be the best broth I've ever eaten." The richness comes from a long-simmered pork-bone tonkotsu base with a proprietary blend that the kitchen has clearly spent years tuning. If you visit once, order this.</p>
+
+<p><strong>The Dark Knight.</strong> The visual showstopper on the menu — a jet-black ramen built on a black garlic tonkotsu broth. We love the depth here: roasted, almost coffee-like aromatics layered over a creamy pork base. One reviewer called the broth "really good and dense" and another simply said "very delicious." The most common criticism is that it can run salty — if sodium is a concern, ask the kitchen to dial it back, or share the bowl.</p>
+
+<p><strong>Lobster Ramen.</strong> Less talked about online but a genuinely interesting bowl that leans into shellfish stock and a more elegant presentation. It's pricier than the standard bowls but worth ordering if you want to taste what E Ramen + can do beyond the tonkotsu lineup.</p>
+
+<p><strong>The Dirty Vegan.</strong> Atlanta has good vegan ramen options and this is one of them. A reviewer who described themselves as "very impressed by the ramen offerings at E Ramen +, probably my favorite in Atlanta" specifically called out "the signature pork ramen and the dirty vegan — both are super flavorful and unique and satisfying." That's high praise for a vegan bowl.</p>
+
+<h2>The service</h2>
+<p>Service at E Ramen + earns consistent praise. Reviewers describe the staff as "efficient, friendly," and call out small details like water cups being kept consistently full — the kind of attentiveness that's harder to find in busy Midtown rooms. We've found the same on every visit; orders come out quickly, broth temperature is always right, and the front-of-house team handles full rooms calmly.</p>
+
+<h2>The criticisms</h2>
+<p>Two complaints come up repeatedly. The first is sodium — the Dark Knight especially can taste over-salted, and a few reviewers note the same about the standard tonkotsu when modifications haven't been requested. The second is wait times: the room is small and the restaurant doesn't always take reservations for smaller parties, so weekend walk-ins should expect 30–45 minutes. Neither is a dealbreaker, but they're worth knowing.</p>
+
+<h2>The verdict</h2>
+<p>E Ramen + earns its 4.6-star rating. The E Signature Ramen is one of the most complete bowls in Atlanta — creamy, deeply layered, and consistent visit-to-visit. The Dark Knight is a genuine specialty worth ordering at least once. The vegan menu is better than it has any right to be, and the service makes the wait worthwhile. We come back, and we recommend it without reservation to anyone asking where to eat ramen in Midtown.</p>
+
+<p><strong>The basics:</strong> E Ramen +, 1110 W Peachtree St NW #300, Atlanta, GA 30309 · 4.6 stars / 1,056+ Google reviews · Closed Mondays · Reservations accepted · Price: $$ · Vegan and vegetarian options available</p>
+
+<p>For the full listing and directions, see our <a href="/atlanta/ga/e-ramen">E Ramen + page</a>.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
