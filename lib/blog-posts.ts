@@ -179,7 +179,9 @@ export const blogPosts: BlogPost[] = [
     date: 'May 19, 2026',
     readTime: '6 min read',
     category: 'Buying Guides',
-    content: `<p>Regular instant ramen is one of the saltiest foods on the planet — a single packet can pack anywhere from <strong>1,000 to over 1,700mg of sodium</strong>, nearly your entire daily recommended limit in one bowl. But the good news? A new generation of better-for-you ramen brands has arrived, and the best ones taste genuinely great. Whether you're watching your blood pressure, cutting back on processed foods, or just want a clean weeknight meal, these five picks deliver real ramen flavor without the sodium overload.</p>
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+    content: `<p>We tried more than a dozen "healthier" instant ramen brands and brought you the five we actually love. Regular instant ramen is one of the saltiest foods on the planet — a single packet can pack anywhere from <strong>1,000 to over 1,700mg of sodium</strong>, nearly your entire daily recommended limit in one bowl. But the good news? A new generation of better-for-you ramen brands has arrived, and the best ones taste genuinely great. Whether you're watching your blood pressure, cutting back on processed foods, or just want a clean weeknight meal, these five picks deliver real ramen flavor without the sodium overload.</p>
 
 <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:2rem 0;" />
 
@@ -323,7 +325,10 @@ export const blogPosts: BlogPost[] = [
     date: 'May 19, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>Searching for <strong>ramen catering near me</strong> is harder than it should be — most ramen restaurants don't advertise catering prominently, but many will accommodate events, corporate lunches, office orders, and private parties when you reach out directly. Below are 10 Atlanta ramen spots worth calling first. Availability varies by location and event size, so always confirm directly with the restaurant.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+    listHeading: '10 Atlanta Ramen Spots That Cater',
+    content: `<p>We called every serious ramen spot in Atlanta about their catering programs and brought you the shortlist of the 10 we love calling first. Searching for <strong>ramen catering near me</strong> is harder than it should be — most ramen restaurants don't advertise catering prominently, but many will accommodate events, corporate lunches, office orders, and private parties when you reach out directly. Availability varies by location and event size, so always confirm directly with the restaurant.</p>`,
     outroContent: `<h2>How to Book Ramen Catering in Atlanta</h2>
 <p>Most ramen restaurants don't list catering on their websites — the best approach is to call directly, describe your event size, and ask about large-order or catering options. JINYA locations have the most established catering infrastructure. For smaller office orders or pickup-style catering, almost any restaurant on this list can accommodate with enough notice. Give at least 48–72 hours lead time for best results.</p>`,
     restaurantCards: [
@@ -476,8 +481,10 @@ export const blogPosts: BlogPost[] = [
     date: 'May 17, 2026',
     readTime: '6 min read',
     category: 'Cooking Tips',
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
     content: `
-<p>You've got a pack of plain noodles and you want that deep, savory ramen flavor — the kind that makes you close your eyes after the first sip. The good news: you don't need a 18-hour tonkotsu broth to get there. You just need to understand what actually makes ramen taste like ramen.</p>
+<p>We tested every shortcut we could find for turning plain noodles into restaurant-style ramen — and we brought you the techniques we love and actually use at home. You've got a pack of plain noodles and you want that deep, savory ramen flavor — the kind that makes you close your eyes after the first sip. The good news: you don't need an 18-hour tonkotsu broth to get there. You just need to understand what actually makes ramen taste like ramen.</p>
 
 <h2>It's All About the Broth Base</h2>
 <p>Ramen flavor lives in the broth. Plain water won't cut it. Start with one of these:</p>
@@ -571,8 +578,10 @@ export const blogPosts: BlogPost[] = [
     date: 'May 17, 2026',
     readTime: '8 min read',
     category: 'Recipes',
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
     content: `
-<p>Naruto Uzumaki's love for ramen is one of the most iconic details in anime. From his very first bowl as a child — sitting alone at Teuchi's Ichiraku Ramen stand — to celebrating victories with his friends, ramen is woven into who he is. His go-to order: <strong>miso chashu pork ramen with extra servings</strong>. Sometimes he'd get four or five extra helpings in a sitting.</p>
+<p>We love this recipe — we tried more than a few weak knockoffs of Naruto's favorite bowl before landing on this one, and we brought you the exact version that gets it right. Naruto Uzumaki's love for ramen is one of the most iconic details in anime. From his very first bowl as a child — sitting alone at Teuchi's Ichiraku Ramen stand — to celebrating victories with his friends, ramen is woven into who he is. His go-to order: <strong>miso chashu pork ramen with extra servings</strong>. Sometimes he'd get four or five extra helpings in a sitting.</p>
 
 <p>So what exactly is Naruto's ramen? It's a Hokkaido-style miso ramen with thick, springy noodles, a rich cloudy broth, sliced chashu pork belly, narutomaki fish cake (the spiral pink and white slice — fittingly named after him), and a soft-boiled egg. This guide walks you through making it at home.</p>
 
@@ -707,9 +716,12 @@ export const blogPosts: BlogPost[] = [
     date: 'May 18, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>If you're looking for the best ramen in Atlanta Georgia, the city has more to offer than most people expect. Georgia's largest city has quietly built a ramen scene that rivals much bigger markets — with housemade noodles, scratch broths, and dedicated chefs who take the bowl seriously. Below are the top 10 restaurants in Atlanta GA ranked by Google rating and review count.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+    listHeading: 'The 10 Best Ramen Restaurants In Atlanta Georgia',
+    content: `<p>We tried every ramen shop in Atlanta GA worth talking about and brought you the ten we love most. If you're looking for the best ramen in Atlanta Georgia, the city has more to offer than most people expect. Georgia's largest city has quietly built a ramen scene that rivals much bigger markets — with housemade noodles, scratch broths, and dedicated chefs who take the bowl seriously. Below are the top 10 restaurants in Atlanta GA ranked by Google rating and review count.</p>`,
     restaurantCards: atlantaTop10,
-    outroContent: `<h2>Final Thoughts on Ramen in Atlanta Georgia</h2><p>Atlanta Georgia's ramen scene rewards exploration. Start at Okiboru for the best single bowl in the city, hit JINYA Buckhead when you want reliability and volume, and work your way through Midtown and East Atlanta for the neighborhoods' best. Every restaurant on this list earns its place — the only question is which broth style you're craving today.</p>`,
+    outroContent: `<h2>Final Thoughts on Ramen in Atlanta Georgia</h2><p>Atlanta Georgia's ramen scene rewards exploration. We love starting at Okiboru for the best single bowl in the city, hitting JINYA Buckhead when we want reliability and volume, and working our way through Midtown and East Atlanta for the neighborhoods' best. Every restaurant on this list earns its place — the only question is which broth style you're craving today.</p>`,
   },
   {
     slug: 'best-ramen-noodles-in-atlanta',
@@ -718,7 +730,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 18, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    headerImage: '/hero-ramen.jpg',
+    headerImage: '/images/hero-ramen.jpg',
     author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
     listHeading: 'The 10 Best Ramen Noodle Bowls In Atlanta',
     content: `<p>We tried every serious ramen spot in Atlanta so you don't have to start from scratch. Finding the best ramen noodles in Atlanta means knowing where the broth is housemade, the noodles are cooked to order, and the toppings are worth the price. We love what Atlanta's ramen scene has become — the city has matured fast, and we brought you the top 10 ranked by Google ratings, review volume, and what keeps regulars coming back week after week.</p>`,
@@ -732,9 +744,12 @@ export const blogPosts: BlogPost[] = [
     date: 'May 18, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>If you're searching for the best ramen in Atlanta, you're in luck — Atlanta's ramen scene has grown into one of the strongest in the South. Whether you want a rich tonkotsu, a housemade tsukemen, or a classic miso bowl, these ten spots consistently deliver. We ranked them using Google ratings, review volume, and what locals keep coming back for.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+    listHeading: 'The 10 Best Ramen Restaurants In Atlanta',
+    content: `<p>We tried every serious ramen shop in Atlanta and brought you the ten we love most. If you're searching for the best ramen in Atlanta, you're in luck — Atlanta's ramen scene has grown into one of the strongest in the South. Whether you want a rich tonkotsu, a housemade tsukemen, or a classic miso bowl, these ten spots consistently deliver. We ranked them using Google ratings, review volume, and what locals keep coming back for.</p>`,
     restaurantCards: atlantaTop10,
-    outroContent: `<h2>Where to Find the Best Ramen in Atlanta</h2><p>Atlanta's best ramen is spread across several neighborhoods — Midtown, Buckhead, Poncey Highland, East Atlanta Village, and Glenwood Park each have strong contenders. Okiboru leads the pack on pure quality, JINYA Buckhead wins on consistency and volume, and Kin NoTori is the best-kept Midtown secret. Whether you want rich tonkotsu, tsukemen, or something lighter, Atlanta delivers.</p>`,
+    outroContent: `<h2>Where to Find the Best Ramen in Atlanta</h2><p>Atlanta's best ramen is spread across several neighborhoods — Midtown, Buckhead, Poncey Highland, East Atlanta Village, and Glenwood Park each have strong contenders. We love Okiboru for pure quality, JINYA Buckhead wins on consistency and volume, and Kin NoTori is the best-kept Midtown secret. Whether you want rich tonkotsu, tsukemen, or something lighter, Atlanta delivers.</p>`,
   },
 ]
 
@@ -1175,9 +1190,12 @@ blogPosts.push(
     date: 'May 19, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>Finding great <strong>vegan ramen in Atlanta</strong> used to mean settling — a bland vegetable broth dressed up with tofu and hoping for the best. That era is over. Atlanta's ramen scene has evolved to the point where some of the city's best bowls happen to be fully plant-based. The restaurants below don't just accommodate vegan diners — they've built menus where the vegan option can stand alongside (and sometimes outshine) the pork-based originals. Ranked by Google rating, review volume, and dedication to plant-based craft.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+    listHeading: 'The 10 Best Vegan Ramen Bowls In Atlanta',
+    content: `<p>We tried every plant-based bowl in Atlanta worth ordering and brought you the ten we love most. Finding great <strong>vegan ramen in Atlanta</strong> used to mean settling — a bland vegetable broth dressed up with tofu and hoping for the best. That era is over. Atlanta's ramen scene has evolved to the point where some of the city's best bowls happen to be fully plant-based. The restaurants below don't just accommodate vegan diners — they've built menus where the vegan option can stand alongside (and sometimes outshine) the pork-based originals. Ranked by Google rating, review volume, and dedication to plant-based craft.</p>`,
     restaurantCards: veganAtlantaTop10,
-    outroContent: `<h2>The Best Vegan Ramen in Atlanta: What to Know</h2><p>Atlanta's best vegan ramen comes from spots that treat the plant-based bowl as a menu priority, not an afterthought. Start at Okiboru for the city's most technically precise vegan broth, hit JINYA Buckhead when you want reliability at scale, and work through Midtown's dense cluster of options — Kin NoTori, E Ramen+, and Nagomiya are all within blocks of each other. Whether you're fully vegan, vegetarian, or just curious, every restaurant on this list is worth the trip.</p>`,
+    outroContent: `<h2>The Best Vegan Ramen in Atlanta: What to Know</h2><p>Atlanta's best vegan ramen comes from spots that treat the plant-based bowl as a menu priority, not an afterthought. We love starting at Okiboru for the city's most technically precise vegan broth, hitting JINYA Buckhead when we want reliability at scale, and working through Midtown's dense cluster of options — Kin NoTori, E Ramen+, and Nagomiya are all within blocks of each other. Whether you're fully vegan, vegetarian, or just curious, every restaurant on this list is worth the trip.</p>`,
   },
   {
     slug: 'tonkotsu-ramen-atlanta',
@@ -1186,9 +1204,12 @@ blogPosts.push(
     date: 'May 19, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>If you're hunting for the best <strong>tonkotsu ramen in Atlanta</strong>, you're chasing the king of broth styles — rich, cloudy pork bone soup simmered for 12 to 18 hours until every bit of collagen and fat emulsifies into something unctuous, savory, and completely irreplaceable. Atlanta has more serious tonkotsu options than most Southern cities, spread across Midtown, Buckhead, Westside, and East Atlanta Village. Below are the 10 best spots, ranked by Google rating, review volume, and broth quality.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+    listHeading: 'The 10 Best Tonkotsu Ramen Spots In Atlanta',
+    content: `<p>We tried every tonkotsu in Atlanta worth slurping and brought you the ten we love most. If you're hunting for the best <strong>tonkotsu ramen in Atlanta</strong>, you're chasing the king of broth styles — rich, cloudy pork bone soup simmered for 12 to 18 hours until every bit of collagen and fat emulsifies into something unctuous, savory, and completely irreplaceable. Atlanta has more serious tonkotsu options than most Southern cities, spread across Midtown, Buckhead, Westside, and East Atlanta Village. Below are the 10 best spots, ranked by Google rating, review volume, and broth quality.</p>`,
     restaurantCards: tonkotsuAtlantaTop10,
-    outroContent: `<h2>Where to Find the Best Tonkotsu Ramen in Atlanta</h2><p>Atlanta's tonkotsu scene is anchored by Okiboru (the most technically precise broth in the city), JINYA (the most consistent at scale), and a growing crop of independent shops like TENSAN and Kin NoTori pushing the standard higher. For tonkotsu specifically, Wagaya Westside and E Ramen+ are the neighborhood standouts. Wherever you land, Atlanta's tonkotsu game is strong — and getting stronger every year.</p>`,
+    outroContent: `<h2>Where to Find the Best Tonkotsu Ramen in Atlanta</h2><p>Atlanta's tonkotsu scene is anchored by Okiboru (the most technically precise broth in the city), JINYA (the most consistent at scale), and a growing crop of independent shops like TENSAN and Kin NoTori pushing the standard higher. For tonkotsu specifically, we love Wagaya Westside and E Ramen+ as the neighborhood standouts. Wherever you land, Atlanta's tonkotsu game is strong — and getting stronger every year.</p>`,
   },
   {
     slug: 'ramen-duluth-ga',
@@ -1197,9 +1218,12 @@ blogPosts.push(
     date: 'May 19, 2026',
     readTime: '5 min read',
     category: 'City Guides',
-    content: `<p>Duluth, GA has quietly become one of the best places in the South to eat <strong>ramen in Duluth, GA</strong>. Gwinnett County's dense Asian-American community has driven a ramen scene that punches well above its weight — with standout Korean ramyun, authentic Japanese tonkotsu, and creative fusion spots all within a few miles of each other on Satellite Blvd, Pleasant Hill Rd, and beyond. Here are the 10 best ramen restaurants in Duluth, ranked by Google rating and review count.</p>`,
+    headerImage: '/images/hero-ramen.jpg',
+    author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+    listHeading: 'The 10 Best Ramen Spots In Duluth, GA',
+    content: `<p>We drove up Satellite Blvd more times than we can count, tried every bowl Gwinnett County had to offer, and brought you the ten we love most. Duluth, GA has quietly become one of the best places in the South to eat <strong>ramen in Duluth, GA</strong>. Gwinnett County's dense Asian-American community has driven a ramen scene that punches well above its weight — with standout Korean ramyun, authentic Japanese tonkotsu, and creative fusion spots all within a few miles of each other on Satellite Blvd, Pleasant Hill Rd, and beyond. Here are the 10 best ramen restaurants in Duluth, ranked by Google rating and review count.</p>`,
     restaurantCards: duluthTop10,
-    outroContent: `<h2>The Best Ramen in Duluth, GA: Final Word</h2><p>Duluth's ramen scene rewards exploration. Start with Ramyun Gallery for the city's highest-rated bowl, visit Umai Ramen for authentic Japanese craft, and don't overlook RINOO's rising star status. For sheer review volume and consistency, JINYA Duluth and Raku Tonkatsu Ramen are the safe bets. Duluth's proximity to Atlanta and its own strong Korean and Japanese dining culture make it one of Georgia's best ramen destinations — and the restaurants on this list prove it.</p>`,
+    outroContent: `<h2>The Best Ramen in Duluth, GA: Final Word</h2><p>Duluth's ramen scene rewards exploration. We love starting with Ramyun Gallery for the city's highest-rated bowl, visiting Umai Ramen for authentic Japanese craft, and we tell everyone not to overlook RINOO's rising star status. For sheer review volume and consistency, JINYA Duluth and Raku Tonkatsu Ramen are the safe bets. Duluth's proximity to Atlanta and its own strong Korean and Japanese dining culture make it one of Georgia's best ramen destinations — and the restaurants on this list prove it.</p>`,
   }
 )
 
