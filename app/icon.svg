@@ -1,30 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Steam -->
-  <path d="M32 22 Q29 17 32 12 Q35 7 32 2" stroke="#aaa" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M40 22 Q37 17 40 12 Q43 7 40 2" stroke="#aaa" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Steam wisps -->
+  <path d="M28 44 C26 39 30 34 28 29 C26 24 30 19 28 14" fill="none" stroke="#aaa" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M36 42 C34 37 38 32 36 27 C34 22 38 17 36 12" fill="none" stroke="#aaa" stroke-width="2.8" stroke-linecap="round"/>
 
   <!-- Chopsticks -->
-  <line x1="62" y1="8" x2="78" y2="42" stroke="#111" stroke-width="4" stroke-linecap="round"/>
-  <line x1="72" y1="8" x2="86" y2="42" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+  <line x1="60" y1="62" x2="78" y2="8" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+  <line x1="70" y1="59" x2="90" y2="9" stroke="#111" stroke-width="5" stroke-linecap="round"/>
 
-  <!-- Noodle mound (white with black outline) -->
-  <ellipse cx="50" cy="40" rx="34" ry="14" fill="white" stroke="#111" stroke-width="3.5"/>
-  <!-- Noodle texture dots -->
-  <ellipse cx="38" cy="39" rx="4" ry="2" fill="#111"/>
-  <ellipse cx="50" cy="37" rx="4" ry="2" fill="#111"/>
-  <ellipse cx="62" cy="39" rx="4" ry="2" fill="#111"/>
-  <ellipse cx="44" cy="44" rx="4" ry="2" fill="#111"/>
-  <ellipse cx="56" cy="44" rx="4" ry="2" fill="#111"/>
-
-  <!-- Bowl (purple) -->
-  <path d="M16 50 Q16 80 50 82 Q84 80 84 50 Z" fill="#77567A" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>
-  <!-- Bowl shine -->
-  <path d="M72 58 Q74 64 73 70" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-  <path d="M76 62 Q77 66 76 70" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <!-- Bowl body -->
+  <path d="M11 55 Q11 90 50 90 Q89 90 89 55 Z" fill="#C9B96A" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
 
   <!-- Bowl base -->
-  <rect x="43" y="82" width="14" height="6" rx="2" fill="#111"/>
+  <rect x="42" y="88" width="16" height="7" rx="1" fill="#111"/>
 
-  <!-- Rim line separating mound and bowl -->
-  <ellipse cx="50" cy="50" rx="34" ry="5" fill="none" stroke="#111" stroke-width="3.5"/>
+  <!-- Bowl rim line -->
+  <line x1="11" y1="55" x2="89" y2="55" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Noodle mound -->
+  <path d="M11 56
+    C12 50 15 46 21 48
+    C22 40 28 37 33 41
+    C35 33 41 30 46 34
+    C48 27 53 26 57 30
+    C60 24 66 24 70 30
+    C74 28 79 33 81 40
+    C86 42 88 49 89 56
+    Z"
+    fill="white" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
+
+  <!-- Toppings row 1 -->
+  <ellipse cx="32" cy="49" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="44" cy="45" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="57" cy="44" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="69" cy="47" rx="3.2" ry="1.8" fill="#111"/>
+
+  <!-- Toppings row 2 -->
+  <ellipse cx="38" cy="54" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="50" cy="52" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="63" cy="53" rx="3.2" ry="1.8" fill="#111"/>
+
+  <!-- Bowl highlight -->
+  <line x1="76" y1="66" x2="78" y2="76" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <line x1="81" y1="61" x2="83" y2="69" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
 </svg>
