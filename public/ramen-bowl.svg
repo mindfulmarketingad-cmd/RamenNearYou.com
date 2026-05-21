@@ -1,42 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Steam wisps -->
-  <path d="M24 42 C22 36 26 30 24 24 C22 18 26 12 24 6" fill="none" stroke="#999" stroke-width="3" stroke-linecap="round"/>
-  <path d="M34 46 C32 40 36 34 34 28 C32 22 36 16 34 10" fill="none" stroke="#999" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- Chopstick 1 -->
-  <line x1="61" y1="63" x2="80" y2="8" stroke="#111" stroke-width="5.5" stroke-linecap="round"/>
-  <!-- Chopstick 2 -->
-  <line x1="72" y1="60" x2="93" y2="10" stroke="#111" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- Steam wisps (left side, gray) -->
+  <path d="M28 44 C26 39 30 34 28 29 C26 24 30 19 28 14" fill="none" stroke="#aaa" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M36 42 C34 37 38 32 36 27 C34 22 38 17 36 12" fill="none" stroke="#aaa" stroke-width="2.8" stroke-linecap="round"/>
 
-  <!-- Bowl body -->
-  <path d="M12 55 Q12 88 50 88 Q88 88 88 55 Z" fill="#6565B5" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Chopstick 1 (left chopstick) -->
+  <line x1="60" y1="62" x2="78" y2="8" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+  <!-- Chopstick 2 (right chopstick) -->
+  <line x1="70" y1="59" x2="90" y2="9" stroke="#111" stroke-width="5" stroke-linecap="round"/>
 
-  <!-- Bowl base -->
-  <rect x="43" y="87" width="14" height="7" rx="1.5" fill="#111"/>
+  <!-- Bowl body — warm golden tan fill -->
+  <path d="M11 55 Q11 90 50 90 Q89 90 89 55 Z" fill="#C9B96A" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
 
-  <!-- Noodle mound (bumpy cloud on top of bowl) -->
-  <path d="M12 56
-    Q14 46 20 48
-    Q23 38 31 42
-    Q34 32 42 36
-    Q46 28 50 32
-    Q54 26 60 31
-    Q65 25 72 32
-    Q79 36 82 44
-    Q87 48 88 56
+  <!-- Bowl base/foot -->
+  <rect x="42" y="88" width="16" height="7" rx="1" fill="#111"/>
+
+  <!-- Bowl rim line -->
+  <line x1="11" y1="55" x2="89" y2="55" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Noodle mound (white, bumpy cloud shape) -->
+  <path d="M11 56
+    C12 50 15 46 21 48
+    C22 40 28 37 33 41
+    C35 33 41 30 46 34
+    C48 27 53 26 57 30
+    C60 24 66 24 70 30
+    C74 28 79 33 81 40
+    C86 42 88 49 89 56
     Z"
     fill="white" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
 
-  <!-- Sesame seeds / noodle markings -->
-  <ellipse cx="30" cy="50" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="42" cy="45" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="55" cy="43" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="67" cy="46" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="36" cy="55" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="50" cy="52" rx="3.5" ry="2" fill="#111"/>
-  <ellipse cx="62" cy="54" rx="3.5" ry="2" fill="#111"/>
+  <!-- Toppings row 1 -->
+  <ellipse cx="32" cy="49" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="44" cy="45" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="57" cy="44" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="69" cy="47" rx="3.2" ry="1.8" fill="#111"/>
 
-  <!-- Bowl shine highlights -->
-  <line x1="75" y1="67" x2="77" y2="77" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
-  <line x1="80" y1="62" x2="82" y2="70" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <!-- Toppings row 2 -->
+  <ellipse cx="38" cy="54" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="50" cy="52" rx="3.2" ry="1.8" fill="#111"/>
+  <ellipse cx="63" cy="53" rx="3.2" ry="1.8" fill="#111"/>
+
+  <!-- Bowl highlight reflection -->
+  <line x1="76" y1="66" x2="78" y2="76" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <line x1="81" y1="61" x2="83" y2="69" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
 </svg>
