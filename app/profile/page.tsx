@@ -59,6 +59,7 @@ export default function ProfilePage() {
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [uploadingPhoto, setUploadingPhoto] = useState(false)
+  const [uploadError, setUploadError] = useState('')
 
   useEffect(() => {
     const supabase = createClient()
@@ -113,14 +114,30 @@ export default function ProfilePage() {
     if (!file) return
 
     setUploadingPhoto(true)
+    setUploadError('')
     try {
       const form = new FormData()
       form.append('files', file)
       const res = await fetch('/api/upload', { method: 'POST', body: form })
       const data = await res.json()
-      if (data.urls?.[0]) {
-        setAvatarUrl(data.urls[0])
+      if (!res.ok) {
+        setUploadError(data.error ?? 'Upload failed. Please try again.')
+        return
       }
+      const url = data.urls?.[0]
+      if (!url) {
+        setUploadError('Upload failed — no URL returned.')
+        return
+      }
+      setAvatarUrl(url)
+      // Auto-save avatar immediately so it persists without needing Save Profile
+      await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ avatar_url: url }),
+      })
+    } catch {
+      setUploadError('Network error. Please try again.')
     } finally {
       setUploadingPhoto(false)
     }
@@ -216,6 +233,7 @@ export default function ProfilePage() {
                     {uploadingPhoto ? 'Uploading…' : 'Change photo'}
                   </button>
                   <p className="text-[#6B6862] text-xs mt-1.5">JPG, PNG or GIF, max 8 MB</p>
+                  {uploadError && <p className="text-red-400 text-xs mt-1.5">{uploadError}</p>}
                 </div>
                 <input
                   ref={fileInputRef}
