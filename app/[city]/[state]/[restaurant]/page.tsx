@@ -30,7 +30,7 @@ export async function generateStaticParams() {
       const scoreB = (b.rating ?? 0) * Math.log1p(b.reviewCount ?? 0)
       return scoreB - scoreA
     })
-    .slice(0, 3000)
+    .slice(0, 1000)
     .map(r => ({ city: r.citySlug, state: r.stateSlug, restaurant: r.slug }))
 }
 
@@ -90,7 +90,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 4)
 
-  const supabase = await createClient()
+  const supabase = process.env.NEXT_PHASE === 'phase-production-build' ? null : await createClient()
   let isVerified = false
   let visitCount = 0
   let isOwner = false

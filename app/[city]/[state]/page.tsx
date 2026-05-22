@@ -44,7 +44,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
 
-  const supabase = await createClient()
+  const supabase = process.env.NEXT_PHASE === 'phase-production-build' ? null : await createClient()
   let verifiedSlugs: string[] = []
   if (supabase) {
     const slugs = restaurants.map(r => r.slug)
