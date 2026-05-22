@@ -224,10 +224,21 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <StarRating rating={r.rating} />
                   <span className="text-[#1E2026] font-semibold">{r.rating?.toFixed(1)}</span>
-                  <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  {r.placeId ? (
+                    <a
+                      href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#6B6862] text-sm hover:text-[#B57F50] transition-colors underline underline-offset-2"
+                    >
+                      {r.reviewCount.toLocaleString()} Google reviews
+                    </a>
+                  ) : (
+                    <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  )}
                 </div>
               )}
             </div>
@@ -345,6 +356,17 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <MapPin className="w-4 h-4" />
                   Get Directions
                 </OutboundLink>
+              )}
+              {r.placeId && (
+                <a
+                  href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-black/8 text-[#6B6862] text-sm font-medium hover:border-[#B57F50]/40 hover:text-[#1E2026] transition-colors"
+                >
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  Read Google Reviews
+                </a>
               )}
               {r.menuLink && (
                 <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
