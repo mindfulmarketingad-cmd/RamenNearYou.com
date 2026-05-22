@@ -11,14 +11,26 @@ export async function GET(request: Request) {
   // Try admin client first (bypasses RLS), fall back to anon client
   const client = createAdminClient() ?? (await createClient())
 
-  const { data } = await client
+  const { data: reviews } = await client
     .from('reviews')
     .select('*')
     .eq('restaurant_slug', slug)
     .order('created_at', { ascending: false })
     .limit(50)
 
-  return NextResponse.json({ reviews: data ?? [] })
+  if (!reviews?.length) return NextResponse.json({ reviews: [] })
+
+  // Fetch avatar_urls for reviewers
+  const userIds = [...new Set(reviews.map(r => r.user_id).filter(Boolean))]
+  const { data: profiles } = await client
+    .from('user_profiles')
+    .select('user_id, avatar_url')
+    .in('user_id', userIds)
+
+  const avatarMap = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p.avatar_url]))
+  const enriched = reviews.map(r => ({ ...r, avatar_url: avatarMap[r.user_id] ?? null }))
+
+  return NextResponse.json({ reviews: enriched })
 }
 
 // POST /api/reviews — submit a review (auth required)

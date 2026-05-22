@@ -15,6 +15,7 @@ type Review = {
   photos: string[]
   created_at: string
   user_id: string
+  avatar_url: string | null
 }
 
 interface Props {
@@ -127,17 +128,34 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
         </div>
       ) : (
         <div className="space-y-4">
-          {visible.map(review => (
+          {visible.map(review => {
+            const initial = review.user_display_name?.[0]?.toUpperCase() ?? '?'
+            return (
             <article key={review.id} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5">
               <div className="flex items-start justify-between gap-3 mb-2">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
-                    <StarDisplay rating={review.rating} />
+                <div className="flex items-start gap-3">
+                  {/* Avatar */}
+                  {review.avatar_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={review.avatar_url}
+                      alt={review.user_display_name}
+                      className="w-8 h-8 rounded-full object-cover shrink-0 border border-black/8"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-[#B57F50]/20 border border-[#B57F50]/30 flex items-center justify-center shrink-0 text-xs font-bold text-[#B57F50]">
+                      {initial}
+                    </div>
+                  )}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
+                      <StarDisplay rating={review.rating} />
+                    </div>
+                    <p className="text-[#1E2026]/30 text-xs">
+                      {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </p>
                   </div>
-                  <p className="text-[#1E2026]/30 text-xs">
-                    {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                  </p>
                 </div>
                 {userId === review.user_id && (
                   <button
@@ -173,7 +191,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                 </div>
               )}
             </article>
-          ))}
+          )})}
 
           {reviews.length > 3 && !showAll && (
             <button
