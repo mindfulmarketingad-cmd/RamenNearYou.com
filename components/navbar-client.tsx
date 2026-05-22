@@ -96,24 +96,56 @@ function CityDropdown({ cities, onClose }: { cities: NavCity[]; onClose: () => v
 }
 
 function StateDropdown({ states, onClose }: { states: NavState[]; onClose: () => void }) {
+  const [query, setQuery] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setTimeout(() => inputRef.current?.focus(), 50)
+  }, [])
+
+  const filtered = query.trim()
+    ? states.filter(
+        (s) =>
+          s.state.toLowerCase().includes(query.toLowerCase()) ||
+          s.stateCode.toLowerCase().includes(query.toLowerCase())
+      )
+    : states
+
   return (
-    <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-black/8 rounded-xl shadow-xl overflow-hidden z-50">
-      <ul className="py-1">
-        {states.map((s) => (
-          <li key={s.stateSlug}>
-            <Link
-              href={`/${s.stateSlug}`}
-              onClick={onClose}
-              className="flex items-center justify-between px-4 py-2.5 hover:bg-[#F5F4F0] transition-colors"
-            >
-              <span className="flex items-center gap-2">
-                <span className="text-sm text-[#1E2026]">{s.state}</span>
-                <span className="text-xs font-semibold text-[#B57F50]">{s.stateCode}</span>
-              </span>
-              <span className="text-xs text-[#9B9490]">{s.count} spots</span>
-            </Link>
-          </li>
-        ))}
+    <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-black/8 rounded-xl shadow-xl overflow-hidden z-50">
+      <div className="p-3 border-b border-black/5">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search states…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full pl-8 pr-3 py-2 text-sm bg-[#F5F4F0] rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490]"
+          />
+        </div>
+      </div>
+      <ul className="max-h-64 overflow-y-auto py-1">
+        {filtered.length === 0 ? (
+          <li className="px-4 py-3 text-sm text-[#9B9490] text-center">No states found</li>
+        ) : (
+          filtered.map((s) => (
+            <li key={s.stateSlug}>
+              <Link
+                href={`/${s.stateSlug}`}
+                onClick={onClose}
+                className="flex items-center justify-between px-4 py-2.5 hover:bg-[#F5F4F0] transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="text-sm text-[#1E2026]">{s.state}</span>
+                  <span className="text-xs font-semibold text-[#B57F50]">{s.stateCode}</span>
+                </span>
+                <span className="text-xs text-[#9B9490]">{s.count} spots</span>
+              </Link>
+            </li>
+          ))
+        )}
       </ul>
       <div className="border-t border-black/5 p-2">
         <Link
