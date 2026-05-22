@@ -8,3 +8,5 @@ Disallow: /list
 Disallow: /saved
 
 Sitemap: https://www.ramennearyou.com/sitemap.xml
+Sitemap: https://www.ramennearyou.com/sitemap-states.xml
+Sitemap: https://www.ramennearyou.com/sitemap-cities.xml
