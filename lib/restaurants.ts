@@ -18,7 +18,9 @@ export type Restaurant = {
   placeId: string; subtypes: string; amenities: Amenities;
 }
 
-export const restaurants: Restaurant[] = [
+import _extraRaw from './restaurants-extra.json'
+
+const _base: Restaurant[] = [
   {
     "name": "Okiboru Tsukemen & Ramen",
     "slug": "okiboru-tsukemen-ramen",
@@ -49511,6 +49513,8 @@ export const restaurants: Restaurant[] = [
     }
   }
 ]
+
+export const restaurants: Restaurant[] = [..._base, ...(_extraRaw as unknown as Restaurant[])]
 
 export function getRestaurantsByCity(citySlug: string, stateSlug: string) {
   return restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug)
