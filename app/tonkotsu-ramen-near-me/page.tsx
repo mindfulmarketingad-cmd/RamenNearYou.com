@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { restaurants } from '@/lib/restaurants'
+import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
@@ -31,7 +31,10 @@ const brothInfo = {
   jsonLdName: 'Best Tonkotsu Ramen Restaurants Near Me',
 }
 
-const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+const sorted = restaurants
+  .filter(r => getBrothTypes(r).includes('Tonkotsu'))
+  .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+  .slice(0, 100)
 
 export default function TonkotsuRamenNearMePage() {
   return <BrothTypeNearMePage broth={brothInfo} restaurants={sorted} />
