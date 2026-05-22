@@ -2,7 +2,7 @@
   "build": {
     "env": {
       "NODE_OPTIONS": "--max-old-space-size=4096",
-      "BUILD_CACHE_BUST": "2026-05-22-2"
+      "BUILD_CACHE_BUST": "2026-05-22-3"
     }
   }
 }

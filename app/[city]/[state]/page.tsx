@@ -13,7 +13,7 @@ export const dynamicParams = true
 export const revalidate = 3600
 
 export async function generateStaticParams() {
-  return getCities().map(c => ({ city: c.citySlug, state: c.stateSlug }))
+  return []
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {
@@ -44,7 +44,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
 
-  const supabase = process.env.NEXT_PHASE === 'phase-production-build' ? null : await createClient()
+  const supabase = await createClient()
   let verifiedSlugs: string[] = []
   if (supabase) {
     const slugs = restaurants.map(r => r.slug)
