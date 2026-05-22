@@ -80,42 +80,46 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 4)
 
-  const supabase = await createClient()
   let isVerified = false
   let visitCount = 0
   let isOwner = false
-  if (supabase) {
-    const { data } = await supabase
-      .from('claims')
-      .select('id, user_id')
-      .eq('restaurant_slug', r.slug)
-      .eq('status', 'approved')
-      .maybeSingle()
-    isVerified = !!data
+  try {
+    const supabase = await createClient()
+    if (supabase) {
+      const { data } = await supabase
+        .from('claims')
+        .select('id, user_id')
+        .eq('restaurant_slug', r.slug)
+        .eq('status', 'approved')
+        .maybeSingle()
+      isVerified = !!data
 
-    if (data?.user_id) {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user && user.id === data.user_id) isOwner = true
+      if (data?.user_id) {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user && user.id === data.user_id) isOwner = true
+      }
+
+      const { data: ov } = await supabase
+        .from('restaurant_overrides')
+        .select('description, phone, website, menu_link, hours')
+        .eq('restaurant_slug', r.slug)
+        .maybeSingle()
+      if (ov) {
+        if (ov.description?.trim()) r.description = ov.description
+        if (ov.phone?.trim())       r.phone       = ov.phone
+        if (ov.website?.trim())     r.website     = ov.website
+        if (ov.menu_link?.trim())   r.menuLink    = ov.menu_link
+        if (ov.hours && Object.keys(ov.hours).length > 0) r.hours = ov.hours
+      }
+
+      const { count } = await supabase
+        .from('restaurant_visits')
+        .select('id', { count: 'exact', head: true })
+        .eq('restaurant_slug', r.slug)
+      visitCount = count ?? 0
     }
-
-    const { data: ov } = await supabase
-      .from('restaurant_overrides')
-      .select('description, phone, website, menu_link, hours')
-      .eq('restaurant_slug', r.slug)
-      .maybeSingle()
-    if (ov) {
-      if (ov.description?.trim()) r.description = ov.description
-      if (ov.phone?.trim())       r.phone       = ov.phone
-      if (ov.website?.trim())     r.website     = ov.website
-      if (ov.menu_link?.trim())   r.menuLink    = ov.menu_link
-      if (ov.hours && Object.keys(ov.hours).length > 0) r.hours = ov.hours
-    }
-
-    const { count } = await supabase
-      .from('restaurant_visits')
-      .select('id', { count: 'exact', head: true })
-      .eq('restaurant_slug', r.slug)
-    visitCount = count ?? 0
+  } catch (err) {
+    console.error('[restaurant-page] Supabase error, rendering with defaults', err)
   }
 
   const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
