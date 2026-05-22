@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map as MapIcon } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
+import StateCityList from '@/components/state-city-list'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -118,35 +119,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
       {/* Browse by city */}
       {cities.length > 1 && (
-        <section className="pt-10 pb-4 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse By City</p>
-            <p className="text-[#1E2026] font-semibold text-lg mb-5">Cities in {state}</p>
-            <div className="flex flex-wrap gap-3">
-              {cities.map((c) => (
-                <div key={c.citySlug} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
-                  <Link
-                    href={`/${c.citySlug}/${stateSlug}`}
-                    className="flex items-center gap-2 px-4 py-2.5"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
-                    <span>
-                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}</span>
-                      <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''}</span>
-                    </span>
-                  </Link>
-                  <Link
-                    href={`/searchmap?city=${c.citySlug}&state=${stateSlug}`}
-                    title="View on map"
-                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
-                  >
-                    <MapIcon className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <StateCityList cities={cities} stateSlug={stateSlug} stateName={state} />
       )}
 
       {/* All listings */}
