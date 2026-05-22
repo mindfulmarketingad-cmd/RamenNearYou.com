@@ -368,10 +368,16 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   Read Google Reviews
                 </a>
               )}
-              {r.menuLink && (
-                <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
+              {(r.menuLink || r.website) && (
+                <OutboundLink
+                  url={r.menuLink || r.website}
+                  restaurantSlug={r.slug}
+                  restaurantName={r.name}
+                  destination="menu"
+                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors"
+                >
                   <Utensils className="w-4 h-4" />
-                  View Menu
+                  {r.menuLink ? 'View Menu' : 'Visit Website'}
                 </OutboundLink>
               )}
             </div>
