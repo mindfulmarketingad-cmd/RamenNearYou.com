@@ -19,6 +19,8 @@ export type Restaurant = {
 }
 
 import _extraRaw from './restaurants-extra.json'
+import _extra2Raw from './restaurants-extra2.json'
+import _extra3Raw from './restaurants-extra3.json'
 
 const _base: Restaurant[] = [
   {
@@ -49514,7 +49516,12 @@ const _base: Restaurant[] = [
   }
 ]
 
-export const restaurants: Restaurant[] = [..._base, ...(_extraRaw as unknown as Restaurant[])]
+export const restaurants: Restaurant[] = [
+  ..._base,
+  ...(_extraRaw as unknown as Restaurant[]),
+  ...(_extra2Raw as unknown as Restaurant[]),
+  ...(_extra3Raw as unknown as Restaurant[]),
+]
 
 export function getRestaurantsByCity(citySlug: string, stateSlug: string) {
   return restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug)

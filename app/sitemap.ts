@@ -6,7 +6,7 @@ const BASE_URL = 'https://www.ramennearyou.com'
 
 // Static dates prevent Google from seeing unstable lastModified on every deploy
 const SITE_LAUNCH   = new Date('2025-01-01')
-const LAST_CONTENT  = new Date('2026-05-23')
+const LAST_CONTENT  = new Date('2026-05-24')
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const cities = getCities()
