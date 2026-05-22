@@ -5,7 +5,7 @@ import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
-import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
+import { getRestaurant, getRestaurantsByCity, getCities, restaurants, type Restaurant } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
@@ -21,7 +21,17 @@ export const dynamicParams = true
 export const revalidate = 3600
 
 export async function generateStaticParams() {
-  return []
+  // Pre-render the top 3,000 restaurants by rating score to avoid build timeout.
+  // The rest are served via ISR on first request.
+  return restaurants
+    .filter(r => r.rating != null && r.reviewCount != null && r.reviewCount >= 20)
+    .sort((a, b) => {
+      const scoreA = (a.rating ?? 0) * Math.log1p(a.reviewCount ?? 0)
+      const scoreB = (b.rating ?? 0) * Math.log1p(b.reviewCount ?? 0)
+      return scoreB - scoreA
+    })
+    .slice(0, 3000)
+    .map(r => ({ city: r.citySlug, state: r.stateSlug, restaurant: r.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {

@@ -13,7 +13,7 @@ export const dynamicParams = true
 export const revalidate = 3600
 
 export async function generateStaticParams() {
-  return []
+  return getCities().map(c => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {
