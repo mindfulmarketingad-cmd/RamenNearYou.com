@@ -18,7 +18,7 @@ import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamicParams = true
-export const revalidate = 86400
+export const revalidate = 3600
 
 export async function generateStaticParams() {
   return []
