@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getCities, getRestaurantsByCity, getStates } from '@/lib/restaurants'
+import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { blogPosts } from '@/lib/blog-posts'
 
 const BASE_URL = 'https://www.ramennearyou.com'
@@ -10,22 +10,8 @@ const LAST_CONTENT  = new Date('2026-05-24')
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const cities = getCities()
-  const states = getStates()
 
-  const statePages = states.map((s) => ({
-    url: `${BASE_URL}/${s.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.85,
-  }))
-
-  const cityPages = cities.map((c) => ({
-    url: `${BASE_URL}/${c.citySlug}/${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
+  // States → /sitemap-states.xml  Cities → /sitemap-cities.xml
   const restaurantPages = cities.flatMap((c) =>
     getRestaurantsByCity(c.citySlug, c.stateSlug).map((r) => ({
       url: `${BASE_URL}/${c.citySlug}/${c.stateSlug}/${r.slug}`,
@@ -170,8 +156,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     ...blogPostPages,
-    ...statePages,
-    ...cityPages,
     ...restaurantPages,
   ]
 }
