@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' next start",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -68,7 +68,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.0",
     "@types/leaflet": "^1.9.21",
-    "@types/node": "^22",
+    "@types/node": "^25.9.1",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "postcss": "^8.5",

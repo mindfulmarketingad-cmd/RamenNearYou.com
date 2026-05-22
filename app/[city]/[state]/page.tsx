@@ -9,8 +9,11 @@ import CityFollowButton from '@/components/city-follow-button'
 import CityFeaturedCTA from '@/components/city-featured-cta'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamicParams = true
+export const revalidate = 3600
+
 export async function generateStaticParams() {
-  return getCities().map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  return []
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {
@@ -41,16 +44,20 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
 
-  const supabase = await createClient()
   let verifiedSlugs: string[] = []
-  if (supabase) {
-    const slugs = restaurants.map(r => r.slug)
-    const { data } = await supabase
-      .from('claims')
-      .select('restaurant_slug')
-      .in('restaurant_slug', slugs)
-      .eq('status', 'approved')
-    verifiedSlugs = data?.map(d => d.restaurant_slug) ?? []
+  try {
+    const supabase = await createClient()
+    if (supabase) {
+      const slugs = restaurants.map(r => r.slug)
+      const { data } = await supabase
+        .from('claims')
+        .select('restaurant_slug')
+        .in('restaurant_slug', slugs)
+        .eq('status', 'approved')
+      verifiedSlugs = data?.map(d => d.restaurant_slug) ?? []
+    }
+  } catch (err) {
+    console.error('[city-page] Supabase error, rendering without verified badges', err)
   }
 
   const breadcrumbSchema = {

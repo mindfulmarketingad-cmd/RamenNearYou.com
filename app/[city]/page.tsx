@@ -116,15 +116,25 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         </div>
       </section>
 
-      {/* Browse by city */}
+      {/* All listings */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-[#1E2026] font-semibold text-sm mb-6">
+            All {allRestaurants.length} ramen restaurants in {state}
+          </p>
+          <CityRestaurantGrid restaurants={allRestaurants} city="" state={stateSlug} verifiedSlugs={verifiedSlugs} />
+        </div>
+      </section>
+
+      {/* Browse by city — bottom anchor */}
       {cities.length > 1 && (
-        <section className="pt-10 pb-4 px-4 sm:px-6 lg:px-8">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
           <div className="max-w-7xl mx-auto">
             <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse By City</p>
             <p className="text-[#1E2026] font-semibold text-lg mb-5">Cities in {state}</p>
             <div className="flex flex-wrap gap-3">
               {cities.map((c) => (
-                <div key={c.citySlug} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
+                <div key={c.citySlug} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-white">
                   <Link
                     href={`/${c.citySlug}/${stateSlug}`}
                     className="flex items-center gap-2 px-4 py-2.5"
@@ -148,16 +158,6 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           </div>
         </section>
       )}
-
-      {/* All listings */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-[#1E2026] font-semibold text-sm mb-6">
-            All {allRestaurants.length} ramen restaurants in {state}
-          </p>
-          <CityRestaurantGrid restaurants={allRestaurants} city="" state={stateSlug} verifiedSlugs={verifiedSlugs} />
-        </div>
-      </section>
 
       <Footer />
     </main>
