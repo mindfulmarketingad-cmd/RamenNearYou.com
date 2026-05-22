@@ -9,8 +9,11 @@ import CityFollowButton from '@/components/city-follow-button'
 import CityFeaturedCTA from '@/components/city-featured-cta'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamicParams = true
+export const revalidate = 86400
+
 export async function generateStaticParams() {
-  return getCities().map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  return []
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {

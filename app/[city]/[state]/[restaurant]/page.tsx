@@ -17,14 +17,11 @@ import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamicParams = true
+export const revalidate = 86400
+
 export async function generateStaticParams() {
-  return getCities().flatMap((c) =>
-    getRestaurantsByCity(c.citySlug, c.stateSlug).map((r) => ({
-      city: c.citySlug,
-      state: c.stateSlug,
-      restaurant: r.slug,
-    }))
-  )
+  return []
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
