@@ -68,16 +68,17 @@ export default function CitiesPage() {
   const cities = getCities()
   const statesWithData = new Set(getStates().map(s => s.stateSlug))
 
-  // Group cities by state code
+  // Group cities by state code, cap at top 20 per state by restaurant count
+  const CITIES_PER_STATE = 20
   const byState = new Map<string, typeof cities>()
   for (const city of cities) {
     const existing = byState.get(city.stateCode) ?? []
     existing.push(city)
     byState.set(city.stateCode, existing)
   }
-  // Sort cities within each state by count desc
-  for (const [, list] of byState) {
+  for (const [key, list] of byState) {
     list.sort((a, b) => b.count - a.count)
+    byState.set(key, list.slice(0, CITIES_PER_STATE))
   }
 
   // Build slug lookup: stateCode → stateSlug
@@ -135,6 +136,7 @@ export default function CitiesPage() {
                 </div>
 
                 {hasData ? (
+                  <>
                   <ul className="divide-y divide-white/5 rounded-xl border border-black/5 overflow-hidden">
                     {stateCities.map((city) => (
                       <li key={`${city.citySlug}-${city.stateSlug}`}>
@@ -155,6 +157,16 @@ export default function CitiesPage() {
                       </li>
                     ))}
                   </ul>
+                  {statesWithData.has(stateSlugByCode.get(state.code) ?? '') && (
+                    <Link
+                      href={`/${stateSlugByCode.get(state.code)}`}
+                      className="inline-flex items-center gap-1 mt-2 text-xs text-[#B57F50] hover:underline"
+                    >
+                      See all cities in {state.name} →
+                    </Link>
+                  )}
+                  </>
+
                 ) : (
                   <p className="text-[#6B6862]/50 text-sm italic pl-1">
                     No listings yet — check back soon.
