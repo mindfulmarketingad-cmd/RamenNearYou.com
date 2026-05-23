@@ -322,6 +322,19 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       </div>
                     )
                   })}
+                  {r.placeId && (
+                    <div className="pt-2 border-t border-black/5">
+                      <a
+                        href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+                      >
+                        <Star className="w-3.5 h-3.5 fill-white" />
+                        Read Reviews on Google
+                      </a>
+                    </div>
+                  )}
                 </div>
               </section>
             )}
