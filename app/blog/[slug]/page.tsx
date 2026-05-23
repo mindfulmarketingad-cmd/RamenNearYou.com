@@ -136,25 +136,39 @@ export default async function BlogPostPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://www.ramennearyou.com/blog/${post.slug}`,
     },
-    ...(post.headerImage ? { image: `https://www.ramennearyou.com${post.headerImage}` } : {}),
+    ...(post.headerImage ? { image: post.headerImage.startsWith('http') ? post.headerImage : `https://www.ramennearyou.com${post.headerImage}` } : {}),
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.ramennearyou.com/blog' },
+      { '@type': 'ListItem', position: 3, name: post.h1 ?? post.title, item: `https://www.ramennearyou.com/blog/${post.slug}` },
+    ],
   }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {post.additionalSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(post.additionalSchema) }} />
       )}
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <div className="mb-2">
-            <Link href="/blog" className="text-sm text-[#B57F50] hover:underline">
-              ← Back to Blog
-            </Link>
-          </div>
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
+            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href="/blog" className="hover:text-[#1E2026] transition-colors">Blog</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-[#1E2026]">{post.h1 ?? post.title}</span>
+          </nav>
 
-          <article className="mt-8">
+          <article className="mt-4">
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">

@@ -1764,13 +1764,12 @@ blogPosts.push({
 blogPosts.push({
   slug: 'okiboru-ramen-atlanta-review',
   title: 'Okiboru Ramen Atlanta Review',
-  h1: 'Okiboru Ramen Atlanta',
   description: "Our honest review of Okiboru Tsukemen & Ramen in Atlanta's Buckhead neighborhood — the city's highest-rated ramen spot. Spicy Tori Paitan, wafu tsukemen, truffle shoyu, and whether it lives up to the hype.",
   date: 'May 23, 2026',
   readTime: '7 min read',
   category: 'Restaurant Review',
-  headerImage: '/images/blog/okiboru-tori-paitan-ramen.jpg',
-  headerImageAlt: 'Tori Paitan ramen with crispy chicken, soft-boiled egg, and greens at Okiboru Tsukemen & Ramen in Atlanta',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no',
+  headerImageAlt: 'Okiboru Tsukemen & Ramen restaurant in Atlanta, Georgia',
   author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
   additionalSchema: {
     '@context': 'https://schema.org',
@@ -1822,8 +1821,9 @@ blogPosts.push({
   <img
     src="/images/blog/okiboru-tori-paitan-ramen.jpg"
     alt="Tori Paitan ramen with crispy chicken, soft-boiled egg, and greens at Okiboru Tsukemen & Ramen Atlanta"
-    style="width: 100%; border-radius: 12px; display: block;"
+    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
     loading="lazy"
+    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
   />
   <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Tori Paitan at Okiboru — creamy chicken broth, crispy chicken, soft-boiled egg, and fresh greens</figcaption>
 </figure>
@@ -1839,8 +1839,9 @@ blogPosts.push({
   <img
     src="/images/blog/okiboru-gyoza-appetizers.jpg"
     alt="Fried gyoza with dipping sauce and ebi karaage shrimp skewers at Okiboru Ramen Atlanta"
-    style="width: 100%; border-radius: 12px; display: block;"
+    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
     loading="lazy"
+    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
   />
   <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Crispy gyoza with scallion dipping sauce, and ebi karaage skewers — the appetizers earn their place on the table</figcaption>
 </figure>
@@ -1857,8 +1858,9 @@ blogPosts.push({
   <img
     src="/images/blog/okiboru-signature-cocktail.jpg"
     alt="Signature cocktail at Okiboru Tsukemen & Ramen Atlanta bar — berry red drink in a wine glass with citrus garnish"
-    style="width: 100%; border-radius: 12px; display: block;"
+    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
     loading="lazy"
+    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
   />
   <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">One of Okiboru's signature cocktails — the bar program is a genuine complement to the food, not an afterthought</figcaption>
 </figure>
