@@ -4,6 +4,7 @@ import FeaturedListings from '@/components/featured-listings'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
 import LeadGenBanner from '@/components/lead-gen-banner'
+import CityStateDirectory from '@/components/city-state-directory'
 import Footer from '@/components/footer'
 
 const organizationSchema = {
@@ -88,6 +89,7 @@ export default function HomePage() {
           description="Discover authentic Japanese ramen near you. From traditional Tokyo shoyu to Sapporo miso and Hakata tonkotsu — real Japanese ramen crafted with generations of technique."
         />
 
+        <CityStateDirectory />
         <LeadGenBanner />
         <Footer />
       </main>
