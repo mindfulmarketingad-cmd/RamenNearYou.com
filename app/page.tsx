@@ -1,5 +1,6 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
+import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
 import FeaturedListings from '@/components/featured-listings'
 import HomepageFeaturedCTA from '@/components/homepage-featured-cta'
 import BrowseBroth from '@/components/browse-broth'
@@ -47,6 +48,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
         <Hero />
+        <NearbyRestaurantsCarousel />
         <FeaturedListings />
         <HomepageFeaturedCTA />
         <BrowseBroth />
