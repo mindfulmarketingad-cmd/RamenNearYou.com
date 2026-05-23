@@ -1,12 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map, Star } from 'lucide-react'
+import { MapPin, ChevronRight, Map, Star, Navigation } from 'lucide-react'
 import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
 import CityFollowButton from '@/components/city-follow-button'
-import CityFeaturedCTA from '@/components/city-featured-cta'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -120,10 +119,16 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
       </section>
 
-      {/* Business owner featured listing CTA */}
+      {/* Searchmap CTA */}
       <section className="pt-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <CityFeaturedCTA cityName={cityName} stateCode={stateCode} />
+          <Link
+            href={`/searchmap?city=${city}&state=${state}`}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-sm shadow-md shadow-[#B57F50]/25 transition-all duration-200"
+          >
+            <Navigation className="w-4 h-4" />
+            Find Ramen in {cityName}, {stateCode}
+          </Link>
         </div>
       </section>
 
