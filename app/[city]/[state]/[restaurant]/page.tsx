@@ -359,6 +359,31 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <ExternalLink className="w-3 h-3 shrink-0" />
                 </OutboundLink>
               )}
+              {r.hours && Object.keys(r.hours).length > 0 && (
+                <div className="border-t border-black/5 pt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Clock className="w-4 h-4 text-[#B57F50] shrink-0" />
+                    <span className="text-sm font-semibold text-[#1E2026]">Hours</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {DAY_ORDER.map((day) => {
+                      const slots = r.hours?.[day]
+                      return (
+                        <div key={day} className="flex justify-between gap-4 text-xs">
+                          <span className="text-[#1E2026] font-medium w-24 shrink-0">{day}</span>
+                          <span className="text-[#6B6862] text-right">
+                            {!slots || slots[0] === 'Closed' ? (
+                              <span className="text-red-400/70">Closed</span>
+                            ) : (
+                              slots.join(' · ')
+                            )}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
               {r.googleMapsLink && (
                 <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   <MapPin className="w-4 h-4" />
