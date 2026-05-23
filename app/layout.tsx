@@ -18,14 +18,14 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ramennearyou.com'),
   title: {
-    default: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    default: 'Ramen Near Me: Find Ramen Spots and Restaurants Near Me',
     template: '%s | Ramen Near You',
   },
   description:
     'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name. Tonkotsu, miso, shoyu, spicy & vegan options.',
   keywords: ['ramen near me', 'ramen restaurants', 'best ramen', 'tonkotsu ramen', 'miso ramen', 'shoyu ramen', 'ramen near me Atlanta', 'local ramen'],
   openGraph: {
-    title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    title: 'Ramen Near Me: Find Ramen Spots and Restaurants Near Me',
     description: 'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name.',
     type: 'website',
     url: 'https://www.ramennearyou.com',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ramen Near Me — Find the Best Local Ramen Restaurants',
+    title: 'Ramen Near Me: Find Ramen Spots and Restaurants Near Me',
     description: 'Find the best ramen near you. Browse top-rated ramen restaurants by city, broth type, or name.',
     images: ['/images/hero-ramen.jpg'],
   },

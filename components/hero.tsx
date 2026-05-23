@@ -97,19 +97,9 @@ export default function Hero() {
         <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-4">
           Ramen Directory
         </p>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight mb-5">
-          Ramen Near Me
-          <span className="block text-[#B57F50] min-h-[1.15em]">
-            {displayCity}
-            <span
-              className="inline-block w-[3px] h-[0.85em] bg-[#B57F50] align-middle ml-1 -mb-0.5 rounded-sm"
-              style={{ opacity: cursorVisible ? 1 : 0, transition: 'opacity 0.1s' }}
-            />
-          </span>
+        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-[#1E2026] leading-tight mb-10">
+          Find Ramen Near Me
         </h1>
-        <p className="text-[#4A4D55] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
-          Find the best ramen near me — top-rated ramen restaurants searched by city, broth type, or restaurant name.
-        </p>
 
         {/* Search bar */}
         <div ref={wrapperRef} className="relative max-w-3xl mx-auto">
