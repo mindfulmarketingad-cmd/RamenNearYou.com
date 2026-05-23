@@ -224,10 +224,21 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <StarRating rating={r.rating} />
                   <span className="text-[#1E2026] font-semibold">{r.rating?.toFixed(1)}</span>
                   <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  {r.placeId && (
+                    <a
+                      href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-semibold transition-colors border border-[#B57F50]/20"
+                    >
+                      <Star className="w-3 h-3 fill-[#B57F50]" />
+                      Read Reviews
+                    </a>
+                  )}
                 </div>
               )}
             </div>
