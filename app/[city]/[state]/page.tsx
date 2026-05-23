@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { MapPin, ChevronRight, Map, Star, Navigation } from 'lucide-react'
+import { MapPin, ChevronRight, Map, Star, Navigation, Instagram } from 'lucide-react'
 import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -42,14 +42,19 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const supabase = await createClient()
   let verifiedSlugs: string[] = []
+  let ambassador: { name: string; instagram: string | null; why_apply: string } | null = null
   if (supabase) {
     const slugs = restaurants.map(r => r.slug)
-    const { data } = await supabase
-      .from('claims')
-      .select('restaurant_slug')
-      .in('restaurant_slug', slugs)
-      .eq('status', 'approved')
-    verifiedSlugs = data?.map(d => d.restaurant_slug) ?? []
+    const [claimsResult, ambassadorResult] = await Promise.all([
+      supabase.from('claims').select('restaurant_slug').in('restaurant_slug', slugs).eq('status', 'approved'),
+      supabase.from('ambassador_applications').select('name, instagram, why_apply')
+        .eq('status', 'approved')
+        .ilike('city', `%${cityName}%`)
+        .limit(1)
+        .maybeSingle(),
+    ])
+    verifiedSlugs = claimsResult.data?.map(d => d.restaurant_slug) ?? []
+    ambassador = ambassadorResult.data ?? null
   }
 
   const breadcrumbSchema = {
@@ -96,25 +101,63 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <span className="text-[#1E2026]">{cityName}, {stateCode}</span>
           </nav>
 
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-            Ramen In {cityName}, {stateCode}
-          </h1>
-          <p className="text-[#6B6862] text-lg mb-4">
-            Browse Ramen Restaurants In {cityName}, {stateCode}.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-[#6B6862]/60 text-sm">
-              {restaurants.length} restaurant{restaurants.length !== 1 ? 's' : ''} · {stateName}
-            </span>
-            <Link
-              href={`/searchmap?city=${city}&state=${state}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
-            >
-              <Map className="w-3.5 h-3.5" />
-              View City Map
-            </Link>
-            <CityFollowButton city={city} state={state} />
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+            <div>
+              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
+              <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
+                Ramen In {cityName}, {stateCode}
+              </h1>
+              <p className="text-[#6B6862] text-lg mb-4">
+                Browse Ramen Restaurants In {cityName}, {stateCode}.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-[#6B6862]/60 text-sm">
+                  {restaurants.length} restaurant{restaurants.length !== 1 ? 's' : ''} · {stateName}
+                </span>
+                <Link
+                  href={`/searchmap?city=${city}&state=${state}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
+                >
+                  <Map className="w-3.5 h-3.5" />
+                  View City Map
+                </Link>
+                <CityFollowButton city={city} state={state} />
+              </div>
+            </div>
+
+            {ambassador && (
+              <div className="lg:shrink-0 lg:w-72 bg-white rounded-2xl border border-black/8 shadow-sm p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <span className="text-amber-600 text-[10px] font-semibold uppercase tracking-widest">City Ambassador</span>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center shrink-0">
+                    <span className="text-[#B57F50] font-bold text-lg">{ambassador.name[0].toUpperCase()}</span>
+                  </div>
+                  <div>
+                    <p className="text-[#1E2026] font-semibold text-sm leading-tight">{ambassador.name}</p>
+                    <p className="text-[#6B6862] text-xs">{cityName}, {stateCode}</p>
+                  </div>
+                </div>
+                {ambassador.why_apply && (
+                  <p className="text-[#6B6862] text-xs leading-relaxed line-clamp-3 mb-3">
+                    &ldquo;{ambassador.why_apply}&rdquo;
+                  </p>
+                )}
+                {ambassador.instagram && (
+                  <a
+                    href={`https://instagram.com/${ambassador.instagram.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#B57F50] hover:text-[#c8934f] transition-colors"
+                  >
+                    <Instagram className="w-3.5 h-3.5" />
+                    @{ambassador.instagram.replace('@', '')}
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
