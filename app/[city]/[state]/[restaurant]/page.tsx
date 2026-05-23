@@ -64,11 +64,11 @@ function StarRating({ rating, size = 'md' }: { rating: number | null; size?: 'sm
 }
 
 function AmenityBadge({ active, label }: { active: boolean; label: string }) {
+  if (!active) return null
   return (
-    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#B57F50]/15 text-[#B57F50]' : 'bg-black/5 text-[#6B6862]/50 line-through'}`}>
-      <span className={`w-2 h-2 rounded-full ${active ? 'bg-[#B57F50]' : 'bg-white/20'}`} />
+    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#1E2026] text-white text-xs font-medium">
       {label}
-    </div>
+    </span>
   )
 }
 
@@ -241,6 +241,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   )}
                 </div>
               )}
+              <div className="flex flex-wrap gap-2 mt-3">
+                <AmenityBadge active={r.amenities.dineIn} label="Dine-in" />
+                <AmenityBadge active={r.amenities.takeout} label="Takeout" />
+                <AmenityBadge active={r.amenities.delivery} label="Delivery" />
+                <AmenityBadge active={r.amenities.outdoorSeating} label="Outdoor Seating" />
+                <AmenityBadge active={r.amenities.alcohol} label="Alcohol" />
+                <AmenityBadge active={r.amenities.veganOptions} label="Vegan Options" />
+                <AmenityBadge active={r.amenities.vegetarianOptions} label="Vegetarian" />
+                <AmenityBadge active={r.amenities.acceptsReservations} label="Reservations" />
+                <AmenityBadge active={r.amenities.wheelchairAccessible} label="Wheelchair Access" />
+                <AmenityBadge active={r.amenities.familyFriendly} label="Family Friendly" />
+                <AmenityBadge active={r.amenities.parking} label="Parking" />
+                <AmenityBadge active={r.amenities.creditCards} label="Credit Cards" />
+              </div>
             </div>
 
             {/* Description */}
@@ -277,25 +291,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </div>
               </section>
             )}
-
-            {/* Amenities */}
-            <section>
-              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">Amenities &amp; Features</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                <AmenityBadge active={r.amenities.dineIn} label="Dine-in" />
-                <AmenityBadge active={r.amenities.takeout} label="Takeout" />
-                <AmenityBadge active={r.amenities.delivery} label="Delivery" />
-                <AmenityBadge active={r.amenities.outdoorSeating} label="Outdoor Seating" />
-                <AmenityBadge active={r.amenities.alcohol} label="Alcohol" />
-                <AmenityBadge active={r.amenities.veganOptions} label="Vegan Options" />
-                <AmenityBadge active={r.amenities.vegetarianOptions} label="Vegetarian" />
-                <AmenityBadge active={r.amenities.acceptsReservations} label="Reservations" />
-                <AmenityBadge active={r.amenities.wheelchairAccessible} label="Wheelchair Access" />
-                <AmenityBadge active={r.amenities.familyFriendly} label="Family Friendly" />
-                <AmenityBadge active={r.amenities.parking} label="Parking" />
-                <AmenityBadge active={r.amenities.creditCards} label="Credit Cards" />
-              </div>
-            </section>
 
             {/* Community reviews */}
             <ReviewSection
