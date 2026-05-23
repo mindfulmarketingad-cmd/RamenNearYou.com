@@ -3,7 +3,6 @@ import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
-import LeadGenBanner from '@/components/lead-gen-banner'
 import CityStateDirectory from '@/components/city-state-directory'
 import Footer from '@/components/footer'
 
@@ -90,7 +89,6 @@ export default function HomePage() {
         />
 
         <CityStateDirectory />
-        <LeadGenBanner />
         <Footer />
       </main>
     </>
