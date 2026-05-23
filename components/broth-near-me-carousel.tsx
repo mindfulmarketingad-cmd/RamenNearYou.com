@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Star, ChevronLeft, ChevronRight, MapPin, ArrowRight } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
 
 interface NearbyRestaurant {
   slug: string
@@ -24,7 +24,6 @@ interface Props {
   brothType: string
   title: string
   description: string
-  href: string
 }
 
 function RestaurantCard({ r }: { r: NearbyRestaurant }) {
@@ -81,7 +80,7 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
   )
 }
 
-export default function BrothNearMeCarousel({ brothType, title, description, href }: Props) {
+export default function BrothNearMeCarousel({ brothType, title, description }: Props) {
   const [restaurants, setRestaurants] = useState<NearbyRestaurant[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'hidden'>('loading')
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -170,13 +169,6 @@ export default function BrothNearMeCarousel({ brothType, title, description, hre
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
-            <Link
-              href={href}
-              className="flex items-center gap-1.5 text-sm font-medium text-[#B57F50] hover:text-[#1E2026] transition-colors group"
-            >
-              View all locations
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
         </div>
 
