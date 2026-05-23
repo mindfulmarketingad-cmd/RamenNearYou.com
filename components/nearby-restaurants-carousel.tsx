@@ -190,7 +190,7 @@ export default function NearbyRestaurantsCarousel() {
           <div>
             <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-1">Near You</p>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
-              {city ? `Ramen Near ${city}` : 'Ramen Near You'}
+              Ramen Near Me
             </h2>
           </div>
           <div className="flex items-center gap-2">
