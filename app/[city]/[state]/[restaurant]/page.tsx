@@ -265,32 +265,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </section>
             )}
 
-            {/* Hours */}
-            {r.hours && Object.keys(r.hours).length > 0 && (
-              <section>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#B57F50]" />
-                  Hours
-                </h2>
-                <div className="bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden">
-                  {DAY_ORDER.map((day) => {
-                    const slots = r.hours?.[day]
-                    return (
-                      <div key={day} className="flex justify-between items-center px-5 py-3 border-b border-black/5 last:border-0">
-                        <span className="text-[#1E2026] text-sm font-medium w-28">{day}</span>
-                        <span className="text-[#6B6862] text-sm text-right">
-                          {!slots || slots[0] === 'Closed' ? (
-                            <span className="text-red-400/70">Closed</span>
-                          ) : (
-                            slots.join(' · ')
-                          )}
-                        </span>
-                      </div>
-                    )
-                  })}
-                </div>
-              </section>
-            )}
 
             {/* Community reviews */}
             <ReviewSection

@@ -20,7 +20,7 @@ export default function CityStateDirectory() {
           Ramen Restaurants by City &amp; State
         </h2>
         <p className="text-[#6B6862] text-sm sm:text-base max-w-xl leading-relaxed mb-10">
-          Find ramen near you by browsing every city and state in our directory.
+          Find ramen spots and restaurants near you by browsing every city and state in our directory.
         </p>
 
         <div className="columns-2 sm:columns-3 lg:columns-4 gap-8 space-y-8">
