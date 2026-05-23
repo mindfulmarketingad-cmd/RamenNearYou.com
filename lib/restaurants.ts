@@ -58,7 +58,7 @@ export function getRestaurantsByCity(citySlug: string, stateSlug: string) {
   return restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug)
 }
 
-export function getRestaurant(slug: string, citySlug: string, stateSlug: string): Restaurant | null {
+export function getRestaurant(citySlug: string, stateSlug: string, slug: string): Restaurant | null {
   return restaurants.find(r => r.slug === slug && r.citySlug === citySlug && r.stateSlug === stateSlug) ?? null
 }
 
