@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation'
 import { Menu, X, Phone, Search, ChevronDown, MapPin } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
-import SearchModal from '@/components/search-modal'
 
 export interface NavCity {
   city: string
@@ -132,7 +131,6 @@ export default function NavbarClient({ cities, states }: Props) {
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
-  const [searchOpen, setSearchOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<'city' | 'state' | null>(null)
   const [mobileCityOpen, setMobileCityOpen] = useState(false)
   const [mobileStateOpen, setMobileStateOpen] = useState(false)
@@ -238,14 +236,6 @@ export default function NavbarClient({ cities, states }: Props) {
               Blog
             </Link>
 
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors ml-1"
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-
             {user ? (
               <div className="flex items-center gap-3 ml-2">
                 <Link href="/saved" className="text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
@@ -298,13 +288,6 @@ export default function NavbarClient({ cities, states }: Props) {
           </a>
 
           <div className="lg:hidden flex items-center gap-1">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
             <button
               className="text-[#1E2026] p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -456,7 +439,6 @@ export default function NavbarClient({ cities, states }: Props) {
         </div>
       )}
 
-      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }
