@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getStates } from '@/lib/restaurants'
 
 const footerLinks = {
   Browse: [
@@ -24,7 +23,6 @@ const footerLinks = {
 }
 
 export default function Footer() {
-  const states = getStates().sort((a, b) => a.state.localeCompare(b.state))
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -58,20 +56,6 @@ export default function Footer() {
               </ul>
             </div>
           ))}
-        </div>
-
-        {/* State directory links */}
-        <div className="mt-12 pt-10 border-t border-black/5">
-          <h4 className="text-[#1E2026] text-sm font-semibold mb-4">Ramen by State</h4>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {states.map((s) => (
-              <li key={s.stateSlug}>
-                <Link href={`/${s.stateSlug}`} className="text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors">
-                  Ramen in {s.state}
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Newsletter */}
