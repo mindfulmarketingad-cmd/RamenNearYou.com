@@ -18,12 +18,9 @@ export type Restaurant = {
   placeId: string; subtypes: string; amenities: Amenities;
 }
 
-import fs from 'fs'
-import path from 'path'
+import restaurantsData from './restaurants.json'
 
-export const restaurants: Restaurant[] = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), 'lib/restaurants.json'), 'utf-8')
-) as Restaurant[]
+export const restaurants: Restaurant[] = restaurantsData as Restaurant[]
 
 export function getCities() {
   const map = new Map<string, { city: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
@@ -55,6 +52,14 @@ export function getStates() {
 
 export function getRestaurantsByState(stateSlug: string) {
   return restaurants.filter(r => r.stateSlug === stateSlug)
+}
+
+export function getRestaurantsByCity(citySlug: string, stateSlug: string) {
+  return restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug)
+}
+
+export function getRestaurant(slug: string, citySlug: string, stateSlug: string): Restaurant | null {
+  return restaurants.find(r => r.slug === slug && r.citySlug === citySlug && r.stateSlug === stateSlug) ?? null
 }
 
 export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
