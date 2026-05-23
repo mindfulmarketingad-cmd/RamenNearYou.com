@@ -1817,34 +1817,12 @@ blogPosts.push({
 <h2>What We Ordered</h2>
 <p>The <strong>Spicy Tori Paitan</strong> is the right starting point. It's the most-ordered item on the menu, and the reason is simple: the broth is the kind of thing you finish with a spoon after the noodles are gone. A milky, chicken-based paitan cooked until it's rich and glossy, with heat that builds slowly rather than hitting all at once. The chicken itself is thinly sliced — not fatty, not rubbery — with crispy skin-on pieces that hold their texture even as they rest in the broth. One longtime regular put it simply: "crispy chicken, broth is so flavorful." Hard to improve on that.</p>
 
-<figure style="margin: 2rem 0;">
-  <img
-    src="/images/blog/okiboru-tori-paitan-ramen.jpg"
-    alt="Tori Paitan ramen with crispy chicken, soft-boiled egg, and greens at Okiboru Tsukemen & Ramen Atlanta"
-    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
-    loading="lazy"
-    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
-  />
-  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Tori Paitan at Okiboru — creamy chicken broth, crispy chicken, soft-boiled egg, and fresh greens</figcaption>
-</figure>
-
 <p>The <strong>Wafu Tsukemen</strong> is what turned one guest into a regular who now calls Okiboru "my favorite restaurant in all of Atlanta." Tsukemen — thick, chewy noodles served dry alongside a concentrated, intensely flavored dipping broth — is a different experience from a traditional bowl of ramen. It's deliberate, course-like, and showcases the noodle itself rather than hiding it in liquid. A reviewer who'd eaten tsukemen across Japan said Okiboru's version had "basically the same" quality as you'd find at a dedicated tsukemen shop in Tokyo. That's the kind of comparison that matters.</p>
 
 <p>The <strong>Truffle Shoyu Ramen</strong> has developed a quiet cult following. One regular described being "in a chokehold" over it, which is an accurate description of what a well-made truffle ramen does to you. The truffle is present without being theatrical — balanced against a clean soy-based broth that doesn't let the earthiness run wild. It's the most distinctive bowl on the menu and the one that surprises people the most. There's also a <strong>Spicy Yassai Ramen</strong> built on a vegetable broth with housemade tofu — reviewers praised the "exquisite" broth and the clean sear lines on the tofu. For those who lean toward heat, the <strong>Tantan</strong> sesame-chili bowl is described as "solid and flavorful," with the option to request chili paste on the side for better spice control. If you're specifically looking for <a href="/spicy-ramen-near-me">spicy ramen near you</a>, the Spicy Tori Paitan and Tantan are both worth knowing about.</p>
 
 <h2>Start With the Appetizers</h2>
 <p>Don't skip the starters. The <strong>Truffle Garlic Edamame</strong> alone is worth ordering twice — well-seasoned with a subtle truffle hit that makes plain edamame feel like it was missing something all along. The <strong>Deep Fried Gyoza</strong> are properly executed: crispy wrappers, juicy filling, good dipping sauce. The <strong>Ebi Karaage</strong> (fried shrimp) comes with a sauce that multiple reviewers specifically mentioned — the kind of thing you end up using on everything else at the table.</p>
-
-<figure style="margin: 2rem 0;">
-  <img
-    src="/images/blog/okiboru-gyoza-appetizers.jpg"
-    alt="Fried gyoza with dipping sauce and ebi karaage shrimp skewers at Okiboru Ramen Atlanta"
-    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
-    loading="lazy"
-    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
-  />
-  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Crispy gyoza with scallion dipping sauce, and ebi karaage skewers — the appetizers earn their place on the table</figcaption>
-</figure>
 
 <h2>The Broth — The Real Reason People Come Back</h2>
 <p>Every review, without exception, circles back to the broth. The <strong>Tonkotsu</strong> uses thick-cut, well-marinated chashu pork — nothing like the pale, thin slices you'll find at chain ramen bars. One reviewer had been trying to recreate their former favorite tonkotsu at home for years — buying a pressure cooker, testing recipes — ever since the beloved Ton Ton at Ponce City Market closed in 2022. After one bowl at Okiboru, the search was over. "It brought back every fond memory," they wrote. That's the benchmark Okiboru is clearing. If you're a dedicated fan of <a href="/tonkotsu-ramen-near-me">tonkotsu ramen</a>, this is the Atlanta location to know.</p>
@@ -1853,17 +1831,6 @@ blogPosts.push({
 
 <h2>Drinks Worth Ordering</h2>
 <p>Okiboru has a full bar, and the cocktail program earns it. The signature drinks are creative without being gimmicky — fruit-forward, visually striking, and built to pair with the savory depth of the food. One regular has declared the Henny B their favorite drink in the city. The "Last Train to Osaka" has come up in multiple reviews as a bowl and cocktail worth ordering on a first visit. The bar seats are best used during off-peak hours when a bartender is stationed there — a few reviewers mentioned slower service at bar seats during peak service, which is fair feedback the restaurant has acknowledged.</p>
-
-<figure style="margin: 2rem 0;">
-  <img
-    src="/images/blog/okiboru-signature-cocktail.jpg"
-    alt="Signature cocktail at Okiboru Tsukemen & Ramen Atlanta bar — berry red drink in a wine glass with citrus garnish"
-    style="width: 100%; border-radius: 12px; display: block; aspect-ratio: 4/3; object-fit: cover;"
-    loading="lazy"
-    onerror="this.src='https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no'"
-  />
-  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">One of Okiboru's signature cocktails — the bar program is a genuine complement to the food, not an afterthought</figcaption>
-</figure>
 
 <h2>Service</h2>
 <p>The service is one of Okiboru's most consistent strengths. Eunice, Carter, and Shirley have each been called out by name in reviews — not as footnotes, but as direct reasons someone came back a second or third time. "So sweet and very quick," wrote one guest who noted she finished her food before her drink arrived. For ramen, that's the right pace. The team is attentive without hovering, and the response to the occasional off-night — longer waits, missed check-ins — shows ownership that actually cares about improving. For a restaurant this popular, the service floor holds up remarkably well under pressure.</p>
