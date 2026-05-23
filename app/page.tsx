@@ -1,7 +1,6 @@
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
-import BrowseBroth from '@/components/browse-broth'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
 import LeadGenBanner from '@/components/lead-gen-banner'
@@ -41,8 +40,6 @@ export default function HomePage() {
         <Hero />
         <NearbyRestaurantsCarousel />
         <FeaturedListings />
-        <BrowseBroth />
-
         <BrothNearMeCarousel
           brothType="Tonkotsu"
           title="Tonkotsu Ramen Near Me"
