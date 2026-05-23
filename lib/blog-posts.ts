@@ -16,6 +16,7 @@ export type RestaurantCard = {
 export interface BlogPost {
   slug: string
   title: string
+  h1?: string
   description: string
   date: string
   readTime: string
@@ -24,8 +25,10 @@ export interface BlogPost {
   restaurantCards?: RestaurantCard[]
   outroContent?: string
   headerImage?: string
+  headerImageAlt?: string
   author?: { name: string; avatar: string }
   listHeading?: string
+  additionalSchema?: object
 }
 
 const atlantaTop10: RestaurantCard[] = [
@@ -1756,6 +1759,120 @@ blogPosts.push({
 
 <h2>How to handle extreme heat</h2>
 <p>The same rules apply at every heat level: dairy over water (capsaicin is fat-soluble, water spreads it), eat something fatty beforehand, go slowly, and know your limit before you hit it. If you're attempting a ghost pepper or Reaper challenge, bring a friend, have a glass of cold whole milk on standby, and accept that the experience may continue for several hours after you finish the bowl.</p>`,
+})
+
+blogPosts.push({
+  slug: 'okiboru-ramen-atlanta-review',
+  title: 'Okiboru Ramen Atlanta Review',
+  h1: 'Okiboru Ramen Atlanta',
+  description: "Our honest review of Okiboru Tsukemen & Ramen in Atlanta's Buckhead neighborhood — the city's highest-rated ramen spot. Spicy Tori Paitan, wafu tsukemen, truffle shoyu, and whether it lives up to the hype.",
+  date: 'May 23, 2026',
+  readTime: '7 min read',
+  category: 'Restaurant Review',
+  headerImage: '/images/blog/okiboru-tori-paitan-ramen.jpg',
+  headerImageAlt: 'Tori Paitan ramen with crispy chicken, soft-boiled egg, and greens at Okiboru Tsukemen & Ramen in Atlanta',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    name: 'Okiboru Ramen Atlanta Review',
+    reviewBody: "Okiboru Tsukemen & Ramen in Atlanta's Buckhead neighborhood is the best ramen in the city. The Spicy Tori Paitan, wafu tsukemen, and truffle shoyu ramen are outstanding. Exceptional service, authentic Japanese technique, and a focused menu that delivers every time.",
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: '4.8',
+      bestRating: '5',
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'RamenNearYou',
+      url: 'https://www.ramennearyou.com',
+    },
+    datePublished: '2026-05-23',
+    itemReviewed: {
+      '@type': 'Restaurant',
+      name: 'Okiboru Tsukemen & Ramen',
+      servesCuisine: ['Japanese', 'Ramen', 'Tsukemen'],
+      priceRange: '$$',
+      telephone: '+14049417469',
+      url: 'https://www.ramennearyou.com/atlanta/ga/okiboru-tsukemen-ramen',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '2277 Peachtree Rd NE B',
+        addressLocality: 'Atlanta',
+        addressRegion: 'GA',
+        postalCode: '30309',
+        addressCountry: 'US',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.8',
+        reviewCount: '1099',
+      },
+    },
+  },
+  content: `<p><strong>Okiboru Ramen Atlanta</strong> has quietly become the most talked-about bowl in the city — a small, tucked-away spot in Buckhead that regulars guard like a secret and first-timers leave talking about for weeks. We spent time working through the menu and reading dozens of reviews from guests who keep coming back. Here's everything you need to know before you go.</p>
+
+<h2>Where Is Okiboru in Atlanta?</h2>
+<p>Okiboru Tsukemen &amp; Ramen is at <strong>2277 Peachtree Rd NE, Suite B, Atlanta, GA 30309</strong> — in the Buckhead neighborhood, just off the main road. It can be easy to miss if you're not looking for it. The entrance leads past a Japanese <em>noren</em> curtain and down a short flight of stairs into a warm, intimate dining room that immediately signals this isn't a chain. Free parking is available behind the building, and a covered garage area keeps things dry when Atlanta decides to rain. Head over to the <a href="/atlanta/ga">Atlanta ramen guide</a> if you want to compare other spots in the city.</p>
+
+<h2>What We Ordered</h2>
+<p>The <strong>Spicy Tori Paitan</strong> is the right starting point. It's the most-ordered item on the menu, and the reason is simple: the broth is the kind of thing you finish with a spoon after the noodles are gone. A milky, chicken-based paitan cooked until it's rich and glossy, with heat that builds slowly rather than hitting all at once. The chicken itself is thinly sliced — not fatty, not rubbery — with crispy skin-on pieces that hold their texture even as they rest in the broth. One longtime regular put it simply: "crispy chicken, broth is so flavorful." Hard to improve on that.</p>
+
+<figure style="margin: 2rem 0;">
+  <img
+    src="/images/blog/okiboru-tori-paitan-ramen.jpg"
+    alt="Tori Paitan ramen with crispy chicken, soft-boiled egg, and greens at Okiboru Tsukemen & Ramen Atlanta"
+    style="width: 100%; border-radius: 12px; display: block;"
+    loading="lazy"
+  />
+  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Tori Paitan at Okiboru — creamy chicken broth, crispy chicken, soft-boiled egg, and fresh greens</figcaption>
+</figure>
+
+<p>The <strong>Wafu Tsukemen</strong> is what turned one guest into a regular who now calls Okiboru "my favorite restaurant in all of Atlanta." Tsukemen — thick, chewy noodles served dry alongside a concentrated, intensely flavored dipping broth — is a different experience from a traditional bowl of ramen. It's deliberate, course-like, and showcases the noodle itself rather than hiding it in liquid. A reviewer who'd eaten tsukemen across Japan said Okiboru's version had "basically the same" quality as you'd find at a dedicated tsukemen shop in Tokyo. That's the kind of comparison that matters.</p>
+
+<p>The <strong>Truffle Shoyu Ramen</strong> has developed a quiet cult following. One regular described being "in a chokehold" over it, which is an accurate description of what a well-made truffle ramen does to you. The truffle is present without being theatrical — balanced against a clean soy-based broth that doesn't let the earthiness run wild. It's the most distinctive bowl on the menu and the one that surprises people the most. There's also a <strong>Spicy Yassai Ramen</strong> built on a vegetable broth with housemade tofu — reviewers praised the "exquisite" broth and the clean sear lines on the tofu. For those who lean toward heat, the <strong>Tantan</strong> sesame-chili bowl is described as "solid and flavorful," with the option to request chili paste on the side for better spice control. If you're specifically looking for <a href="/spicy-ramen-near-me">spicy ramen near you</a>, the Spicy Tori Paitan and Tantan are both worth knowing about.</p>
+
+<h2>Start With the Appetizers</h2>
+<p>Don't skip the starters. The <strong>Truffle Garlic Edamame</strong> alone is worth ordering twice — well-seasoned with a subtle truffle hit that makes plain edamame feel like it was missing something all along. The <strong>Deep Fried Gyoza</strong> are properly executed: crispy wrappers, juicy filling, good dipping sauce. The <strong>Ebi Karaage</strong> (fried shrimp) comes with a sauce that multiple reviewers specifically mentioned — the kind of thing you end up using on everything else at the table.</p>
+
+<figure style="margin: 2rem 0;">
+  <img
+    src="/images/blog/okiboru-gyoza-appetizers.jpg"
+    alt="Fried gyoza with dipping sauce and ebi karaage shrimp skewers at Okiboru Ramen Atlanta"
+    style="width: 100%; border-radius: 12px; display: block;"
+    loading="lazy"
+  />
+  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">Crispy gyoza with scallion dipping sauce, and ebi karaage skewers — the appetizers earn their place on the table</figcaption>
+</figure>
+
+<h2>The Broth — The Real Reason People Come Back</h2>
+<p>Every review, without exception, circles back to the broth. The <strong>Tonkotsu</strong> uses thick-cut, well-marinated chashu pork — nothing like the pale, thin slices you'll find at chain ramen bars. One reviewer had been trying to recreate their former favorite tonkotsu at home for years — buying a pressure cooker, testing recipes — ever since the beloved Ton Ton at Ponce City Market closed in 2022. After one bowl at Okiboru, the search was over. "It brought back every fond memory," they wrote. That's the benchmark Okiboru is clearing. If you're a dedicated fan of <a href="/tonkotsu-ramen-near-me">tonkotsu ramen</a>, this is the Atlanta location to know.</p>
+
+<p>The kitchen clearly understands that broth is patient work. Nothing here tastes rushed or reconstituted. Whether you're in the paitan camp or the shoyu camp, the liquid in your bowl reflects real time and real technique.</p>
+
+<h2>Drinks Worth Ordering</h2>
+<p>Okiboru has a full bar, and the cocktail program earns it. The signature drinks are creative without being gimmicky — fruit-forward, visually striking, and built to pair with the savory depth of the food. One regular has declared the Henny B their favorite drink in the city. The "Last Train to Osaka" has come up in multiple reviews as a bowl and cocktail worth ordering on a first visit. The bar seats are best used during off-peak hours when a bartender is stationed there — a few reviewers mentioned slower service at bar seats during peak service, which is fair feedback the restaurant has acknowledged.</p>
+
+<figure style="margin: 2rem 0;">
+  <img
+    src="/images/blog/okiboru-signature-cocktail.jpg"
+    alt="Signature cocktail at Okiboru Tsukemen & Ramen Atlanta bar — berry red drink in a wine glass with citrus garnish"
+    style="width: 100%; border-radius: 12px; display: block;"
+    loading="lazy"
+  />
+  <figcaption style="text-align: center; font-size: 0.8rem; color: #6B6862; margin-top: 0.5rem;">One of Okiboru's signature cocktails — the bar program is a genuine complement to the food, not an afterthought</figcaption>
+</figure>
+
+<h2>Service</h2>
+<p>The service is one of Okiboru's most consistent strengths. Eunice, Carter, and Shirley have each been called out by name in reviews — not as footnotes, but as direct reasons someone came back a second or third time. "So sweet and very quick," wrote one guest who noted she finished her food before her drink arrived. For ramen, that's the right pace. The team is attentive without hovering, and the response to the occasional off-night — longer waits, missed check-ins — shows ownership that actually cares about improving. For a restaurant this popular, the service floor holds up remarkably well under pressure.</p>
+
+<h2>Atmosphere</h2>
+<p>Okiboru is cozy. That's not a hedge — it's part of what makes it feel like a real neighborhood ramen-ya rather than a restaurant designed by committee. The space is tight, the lighting is warm, and the Japanese <em>noren</em> curtain at the entrance sets the tone before you sit down. Go for lunch if you want breathing room; weekend dinner service fills up fast and the room gets loud in a good way. The aesthetic isn't trying to impress anyone — it's functional, honest, and entirely consistent with the food on the table.</p>
+
+<h2>Should You Go?</h2>
+<p>Yes. Okiboru is the best ramen in Atlanta right now, and the gap between it and the next option is real. The broth program is serious, the noodles are housemade, the staff cares about the guest experience, and the menu rewards exploration — every return visit tends to surface another dish worth ordering. One practical note: they enforce a last-seating cutoff, and the kitchen means it. If you're making a trip specifically for Okiboru, don't cut it close. One reviewer drove 45 minutes only to arrive at 8:39 PM on a 9 PM close and was turned away — a genuinely disappointing experience that a quick arrival time check would have avoided.</p>
+
+<p>View the <a href="/atlanta/ga/okiboru-tsukemen-ramen">Okiboru Tsukemen &amp; Ramen listing</a> for hours, address, and contact details. If you want to explore the full <a href="/atlanta/ga">Atlanta ramen scene</a>, or use your location to <a href="/searchmap">find great ramen near you</a> anywhere in the country, we've got you covered.</p>`,
 })
 
 export function getBlogPost(slug: string): BlogPost | undefined {

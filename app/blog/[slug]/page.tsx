@@ -136,11 +136,15 @@ export default async function BlogPostPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://www.ramennearyou.com/blog/${post.slug}`,
     },
+    ...(post.headerImage ? { image: `https://www.ramennearyou.com${post.headerImage}` } : {}),
   }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {post.additionalSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(post.additionalSchema) }} />
+      )}
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
@@ -160,8 +164,8 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs text-[#6B6862]/60">·</span>
                 <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
-                {post.title}
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4 text-center">
+                {post.h1 ?? post.title}
               </h1>
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
@@ -186,7 +190,7 @@ export default async function BlogPostPage({ params }: Props) {
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
                   src={post.headerImage}
-                  alt={post.title}
+                  alt={post.headerImageAlt ?? post.title}
                   fill
                   className="object-cover"
                   priority
