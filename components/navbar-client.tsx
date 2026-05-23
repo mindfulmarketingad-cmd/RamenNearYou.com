@@ -88,14 +88,6 @@ export default function NavbarClient() {
               Blog
             </Link>
 
-            <Link
-              href="/list"
-              className="mt-2 px-4 py-2 rounded-md bg-[#B57F50] text-white text-sm font-medium text-center hover:bg-[#c8934f] transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              List Your Restaurant
-            </Link>
-
             {user ? (
               <div className="mt-2 flex flex-col gap-1">
                 <Link href="/saved" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
