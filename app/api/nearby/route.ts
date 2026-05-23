@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { restaurants } from '@/lib/restaurants'
+import { restaurants, getBrothTypes } from '@/lib/restaurants'
 
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -11,11 +11,21 @@ function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
+function matchesBroth(r: (typeof restaurants)[number], broth: string): boolean {
+  const b = broth.toLowerCase()
+  if (b === 'vegetarian') return !!r.amenities.vegetarianOptions
+  if (b === 'korean') return r.subtypes?.toLowerCase().includes('korean') ?? false
+  if (b === 'japanese') return r.subtypes?.toLowerCase().includes('japanese') ?? false
+  const types = getBrothTypes(r).map(t => t.toLowerCase())
+  return types.includes(b)
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const lat = parseFloat(searchParams.get('lat') ?? '')
   const lng = parseFloat(searchParams.get('lng') ?? '')
   const limit = Math.min(parseInt(searchParams.get('limit') ?? '8'), 20)
+  const broth = searchParams.get('broth') ?? ''
 
   if (isNaN(lat) || isNaN(lng)) {
     return NextResponse.json({ error: 'lat and lng required' }, { status: 400 })
@@ -23,6 +33,7 @@ export async function GET(req: NextRequest) {
 
   const nearby = restaurants
     .filter((r) => r.latitude != null && r.longitude != null && r.businessStatus === 'OPERATIONAL')
+    .filter((r) => !broth || matchesBroth(r, broth))
     .map((r) => ({
       slug: r.slug,
       citySlug: r.citySlug,
