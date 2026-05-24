@@ -4,10 +4,52 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   async redirects() {
+    // Old 2-letter state code → full state name slug
+    const stateMap = {
+      al: 'alabama',
+      ca: 'california',
+      ct: 'connecticut',
+      dc: 'district-of-columbia',
+      fl: 'florida',
+      ga: 'georgia',
+      il: 'illinois',
+      'in': 'indiana',
+      ks: 'kansas',
+      ky: 'kentucky',
+      md: 'maryland',
+      mi: 'michigan',
+      mn: 'minnesota',
+      nc: 'north-carolina',
+      nd: 'north-dakota',
+      nj: 'new-jersey',
+      nv: 'nevada',
+      ny: 'new-york',
+      oh: 'ohio',
+      or: 'oregon',
+      pa: 'pennsylvania',
+      ri: 'rhode-island',
+      sc: 'south-carolina',
+      tn: 'tennessee',
+      tx: 'texas',
+      ut: 'utah',
+      va: 'virginia',
+      vt: 'vermont',
+    }
+
+    const stateRedirects = Object.entries(stateMap).flatMap(([code, full]) => [
+      // /ga → /georgia
+      { source: `/${code}`, destination: `/${full}`, permanent: true },
+      // /:city/ga → /:city/georgia
+      { source: `/:city/${code}`, destination: `/:city/${full}`, permanent: true },
+      // /:city/ga/:restaurant → /:city/georgia/:restaurant
+      { source: `/:city/${code}/:restaurant`, destination: `/:city/${full}/:restaurant`, permanent: true },
+    ])
+
     return [
+      // Specific slug fixes
       {
-        source: '/sandy-springs/ga/one-sushi-korean-japanese-caf%C3%A9',
-        destination: '/sandy-springs/ga/one-sushi-korean-japanese-cafe',
+        source: '/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9',
+        destination: '/sandy-springs/georgia/one-sushi-korean-japanese-cafe',
         permanent: true,
       },
       {
@@ -15,6 +57,7 @@ const nextConfig = {
         destination: '/:city/:state/sushi-one-bobalicious-cafe',
         permanent: true,
       },
+      ...stateRedirects,
     ]
   },
   images: {

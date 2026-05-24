@@ -4,9 +4,6 @@ import { ChevronRight } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import CityRestaurantGrid from '@/components/city-restaurant-grid'
-import StateCityList from '@/components/state-city-list'
-import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
   return getStates().map((s) => ({ city: s.stateSlug }))
@@ -18,15 +15,19 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const allRestaurants = getRestaurantsByState(stateSlug)
   if (!allRestaurants.length) return {}
   const { state, stateCode } = allRestaurants[0]
+
+  // Build city count for description
+  const cityCount = new Set(allRestaurants.map(r => r.citySlug)).size
+
   return {
     title: `Best Ramen Restaurants in ${state} (${stateCode}) — Full Directory`,
-    description: `Find the best ramen restaurants in ${state}. Browse all ${allRestaurants.length} top-rated spots with ratings, hours, menus, and directions across every city in ${stateCode}.`,
+    description: `Find the best ramen restaurants in ${state}. Browse ${allRestaurants.length} top-rated spots across ${cityCount} cities in ${stateCode}.`,
     alternates: {
       canonical: `https://www.ramennearyou.com/${stateSlug}`,
     },
     openGraph: {
       title: `Best Ramen Restaurants in ${state} (${stateCode})`,
-      description: `Find the best ramen restaurants in ${state} — all ${allRestaurants.length} locations with ratings and directions.`,
+      description: `Find the best ramen restaurants in ${state} — ${allRestaurants.length} locations across ${cityCount} cities.`,
       url: `https://www.ramennearyou.com/${stateSlug}`,
     },
   }
@@ -40,26 +41,14 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
   const { state, stateCode } = allRestaurants[0]
 
-  // Build city index sorted by restaurant count
+  // Build city index sorted alphabetically
   const cityGroups = new Map<string, { city: string; citySlug: string; count: number }>()
   for (const r of allRestaurants) {
     const entry = cityGroups.get(r.citySlug)
     if (entry) entry.count++
     else cityGroups.set(r.citySlug, { city: r.city, citySlug: r.citySlug, count: 1 })
   }
-  const cities = Array.from(cityGroups.values()).sort((a, b) => b.count - a.count)
-
-  const supabase = await createClient()
-  let verifiedSlugs: string[] = []
-  if (supabase) {
-    const slugs = allRestaurants.map(r => r.slug)
-    const { data } = await supabase
-      .from('claims')
-      .select('restaurant_slug')
-      .in('restaurant_slug', slugs)
-      .eq('status', 'approved')
-    verifiedSlugs = data?.map(d => d.restaurant_slug) ?? []
-  }
+  const cities = Array.from(cityGroups.values()).sort((a, b) => a.city.localeCompare(b.city))
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -70,24 +59,9 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     ],
   }
 
-  const itemListSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: `Best Ramen Restaurants in ${state}`,
-    description: `Top-rated ramen restaurants in ${state} (${stateCode})`,
-    numberOfItems: allRestaurants.length,
-    itemListElement: allRestaurants.slice(0, 50).map((r, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      url: `https://www.ramennearyou.com/${r.citySlug}/${r.stateSlug}/${r.slug}`,
-      name: r.name,
-    })),
-  }
-
   return (
     <main className="min-h-screen bg-[#ffffff]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Navbar />
 
       {/* Hero */}
@@ -104,7 +78,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             Best Ramen Restaurants in {state}
           </h1>
           <p className="text-[#6B6862] text-lg mb-4">
-            The best ramen restaurants in {state} ({stateCode}) — {allRestaurants.length} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}, ranked by Google rating and review count.
+            Browse ramen restaurants in {state} ({stateCode}) by city — {allRestaurants.length} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
@@ -117,18 +91,29 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         </div>
       </section>
 
-      {/* Browse by city */}
-      {cities.length > 1 && (
-        <StateCityList cities={cities} stateSlug={stateSlug} stateName={state} />
-      )}
-
-      {/* All listings */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8">
+      {/* City grid */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[#1E2026] font-semibold text-sm mb-6">
-            All {allRestaurants.length} ramen restaurants in {state}
-          </p>
-          <CityRestaurantGrid restaurants={allRestaurants} city="" state={stateSlug} verifiedSlugs={verifiedSlugs} />
+          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
+            Browse Ramen by City in {state}
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
+            {cities.map((c) => (
+              <Link
+                key={c.citySlug}
+                href={`/${c.citySlug}/${stateSlug}`}
+                className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
+              >
+                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
+                  {c.city}
+                </span>
+                <span className="text-[#6B6862] text-xs ml-4 shrink-0">
+                  {c.count} {c.count === 1 ? 'restaurant' : 'restaurants'}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
