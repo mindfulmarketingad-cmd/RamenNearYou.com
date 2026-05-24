@@ -4,6 +4,7 @@ import { ChevronRight } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import ShareButton from '@/components/share-button'
 
 export async function generateStaticParams() {
   return getStates().map((s) => ({ city: s.stateSlug }))
@@ -16,7 +17,6 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!allRestaurants.length) return {}
   const { state, stateCode } = allRestaurants[0]
 
-  // Build city count for description
   const cityCount = new Set(allRestaurants.map(r => r.citySlug)).size
 
   return {
@@ -50,12 +50,14 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   }
   const cities = Array.from(cityGroups.values()).sort((a, b) => a.city.localeCompare(b.city))
 
+  const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
-      { '@type': 'ListItem', position: 2, name: `Best Ramen Restaurants in ${state}`, item: `https://www.ramennearyou.com/${stateSlug}` },
+      { '@type': 'ListItem', position: 2, name: `Best Ramen Restaurants in ${state}`, item: pageUrl },
     ],
   }
 
@@ -77,7 +79,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
             Best Ramen Restaurants in {state}
           </h1>
-          <p className="text-[#6B6862] text-lg mb-4">
+          <p className="text-[#6B6862] text-lg mb-5">
             Browse ramen restaurants in {state} ({stateCode}) by city — {allRestaurants.length} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
           </p>
           <div className="flex flex-wrap items-center gap-3">
@@ -87,6 +89,10 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
               {cities.length} {cities.length === 1 ? 'city' : 'cities'}
             </span>
+            <ShareButton
+              url={pageUrl}
+              title={`Best Ramen Restaurants in ${state} — ${allRestaurants.length} listings on RamenNearYou`}
+            />
           </div>
         </div>
       </section>
@@ -95,7 +101,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-            Browse Ramen by City in {state}
+            {state}, {stateCode} ({allRestaurants.length} listings)
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
