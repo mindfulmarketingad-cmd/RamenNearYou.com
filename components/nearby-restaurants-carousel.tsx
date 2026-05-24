@@ -20,7 +20,35 @@ interface NearbyRestaurant {
   distanceMiles: number
 }
 
+// Broth detection + badge config
+const BROTH_KEYWORDS: { label: string; terms: string[]; color: string; tooltip: string }[] = [
+  { label: 'Tonkotsu', terms: ['tonkotsu','pork bone broth','hakata ramen','hakata style','jinya ramen','tatsu-ya','tatsuya ramen','ramen tatsu'], color: 'bg-amber-100 text-amber-800 border-amber-200', tooltip: 'Tonkotsu: Rich, creamy pork bone broth simmered for hours' },
+  { label: 'Tsukemen', terms: ['tsukemen','dipping ramen','dipping noodle','okiboru'], color: 'bg-indigo-100 text-indigo-800 border-indigo-200', tooltip: 'Tsukemen: Dipping-style ramen — noodles served separately from the broth' },
+  { label: 'Miso', terms: ['miso ramen','miso broth','miso soup','miso base','moonlight miso','sapporo ramen','sapporo style','red miso','white miso','miso tare'], color: 'bg-orange-100 text-orange-800 border-orange-200', tooltip: 'Miso: Bold, fermented soybean paste broth — classic Hokkaido style' },
+  { label: 'Shoyu', terms: ['shoyu','soy sauce broth','soy broth','tokyo ramen','tokyo style','tokyo-style','shoyu tare','soy-based'], color: 'bg-yellow-100 text-yellow-800 border-yellow-200', tooltip: 'Shoyu: Clear, soy sauce-seasoned broth — the original Tokyo ramen' },
+  { label: 'Shio', terms: ['shio','salt broth','shio tare','salt-based ramen','clear broth ramen','shio ramen'], color: 'bg-sky-100 text-sky-800 border-sky-200', tooltip: 'Shio: Light, delicate salt-based broth — the simplest, most refined style' },
+  { label: 'Chicken', terms: ['tori paitan','chicken broth','chicken ramen','chicken-based','tori ramen','paitan','kin notori','kin no tori','chicken bone broth','poultry broth'], color: 'bg-lime-100 text-lime-800 border-lime-200', tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
+]
+
+function detectBroth(r: NearbyRestaurant): { label: string; color: string; tooltip: string } | null {
+  const name = r.name.toLowerCase()
+  const text = (name + ' ' + (r.description ?? '')).toLowerCase()
+  if (name.includes('jinya ramen')) return BROTH_KEYWORDS[0]
+  if (name.includes('okiboru')) return BROTH_KEYWORDS[1]
+  if (name.includes('kin notori') || name.includes('kin no tori')) return BROTH_KEYWORDS[5]
+  if (name.includes('tatsu-ya') || name.includes('ramen tatsu')) return BROTH_KEYWORDS[0]
+  if (name.includes('moonlight miso')) return BROTH_KEYWORDS[2]
+  const nameWords = name.split(/\s+/)
+  if (nameWords.includes('miso')) return BROTH_KEYWORDS[2]
+  if (nameWords.includes('sapporo')) return BROTH_KEYWORDS[2]
+  for (const b of BROTH_KEYWORDS) {
+    if (b.terms.some(t => text.includes(t))) return b
+  }
+  return null
+}
+
 function RestaurantCard({ r }: { r: NearbyRestaurant }) {
+  const broth = detectBroth(r)
   return (
     <Link
       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
@@ -57,9 +85,17 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
         <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
           {r.name}
         </p>
-        <p className="text-[#9B9490] text-xs mb-2">
-          {r.city}, {r.stateCode}
-        </p>
+        <div className="flex items-center gap-2 mb-2">
+          <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+          {broth && (
+            <span
+              title={broth.tooltip}
+              className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${broth.color}`}
+            >
+              🍜 {broth.label}
+            </span>
+          )}
+        </div>
 
         {r.rating && (
           <div className="flex items-center gap-1.5 mb-2">

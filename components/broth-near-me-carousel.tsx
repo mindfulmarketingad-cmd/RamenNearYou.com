@@ -26,7 +26,18 @@ interface Props {
   description: string
 }
 
-function RestaurantCard({ r }: { r: NearbyRestaurant }) {
+const BROTH_BADGE: Record<string, { color: string; tooltip: string }> = {
+  Tonkotsu:  { color: 'bg-amber-100 text-amber-800 border-amber-200',   tooltip: 'Tonkotsu: Rich, creamy pork bone broth simmered for hours' },
+  Tsukemen:  { color: 'bg-indigo-100 text-indigo-800 border-indigo-200', tooltip: 'Tsukemen: Dipping-style ramen — noodles served separately from the broth' },
+  Miso:      { color: 'bg-orange-100 text-orange-800 border-orange-200', tooltip: 'Miso: Bold, fermented soybean paste broth — classic Hokkaido style' },
+  Shoyu:     { color: 'bg-yellow-100 text-yellow-800 border-yellow-200', tooltip: 'Shoyu: Clear, soy sauce-seasoned broth — the original Tokyo ramen' },
+  Shio:      { color: 'bg-sky-100 text-sky-800 border-sky-200',          tooltip: 'Shio: Light, delicate salt-based broth — the simplest, most refined style' },
+  Chicken:   { color: 'bg-lime-100 text-lime-800 border-lime-200',       tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
+  Spicy:     { color: 'bg-red-100 text-red-800 border-red-200',          tooltip: 'Spicy: Heat-forward broth — tantanmen, volcano ramen, or chili-spiked styles' },
+}
+
+function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: string }) {
+  const badge = BROTH_BADGE[brothType]
   return (
     <Link
       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
@@ -60,7 +71,17 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
         <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
           {r.name}
         </p>
-        <p className="text-[#9B9490] text-xs mb-2">{r.city}, {r.stateCode}</p>
+        <div className="flex items-center gap-2 mb-2">
+          <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+          {badge && (
+            <span
+              title={badge.tooltip}
+              className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${badge.color}`}
+            >
+              🍜 {brothType}
+            </span>
+          )}
+        </div>
         {r.rating && (
           <div className="flex items-center gap-1.5">
             <div className="flex items-center gap-0.5">
@@ -186,7 +207,7 @@ export default function BrothNearMeCarousel({ brothType, title, description }: P
           >
             {restaurants.map((r) => (
               <div key={r.slug} style={{ scrollSnapAlign: 'start' }}>
-                <RestaurantCard r={r} />
+                <RestaurantCard r={r} brothType={brothType} />
               </div>
             ))}
           </div>
