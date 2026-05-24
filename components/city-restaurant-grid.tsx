@@ -418,9 +418,9 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
               <div className="flex flex-col flex-1 p-5 gap-3 min-w-0">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h2 className="font-semibold text-[#1E2026] text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
+                    <p className="font-semibold text-[#1E2026] text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
                       {r.name}
-                    </h2>
+                    </p>
                     {isVerified && (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold shrink-0">
                         <BadgeCheck className="w-3 h-3" />

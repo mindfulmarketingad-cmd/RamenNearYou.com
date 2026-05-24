@@ -57,9 +57,9 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
+        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
           {r.name}
-        </h3>
+        </p>
         <p className="text-[#9B9490] text-xs mb-2">{r.city}, {r.stateCode}</p>
         {r.rating && (
           <div className="flex items-center gap-1.5">
