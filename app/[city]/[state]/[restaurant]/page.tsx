@@ -220,7 +220,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <div className="flex items-center gap-2 flex-wrap">
                   <VisitButton slug={r.slug} restaurantName={r.name} initialCount={visitCount} />
                   <SaveButton slug={r.slug} restaurantName={r.name} />
-                  <ShareButton name={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                  <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
