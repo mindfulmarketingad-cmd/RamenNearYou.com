@@ -4393,6 +4393,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 24, 2026',
     readTime: '8 min read',
     category: 'Best Of',
+    author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
     content: `<p>And the winners are… ramen lovers everywhere! More than ever, ramen fans across the United States are blessed with an extraordinary range of options — from traditional tonkotsu and shoyu bowls to creative regional fusions and vegan-forward broths.</p>
 <p>Below is a "best of" list featuring the top-rated ramen restaurants on RamenNearYou, ranked by their Google rating and review count. Every restaurant on this list has earned its place through hundreds — or thousands — of verified customer reviews.</p>
 <p>If you have a favorite ramen spot, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a> and explore more great bowls near you. Results are updated regularly as new restaurants are added.</p>
@@ -4409,6 +4410,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 24, 2026',
     readTime: '8 min read',
     category: 'Best Of',
+    author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
     content: `<p>Plant-based ramen has never been better. These top-rated restaurants prove that vegan broths — built from mushroom dashi, roasted vegetables, sesame, and miso — can deliver every bit as much depth and satisfaction as their meat-based counterparts.</p>
 <p>Below is a "best of" list featuring the top-rated vegan ramen restaurants on RamenNearYou, ranked by Google rating and review count. Every restaurant listed offers verified vegan options and has earned its spot through real customer reviews.</p>
 <p>If you have a favorite vegan ramen spot, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a> and explore more plant-based bowls near you. Results are updated regularly as new restaurants are added.</p>
@@ -4425,6 +4427,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 24, 2026',
     readTime: '8 min read',
     category: 'Best Of',
+    author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
     content: `<p>Thick noodles take ramen to another level. Whether it is the chewy wheat-forward noodles of tsukemen (dipped ramen), the silky strands of rich paitan broth, or hearty mazemen (brothless ramen), thick-noodle spots attract the most devoted ramen fans.</p>
 <p>Below is a list of the best thick noodle ramen restaurants on RamenNearYou — prioritizing spots known for tsukemen, udon, mazemen, tantanmen, and other thick-noodle styles. Ranked by Google rating and review count.</p>
 <p>If you have a favorite thick-noodle ramen spot, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a>. Results are updated regularly.</p>
