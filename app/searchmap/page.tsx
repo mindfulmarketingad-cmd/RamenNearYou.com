@@ -211,6 +211,30 @@ function SearchMapInner() {
   const [showFilters, setShowFilters] = useState(false)
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [localQuery, setLocalQuery] = useState('')
+  const [locationSearch, setLocationSearch] = useState('')
+  const [geocodedCenter, setGeocodedCenter] = useState<{ lat: number; lng: number } | null>(null)
+  const [geocoding, setGeocoding] = useState(false)
+  const [geocodeError, setGeocodeError] = useState('')
+
+  async function geocodeLocation(query: string) {
+    if (!query.trim()) return
+    setGeocoding(true)
+    setGeocodeError('')
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=us&limit=1`
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
+      const data = await res.json()
+      if (data.length > 0) {
+        setGeocodedCenter({ lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) })
+      } else {
+        setGeocodeError('Location not found — try a city, state, or ZIP code')
+      }
+    } catch {
+      setGeocodeError('Search failed — check your connection')
+    } finally {
+      setGeocoding(false)
+    }
+  }
 
   // Filter state
   const [distanceMiles, setDistanceMiles] = useState<DistanceMiles>(20)
@@ -353,7 +377,7 @@ function SearchMapInner() {
     el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [])
 
-  const effectivePos = (cityParam || qParam) ? cityCenter : userPos
+  const effectivePos = geocodedCenter ?? ((cityParam || qParam) ? cityCenter : userPos)
 
   // ── Geo permission screens ─────────────────────────────────────────────────
   if (!cityParam && !qParam && (geoState === 'idle' || geoState === 'loading')) {
@@ -420,8 +444,32 @@ function SearchMapInner() {
         {/* ── Left panel ── */}
         <div className="w-full sm:w-80 lg:w-96 flex flex-col bg-[#F5F4F0] border-r border-black/5 overflow-hidden shrink-0 hidden sm:flex">
 
-          {/* Search bar */}
+          {/* Location search (zip / city / state → fly map) */}
           <div className="px-3 pt-3 pb-2 border-b border-black/5">
+            <form onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}>
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
+                <input
+                  type="text"
+                  value={locationSearch}
+                  onChange={e => { setLocationSearch(e.target.value); setGeocodeError('') }}
+                  placeholder="Search by city, state, or ZIP…"
+                  className="w-full pl-8 pr-16 py-2 text-sm bg-white border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={geocoding}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2 py-1 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-medium rounded transition-colors disabled:opacity-60"
+                >
+                  {geocoding ? '…' : 'Go'}
+                </button>
+              </div>
+              {geocodeError && <p className="text-red-400 text-xs mt-1">{geocodeError}</p>}
+            </form>
+          </div>
+
+          {/* Restaurant name search */}
+          <div className="px-3 pt-2 pb-2 border-b border-black/5">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
               <input
@@ -728,6 +776,7 @@ function SearchMapInner() {
               hoveredSlug={hoveredSlug}
               onSelect={handleSelect}
               onUserMove={setVisibleBounds}
+              centerLatLng={geocodedCenter}
             />
           )}
 
@@ -755,50 +804,78 @@ function SearchMapInner() {
             </div>
           )}
 
-          {/* Mobile bottom sheet */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 sm:hidden z-[999] w-[calc(100%-2rem)] max-w-sm">
-            <div className="bg-[#F5F4F0] border border-black/8 rounded-2xl shadow-xl overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/5">
+          {/* Mobile drawer — visible only on sm: */}
+          <div className="absolute bottom-0 left-0 right-0 sm:hidden z-[999]">
+            {/* Collapsed bar — always visible */}
+            <div className="bg-[#F5F4F0] border-t border-black/10 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]">
+              {/* Location search */}
+              <div className="px-3 pt-3 pb-2 border-b border-black/8">
+                <form onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
+                    <input
+                      type="text"
+                      value={locationSearch}
+                      onChange={e => { setLocationSearch(e.target.value); setGeocodeError('') }}
+                      placeholder="City, state, or ZIP…"
+                      className="w-full pl-8 pr-14 py-2.5 text-sm bg-white border border-black/8 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={geocoding}
+                      className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-lg transition-colors disabled:opacity-60"
+                    >
+                      {geocoding ? '…' : 'Go'}
+                    </button>
+                  </div>
+                  {geocodeError && <p className="text-red-400 text-xs mt-1">{geocodeError}</p>}
+                </form>
+              </div>
+
+              {/* Status + filter toggle row */}
+              <div className="flex items-center justify-between px-3 py-2">
                 <span className="text-sm text-[#1E2026] font-medium">
-                  {displayList.length} spot{displayList.length !== 1 ? 's' : ''}{cityName ? ` in ${cityName}` : ` within ${distanceMiles} mi`}
+                  {displayList.length} spot{displayList.length !== 1 ? 's' : ''}
+                  {cityName ? ` in ${cityName}` : ` within ${distanceMiles} mi`}
                 </span>
                 <button
                   onClick={() => setShowFilters(v => !v)}
-                  className={`flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full transition-colors ${
-                    showFilters || activeFilterCount > 0 ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] bg-black/5'
+                  className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full transition-colors ${
+                    showFilters || activeFilterCount > 0 ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] bg-black/8 border border-black/10'
                   }`}
                 >
-                  <SlidersHorizontal className="w-3 h-3" />
-                  {activeFilterCount > 0 ? `${activeFilterCount} active` : 'Filter'}
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  {activeFilterCount > 0 ? `${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''}` : 'Filters'}
                 </button>
               </div>
+
+              {/* Broth chips — always visible on mobile */}
+              <div className="px-3 pb-2 flex gap-1.5 overflow-x-auto scrollbar-hide">
+                {BROTH_FILTERS.map(f => {
+                  const active = selectedBroths.has(f.key)
+                  const Icon = f.icon
+                  return (
+                    <button
+                      key={f.key}
+                      onClick={() => toggleBroth(f.key)}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors shrink-0 ${active ? f.active : f.idle}`}
+                    >
+                      <Icon className="w-3 h-3" />
+                      {f.label}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Expandable filter panel */}
               {showFilters && (
-                <div className="px-4 py-3 space-y-3">
+                <div className="px-3 pb-3 pt-1 space-y-3 border-t border-black/8 max-h-56 overflow-y-auto">
                   <div>
                     <p className="text-[#6B6862] text-xs font-medium mb-1.5">Sort by</p>
                     <div className="flex flex-wrap gap-1.5">
                       {SORT_OPTIONS.map(o => (
                         <FilterChip key={o.value} label={o.label} active={sortBy === o.value} onClick={() => setSortBy(o.value)} />
                       ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[#6B6862] text-xs font-medium mb-1.5">Broth Type</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {BROTH_FILTERS.map(f => {
-                        const active = selectedBroths.has(f.key)
-                        const Icon = f.icon
-                        return (
-                          <button
-                            key={f.key}
-                            onClick={() => toggleBroth(f.key)}
-                            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${active ? f.active : f.idle}`}
-                          >
-                            <Icon className="w-3 h-3" />
-                            {f.label}
-                          </button>
-                        )
-                      })}
                     </div>
                   </div>
                   {!cityParam && (
@@ -820,8 +897,8 @@ function SearchMapInner() {
                     </div>
                   </div>
                   {activeFilterCount > 0 && (
-                    <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#6B6862] hover:text-[#1E2026]">
-                      <X className="w-3 h-3" /> Clear all
+                    <button onClick={clearFilters} className="flex items-center gap-1 text-xs text-[#B57F50] font-medium">
+                      <X className="w-3 h-3" /> Clear all filters
                     </button>
                   )}
                 </div>

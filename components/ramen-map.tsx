@@ -67,9 +67,10 @@ interface Props {
   hoveredSlug?: string | null
   onSelect: (slug: string) => void
   onUserMove?: (bounds: MapBounds) => void
+  centerLatLng?: { lat: number; lng: number } | null
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, centerLatLng }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -115,6 +116,12 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     return () => { map.remove(); mapRef.current = null }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Fly to geocoded location when centerLatLng changes
+  useEffect(() => {
+    if (!ready || !mapRef.current || !centerLatLng) return
+    mapRef.current.flyTo([centerLatLng.lat, centerLatLng.lng], 13, { duration: 1.2 })
+  }, [ready, centerLatLng])
 
   // Add restaurant markers
   useEffect(() => {
