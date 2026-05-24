@@ -45,6 +45,7 @@ export async function GET(req: NextRequest) {
       reviewCount: r.reviewCount,
       photo: r.photo,
       description: r.description,
+      subtypes: r.subtypes,
       priceRange: r.priceRange,
       distanceMiles: haversine(lat, lng, r.latitude!, r.longitude!),
     }))

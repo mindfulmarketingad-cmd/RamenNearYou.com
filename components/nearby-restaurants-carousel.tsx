@@ -16,6 +16,7 @@ interface NearbyRestaurant {
   reviewCount: number
   photo: string
   description: string
+  subtypes?: string
   priceRange: string
   distanceMiles: number
 }
@@ -30,9 +31,11 @@ const BROTH_KEYWORDS: { label: string; terms: string[]; color: string; tooltip: 
   { label: 'Chicken', terms: ['tori paitan','chicken broth','chicken ramen','chicken-based','tori ramen','paitan','kin notori','kin no tori','chicken bone broth','poultry broth'], color: 'bg-lime-100 text-lime-800 border-lime-200', tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
 ]
 
-function detectBroth(r: NearbyRestaurant): { label: string; color: string; tooltip: string } | null {
+const RAMEN_FALLBACK = { label: 'Ramen', color: 'bg-[#B57F50]/10 text-[#B57F50] border-[#B57F50]/30', tooltip: 'Ramen restaurant — bowl style varies by location' }
+
+function detectBroth(r: NearbyRestaurant): { label: string; color: string; tooltip: string } {
   const name = r.name.toLowerCase()
-  const text = (name + ' ' + (r.description ?? '')).toLowerCase()
+  const text = (name + ' ' + (r.description ?? '') + ' ' + (r.subtypes ?? '')).toLowerCase()
   if (name.includes('jinya ramen')) return BROTH_KEYWORDS[0]
   if (name.includes('okiboru')) return BROTH_KEYWORDS[1]
   if (name.includes('kin notori') || name.includes('kin no tori')) return BROTH_KEYWORDS[5]
@@ -44,7 +47,7 @@ function detectBroth(r: NearbyRestaurant): { label: string; color: string; toolt
   for (const b of BROTH_KEYWORDS) {
     if (b.terms.some(t => text.includes(t))) return b
   }
-  return null
+  return RAMEN_FALLBACK
 }
 
 function RestaurantCard({ r }: { r: NearbyRestaurant }) {
@@ -87,14 +90,12 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
         </p>
         <div className="flex items-center gap-2 mb-2">
           <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
-          {broth && (
-            <span
-              title={broth.tooltip}
-              className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${broth.color}`}
-            >
-              🍜 {broth.label}
-            </span>
-          )}
+          <span
+            title={broth.tooltip}
+            className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${broth.color}`}
+          >
+            🍜 {broth.label}
+          </span>
         </div>
 
         {r.rating && (
