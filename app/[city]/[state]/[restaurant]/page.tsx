@@ -313,7 +313,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           <div className="space-y-6">
             {/* Contact card */}
             <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-              <h3 className="font-semibold text-[#1E2026]">Contact &amp; Location</h3>
+              <p className="font-semibold text-[#1E2026]">Contact &amp; Location</p>
               {r.address && (
                 <div className="flex items-start gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
@@ -377,7 +377,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <div className="bg-gradient-to-br from-sky-500/20 to-[#F5F4F0] rounded-xl border border-sky-500/30 p-6 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-sky-400" />
-                  <h3 className="font-semibold text-[#1E2026]">You own this listing</h3>
+                  <p className="font-semibold text-[#1E2026]">You own this listing</p>
                 </div>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   Update your description, hours, phone, website and menu link.
@@ -394,7 +394,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <div className="bg-gradient-to-br from-white/5 to-[#F5F4F0] rounded-xl border border-black/8 p-6 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-[#1E2026]/40" />
-                  <h3 className="font-semibold text-[#1E2026]/60">Restaurant Already Claimed</h3>
+                  <p className="font-semibold text-[#1E2026]/60">Restaurant Already Claimed</p>
                 </div>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   This listing has already been claimed by its owner.
@@ -406,7 +406,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
             ) : (
               <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#F5F4F0] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
-                <h3 className="font-semibold text-[#1E2026]">Own this restaurant?</h3>
+                <p className="font-semibold text-[#1E2026]">Own this restaurant?</p>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   Claim your free listing to add photos, update your hours, and reach more ramen lovers.
                 </p>
@@ -465,9 +465,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                     )}
                   </div>
                   <div className="p-4 flex flex-col flex-1 gap-1.5">
-                    <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                    <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                       {n.name}
-                    </h3>
+                    </p>
                     {n.rating && (
                       <div className="flex items-center gap-1.5">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
