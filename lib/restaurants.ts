@@ -62,6 +62,10 @@ export function getRestaurant(citySlug: string, stateSlug: string, slug: string)
   return restaurants.find(r => r.slug === slug && r.citySlug === citySlug && r.stateSlug === stateSlug) ?? null
 }
 
+export function getRestaurantBySlug(slug: string): Restaurant | null {
+  return restaurants.find(r => r.slug === slug) ?? null
+}
+
 export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
 export type BrothType = typeof BROTH_TYPES[number]
 

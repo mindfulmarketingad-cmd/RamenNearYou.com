@@ -7,6 +7,9 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
+import { getRestaurantBySlug } from '@/lib/restaurants'
+import BlogScrollMap from '@/components/blog-scroll-map'
+import type { MapCard } from '@/components/blog-scroll-map'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -116,6 +119,30 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getBlogPost(slug)
   if (!post) notFound()
 
+  // Enrich restaurant cards with lat/lng for map layout
+  const hasCards = post.restaurantCards && post.restaurantCards.length > 0
+  const enrichedCards: MapCard[] = hasCards
+    ? post.restaurantCards!.map((card) => {
+        const r = getRestaurantBySlug(card.slug)
+        return {
+          rank: card.rank,
+          slug: card.slug,
+          citySlug: r?.citySlug ?? card.citySlug,
+          stateSlug: r?.stateSlug ?? card.stateSlug,
+          name: card.name,
+          rating: card.rating,
+          reviewCount: card.reviewCount,
+          address: card.address,
+          phone: card.phone,
+          description: card.description,
+          photo: card.photo,
+          tags: card.tags,
+          lat: r?.latitude ?? null,
+          lng: r?.longitude ?? null,
+        }
+      })
+    : []
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -158,7 +185,7 @@ export default async function BlogPostPage({ params }: Props) {
       )}
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
+        <div className={hasCards ? 'max-w-7xl mx-auto' : 'max-w-2xl mx-auto'}>
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
@@ -217,18 +244,14 @@ export default async function BlogPostPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            {post.listHeading && (
+            {hasCards && (
+              <BlogScrollMap cards={enrichedCards} listHeading={post.listHeading} />
+            )}
+
+            {!hasCards && post.listHeading && (
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
                 {post.listHeading}
               </h2>
-            )}
-
-            {post.restaurantCards && post.restaurantCards.length > 0 && (
-              <div className="mt-2 flex flex-col gap-5">
-                {post.restaurantCards.map((card) => (
-                  <RestaurantCardItem key={card.slug} card={card} />
-                ))}
-              </div>
             )}
 
             {post.outroContent && (
