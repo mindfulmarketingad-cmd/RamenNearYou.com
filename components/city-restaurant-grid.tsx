@@ -161,6 +161,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
   const [prices, setPrices]     = useState<string[]>([])
   const [minRating, setMinRating] = useState<number | null>(null)
   const [features, setFeatures] = useState<string[]>([])
+  const [vegan, setVegan] = useState(false)
+  const [spicy, setSpicy] = useState(false)
 
   const FEATURE_OPTIONS = [
     { label: 'Vegan-Friendly',    key: 'vegan' },
@@ -199,6 +201,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     prices.length,
     minRating ? 1 : 0,
     features.length,
+    vegan ? 1 : 0,
+    spicy ? 1 : 0,
   ].reduce((a, b) => a + b, 0)
 
   const filtered = useMemo(() => {
@@ -214,6 +218,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     if (sort === 'openNow') list = list.filter(({ openStatus }) => openStatus === true)
 
     if (broth) list = list.filter(({ brothType }) => brothType === broth)
+    if (vegan) list = list.filter(({ r }) => r.amenities.veganOptions)
+    if (spicy) list = list.filter(({ r }) => (r.name + ' ' + r.description).toLowerCase().includes('spicy'))
     if (prices.length) list = list.filter(({ r }) => prices.includes(r.priceRange))
     if (minRating) list = list.filter(({ r }) => (r.rating ?? 0) >= minRating)
     if (features.includes('vegan'))        list = list.filter(({ r }) => r.amenities.veganOptions)
@@ -245,13 +251,15 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     }
 
     return list
-  }, [restaurants, broth, prices, minRating, features, sort, userPos])
+  }, [restaurants, broth, prices, minRating, features, sort, userPos, vegan, spicy])
 
   function clearAll() {
     setBroth(null)
     setPrices([])
     setMinRating(null)
     setFeatures([])
+    setVegan(false)
+    setSpicy(false)
     setSort('default')
   }
 
@@ -270,6 +278,17 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
               {label}
             </FilterPill>
           ))}
+        </div>
+
+        {/* Quick dietary/taste filters */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[#6B6862] text-xs font-medium uppercase tracking-wider mr-1">Filters:</span>
+          <FilterPill active={vegan} onClick={() => setVegan(!vegan)}>
+            Vegan
+          </FilterPill>
+          <FilterPill active={spicy} onClick={() => setSpicy(!spicy)}>
+            Spicy
+          </FilterPill>
         </div>
 
         {/* Top row: sort + toggle */}
