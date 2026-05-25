@@ -163,9 +163,9 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
   const withCoords = cards.filter(c => c.lat && c.lng)
 
   return (
-    <div className="flex gap-0 -mx-4 sm:-mx-6 lg:-mx-8">
-      {/* Left: scrollable list */}
-      <div className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8">
+    <div className="lg:flex lg:gap-0 lg:-mx-8">
+      {/* Left: scrollable list — full width on mobile, flex-1 on desktop */}
+      <div className="lg:flex-1 lg:min-w-0 lg:px-8">
         {listHeading && (
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
             {listHeading}
