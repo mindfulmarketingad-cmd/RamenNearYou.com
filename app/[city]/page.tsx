@@ -5,6 +5,7 @@ import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
+import StateRestaurantGrid from '@/components/state-restaurant-grid'
 
 export async function generateStaticParams() {
   return getStates().map((s) => ({ city: s.stateSlug }))
@@ -97,29 +98,13 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         </div>
       </section>
 
-      {/* City grid */}
+      {/* Restaurant grid with filters */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
             {state}, {stateCode} ({allRestaurants.length} listings)
           </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
-            {cities.map((c) => (
-              <Link
-                key={c.citySlug}
-                href={`/${c.citySlug}/${stateSlug}`}
-                className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
-              >
-                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
-                  {c.city}
-                </span>
-                <span className="text-[#6B6862] text-xs ml-4 shrink-0">
-                  {c.count} {c.count === 1 ? 'restaurant' : 'restaurants'}
-                </span>
-              </Link>
-            ))}
-          </div>
+          <StateRestaurantGrid restaurants={allRestaurants} state={state} stateCode={stateCode} />
         </div>
       </section>
 
