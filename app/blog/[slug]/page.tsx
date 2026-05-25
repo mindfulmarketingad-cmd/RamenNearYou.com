@@ -8,10 +8,8 @@ import Footer from '@/components/footer'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
-import dynamic from 'next/dynamic'
+import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
-
-const BlogScrollMap = dynamic(() => import('@/components/blog-scroll-map'), { ssr: false })
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -247,7 +245,7 @@ export default async function BlogPostPage({ params }: Props) {
             />
 
             {hasCards && (
-              <BlogScrollMap cards={enrichedCards} listHeading={post.listHeading} />
+              <BlogScrollMapWrapper cards={enrichedCards} listHeading={post.listHeading} />
             )}
 
             {!hasCards && post.listHeading && (
