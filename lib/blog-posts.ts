@@ -4397,7 +4397,6 @@ export const blogPosts: BlogPost[] = [
     content: `<p>We've tried hundreds of ramen restaurants across the United States — from tiny neighborhood shops to high-volume chains — and these are the 100 we loved most. This list ranks the top-rated ramen restaurants on RamenNearYou by Google rating and verified review count, covering every broth style from traditional tonkotsu and shoyu to creative regional fusions and vegan-forward bowls.</p>
 <p>We tasted our way through Atlanta, New York, Houston, Sacramento, Chicago, Los Angeles, and dozens of cities in between. Every restaurant here earned its place through hundreds — or thousands — of real customer reviews. We liked all of them. We loved most of them. A handful are genuinely life-changing bowls.</p>
 <p>If you have a favorite ramen spot we missed, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a> and explore more great bowls near you. Results are updated regularly as new restaurants are added.</p>
-<p style="text-align:right;color:#6B6862;font-size:0.85rem;">Updated on Sunday, May 24, 2026</p>`,
     listHeading: '100 Top Rated Ramen Restaurants',
     restaurantCards: topRatedRamenCards,
     outroContent: `<p>We tried our best to include every great bowl worth knowing about — but ramen is a living cuisine and new spots open every month. Think a restaurant we loved is missing? <a href="/cities" style="color:#B57F50;text-decoration:underline;">Browse our full directory</a> to find top-rated ramen restaurants near you — searchable by city, state, and broth type.</p>`,
@@ -4414,7 +4413,6 @@ export const blogPosts: BlogPost[] = [
     content: `<p>We tried plant-based ramen at spots across the country — and we loved far more than we expected. These 100 restaurants prove that vegan broths built from mushroom dashi, roasted vegetables, sesame, and miso can deliver every bit as much depth and satisfaction as their meat-based counterparts. We tasted, we slurped, and we went back for seconds.</p>
 <p>Every restaurant on this list offers verified vegan options and earned its place through real customer reviews. We liked every bowl on this list. We loved the ones that surprised us — the bowls where we genuinely forgot we were eating plant-based food.</p>
 <p>If you have a favorite vegan ramen spot we missed, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a> and explore more plant-based bowls near you. Results are updated regularly as new restaurants are added.</p>
-<p style="text-align:right;color:#6B6862;font-size:0.85rem;">Updated on Sunday, May 24, 2026</p>`,
     listHeading: '100 Top Rated Vegan Ramen Restaurants',
     restaurantCards: topRatedVeganRamenCards,
     outroContent: `<p>We loved discovering how far plant-based ramen has come. Looking for more vegan ramen near you? <a href="/cities" style="color:#B57F50;text-decoration:underline;">Browse our full city directory</a> — filter by vegan options to find plant-based ramen spots in every state.</p>`,
@@ -4431,7 +4429,6 @@ export const blogPosts: BlogPost[] = [
     content: `<p>We tried thick-noodle ramen everywhere we could find it — and we loved every bite. Whether it is the chewy wheat-forward noodles of tsukemen (dipped ramen), the silky pull of rich paitan broth clinging to wide noodles, or the satisfying weight of mazemen (brothless ramen), thick-noodle spots attract the most devoted ramen fans. We are among them.</p>
 <p>We tasted our way through tsukemen, udon, mazemen, tantanmen, and every other thick-noodle style on this list. Every restaurant here was ranked by Google rating and review count — and we liked them all enough to include them. The ones at the top we liked enough to go back twice.</p>
 <p>If you have a favorite thick-noodle spot we missed, <a href="/cities" style="color:#B57F50;text-decoration:underline;">find it in our directory</a>. Results are updated regularly.</p>
-<p style="text-align:right;color:#6B6862;font-size:0.85rem;">Updated on Sunday, May 24, 2026</p>`,
     listHeading: '100 Best Thick Noodle Ramen Restaurants',
     restaurantCards: bestThickNoodleRamenCards,
     outroContent: `<p>We loved working through this list — thick noodle ramen is a category worth obsessing over. Looking for more near you? <a href="/broth" style="color:#B57F50;text-decoration:underline;">Browse by broth type</a> or <a href="/cities" style="color:#B57F50;text-decoration:underline;">search by city</a> to find your perfect bowl.</p>`,
