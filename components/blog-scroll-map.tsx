@@ -63,9 +63,19 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
   const cardRefs = useRef<Map<number, HTMLElement>>(new Map())
   const [activeRank, setActiveRank] = useState<number>(1)
   const [mapReady, setMapReady] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  // Detect desktop on mount — map only shown/initialized on lg+ screens
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   // Init map
   useEffect(() => {
+    if (!isDesktop) return
     if (!mapContainerRef.current || mapRef.current) return
 
     // Fix leaflet icons
@@ -118,7 +128,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
     setMapReady(true)
     return () => { map.remove(); mapRef.current = null; markersRef.current.clear() }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isDesktop])
 
   // Update active marker styles when activeRank changes
   useEffect(() => {
@@ -242,8 +252,8 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
         </div>
       </div>
 
-      {/* Right: sticky map — hidden on mobile */}
-      {withCoords.length > 0 && (
+      {/* Right: sticky map — only mounted on desktop to avoid Leaflet init on display:none */}
+      {isDesktop && withCoords.length > 0 && (
         <div className="hidden lg:block w-[480px] xl:w-[560px] shrink-0 relative">
           <div className="sticky top-20 h-[calc(100vh-5rem)]">
             <div ref={mapContainerRef} className="w-full h-full rounded-xl overflow-hidden border border-black/8 shadow-md" />
