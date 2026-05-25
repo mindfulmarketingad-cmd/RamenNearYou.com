@@ -5,7 +5,6 @@ import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
-import StatePageFilters from '@/components/state-page-filters'
 
 export async function generateStaticParams() {
   return getStates().map((s) => ({ city: s.stateSlug }))
@@ -95,13 +94,6 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
               title={`Best Ramen Restaurants in ${state} — ${allRestaurants.length} listings on RamenNearYou`}
             />
           </div>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-black/5">
-        <div className="max-w-7xl mx-auto">
-          <StatePageFilters restaurants={allRestaurants} />
         </div>
       </section>
 
