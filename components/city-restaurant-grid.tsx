@@ -163,6 +163,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
   const [features, setFeatures] = useState<string[]>([])
   const [vegan, setVegan] = useState(false)
   const [spicy, setSpicy] = useState(false)
+  const [korean, setKorean] = useState(false)
+  const [japanese, setJapanese] = useState(false)
 
   const FEATURE_OPTIONS = [
     { label: 'Vegan-Friendly',    key: 'vegan' },
@@ -203,6 +205,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     features.length,
     vegan ? 1 : 0,
     spicy ? 1 : 0,
+    korean ? 1 : 0,
+    japanese ? 1 : 0,
   ].reduce((a, b) => a + b, 0)
 
   const filtered = useMemo(() => {
@@ -220,6 +224,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     if (broth) list = list.filter(({ brothType }) => brothType === broth)
     if (vegan) list = list.filter(({ r }) => r.amenities.veganOptions)
     if (spicy) list = list.filter(({ r }) => (r.name + ' ' + r.description).toLowerCase().includes('spicy'))
+    if (korean) list = list.filter(({ r }) => (r.name + ' ' + r.description + ' ' + r.subtypes).toLowerCase().includes('korean'))
+    if (japanese) list = list.filter(({ r }) => (r.name + ' ' + r.description + ' ' + r.subtypes).toLowerCase().includes('japanese'))
     if (prices.length) list = list.filter(({ r }) => prices.includes(r.priceRange))
     if (minRating) list = list.filter(({ r }) => (r.rating ?? 0) >= minRating)
     if (features.includes('vegan'))        list = list.filter(({ r }) => r.amenities.veganOptions)
@@ -251,7 +257,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     }
 
     return list
-  }, [restaurants, broth, prices, minRating, features, sort, userPos, vegan, spicy])
+  }, [restaurants, broth, prices, minRating, features, sort, userPos, vegan, spicy, korean, japanese])
 
   function clearAll() {
     setBroth(null)
@@ -260,6 +266,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
     setFeatures([])
     setVegan(false)
     setSpicy(false)
+    setKorean(false)
+    setJapanese(false)
     setSort('default')
   }
 
@@ -288,6 +296,12 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
           </FilterPill>
           <FilterPill active={spicy} onClick={() => setSpicy(!spicy)}>
             Spicy
+          </FilterPill>
+          <FilterPill active={korean} onClick={() => setKorean(!korean)}>
+            Korean
+          </FilterPill>
+          <FilterPill active={japanese} onClick={() => setJapanese(!japanese)}>
+            Japanese
           </FilterPill>
         </div>
 
