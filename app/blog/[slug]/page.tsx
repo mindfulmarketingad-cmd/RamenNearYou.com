@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs text-[#6B6862]/60">·</span>
                 <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4 text-center">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
