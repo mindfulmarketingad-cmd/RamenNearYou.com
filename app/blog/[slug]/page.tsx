@@ -8,8 +8,10 @@ import Footer from '@/components/footer'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
-import BlogScrollMap from '@/components/blog-scroll-map'
+import dynamic from 'next/dynamic'
 import type { MapCard } from '@/components/blog-scroll-map'
+
+const BlogScrollMap = dynamic(() => import('@/components/blog-scroll-map'), { ssr: false })
 
 interface Props {
   params: Promise<{ slug: string }>
