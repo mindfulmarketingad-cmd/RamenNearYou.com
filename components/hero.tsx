@@ -93,8 +93,8 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* Wave separator at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px pointer-events-none">
+      {/* Wave separator at bottom — fill matches the section below */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none pointer-events-none" style={{ marginBottom: '-2px' }}>
         <svg
           viewBox="0 0 1440 60"
           xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export default function Hero() {
         >
           <path
             d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
-            fill="#ffffff"
+            fill="#F5F4F0"
           />
         </svg>
       </div>
