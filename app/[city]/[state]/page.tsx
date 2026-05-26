@@ -16,16 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const { city, state } = await params
   const restaurants = getRestaurantsByCity(city, state)
   if (!restaurants.length) return {}
-  const { city: cityName, stateCode } = restaurants[0]
+  const { city: cityName, stateCode, state: stateName } = restaurants[0]
   return {
-    title: `Ramen In ${cityName}, ${stateCode}`,
-    description: `Find the best ramen restaurants in ${cityName}, ${stateCode}. Browse ${restaurants.length} top-rated spots with ratings, hours, menus, and directions.`,
+    title: `Best Ramen Restaurants In ${cityName}, ${stateName}`,
+    description: `Find the best ramen restaurants in ${cityName}, ${stateName}. Browse ${restaurants.length} top-rated spots with ratings, hours, menus, and directions.`,
     alternates: {
       canonical: `https://www.ramennearyou.com/${city}/${state}`,
     },
     openGraph: {
-      title: `Ramen In ${cityName}, ${stateCode}`,
-      description: `Find the best ramen restaurants in ${cityName}, ${stateCode}. Browse ${restaurants.length} top-rated spots.`,
+      title: `Best Ramen Restaurants In ${cityName}, ${stateName}`,
+      description: `Find the best ramen restaurants in ${cityName}, ${stateName}. Browse ${restaurants.length} top-rated spots.`,
       url: `https://www.ramennearyou.com/${city}/${state}`,
     },
   }
@@ -105,7 +105,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <div>
               <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
               <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-                Ramen In {cityName}, {stateCode}
+                Best Ramen Restaurants In {cityName}, {stateName}
               </h1>
               <p className="text-[#6B6862] text-lg mb-4">
                 Browse Ramen Restaurants In {cityName}, {stateCode}.
