@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
+  MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, ChevronUp, ChevronDown,
   SlidersHorizontal, X, ArrowUpDown, Search, Flame, Leaf,
   Droplets, Soup, Wind, List, LayoutGrid, PlusCircle,
 } from 'lucide-react'
@@ -209,6 +209,7 @@ function SearchMapInner() {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null)
   const [showFilters, setShowFilters] = useState(false)
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [localQuery, setLocalQuery] = useState('')
   const [locationSearch, setLocationSearch] = useState('')
@@ -804,12 +805,31 @@ function SearchMapInner() {
             </div>
           )}
 
-          {/* Mobile drawer — visible only on sm: */}
-          <div className="absolute bottom-0 left-0 right-0 sm:hidden z-[999]">
-            {/* Collapsed bar — always visible */}
-            <div className="bg-[#F5F4F0] border-t border-black/10 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]">
+          {/* Mobile bottom sheet — visible only below sm */}
+          <div
+            className={`absolute bottom-0 left-0 right-0 sm:hidden z-[999] flex flex-col bg-[#F5F4F0] border-t border-black/10 shadow-[0_-4px_24px_rgba(0,0,0,0.15)] transition-[height] duration-300 ease-out ${
+              mobileDrawerOpen ? 'h-[72vh]' : 'h-auto'
+            }`}
+          >
+            {/* Drag handle — tap to open/close list */}
+            <button
+              onClick={() => setMobileDrawerOpen(v => !v)}
+              className="flex flex-col items-center gap-1 pt-2 pb-1 shrink-0 w-full"
+              aria-label={mobileDrawerOpen ? 'Collapse list' : 'Show restaurant list'}
+            >
+              <div className="w-9 h-1 rounded-full bg-black/20" />
+              <span className="flex items-center gap-1 text-[10px] font-semibold text-[#B57F50] uppercase tracking-wide">
+                {mobileDrawerOpen
+                  ? <><ChevronDown className="w-3 h-3" /> Hide list</>
+                  : <><ChevronUp className="w-3 h-3" /> {displayList.length} spot{displayList.length !== 1 ? 's' : ''} — tap to browse</>
+                }
+              </span>
+            </button>
+
+            {/* Controls — always visible */}
+            <div className="shrink-0">
               {/* Location search */}
-              <div className="px-3 pt-3 pb-2 border-b border-black/8">
+              <div className="px-3 pt-1 pb-2 border-b border-black/8">
                 <form onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
@@ -869,7 +889,7 @@ function SearchMapInner() {
 
               {/* Expandable filter panel */}
               {showFilters && (
-                <div className="px-3 pb-3 pt-1 space-y-3 border-t border-black/8 max-h-56 overflow-y-auto">
+                <div className="px-3 pb-3 pt-1 space-y-3 border-t border-black/8 max-h-48 overflow-y-auto">
                   <div>
                     <p className="text-[#6B6862] text-xs font-medium mb-1.5">Sort by</p>
                     <div className="flex flex-wrap gap-1.5">
@@ -904,6 +924,93 @@ function SearchMapInner() {
                 </div>
               )}
             </div>
+
+            {/* Scrollable restaurant list — only visible when drawer is open */}
+            {mobileDrawerOpen && (
+              <div className="flex-1 overflow-y-auto border-t border-black/8">
+                {displayList.length === 0 ? (
+                  <div className="p-6 flex flex-col items-center text-center gap-3">
+                    <Utensils className="w-8 h-8 text-[#B57F50]/30" />
+                    <p className="text-[#1E2026] font-semibold text-sm">No ramen spots found</p>
+                    <p className="text-[#6B6862] text-xs">
+                      {activeFilterCount > 0 ? 'Try clearing your filters.' : 'We don\'t have any listings in this area yet.'}
+                    </p>
+                    {activeFilterCount > 0 && (
+                      <button onClick={clearFilters} className="text-xs text-[#B57F50] font-medium">Clear filters →</button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="divide-y divide-black/5">
+                    {displayList.map(r => {
+                      const active = r.slug === selectedSlug
+                      return (
+                        <button
+                          key={r.slug}
+                          id={`mobile-card-${r.slug}`}
+                          onClick={() => {
+                            setSelectedSlug(r.slug)
+                            setMobileDrawerOpen(false)
+                          }}
+                          className={`w-full text-left flex gap-3 p-3 transition-colors active:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                        >
+                          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-white shrink-0">
+                            {r.photo ? (
+                              <Image src={r.photo} alt={r.name} fill className="object-cover" unoptimized />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <Utensils className="w-5 h-5 text-[#B57F50]/30" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                              {r.rating && (
+                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                                  {r.rating.toFixed(1)}
+                                </span>
+                              )}
+                              {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
+                              {r.distKm > 0 && (
+                                <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
+                              )}
+                            </div>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
+                        </button>
+                      )
+                    })}
+                    {/* Submit listing CTA at bottom of list */}
+                    <div className="p-4">
+                      <Link
+                        href="/list"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-[#B57F50]/30 bg-[#B57F50]/10 text-[#c8934f] text-xs font-semibold"
+                      >
+                        <PlusCircle className="w-3.5 h-3.5" />
+                        Submit a Listing
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Selected restaurant CTA */}
+            {selectedSlug && !mobileDrawerOpen && (() => {
+              const r = displayList.find(x => x.slug === selectedSlug)
+              return r ? (
+                <div className="shrink-0 px-3 pb-3 pt-1 border-t border-black/8">
+                  <Link
+                    href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                  >
+                    View {r.name} →
+                  </Link>
+                </div>
+              ) : null
+            })()}
           </div>
         </div>
       </div>
