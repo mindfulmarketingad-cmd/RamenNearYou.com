@@ -113,56 +113,6 @@ function FilterChip({ label, active, onClick }: { label: string; active: boolean
   )
 }
 
-const FAQ_ITEMS = [
-  {
-    q: 'How do I find ramen near me?',
-    a: 'Allow location access when prompted and the map will automatically show ramen restaurants within 20 miles of your current location, sorted by distance.',
-  },
-  {
-    q: 'What do the broth filter chips do?',
-    a: 'Tap Vegan, Spicy, Tonkotsu, Shoyu, or Miso to filter the list and map to restaurants that serve that broth style. You can combine filters.',
-  },
-  {
-    q: 'What is tsukemen?',
-    a: 'Tsukemen is a Japanese dipping-noodle dish — thick noodles served separately alongside a concentrated broth you dip them into. It\'s a distinct style from traditional ramen.',
-  },
-  {
-    q: 'Can I search a specific city?',
-    a: 'Yes. Use the search bar at the top of the list panel to filter results by restaurant name, city, or address. You can also navigate the map and tap "Search this area."',
-  },
-  {
-    q: 'How do I submit a missing restaurant?',
-    a: 'Scroll to the bottom of the left panel and tap "Submit a Listing." It\'s free and takes about 2 minutes.',
-  },
-]
-
-function SearchMapFaq() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null)
-  return (
-    <div className="border-t border-black/5 px-3 py-4">
-      <p className="text-[#1E2026] text-xs font-semibold mb-2">Frequently Asked Questions</p>
-      <div className="space-y-1">
-        {FAQ_ITEMS.map((item, i) => (
-          <div key={i} className="rounded-lg overflow-hidden border border-black/5 bg-white">
-            <button
-              type="button"
-              onClick={() => setOpenIdx(openIdx === i ? null : i)}
-              className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-left"
-            >
-              <span className="text-[#1E2026] text-xs font-medium leading-snug">{item.q}</span>
-              <ChevronRight className={`w-3.5 h-3.5 text-[#B57F50] shrink-0 transition-transform ${openIdx === i ? 'rotate-90' : ''}`} />
-            </button>
-            {openIdx === i && (
-              <div className="px-3 pb-3 text-[#6B6862] text-xs leading-relaxed border-t border-black/5 pt-2">
-                {item.a}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 export default function SearchMapPage() {
   return <Suspense><SearchMapInner /></Suspense>
@@ -735,9 +685,6 @@ function SearchMapInner() {
               </div>
             )}
           </div>
-
-          {/* FAQ */}
-          <SearchMapFaq />
 
           {/* Submit listing CTA (bottom) */}
           <div className="p-3 border-t border-black/5 bg-[#F5F4F0]">
