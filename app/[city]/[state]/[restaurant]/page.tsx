@@ -6,6 +6,7 @@ import {
   Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
+import { expandDescription } from '@/lib/expand-description'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
@@ -258,12 +259,21 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
             </div>
 
             {/* Description */}
-            {r.description && (
-              <section>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">About</h2>
-                <p className="text-[#6B6862] leading-relaxed">{r.description}</p>
-              </section>
-            )}
+            {(() => {
+              const about = expandDescription(r)
+              if (!about) return null
+              const paras = about.split('\n\n').filter(Boolean)
+              return (
+                <section>
+                  <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">About</h2>
+                  <div className="space-y-4">
+                    {paras.map((p, i) => (
+                      <p key={i} className="text-[#6B6862] leading-relaxed">{p}</p>
+                    ))}
+                  </div>
+                </section>
+              )
+            })()}
 
 
             {/* Community reviews */}
