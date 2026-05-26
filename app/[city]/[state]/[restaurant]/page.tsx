@@ -18,6 +18,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -135,6 +136,77 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
   const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
 
+  // Fetch community reviews server-side for structured data (Google review snippets)
+  type CommunityReview = {
+    id: string
+    user_display_name: string
+    rating: number
+    body: string | null
+    created_at: string
+  }
+  let communityReviews: CommunityReview[] = []
+  try {
+    const reviewClient = createAdminClient() ?? supabase
+    if (reviewClient) {
+      const { data: reviewRows } = await reviewClient
+        .from('reviews')
+        .select('id, user_display_name, rating, body, created_at')
+        .eq('restaurant_slug', r.slug)
+        .order('created_at', { ascending: false })
+        .limit(10)
+      communityReviews = reviewRows ?? []
+    }
+  } catch { /* non-critical — skip if unavailable */ }
+
+  // Build AggregateRating: prefer Google data, fall back to community reviews, merge if both exist
+  let aggregateRating: Record<string, unknown> | null = null
+  if (r.rating && r.reviewCount > 0 && communityReviews.length > 0) {
+    // Merge: weighted average of Google reviews + community reviews
+    const commSum = communityReviews.reduce((s, rv) => s + rv.rating, 0)
+    const totalCount = r.reviewCount + communityReviews.length
+    const blendedRating = ((r.rating * r.reviewCount) + commSum) / totalCount
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: blendedRating.toFixed(1),
+      reviewCount: totalCount,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  } else if (r.rating && r.reviewCount > 0) {
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: r.rating.toFixed(1),
+      reviewCount: r.reviewCount,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  } else if (communityReviews.length > 0) {
+    const commSum = communityReviews.reduce((s, rv) => s + rv.rating, 0)
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: (commSum / communityReviews.length).toFixed(1),
+      reviewCount: communityReviews.length,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  }
+
+  // Build individual Review schema items from community reviews
+  const reviewSchemaItems = communityReviews
+    .filter(rv => rv.body && rv.body.trim().length > 0)
+    .map(rv => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: rv.user_display_name || 'Anonymous' },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(rv.rating),
+        bestRating: '5',
+        worstRating: '1',
+      },
+      datePublished: rv.created_at.slice(0, 10),
+      reviewBody: rv.body,
+    }))
+
   const restaurantSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
@@ -151,15 +223,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     ...(r.phone && { telephone: r.phone }),
     ...(r.website && { sameAs: r.website }),
     ...(r.photo && { image: r.photo }),
-    ...(r.rating && r.reviewCount > 0 && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: r.rating.toFixed(1),
-        reviewCount: r.reviewCount,
-        bestRating: '5',
-        worstRating: '1',
-      },
-    }),
+    ...(aggregateRating && { aggregateRating }),
+    ...(reviewSchemaItems.length > 0 && { review: reviewSchemaItems }),
     ...(r.priceRange && { priceRange: r.priceRange }),
   }
 
