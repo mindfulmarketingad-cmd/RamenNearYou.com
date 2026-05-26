@@ -56,7 +56,7 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
   return (
     <Link
       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-      className="group flex-shrink-0 w-[280px] sm:w-[300px] bg-white rounded-2xl overflow-hidden border border-black/6 hover:border-[#B57F50]/40 shadow-sm hover:shadow-md transition-all duration-200"
+      className="group flex-shrink-0 w-[280px] sm:w-[300px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
     >
       {/* Photo */}
       <div className="relative w-full h-44 bg-[#F5F4F0] overflow-hidden">

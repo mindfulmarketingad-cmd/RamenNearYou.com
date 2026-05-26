@@ -43,7 +43,7 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
   return (
     <Link
       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-      className="group flex-shrink-0 w-[260px] sm:w-[280px] bg-white rounded-2xl overflow-hidden border border-black/6 hover:border-[#B57F50]/40 shadow-sm hover:shadow-md transition-all duration-200"
+      className="group flex-shrink-0 w-[260px] sm:w-[280px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
     >
       <div className="relative w-full h-40 bg-[#F5F4F0] overflow-hidden">
         {r.photo ? (
