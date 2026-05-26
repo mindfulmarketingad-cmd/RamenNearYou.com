@@ -159,26 +159,37 @@ export default function BrothNearMeCarousel({ brothType, title, description, var
 
   if (status === 'hidden') return null
 
-  const isDark = variant === 'dark'
+  // Static lookup — full class strings so Tailwind JIT doesn't purge them
+  const styles = variant === 'dark'
+    ? {
+        section:    'py-16 px-4 sm:px-6 lg:px-8 bg-[#1E2026]',
+        heading:    'font-serif text-3xl sm:text-4xl font-bold mb-3 text-white',
+        desc:       'text-sm sm:text-base max-w-xl leading-relaxed text-white/60',
+        btnScroll:  'p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed border-white/10 bg-white/5 text-white hover:border-[#B57F50]/60 hover:text-[#B57F50]',
+        skeleton:   'flex-shrink-0 w-[260px] sm:w-[280px] h-52 rounded-2xl animate-pulse bg-white/10',
+      }
+    : {
+        section:    'py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]',
+        heading:    'font-serif text-3xl sm:text-4xl font-bold mb-3 text-[#1E2026]',
+        desc:       'text-sm sm:text-base max-w-xl leading-relaxed text-[#6B6862]',
+        btnScroll:  'p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50]',
+        skeleton:   'flex-shrink-0 w-[260px] sm:w-[280px] h-52 rounded-2xl animate-pulse bg-black/5',
+      }
 
   return (
-    <section className={`py-16 px-4 sm:px-6 lg:px-8 ${isDark ? 'bg-[#1E2026]' : 'bg-[#F5F4F0]'}`}>
+    <section className={styles.section}>
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <h2 className={`font-serif text-3xl sm:text-4xl font-bold mb-3 ${isDark ? 'text-white' : 'text-[#1E2026]'}`}>{title}</h2>
-            <p className={`text-sm sm:text-base max-w-xl leading-relaxed ${isDark ? 'text-white/60' : 'text-[#6B6862]'}`}>{description}</p>
+            <h2 className={styles.heading}>{title}</h2>
+            <p className={styles.desc}>{description}</p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => scroll('left')}
                 disabled={!canScrollLeft}
-                className={`p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
-                  isDark
-                    ? 'border-white/10 bg-white/5 text-white hover:border-[#B57F50]/60 hover:text-[#B57F50]'
-                    : 'border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50]'
-                }`}
+                className={styles.btnScroll}
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -186,11 +197,7 @@ export default function BrothNearMeCarousel({ brothType, title, description, var
               <button
                 onClick={() => scroll('right')}
                 disabled={!canScrollRight}
-                className={`p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
-                  isDark
-                    ? 'border-white/10 bg-white/5 text-white hover:border-[#B57F50]/60 hover:text-[#B57F50]'
-                    : 'border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50]'
-                }`}
+                className={styles.btnScroll}
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -202,7 +209,7 @@ export default function BrothNearMeCarousel({ brothType, title, description, var
         {status === 'loading' ? (
           <div className="flex gap-4 overflow-hidden">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className={`flex-shrink-0 w-[260px] sm:w-[280px] h-52 rounded-2xl animate-pulse ${isDark ? 'bg-white/10' : 'bg-black/5'}`} />
+              <div key={i} className={styles.skeleton} />
             ))}
           </div>
         ) : (
