@@ -49,7 +49,7 @@ export default function Hero() {
   const isLoading = status === 'requesting' || status === 'locating'
 
   return (
-    <section className="relative z-30 min-h-[92vh] flex items-center justify-center overflow-hidden">
+    <section className="relative z-30 h-[340px] sm:h-[380px] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src="/images/hero-ramen-bowl.jpg"
@@ -60,31 +60,25 @@ export default function Hero() {
         sizes="100vw"
       />
 
-      {/* Dark overlay — heavier at top (behind navbar) and bottom, lighter in center */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/65" />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/55" />
 
       {/* Content */}
-      <div className="relative z-20 w-full max-w-3xl mx-auto px-4 sm:px-6 text-center pt-16">
-        <p className="text-[#e8b97a] text-xs font-semibold uppercase tracking-widest mb-4 drop-shadow">
-          Ramen Directory
-        </p>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+      <div className="relative z-20 w-full max-w-2xl mx-auto px-4 sm:px-6 text-center pt-16">
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5 drop-shadow-lg">
           Find Ramen Near Me
         </h1>
-        <p className="text-white/75 text-lg mb-10 drop-shadow">
-          Discover the best ramen restaurants in your city.
-        </p>
 
         {/* Primary CTA */}
         <button
           onClick={handleFindRamen}
           disabled={isLoading}
-          className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#B57F50] hover:bg-[#c8934f] active:scale-95 text-white text-lg font-semibold shadow-xl shadow-black/40 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] active:scale-95 text-white text-base font-semibold shadow-xl shadow-black/40 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed"
         >
           {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
-            <Navigation className="w-5 h-5" />
+            <Navigation className="w-4 h-4" />
           )}
           {status === 'requesting' && 'Waiting for location…'}
           {status === 'locating'   && 'Finding ramen near you…'}
@@ -93,8 +87,8 @@ export default function Hero() {
         </button>
 
         {/* Location nudge */}
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-white/50 text-xs">
-          <MapPin className="w-3.5 h-3.5 text-[#e8b97a]" />
+        <p className="mt-3 flex items-center justify-center gap-1.5 text-white/50 text-xs">
+          <MapPin className="w-3 h-3 text-[#e8b97a]" />
           Allow location access for the best results
         </p>
       </div>
@@ -102,21 +96,14 @@ export default function Hero() {
       {/* Wave separator at bottom */}
       <div className="absolute bottom-0 left-0 right-0 z-10 leading-none -mb-px pointer-events-none">
         <svg
-          viewBox="0 0 1440 80"
+          viewBox="0 0 1440 60"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
-          className="w-full h-16 sm:h-20 block"
+          className="w-full h-10 sm:h-14 block"
         >
           <path
-            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+            d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
             fill="#ffffff"
-          />
-          <path
-            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40"
-            fill="none"
-            stroke="rgba(255,255,255,0.3)"
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
           />
         </svg>
       </div>

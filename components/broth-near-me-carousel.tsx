@@ -25,6 +25,7 @@ interface Props {
   brothType: string
   title: string
   description: string
+  variant?: 'light' | 'dark'
 }
 
 const BROTH_BADGE: Record<string, { color: string; tooltip: string }> = {
@@ -96,7 +97,7 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
   )
 }
 
-export default function BrothNearMeCarousel({ brothType, title, description }: Props) {
+export default function BrothNearMeCarousel({ brothType, title, description, variant = 'light' }: Props) {
   const [restaurants, setRestaurants] = useState<NearbyRestaurant[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'hidden'>('loading')
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -158,20 +159,26 @@ export default function BrothNearMeCarousel({ brothType, title, description }: P
 
   if (status === 'hidden') return null
 
+  const isDark = variant === 'dark'
+
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]">
+    <section className={`py-16 px-4 sm:px-6 lg:px-8 ${isDark ? 'bg-[#1E2026]' : 'bg-[#F5F4F0]'}`}>
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">{title}</h2>
-            <p className="text-[#6B6862] text-sm sm:text-base max-w-xl leading-relaxed">{description}</p>
+            <h2 className={`font-serif text-3xl sm:text-4xl font-bold mb-3 ${isDark ? 'text-white' : 'text-[#1E2026]'}`}>{title}</h2>
+            <p className={`text-sm sm:text-base max-w-xl leading-relaxed ${isDark ? 'text-white/60' : 'text-[#6B6862]'}`}>{description}</p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => scroll('left')}
                 disabled={!canScrollLeft}
-                className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className={`p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                  isDark
+                    ? 'border-white/10 bg-white/5 text-white hover:border-[#B57F50]/60 hover:text-[#B57F50]'
+                    : 'border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50]'
+                }`}
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -179,7 +186,11 @@ export default function BrothNearMeCarousel({ brothType, title, description }: P
               <button
                 onClick={() => scroll('right')}
                 disabled={!canScrollRight}
-                className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className={`p-2 rounded-full border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                  isDark
+                    ? 'border-white/10 bg-white/5 text-white hover:border-[#B57F50]/60 hover:text-[#B57F50]'
+                    : 'border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50]'
+                }`}
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -191,7 +202,7 @@ export default function BrothNearMeCarousel({ brothType, title, description }: P
         {status === 'loading' ? (
           <div className="flex gap-4 overflow-hidden">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="flex-shrink-0 w-[260px] sm:w-[280px] h-52 rounded-2xl bg-black/5 animate-pulse" />
+              <div key={i} className={`flex-shrink-0 w-[260px] sm:w-[280px] h-52 rounded-2xl animate-pulse ${isDark ? 'bg-white/10' : 'bg-black/5'}`} />
             ))}
           </div>
         ) : (
