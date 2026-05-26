@@ -12,6 +12,16 @@ export default function NavbarClient() {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [isHomepage, setIsHomepage] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    setIsHomepage(window.location.pathname === '/')
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     const supabase = createClient()
@@ -33,13 +43,21 @@ export default function NavbarClient() {
 
   const userInitial = user?.email ? user.email[0].toUpperCase() : null
 
+  const transparent = isHomepage && !scrolled && !menuOpen
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F5F4F0] shadow-lg border-b border-black/5">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transparent
+        ? 'bg-transparent border-b border-transparent shadow-none'
+        : 'bg-[#F5F4F0] shadow-lg border-b border-black/5'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 group">
             <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
-            <span className="font-serif text-lg font-bold text-[#1E2026] tracking-tight group-hover:text-[#B57F50] transition-colors">
+            <span className={`font-serif text-lg font-bold tracking-tight transition-colors ${
+              transparent ? 'text-white group-hover:text-[#e8b97a]' : 'text-[#1E2026] group-hover:text-[#B57F50]'
+            }`}>
               RamenNearYou
             </span>
           </Link>
@@ -57,7 +75,11 @@ export default function NavbarClient() {
             </a>
 
             <button
-              className="p-2 rounded-lg text-[#1E2026] hover:bg-black/5 transition-colors"
+              className={`p-2 rounded-lg transition-colors ${
+                transparent
+                  ? 'text-white hover:bg-white/10'
+                  : 'text-[#1E2026] hover:bg-black/5'
+              }`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
