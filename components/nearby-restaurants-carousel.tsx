@@ -90,12 +90,6 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
         </p>
         <div className="flex items-center gap-2 mb-2">
           <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
-          <span
-            title={broth.tooltip}
-            className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${broth.color}`}
-          >
-            🍜 {broth.label}
-          </span>
         </div>
 
         {r.rating && (

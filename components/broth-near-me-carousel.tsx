@@ -73,14 +73,6 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
         </p>
         <div className="flex items-center gap-2 mb-2">
           <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
-          {badge && (
-            <span
-              title={badge.tooltip}
-              className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[10px] font-semibold cursor-help ${badge.color}`}
-            >
-              🍜 {brothType}
-            </span>
-          )}
         </div>
         {r.rating && (
           <div className="flex items-center gap-1.5">
