@@ -34,15 +34,25 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
   const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+
+  // Build meta description: name + address + phone + rating teaser (≤160 chars)
+  const parts: string[] = [`${r.name}.`]
+  if (r.address) parts.push(r.address + '.')
+  if (r.phone) parts.push(r.phone + '.')
+  if (r.rating && r.reviewCount > 0) {
+    parts.push(`Rated ${r.rating.toFixed(1)}/5 from ${r.reviewCount.toLocaleString()} reviews.`)
+  }
+  const metaDesc = parts.join(' ').slice(0, 160)
+
+  const title = `${r.name} - ${r.city}, ${r.state}`
+
   return {
-    title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
-    description: r.description
-      ? `${r.description.slice(0, 140)}…`
-      : `${r.name} is a ramen restaurant in ${r.city}, ${r.stateCode}.${r.rating ? ` Rated ${r.rating}/5` : ''} ${r.reviewCount > 0 ? `with ${r.reviewCount.toLocaleString()} reviews.` : ''}`,
+    title,
+    description: metaDesc,
     alternates: { canonical: url },
     openGraph: {
-      title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
-      description: r.description || `Top-rated ramen in ${r.city}, ${r.stateCode}.`,
+      title,
+      description: metaDesc,
       url,
       images: r.photo ? [{ url: r.photo, alt: r.name }] : [],
     },
