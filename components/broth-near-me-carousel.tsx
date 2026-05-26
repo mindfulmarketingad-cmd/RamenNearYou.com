@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
+import CardSaveButton from '@/components/card-save-button'
 
 interface NearbyRestaurant {
   slug: string
@@ -61,8 +62,10 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
         <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#1E2026] shadow-sm">
           {r.distanceMiles < 1 ? 'Under 1 mi' : `${r.distanceMiles.toFixed(1)} mi`}
         </div>
+        {/* Save button */}
+        <CardSaveButton slug={r.slug} restaurantName={r.name} />
         {r.priceRange && (
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#6B6862] shadow-sm">
+          <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#6B6862] shadow-sm">
             {r.priceRange}
           </div>
         )}
