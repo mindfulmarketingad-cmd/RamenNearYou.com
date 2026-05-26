@@ -1,76 +1,81 @@
-'use client'
-
-import { useState, useMemo } from 'react'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Star, Utensils } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import BrothFilterTabs from '@/components/broth-filter-tabs'
 import { restaurants, getBrothTypes, BROTH_TYPES, type BrothType } from '@/lib/restaurants'
+
+const DISPLAY_LIMIT = 300
 
 const brothMeta: Record<BrothType, { label: string; description: string; longDesc: string; color: string; border: string; badge: string }> = {
   Tonkotsu: {
     label: 'Tonkotsu',
     description: 'Rich, creamy pork bone broth',
     longDesc: 'Slow-simmered pork bones create a thick, milky broth with deep umami. Expect a rich, indulgent bowl.',
-    color: 'text-amber-300',
-    border: 'border-amber-500/30 bg-amber-500/10 hover:border-amber-400/60',
-    badge: 'bg-amber-900/40 text-amber-300 border-amber-700/40',
+    color: 'text-amber-700',
+    border: 'border-amber-200 bg-amber-50',
+    badge: 'bg-amber-100 text-amber-800 border-amber-200',
   },
   Shoyu: {
     label: 'Shoyu',
     description: 'Clear, soy-seasoned broth',
     longDesc: 'Soy sauce-based tare in a clear chicken or dashi stock. Light body with complex umami and a savory finish.',
-    color: 'text-orange-300',
-    border: 'border-orange-500/30 bg-orange-500/10 hover:border-orange-400/60',
-    badge: 'bg-orange-900/40 text-orange-300 border-orange-700/40',
+    color: 'text-orange-700',
+    border: 'border-orange-200 bg-orange-50',
+    badge: 'bg-orange-100 text-orange-800 border-orange-200',
   },
   Miso: {
     label: 'Miso',
     description: 'Fermented soybean paste broth',
     longDesc: 'Earthy, hearty miso paste blended into stock. Bold, warming, and complex — a Hokkaido classic.',
-    color: 'text-yellow-300',
-    border: 'border-yellow-500/30 bg-yellow-500/10 hover:border-yellow-400/60',
-    badge: 'bg-yellow-900/40 text-yellow-300 border-yellow-700/40',
+    color: 'text-yellow-700',
+    border: 'border-yellow-200 bg-yellow-50',
+    badge: 'bg-yellow-100 text-yellow-800 border-yellow-200',
   },
   Spicy: {
     label: 'Spicy',
     description: 'Chili heat for bold palates',
     longDesc: 'Chili oil, doubanjiang, or house spice blends bring serious heat. Perfect for those who want fire in every sip.',
-    color: 'text-red-400',
-    border: 'border-red-500/30 bg-red-500/10 hover:border-red-400/60',
-    badge: 'bg-red-900/40 text-red-400 border-red-700/40',
+    color: 'text-red-700',
+    border: 'border-red-200 bg-red-50',
+    badge: 'bg-red-100 text-red-800 border-red-200',
   },
   Vegan: {
     label: 'Vegan-Friendly',
     description: 'Plant-based broth options',
     longDesc: 'Kombu, shiitake, and vegetable bases deliver umami without animal products. Great for plant-based diners.',
-    color: 'text-green-400',
-    border: 'border-green-500/30 bg-green-500/10 hover:border-green-400/60',
-    badge: 'bg-green-900/40 text-green-400 border-green-700/40',
+    color: 'text-green-700',
+    border: 'border-green-200 bg-green-50',
+    badge: 'bg-green-100 text-green-800 border-green-200',
   },
 }
 
-export default function BrothPage() {
-  const [selected, setSelected] = useState<BrothType | 'All'>('All')
+// Pre-compute counts once at build time
+const counts: Record<string, number> = { All: restaurants.length }
+for (const type of BROTH_TYPES) {
+  counts[type] = restaurants.filter(r => getBrothTypes(r).includes(type)).length
+}
 
-  const tagged = useMemo(
-    () => restaurants.map(r => ({ r, types: getBrothTypes(r) })),
-    []
-  )
+export default async function BrothPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>
+}) {
+  const { type } = await searchParams
+  const selected = (BROTH_TYPES as readonly string[]).includes(type ?? '') ? (type as BrothType) : null
 
-  const counts = useMemo(() => {
-    const c: Record<string, number> = { All: restaurants.length }
-    for (const type of BROTH_TYPES) {
-      c[type] = tagged.filter(({ types }) => types.includes(type)).length
-    }
-    return c
-  }, [tagged])
+  // Filter server-side, sort by rating, limit to DISPLAY_LIMIT
+  const base = selected
+    ? restaurants.filter(r => getBrothTypes(r).includes(selected))
+    : restaurants
 
-  const filtered = useMemo(() => {
-    if (selected === 'All') return tagged
-    return tagged.filter(({ types }) => types.includes(selected))
-  }, [selected, tagged])
+  const filtered = [...base]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, DISPLAY_LIMIT)
+
+  const totalForType = selected ? counts[selected] : counts.All
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
@@ -94,13 +99,11 @@ export default function BrothPage() {
             const meta = brothMeta[type]
             const isActive = selected === type
             return (
-              <button
+              <Link
                 key={type}
-                onClick={() => setSelected(isActive ? 'All' : type)}
+                href={isActive ? '/broth' : `/broth?type=${type}`}
                 className={`text-left p-4 rounded-xl border transition-all duration-200 ${
-                  isActive
-                    ? `${meta.border} ring-1 ring-inset ring-white/10`
-                    : `border-black/5 bg-[#F5F4F0] hover:border-white/15`
+                  isActive ? meta.border : 'border-black/5 bg-[#F5F4F0] hover:border-black/10'
                 }`}
               >
                 <p className={`text-base font-semibold mb-1 ${isActive ? meta.color : 'text-[#1E2026]'}`}>
@@ -108,9 +111,9 @@ export default function BrothPage() {
                 </p>
                 <p className="text-[#6B6862] text-xs leading-snug mb-2">{meta.description}</p>
                 <p className={`text-xs font-medium ${isActive ? meta.color : 'text-[#6B6862]/60'}`}>
-                  {counts[type]} restaurant{counts[type] !== 1 ? 's' : ''}
+                  {counts[type].toLocaleString()} restaurant{counts[type] !== 1 ? 's' : ''}
                 </p>
-              </button>
+              </Link>
             )
           })}
         </div>
@@ -118,41 +121,31 @@ export default function BrothPage() {
 
       {/* Filter tabs */}
       <section className="px-4 sm:px-6 lg:px-8 pb-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap gap-2 items-center">
-          <button
-            onClick={() => setSelected('All')}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
-              selected === 'All'
-                ? 'bg-[#B57F50] border-[#B57F50] text-[#1E2026]'
-                : 'border-black/8 text-[#6B6862] hover:border-white/30 hover:text-[#1E2026]'
-            }`}
-          >
-            All ({counts.All})
-          </button>
-          {BROTH_TYPES.map((type) => (
-            <button
-              key={type}
-              onClick={() => setSelected(selected === type ? 'All' : type)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
-                selected === type
-                  ? 'bg-[#B57F50] border-[#B57F50] text-[#1E2026]'
-                  : 'border-black/8 text-[#6B6862] hover:border-white/30 hover:text-[#1E2026]'
-              }`}
-            >
-              {brothMeta[type].label} ({counts[type]})
-            </button>
-          ))}
+        <div className="max-w-7xl mx-auto">
+          <Suspense>
+            <BrothFilterTabs selected={selected} counts={counts} />
+          </Suspense>
         </div>
       </section>
 
       {/* Selected type blurb */}
-      {selected !== 'All' && (
+      {selected && (
         <section className="px-4 sm:px-6 lg:px-8 pb-6">
           <div className={`max-w-7xl mx-auto px-5 py-3 rounded-xl border ${brothMeta[selected].border}`}>
             <p className={`text-sm ${brothMeta[selected].color}`}>{brothMeta[selected].longDesc}</p>
           </div>
         </section>
       )}
+
+      {/* Result count */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-4">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-[#6B6862] text-sm">
+            Showing top {filtered.length.toLocaleString()} of {totalForType.toLocaleString()} restaurants
+            {selected ? ` with ${brothMeta[selected].label} broth` : ''} — sorted by rating
+          </p>
+        </div>
+      </section>
 
       {/* Restaurant grid */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
@@ -167,68 +160,77 @@ export default function BrothPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map(({ r, types }) => (
-                <Link
-                  key={r.slug}
-                  href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
-                >
-                  {/* Photo */}
-                  <div className="relative h-40 bg-[#ffffff] overflow-hidden flex-shrink-0">
-                    {r.photo ? (
-                      <Image
-                        src={r.photo}
-                        alt={r.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Utensils className="w-10 h-10 text-[#B57F50]/20" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4 flex flex-col flex-1 gap-2">
-                    <div>
-                      <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
-                        {r.name}
-                      </h3>
-                      <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
-                        <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
-                        {r.city}, {r.stateCode}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-auto">
-                      {r.rating ? (
-                        <span className="flex items-center gap-1 text-xs text-[#1E2026]/60">
-                          <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                          {r.rating.toFixed(1)}
-                          <span className="text-[#1E2026]/30">({r.reviewCount.toLocaleString()})</span>
-                        </span>
-                      ) : <span />}
-
-                      {/* Broth type badges */}
-                      {types.length > 0 && (
-                        <div className="flex flex-wrap gap-1 justify-end">
-                          {types.slice(0, 2).map((t) => (
-                            <span
-                              key={t}
-                              className={`px-2 py-0.5 rounded-full border text-xs font-medium ${brothMeta[t].badge}`}
-                            >
-                              {brothMeta[t].label}
-                            </span>
-                          ))}
+              {filtered.map((r) => {
+                const types = getBrothTypes(r)
+                return (
+                  <Link
+                    key={r.slug}
+                    href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                    className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
+                  >
+                    <div className="relative h-40 bg-[#ffffff] overflow-hidden flex-shrink-0">
+                      {r.photo ? (
+                        <Image
+                          src={r.photo}
+                          alt={r.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Utensils className="w-10 h-10 text-[#B57F50]/20" />
                         </div>
                       )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
                     </div>
-                  </div>
-                </Link>
-              ))}
+                    <div className="p-4 flex flex-col flex-1 gap-2">
+                      <div>
+                        <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                          {r.name}
+                        </h3>
+                        <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
+                          <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
+                          {r.city}, {r.stateCode}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between mt-auto">
+                        {r.rating ? (
+                          <span className="flex items-center gap-1 text-xs text-[#1E2026]/60">
+                            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                            {r.rating.toFixed(1)}
+                            <span className="text-[#1E2026]/30">({r.reviewCount.toLocaleString()})</span>
+                          </span>
+                        ) : <span />}
+                        {types.length > 0 && (
+                          <div className="flex flex-wrap gap-1 justify-end">
+                            {types.slice(0, 2).map((t) => (
+                              <span key={t} className={`px-2 py-0.5 rounded-full border text-xs font-medium ${brothMeta[t].badge}`}>
+                                {brothMeta[t].label}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+
+          {/* CTA to searchmap for more */}
+          {totalForType > DISPLAY_LIMIT && (
+            <div className="mt-10 text-center">
+              <p className="text-[#6B6862] text-sm mb-4">
+                Showing top {DISPLAY_LIMIT} results. Use the map to find more near you.
+              </p>
+              <Link
+                href="/searchmap"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+              >
+                Find Ramen Near Me →
+              </Link>
             </div>
           )}
         </div>
