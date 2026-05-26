@@ -7,7 +7,18 @@ import Image from 'next/image'
 
 type Status = 'idle' | 'requesting' | 'locating' | 'error'
 
-export default function Hero() {
+interface Props {
+  restaurantCount: number
+  cityCount: number
+  stateCount: number
+}
+
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}K+`
+  return n.toLocaleString() + '+'
+}
+
+export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
   const router = useRouter()
   const [status, setStatus] = useState<Status>('idle')
 
@@ -49,7 +60,7 @@ export default function Hero() {
   const isLoading = status === 'requesting' || status === 'locating'
 
   return (
-    <section className="relative z-30 h-[340px] sm:h-[380px] flex items-center justify-center overflow-hidden">
+    <section className="relative z-30 h-[400px] sm:h-[440px] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src="/images/hero-ramen-bowl.jpg"
@@ -91,6 +102,27 @@ export default function Hero() {
           <MapPin className="w-3 h-3 text-[#e8b97a]" />
           Allow location access for the best results
         </p>
+
+        {/* Stats row */}
+        <div className="mt-6 flex items-center justify-center gap-3 sm:gap-4">
+          {[
+            { value: formatCount(restaurantCount), label: 'Restaurants' },
+            { value: formatCount(cityCount),       label: 'Cities' },
+            { value: stateCount + ' States',       label: '& Growing' },
+          ].map(({ value, label }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15"
+            >
+              <span className="font-serif text-xl sm:text-2xl font-bold text-white leading-none">
+                {value}
+              </span>
+              <span className="text-white/60 text-[10px] sm:text-xs font-medium uppercase tracking-wider mt-1">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Wave separator at bottom — fill matches the section below */}

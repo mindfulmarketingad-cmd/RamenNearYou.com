@@ -69,6 +69,20 @@ export function getRestaurantBySlug(slug: string): Restaurant | null {
 export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
 export type BrothType = typeof BROTH_TYPES[number]
 
+export function getSiteStats() {
+  const stateSet = new Set<string>()
+  const citySet  = new Set<string>()
+  for (const r of restaurants) {
+    stateSet.add(r.stateSlug)
+    citySet.add(`${r.citySlug}|${r.stateSlug}`)
+  }
+  return {
+    restaurants: restaurants.length,
+    cities: citySet.size,
+    states: stateSet.size,
+  }
+}
+
 export function getBrothTypes(r: Restaurant): BrothType[] {
   const name = r.name.toLowerCase()
   const text = `${name} ${r.description ?? ''} ${r.subtypes ?? ''}`.toLowerCase()

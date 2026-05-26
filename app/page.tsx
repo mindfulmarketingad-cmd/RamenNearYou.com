@@ -5,6 +5,7 @@ import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
 import CityStateDirectory from '@/components/city-state-directory'
 import Footer from '@/components/footer'
+import { getSiteStats } from '@/lib/restaurants'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -31,13 +32,14 @@ const websiteSchema = {
 }
 
 export default function HomePage() {
+  const { restaurants, cities, states } = getSiteStats()
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
-        <Hero />
+        <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
         <NearbyRestaurantsCarousel />
         <FeaturedListings />
 
