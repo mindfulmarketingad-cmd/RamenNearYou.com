@@ -13,6 +13,7 @@ import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
 import VisitButton from '@/components/visit-button'
 import ReviewSection from '@/components/review-section'
+import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
@@ -278,6 +279,12 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
             {/* Community reviews */}
             <ReviewSection
+              restaurantSlug={r.slug}
+              restaurantName={r.name}
+            />
+
+            {/* Community photos */}
+            <PhotoSection
               restaurantSlug={r.slug}
               restaurantName={r.name}
             />
