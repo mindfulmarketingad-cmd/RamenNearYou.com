@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { MapPin, Phone, Star, Navigation, BadgeCheck, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
-import { isOpenNow } from '@/lib/hours'
+import { isOpenNow, getClosingTime } from '@/lib/hours'
 import RestaurantImage from '@/components/restaurant-image'
 
 function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -209,6 +209,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
         ? haversineMiles(userPos.lat, userPos.lng, r.latitude, r.longitude)
         : null,
       openStatus: r.hours ? isOpenNow(r.hours) : null,
+      closingTime: r.hours ? getClosingTime(r.hours) : null,
     }))
 
     if (sort === 'openNow') list = list.filter(({ openStatus }) => openStatus === true)
@@ -377,7 +378,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
       {/* Cards */}
       <div className="flex flex-col gap-4">
-        {filtered.map(({ r, brothType, distance, openStatus }) => {
+        {filtered.map(({ r, brothType, distance, openStatus, closingTime }) => {
           const isSpicy = (r.name + ' ' + r.description).toLowerCase().includes('spicy')
           const isVerified = verifiedSlugs.includes(r.slug)
 
@@ -440,7 +441,9 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 <div className="flex items-center gap-2 text-sm">
                   {openStatus !== null && (
                     <span className={`font-semibold text-xs ${openStatus ? 'text-emerald-600' : 'text-red-500'}`}>
-                      {openStatus ? 'Open Now' : 'Closed'}
+                      {openStatus
+                        ? closingTime ? `Open until ${closingTime}` : 'Open Now'
+                        : 'Closed'}
                     </span>
                   )}
                   {openStatus !== null && r.priceRange && <span className="text-[#6B6862] text-xs">•</span>}
