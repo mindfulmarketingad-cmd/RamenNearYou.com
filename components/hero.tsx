@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Navigation, Loader2, MapPin } from 'lucide-react'
+import Link from 'next/link'
+import { Navigation, Loader2, MapPin, ArrowLeftRight } from 'lucide-react'
 import Image from 'next/image'
 
 type Status = 'idle' | 'requesting' | 'locating' | 'error'
@@ -96,6 +97,15 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
           {status === 'error'      && 'Redirecting…'}
           {status === 'idle'       && 'Find Ramen Near Me'}
         </button>
+
+        {/* Secondary CTA — Compare */}
+        <Link
+          href="/searchmap"
+          className="inline-flex items-center gap-2 mt-3 px-6 py-2.5 rounded-xl bg-white hover:bg-white/90 active:scale-95 text-[#B57F50] text-sm font-semibold shadow-lg shadow-black/20 transition-all duration-200"
+        >
+          <ArrowLeftRight className="w-4 h-4" />
+          Compare Restaurants
+        </Link>
 
         {/* Location nudge */}
         <p className="mt-3 flex items-center justify-center gap-1.5 text-white/50 text-xs">
