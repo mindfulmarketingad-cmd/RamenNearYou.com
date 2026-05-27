@@ -113,26 +113,6 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
           Allow location access for the best results
         </p>
 
-        {/* Stats row */}
-        <div className="mt-6 flex items-center justify-center gap-3 sm:gap-4">
-          {[
-            { value: formatCount(restaurantCount), label: 'Restaurants' },
-            { value: formatCount(cityCount),       label: 'Cities' },
-            { value: stateCount + ' States',       label: '& Growing' },
-          ].map(({ value, label }) => (
-            <div
-              key={label}
-              className="flex flex-col items-center px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15"
-            >
-              <span className="font-serif text-xl sm:text-2xl font-bold text-white leading-none">
-                {value}
-              </span>
-              <span className="text-white/60 text-[10px] sm:text-xs font-medium uppercase tracking-wider mt-1">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Wave separator at bottom — fill matches the section below */}
