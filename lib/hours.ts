@@ -50,6 +50,35 @@ export function isOpenNow(hours: Record<string, string[]>): boolean | null {
   return false
 }
 
+function minutesToLabel(minutes: number): string {
+  if (minutes >= 1440) minutes = minutes % 1440
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  const period = h < 12 ? 'AM' : 'PM'
+  const displayH = h === 0 ? 12 : h > 12 ? h - 12 : h
+  return m === 0 ? `${displayH} ${period}` : `${displayH}:${String(m).padStart(2, '0')} ${period}`
+}
+
+/** Returns the closing time of the currently-active slot, or null if not open. */
+export function getClosingTime(hours: Record<string, string[]>): string | null {
+  if (!hours || Object.keys(hours).length === 0) return null
+  const now = new Date()
+  const dayName = DAYS[now.getDay()]
+  const slots = hours[dayName]
+  if (!slots || slots.length === 0) return null
+  const currentMinutes = now.getHours() * 60 + now.getMinutes()
+  for (const slot of slots) {
+    if (slot === 'Closed') return null
+    const parsed = parseSlot(slot)
+    if (!parsed) continue
+    if (parsed.start === 0 && parsed.end === 1440) return 'midnight'
+    if (currentMinutes >= parsed.start && currentMinutes < parsed.end) {
+      return minutesToLabel(parsed.end)
+    }
+  }
+  return null
+}
+
 function formatSlotLabel(slot: string): string {
   const s = slot.trim()
   if (s === 'Closed' || s === 'Open 24 hours') return s

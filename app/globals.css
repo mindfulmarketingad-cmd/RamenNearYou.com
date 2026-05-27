@@ -149,3 +149,47 @@
   color: #6B6862;
   font-style: italic;
 }
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-up {
+  animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Alternating broth carousel backgrounds — nth-child counts only rendered sections */
+.broth-stack > section.broth-carousel-section:nth-child(odd) {
+  background-color: #F5F4F0;
+}
+.broth-stack > section.broth-carousel-section:nth-child(odd) .broth-carousel-title {
+  color: #1E2026;
+}
+.broth-stack > section.broth-carousel-section:nth-child(odd) .broth-carousel-desc {
+  color: #6B6862;
+}
+.broth-stack > section.broth-carousel-section:nth-child(odd) .broth-carousel-btn {
+  border-color: rgba(0,0,0,0.12);
+  background-color: #ffffff;
+  color: #1E2026;
+}
+.broth-stack > section.broth-carousel-section:nth-child(odd) .broth-carousel-skeleton {
+  background-color: #E8E6E2;
+}
+.broth-stack > section.broth-carousel-section:nth-child(even) {
+  background-color: #1E2026;
+}
+.broth-stack > section.broth-carousel-section:nth-child(even) .broth-carousel-title {
+  color: #ffffff;
+}
+.broth-stack > section.broth-carousel-section:nth-child(even) .broth-carousel-desc {
+  color: rgba(255,255,255,0.55);
+}
+.broth-stack > section.broth-carousel-section:nth-child(even) .broth-carousel-btn {
+  border-color: rgba(255,255,255,0.15);
+  background-color: rgba(255,255,255,0.06);
+  color: #ffffff;
+}
+.broth-stack > section.broth-carousel-section:nth-child(even) .broth-carousel-skeleton {
+  background-color: rgba(255,255,255,0.1);
+}

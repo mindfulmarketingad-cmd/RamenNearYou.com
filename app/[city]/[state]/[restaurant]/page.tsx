@@ -299,6 +299,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <VisitButton slug={r.slug} restaurantName={r.name} initialCount={visitCount} />
                   <SaveButton slug={r.slug} restaurantName={r.name} />
                   <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                  <RestaurantCompareButton restaurant={r} />
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
@@ -333,9 +334,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <AmenityBadge active={r.amenities.parking} label="Parking" />
                 <AmenityBadge active={r.amenities.creditCards} label="Credit Cards" />
               </div>
-
-              {/* Compare CTA — prominent placement below amenities */}
-              <RestaurantCompareButton restaurant={r} />
             </div>
 
             {/* Description */}

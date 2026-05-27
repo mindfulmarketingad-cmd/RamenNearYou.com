@@ -13,6 +13,34 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 })
 
+const BOUNCE_CSS = `
+@keyframes ramenBounce {
+  0%, 100% { margin-top: 0px; }
+  50%       { margin-top: -8px; }
+}
+.marker-bounce { animation: ramenBounce 0.55s ease-in-out infinite; }
+`
+
+function makeIcon(size: number, bg: string, border: string, shadow: string, dotSize: number, extraClass = '') {
+  return L.divIcon({
+    className: extraClass,
+    html: `<div style="
+      width:${size}px;height:${size}px;border-radius:50% 50% 50% 0;
+      background:${bg};border:${border};
+      transform:rotate(-45deg);
+      box-shadow:${shadow};
+      display:flex;align-items:center;justify-content:center;
+    "><div style="width:${dotSize}px;height:${dotSize}px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size],
+    popupAnchor: [0, -(size + 2)],
+  })
+}
+
+const restaurantIcon       = makeIcon(32, '#B57F50', '2px solid white', '0 2px 6px rgba(0,0,0,0.35)', 8)
+const restaurantIconActive = makeIcon(36, '#c8934f', '3px solid white', '0 2px 10px rgba(181,127,80,0.7)', 9)
+const restaurantIconHover  = makeIcon(32, '#B57F50', '2px solid white', '0 2px 6px rgba(0,0,0,0.35)', 8, 'marker-bounce')
+
 const userIcon = L.divIcon({
   className: '',
   html: `<div style="
@@ -22,34 +50,6 @@ const userIcon = L.divIcon({
   "></div>`,
   iconSize: [18, 18],
   iconAnchor: [9, 9],
-})
-
-const restaurantIcon = L.divIcon({
-  className: '',
-  html: `<div style="
-    width:32px;height:32px;border-radius:50% 50% 50% 0;
-    background:#B57F50;border:2px solid white;
-    transform:rotate(-45deg);
-    box-shadow:0 2px 6px rgba(0,0,0,0.35);
-    display:flex;align-items:center;justify-content:center;
-  "><div style="width:8px;height:8px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -34],
-})
-
-const restaurantIconActive = L.divIcon({
-  className: '',
-  html: `<div style="
-    width:36px;height:36px;border-radius:50% 50% 50% 0;
-    background:#c8934f;border:3px solid white;
-    transform:rotate(-45deg);
-    box-shadow:0 2px 10px rgba(181,127,80,0.7);
-    display:flex;align-items:center;justify-content:center;
-  "><div style="width:9px;height:9px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
-  iconSize: [36, 36],
-  iconAnchor: [18, 36],
-  popupAnchor: [0, -38],
 })
 
 export interface MapBounds {
@@ -64,15 +64,26 @@ interface Props {
   userLat: number
   userLng: number
   selectedSlug: string | null
+  hoveredSlug?: string | null
   onSelect: (slug: string) => void
   onUserMove?: (bounds: MapBounds) => void
+  centerLatLng?: { lat: number; lng: number } | null
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, onSelect, onUserMove }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, centerLatLng }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
   const [ready, setReady] = useState(false)
+
+  // Inject bounce CSS once
+  useEffect(() => {
+    if (document.getElementById('ramen-bounce-css')) return
+    const style = document.createElement('style')
+    style.id = 'ramen-bounce-css'
+    style.textContent = BOUNCE_CSS
+    document.head.appendChild(style)
+  }, [])
 
   // Init map once
   useEffect(() => {
@@ -87,12 +98,10 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
       maxZoom: 19,
     }).addTo(map)
 
-    // User location marker
     L.marker([userLat, userLng], { icon: userIcon })
       .addTo(map)
       .bindPopup('<b>Your location</b>')
 
-    // 20-mile radius circle (~32km)
     L.circle([userLat, userLng], {
       radius: 32187,
       color: '#B57F50',
@@ -108,21 +117,24 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Fly to geocoded location when centerLatLng changes
+  useEffect(() => {
+    if (!ready || !mapRef.current || !centerLatLng) return
+    mapRef.current.flyTo([centerLatLng.lat, centerLatLng.lng], 13, { duration: 1.2 })
+  }, [ready, centerLatLng])
+
   // Add restaurant markers
   useEffect(() => {
     if (!ready || !mapRef.current) return
     const map = mapRef.current
 
-    // Clear old markers
     Object.values(markersRef.current).forEach(m => m.remove())
     markersRef.current = {}
 
     restaurants.forEach((r) => {
       if (!r.latitude || !r.longitude) return
-      const marker = L.marker([r.latitude, r.longitude], {
-        icon: r.slug === selectedSlug ? restaurantIconActive : restaurantIcon,
-        title: r.name,
-      })
+      const icon = r.slug === selectedSlug ? restaurantIconActive : restaurantIcon
+      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
         .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
@@ -136,29 +148,21 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     })
   }, [ready, restaurants, selectedSlug, onSelect])
 
-  // Emit bounds when user manually moves/zooms (not on programmatic pan)
+  // Bounds emit
   useEffect(() => {
     if (!ready || !mapRef.current || !onUserMove) return
     const map = mapRef.current
     function emit() {
       if (!mapRef.current) return
       const b = mapRef.current.getBounds()
-      onUserMove?.({
-        north: b.getNorth(),
-        south: b.getSouth(),
-        east: b.getEast(),
-        west: b.getWest(),
-      })
+      onUserMove?.({ north: b.getNorth(), south: b.getSouth(), east: b.getEast(), west: b.getWest() })
     }
     map.on('dragend', emit)
     map.on('zoomend', emit)
-    return () => {
-      map.off('dragend', emit)
-      map.off('zoomend', emit)
-    }
+    return () => { map.off('dragend', emit); map.off('zoomend', emit) }
   }, [ready, onUserMove])
 
-  // Update active marker icon + pan to it
+  // Update active marker icon + pan
   useEffect(() => {
     if (!ready || !mapRef.current || !selectedSlug) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
@@ -170,6 +174,15 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
       active.openPopup()
     }
   }, [selectedSlug, ready])
+
+  // Bounce hovered marker
+  useEffect(() => {
+    if (!ready) return
+    Object.entries(markersRef.current).forEach(([slug, marker]) => {
+      if (slug === selectedSlug) return // active marker takes priority
+      marker.setIcon(slug === hoveredSlug ? restaurantIconHover : restaurantIcon)
+    })
+  }, [hoveredSlug, selectedSlug, ready])
 
   return <div ref={containerRef} className="w-full h-full" />
 }

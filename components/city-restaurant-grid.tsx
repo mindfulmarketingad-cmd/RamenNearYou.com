@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { MapPin, Phone, Star, Navigation, BadgeCheck, ChevronDown, SlidersHorizontal, X } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
-import { isOpenNow } from '@/lib/hours'
+import { isOpenNow, getClosingTime } from '@/lib/hours'
 import RestaurantImage from '@/components/restaurant-image'
 
 function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -208,7 +208,8 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
       distance: userPos && r.latitude && r.longitude
         ? haversineMiles(userPos.lat, userPos.lng, r.latitude, r.longitude)
         : null,
-      openStatus: isOpenNow(r.hours),
+      openStatus: r.hours ? isOpenNow(r.hours) : null,
+      closingTime: r.hours ? getClosingTime(r.hours) : null,
     }))
 
     if (sort === 'openNow') list = list.filter(({ openStatus }) => openStatus === true)
@@ -377,7 +378,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
       {/* Cards */}
       <div className="flex flex-col gap-4">
-        {filtered.map(({ r, brothType, distance, openStatus }) => {
+        {filtered.map(({ r, brothType, distance, openStatus, closingTime }) => {
           const isSpicy = (r.name + ' ' + r.description).toLowerCase().includes('spicy')
           const isVerified = verifiedSlugs.includes(r.slug)
 
@@ -396,16 +397,6 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 640px) 100vw, 192px"
                 />
-                {r.priceRange && (
-                  <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-[#1E2026] text-xs font-medium backdrop-blur-sm">
-                    {r.priceRange}
-                  </span>
-                )}
-                {openStatus !== null && (
-                  <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-xs font-medium backdrop-blur-sm ${openStatus ? 'bg-emerald-900/80 text-emerald-400' : 'bg-red-900/80 text-red-400'}`}>
-                    {openStatus ? '● Open' : '● Closed'}
-                  </span>
-                )}
                 {distance !== null && (
                   <span className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/70 text-[#B57F50] text-xs font-medium backdrop-blur-sm">
                     <Navigation className="w-2.5 h-2.5" />
@@ -415,62 +406,103 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
               </div>
 
               {/* Content */}
-              <div className="flex flex-col flex-1 p-5 gap-3 min-w-0">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h2 className="font-semibold text-[#1E2026] text-lg leading-snug group-hover:text-[#B57F50] transition-colors">
-                      {r.name}
-                    </h2>
-                    {isVerified && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold shrink-0">
-                        <BadgeCheck className="w-3 h-3" />
-                        Verified
-                      </span>
-                    )}
-                  </div>
-                  {(r.rating || r.reviewCount > 0) && (
-                    <div className="flex items-center gap-2">
-                      <StarRating rating={r.rating} />
-                      <span className="text-[#1E2026]/50 text-xs">{r.rating?.toFixed(1)} ({r.reviewCount.toLocaleString()} reviews)</span>
-                    </div>
+              <div className="flex flex-col flex-1 p-5 gap-2 min-w-0">
+
+                {/* Name + verified */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-bold text-[#1E2026] text-base leading-snug group-hover:text-[#B57F50] transition-colors">
+                    {r.name}
+                  </p>
+                  {isVerified && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold shrink-0">
+                      <BadgeCheck className="w-3 h-3" />
+                      Verified
+                    </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[#6B6862] text-xs">
-                  <MapPin className="w-3.5 h-3.5 shrink-0 text-[#B57F50]" />
-                  <span>{r.address}</span>
+                {/* Rating + type label */}
+                {(r.rating || r.reviewCount > 0) && (
+                  <div className="flex flex-wrap items-center gap-1.5 text-sm">
+                    <span className="font-semibold text-[#B57F50]">{r.rating?.toFixed(1)}</span>
+                    <span className="text-[#6B6862]">({r.reviewCount.toLocaleString()})</span>
+                    {(r.amenities.veganOptions || r.amenities.vegetarianOptions) && (
+                      <>
+                        <span className="text-[#6B6862]">•</span>
+                        <span className="text-emerald-600 text-xs font-medium flex items-center gap-1">
+                          🌱 {r.amenities.veganOptions ? 'Vegan-Friendly' : 'Vegetarian Options'}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {/* Open status + price */}
+                <div className="flex items-center gap-2 text-sm">
+                  {openStatus !== null && (
+                    <span className={`font-semibold text-xs ${openStatus ? 'text-emerald-600' : 'text-red-500'}`}>
+                      {openStatus
+                        ? closingTime ? `Open until ${closingTime}` : 'Open Now'
+                        : 'Closed'}
+                    </span>
+                  )}
+                  {openStatus !== null && r.priceRange && <span className="text-[#6B6862] text-xs">•</span>}
+                  {r.priceRange && (
+                    <span className="text-xs font-medium text-[#6B6862]">{r.priceRange}</span>
+                  )}
                 </div>
 
+                {/* Tags as comma-separated bold text */}
+                {(() => {
+                  const tags: string[] = []
+                  if (brothType) tags.push(brothType)
+                  if (isSpicy) tags.push('Spicy')
+                  if (r.amenities.dineIn) tags.push('Dine-in')
+                  if (r.amenities.takeout) tags.push('Take-out')
+                  if (r.amenities.delivery) tags.push('Delivery')
+                  if (r.amenities.outdoorSeating) tags.push('Outdoor Seating')
+                  if (r.amenities.acceptsReservations) tags.push('Reservations')
+                  if (r.amenities.alcohol) tags.push('Bar')
+                  if (r.amenities.parking) tags.push('Parking')
+                  return tags.length > 0 ? (
+                    <p className="text-[#1E2026] text-xs font-semibold leading-relaxed">
+                      {tags.join(', ')}
+                    </p>
+                  ) : null
+                })()}
+
+                {/* Description */}
                 {r.description && (
                   <p className="text-[#6B6862] text-sm leading-relaxed line-clamp-2">{r.description}</p>
                 )}
 
-                <div className="flex flex-wrap gap-1.5">
-                  {brothType && <Badge variant="broth">{brothType}</Badge>}
-                  {isSpicy && <Badge variant="spicy">🌶 Spicy</Badge>}
-                  {r.amenities.veganOptions && <Badge variant="vegan">🌱 Vegan-Friendly</Badge>}
-                  {r.amenities.vegetarianOptions && <Badge variant="vegan">🥦 Vegetarian</Badge>}
-                  {r.amenities.dineIn && <Badge variant="amenity">Dine-in</Badge>}
-                  {r.amenities.takeout && <Badge variant="amenity">Takeout</Badge>}
-                  {r.amenities.delivery && <Badge variant="amenity">Delivery</Badge>}
-                  {r.amenities.outdoorSeating && <Badge variant="amenity">Outdoor Seating</Badge>}
-                  {r.amenities.acceptsReservations && <Badge variant="amenity">Reservations</Badge>}
-                  {r.amenities.alcohol && <Badge variant="amenity">Bar</Badge>}
-                  {r.amenities.parking && <Badge variant="amenity">Parking</Badge>}
-                </div>
-
-                <div className="mt-auto pt-2 border-t border-black/5 flex items-center justify-between gap-3 flex-wrap">
-                  <div className="flex items-center gap-3 text-xs text-[#6B6862]/60">
-                    {r.phone && (
-                      <span className="flex items-center gap-1">
-                        <Phone className="w-3 h-3" />
-                        {r.phone}
-                      </span>
-                    )}
+                {/* Phone */}
+                {r.phone && (
+                  <div className="flex items-center gap-1.5 text-sm text-[#1E2026]/70">
+                    <Phone className="w-3.5 h-3.5 shrink-0 text-[#6B6862]" />
+                    <span>{r.phone}</span>
                   </div>
-                  <span className="text-[#B57F50] text-xs font-semibold group-hover:underline">
-                    View listing →
+                )}
+
+                {/* Address */}
+                {r.address && (
+                  <div className="flex items-center gap-1.5 text-sm text-[#B57F50]">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span className="hover:underline line-clamp-1">{r.address}</span>
+                  </div>
+                )}
+
+                {/* Footer: Read Reviews + distance */}
+                <div className="mt-auto pt-3 flex items-center justify-between gap-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold group-hover:bg-[#B57F50] group-hover:text-white transition-colors">
+                    Read Reviews ↗
                   </span>
+                  {distance !== null && (
+                    <span className="flex items-center gap-1 text-[#6B6862] text-xs">
+                      <Navigation className="w-3 h-3" />
+                      {distance.toFixed(1)} mi away
+                    </span>
+                  )}
                 </div>
               </div>
             </Link>
