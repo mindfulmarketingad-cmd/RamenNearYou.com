@@ -12,6 +12,7 @@ import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
 import VisitButton from '@/components/visit-button'
+import RestaurantCompareButton from '@/components/restaurant-compare-button'
 import ReviewSection from '@/components/review-section'
 import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
@@ -298,6 +299,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <VisitButton slug={r.slug} restaurantName={r.name} initialCount={visitCount} />
                   <SaveButton slug={r.slug} restaurantName={r.name} />
                   <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                  <RestaurantCompareButton restaurant={r} />
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
