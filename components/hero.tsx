@@ -100,7 +100,7 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
 
         {/* Secondary CTA — Compare */}
         <Link
-          href="/searchmap"
+          href="/compare"
           className="inline-flex items-center gap-2 mt-3 px-6 py-2.5 rounded-xl bg-white hover:bg-white/90 active:scale-95 text-[#B57F50] text-sm font-semibold shadow-lg shadow-black/20 transition-all duration-200"
         >
           <ArrowLeftRight className="w-4 h-4" />
