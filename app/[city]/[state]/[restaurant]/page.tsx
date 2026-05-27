@@ -6,16 +6,20 @@ import {
   Utensils, ExternalLink, Crown, BadgeCheck
 } from 'lucide-react'
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
+import { expandDescription } from '@/lib/expand-description'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import SaveButton from '@/components/save-button'
 import ShareButton from '@/components/share-button'
 import VisitButton from '@/components/visit-button'
+import RestaurantCompareButton from '@/components/restaurant-compare-button'
 import ReviewSection from '@/components/review-section'
+import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 export async function generateStaticParams() {
   return getCities().flatMap((c) =>
@@ -32,15 +36,25 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
   const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+
+  // Build meta description: name + address + phone + rating teaser (≤160 chars)
+  const parts: string[] = [`${r.name}.`]
+  if (r.address) parts.push(r.address + '.')
+  if (r.phone) parts.push(r.phone + '.')
+  if (r.rating && r.reviewCount > 0) {
+    parts.push(`Rated ${r.rating.toFixed(1)}/5 from ${r.reviewCount.toLocaleString()} reviews.`)
+  }
+  const metaDesc = parts.join(' ').slice(0, 160)
+
+  const title = `${r.name} - ${r.city}, ${r.state}`
+
   return {
-    title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
-    description: r.description
-      ? `${r.description.slice(0, 140)}…`
-      : `${r.name} is a ramen restaurant in ${r.city}, ${r.stateCode}.${r.rating ? ` Rated ${r.rating}/5` : ''} ${r.reviewCount > 0 ? `with ${r.reviewCount.toLocaleString()} reviews.` : ''}`,
+    title,
+    description: metaDesc,
     alternates: { canonical: url },
     openGraph: {
-      title: `${r.name} — Ramen in ${r.city}, ${r.stateCode}`,
-      description: r.description || `Top-rated ramen in ${r.city}, ${r.stateCode}.`,
+      title,
+      description: metaDesc,
       url,
       images: r.photo ? [{ url: r.photo, alt: r.name }] : [],
     },
@@ -64,11 +78,11 @@ function StarRating({ rating, size = 'md' }: { rating: number | null; size?: 'sm
 }
 
 function AmenityBadge({ active, label }: { active: boolean; label: string }) {
+  if (!active) return null
   return (
-    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${active ? 'bg-[#B57F50]/15 text-[#B57F50]' : 'bg-black/5 text-[#6B6862]/50 line-through'}`}>
-      <span className={`w-2 h-2 rounded-full ${active ? 'bg-[#B57F50]' : 'bg-white/20'}`} />
+    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#1E2026] text-white text-xs font-medium">
       {label}
-    </div>
+    </span>
   )
 }
 
@@ -123,6 +137,77 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
   const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
 
+  // Fetch community reviews server-side for structured data (Google review snippets)
+  type CommunityReview = {
+    id: string
+    user_display_name: string
+    rating: number
+    body: string | null
+    created_at: string
+  }
+  let communityReviews: CommunityReview[] = []
+  try {
+    const reviewClient = createAdminClient() ?? supabase
+    if (reviewClient) {
+      const { data: reviewRows } = await reviewClient
+        .from('reviews')
+        .select('id, user_display_name, rating, body, created_at')
+        .eq('restaurant_slug', r.slug)
+        .order('created_at', { ascending: false })
+        .limit(10)
+      communityReviews = reviewRows ?? []
+    }
+  } catch { /* non-critical — skip if unavailable */ }
+
+  // Build AggregateRating: prefer Google data, fall back to community reviews, merge if both exist
+  let aggregateRating: Record<string, unknown> | null = null
+  if (r.rating && r.reviewCount > 0 && communityReviews.length > 0) {
+    // Merge: weighted average of Google reviews + community reviews
+    const commSum = communityReviews.reduce((s, rv) => s + rv.rating, 0)
+    const totalCount = r.reviewCount + communityReviews.length
+    const blendedRating = ((r.rating * r.reviewCount) + commSum) / totalCount
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: blendedRating.toFixed(1),
+      reviewCount: totalCount,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  } else if (r.rating && r.reviewCount > 0) {
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: r.rating.toFixed(1),
+      reviewCount: r.reviewCount,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  } else if (communityReviews.length > 0) {
+    const commSum = communityReviews.reduce((s, rv) => s + rv.rating, 0)
+    aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: (commSum / communityReviews.length).toFixed(1),
+      reviewCount: communityReviews.length,
+      bestRating: '5',
+      worstRating: '1',
+    }
+  }
+
+  // Build individual Review schema items from community reviews
+  const reviewSchemaItems = communityReviews
+    .filter(rv => rv.body && rv.body.trim().length > 0)
+    .map(rv => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: rv.user_display_name || 'Anonymous' },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(rv.rating),
+        bestRating: '5',
+        worstRating: '1',
+      },
+      datePublished: rv.created_at.slice(0, 10),
+      reviewBody: rv.body,
+    }))
+
   const restaurantSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
@@ -139,15 +224,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     ...(r.phone && { telephone: r.phone }),
     ...(r.website && { sameAs: r.website }),
     ...(r.photo && { image: r.photo }),
-    ...(r.rating && r.reviewCount > 0 && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: r.rating.toFixed(1),
-        reviewCount: r.reviewCount,
-        bestRating: '5',
-        worstRating: '1',
-      },
-    }),
+    ...(aggregateRating && { aggregateRating }),
+    ...(reviewSchemaItems.length > 0 && { review: reviewSchemaItems }),
     ...(r.priceRange && { priceRange: r.priceRange }),
   }
 
@@ -220,68 +298,28 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <div className="flex items-center gap-2 flex-wrap">
                   <VisitButton slug={r.slug} restaurantName={r.name} initialCount={visitCount} />
                   <SaveButton slug={r.slug} restaurantName={r.name} />
-                  <ShareButton name={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                  <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
                 </div>
               </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex flex-wrap items-center gap-3">
                   <StarRating rating={r.rating} />
                   <span className="text-[#1E2026] font-semibold">{r.rating?.toFixed(1)}</span>
-                  {r.placeId ? (
+                  <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  {r.placeId && (
                     <a
                       href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#6B6862] text-sm hover:text-[#B57F50] transition-colors underline underline-offset-2"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-semibold transition-colors border border-[#B57F50]/20"
                     >
-                      {r.reviewCount.toLocaleString()} Google reviews
+                      <Star className="w-3 h-3 fill-[#B57F50]" />
+                      Read Reviews
                     </a>
-                  ) : (
-                    <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
                   )}
                 </div>
               )}
-            </div>
-
-            {/* Description */}
-            {r.description && (
-              <section>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">About</h2>
-                <p className="text-[#6B6862] leading-relaxed">{r.description}</p>
-              </section>
-            )}
-
-            {/* Hours */}
-            {r.hours && Object.keys(r.hours).length > 0 && (
-              <section>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#B57F50]" />
-                  Hours
-                </h2>
-                <div className="bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden">
-                  {DAY_ORDER.map((day) => {
-                    const slots = r.hours?.[day]
-                    return (
-                      <div key={day} className="flex justify-between items-center px-5 py-3 border-b border-black/5 last:border-0">
-                        <span className="text-[#1E2026] text-sm font-medium w-28">{day}</span>
-                        <span className="text-[#6B6862] text-sm text-right">
-                          {!slots || slots[0] === 'Closed' ? (
-                            <span className="text-red-400/70">Closed</span>
-                          ) : (
-                            slots.join(' · ')
-                          )}
-                        </span>
-                      </div>
-                    )
-                  })}
-                </div>
-              </section>
-            )}
-
-            {/* Amenities */}
-            <section>
-              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">Amenities &amp; Features</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="flex flex-wrap gap-2 mt-3">
                 <AmenityBadge active={r.amenities.dineIn} label="Dine-in" />
                 <AmenityBadge active={r.amenities.takeout} label="Takeout" />
                 <AmenityBadge active={r.amenities.delivery} label="Delivery" />
@@ -295,10 +333,37 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <AmenityBadge active={r.amenities.parking} label="Parking" />
                 <AmenityBadge active={r.amenities.creditCards} label="Credit Cards" />
               </div>
-            </section>
+
+              {/* Compare CTA — prominent placement below amenities */}
+              <RestaurantCompareButton restaurant={r} />
+            </div>
+
+            {/* Description */}
+            {(() => {
+              const about = expandDescription(r)
+              if (!about) return null
+              const paras = about.split('\n\n').filter(Boolean)
+              return (
+                <section>
+                  <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">About</h2>
+                  <div className="space-y-4">
+                    {paras.map((p, i) => (
+                      <p key={i} className="text-[#6B6862] leading-relaxed">{p}</p>
+                    ))}
+                  </div>
+                </section>
+              )
+            })()}
+
 
             {/* Community reviews */}
             <ReviewSection
+              restaurantSlug={r.slug}
+              restaurantName={r.name}
+            />
+
+            {/* Community photos */}
+            <PhotoSection
               restaurantSlug={r.slug}
               restaurantName={r.name}
             />
@@ -322,6 +387,19 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       </div>
                     )
                   })}
+                  {r.placeId && (
+                    <div className="pt-2 border-t border-black/5">
+                      <a
+                        href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+                      >
+                        <Star className="w-3.5 h-3.5 fill-white" />
+                        Read Reviews on Google
+                      </a>
+                    </div>
+                  )}
                 </div>
               </section>
             )}
@@ -331,7 +409,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           <div className="space-y-6">
             {/* Contact card */}
             <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-              <h3 className="font-semibold text-[#1E2026]">Contact &amp; Location</h3>
+              <p className="font-semibold text-[#1E2026]">Contact &amp; Location</p>
               {r.address && (
                 <div className="flex items-start gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
@@ -351,33 +429,41 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   <ExternalLink className="w-3 h-3 shrink-0" />
                 </OutboundLink>
               )}
+              {r.hours && Object.keys(r.hours).length > 0 && (
+                <div className="border-t border-black/5 pt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Clock className="w-4 h-4 text-[#B57F50] shrink-0" />
+                    <span className="text-sm font-semibold text-[#1E2026]">Hours</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {DAY_ORDER.map((day) => {
+                      const slots = r.hours?.[day]
+                      return (
+                        <div key={day} className="flex justify-between gap-4 text-xs">
+                          <span className="text-[#1E2026] font-medium w-24 shrink-0">{day}</span>
+                          <span className="text-[#6B6862] text-right">
+                            {!slots || slots[0] === 'Closed' ? (
+                              <span className="text-red-400/70">Closed</span>
+                            ) : (
+                              slots.join(' · ')
+                            )}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
               {r.googleMapsLink && (
                 <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   <MapPin className="w-4 h-4" />
                   Get Directions
                 </OutboundLink>
               )}
-              {r.placeId && (
-                <a
-                  href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-black/8 text-[#6B6862] text-sm font-medium hover:border-[#B57F50]/40 hover:text-[#1E2026] transition-colors"
-                >
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  Read Google Reviews
-                </a>
-              )}
-              {(r.menuLink || r.website) && (
-                <OutboundLink
-                  url={r.menuLink || r.website}
-                  restaurantSlug={r.slug}
-                  restaurantName={r.name}
-                  destination="menu"
-                  className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors"
-                >
+              {r.menuLink && (
+                <OutboundLink url={r.menuLink} restaurantSlug={r.slug} restaurantName={r.name} destination="menu" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50] text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
                   <Utensils className="w-4 h-4" />
-                  {r.menuLink ? 'View Menu' : 'Visit Website'}
+                  View Menu
                 </OutboundLink>
               )}
             </div>
@@ -387,7 +473,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <div className="bg-gradient-to-br from-sky-500/20 to-[#F5F4F0] rounded-xl border border-sky-500/30 p-6 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-sky-400" />
-                  <h3 className="font-semibold text-[#1E2026]">You own this listing</h3>
+                  <p className="font-semibold text-[#1E2026]">You own this listing</p>
                 </div>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   Update your description, hours, phone, website and menu link.
@@ -404,7 +490,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <div className="bg-gradient-to-br from-white/5 to-[#F5F4F0] rounded-xl border border-black/8 p-6 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-[#1E2026]/40" />
-                  <h3 className="font-semibold text-[#1E2026]/60">Restaurant Already Claimed</h3>
+                  <p className="font-semibold text-[#1E2026]/60">Restaurant Already Claimed</p>
                 </div>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   This listing has already been claimed by its owner.
@@ -416,7 +502,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
             ) : (
               <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#F5F4F0] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
-                <h3 className="font-semibold text-[#1E2026]">Own this restaurant?</h3>
+                <p className="font-semibold text-[#1E2026]">Own this restaurant?</p>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   Claim your free listing to add photos, update your hours, and reach more ramen lovers.
                 </p>
@@ -475,9 +561,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                     )}
                   </div>
                   <div className="p-4 flex flex-col flex-1 gap-1.5">
-                    <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                    <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
                       {n.name}
-                    </h3>
+                    </p>
                     {n.rating && (
                       <div className="flex items-center gap-1.5">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
