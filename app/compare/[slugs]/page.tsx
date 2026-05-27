@@ -354,15 +354,18 @@ export default async function CompareSlugPage({
         <div className="max-w-6xl mx-auto">
 
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-8 flex-wrap">
+          <nav className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-5 flex-wrap">
             <Link href="/" className="hover:text-[#B57F50] transition-colors">Home</Link>
             <span>/</span>
             <Link href="/compare" className="hover:text-[#B57F50] transition-colors">Compare</Link>
             <span>/</span>
-            <span className="text-[#6B6862] truncate">
-              {a.name} vs {b.name}
-            </span>
+            <span className="text-[#6B6862] truncate">{a.name} vs {b.name}</span>
           </nav>
+
+          {/* H1 */}
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-8 leading-tight">
+            {a.name} vs {b.name}
+          </h1>
 
           {/* Hero cards */}
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_72px_1fr] gap-4 sm:gap-3 items-stretch mb-6">
@@ -439,6 +442,24 @@ export default async function CompareSlugPage({
               </div>
             </div>
           </div>
+
+          {/* About sections */}
+          {(a.description || b.description) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              {[a, b].map(r => (
+                r.description ? (
+                  <div key={r.slug} className="bg-white rounded-xl border border-black/5 p-5 shadow-sm">
+                    <p className="text-xs font-semibold text-[#B57F50] uppercase tracking-widest mb-2">
+                      About {r.name}
+                    </p>
+                    <p className="text-sm text-[#6B6862] leading-relaxed">
+                      {r.description}
+                    </p>
+                  </div>
+                ) : <div key={r.slug} />
+              ))}
+            </div>
+          )}
 
           {/* Swap / change links */}
           <div className="flex items-center justify-center gap-3 mb-8 text-xs flex-wrap">
