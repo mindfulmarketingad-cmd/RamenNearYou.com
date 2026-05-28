@@ -262,11 +262,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const brothTypes = r.subtypes ? r.subtypes.split(',').slice(0, 3).map(s => s.trim()).filter(Boolean) : []
 
   return (
-<<<<<<< HEAD
     <main className="min-h-screen bg-white">
-=======
-    <main className="min-h-screen bg-[#ffffff]">
->>>>>>> origin/main
       <PageViewTracker slug={r.slug} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -528,7 +524,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           <div className="space-y-5">
 
             {/* Contact card */}
-<<<<<<< HEAD
             <div className="rounded-2xl border border-black/8 bg-white shadow-sm overflow-hidden">
               <div className="px-5 pt-5 pb-4 border-b border-black/5">
                 <p className="font-bold text-[#1E2026] text-sm">Contact & Location</p>
@@ -575,48 +570,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
 
               {/* Hours */}
-=======
-            <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-              <p className="font-semibold text-[#1E2026]">Contact &amp; Location</p>
-              {r.address && (
-                <div className="flex items-start gap-3 text-sm">
-                  <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
-                  <span className="text-[#6B6862]">
-                    {(() => {
-                      const addr = r.address
-                      const cityIdx = addr.indexOf(r.city)
-                      const stateIdx = cityIdx > -1 ? addr.indexOf(r.stateCode, cityIdx + r.city.length) : -1
-                      if (cityIdx === -1) return addr
-                      const street = addr.slice(0, cityIdx)
-                      const sep = stateIdx > -1 ? addr.slice(cityIdx + r.city.length, stateIdx) : ''
-                      const after = stateIdx > -1 ? addr.slice(stateIdx + r.stateCode.length) : ''
-                      return (
-                        <>
-                          {street}
-                          <Link href={`/${city}/${state}`} className="text-[#B57F50] hover:underline transition-colors">{r.city}</Link>
-                          {sep}
-                          {stateIdx > -1 && <Link href={`/${state}`} className="text-[#B57F50] hover:underline transition-colors">{r.stateCode}</Link>}
-                          {after}
-                        </>
-                      )
-                    })()}
-                  </span>
-                </div>
-              )}
-              {r.phone && (
-                <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
-                  <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
-                  {r.phone}
-                </a>
-              )}
-              {r.website && (
-                <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
-                  <Globe className="w-4 h-4 text-[#B57F50] shrink-0" />
-                  <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
-                  <ExternalLink className="w-3 h-3 shrink-0" />
-                </OutboundLink>
-              )}
->>>>>>> origin/main
               {r.hours && Object.keys(r.hours).length > 0 && (
                 <div className="px-5 py-4 border-t border-black/5">
                   <div className="flex items-center gap-2 mb-3">
@@ -694,11 +647,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <p className="text-[#6B6862] text-xs leading-relaxed">
                   Claim your listing to update hours, description, and reach more ramen lovers.
                 </p>
-<<<<<<< HEAD
                 <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
-=======
-                <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
->>>>>>> origin/main
                   Claim This Listing
                 </Link>
               </div>
@@ -715,21 +664,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               />
             )}
 
-<<<<<<< HEAD
-=======
-            {/* 7-day visits dashboard */}
-            <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6">
-              <div className="flex items-start justify-between mb-1">
-                <p className="font-semibold text-[#1E2026]">Page Visits</p>
-                <span className="text-[10px] text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full font-medium">Live</span>
-              </div>
-              <p className="text-[#9B9490] text-xs mb-4">Last 7 days · updates after each new visit</p>
-              <div className="flex items-end gap-3">
-                <span className="font-serif text-4xl font-bold text-[#1E2026]">{visits7d.toLocaleString()}</span>
-                <span className="text-[#6B6862] text-sm mb-1">views</span>
-              </div>
-            </div>
->>>>>>> origin/main
           </div>
         </div>
       </div>
