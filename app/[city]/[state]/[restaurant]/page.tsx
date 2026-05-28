@@ -384,7 +384,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 Get Directions
               </OutboundLink>
             )}
-            <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-2">
               <VisitButton slug={r.slug} restaurantName={r.name} initialCount={0} />
               <SaveButton slug={r.slug} restaurantName={r.name} />
               <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
