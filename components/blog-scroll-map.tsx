@@ -22,6 +22,7 @@ export interface MapCard {
   tags: string[]
   lat: number | null
   lng: number | null
+  perfectFor?: string[]
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -224,6 +225,17 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 </div>
 
                 <p className="text-[#6B6862] text-sm leading-relaxed">{card.description}</p>
+
+                {card.perfectFor && card.perfectFor.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[#1E2026] text-xs font-semibold">Perfect for:</span>
+                    {card.perfectFor.map((p) => (
+                      <span key={p} className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-100">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex flex-col gap-1 text-xs text-[#6B6862]/70">
                   {card.phone && (
