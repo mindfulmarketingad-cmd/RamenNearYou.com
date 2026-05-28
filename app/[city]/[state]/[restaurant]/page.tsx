@@ -424,7 +424,26 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               {r.address && (
                 <div className="flex items-start gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
-                  <span className="text-[#6B6862]">{r.address}</span>
+                  <span className="text-[#6B6862]">
+                    {(() => {
+                      const addr = r.address
+                      const cityIdx = addr.indexOf(r.city)
+                      const stateIdx = cityIdx > -1 ? addr.indexOf(r.stateCode, cityIdx + r.city.length) : -1
+                      if (cityIdx === -1) return addr
+                      const street = addr.slice(0, cityIdx)
+                      const sep = stateIdx > -1 ? addr.slice(cityIdx + r.city.length, stateIdx) : ''
+                      const after = stateIdx > -1 ? addr.slice(stateIdx + r.stateCode.length) : ''
+                      return (
+                        <>
+                          {street}
+                          <Link href={`/${city}/${state}`} className="text-[#B57F50] hover:underline transition-colors">{r.city}</Link>
+                          {sep}
+                          {stateIdx > -1 && <Link href={`/${state}`} className="text-[#B57F50] hover:underline transition-colors">{r.stateCode}</Link>}
+                          {after}
+                        </>
+                      )
+                    })()}
+                  </span>
                 </div>
               )}
               {r.phone && (
