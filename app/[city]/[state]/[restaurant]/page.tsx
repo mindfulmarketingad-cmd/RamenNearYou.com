@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
-  Utensils, ExternalLink, Crown, BadgeCheck
+  Utensils, ExternalLink, BadgeCheck
 } from 'lucide-react'
 import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import { expandDescription } from '@/lib/expand-description'
@@ -100,6 +100,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const supabase = await createClient()
   let isVerified = false
   let visitCount = 0
+  let visits7d = 0
   let isOwner = false
   if (supabase) {
     const { data } = await supabase
@@ -133,6 +134,14 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       .select('id', { count: 'exact', head: true })
       .eq('restaurant_slug', r.slug)
     visitCount = count ?? 0
+
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+    const { count: weekCount } = await supabase
+      .from('restaurant_visits')
+      .select('id', { count: 'exact', head: true })
+      .eq('restaurant_slug', r.slug)
+      .gte('created_at', sevenDaysAgo)
+    visits7d = weekCount ?? 0
   }
 
   const totalReviews = r.reviewsPerScore ? Object.values(r.reviewsPerScore).reduce((a, b) => a + Number(b), 0) : 0
@@ -479,10 +488,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
                   Manage Listing
                 </Link>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
-                  <Crown className="w-4 h-4" />
-                  Get Featured
-                </Link>
               </div>
             ) : isVerified ? (
               <div className="bg-gradient-to-br from-white/5 to-[#F5F4F0] rounded-xl border border-black/8 p-6 space-y-3">
@@ -493,10 +498,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   This listing has already been claimed by its owner.
                 </p>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
-                  <Crown className="w-4 h-4" />
-                  Make This A Featured Listing
-                </Link>
               </div>
             ) : (
               <div className="bg-gradient-to-br from-[#B57F50]/20 to-[#F5F4F0] rounded-xl border border-[#B57F50]/30 p-6 space-y-3">
@@ -506,10 +507,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 </p>
                 <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
                   Claim This Listing
-                </Link>
-                <Link href="/featured/apply" className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#F5F4F0] text-sm font-semibold transition-colors">
-                  <Crown className="w-4 h-4" />
-                  Make This A Featured Listing
                 </Link>
               </div>
             )}
@@ -527,6 +524,16 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 }
               />
             )}
+
+            {/* 7-day visits dashboard */}
+            <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6">
+              <p className="font-semibold text-[#1E2026] mb-1">Page Visits</p>
+              <p className="text-[#9B9490] text-xs mb-4">Last 7 days</p>
+              <div className="flex items-end gap-3">
+                <span className="font-serif text-4xl font-bold text-[#1E2026]">{visits7d.toLocaleString()}</span>
+                <span className="text-[#6B6862] text-sm mb-1">views</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
