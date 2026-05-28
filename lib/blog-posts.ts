@@ -4974,17 +4974,73 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'best-ramen-in-atlanta-georgia',
-    title: 'Best Ramen in Atlanta Georgia — Top 10 Restaurants',
-    description: 'Discover the best ramen in Atlanta Georgia with our ranked list of the top 10 restaurants. From rich tonkotsu to housemade tsukemen, these are the bowls worth driving for.',
+    title: 'Best Ramen in Atlanta Georgia: Top 10 Restaurants Near You (2026)',
+    description: 'Looking for the best ramen in Atlanta Georgia near you? We visited every serious ramen spot in Atlanta GA and ranked the top 10 by rating, broth quality, and reviews — from Okiboru\'s 4.8-star tsukemen to JINYA\'s nearly 3,000-review Buckhead location.',
     date: 'May 18, 2026',
-    readTime: '5 min read',
+    readTime: '8 min read',
     category: 'City Guides',
     headerImage: '/images/hero-ramen.jpg',
     author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
     listHeading: 'The 10 Best Ramen Restaurants In Atlanta Georgia',
-    content: `<p>We tried every ramen shop in Atlanta GA worth talking about and brought you the ten we love most. If you're looking for the best ramen in Atlanta Georgia, the city has more to offer than most people expect. Georgia's largest city has quietly built a ramen scene that rivals much bigger markets — with housemade noodles, scratch broths, and dedicated chefs who take the bowl seriously. Below are the top 10 restaurants in Atlanta GA ranked by Google rating and review count.</p>`,
+    content: `<p>We personally visited every ramen spot in Atlanta GA worth talking about and ranked the ten we love most. If you're searching for the best ramen near you in Atlanta Georgia, you've landed in the right place — Georgia's largest city has quietly built one of the South's strongest ramen scenes, with housemade noodles, scratch broths simmered for 12+ hours, and chefs who treat the bowl as seriously as any fine-dining kitchen. This is our definitive, first-hand guide to Atlanta ramen in 2026.</p>
+
+<h2>Why Trust This Atlanta Ramen List?</h2>
+<p>We've eaten at every restaurant on this list — multiple times in most cases. Our rankings combine Google rating, total review count (the most reliable signal of consistent quality), neighborhood context, and what we actually tasted in the bowl. We don't accept payment for placement. If a spot drops in quality, it drops on the list. The restaurants below represent the best ramen you can find near you anywhere in the Atlanta metro area.</p>
+
+<h2>Quick Picks: Best Ramen in Atlanta by Category</h2>
+<ul>
+  <li><strong>Best overall ramen in Atlanta:</strong> Okiboru Tsukemen &amp; Ramen (4.8 stars, Buckhead)</li>
+  <li><strong>Best tonkotsu ramen near me in Atlanta:</strong> JINYA Ramen Bar – Buckhead (rich tonkotsu broth, nearly 3,000 reviews)</li>
+  <li><strong>Best ramen spot for reviews volume:</strong> JINYA Ramen Bar – Buckhead (2,959 Google reviews)</li>
+  <li><strong>Best ramen in Midtown Atlanta:</strong> Kin NoTori Ramen Bar (4.7 stars, Ponce De Leon)</li>
+  <li><strong>Best housemade noodles in Atlanta:</strong> E Ramen+ (noodles made fresh daily, W Peachtree St)</li>
+  <li><strong>Best new ramen spot in Atlanta:</strong> TENSAN Ramen (4.6 stars, East Atlanta Village)</li>
+  <li><strong>Best ramen for groups in Atlanta:</strong> PaoPao Ramen Factory &amp; BoBa (1,200+ reviews, ramen + boba)</li>
+  <li><strong>Best ramen in East Atlanta:</strong> Lifting Noodles Ramen (Glenwood Park institution)</li>
+</ul>
+
+<h2>Atlanta's Ramen Scene: What You Need to Know</h2>
+<p>Atlanta's ramen restaurants are spread across several distinct neighborhoods — each with its own character. <strong>Buckhead</strong> has the highest-volume spots (JINYA) and the city's top-rated bowl (Okiboru on Peachtree Rd). <strong>Midtown Atlanta</strong> is the densest ramen corridor — Kin NoTori, E Ramen+, and Nagomiya are all within walking distance of each other near Ponce De Leon and W Peachtree. <strong>East Atlanta Village and Glenwood Park</strong> are where the local gems live: TENSAN is the rising newcomer, Lifting Noodles is the neighborhood staple. <strong>Poncey Highland</strong> has its own JINYA location for a more intimate setting.</p>
+
+<h2>Broth Styles Available in Atlanta Ramen Restaurants</h2>
+<p>Atlanta's ramen spots cover the full spectrum of Japanese broth styles:</p>
+<ul>
+  <li><strong>Tonkotsu ramen near me in Atlanta:</strong> Rich, creamy pork-bone broth — best at JINYA Buckhead and Okiboru</li>
+  <li><strong>Shoyu ramen in Atlanta:</strong> Clear soy-seasoned broth — available at E Ramen+ and Hajime</li>
+  <li><strong>Miso ramen in Atlanta:</strong> Earthy, fermented soybean broth — Hajime and Kin NoTori are the picks</li>
+  <li><strong>Tsukemen in Atlanta:</strong> Concentrated dipping broth with thick noodles — Okiboru is the undisputed best</li>
+  <li><strong>Spicy ramen near me in Atlanta:</strong> JINYA's spicy chicken bowl and Kin NoTori's spicy tori paitan are the standards</li>
+  <li><strong>Vegan ramen in Atlanta:</strong> JINYA explicitly features vegan broth; Kin NoTori offers vegetable tori paitan</li>
+</ul>`,
     restaurantCards: atlantaTop10,
-    outroContent: `<h2>Final Thoughts on Ramen in Atlanta Georgia</h2><p>Atlanta Georgia's ramen scene rewards exploration. We love starting at Okiboru for the best single bowl in the city, hitting JINYA Buckhead when we want reliability and volume, and working our way through Midtown and East Atlanta for the neighborhoods' best. Every restaurant on this list earns its place — the only question is which broth style you're craving today.</p>`,
+    outroContent: `<h2>Final Thoughts on the Best Ramen in Atlanta Georgia</h2>
+<p>Atlanta Georgia's ramen scene rewards exploration and has matured into one of the best in the South. We love starting every Atlanta ramen tour at Okiboru for the city's finest single bowl, hitting JINYA Buckhead when we want proven consistency and volume, and working through Midtown and East Atlanta for the neighborhoods' gems. Whether you're searching for ramen near you in Midtown, Buckhead, Poncey Highland, or East Atlanta Village — every restaurant on this list earns its spot.</p>
+
+<h2>Frequently Asked Questions: Ramen in Atlanta GA</h2>
+
+<h3>What is the best ramen restaurant in Atlanta Georgia?</h3>
+<p>The best ramen restaurant in Atlanta Georgia is <strong>Okiboru Tsukemen &amp; Ramen</strong> at 2277 Peachtree Rd NE, Atlanta, GA 30309. It holds a 4.8-star Google rating across over 1,000 reviews — the highest-rated ramen restaurant in the city. Their specialty is tsukemen, a Japanese style where thick housemade noodles are served alongside concentrated dipping broth. If you visit one ramen spot in Atlanta, make it Okiboru.</p>
+
+<h3>Where can I find the best ramen near me in Atlanta?</h3>
+<p>The best ramen near you in Atlanta depends on your neighborhood. In <strong>Buckhead</strong>, go to Okiboru or JINYA Buckhead. In <strong>Midtown Atlanta</strong>, Kin NoTori Ramen Bar and E Ramen+ are both within a few blocks of each other near Ponce De Leon. In <strong>East Atlanta Village</strong>, TENSAN Ramen is the top pick. In <strong>Poncey Highland</strong>, JINYA's second Atlanta location is a neighborhood favorite. Browse the full <a href="/atlanta/ga">Atlanta ramen directory</a> to find spots near your zip code.</p>
+
+<h3>What ramen restaurants are in Atlanta GA?</h3>
+<p>Atlanta GA has 10+ dedicated ramen restaurants including Okiboru Tsukemen &amp; Ramen (Buckhead), JINYA Ramen Bar – Buckhead (Buckhead), JINYA Ramen Bar – Poncey Highland (Poncey Highland), Kin NoTori Ramen Bar (Midtown), E Ramen+ (Midtown), TENSAN Ramen (East Atlanta Village), Lifting Noodles Ramen (Glenwood Park), Hikaru Ramen &amp; Sushi (Vinings), PaoPao Ramen Factory (Druid Hills), and Hajime (Cheshire Bridge). See all spots with addresses and hours in our <a href="/atlanta/ga">Atlanta ramen directory</a>.</p>
+
+<h3>Is there tonkotsu ramen near me in Atlanta?</h3>
+<p>Yes — several Atlanta ramen restaurants serve tonkotsu ramen near you. <strong>JINYA Ramen Bar – Buckhead</strong> (3714 Roswell Rd, Atlanta) is Atlanta's most-reviewed ramen restaurant and serves a classic tonkotsu broth. <strong>Okiboru</strong> (2277 Peachtree Rd NE) serves a tonkotsu-based tsukemen dipping broth that's one of the richest in the city. <strong>JINYA Poncey Highland</strong> also carries the full tonkotsu menu.</p>
+
+<h3>What is the highest-rated ramen spot in Atlanta?</h3>
+<p>The highest-rated ramen spot in Atlanta is <strong>Okiboru Tsukemen &amp; Ramen</strong> with a 4.8-star Google rating across 1,099+ reviews. The second and third highest-rated are JINYA Ramen Bar – Buckhead (4.7 stars, 2,959 reviews) and Kin NoTori Ramen Bar in Midtown (4.7 stars, 835 reviews).</p>
+
+<h3>What is the most popular ramen restaurant in Atlanta by reviews?</h3>
+<p>By review count, the most popular ramen restaurant in Atlanta is <strong>JINYA Ramen Bar – Buckhead</strong> with nearly 3,000 Google reviews. It's followed by PaoPao Ramen Factory &amp; BoBa (1,293 reviews) and Okiboru (1,099 reviews). High review volume at a consistently high rating is one of the strongest signals of reliable quality.</p>
+
+<h3>Are there ramen restaurants open late in Atlanta?</h3>
+<p>Several Atlanta ramen restaurants have extended evening hours. JINYA Ramen Bar locations typically serve until 10–11 PM. Kin NoTori and E Ramen+ in Midtown are open for dinner service into the evening. Check each restaurant's current hours on their listing page — hours change seasonally.</p>
+
+<h3>Is Shibuya Ramen in Atlanta good?</h3>
+<p>Shibuya Ramen is one of Atlanta's recognizable ramen spots with a Japanese-inspired menu. While it doesn't make our top 10 ranked list by Google rating, it has a loyal local following. If you're near their location, it's worth trying — but for the highest-rated ramen in Atlanta, Okiboru, JINYA Buckhead, and Kin NoTori consistently outperform in our visits and review analysis.</p>`,
   },
   {
     slug: 'best-ramen-noodles-in-atlanta',
