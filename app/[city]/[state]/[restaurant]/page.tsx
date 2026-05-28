@@ -18,6 +18,7 @@ import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
+import PageViewTracker from '@/components/page-view-tracker'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 
@@ -255,6 +256,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
+      <PageViewTracker slug={r.slug} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
@@ -550,8 +552,11 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
             {/* 7-day visits dashboard */}
             <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6">
-              <p className="font-semibold text-[#1E2026] mb-1">Page Visits</p>
-              <p className="text-[#9B9490] text-xs mb-4">Last 7 days</p>
+              <div className="flex items-start justify-between mb-1">
+                <p className="font-semibold text-[#1E2026]">Page Visits</p>
+                <span className="text-[10px] text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full font-medium">Live</span>
+              </div>
+              <p className="text-[#9B9490] text-xs mb-4">Last 7 days · updates after each new visit</p>
               <div className="flex items-end gap-3">
                 <span className="font-serif text-4xl font-bold text-[#1E2026]">{visits7d.toLocaleString()}</span>
                 <span className="text-[#6B6862] text-sm mb-1">views</span>
