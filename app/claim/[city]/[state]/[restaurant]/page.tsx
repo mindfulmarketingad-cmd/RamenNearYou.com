@@ -1,6 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircle2, BadgeCheck, BarChart2, Globe, Clock } from 'lucide-react'
+import { CheckCircle2, BadgeCheck, BarChart2, Globe, Clock, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ClaimForm from './claim-form'
@@ -15,6 +15,7 @@ const BENEFITS = [
   { icon: Globe, text: 'Update your website, phone, and description' },
   { icon: Clock, text: 'Keep your hours accurate and up to date' },
   { icon: BarChart2, text: 'See weekly page visit analytics' },
+  { icon: MapPin, text: 'Featured placement on your city page' },
 ]
 
 export default async function ClaimPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {

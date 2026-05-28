@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BadgeCheck, BarChart2, Clock, Globe, Search, CheckCircle2 } from 'lucide-react'
+import { BadgeCheck, BarChart2, Clock, Globe, MapPin, Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 
 const BENEFITS = [
@@ -10,6 +10,7 @@ const BENEFITS = [
   { icon: Globe, text: 'Update your website, phone, and description' },
   { icon: Clock, text: 'Keep your hours accurate and up to date' },
   { icon: BarChart2, text: 'See weekly page visit analytics' },
+  { icon: MapPin, text: 'Featured placement on your city page' },
 ]
 
 export default function ClaimSearch() {
