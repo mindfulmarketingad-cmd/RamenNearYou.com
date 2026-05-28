@@ -415,7 +415,20 @@ function SearchMapInner() {
                   {geocoding ? '…' : 'Go'}
                 </button>
               </div>
-              {geocodeError && <p className="text-red-400 text-xs mt-1">{geocodeError}</p>}
+              {geocodeError && (
+                <div className="mt-1.5 flex flex-col gap-1">
+                  <p className="text-red-400 text-xs">{geocodeError}</p>
+                  <a
+                    href={`https://www.google.com/maps/search/${encodeURIComponent(locationSearch + ' ramen')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#B57F50] hover:text-[#c8934f] transition-colors font-medium"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Search Google Maps →
+                  </a>
+                </div>
+              )}
             </form>
           </div>
 
@@ -795,7 +808,20 @@ function SearchMapInner() {
                       {geocoding ? '…' : 'Go'}
                     </button>
                   </div>
-                  {geocodeError && <p className="text-red-400 text-xs mt-1">{geocodeError}</p>}
+                  {geocodeError && (
+                    <div className="mt-1.5 flex flex-col gap-1">
+                      <p className="text-red-400 text-xs">{geocodeError}</p>
+                      <a
+                        href={`https://www.google.com/maps/search/${encodeURIComponent(locationSearch + ' ramen')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#B57F50] hover:text-[#c8934f] transition-colors font-medium"
+                      >
+                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Search Google Maps →
+                      </a>
+                    </div>
+                  )}
                 </form>
               </div>
 
