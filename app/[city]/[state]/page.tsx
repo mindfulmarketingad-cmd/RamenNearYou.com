@@ -6,6 +6,8 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
 import CityFollowButton from '@/components/city-follow-button'
+import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
+import type { MapCard } from '@/components/blog-scroll-map'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -39,6 +41,35 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
+
+  // Build scroll-map cards from top-rated restaurants in this city (cap at 30)
+  const topRestaurants = [...restaurants]
+    .sort((a, b) => {
+      const ra = a.rating ?? 0
+      const rb = b.rating ?? 0
+      if (rb !== ra) return rb - ra
+      return (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
+    })
+    .slice(0, 30)
+
+  const scrollMapCards: MapCard[] = topRestaurants.map((r, i) => ({
+    rank: i + 1,
+    slug: r.slug,
+    citySlug: r.citySlug,
+    stateSlug: r.stateSlug,
+    name: r.name,
+    rating: r.rating ?? 0,
+    reviewCount: r.reviewCount ?? 0,
+    address: r.address ?? '',
+    phone: r.phone ?? '',
+    description: r.description ?? '',
+    photo: r.photo ?? '',
+    tags: r.subtypes
+      ? r.subtypes.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 2)
+      : [],
+    lat: r.latitude ?? null,
+    lng: r.longitude ?? null,
+  }))
 
   const supabase = await createClient()
   let verifiedSlugs: string[] = []
@@ -175,13 +206,29 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
       </section>
 
-      {/* Listings */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      {/* Listings with scroll-map (Yelp-style: list on left, sticky map on right) */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[#1E2026] font-semibold text-sm mb-6">
+          <p className="text-[#1E2026] font-semibold text-sm mb-2">
             {restaurants.length} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {cityName}, {stateCode}
           </p>
-          <CityRestaurantGrid restaurants={restaurants} city={city} state={state} verifiedSlugs={verifiedSlugs} />
+          <BlogScrollMapWrapper
+            cards={scrollMapCards}
+            listHeading={`The ${scrollMapCards.length} Best Ramen Spots In ${cityName}, ${stateCode}`}
+          />
+          {restaurants.length > scrollMapCards.length && (
+            <div className="mt-10 pt-8 border-t border-black/5">
+              <p className="text-[#1E2026] font-semibold text-sm mb-6">
+                More ramen in {cityName}, {stateCode}
+              </p>
+              <CityRestaurantGrid
+                restaurants={restaurants.slice(scrollMapCards.length)}
+                city={city}
+                state={state}
+                verifiedSlugs={verifiedSlugs}
+              />
+            </div>
+          )}
         </div>
       </section>
 
