@@ -5,7 +5,7 @@ import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   Utensils, ExternalLink, BadgeCheck
 } from 'lucide-react'
-import { getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
+import { restaurants, getRestaurant, getRestaurantsByCity, getCities, type Restaurant } from '@/lib/restaurants'
 import { expandDescription } from '@/lib/expand-description'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -21,14 +21,18 @@ import OutboundLink from '@/components/outbound-link'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 
+export const dynamicParams = true
+
 export async function generateStaticParams() {
-  return getCities().flatMap((c) =>
-    getRestaurantsByCity(c.citySlug, c.stateSlug).map((r) => ({
-      city: c.citySlug,
-      state: c.stateSlug,
+  // Pre-build top 5,000 restaurants by rating. All others are served on-demand via ISR.
+  return [...restaurants]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, 5000)
+    .map((r) => ({
+      city: r.citySlug,
+      state: r.stateSlug,
       restaurant: r.slug,
     }))
-  )
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
