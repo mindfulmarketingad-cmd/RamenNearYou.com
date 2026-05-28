@@ -319,7 +319,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <div className="flex flex-wrap items-center gap-3">
                   <StarRating rating={r.rating} />
                   <span className="text-[#1E2026] font-semibold">{r.rating?.toFixed(1)}</span>
-                  <span className="text-[#6B6862] text-sm">({r.reviewCount.toLocaleString()} reviews)</span>
+                  <span className="text-[#6B6862] text-sm">({(r.reviewCount ?? 0).toLocaleString()} reviews)</span>
                   {r.placeId && (
                     <a
                       href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
@@ -577,7 +577,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       <div className="flex items-center gap-1.5">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                         <span className="text-[#1E2026]/70 text-xs">{n.rating.toFixed(1)}</span>
-                        <span className="text-[#1E2026]/30 text-xs">({n.reviewCount.toLocaleString()})</span>
+                        <span className="text-[#1E2026]/30 text-xs">({(n.reviewCount ?? 0).toLocaleString()})</span>
                       </div>
                     )}
                     {n.address && (

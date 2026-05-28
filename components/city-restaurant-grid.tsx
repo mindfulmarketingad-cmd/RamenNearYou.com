@@ -425,7 +425,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 {(r.rating || r.reviewCount > 0) && (
                   <div className="flex flex-wrap items-center gap-1.5 text-sm">
                     <span className="font-semibold text-[#B57F50]">{r.rating?.toFixed(1)}</span>
-                    <span className="text-[#6B6862]">({r.reviewCount.toLocaleString()})</span>
+                    <span className="text-[#6B6862]">({(r.reviewCount ?? 0).toLocaleString()})</span>
                     {(r.amenities.veganOptions || r.amenities.vegetarianOptions) && (
                       <>
                         <span className="text-[#6B6862]">•</span>

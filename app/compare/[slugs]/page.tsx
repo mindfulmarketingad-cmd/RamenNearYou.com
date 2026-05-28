@@ -392,7 +392,7 @@ export default async function CompareSlugPage({
                   <div className="flex items-center gap-2 mt-1">
                     <StarRating rating={a.rating} />
                     <span className="text-xs text-[#9B9490]">
-                      ({a.reviewCount.toLocaleString()} reviews)
+                      ({(a.reviewCount ?? 0).toLocaleString()} reviews)
                     </span>
                   </div>
                 )}
@@ -432,7 +432,7 @@ export default async function CompareSlugPage({
                   <div className="flex items-center gap-2 mt-1">
                     <StarRating rating={b.rating} />
                     <span className="text-xs text-[#9B9490]">
-                      ({b.reviewCount.toLocaleString()} reviews)
+                      ({(b.reviewCount ?? 0).toLocaleString()} reviews)
                     </span>
                   </div>
                 )}
