@@ -199,7 +199,7 @@ export default async function BrothPage({
                           <span className="flex items-center gap-1 text-xs text-[#1E2026]/60">
                             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                             {r.rating.toFixed(1)}
-                            <span className="text-[#1E2026]/30">({r.reviewCount.toLocaleString()})</span>
+                            <span className="text-[#1E2026]/30">({(r.reviewCount ?? 0).toLocaleString()})</span>
                           </span>
                         ) : <span />}
                         {types.length > 0 && (

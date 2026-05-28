@@ -71,7 +71,7 @@ export default function BrothNearMeSection({
                   <div className="flex items-center gap-1 mt-auto pt-1">
                     <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                     <span className="text-[#1E2026] text-xs font-medium">{r.rating.toFixed(1)}</span>
-                    <span className="text-[#6B6862]/60 text-xs">({r.reviewCount.toLocaleString()})</span>
+                    <span className="text-[#6B6862]/60 text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
                   </div>
                 )}
               </div>

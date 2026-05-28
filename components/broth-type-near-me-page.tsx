@@ -109,7 +109,7 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                       <div className="flex items-center gap-1.5">
                         <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                         <span className="text-[#1E2026] text-sm font-medium">{r.rating?.toFixed(1)}</span>
-                        <span className="text-[#6B6862]/60 text-xs">({r.reviewCount.toLocaleString()} reviews)</span>
+                        <span className="text-[#6B6862]/60 text-xs">({(r.reviewCount ?? 0).toLocaleString()} reviews)</span>
                       </div>
                     )}
                     <div className="flex items-start gap-1.5 text-[#6B6862] text-xs">
