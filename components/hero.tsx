@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Navigation, Loader2, MapPin, ArrowLeftRight } from 'lucide-react'
+import { Navigation, Loader2, MapPin, ArrowLeftRight, Search } from 'lucide-react'
 import Image from 'next/image'
 
 type Status = 'idle' | 'requesting' | 'locating' | 'error'
@@ -22,6 +22,8 @@ function formatCount(n: number): string {
 export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
   const router = useRouter()
   const [status, setStatus] = useState<Status>('idle')
+  const [zip, setZip] = useState('')
+  const [zipError, setZipError] = useState('')
 
   async function handleFindRamen() {
     if (!navigator.geolocation) {
@@ -40,9 +42,9 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
           )
           const data = await res.json()
-          const zip = data.postcode
-          if (zip) {
-            router.push(`/searchmap?zip=${zip}`)
+          const z = data.postcode
+          if (z) {
+            router.push(`/searchmap?zip=${z}`)
           } else {
             router.push(`/searchmap?lat=${latitude}&lng=${longitude}`)
           }
@@ -58,10 +60,21 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
     )
   }
 
+  function handleZipSearch(e: FormEvent) {
+    e.preventDefault()
+    const clean = zip.trim()
+    if (!/^\d{5}$/.test(clean)) {
+      setZipError('Enter a valid 5-digit ZIP code')
+      return
+    }
+    setZipError('')
+    router.push(`/searchmap?zip=${clean}`)
+  }
+
   const isLoading = status === 'requesting' || status === 'locating'
 
   return (
-    <section className="relative z-30 h-[400px] sm:h-[440px] flex items-center justify-center overflow-hidden">
+    <section className="relative z-30 h-[460px] sm:h-[500px] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src="/images/hero-ramen-bowl.jpg"
@@ -81,32 +94,58 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
           Find Ramen Near Me
         </h1>
 
+        {/* ZIP search bar */}
+        <form onSubmit={handleZipSearch} className="mb-5">
+          <div className="flex items-center bg-white rounded-xl shadow-xl shadow-black/30 overflow-hidden max-w-sm mx-auto">
+            <MapPin className="w-4 h-4 text-[#B57F50] shrink-0 ml-4" />
+            <input
+              type="text"
+              inputMode="numeric"
+              maxLength={5}
+              placeholder="Enter ZIP code…"
+              value={zip}
+              onChange={e => { setZip(e.target.value.replace(/\D/g, '')); setZipError('') }}
+              className="flex-1 px-3 py-3.5 text-[#1E2026] text-sm font-medium outline-none bg-transparent placeholder:text-[#9B9490]"
+            />
+            <button
+              type="submit"
+              className="flex items-center gap-1.5 px-5 py-3.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors shrink-0"
+            >
+              <Search className="w-3.5 h-3.5" />
+              Search
+            </button>
+          </div>
+          {zipError && (
+            <p className="text-red-300 text-xs mt-2">{zipError}</p>
+          )}
+        </form>
+
         {/* CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-4">
-        <button
-          onClick={handleFindRamen}
-          disabled={isLoading}
-          className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] active:scale-95 text-white text-base font-semibold shadow-xl shadow-black/40 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <Navigation className="w-4 h-4" />
-          )}
-          {status === 'requesting' && 'Waiting for location…'}
-          {status === 'locating'   && 'Finding ramen near you…'}
-          {status === 'error'      && 'Redirecting…'}
-          {status === 'idle'       && 'Find Ramen Near Me'}
-        </button>
+          <button
+            onClick={handleFindRamen}
+            disabled={isLoading}
+            className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] active:scale-95 text-white text-base font-semibold shadow-xl shadow-black/40 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Navigation className="w-4 h-4" />
+            )}
+            {status === 'requesting' && 'Waiting for location…'}
+            {status === 'locating'   && 'Finding ramen near you…'}
+            {status === 'error'      && 'Redirecting…'}
+            {status === 'idle'       && 'Use My Location'}
+          </button>
 
-        {/* Secondary CTA — Compare */}
-        <Link
-          href="/compare"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-white/90 active:scale-95 text-[#B57F50] text-base font-semibold shadow-lg shadow-black/20 transition-all duration-200"
-        >
-          <ArrowLeftRight className="w-4 h-4" />
-          Compare Restaurants
-        </Link>
+          {/* Secondary CTA — Compare */}
+          <Link
+            href="/compare"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-white/90 active:scale-95 text-[#B57F50] text-base font-semibold shadow-lg shadow-black/20 transition-all duration-200"
+          >
+            <ArrowLeftRight className="w-4 h-4" />
+            Compare Restaurants
+          </Link>
         </div>
 
         {/* Location nudge */}
@@ -134,3 +173,4 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
     </section>
   )
 }
+
