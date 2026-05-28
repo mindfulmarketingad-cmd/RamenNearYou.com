@@ -21,25 +21,32 @@ const BOUNCE_CSS = `
 .marker-bounce { animation: ramenBounce 0.55s ease-in-out infinite; }
 `
 
-function makeIcon(size: number, bg: string, border: string, shadow: string, dotSize: number, extraClass = '') {
+function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover') {
+  const label = rating ? rating.toFixed(1) : '?'
+  const bg = state === 'active' ? '#c8934f' : '#B57F50'
+  const border = state === 'active' ? '2.5px solid white' : '2px solid white'
+  const shadow = state === 'active'
+    ? '0 3px 12px rgba(181,127,80,0.75)'
+    : '0 2px 6px rgba(0,0,0,0.35)'
+  const scale = state === 'active' ? 1.15 : 1
+  const bounce = state === 'hover' ? 'marker-bounce' : ''
   return L.divIcon({
-    className: extraClass,
+    className: bounce,
     html: `<div style="
-      width:${size}px;height:${size}px;border-radius:50% 50% 50% 0;
-      background:${bg};border:${border};
-      transform:rotate(-45deg);
+      display:inline-flex;align-items:center;gap:3px;
+      background:${bg};border:${border};border-radius:20px;
       box-shadow:${shadow};
-      display:flex;align-items:center;justify-content:center;
-    "><div style="width:${dotSize}px;height:${dotSize}px;border-radius:50%;background:white;transform:rotate(45deg)"></div></div>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size],
-    popupAnchor: [0, -(size + 2)],
+      padding:3px 7px 3px 5px;
+      font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:white;
+      white-space:nowrap;
+      transform:scale(${scale});transform-origin:bottom center;
+      transition:transform 0.15s;
+    "><span style="font-size:10px;line-height:1">★</span>${label}</div>`,
+    iconSize: [44, 24],
+    iconAnchor: [22, 24],
+    popupAnchor: [0, -28],
   })
 }
-
-const restaurantIcon       = makeIcon(32, '#B57F50', '2px solid white', '0 2px 6px rgba(0,0,0,0.35)', 8)
-const restaurantIconActive = makeIcon(36, '#c8934f', '3px solid white', '0 2px 10px rgba(181,127,80,0.7)', 9)
-const restaurantIconHover  = makeIcon(32, '#B57F50', '2px solid white', '0 2px 6px rgba(0,0,0,0.35)', 8, 'marker-bounce')
 
 const userIcon = L.divIcon({
   className: '',
@@ -74,6 +81,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
+  const ratingsRef = useRef<Record<string, number | null>>({})
   const [ready, setReady] = useState(false)
 
   // Inject bounce CSS once
@@ -130,10 +138,13 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
 
     Object.values(markersRef.current).forEach(m => m.remove())
     markersRef.current = {}
+    ratingsRef.current = {}
 
     restaurants.forEach((r) => {
       if (!r.latitude || !r.longitude) return
-      const icon = r.slug === selectedSlug ? restaurantIconActive : restaurantIcon
+      const state = r.slug === selectedSlug ? 'active' : 'default'
+      const icon = makeRatingIcon(r.rating, state)
+      ratingsRef.current[r.slug] = r.rating
       const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
         .addTo(map)
         .bindPopup(`
@@ -166,7 +177,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
   useEffect(() => {
     if (!ready || !mapRef.current || !selectedSlug) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
-      marker.setIcon(slug === selectedSlug ? restaurantIconActive : restaurantIcon)
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === selectedSlug ? 'active' : 'default'))
     })
     const active = markersRef.current[selectedSlug]
     if (active) {
@@ -180,7 +191,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     if (!ready) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
       if (slug === selectedSlug) return // active marker takes priority
-      marker.setIcon(slug === hoveredSlug ? restaurantIconHover : restaurantIcon)
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === hoveredSlug ? 'hover' : 'default'))
     })
   }, [hoveredSlug, selectedSlug, ready])
 
