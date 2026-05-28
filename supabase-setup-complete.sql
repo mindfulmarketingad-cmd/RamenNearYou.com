@@ -429,3 +429,23 @@ CREATE INDEX IF NOT EXISTS restaurant_edits_slug_idx
   ON public.restaurant_edits (restaurant_slug);
 
 ALTER TABLE public.restaurant_edits ENABLE ROW LEVEL SECURITY;
+
+-- ─── claim_subscriptions ─────────────────────────────────────
+-- Tracks paid $19.99/month Stripe subscriptions for listing claims.
+
+CREATE TABLE IF NOT EXISTS public.claim_subscriptions (
+  id                     uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  restaurant_slug        text NOT NULL,
+  customer_email         text NOT NULL,
+  stripe_customer_id     text,
+  stripe_subscription_id text,
+  status                 text NOT NULL DEFAULT 'active',
+  created_at             timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS claim_subscriptions_slug_idx
+  ON public.claim_subscriptions (restaurant_slug);
+CREATE INDEX IF NOT EXISTS claim_subscriptions_email_idx
+  ON public.claim_subscriptions (customer_email);
+
+ALTER TABLE public.claim_subscriptions ENABLE ROW LEVEL SECURITY;
