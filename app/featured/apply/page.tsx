@@ -26,7 +26,7 @@ export default async function FeaturedApplyPage({
             Put Your Restaurant on the Map
           </h1>
           <p className="text-[#6B6862] leading-relaxed max-w-2xl mx-auto">
-            Claim your existing listing for free, or boost your visibility with a city or homepage featured placement in front of thousands of ramen lovers every month.
+            Claim your listing for $19.99/month, or boost your visibility with a city or homepage featured placement in front of thousands of ramen lovers every month.
           </p>
         </div>
 
