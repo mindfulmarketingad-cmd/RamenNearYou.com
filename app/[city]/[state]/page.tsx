@@ -1,7 +1,8 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { MapPin, ChevronRight, Map, Star, Navigation, Instagram } from 'lucide-react'
 import { getRestaurantsByCity, getCities, getNearbyCities } from '@/lib/restaurants'
+import { getPerfectFor } from '@/lib/perfect-for'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import CityRestaurantGrid from '@/components/city-restaurant-grid'
@@ -11,7 +12,9 @@ import type { MapCard } from '@/components/blog-scroll-map'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
-  return getCities().map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  return getCities()
+    .filter((c) => c.count > 1)
+    .map((c) => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string }> }) {
@@ -38,6 +41,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const { city, state } = await params
   const restaurants = getRestaurantsByCity(city, state)
   if (!restaurants.length) notFound()
+  if (restaurants.length === 1) redirect('/')
 
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
@@ -69,6 +73,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       : [],
     lat: r.latitude ?? null,
     lng: r.longitude ?? null,
+    perfectFor: getPerfectFor(r),
   }))
 
   const supabase = await createClient()

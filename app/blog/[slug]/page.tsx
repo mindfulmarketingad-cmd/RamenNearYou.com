@@ -10,6 +10,7 @@ import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
+import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -139,6 +140,7 @@ export default async function BlogPostPage({ params }: Props) {
           tags: card.tags,
           lat: r?.latitude ?? null,
           lng: r?.longitude ?? null,
+          perfectFor: r ? getPerfectFor(r) : undefined,
         }
       })
     : []
@@ -210,7 +212,10 @@ export default async function BlogPostPage({ params }: Props) {
               </h1>
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
-                <div className="flex items-center gap-2.5">
+                <Link
+                  href={`/authors/${slugifyAuthor(post.author.name)}`}
+                  className="inline-flex items-center gap-2.5 group"
+                >
                   <Image
                     src={post.author.avatar}
                     alt={post.author.name}
@@ -220,10 +225,10 @@ export default async function BlogPostPage({ params }: Props) {
                     unoptimized
                   />
                   <div>
-                    <p className="text-sm font-medium text-[#1E2026]">{post.author.name}</p>
-                    <p className="text-xs text-[#6B6862]/60">{post.date}</p>
+                    <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#B57F50] transition-colors">{post.author.name}</p>
+                    <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
                   </div>
-                </div>
+                </Link>
               )}
             </header>
 
@@ -243,6 +248,22 @@ export default async function BlogPostPage({ params }: Props) {
               className="prose-ramen"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+
+            {hasCards && (
+              <section className="mt-10 mb-6 bg-[#F5F4F0] border border-black/5 rounded-2xl p-6 sm:p-8">
+                <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-3">
+                  How we ranked these restaurants
+                </h2>
+                <p className="text-[#6B6862] text-sm leading-relaxed">
+                  We ranked these {enrichedCards.length} spots by analyzing the sentiment of their
+                  Google reviews — reading what real diners said about the broth, noodles, service,
+                  and overall experience, not just star averages. Restaurants that consistently drew
+                  praise for ramen quality across hundreds of reviews ranked highest. Review count,
+                  recency, and recurring criticism (long waits, watery broth, inconsistent service)
+                  were all factored in to surface the spots locals actually keep coming back to.
+                </p>
+              </section>
+            )}
 
             {hasCards && (
               <BlogScrollMapWrapper cards={enrichedCards} listHeading={post.listHeading} />
