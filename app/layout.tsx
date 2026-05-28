@@ -19,7 +19,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ramennearyou.com'),
   title: {
-    default: 'Ramen Near Me: Find Ramen Spots and Restaurants Near Me',
+    default: 'Ramen Near Me: Best Ramen Directory Map Database Online',
     template: '%s | Ramen Near You',
   },
   description:
