@@ -29,28 +29,49 @@ export async function POST(request: Request) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session
     const listing_id = session.metadata?.listing_id
-    if (!listing_id) return NextResponse.json({ ok: true })
+    const restaurantSlug = session.client_reference_id
 
-    await admin
-      .from('featured_listings')
-      .update({
-        status: 'active',
-        stripe_customer_id: session.customer as string,
-        stripe_subscription_id: session.subscription as string,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', listing_id)
+    if (listing_id) {
+      // Featured listing subscription
+      await admin
+        .from('featured_listings')
+        .update({
+          status: 'active',
+          stripe_customer_id: session.customer as string,
+          stripe_subscription_id: session.subscription as string,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', listing_id)
+    } else if (restaurantSlug) {
+      // Claim subscription ($19.99/month)
+      await admin
+        .from('claim_subscriptions')
+        .upsert({
+          restaurant_slug: restaurantSlug,
+          customer_email: session.customer_email ?? '',
+          stripe_customer_id: session.customer as string,
+          stripe_subscription_id: session.subscription as string,
+          status: 'active',
+        }, { onConflict: 'restaurant_slug,customer_email' })
+    }
   }
 
   if (event.type === 'customer.subscription.deleted' || event.type === 'customer.subscription.paused') {
     const sub = event.data.object as Stripe.Subscription
     const listing_id = sub.metadata?.listing_id
-    if (!listing_id) return NextResponse.json({ ok: true })
 
-    await admin
-      .from('featured_listings')
-      .update({ status: 'cancelled', updated_at: new Date().toISOString() })
-      .eq('id', listing_id)
+    if (listing_id) {
+      await admin
+        .from('featured_listings')
+        .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+        .eq('id', listing_id)
+    } else {
+      // Could be a claim subscription cancellation — update by subscription ID
+      await admin
+        .from('claim_subscriptions')
+        .update({ status: 'cancelled' })
+        .eq('stripe_subscription_id', sub.id)
+    }
   }
 
   return NextResponse.json({ ok: true })
