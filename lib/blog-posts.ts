@@ -8895,19 +8895,448 @@ const veganSacramentoTop10: RestaurantCard[] = [
   },
 ]
 
+const veganHoustonTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Verdine',
+    rating: 4.6,
+    reviewCount: 1342,
+    address: '1923 Washington Ave, Houston, TX 77007',
+    phone: '+1 713-581-4800',
+    description: "Houston's most celebrated plant-based restaurant in the Heights corridor. Verdine serves an entirely vegan menu of globally inspired dishes — cauliflower steaks, cashew cream risotto, smoked mushroom tacos — in a warm, welcoming space. The highest-rated dedicated vegan restaurant in Houston.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'verdine-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Global', 'Heights'],
+  },
+  {
+    rank: 2,
+    name: 'Radical Eats',
+    rating: 4.6,
+    reviewCount: 987,
+    address: '319 W Alabama St, Houston, TX 77006',
+    phone: '+1 713-942-0008',
+    description: "Montrose's beloved casual vegan counter serving creative plant-based sandwiches, bowls, and daily specials. Radical Eats has built a loyal following for its bold flavors, generous portions, and scratch-made vegan cooking. The top choice for Houston vegans seeking quality without fine dining prices.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'radical-eats-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Casual', 'Montrose'],
+  },
+  {
+    rank: 3,
+    name: 'Pepper Tree Café',
+    rating: 4.5,
+    reviewCount: 1876,
+    address: '8327 Southwest Fwy, Houston, TX 77074',
+    phone: '+1 713-988-9999',
+    description: "Houston's premier Chinese Buddhist vegetarian restaurant with an entirely plant-based menu. Pepper Tree Café's mock-meat dishes, tofu preparations, and vegetable stir-fries are executed with traditional Chinese technique. One of Houston's most dependable vegan institutions for over two decades.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pepper-tree-cafe-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+  },
+  {
+    rank: 4,
+    name: 'Butterfly Plant Kitchen',
+    rating: 4.6,
+    reviewCount: 712,
+    address: '2203 S Shepherd Dr, Houston, TX 77019',
+    phone: '+1 713-999-8124',
+    description: 'A vibrant plant-based kitchen in Upper Kirby serving colorful, nutrient-dense vegan meals. Butterfly Plant Kitchen specializes in bright bowls, wraps, and smoothies made from locally sourced produce. Their photogenic presentation and consistently fresh ingredients make it one of Houston\'s fastest-growing vegan spots.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'butterfly-plant-kitchen-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Bowls', 'Upper Kirby'],
+  },
+  {
+    rank: 5,
+    name: 'Sinfull Bakery',
+    rating: 4.7,
+    reviewCount: 1203,
+    address: '5765 Woodway Dr #115, Houston, TX 77057',
+    phone: '+1 832-767-0399',
+    description: "Houston's top vegan bakery and dessert destination. Sinfull Bakery produces stunning plant-based cakes, cookies, cupcakes, and savory pastries with no animal products. A 4.7-star rating across over 1,200 reviews makes it the highest-rated vegan establishment in the Houston metro.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sinfull-bakery-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Bakery', 'Desserts'],
+  },
+  {
+    rank: 6,
+    name: 'Loving Hut Houston',
+    rating: 4.4,
+    reviewCount: 1567,
+    address: '9889 Bellaire Blvd #118, Houston, TX 77036',
+    phone: '+1 713-773-8868',
+    description: "Houston's Chinatown location of the international vegan chain. Loving Hut serves an expansive pan-Asian vegan menu — pho, rice plates, mock meats, and noodle bowls — at prices that make plant-based eating accessible. One of Houston's most-reviewed vegan restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'loving-hut-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Asian', 'Chinatown'],
+  },
+  {
+    rank: 7,
+    name: 'May Lee Restaurant',
+    rating: 4.4,
+    reviewCount: 2341,
+    address: '5966 Westheimer Rd, Houston, TX 77057',
+    phone: '+1 713-780-5888',
+    description: "A Galleria-area Vietnamese restaurant with one of Houston's most extensive vegan sections. May Lee offers a separate vegan menu covering pho, vermicelli bowls, banh mi, and stir-fries with plant-based proteins. Over 2,300 reviews confirm it as a Houston institution.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'may-lee-restaurant-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Vietnamese', 'Galleria'],
+  },
+  {
+    rank: 8,
+    name: 'Kale Me Crazy',
+    rating: 4.5,
+    reviewCount: 891,
+    address: '2413 Rice Blvd, Houston, TX 77005',
+    phone: '+1 832-649-5253',
+    description: "Rice Village's health-focused plant-based cafe serving fresh juices, smoothie bowls, grain bowls, and raw vegan meals. Kale Me Crazy caters to Rice University students and health-conscious Houstonians looking for nutritious, flavorful plant-based food near the Museum District.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kale-me-crazy-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Health Food', 'Rice Village'],
+  },
+  {
+    rank: 9,
+    name: 'Local Foods',
+    rating: 4.5,
+    reviewCount: 3102,
+    address: '2424 Dunstan Rd, Houston, TX 77005',
+    phone: '+1 713-521-7800',
+    description: "Rice Village's beloved farm-to-table cafe with a strong vegan menu sourced from Texas farms. Local Foods rotates its seasonal menu around what's fresh and local — grain bowls, roasted vegetable plates, and vegan soups showcase the best of Texas produce. Over 3,000 reviews make it one of Houston's most trusted neighborhood restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'local-foods-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Farm-to-Table', 'Rice Village'],
+  },
+  {
+    rank: 10,
+    name: 'Nori Handroll Bar',
+    rating: 4.6,
+    reviewCount: 2187,
+    address: '2216 Portsmouth St, Houston, TX 77098',
+    phone: '+1 713-993-9008',
+    description: "Upper Kirby's sleek Japanese handroll bar with outstanding vegan options. Nori serves meticulously crafted temaki with a dedicated plant-based selection — avocado, cucumber, shiitake, and seasonal vegetables wrapped in crispy nori. The best vegan Japanese dining experience in Houston.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'nori-handroll-bar-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Japanese', 'Upper Kirby'],
+  },
+]
+
+const veganDuluthTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Café Sunflower',
+    rating: 4.6,
+    reviewCount: 2891,
+    address: '5975 Roswell Rd NE, Atlanta, GA 30328',
+    phone: '+1 404-256-1675',
+    description: "The Atlanta metro's most acclaimed vegetarian and vegan restaurant, serving the Sandy Springs area since 1993. Café Sunflower's globally inspired plant-based menu — pastas, stir-fries, curries, and creative entrees — is beloved by vegans and omnivores alike. One of the South's defining vegan dining institutions.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-sunflower-sandy-springs',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Vegetarian', 'Atlanta Metro'],
+  },
+  {
+    rank: 2,
+    name: 'Zyka Indian Cuisine',
+    rating: 4.5,
+    reviewCount: 1678,
+    address: '1677 Scott Blvd, Decatur, GA 30033',
+    phone: '+1 404-370-0610',
+    description: "The Gwinnett area's most celebrated South Indian vegetarian restaurant. Zyka serves entirely vegetarian South Indian cuisine — dosas, idli, sambar, and thali — with an extensive vegan menu. An authentic taste of Tamil Nadu cuisine in the Atlanta metro.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'zyka-indian-cuisine-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'South Indian', 'Vegetarian'],
+  },
+  {
+    rank: 3,
+    name: 'Desi District',
+    rating: 4.5,
+    reviewCount: 1203,
+    address: '1905 Satellite Blvd #400, Duluth, GA 30097',
+    phone: '+1 770-622-5557',
+    description: "Duluth's upscale Indian restaurant with extensive vegan and vegetarian options. Desi District serves a refined menu of North and South Indian dishes — creamy dals, vegetable biryanis, and freshly baked naan — in a modern Gwinnett County setting.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'desi-district-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Indian', 'Duluth'],
+  },
+  {
+    rank: 4,
+    name: 'Green Sprout',
+    rating: 4.5,
+    reviewCount: 987,
+    address: '1057 Peachtree Industrial Blvd, Suwanee, GA 30024',
+    phone: '+1 770-614-9050',
+    description: "A Chinese Buddhist vegetarian restaurant serving the Duluth and Suwanee communities with an entirely plant-based menu. Green Sprout's mock-meat dishes, tofu preparations, and vegetable stir-fries are executed with authentic Chinese technique. A fixture of Gwinnett County's vegan scene.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'green-sprout-suwanee',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+  },
+  {
+    rank: 5,
+    name: 'Pho Bac Sup Shop',
+    rating: 4.5,
+    reviewCount: 2109,
+    address: '3280 Buford Hwy NE, Atlanta, GA 30329',
+    phone: '+1 404-549-9567',
+    description: "A modern Vietnamese restaurant along Buford Highway serving excellent vegan pho and noodle bowls. Pho Bac Sup Shop prepares clean, aromatic broths with plant-based proteins and fresh herbs. Their vegan pho is consistently praised as some of the best in the Atlanta metro area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pho-bac-sup-shop-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Vietnamese', 'Buford Highway'],
+  },
+  {
+    rank: 6,
+    name: 'Goin\' Bananas',
+    rating: 4.5,
+    reviewCount: 1203,
+    address: '3944 Covington Hwy, Decatur, GA 30032',
+    phone: '+1 404-286-2002',
+    description: "A beloved Jamaican restaurant in the Decatur area with an extensive vegan section. Goin' Bananas serves plant-based Jamaican dishes — jerk jackfruit, callaloo, rice and peas, and fresh fruit smoothies — that deliver genuine Caribbean flavor without animal products.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'goin-bananas-decatur',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Jamaican', 'Caribbean'],
+  },
+  {
+    rank: 7,
+    name: 'Madras Saravana Bhavan',
+    rating: 4.4,
+    reviewCount: 1892,
+    address: '2179 Pleasant Hill Rd #112, Duluth, GA 30096',
+    phone: '+1 678-541-8900',
+    description: "The Duluth location of the world-famous South Indian vegetarian chain. Madras Saravana Bhavan serves authentic Chennai-style dosas, idli, vadai, and thali that are largely vegan-adaptable. The gold standard for South Indian vegetarian dining in Gwinnett County.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'madras-saravana-bhavan-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegetarian', 'South Indian', 'Duluth'],
+  },
+  {
+    rank: 8,
+    name: 'Tuk Tuk Thai Food Loft',
+    rating: 4.5,
+    reviewCount: 3412,
+    address: '1745 Peachtree St NE #2, Atlanta, GA 30309',
+    phone: '+1 404-347-2700',
+    description: "Atlanta's acclaimed modern Thai restaurant with an extensive plant-based menu. Tuk Tuk Thai Food Loft serves creative Thai dishes with vegan adaptations — coconut curries, tofu larb, and pad thai — alongside an innovative cocktail program. A top pick for vegan diners in the greater Atlanta area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'tuk-tuk-thai-food-loft-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Thai', 'Atlanta'],
+  },
+  {
+    rank: 9,
+    name: 'Antico Pizza Napoletana',
+    rating: 4.6,
+    reviewCount: 4231,
+    address: '1093 Hemphill Ave NW, Atlanta, GA 30318',
+    phone: '+1 404-724-2333',
+    description: "Atlanta's legendary Neapolitan pizzeria with an outstanding vegan marinara pizza. Antico uses premium imported ingredients and a wood-fired oven to produce pizzas with crispy, charred crusts. Their marinara (no cheese) is naturally vegan and one of the best slices in the South.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'antico-pizza-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Italian', 'Pizza'],
+  },
+  {
+    rank: 10,
+    name: 'Kaleidoscope Juice',
+    rating: 4.6,
+    reviewCount: 678,
+    address: '6125 Peachtree Pkwy #200, Peachtree Corners, GA 30092',
+    phone: '+1 770-409-1900',
+    description: "A plant-based juice bar and health cafe in Peachtree Corners serving the Duluth community. Kaleidoscope Juice presses cold-pressed juices, smoothie bowls, and vegan snacks from local produce. The most health-focused vegan dining option in the immediate Duluth/Gwinnett area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kaleidoscope-juice-peachtree-corners',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Juice Bar', 'Health Food'],
+  },
+]
+
+const veganLasVegasTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'VegeNation',
+    rating: 4.6,
+    reviewCount: 2341,
+    address: '616 E Carson Ave, Las Vegas, NV 89101',
+    phone: '+1 702-366-9977',
+    description: "Downtown Las Vegas's flagship vegan restaurant. VegeNation serves an eclectic, globally inspired menu of creative vegan comfort food — smashed burgers, loaded nachos, grain bowls, and seasonal specials — in a vibrant, welcoming space. The undisputed top vegan restaurant in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'vegenation-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Downtown', 'Comfort Food'],
+  },
+  {
+    rank: 2,
+    name: 'Tacotarian',
+    rating: 4.5,
+    reviewCount: 3102,
+    address: '9480 S Eastern Ave #130, Henderson, NV 89002',
+    phone: '+1 702-973-1732',
+    description: "Las Vegas's beloved plant-based Mexican taco restaurant with multiple valley locations. Tacotarian serves entirely vegan tacos, burritos, and Mexican street food — al pastor jackfruit, beer-battered cauliflower, birria-style mushrooms — in a festive atmosphere. The most-reviewed vegan restaurant in the Las Vegas area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'tacotarian-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Mexican', 'Tacos'],
+  },
+  {
+    rank: 3,
+    name: 'Bad Apple Bar + Food',
+    rating: 4.5,
+    reviewCount: 1876,
+    address: '1240 S Maryland Pkwy, Las Vegas, NV 89104',
+    phone: '+1 702-331-1100',
+    description: "Las Vegas's most popular plant-based bar and restaurant, serving indulgent vegan comfort food alongside craft cocktails. Bad Apple's menu of smash burgers, loaded fries, wings, and cheesesteaks — all entirely plant-based — makes it the top choice for vegans who don't want to sacrifice flavor or fun.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'bad-apple-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Bar', 'Comfort Food'],
+  },
+  {
+    rank: 4,
+    name: 'Simply Pure',
+    rating: 4.5,
+    reviewCount: 1234,
+    address: 'The LINQ Promenade, 3545 S Las Vegas Blvd, Las Vegas, NV 89109',
+    phone: '+1 702-471-7873',
+    description: "Strip-adjacent plant-based dining at The LINQ Promenade. Simply Pure serves organic, vegan smoothies, bowls, wraps, and small plates in one of the most accessible locations near the Las Vegas Strip. The best option for vegan tourists seeking quality plant-based food close to major hotels.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'simply-pure-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Organic', 'Strip Adjacent'],
+  },
+  {
+    rank: 5,
+    name: 'Veggie House',
+    rating: 4.4,
+    reviewCount: 1987,
+    address: '3441 S Jones Blvd #4, Las Vegas, NV 89146',
+    phone: '+1 702-431-8288',
+    description: "Las Vegas's Chinese Buddhist vegetarian restaurant with an entirely plant-based menu. Veggie House's mock-meat preparations, tofu dishes, and vegetable stir-fries use traditional Chinese techniques to create deeply satisfying plant-based meals. A fixture of the local vegan community for over a decade.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'veggie-house-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+  },
+  {
+    rank: 6,
+    name: 'The Juice Standard',
+    rating: 4.6,
+    reviewCount: 1102,
+    address: '6345 S Rainbow Blvd #103, Las Vegas, NV 89118',
+    phone: '+1 702-541-0303',
+    description: "Las Vegas's premier cold-pressed juice bar and plant-based cafe. The Juice Standard serves fresh-pressed juices, acai bowls, vegan sandwiches, and raw plant-based meals made daily from organic produce. A 4.6-star rating makes it one of the highest-rated plant-based spots in the valley.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'juice-standard-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Juice Bar', 'Organic'],
+  },
+  {
+    rank: 7,
+    name: 'Esther\'s Kitchen',
+    rating: 4.6,
+    reviewCount: 3891,
+    address: '1130 S Casino Center Blvd, Las Vegas, NV 89104',
+    phone: '+1 702-570-7864',
+    description: "Downtown Las Vegas's beloved Arts District Italian restaurant with an outstanding plant-based menu. Esther's Kitchen sources locally and makes everything from scratch — pasta dishes, wood-fired vegetables, and vegan antipasti are among the finest plant-based Italian food in Nevada. A 4.6-star rating across nearly 4,000 reviews.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'esthers-kitchen-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Italian', 'Arts District'],
+  },
+  {
+    rank: 8,
+    name: 'Café Vettro',
+    rating: 4.4,
+    reviewCount: 891,
+    address: '7865 W Sahara Ave #101, Las Vegas, NV 89117',
+    phone: '+1 702-476-0400',
+    description: "A charming vegan-friendly Mediterranean cafe in the western valley. Café Vettro serves light, plant-forward Mediterranean dishes — hummus platters, falafel, stuffed grape leaves, and seasonal salads — in a relaxed neighborhood atmosphere. One of Las Vegas's best options for casual vegan Mediterranean dining.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-vettro-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Mediterranean', 'Cafe'],
+  },
+  {
+    rank: 9,
+    name: 'Kung Fu Thai & Chinese',
+    rating: 4.4,
+    reviewCount: 2876,
+    address: '3505 S Valley View Blvd, Las Vegas, NV 89103',
+    phone: '+1 702-247-4120',
+    description: "Las Vegas's long-running Chinese and Thai restaurant with an extensive vegetarian and vegan menu. Kung Fu serves tofu-based dishes, vegetable stir-fries, mock-meat preparations, and vegan Thai curries with consistent quality. A reliable, affordable option for plant-based Asian food in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kung-fu-thai-chinese-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Chinese', 'Thai'],
+  },
+  {
+    rank: 10,
+    name: 'Herbs & Rye',
+    rating: 4.5,
+    reviewCount: 4312,
+    address: '3713 W Sahara Ave, Las Vegas, NV 89102',
+    phone: '+1 702-982-8036',
+    description: "Las Vegas's acclaimed late-night cocktail bar and kitchen with serious plant-based options. Herbs & Rye is open until 3 AM and serves sophisticated small plates including an outstanding selection of vegetable-forward vegan dishes. The best option for upscale vegan late-night dining in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'herbs-and-rye-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Bar', 'Late Night'],
+  },
+]
+
 // ─── Vegan City Guide Blog Posts ─────────────────────────────────────────────
 
 blogPosts.push({
-  slug: '10-best-vegan-restaurants-in-detroit-michigan',
-  title: '10 Best Vegan Restaurants In Detroit, Michigan',
-  h1: '10 Best Vegan Restaurants In Detroit, Michigan',
+  slug: 'best-vegan-restaurants-in-detroit-michigan',
+  title: 'Best Vegan Restaurants In Detroit, Michigan',
+  h1: 'Best Vegan Restaurants In Detroit, Michigan',
   description: 'Discover the 10 best vegan restaurants in Detroit, Michigan — from Detroit Vegan Soul\'s plant-based soul food to Ima Noodles\' housemade vegan ramen. Our ranked guide covers every neighborhood and every budget.',
   date: 'May 29, 2026',
   readTime: '5 min read',
   category: 'City Guides',
   headerImage: '/images/hero-ramen.jpg',
   author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
-  listHeading: '10 Best Vegan Restaurants In Detroit, Michigan',
+  listHeading: 'Best Vegan Restaurants In Detroit, Michigan',
   content: `<p>The 10 best vegan restaurants in Detroit, Michigan are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Detroit has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Detroit, Michigan deliver incredible flavor without compromising on quality.</p>
 
 <h2>Detroit's Vegan Food Scene: What to Expect</h2>
@@ -8939,16 +9368,16 @@ blogPosts.push({
 })
 
 blogPosts.push({
-  slug: '10-best-vegan-restaurants-in-los-angeles-california',
-  title: '10 Best Vegan Restaurants In Los Angeles, California',
-  h1: '10 Best Vegan Restaurants In Los Angeles, California',
+  slug: 'best-vegan-restaurants-in-los-angeles-california',
+  title: 'Best Vegan Restaurants In Los Angeles, California',
+  h1: 'Best Vegan Restaurants In Los Angeles, California',
   description: 'Looking for the best vegan restaurants in Los Angeles? We ranked the top 10 — from Gracias Madre\'s plant-based Mexican in West Hollywood to Shojin\'s Japanese vegan sushi in Little Tokyo. LA\'s definitive vegan dining guide.',
   date: 'May 29, 2026',
   readTime: '5 min read',
   category: 'City Guides',
   headerImage: '/images/hero-ramen.jpg',
   author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
-  listHeading: '10 Best Vegan Restaurants In Los Angeles, California',
+  listHeading: 'Best Vegan Restaurants In Los Angeles, California',
   content: `<p>The 10 best vegan restaurants in Los Angeles, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Los Angeles has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Los Angeles, California deliver incredible flavor without compromising on quality.</p>
 
 <h2>Los Angeles: The Vegan Capital of America</h2>
@@ -8981,16 +9410,16 @@ blogPosts.push({
 })
 
 blogPosts.push({
-  slug: '10-best-vegan-restaurants-in-honolulu-hawaii',
-  title: '10 Best Vegan Restaurants In Honolulu, Hawaii',
-  h1: '10 Best Vegan Restaurants In Honolulu, Hawaii',
+  slug: 'best-vegan-restaurants-in-honolulu-hawaii',
+  title: 'Best Vegan Restaurants In Honolulu, Hawaii',
+  h1: 'Best Vegan Restaurants In Honolulu, Hawaii',
   description: 'Find the best vegan restaurants in Honolulu, Hawaii — from Ai Love Nalo\'s farm-driven Hawaiian vegan cuisine to The Beet Box Cafe on the North Shore. Our ranked guide to plant-based dining on Oahu.',
   date: 'May 29, 2026',
   readTime: '5 min read',
   category: 'City Guides',
   headerImage: '/images/hero-ramen.jpg',
   author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
-  listHeading: '10 Best Vegan Restaurants In Honolulu, Hawaii',
+  listHeading: 'Best Vegan Restaurants In Honolulu, Hawaii',
   content: `<p>The 10 best vegan restaurants in Honolulu, Hawaii are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Honolulu has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Honolulu, Hawaii deliver incredible flavor without compromising on quality.</p>
 
 <h2>Vegan Dining in Honolulu: What Makes It Special</h2>
@@ -9022,16 +9451,16 @@ blogPosts.push({
 })
 
 blogPosts.push({
-  slug: '10-best-vegan-restaurants-in-san-francisco-california',
-  title: '10 Best Vegan Restaurants In San Francisco, California',
-  h1: '10 Best Vegan Restaurants In San Francisco, California',
+  slug: 'best-vegan-restaurants-in-san-francisco-california',
+  title: 'Best Vegan Restaurants In San Francisco, California',
+  h1: 'Best Vegan Restaurants In San Francisco, California',
   description: 'Discover the 10 best vegan restaurants in San Francisco, California — from Shizen\'s vegan Japanese sushi to Gracias Madre\'s plant-based Mexican. SF\'s definitive plant-based dining guide.',
   date: 'May 29, 2026',
   readTime: '5 min read',
   category: 'City Guides',
   headerImage: '/images/hero-ramen.jpg',
   author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
-  listHeading: '10 Best Vegan Restaurants In San Francisco, California',
+  listHeading: 'Best Vegan Restaurants In San Francisco, California',
   content: `<p>The 10 best vegan restaurants in San Francisco, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, San Francisco has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in San Francisco, California deliver incredible flavor without compromising on quality.</p>
 
 <h2>San Francisco's Vegan Restaurant Scene</h2>
@@ -9064,16 +9493,16 @@ blogPosts.push({
 })
 
 blogPosts.push({
-  slug: '10-best-vegan-restaurants-in-sacramento-california',
-  title: '10 Best Vegan Restaurants In Sacramento, California',
-  h1: '10 Best Vegan Restaurants In Sacramento, California',
+  slug: 'best-vegan-restaurants-in-sacramento-california',
+  title: 'Best Vegan Restaurants In Sacramento, California',
+  h1: 'Best Vegan Restaurants In Sacramento, California',
   description: 'Find the best vegan restaurants in Sacramento, California — from Pushkin\'s allergy-free vegan bakery to Mother\'s innovative plant-based kitchen. Sacramento\'s definitive vegan dining guide.',
   date: 'May 29, 2026',
   readTime: '5 min read',
   category: 'City Guides',
   headerImage: '/images/hero-ramen.jpg',
   author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
-  listHeading: '10 Best Vegan Restaurants In Sacramento, California',
+  listHeading: 'Best Vegan Restaurants In Sacramento, California',
   content: `<p>The 10 best vegan restaurants in Sacramento, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Sacramento has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Sacramento, California deliver incredible flavor without compromising on quality.</p>
 
 <h2>Sacramento's Farm-to-Fork Vegan Scene</h2>
@@ -9103,6 +9532,131 @@ blogPosts.push({
 
 <h3>Where can I find affordable vegan food in Sacramento?</h3>
 <p><strong>Sunflower Drive-In</strong> (2345 Fair Oaks Blvd, 4.5 stars) is Sacramento's best affordable vegan restaurant, serving big portions of plant-based comfort food at low prices for over 25 years. <strong>Karma Brew</strong> in Midtown is the top pick for affordable vegan coffee and light meals.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-houston-texas',
+  title: 'Best Vegan Restaurants In Houston, Texas',
+  h1: 'Best Vegan Restaurants In Houston, Texas',
+  description: "Find the best vegan restaurants in Houston, Texas — from Verdine's globally inspired plant-based kitchen in the Heights to Sinfull Bakery's award-winning vegan desserts. Houston's definitive plant-based dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Houston, Texas',
+  content: `<p>The best vegan restaurants in Houston, Texas are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Houston has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Houston, Texas deliver incredible flavor without compromising on quality.</p>
+
+<h2>Houston's Vegan Dining Scene: What to Expect</h2>
+<p>Houston is the most diverse city in America — and its vegan restaurant scene reflects that richness. From the Heights' creative plant-based kitchens to Montrose's casual vegan counters, Chinatown's Chinese Buddhist vegetarian restaurants, and the Galleria area's Vietnamese spots with dedicated vegan menus, Houston offers plant-based dining across every cuisine and price point. These restaurants represent the best vegan food Houston, Texas has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Houston by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Houston:</strong> Verdine (4.6 stars, Heights)</li>
+  <li><strong>Best vegan bakery in Houston:</strong> Sinfull Bakery (4.7 stars)</li>
+  <li><strong>Best casual vegan in Houston:</strong> Radical Eats (4.6 stars, Montrose)</li>
+  <li><strong>Best Chinese vegan in Houston:</strong> Pepper Tree Café (4.5 stars)</li>
+  <li><strong>Best vegan Vietnamese in Houston:</strong> May Lee Restaurant (4.4 stars, 2,341 reviews)</li>
+  <li><strong>Best vegan Japanese in Houston:</strong> Nori Handroll Bar (4.6 stars, Upper Kirby)</li>
+  <li><strong>Best affordable vegan in Houston:</strong> Loving Hut Chinatown (4.4 stars)</li>
+</ul>`,
+  restaurantCards: veganHoustonTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Houston, Texas</h2>
+<p>Houston's vegan dining scene is as diverse as the city itself. We love starting at Verdine for the most creative plant-based cooking in the city, heading to Sinfull Bakery for Houston's finest vegan desserts, and exploring the city's rich Asian vegan dining scene at Pepper Tree Café, May Lee, and Loving Hut. Whatever neighborhood you're in, these restaurants deliver the best vegan food Houston has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Houston, Texas</h2>
+
+<h3>What is the best vegan restaurant in Houston, Texas?</h3>
+<p>The best vegan restaurant in Houston, Texas is <strong>Verdine</strong> (1923 Washington Ave) with a 4.6-star rating — the highest-rated dedicated plant-based restaurant in the city. For vegan desserts and baked goods, <strong>Sinfull Bakery</strong> (4.7 stars) is Houston's top-rated vegan establishment overall. For casual vegan comfort food, <strong>Radical Eats</strong> in Montrose is the local favorite.</p>
+
+<h3>Is there vegan ramen in Houston?</h3>
+<p>Yes — Houston has several ramen restaurants with vegan broth options. For the best vegan noodle experience in Houston, <strong>Nori Handroll Bar</strong> (Upper Kirby) serves excellent plant-based Japanese rolls and noodles. Houston's many Vietnamese restaurants — including <strong>May Lee</strong> on Westheimer — also serve excellent vegan pho near you.</p>
+
+<h3>Where can I find Chinese vegan food near me in Houston?</h3>
+<p><strong>Pepper Tree Café</strong> (8327 Southwest Fwy) is Houston's best Chinese Buddhist vegetarian restaurant, with an entirely plant-based menu. <strong>Loving Hut</strong> (9889 Bellaire Blvd) in Houston's Chinatown is the most accessible and affordable option for pan-Asian vegan food in the city.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-duluth-georgia',
+  title: 'Best Vegan Restaurants In Duluth, Georgia',
+  h1: 'Best Vegan Restaurants In Duluth, Georgia',
+  description: "Discover the best vegan restaurants in Duluth, Georgia — from Café Sunflower's iconic plant-based menu to Desi District's Indian vegan cuisine in Gwinnett County. Duluth's definitive vegan dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Duluth, Georgia',
+  content: `<p>The best vegan restaurants in Duluth, Georgia are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Duluth has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Duluth, Georgia deliver incredible flavor without compromising on quality.</p>
+
+<h2>Duluth's Vegan Food Scene: What to Expect</h2>
+<p>Duluth, Georgia sits in Gwinnett County — one of the most diverse counties in America — and the local dining scene reflects that richness. The area is known for exceptional South Indian vegetarian restaurants, Chinese Buddhist vegetarian kitchens, and an increasingly strong farm-to-table vegan presence. From Duluth proper to nearby Suwanee, Peachtree Corners, and the greater Atlanta corridor, these restaurants represent the best vegan food available near Duluth, Georgia.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants Near Duluth, GA</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant near Duluth:</strong> Café Sunflower (4.6 stars, Sandy Springs)</li>
+  <li><strong>Best South Indian vegetarian near Duluth:</strong> Madras Saravana Bhavan (4.4 stars, Duluth)</li>
+  <li><strong>Best Chinese vegan near Duluth:</strong> Green Sprout (4.5 stars, Suwanee)</li>
+  <li><strong>Best Indian vegan in Duluth:</strong> Desi District (4.5 stars)</li>
+  <li><strong>Best vegan juice bar near Duluth:</strong> Kaleidoscope Juice (4.6 stars, Peachtree Corners)</li>
+  <li><strong>Best vegan Vietnamese near Duluth:</strong> Pho Bac Sup Shop (4.5 stars, Buford Hwy)</li>
+</ul>`,
+  restaurantCards: veganDuluthTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Duluth, Georgia</h2>
+<p>Duluth and the greater Gwinnett County area offer exceptional vegan dining thanks to the region's remarkable cultural diversity. We love starting at Café Sunflower for the Atlanta metro's finest plant-based cuisine, heading to Madras Saravana Bhavan for authentic South Indian vegetarian, and exploring the Buford Highway corridor's Vietnamese and Chinese vegan options. These restaurants represent the best vegan food in and around Duluth, Georgia.</p>
+
+<h2>FAQ: Vegan Restaurants in Duluth, Georgia</h2>
+
+<h3>What is the best vegan restaurant in Duluth, Georgia?</h3>
+<p>The highest-rated vegan restaurant serving the Duluth area is <strong>Café Sunflower</strong> (5975 Roswell Rd NE, Sandy Springs) with a 4.6-star Google rating across nearly 3,000 reviews — the most acclaimed vegetarian and vegan restaurant in the Atlanta metro area. In Duluth proper, <strong>Desi District</strong> (1905 Satellite Blvd) and <strong>Madras Saravana Bhavan</strong> (2179 Pleasant Hill Rd) are the top-rated options.</p>
+
+<h3>Is there South Indian vegetarian food near Duluth, GA?</h3>
+<p>Yes — Duluth has excellent South Indian vegetarian dining. <strong>Madras Saravana Bhavan</strong> (2179 Pleasant Hill Rd, Duluth) is the world-famous chain's Gwinnett location, serving authentic dosas, idli, and thali. <strong>Zyka Indian Cuisine</strong> in nearby Decatur is another highly rated option for South Indian vegetarian food near Duluth.</p>
+
+<h3>Where can I find Chinese vegan food near Duluth, GA?</h3>
+<p><strong>Green Sprout</strong> (1057 Peachtree Industrial Blvd, Suwanee) is the closest Chinese Buddhist vegetarian restaurant to Duluth, with an entirely plant-based menu. The Buford Highway corridor between Duluth and Atlanta also has several Chinese restaurants with extensive vegetarian and vegan sections.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-las-vegas-nevada',
+  title: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  h1: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  description: "Find the best vegan restaurants in Las Vegas, Nevada — from VegeNation's Downtown creative vegan kitchen to Tacotarian's plant-based Mexican tacos. Las Vegas's definitive vegan dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  content: `<p>The best vegan restaurants in Las Vegas, Nevada are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Las Vegas has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Las Vegas, Nevada deliver incredible flavor without compromising on quality.</p>
+
+<h2>Vegan Dining in Las Vegas: Beyond the Strip</h2>
+<p>Las Vegas's vegan restaurant scene has exploded in recent years, extending far beyond tourist-area hotel dining. Downtown Las Vegas's Arts District is home to VegeNation and Esther's Kitchen. The Maryland Pkwy corridor has Bad Apple Bar + Food. Chinatown and the western valley have Veggie House and The Juice Standard. The LINQ on the Strip has Simply Pure. Whether you're a tourist or a local, Las Vegas now has outstanding plant-based dining options at every price point.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Las Vegas by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Las Vegas:</strong> VegeNation (4.6 stars, Downtown)</li>
+  <li><strong>Best vegan Mexican in Las Vegas:</strong> Tacotarian (4.5 stars, 3,102 reviews)</li>
+  <li><strong>Best vegan bar food in Las Vegas:</strong> Bad Apple Bar + Food (4.5 stars)</li>
+  <li><strong>Best vegan restaurant on the Strip:</strong> Simply Pure at The LINQ (4.5 stars)</li>
+  <li><strong>Best Chinese vegan in Las Vegas:</strong> Veggie House (4.4 stars)</li>
+  <li><strong>Best vegan Italian in Las Vegas:</strong> Esther's Kitchen (4.6 stars, Arts District)</li>
+  <li><strong>Best vegan juice bar in Las Vegas:</strong> The Juice Standard (4.6 stars)</li>
+</ul>`,
+  restaurantCards: veganLasVegasTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Las Vegas, Nevada</h2>
+<p>Las Vegas's vegan dining scene is now one of the strongest in the American West. We love starting at VegeNation for the city's most creative plant-based comfort food, hitting Tacotarian for the best vegan tacos in Nevada, and discovering the Arts District's Esther's Kitchen for the finest plant-based Italian food in Las Vegas. Whether you're visiting the Strip or exploring the neighborhoods, these restaurants represent the best vegan food Las Vegas has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Las Vegas, Nevada</h2>
+
+<h3>What is the best vegan restaurant in Las Vegas, Nevada?</h3>
+<p>The best vegan restaurant in Las Vegas is <strong>VegeNation</strong> (616 E Carson Ave, Downtown) with a 4.6-star Google rating — the highest-rated dedicated vegan restaurant in the city. <strong>Tacotarian</strong> (3,102 reviews) is the most-reviewed vegan restaurant in the Las Vegas valley. For upscale plant-based dining, <strong>Esther's Kitchen</strong> in the Arts District (4.6 stars, 3,891 reviews) is the top choice.</p>
+
+<h3>Is there vegan food near the Las Vegas Strip?</h3>
+<p>Yes — <strong>Simply Pure</strong> at The LINQ Promenade (3545 S Las Vegas Blvd) is the best vegan restaurant within walking distance of the Strip, serving organic plant-based bowls, smoothies, and wraps. For vegan bar food within a short drive, <strong>Bad Apple Bar + Food</strong> on S Maryland Pkwy is the top pick for indulgent plant-based comfort food near the Strip.</p>
+
+<h3>Where can I find vegan tacos in Las Vegas?</h3>
+<p><strong>Tacotarian</strong> is Las Vegas's best vegan taco restaurant, with multiple valley locations including Henderson. Their jackfruit al pastor, beer-battered cauliflower, and birria-style mushroom tacos are the most popular plant-based Mexican dishes in the city, with over 3,000 reviews.</p>`,
 })
 
 export function getBlogPost(slug: string): BlogPost | undefined {
