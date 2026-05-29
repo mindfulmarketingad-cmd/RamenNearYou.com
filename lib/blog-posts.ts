@@ -11,6 +11,8 @@ export type RestaurantCard = {
   citySlug: string
   stateSlug: string
   tags: string[]
+  lat?: number
+  lng?: number
 }
 
 export interface BlogPost {
@@ -29,6 +31,7 @@ export interface BlogPost {
   author?: { name: string; avatar: string }
   listHeading?: string
   additionalSchema?: object
+  rankingNote?: string
 }
 
 const atlantaTop10: RestaurantCard[] = [
@@ -8194,6 +8197,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan', 'Soul Food', 'Plant-Based'],
+    lat: 42.3736, lng: -83.0457,
   },
   {
     rank: 2,
@@ -8208,6 +8212,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegetarian', 'Vegan Options', 'Midtown'],
+    lat: 42.3537, lng: -83.0619,
   },
   {
     rank: 3,
@@ -8222,6 +8227,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan', 'Upscale', 'Seasonal'],
+    lat: 42.4604, lng: -83.1333,
   },
   {
     rank: 4,
@@ -8236,6 +8242,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'Noodles', 'Japanese'],
+    lat: 42.3285, lng: -83.0817,
   },
   {
     rank: 5,
@@ -8250,6 +8257,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'Vietnamese', 'Plant-Based'],
+    lat: 42.3698, lng: -83.0626,
   },
   {
     rank: 6,
@@ -8264,6 +8272,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan', 'Chinese', 'Mock Meat'],
+    lat: 42.4657, lng: -83.1789,
   },
   {
     rank: 7,
@@ -8278,6 +8287,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'Bakery', 'Desserts'],
+    lat: 42.3609, lng: -82.9980,
   },
   {
     rank: 8,
@@ -8292,6 +8302,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'Korean', 'Japanese'],
+    lat: 42.3581, lng: -83.0627,
   },
   {
     rank: 9,
@@ -8306,6 +8317,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'American', 'Art Gallery'],
+    lat: 42.3594, lng: -83.0633,
   },
   {
     rank: 10,
@@ -8320,6 +8332,7 @@ const veganDetroitTop10: RestaurantCard[] = [
     citySlug: 'detroit',
     stateSlug: 'mi',
     tags: ['Vegan Options', 'Coffee', 'Community'],
+    lat: 42.3629, lng: -82.9902,
   },
 ]
 
@@ -8337,6 +8350,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Mexican', 'Organic'],
+    lat: 34.0769, lng: -118.3813,
   },
   {
     rank: 2,
@@ -8351,6 +8365,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Upscale', 'Italian-Inspired'],
+    lat: 34.0842, lng: -118.3574,
   },
   {
     rank: 3,
@@ -8365,6 +8380,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Organic', 'Raw'],
+    lat: 34.0413, lng: -118.2326,
   },
   {
     rank: 4,
@@ -8379,6 +8395,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Japanese', 'Sushi'],
+    lat: 34.0441, lng: -118.2355,
   },
   {
     rank: 5,
@@ -8393,6 +8410,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Italian', 'Charity'],
+    lat: 34.0951, lng: -118.2701,
   },
   {
     rank: 6,
@@ -8407,6 +8425,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Comfort Food', 'Bar'],
+    lat: 34.0763, lng: -118.2608,
   },
   {
     rank: 7,
@@ -8421,6 +8440,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Brunch', 'Cafe'],
+    lat: 34.1084, lng: -118.2107,
   },
   {
     rank: 8,
@@ -8435,6 +8455,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan Options', 'Organic', 'All-Day'],
+    lat: 34.0903, lng: -118.3660,
   },
   {
     rank: 9,
@@ -8449,6 +8470,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Comfort Food', 'Hollywood'],
+    lat: 34.0943, lng: -118.3243,
   },
   {
     rank: 10,
@@ -8463,6 +8485,7 @@ const veganLATop10: RestaurantCard[] = [
     citySlug: 'los-angeles',
     stateSlug: 'ca',
     tags: ['Vegan', 'Organic', 'Raw'],
+    lat: 34.1502, lng: -118.3898,
   },
 ]
 
@@ -8480,6 +8503,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Hawaiian', 'Farm-to-Table'],
+    lat: 21.3356, lng: -157.7157,
   },
   {
     rank: 2,
@@ -8494,6 +8518,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'North Shore', 'Bowls'],
+    lat: 21.5999, lng: -158.1036,
   },
   {
     rank: 3,
@@ -8508,6 +8533,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Japanese', 'Organic'],
+    lat: 21.2938, lng: -157.8284,
   },
   {
     rank: 4,
@@ -8522,6 +8548,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Organic', 'Grocery Cafe'],
+    lat: 21.2920, lng: -157.8245,
   },
   {
     rank: 5,
@@ -8536,6 +8563,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan Options', 'Coffee', 'Brunch'],
+    lat: 21.3151, lng: -157.8064,
   },
   {
     rank: 6,
@@ -8550,6 +8578,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Smoothies', 'Health Food'],
+    lat: 21.3021, lng: -157.7019,
   },
   {
     rank: 7,
@@ -8564,6 +8593,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Raw Food', 'Downtown'],
+    lat: 21.3068, lng: -157.8567,
   },
   {
     rank: 8,
@@ -8578,6 +8608,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Cafe', 'Hawaii Kai'],
+    lat: 21.3024, lng: -157.7016,
   },
   {
     rank: 9,
@@ -8592,6 +8623,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan Options', 'Farm-to-Table', 'Ward Village'],
+    lat: 21.2994, lng: -157.8612,
   },
   {
     rank: 10,
@@ -8606,6 +8638,7 @@ const veganHonoluluTop10: RestaurantCard[] = [
     citySlug: 'honolulu',
     stateSlug: 'hi',
     tags: ['Vegan', 'Farm Cafe', 'North Shore'],
+    lat: 21.6783, lng: -157.9488,
   },
 ]
 
@@ -8623,6 +8656,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Japanese', 'Sushi'],
+    lat: 37.7680, lng: -122.4199,
   },
   {
     rank: 2,
@@ -8637,6 +8671,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Mexican', 'Organic'],
+    lat: 37.7620, lng: -122.4189,
   },
   {
     rank: 3,
@@ -8651,6 +8686,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Fine Dining', 'Upscale'],
+    lat: 37.7906, lng: -122.3958,
   },
   {
     rank: 4,
@@ -8665,6 +8701,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Fine Dining', 'Pioneer'],
+    lat: 37.8447, lng: -122.2523,
   },
   {
     rank: 5,
@@ -8679,6 +8716,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Japanese', 'Mission District'],
+    lat: 37.7637, lng: -122.4213,
   },
   {
     rank: 6,
@@ -8693,6 +8731,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Casual', 'Mission District'],
+    lat: 37.7613, lng: -122.4214,
   },
   {
     rank: 7,
@@ -8707,6 +8746,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegetarian', 'Indian', 'South Indian'],
+    lat: 37.7610, lng: -122.4214,
   },
   {
     rank: 8,
@@ -8721,6 +8761,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Organic', 'Marina'],
+    lat: 37.7991, lng: -122.4355,
   },
   {
     rank: 9,
@@ -8735,6 +8776,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Wine Bar', 'Oakland'],
+    lat: 37.8119, lng: -122.2217,
   },
   {
     rank: 10,
@@ -8749,6 +8791,7 @@ const veganSFTop10: RestaurantCard[] = [
     citySlug: 'san-francisco',
     stateSlug: 'ca',
     tags: ['Vegan', 'Asian', 'Affordable'],
+    lat: 37.7637, lng: -122.4740,
   },
 ]
 
@@ -8766,6 +8809,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Allergen-Free', 'Bakery'],
+    lat: 38.5733, lng: -121.4791,
   },
   {
     rank: 2,
@@ -8780,6 +8824,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Innovative', 'Downtown'],
+    lat: 38.5791, lng: -121.4946,
   },
   {
     rank: 3,
@@ -8794,6 +8839,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Vegetarian', 'Casual'],
+    lat: 38.5795, lng: -121.4195,
   },
   {
     rank: 4,
@@ -8808,6 +8854,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan Options', 'Pizza', 'East Sacramento'],
+    lat: 38.5554, lng: -121.4289,
   },
   {
     rank: 5,
@@ -8822,6 +8869,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan Options', 'Farm-to-Fork', 'Midtown'],
+    lat: 38.5680, lng: -121.4832,
   },
   {
     rank: 6,
@@ -8836,6 +8884,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Coffee', 'Cafe'],
+    lat: 38.5745, lng: -121.4791,
   },
   {
     rank: 7,
@@ -8850,6 +8899,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Raw Food', 'Organic'],
+    lat: 38.5701, lng: -121.4809,
   },
   {
     rank: 8,
@@ -8864,6 +8914,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Garden Cafe', 'Seasonal'],
+    lat: 38.5869, lng: -121.4010,
   },
   {
     rank: 9,
@@ -8878,6 +8929,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan Options', 'Bar', 'Midtown'],
+    lat: 38.5659, lng: -121.4853,
   },
   {
     rank: 10,
@@ -8892,6 +8944,7 @@ const veganSacramentoTop10: RestaurantCard[] = [
     citySlug: 'sacramento',
     stateSlug: 'ca',
     tags: ['Vegan', 'Cafe', 'Oak Park'],
+    lat: 38.5561, lng: -121.4812,
   },
 ]
 
@@ -8909,6 +8962,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Global', 'Heights'],
+    lat: 29.7628, lng: -95.4145,
   },
   {
     rank: 2,
@@ -8923,6 +8977,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Casual', 'Montrose'],
+    lat: 29.7379, lng: -95.4145,
   },
   {
     rank: 3,
@@ -8937,6 +8992,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 29.7067, lng: -95.5160,
   },
   {
     rank: 4,
@@ -8951,6 +9007,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Bowls', 'Upper Kirby'],
+    lat: 29.7341, lng: -95.4095,
   },
   {
     rank: 5,
@@ -8965,6 +9022,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Bakery', 'Desserts'],
+    lat: 29.7584, lng: -95.4674,
   },
   {
     rank: 6,
@@ -8979,6 +9037,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Asian', 'Chinatown'],
+    lat: 29.7098, lng: -95.5213,
   },
   {
     rank: 7,
@@ -8993,6 +9052,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan Options', 'Vietnamese', 'Galleria'],
+    lat: 29.7386, lng: -95.4625,
   },
   {
     rank: 8,
@@ -9007,6 +9067,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan', 'Health Food', 'Rice Village'],
+    lat: 29.7156, lng: -95.4325,
   },
   {
     rank: 9,
@@ -9021,6 +9082,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan Options', 'Farm-to-Table', 'Rice Village'],
+    lat: 29.7148, lng: -95.4303,
   },
   {
     rank: 10,
@@ -9035,6 +9097,7 @@ const veganHoustonTop10: RestaurantCard[] = [
     citySlug: 'houston',
     stateSlug: 'tx',
     tags: ['Vegan Options', 'Japanese', 'Upper Kirby'],
+    lat: 29.7371, lng: -95.4095,
   },
 ]
 
@@ -9052,6 +9115,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan', 'Vegetarian', 'Atlanta Metro'],
+    lat: 33.9264, lng: -84.3818,
   },
   {
     rank: 2,
@@ -9066,6 +9130,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan', 'South Indian', 'Vegetarian'],
+    lat: 33.8024, lng: -84.2994,
   },
   {
     rank: 3,
@@ -9080,6 +9145,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan Options', 'Indian', 'Duluth'],
+    lat: 34.0019, lng: -84.1447,
   },
   {
     rank: 4,
@@ -9094,6 +9160,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 34.0547, lng: -84.0678,
   },
   {
     rank: 5,
@@ -9108,6 +9175,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan Options', 'Vietnamese', 'Buford Highway'],
+    lat: 33.8259, lng: -84.3432,
   },
   {
     rank: 6,
@@ -9122,6 +9190,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan Options', 'Jamaican', 'Caribbean'],
+    lat: 33.7413, lng: -84.2296,
   },
   {
     rank: 7,
@@ -9136,6 +9205,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegetarian', 'South Indian', 'Duluth'],
+    lat: 34.0012, lng: -84.1388,
   },
   {
     rank: 8,
@@ -9150,6 +9220,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan Options', 'Thai', 'Atlanta'],
+    lat: 33.8031, lng: -84.3849,
   },
   {
     rank: 9,
@@ -9164,6 +9235,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan Options', 'Italian', 'Pizza'],
+    lat: 33.7871, lng: -84.3978,
   },
   {
     rank: 10,
@@ -9178,6 +9250,7 @@ const veganDuluthTop10: RestaurantCard[] = [
     citySlug: 'duluth',
     stateSlug: 'ga',
     tags: ['Vegan', 'Juice Bar', 'Health Food'],
+    lat: 33.9770, lng: -84.2240,
   },
 ]
 
@@ -9195,6 +9268,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Downtown', 'Comfort Food'],
+    lat: 36.1658, lng: -115.1390,
   },
   {
     rank: 2,
@@ -9209,6 +9283,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Mexican', 'Tacos'],
+    lat: 36.0217, lng: -115.1027,
   },
   {
     rank: 3,
@@ -9223,6 +9298,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Bar', 'Comfort Food'],
+    lat: 36.1621, lng: -115.1399,
   },
   {
     rank: 4,
@@ -9237,6 +9313,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Organic', 'Strip Adjacent'],
+    lat: 36.1175, lng: -115.1673,
   },
   {
     rank: 5,
@@ -9251,6 +9328,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 36.1270, lng: -115.2153,
   },
   {
     rank: 6,
@@ -9265,6 +9343,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan', 'Juice Bar', 'Organic'],
+    lat: 36.0712, lng: -115.2440,
   },
   {
     rank: 7,
@@ -9279,6 +9358,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan Options', 'Italian', 'Arts District'],
+    lat: 36.1589, lng: -115.1583,
   },
   {
     rank: 8,
@@ -9293,6 +9373,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan Options', 'Mediterranean', 'Cafe'],
+    lat: 36.1476, lng: -115.2506,
   },
   {
     rank: 9,
@@ -9307,6 +9388,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan Options', 'Chinese', 'Thai'],
+    lat: 36.1127, lng: -115.1975,
   },
   {
     rank: 10,
@@ -9321,6 +9403,7 @@ const veganLasVegasTop10: RestaurantCard[] = [
     citySlug: 'las-vegas',
     stateSlug: 'nv',
     tags: ['Vegan Options', 'Bar', 'Late Night'],
+    lat: 36.1433, lng: -115.2058,
   },
 ]
 
@@ -9351,6 +9434,7 @@ blogPosts.push({
   <li><strong>Best long-running vegan restaurant in Detroit:</strong> Seva Restaurant (4.4 stars, open since 1973)</li>
   <li><strong>Best Chinese vegan in Detroit:</strong> Green Garden (4.4 stars)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganDetroitTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Detroit, Michigan</h2>
 <p>Detroit's vegan dining scene continues to grow in quality and variety. We love starting with Detroit Vegan Soul for pure soul food comfort, heading to Ima Noodles for exceptional plant-based ramen, and rounding things out with the seasonal creativity of GreenSpace Cafe. Whether you're a Detroit native or visiting the Motor City, these 10 restaurants represent the best vegan food the city has to offer.</p>
@@ -9393,6 +9477,7 @@ blogPosts.push({
   <li><strong>Best vegan comfort food in LA:</strong> Doomie's Home Cookin' (4.5 stars)</li>
   <li><strong>Best vegan Italian in Los Angeles:</strong> Little Pine (4.4 stars, Silver Lake)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganLATop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Los Angeles</h2>
 <p>Los Angeles has earned its reputation as America's vegan dining capital. We love starting at Gracias Madre for the best plant-based Mexican food in the country, heading to Shojin for the finest vegan Japanese cuisine on the West Coast, and exploring neighborhood gems like Kitchen Mouse for the best of everyday vegan LA. Whatever neighborhood you're in, these 10 restaurants deliver the best vegan food Los Angeles has to offer.</p>
@@ -9434,6 +9519,7 @@ blogPosts.push({
   <li><strong>Best affordable vegan in Honolulu:</strong> Down to Earth Natural Foods (4.4 stars)</li>
   <li><strong>Best farm-to-table vegan on Oahu:</strong> Kahuku Farms (4.5 stars, North Shore)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganHonoluluTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Honolulu, Hawaii</h2>
 <p>Honolulu's vegan dining scene benefits from Hawaii's incredible local produce and aloha spirit. We love starting at Ai Love Nalo for the most authentic Hawaiian vegan experience, exploring the North Shore's Beet Box Cafe and Kahuku Farms for farm-fresh plant-based meals, and relying on Down to Earth for affordable everyday vegan eating. Whatever brings you to Oahu, these 10 restaurants will feed you well.</p>
@@ -9476,6 +9562,7 @@ blogPosts.push({
   <li><strong>Best South Indian vegetarian in SF:</strong> Udupi Palace (4.4 stars)</li>
   <li><strong>Best vegan wine bar near SF:</strong> Encuentro (4.4 stars, Oakland)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganSFTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in San Francisco</h2>
 <p>San Francisco's plant-based dining scene is one of the most mature and creative in the country. We love starting at Shizen for the city's most impressive vegan Japanese cuisine, hitting Gracias Madre for the best plant-based Mexican food in the Bay Area, and discovering neighborhood gems like Cha-Ya and Herbivore in the Mission. Whatever brings you to San Francisco, these 10 restaurants represent the best vegan food the city has to offer.</p>
@@ -9518,6 +9605,7 @@ blogPosts.push({
   <li><strong>Best raw vegan in Sacramento:</strong> Elixir Vitae (4.6 stars)</li>
   <li><strong>Best vegan bakery in Sacramento:</strong> Pushkin's Restaurant (4.7 stars)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganSacramentoTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Sacramento, California</h2>
 <p>Sacramento's vegan restaurant scene has matured into one of the best in Northern California. We love starting at Pushkin's for the city's finest vegan baked goods, heading to Mother Restaurant for the most innovative plant-based cooking in Sacramento, and relying on Sunflower Drive-In for the affordable, reliable comfort food that's sustained the city's vegan community for over 25 years. These 10 restaurants represent the best vegan food Sacramento has to offer.</p>
@@ -9560,6 +9648,7 @@ blogPosts.push({
   <li><strong>Best vegan Japanese in Houston:</strong> Nori Handroll Bar (4.6 stars, Upper Kirby)</li>
   <li><strong>Best affordable vegan in Houston:</strong> Loving Hut Chinatown (4.4 stars)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganHoustonTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Houston, Texas</h2>
 <p>Houston's vegan dining scene is as diverse as the city itself. We love starting at Verdine for the most creative plant-based cooking in the city, heading to Sinfull Bakery for Houston's finest vegan desserts, and exploring the city's rich Asian vegan dining scene at Pepper Tree Café, May Lee, and Loving Hut. Whatever neighborhood you're in, these restaurants deliver the best vegan food Houston has to offer.</p>
@@ -9601,6 +9690,7 @@ blogPosts.push({
   <li><strong>Best vegan juice bar near Duluth:</strong> Kaleidoscope Juice (4.6 stars, Peachtree Corners)</li>
   <li><strong>Best vegan Vietnamese near Duluth:</strong> Pho Bac Sup Shop (4.5 stars, Buford Hwy)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganDuluthTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Duluth, Georgia</h2>
 <p>Duluth and the greater Gwinnett County area offer exceptional vegan dining thanks to the region's remarkable cultural diversity. We love starting at Café Sunflower for the Atlanta metro's finest plant-based cuisine, heading to Madras Saravana Bhavan for authentic South Indian vegetarian, and exploring the Buford Highway corridor's Vietnamese and Chinese vegan options. These restaurants represent the best vegan food in and around Duluth, Georgia.</p>
@@ -9643,6 +9733,7 @@ blogPosts.push({
   <li><strong>Best vegan Italian in Las Vegas:</strong> Esther's Kitchen (4.6 stars, Arts District)</li>
   <li><strong>Best vegan juice bar in Las Vegas:</strong> The Juice Standard (4.6 stars)</li>
 </ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
   restaurantCards: veganLasVegasTop10,
   outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Las Vegas, Nevada</h2>
 <p>Las Vegas's vegan dining scene is now one of the strongest in the American West. We love starting at VegeNation for the city's most creative plant-based comfort food, hitting Tacotarian for the best vegan tacos in Nevada, and discovering the Arts District's Esther's Kitchen for the finest plant-based Italian food in Las Vegas. Whether you're visiting the Strip or exploring the neighborhoods, these restaurants represent the best vegan food Las Vegas has to offer.</p>

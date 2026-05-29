@@ -138,8 +138,8 @@ export default async function BlogPostPage({ params }: Props) {
           description: card.description,
           photo: card.photo,
           tags: card.tags,
-          lat: r?.latitude ?? null,
-          lng: r?.longitude ?? null,
+          lat: r?.latitude ?? card.lat ?? null,
+          lng: r?.longitude ?? card.lng ?? null,
           perfectFor: r ? getPerfectFor(r) : undefined,
         }
       })
@@ -255,12 +255,7 @@ export default async function BlogPostPage({ params }: Props) {
                   How we ranked these restaurants
                 </h2>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
-                  We ranked these {enrichedCards.length} spots by analyzing the sentiment of their
-                  Google reviews — reading what real diners said about the broth, noodles, service,
-                  and overall experience, not just star averages. Restaurants that consistently drew
-                  praise for ramen quality across hundreds of reviews ranked highest. Review count,
-                  recency, and recurring criticism (long waits, watery broth, inconsistent service)
-                  were all factored in to surface the spots locals actually keep coming back to.
+                  {post.rankingNote ?? `We ranked these ${enrichedCards.length} spots by analyzing the sentiment of their Google reviews — reading what real diners said about the broth, noodles, service, and overall experience, not just star averages. Restaurants that consistently drew praise for ramen quality across hundreds of reviews ranked highest. Review count, recency, and recurring criticism (long waits, watery broth, inconsistent service) were all factored in to surface the spots locals actually keep coming back to.`}
                 </p>
               </section>
             )}
