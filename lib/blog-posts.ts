@@ -8178,6 +8178,933 @@ blogPosts.push({
   outroContent: `<h2>Where to Find the Best Ramen in San Francisco</h2><p>San Francisco's best ramen is concentrated in Japantown (HINODEYA Japantown, Marufuku, Udon Mugizo, Kui Shin Bo, Waraku), the Mission District (Taishoken SF, Ramenwell, Fumi, Coco's), and the Marina (HINODEYA Chestnut, Torraku). For the highest-rated bowl in the city, Denya Ramen on Polk St is the emerging answer, while Mensho Tokyo SF on Geary remains the most celebrated destination. Marufuku in Japantown is where to go for authentic Hakata tonkotsu. Whatever neighborhood you're in, SF's ramen scene will not disappoint.</p>`,
 })
 
+// ─── Vegan Restaurant Cards ───────────────────────────────────────────────────
+
+const veganDetroitTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Detroit Vegan Soul',
+    rating: 4.6,
+    reviewCount: 842,
+    address: '8029 Agnes St, Detroit, MI 48214',
+    phone: '+1 313-649-1699',
+    description: "Detroit's premier plant-based soul food restaurant. Detroit Vegan Soul has redefined comfort food in the Motor City — their jackfruit BBQ, mac 'n' yease, and collard greens have earned a devoted following across the city. If you're looking for the best vegan food in Detroit, this is the spot to start.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'detroit-vegan-soul',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Soul Food', 'Plant-Based'],
+  },
+  {
+    rank: 2,
+    name: 'Seva Restaurant',
+    rating: 4.4,
+    reviewCount: 1198,
+    address: '66 E Forest Ave, Detroit, MI 48201',
+    phone: '+1 313-974-6661',
+    description: "One of Detroit's longest-running vegetarian restaurants, Seva has served the Midtown community for decades. Their eclectic global menu — from Thai curries to Mexican bowls — is almost entirely vegan-adaptable. Over 1,000 reviews make it a true Detroit institution.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'seva-restaurant-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegetarian', 'Vegan Options', 'Midtown'],
+  },
+  {
+    rank: 3,
+    name: 'GreenSpace Cafe',
+    rating: 4.5,
+    reviewCount: 891,
+    address: '215 W 9 Mile Rd, Ferndale, MI 48220',
+    phone: '+1 248-547-9291',
+    description: 'Upscale plant-based dining in Ferndale, just north of Detroit. GreenSpace Cafe serves a creative seasonal menu of globally inspired vegan dishes — think mushroom Wellington, cashew cream pastas, and raw desserts — in an elegant, welcoming space.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'greenspace-cafe',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Upscale', 'Seasonal'],
+  },
+  {
+    rank: 4,
+    name: 'Ima Noodles',
+    rating: 4.5,
+    reviewCount: 1447,
+    address: '2015 Michigan Ave, Detroit, MI 48216',
+    phone: '+1 313-502-5959',
+    description: "Detroit's beloved Japanese noodle house with an extensive plant-based menu. Ima crafts deeply flavored broths, housemade noodles, and vegan toppings that rival any meat-forward bowl. Their vegan mazemen (brothless ramen) is one of the city's best dishes.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'ima-noodles-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Noodles', 'Japanese'],
+  },
+  {
+    rank: 5,
+    name: 'Flowers of Vietnam',
+    rating: 4.5,
+    reviewCount: 673,
+    address: '5433 Woodward Ave, Detroit, MI 48202',
+    phone: '+1 313-462-1788',
+    description: 'A beloved Vietnamese restaurant in the New Center area with an extensive vegan section. Flowers of Vietnam serves fragrant pho, bánh mì, and rice bowls with a dedicated plant-based menu — light, bright flavors that keep locals coming back weekly.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'flowers-of-vietnam-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Vietnamese', 'Plant-Based'],
+  },
+  {
+    rank: 6,
+    name: 'Green Garden',
+    rating: 4.4,
+    reviewCount: 1087,
+    address: '21100 Greenfield Rd, Oak Park, MI 48237',
+    phone: '+1 248-968-5800',
+    description: 'A Chinese vegan restaurant serving the greater Detroit area with an entirely plant-based menu. Green Garden uses traditional Chinese cooking techniques to create mock-meat dishes, tofu braises, and vegetable stir-fries that are satisfying and deeply flavorful.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'green-garden-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Chinese', 'Mock Meat'],
+  },
+  {
+    rank: 7,
+    name: 'Sister Pie',
+    rating: 4.7,
+    reviewCount: 2341,
+    address: '8066 Agnes St, Detroit, MI 48214',
+    phone: '+1 313-447-5550',
+    description: 'Detroit\'s most beloved bakery with an impressive range of vegan pies, cookies, and savory baked goods. Sister Pie rotates seasonal offerings and clearly labels all vegan items. The lines are long and the pies are worth every minute of waiting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sister-pie-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Bakery', 'Desserts'],
+  },
+  {
+    rank: 8,
+    name: 'Maru Detroit',
+    rating: 4.5,
+    reviewCount: 318,
+    address: '4120 Woodward Ave, Detroit, MI 48201',
+    phone: '+1 313-285-5700',
+    description: 'A modern Korean-Japanese fusion spot in Midtown with a strong vegan-friendly menu. Maru Detroit serves plant-based bibimbap, tofu hot pots, and vegetable-forward small plates in a sleek, contemporary space. One of Detroit\'s most exciting newer restaurants.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'maru-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Korean', 'Japanese'],
+  },
+  {
+    rank: 9,
+    name: 'Cass Cafe',
+    rating: 4.2,
+    reviewCount: 967,
+    address: '4620 Cass Ave, Detroit, MI 48201',
+    phone: '+1 313-831-1400',
+    description: 'A Midtown institution serving eclectic American food with strong vegan options since 1993. Cass Cafe doubles as an art gallery and neighborhood gathering space. Their plant-based burgers, salads, and sandwiches are reliable and affordable.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cass-cafe-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'American', 'Art Gallery'],
+  },
+  {
+    rank: 10,
+    name: 'Motor City Java House',
+    rating: 4.4,
+    reviewCount: 521,
+    address: '7436 E Jefferson Ave, Detroit, MI 48214',
+    phone: '+1 313-441-9393',
+    description: 'A community-centered coffee house in Jefferson-Chalmers with a growing plant-based food menu. Motor City Java House serves dairy-free lattes, vegan pastries, and light plant-based meals in a welcoming neighborhood setting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'motor-city-java-house',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Coffee', 'Community'],
+  },
+]
+
+const veganLATop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Gracias Madre',
+    rating: 4.5,
+    reviewCount: 3821,
+    address: '8905 Melrose Ave, West Hollywood, CA 90069',
+    phone: '+1 323-978-2170',
+    description: "West Hollywood's iconic plant-based Mexican restaurant from the McEvoy Ranch family. Gracias Madre's organic, vegan menu features wood-fired tacos, housemade tortillas, and agave cocktails. Nearly 4,000 reviews and consistent 4.5-star quality make it LA's most celebrated vegan restaurant.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'gracias-madre-weho',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Mexican', 'Organic'],
+  },
+  {
+    rank: 2,
+    name: 'Crossroads Kitchen',
+    rating: 4.4,
+    reviewCount: 2893,
+    address: '8284 Melrose Ave, Los Angeles, CA 90046',
+    phone: '+1 323-782-9245',
+    description: "Chef Tal Ronnen's upscale vegan restaurant on Melrose is a celebrity favorite and a landmark of LA's plant-based dining scene. Crossroads serves sophisticated Italian-inspired dishes — artichoke oysters, cashew cheese plates, house-made pastas — in an elegant setting.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'crossroads-kitchen-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Upscale', 'Italian-Inspired'],
+  },
+  {
+    rank: 3,
+    name: 'Café Gratitude DTLA',
+    rating: 4.6,
+    reviewCount: 2134,
+    address: '300 S Santa Fe Ave, Los Angeles, CA 90013',
+    phone: '+1 213-929-5580',
+    description: "Café Gratitude's Arts District location brings their celebrated organic, plant-based menu to Downtown LA. Affirmation-named dishes (I Am Grateful, I Am Radiant), house-pressed juices, and a warm community vibe have made this the anchor of LA's conscious dining movement.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-gratitude-dtla',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Raw'],
+  },
+  {
+    rank: 4,
+    name: 'Shojin',
+    rating: 4.6,
+    reviewCount: 1847,
+    address: '333 S Alameda St #310, Los Angeles, CA 90013',
+    phone: '+1 213-617-0305',
+    description: "LA's finest Japanese plant-based restaurant, rooted in Buddhist temple cuisine (shojin ryori). Shojin serves exquisitely crafted vegan sushi, tempura, and seasonal bento boxes in Little Tokyo's Japanese Village Plaza. The most refined vegan dining experience in Los Angeles.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'shojin-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Sushi'],
+  },
+  {
+    rank: 5,
+    name: 'Little Pine',
+    rating: 4.4,
+    reviewCount: 2601,
+    address: '2870 Rowena Ave, Los Angeles, CA 90039',
+    phone: '+1 323-741-8148',
+    description: "Musician Moby's Silver Lake vegan restaurant donates all profits to animal rights organizations. Little Pine serves elegant Italian-influenced vegan cuisine — pasta, pizza, small plates — in a cozy, light-filled space that feels like a true neighborhood dining room.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'little-pine-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Italian', 'Charity'],
+  },
+  {
+    rank: 6,
+    name: 'Sage Plant Based Bistro',
+    rating: 4.5,
+    reviewCount: 1723,
+    address: '1700 Sunset Blvd, Los Angeles, CA 90026',
+    phone: '+1 323-667-0020',
+    description: "Echo Park's cornerstone vegan comfort food restaurant. Sage serves hearty plant-based burgers, mac and cheese, and loaded nachos alongside a full bar. It's where Angelenos bring skeptical meat-eaters — the menu consistently converts.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sage-plant-based-bistro',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Comfort Food', 'Bar'],
+  },
+  {
+    rank: 7,
+    name: 'Kitchen Mouse',
+    rating: 4.6,
+    reviewCount: 1198,
+    address: '5904 N Figueroa St, Los Angeles, CA 90042',
+    phone: '+1 323-259-9555',
+    description: "Highland Park's beloved all-day vegan cafe. Kitchen Mouse serves outstanding brunch bowls, sandwiches, and baked goods with a rotating seasonal menu. The outdoor patio and neighborhood warmth make it one of Northeast LA's most dependable spots.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kitchen-mouse-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Brunch', 'Cafe'],
+  },
+  {
+    rank: 8,
+    name: "Hugo's Restaurant",
+    rating: 4.4,
+    reviewCount: 3112,
+    address: '8401 Santa Monica Blvd, West Hollywood, CA 90069',
+    phone: '+1 323-654-3993',
+    description: "A West Hollywood institution since 1980. Hugo's pioneered organic, health-conscious dining in LA decades before it was fashionable. Their expansive vegan menu covers breakfast through dinner with housemade pastas, grain bowls, and iconic tofu scrambles.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'hugos-restaurant-weho',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Organic', 'All-Day'],
+  },
+  {
+    rank: 9,
+    name: "Doomie's Home Cookin'",
+    rating: 4.5,
+    reviewCount: 1456,
+    address: '1253 Vine St, Los Angeles, CA 90038',
+    phone: '+1 323-860-0100',
+    description: "Hollywood's go-to for vegan comfort food done right. Doomie's recreates classic American comfort dishes — fried chicken, cheesesteaks, mac and cheese — entirely from plants. A first visit is guaranteed to surprise even the most skeptical carnivore.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'doomies-home-cookin',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Comfort Food', 'Hollywood'],
+  },
+  {
+    rank: 10,
+    name: 'SunCafe Organic',
+    rating: 4.5,
+    reviewCount: 1609,
+    address: '10820 Ventura Blvd, Studio City, CA 91604',
+    phone: '+1 818-927-1134',
+    description: "Studio City's farm-to-fork organic vegan cafe. SunCafe sources locally, prepares everything fresh daily, and serves a menu of raw and cooked plant-based dishes — smoothie bowls, quinoa plates, and housemade desserts — in a light-filled wellness-forward space.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'suncafe-organic',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Raw'],
+  },
+]
+
+const veganHonoluluTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Ai Love Nalo',
+    rating: 4.7,
+    reviewCount: 892,
+    address: '41-1025 Kalanianaole Hwy, Waimanalo, HI 96795',
+    phone: '+1 808-259-7929',
+    description: "One of Oahu's most celebrated vegan restaurants, Ai Love Nalo is a farm-driven Hawaiian plant-based kitchen in Waimanalo. Their nourishing bowls, wraps, and plates celebrate local ingredients with aloha spirit. The farm-fresh ethos and consistently stunning flavors make it Oahu's top vegan destination.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'ai-love-nalo',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Hawaiian', 'Farm-to-Table'],
+  },
+  {
+    rank: 2,
+    name: 'The Beet Box Cafe',
+    rating: 4.7,
+    reviewCount: 1089,
+    address: '66-443 Kamehameha Hwy, Haleiwa, HI 96712',
+    phone: '+1 808-637-3000',
+    description: "A beloved vegan gem on Oahu's North Shore. The Beet Box serves vibrant plant-based bowls, wraps, and smoothies sourced from local farms. The casual outdoor setting, fresh ingredients, and consistent quality have made it one of Hawaii's most recommended vegan spots.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'beet-box-cafe-haleiwa',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'North Shore', 'Bowls'],
+  },
+  {
+    rank: 3,
+    name: 'Peace Cafe',
+    rating: 4.4,
+    reviewCount: 679,
+    address: '2239 S King St, Honolulu, HI 96826',
+    phone: '+1 808-951-7555',
+    description: "Honolulu's original dedicated vegan restaurant, Peace Cafe has served the McCully neighborhood for years. Their menu of Japanese-influenced plant-based dishes — tofu don, avocado salad, soba noodles — is light, nourishing, and consistently well-executed.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'peace-cafe-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Japanese', 'Organic'],
+  },
+  {
+    rank: 4,
+    name: 'Down to Earth Natural Foods',
+    rating: 4.4,
+    reviewCount: 2198,
+    address: '2525 S King St, Honolulu, HI 96826',
+    phone: '+1 808-947-7678',
+    description: "Hawaii's premier organic grocery chain with a popular ready-to-eat vegan cafe section. Down to Earth's hot bar, salad bar, and grab-and-go case are loaded with fresh, affordable plant-based options. Over 2,000 reviews make it one of Honolulu's most-visited vegan food destinations.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'down-to-earth-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Organic', 'Grocery Cafe'],
+  },
+  {
+    rank: 5,
+    name: 'Morning Glass Coffee',
+    rating: 4.7,
+    reviewCount: 3217,
+    address: '2955 E Manoa Rd, Honolulu, HI 96822',
+    phone: '+1 808-673-0065',
+    description: "Manoa's beloved coffee and brunch spot with an extensive vegan-friendly menu. Morning Glass Coffee serves stunning acai bowls, avocado toasts, and vegan pastries alongside specialty coffees. With over 3,000 reviews and a 4.7 rating, it's one of Honolulu's highest-rated breakfast destinations.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'morning-glass-coffee',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan Options', 'Coffee', 'Brunch'],
+  },
+  {
+    rank: 6,
+    name: 'Nalu Health Bar & Cafe',
+    rating: 4.5,
+    reviewCount: 831,
+    address: '377 Keahole St, Honolulu, HI 96825',
+    phone: '+1 808-396-1199',
+    description: "East Honolulu's go-to plant-based health cafe. Nalu Health Bar serves fresh-pressed juices, superfood smoothie bowls, and vegan wraps in a bright, energetic setting. Their acai bowls and tropical smoothies are some of the best on the island.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'nalu-health-bar',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Smoothies', 'Health Food'],
+  },
+  {
+    rank: 7,
+    name: 'Greens & Vines',
+    rating: 4.5,
+    reviewCount: 561,
+    address: '1088 Bishop St #107, Honolulu, HI 96813',
+    phone: '+1 808-536-9680',
+    description: 'A raw and living foods restaurant in Downtown Honolulu serving beautiful plant-based cuisine. Greens & Vines specializes in enzyme-rich raw dishes — dehydrated crackers, cashew cheeses, and vibrant salads — in an intimate, health-focused setting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'greens-and-vines-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Raw Food', 'Downtown'],
+  },
+  {
+    rank: 8,
+    name: 'Simple Joy Cafe',
+    rating: 4.6,
+    reviewCount: 477,
+    address: '333 Keahole St #2B3, Honolulu, HI 96825',
+    phone: '+1 808-394-9669',
+    description: 'A cozy plant-based cafe in Hawaii Kai serving wholesome vegan breakfasts, lunches, and smoothies. Simple Joy Cafe is a neighborhood treasure — their bowls are filling, their produce is fresh, and the service is warm and community-minded.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'simple-joy-cafe-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Cafe', 'Hawaii Kai'],
+  },
+  {
+    rank: 9,
+    name: 'Moku Kitchen',
+    rating: 4.3,
+    reviewCount: 2803,
+    address: '660 Ala Moana Blvd, Honolulu, HI 96813',
+    phone: '+1 808-591-6658',
+    description: "Ward Village's farm-to-table restaurant with a strong commitment to local Hawaiian producers. Moku Kitchen offers an extensive vegan section on their seasonal menu — wood-fired vegetables, grain bowls, and plant-based small plates crafted from island-sourced ingredients.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'moku-kitchen-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan Options', 'Farm-to-Table', 'Ward Village'],
+  },
+  {
+    rank: 10,
+    name: 'Kahuku Farms',
+    rating: 4.5,
+    reviewCount: 1423,
+    address: '56-800 Kamehameha Hwy, Kahuku, HI 96731',
+    phone: '+1 808-628-0639',
+    description: "A working North Shore farm with a beloved vegan-friendly cafe. Kahuku Farms serves fruit smoothies, farm-fresh salads, and plant-based plates made from produce grown steps from your table. Their papaya bowl and farm tours make it a must-visit Oahu experience.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kahuku-farms-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Farm Cafe', 'North Shore'],
+  },
+]
+
+const veganSFTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Shizen Vegan Sushi Bar',
+    rating: 4.6,
+    reviewCount: 3812,
+    address: '370 14th St, San Francisco, CA 94103',
+    phone: '+1 415-678-5767',
+    description: "San Francisco's most acclaimed vegan restaurant — a Japanese sushi bar serving entirely plant-based rolls, nigiri, and ramen. Shizen's creative kitchen proves that vegan sushi can rival any fish-forward menu. With nearly 4,000 reviews and a 4.6 rating, it's the city's definitive vegan destination.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'shizen-vegan-sushi-bar',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Sushi'],
+  },
+  {
+    rank: 2,
+    name: 'Gracias Madre SF',
+    rating: 4.5,
+    reviewCount: 4213,
+    address: '2211 Mission St, San Francisco, CA 94110',
+    phone: '+1 415-683-1346',
+    description: "The Mission District's beloved plant-based Mexican kitchen. Gracias Madre SF serves organic, farm-driven vegan tacos, enchiladas, and small plates alongside an outstanding mezcal bar. With over 4,000 reviews, it's the most-reviewed vegan restaurant in San Francisco.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'gracias-madre-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Mexican', 'Organic'],
+  },
+  {
+    rank: 3,
+    name: 'Wildseed',
+    rating: 4.5,
+    reviewCount: 2098,
+    address: '181 Fremont St #10, San Francisco, CA 94105',
+    phone: '+1 415-872-9082',
+    description: "San Francisco's most elegant upscale vegan restaurant, perched above the city in the Union Square district. Wildseed serves a seasonal plant-based menu with fine dining technique — smoked beet tartare, wild mushroom risotto, and inventive vegan charcuterie boards.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'wildseed-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Fine Dining', 'Upscale'],
+  },
+  {
+    rank: 4,
+    name: 'Millennium Restaurant',
+    rating: 4.5,
+    reviewCount: 1823,
+    address: '5912 College Ave, Oakland, CA 94618',
+    phone: '+1 510-735-9459',
+    description: "One of the most influential vegan restaurants in America. Originally founded in San Francisco in 1994, Millennium serves globally inspired fine dining vegan cuisine — rich umami-forward dishes, creative ferments, and seasonal tasting menus that have inspired a generation of plant-based chefs.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'millennium-restaurant-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Fine Dining', 'Pioneer'],
+  },
+  {
+    rank: 5,
+    name: 'Cha-Ya Vegetarian Japanese',
+    rating: 4.5,
+    reviewCount: 1901,
+    address: '762 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-252-7825',
+    description: "The Mission's cozy Japanese vegan restaurant serving traditional Japanese comfort food — ramen, udon, tempura, and donburi — entirely from plants. Cha-Ya's affordable prices, generous portions, and authentic flavors have kept it a neighborhood staple for over 15 years.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cha-ya-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Mission District'],
+  },
+  {
+    rank: 6,
+    name: 'Herbivore',
+    rating: 4.3,
+    reviewCount: 2412,
+    address: '983 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-826-5657',
+    description: "San Francisco's casual neighborhood vegan diner, serving the Mission District for over two decades. Herbivore's wide-ranging menu — burritos, pastas, stir-fries, burgers — makes it the most accessible entry point into SF's vegan dining scene. Affordable, reliable, and always welcoming.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'herbivore-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Casual', 'Mission District'],
+  },
+  {
+    rank: 7,
+    name: 'Udupi Palace',
+    rating: 4.4,
+    reviewCount: 2134,
+    address: '1007 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-970-8000',
+    description: "San Francisco's premier South Indian vegetarian restaurant. Udupi Palace serves entirely lacto-vegetarian (mostly vegan-adaptable) cuisine — dosas, idli, sambar, and thali — with authentic flavors from coastal Karnataka. A beloved institution in the Mission for over 20 years.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'udupi-palace-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegetarian', 'Indian', 'South Indian'],
+  },
+  {
+    rank: 8,
+    name: 'The Plant Cafe Organic',
+    rating: 4.4,
+    reviewCount: 1589,
+    address: '3352 Steiner St, San Francisco, CA 94123',
+    phone: '+1 415-931-2777',
+    description: "Marina District's organic cafe and restaurant with a comprehensive vegan menu. The Plant Cafe sources from Bay Area farms and prepares clean, nutritious plant-based meals — bowls, salads, wraps, and pressed juices — in a bright, welcoming space popular with health-conscious locals.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'plant-cafe-organic-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Marina'],
+  },
+  {
+    rank: 9,
+    name: 'Encuentro',
+    rating: 4.4,
+    reviewCount: 891,
+    address: '3340 Grand Ave, Oakland, CA 94610',
+    phone: '+1 510-550-2969',
+    description: 'An upscale vegan wine bar and restaurant in Oakland serving the greater Bay Area. Encuentro pairs a thoughtful selection of natural wines with small plates, charcuterie boards, and seasonal vegan entrees. One of the Bay Area\'s most sophisticated plant-based dining experiences.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'encuentro-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Wine Bar', 'Oakland'],
+  },
+  {
+    rank: 10,
+    name: 'Loving Hut',
+    rating: 4.3,
+    reviewCount: 1678,
+    address: '1439 Irving St, San Francisco, CA 94122',
+    phone: '+1 415-661-8893',
+    description: "The Inner Sunset's affordable pan-Asian vegan restaurant from the international Loving Hut chain. Generous portions of Chinese, Vietnamese, and Japanese-inspired vegan dishes at prices that make plant-based eating accessible to every budget. A reliable everyday choice for Inner Sunset residents.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'loving-hut-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Asian', 'Affordable'],
+  },
+]
+
+const veganSacramentoTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: "Pushkin's Restaurant",
+    rating: 4.7,
+    reviewCount: 1098,
+    address: '1930 Capitol Ave, Sacramento, CA 95811',
+    phone: '+1 916-444-7784',
+    description: "Sacramento's beloved allergy-friendly vegan bakery and cafe. Pushkin's is entirely free of the top 8 allergens and 100% plant-based — their housemade breads, pastries, cakes, and savory dishes are consistently outstanding. A 4.7 rating across over 1,000 reviews makes it the city's highest-rated vegan restaurant.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pushkins-restaurant-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Allergen-Free', 'Bakery'],
+  },
+  {
+    rank: 2,
+    name: 'Mother',
+    rating: 4.6,
+    reviewCount: 2389,
+    address: '1023 K St, Sacramento, CA 95814',
+    phone: '+1 916-400-2424',
+    description: "Downtown Sacramento's most celebrated vegan restaurant. Mother serves an innovative, globally inspired plant-based menu that changes seasonally — think jackfruit carnitas tacos, cashew cream risotto, and mushroom-forward small plates. The most critically acclaimed vegan kitchen in the Sacramento region.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'mother-restaurant-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Innovative', 'Downtown'],
+  },
+  {
+    rank: 3,
+    name: 'Sunflower Drive-In',
+    rating: 4.5,
+    reviewCount: 1801,
+    address: '2345 Fair Oaks Blvd, Sacramento, CA 95825',
+    phone: '+1 916-481-7200',
+    description: "A Sacramento institution for over 25 years. Sunflower Drive-In is a casual, entirely vegetarian and vegan restaurant serving big portions of California-inspired comfort food — burritos, burgers, salads, and daily specials. Beloved by the community for its affordable prices and reliable quality.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sunflower-drive-in-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Vegetarian', 'Casual'],
+  },
+  {
+    rank: 4,
+    name: 'OneSpeed Pizza',
+    rating: 4.4,
+    reviewCount: 2217,
+    address: '4818 Folsom Blvd, Sacramento, CA 95819',
+    phone: '+1 916-706-1748',
+    description: "East Sacramento's neighborhood pizzeria with an outstanding vegan menu. OneSpeed makes Neapolitan-inspired pizzas with house-crafted vegan cheeses, seasonal vegetable toppings, and perfectly charred crusts. Their commitment to plant-based options makes it one of Sacramento's best vegan-friendly restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'onespeed-pizza-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Pizza', 'East Sacramento'],
+  },
+  {
+    rank: 5,
+    name: 'Magpie Cafe',
+    rating: 4.5,
+    reviewCount: 1612,
+    address: '1601 16th St, Sacramento, CA 95814',
+    phone: '+1 916-452-7594',
+    description: "Midtown Sacramento's farm-to-fork pioneer. Magpie Cafe has built relationships with local farms to deliver a seasonal menu heavy on plant-based dishes — roasted vegetable plates, grain bowls, and creative vegan entrees. A cornerstone of Sacramento's celebrated farm-to-fork dining culture.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'magpie-cafe-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Farm-to-Fork', 'Midtown'],
+  },
+  {
+    rank: 6,
+    name: 'Karma Brew',
+    rating: 4.4,
+    reviewCount: 1089,
+    address: '816 21st St, Sacramento, CA 95811',
+    phone: '+1 916-572-3060',
+    description: 'A vegan-friendly coffee house and cafe in Midtown Sacramento. Karma Brew serves plant-based lattes, vegan baked goods, and light meals in a laid-back community space. A go-to for Sacramento vegans looking for a casual all-day spot with good coffee and solid food.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'karma-brew-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Coffee', 'Cafe'],
+  },
+  {
+    rank: 7,
+    name: 'Elixir Vitae',
+    rating: 4.6,
+    reviewCount: 421,
+    address: '2012 L St, Sacramento, CA 95811',
+    phone: '+1 916-538-2625',
+    description: "Sacramento's dedicated raw vegan cafe, serving entirely uncooked plant-based cuisine. Elixir Vitae's menu of dehydrated crackers, cashew cheeses, zucchini pasta, and raw desserts caters to those seeking maximum nutritional density. A niche gem beloved by Sacramento's raw food community.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'elixir-vitae-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Raw Food', 'Organic'],
+  },
+  {
+    rank: 8,
+    name: 'Plant Foundry Garden Store',
+    rating: 4.5,
+    reviewCount: 672,
+    address: '1019 Franquette Ave, Sacramento, CA 95825',
+    phone: '+1 916-927-5200',
+    description: "A plant nursery and garden center with a beloved vegan cafe. Plant Foundry's cafe serves seasonal plant-based sandwiches, salads, and small plates sourced from their nursery gardens. Dining surrounded by plants in a peaceful outdoor setting is a uniquely Sacramento experience.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'plant-foundry-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Garden Cafe', 'Seasonal'],
+  },
+  {
+    rank: 9,
+    name: 'Hook & Ladder Manufacturing Company',
+    rating: 4.4,
+    reviewCount: 2891,
+    address: '1630 S St, Sacramento, CA 95811',
+    phone: '+1 916-442-4885',
+    description: "A converted firehouse turned restaurant with a strong vegan-friendly menu. Hook & Ladder is one of Sacramento's most atmospheric dining spaces, and their kitchen takes plant-based cooking seriously — roasted vegetable boards, vegan tacos, and market salads are highlights.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'hook-and-ladder-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Bar', 'Midtown'],
+  },
+  {
+    rank: 10,
+    name: "Freerange Sacramento",
+    rating: 4.4,
+    reviewCount: 891,
+    address: '2343 Jazz Alley, Sacramento, CA 95818',
+    phone: '+1 916-594-9958',
+    description: "Oak Park's neighborhood cafe and market with a dedicated plant-based menu. Freerange serves grain bowls, avocado toasts, and seasonal vegan specials made from locally sourced ingredients. A welcoming community space that reflects Sacramento's growing commitment to sustainable, plant-based dining.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'freerange-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Cafe', 'Oak Park'],
+  },
+]
+
+// ─── Vegan City Guide Blog Posts ─────────────────────────────────────────────
+
+blogPosts.push({
+  slug: '10-best-vegan-restaurants-in-detroit-michigan',
+  title: '10 Best Vegan Restaurants In Detroit, Michigan',
+  h1: '10 Best Vegan Restaurants In Detroit, Michigan',
+  description: 'Discover the 10 best vegan restaurants in Detroit, Michigan — from Detroit Vegan Soul\'s plant-based soul food to Ima Noodles\' housemade vegan ramen. Our ranked guide covers every neighborhood and every budget.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: '10 Best Vegan Restaurants In Detroit, Michigan',
+  content: `<p>The 10 best vegan restaurants in Detroit, Michigan are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Detroit has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Detroit, Michigan deliver incredible flavor without compromising on quality.</p>
+
+<h2>Detroit's Vegan Food Scene: What to Expect</h2>
+<p>Detroit's vegan restaurant scene has grown dramatically over the last decade, anchored by homegrown favorites like Detroit Vegan Soul and long-running institutions like Seva Restaurant. The city's plant-based dining spans soul food, Japanese noodles, Vietnamese cuisine, Chinese vegan cooking, and upscale farm-to-table dining. Whether you're in Midtown, Eastern Market, or the greater metro area, there's a top-rated vegan restaurant near you in Detroit.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Detroit by Category</h2>
+<ul>
+  <li><strong>Best vegan soul food in Detroit:</strong> Detroit Vegan Soul (4.6 stars)</li>
+  <li><strong>Best vegan noodles in Detroit:</strong> Ima Noodles (4.5 stars, vegan mazemen)</li>
+  <li><strong>Best upscale vegan in Detroit:</strong> GreenSpace Cafe (4.5 stars, Ferndale)</li>
+  <li><strong>Best vegan bakery in Detroit:</strong> Sister Pie (4.7 stars)</li>
+  <li><strong>Best long-running vegan restaurant in Detroit:</strong> Seva Restaurant (4.4 stars, open since 1973)</li>
+  <li><strong>Best Chinese vegan in Detroit:</strong> Green Garden (4.4 stars)</li>
+</ul>`,
+  restaurantCards: veganDetroitTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Detroit, Michigan</h2>
+<p>Detroit's vegan dining scene continues to grow in quality and variety. We love starting with Detroit Vegan Soul for pure soul food comfort, heading to Ima Noodles for exceptional plant-based ramen, and rounding things out with the seasonal creativity of GreenSpace Cafe. Whether you're a Detroit native or visiting the Motor City, these 10 restaurants represent the best vegan food the city has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Detroit, Michigan</h2>
+
+<h3>What is the best vegan restaurant in Detroit, Michigan?</h3>
+<p>The highest-rated vegan restaurant in Detroit, Michigan is Sister Pie (4.7 stars, 2,341 reviews) for baked goods, and Detroit Vegan Soul (4.6 stars, 842 reviews) for full vegan meals. Detroit Vegan Soul is the most celebrated dedicated plant-based restaurant in the city, serving vegan soul food including jackfruit BBQ and mac 'n' yease.</p>
+
+<h3>Is there vegan ramen in Detroit?</h3>
+<p>Yes — Ima Noodles on Michigan Ave in Corktown is Detroit's best spot for vegan ramen and noodle bowls. Their vegan mazemen (brothless ramen) and plant-based broth bowls are consistently praised. Ima holds a 4.5-star Google rating across over 1,400 reviews.</p>
+
+<h3>Where can I find vegan soul food in Detroit?</h3>
+<p>Detroit Vegan Soul at 8029 Agnes St, Detroit, MI 48214 is the city's premier plant-based soul food restaurant. Their jackfruit BBQ, collard greens, and mac 'n' yease are legendary in the Detroit vegan community.</p>`,
+})
+
+blogPosts.push({
+  slug: '10-best-vegan-restaurants-in-los-angeles-california',
+  title: '10 Best Vegan Restaurants In Los Angeles, California',
+  h1: '10 Best Vegan Restaurants In Los Angeles, California',
+  description: 'Looking for the best vegan restaurants in Los Angeles? We ranked the top 10 — from Gracias Madre\'s plant-based Mexican in West Hollywood to Shojin\'s Japanese vegan sushi in Little Tokyo. LA\'s definitive vegan dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: '10 Best Vegan Restaurants In Los Angeles, California',
+  content: `<p>The 10 best vegan restaurants in Los Angeles, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Los Angeles has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Los Angeles, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>Los Angeles: The Vegan Capital of America</h2>
+<p>No city in the United States has embraced plant-based dining more fully than Los Angeles. From West Hollywood's upscale vegan fine dining on Melrose to Echo Park's casual comfort food spots and Highland Park's neighborhood cafes, LA's vegan restaurant scene is the deepest and most diverse in the country. These 10 restaurants represent the best vegan food Los Angeles has to offer in 2026.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in LA by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in LA:</strong> Gracias Madre (4.5 stars, 3,821 reviews)</li>
+  <li><strong>Best upscale vegan in Los Angeles:</strong> Crossroads Kitchen (4.4 stars, Melrose)</li>
+  <li><strong>Best vegan Japanese in LA:</strong> Shojin (4.6 stars, Little Tokyo)</li>
+  <li><strong>Best organic vegan cafe in LA:</strong> Café Gratitude DTLA (4.6 stars)</li>
+  <li><strong>Best vegan brunch in LA:</strong> Kitchen Mouse (4.6 stars, Highland Park)</li>
+  <li><strong>Best vegan comfort food in LA:</strong> Doomie's Home Cookin' (4.5 stars)</li>
+  <li><strong>Best vegan Italian in Los Angeles:</strong> Little Pine (4.4 stars, Silver Lake)</li>
+</ul>`,
+  restaurantCards: veganLATop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Los Angeles</h2>
+<p>Los Angeles has earned its reputation as America's vegan dining capital. We love starting at Gracias Madre for the best plant-based Mexican food in the country, heading to Shojin for the finest vegan Japanese cuisine on the West Coast, and exploring neighborhood gems like Kitchen Mouse for the best of everyday vegan LA. Whatever neighborhood you're in, these 10 restaurants deliver the best vegan food Los Angeles has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Los Angeles, California</h2>
+
+<h3>What is the best vegan restaurant in Los Angeles?</h3>
+<p>The best vegan restaurant in Los Angeles is <strong>Gracias Madre</strong> (8905 Melrose Ave, West Hollywood) with a 4.5-star rating across nearly 4,000 reviews — the most-reviewed vegan restaurant in LA. For upscale dining, Crossroads Kitchen on Melrose is the top choice. For the most creative plant-based cuisine, Shojin in Little Tokyo leads the city.</p>
+
+<h3>Where can I find vegan Japanese food in Los Angeles?</h3>
+<p>Shojin at 333 S Alameda St in Little Tokyo is LA's best vegan Japanese restaurant, specializing in shojin ryori (Buddhist temple cuisine) with vegan sushi, tempura, and bento boxes. It holds a 4.6-star Google rating.</p>
+
+<h3>What are the best vegan restaurants near me in LA?</h3>
+<p>In <strong>West Hollywood / Melrose</strong>: Gracias Madre, Crossroads Kitchen, Hugo's. In <strong>Silver Lake / Echo Park</strong>: Little Pine, Sage Plant Based Bistro. In <strong>Highland Park / Eagle Rock</strong>: Kitchen Mouse. In <strong>Studio City</strong>: SunCafe Organic. In <strong>DTLA / Arts District</strong>: Café Gratitude, Shojin.</p>`,
+})
+
+blogPosts.push({
+  slug: '10-best-vegan-restaurants-in-honolulu-hawaii',
+  title: '10 Best Vegan Restaurants In Honolulu, Hawaii',
+  h1: '10 Best Vegan Restaurants In Honolulu, Hawaii',
+  description: 'Find the best vegan restaurants in Honolulu, Hawaii — from Ai Love Nalo\'s farm-driven Hawaiian vegan cuisine to The Beet Box Cafe on the North Shore. Our ranked guide to plant-based dining on Oahu.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: '10 Best Vegan Restaurants In Honolulu, Hawaii',
+  content: `<p>The 10 best vegan restaurants in Honolulu, Hawaii are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Honolulu has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Honolulu, Hawaii deliver incredible flavor without compromising on quality.</p>
+
+<h2>Vegan Dining in Honolulu: What Makes It Special</h2>
+<p>Honolulu's vegan restaurant scene is shaped by Hawaii's extraordinary local produce — tropical fruits, fresh vegetables, and island-grown ingredients that mainland vegan restaurants can only dream of sourcing. From the North Shore's farm-driven cafes to Honolulu's urban plant-based restaurants, eating vegan in Hawaii means eating some of the freshest food on the planet. These 10 restaurants represent the best vegan dining Oahu has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Honolulu by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Honolulu:</strong> Ai Love Nalo (4.7 stars, Hawaiian vegan)</li>
+  <li><strong>Best vegan cafe on the North Shore:</strong> The Beet Box Cafe (4.7 stars, Haleiwa)</li>
+  <li><strong>Best vegan brunch in Honolulu:</strong> Morning Glass Coffee (4.7 stars, Manoa)</li>
+  <li><strong>Best raw vegan in Honolulu:</strong> Greens & Vines (4.5 stars, Downtown)</li>
+  <li><strong>Best affordable vegan in Honolulu:</strong> Down to Earth Natural Foods (4.4 stars)</li>
+  <li><strong>Best farm-to-table vegan on Oahu:</strong> Kahuku Farms (4.5 stars, North Shore)</li>
+</ul>`,
+  restaurantCards: veganHonoluluTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Honolulu, Hawaii</h2>
+<p>Honolulu's vegan dining scene benefits from Hawaii's incredible local produce and aloha spirit. We love starting at Ai Love Nalo for the most authentic Hawaiian vegan experience, exploring the North Shore's Beet Box Cafe and Kahuku Farms for farm-fresh plant-based meals, and relying on Down to Earth for affordable everyday vegan eating. Whatever brings you to Oahu, these 10 restaurants will feed you well.</p>
+
+<h2>FAQ: Vegan Restaurants in Honolulu, Hawaii</h2>
+
+<h3>What is the best vegan restaurant in Honolulu, Hawaii?</h3>
+<p>The highest-rated vegan restaurants in Honolulu are <strong>Ai Love Nalo</strong> (4.7 stars, Hawaiian vegan in Waimanalo), <strong>The Beet Box Cafe</strong> (4.7 stars, North Shore), and <strong>Morning Glass Coffee</strong> (4.7 stars, Manoa). Ai Love Nalo is the most celebrated fully plant-based restaurant in the Honolulu area for its farm-driven Hawaiian vegan cuisine.</p>
+
+<h3>Is there vegan food near Waikiki in Honolulu?</h3>
+<p>Yes — several vegan-friendly restaurants are accessible from Waikiki. <strong>Peace Cafe</strong> (4.4 stars) is in nearby McCully, just a short drive from Waikiki. <strong>Down to Earth Natural Foods</strong> on S King St is another easy option for affordable, organic plant-based meals near the tourist corridor.</p>
+
+<h3>Where can I find vegan food on the North Shore of Oahu?</h3>
+<p><strong>The Beet Box Cafe</strong> in Haleiwa (4.7 stars, 1,089 reviews) is the North Shore's best vegan restaurant, and <strong>Kahuku Farms</strong> in Kahuku (4.5 stars) offers a farm cafe experience unique to Hawaii. Both are worth the drive from Honolulu.</p>`,
+})
+
+blogPosts.push({
+  slug: '10-best-vegan-restaurants-in-san-francisco-california',
+  title: '10 Best Vegan Restaurants In San Francisco, California',
+  h1: '10 Best Vegan Restaurants In San Francisco, California',
+  description: 'Discover the 10 best vegan restaurants in San Francisco, California — from Shizen\'s vegan Japanese sushi to Gracias Madre\'s plant-based Mexican. SF\'s definitive plant-based dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: '10 Best Vegan Restaurants In San Francisco, California',
+  content: `<p>The 10 best vegan restaurants in San Francisco, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, San Francisco has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in San Francisco, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>San Francisco's Vegan Restaurant Scene</h2>
+<p>San Francisco has been a leader in plant-based dining for decades — home to some of the most innovative vegan restaurants in the world. The Mission District is the densest corridor for vegan dining (Gracias Madre, Shizen, Cha-Ya, Herbivore, Udupi Palace all within blocks of each other). The Marina has The Plant Cafe Organic. Union Square has Wildseed. These 10 restaurants represent the best vegan dining San Francisco has to offer in 2026.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in SF by Category</h2>
+<ul>
+  <li><strong>Best vegan restaurant in San Francisco overall:</strong> Shizen Vegan Sushi Bar (4.6 stars, 3,812 reviews)</li>
+  <li><strong>Best upscale vegan in SF:</strong> Wildseed (4.5 stars, fine dining)</li>
+  <li><strong>Best vegan Mexican in San Francisco:</strong> Gracias Madre SF (4.5 stars, 4,213 reviews)</li>
+  <li><strong>Best vegan Japanese in SF:</strong> Shizen or Cha-Ya (4.6 / 4.5 stars)</li>
+  <li><strong>Best casual vegan in SF:</strong> Herbivore (4.3 stars, Mission District)</li>
+  <li><strong>Best South Indian vegetarian in SF:</strong> Udupi Palace (4.4 stars)</li>
+  <li><strong>Best vegan wine bar near SF:</strong> Encuentro (4.4 stars, Oakland)</li>
+</ul>`,
+  restaurantCards: veganSFTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in San Francisco</h2>
+<p>San Francisco's plant-based dining scene is one of the most mature and creative in the country. We love starting at Shizen for the city's most impressive vegan Japanese cuisine, hitting Gracias Madre for the best plant-based Mexican food in the Bay Area, and discovering neighborhood gems like Cha-Ya and Herbivore in the Mission. Whatever brings you to San Francisco, these 10 restaurants represent the best vegan food the city has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in San Francisco, California</h2>
+
+<h3>What is the best vegan restaurant in San Francisco?</h3>
+<p>The best vegan restaurant in San Francisco is <strong>Shizen Vegan Sushi Bar</strong> (370 14th St) with a 4.6-star rating across nearly 4,000 reviews — the highest-rated vegan restaurant in the city. Gracias Madre SF has the most reviews (4,213). For fine dining, Wildseed in Union Square is the top pick.</p>
+
+<h3>Where is the best vegan food in the Mission District of SF?</h3>
+<p>The Mission District is SF's vegan dining hub. Top picks include <strong>Shizen</strong> (14th St), <strong>Gracias Madre SF</strong> (Mission St), <strong>Cha-Ya Vegetarian Japanese</strong> (Valencia St), <strong>Herbivore</strong> (Valencia St), and <strong>Udupi Palace</strong> (Valencia St) — all within walking distance of each other.</p>
+
+<h3>Is there vegan ramen in San Francisco?</h3>
+<p>Yes — <strong>Shizen Vegan Sushi Bar</strong> (370 14th St) serves vegan ramen alongside its vegan sushi menu. <strong>Cha-Ya Vegetarian Japanese</strong> (762 Valencia St) also serves vegan ramen and udon in a traditional Japanese setting. Both are highly rated and beloved by SF vegans.</p>`,
+})
+
+blogPosts.push({
+  slug: '10-best-vegan-restaurants-in-sacramento-california',
+  title: '10 Best Vegan Restaurants In Sacramento, California',
+  h1: '10 Best Vegan Restaurants In Sacramento, California',
+  description: 'Find the best vegan restaurants in Sacramento, California — from Pushkin\'s allergy-free vegan bakery to Mother\'s innovative plant-based kitchen. Sacramento\'s definitive vegan dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: '10 Best Vegan Restaurants In Sacramento, California',
+  content: `<p>The 10 best vegan restaurants in Sacramento, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Sacramento has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Sacramento, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>Sacramento's Farm-to-Fork Vegan Scene</h2>
+<p>Sacramento calls itself America's Farm-to-Fork Capital — and for plant-based diners, that's a significant advantage. The city's proximity to the Central Valley means Sacramento's vegan restaurants have access to an extraordinary range of fresh produce year-round. From Midtown's innovative kitchens to East Sacramento's neighborhood pizzerias and Oak Park's community cafes, these 10 restaurants represent the best vegan dining Sacramento, California has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Sacramento by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Sacramento:</strong> Pushkin's Restaurant (4.7 stars, allergen-free)</li>
+  <li><strong>Best upscale vegan in Sacramento:</strong> Mother Restaurant (4.6 stars, Downtown)</li>
+  <li><strong>Best vegan institution in Sacramento:</strong> Sunflower Drive-In (4.5 stars, 25+ years)</li>
+  <li><strong>Best vegan pizza in Sacramento:</strong> OneSpeed Pizza (4.4 stars, East Sacramento)</li>
+  <li><strong>Best farm-to-fork vegan in Sacramento:</strong> Magpie Cafe (4.5 stars, Midtown)</li>
+  <li><strong>Best raw vegan in Sacramento:</strong> Elixir Vitae (4.6 stars)</li>
+  <li><strong>Best vegan bakery in Sacramento:</strong> Pushkin's Restaurant (4.7 stars)</li>
+</ul>`,
+  restaurantCards: veganSacramentoTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Sacramento, California</h2>
+<p>Sacramento's vegan restaurant scene has matured into one of the best in Northern California. We love starting at Pushkin's for the city's finest vegan baked goods, heading to Mother Restaurant for the most innovative plant-based cooking in Sacramento, and relying on Sunflower Drive-In for the affordable, reliable comfort food that's sustained the city's vegan community for over 25 years. These 10 restaurants represent the best vegan food Sacramento has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Sacramento, California</h2>
+
+<h3>What is the best vegan restaurant in Sacramento, California?</h3>
+<p>The highest-rated vegan restaurant in Sacramento is <strong>Pushkin's Restaurant</strong> (1930 Capitol Ave) with a 4.7-star Google rating — an entirely allergy-free and plant-based bakery and cafe. For full-service vegan dining, <strong>Mother Restaurant</strong> (1023 K St) is Sacramento's most celebrated innovative plant-based kitchen.</p>
+
+<h3>Is Sacramento good for vegan food?</h3>
+<p>Yes — Sacramento is one of Northern California's best cities for vegan dining. As America's Farm-to-Fork Capital, the city's access to Central Valley produce means vegan restaurants here work with exceptional fresh ingredients. The Midtown corridor in particular has a dense concentration of top-rated vegan and vegan-friendly restaurants.</p>
+
+<h3>Where can I find affordable vegan food in Sacramento?</h3>
+<p><strong>Sunflower Drive-In</strong> (2345 Fair Oaks Blvd, 4.5 stars) is Sacramento's best affordable vegan restaurant, serving big portions of plant-based comfort food at low prices for over 25 years. <strong>Karma Brew</strong> in Midtown is the top pick for affordable vegan coffee and light meals.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
