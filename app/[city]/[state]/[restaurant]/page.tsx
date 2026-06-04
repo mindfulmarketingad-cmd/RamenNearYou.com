@@ -348,7 +348,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
           {/* Primary action buttons */}
           <div className="flex flex-wrap gap-3">
-            {r.slug === 'chef-mak-noodle-house' && (
+            {['chef-mak-noodle-house', 'the-bento-bowl', 'kumo-sushi-ramen', 'crave-noodles'].includes(r.slug) && (
               <a
                 href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
                 target="_blank"
