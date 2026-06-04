@@ -353,14 +353,13 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-black hover:bg-[#111] text-white text-sm font-bold shadow-sm transition-colors"
+                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl bg-[#1a1f2e] hover:bg-[#252b3b] text-white shadow-sm transition-colors"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="12" fill="#06C167"/>
-                  <path d="M8 8h8v5a4 4 0 01-8 0V8z" fill="white"/>
-                  <rect x="7" y="16" width="10" height="1.5" rx="0.75" fill="white"/>
-                </svg>
-                Order on Uber Eats
+                <div className="flex flex-col leading-tight">
+                  <span className="text-white text-[11px] font-normal">Uber</span>
+                  <span className="text-[#06C167] text-[11px] font-bold">Eats</span>
+                </div>
+                <span className="text-white text-sm font-bold">Order Food</span>
               </a>
             )}
             {orderUrl && (
