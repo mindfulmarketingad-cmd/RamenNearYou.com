@@ -348,6 +348,21 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
           {/* Primary action buttons */}
           <div className="flex flex-wrap gap-3">
+            {r.slug === 'chef-mak-noodle-house' && (
+              <a
+                href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-black hover:bg-[#111] text-white text-sm font-bold shadow-sm transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="12" fill="#06C167"/>
+                  <path d="M8 8h8v5a4 4 0 01-8 0V8z" fill="white"/>
+                  <rect x="7" y="16" width="10" height="1.5" rx="0.75" fill="white"/>
+                </svg>
+                Order on Uber Eats
+              </a>
+            )}
             {orderUrl && (
               <OutboundLink
                 url={orderUrl}
