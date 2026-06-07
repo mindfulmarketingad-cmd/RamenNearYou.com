@@ -207,6 +207,19 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs text-[#6B6862]/60">·</span>
                 <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
               </div>
+
+              {post.imageFirst && post.headerImage && (
+                <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-6">
+                  <Image
+                    src={post.headerImage}
+                    alt={post.headerImageAlt ?? post.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              )}
+
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
@@ -232,7 +245,7 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </header>
 
-            {post.headerImage && (
+            {!post.imageFirst && post.headerImage && (
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
                   src={post.headerImage}
