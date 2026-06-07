@@ -2,11 +2,8 @@
 
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { Navigation, Loader2, MapPin, ArrowLeftRight, Search } from 'lucide-react'
+import { MapPin, Search } from 'lucide-react'
 import Image from 'next/image'
-
-type Status = 'idle' | 'requesting' | 'locating' | 'error'
 
 interface Props {
   restaurantCount: number
@@ -21,44 +18,8 @@ function formatCount(n: number): string {
 
 export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
   const router = useRouter()
-  const [status, setStatus] = useState<Status>('idle')
   const [zip, setZip] = useState('')
   const [zipError, setZipError] = useState('')
-
-  async function handleFindRamen() {
-    if (!navigator.geolocation) {
-      router.push('/searchmap')
-      return
-    }
-
-    setStatus('requesting')
-
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        setStatus('locating')
-        const { latitude, longitude } = pos.coords
-        try {
-          const res = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-          )
-          const data = await res.json()
-          const z = data.postcode
-          if (z) {
-            router.push(`/searchmap?zip=${z}`)
-          } else {
-            router.push(`/searchmap?lat=${latitude}&lng=${longitude}`)
-          }
-        } catch {
-          router.push(`/searchmap?lat=${latitude}&lng=${longitude}`)
-        }
-      },
-      () => {
-        setStatus('error')
-        setTimeout(() => router.push('/searchmap'), 800)
-      },
-      { timeout: 8000 }
-    )
-  }
 
   function handleZipSearch(e: FormEvent) {
     e.preventDefault()
@@ -70,8 +31,6 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
     setZipError('')
     router.push(`/searchmap?zip=${clean}`)
   }
-
-  const isLoading = status === 'requesting' || status === 'locating'
 
   return (
     <section className="relative z-30 h-[460px] sm:h-[500px] flex items-center justify-center overflow-hidden">
@@ -119,40 +78,6 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
             <p className="text-red-300 text-xs mt-2">{zipError}</p>
           )}
         </form>
-
-        {/* CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={handleFindRamen}
-            disabled={isLoading}
-            className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] active:scale-95 text-white text-base font-semibold shadow-xl shadow-black/40 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed"
-          >
-            {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Navigation className="w-4 h-4" />
-            )}
-            {status === 'requesting' && 'Waiting for location…'}
-            {status === 'locating'   && 'Finding ramen near you…'}
-            {status === 'error'      && 'Redirecting…'}
-            {status === 'idle'       && 'Use My Location'}
-          </button>
-
-          {/* Secondary CTA — Compare */}
-          <Link
-            href="/compare"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-white/90 active:scale-95 text-[#B57F50] text-base font-semibold shadow-lg shadow-black/20 transition-all duration-200"
-          >
-            <ArrowLeftRight className="w-4 h-4" />
-            Compare Restaurants
-          </Link>
-        </div>
-
-        {/* Location nudge */}
-        <p className="mt-3 flex items-center justify-center gap-1.5 text-white/50 text-xs">
-          <MapPin className="w-3 h-3 text-[#e8b97a]" />
-          Allow location access for the best results
-        </p>
 
       </div>
 
