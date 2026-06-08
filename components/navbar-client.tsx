@@ -93,6 +93,9 @@ export default function NavbarClient() {
           </a>
 
           <nav className="flex flex-col gap-1 pt-3">
+            <Link href="/products" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+              Products
+            </Link>
             <Link href="/catering" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               Catering
             </Link>

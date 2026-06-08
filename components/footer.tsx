@@ -5,6 +5,7 @@ const footerLinks = {
   Browse: [
     { label: 'Browse Cities', href: '/cities' },
     { label: 'Broth Types', href: '/broth' },
+    { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
     { label: 'Catering', href: '/catering' },
     { label: 'FAQ', href: '/faq' },
