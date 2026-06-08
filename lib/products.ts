@@ -262,6 +262,65 @@ export const products: Product[] = [
       { label: 'Handle', value: 'Cool-touch ergonomic' },
     ],
   },
+  {
+    slug: 'blue-sakura-ceramic-ramen-bowl-set',
+    name: 'Blue Sakura Ceramic Ramen Bowl Set (Bowl, Spoon & Chopsticks)',
+    tagline: "Hand-glazed blue cherry blossom porcelain in a gift-ready box — a beautiful set you'll be proud to give or keep.",
+    description:
+      'A large 8-inch porcelain ramen bowl finished in a striking blue sakura (cherry blossom) glaze, paired with a matching spoon and bamboo chopsticks. High-temperature fired for an ultra-dense, pore-free, stain-resistant body, with a mirror-smooth glossy surface that wipes clean in seconds. Microwave and dishwasher safe, and packaged in protective foam inside a gift-ready box.',
+    rating: 4.7,
+    reviewCount: 2156,
+    images: [
+      '/images/products/blue-sakura-ramen-bowl-set.jpg',
+    ],
+    affiliateUrl: 'https://amzn.to/3PMAb9O',
+    badge: 'Gift Ready',
+    category: 'Ramen Bowls',
+    metaTitle: 'Blue Sakura Ceramic Ramen Bowl Set | 8" Porcelain Bowl, Spoon & Chopsticks',
+    metaDescription:
+      'Large 8-inch porcelain ramen bowl set with blue cherry blossom glaze, spoon, and chopsticks. Dense, stain-resistant, microwave & dishwasher safe. Gift-ready packaging — perfect for birthdays, weddings, and housewarmings.',
+    features: [
+      {
+        icon: '🎁',
+        title: 'Unique Gift for Friends & Family',
+        description:
+          'Looking for a gift for birthdays, holidays, Mother\'s Day, or any significant occasion? This large ramen bowl set is here to help. Choose our set, and you won\'t regret it.',
+      },
+      {
+        icon: '🏺',
+        title: 'Premium Porcelain',
+        description:
+          'Made of authentic porcelain that rings clearly when tapped. The high-temperature firing process makes it ultra-dense, pore-free, and lifelong stain-resistant.',
+      },
+      {
+        icon: '✨',
+        title: 'Super Glossy Surface, Effortless to Clean',
+        description:
+          'The 8-inch bowl has a mirror-smooth glaze that resists tough stains and wipes clean in seconds. It works beautifully in both the dishwasher and the microwave.',
+      },
+      {
+        icon: '🍜',
+        title: 'Heavy-Duty & Multi-Functional',
+        description:
+          'The deep Japanese-decor bowl can serve ramen, miso soup, noodles, salad, pho, dessert, cereal, rice, and just about any other dish you can think of.',
+      },
+      {
+        icon: '📦',
+        title: 'Premium Gift-Ready Packaging',
+        description:
+          'Arrives in protective packaging — dense foam inside a gift-ready box. Perfect as a wedding gift, birthday gift, or housewarming gift, with no extra wrapping needed.',
+      },
+    ],
+    specs: [
+      { label: 'Material', value: 'High-Fired Authentic Porcelain' },
+      { label: 'Set Includes', value: '1 Bowl, 1 Spoon, 1 Pair Chopsticks' },
+      { label: 'Diameter', value: '8 inches' },
+      { label: 'Design', value: 'Blue Sakura (Cherry Blossom) Glaze' },
+      { label: 'Microwave Safe', value: 'Yes' },
+      { label: 'Dishwasher Safe', value: 'Yes' },
+      { label: 'Packaging', value: 'Foam-protected, gift-ready box' },
+    ],
+  },
 ]
 
 export function getProduct(slug: string): Product | undefined {
