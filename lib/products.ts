@@ -96,7 +96,7 @@ export const products: Product[] = [
     images: [
       '/images/products/sakura-chopsticks.jpg',
     ],
-    affiliateUrl: 'https://amzn.to/4odbos2',
+    affiliateUrl: 'https://amzn.to/4oeNrRh',
     badge: 'Top Rated',
     category: 'Ramen Accessories',
     metaTitle: 'Sakura Stainless Steel Chopsticks 5 Pairs | Japanese Cherry Blossom Design',
