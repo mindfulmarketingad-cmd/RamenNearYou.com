@@ -321,6 +321,65 @@ export const products: Product[] = [
       { label: 'Packaging', value: 'Foam-protected, gift-ready box' },
     ],
   },
+  {
+    slug: 'black-melamine-ramen-bowl-set',
+    name: 'Black Melamine Ramen Bowl Set (37oz — Bowl, Chopsticks, Stand & Ladle)',
+    tagline: "Shatter-proof Japanese design, 37oz of capacity, and a full utensil kit — ramen the way it should be served.",
+    description:
+      'A large 37oz Japanese-style ramen bowl made of BPA-free melamine — shatter-proof, chip-resistant, and scratch-proof. Each set includes the bowl, chopsticks, a chopstick-stand saucer, and a ladle. Top-rack dishwasher safe and lightweight enough to use every day, with a matte black ridged finish that brings authentic Japanese aesthetics to any kitchen, dorm, or camper.',
+    rating: 4.6,
+    reviewCount: 4382,
+    images: [
+      '/images/products/black-melamine-ramen-bowl-set.jpg',
+    ],
+    affiliateUrl: 'https://amzn.to/4g8kd4m',
+    badge: 'Shatter-Proof',
+    category: 'Ramen Bowls',
+    metaTitle: 'Black Melamine Ramen Bowl Set 37oz | Bowl, Chopsticks, Stand & Ladle',
+    metaDescription:
+      'Large 37oz BPA-free melamine ramen bowl set with chopsticks, chopstick stand, and ladle. Shatter-proof, chip-resistant, dishwasher safe. Japanese matte-black design — perfect for ramen, pho, udon, and more.',
+    features: [
+      {
+        icon: '🍜',
+        title: 'Versatile Asian Bowl',
+        description:
+          'The large 37oz bowl is the perfect size for ramen, Vietnamese pho, udon, Korean soba, Chinese noodles, fried rice, and more. Every set includes a bowl, chopsticks, a chopstick-stand saucer, and a ladle.',
+      },
+      {
+        icon: '✅',
+        title: 'Safe BPA-Free Melamine',
+        description:
+          'Made from durable 100% BPA-free melamine. Impressively shatter-proof, chip-resistant, and scratch-proof for extra durability. Top-rack dishwasher safe. Note: not microwave safe.',
+      },
+      {
+        icon: '🏯',
+        title: 'Unique Japanese Design',
+        description:
+          'The matte-black ridged design captures the beauty of Japanese traditional culture — built for both convenience and farmhouse aesthetics. A perfect addition to any kitchen, camper, or college dorm.',
+      },
+      {
+        icon: '🧼',
+        title: 'Easy Clean & Durable',
+        description:
+          'Safe for the dishwasher or hand wash. Unlike ceramic or porcelain bowls, you never have to worry about shattering or breakage — and it\'s impressively lightweight.',
+      },
+      {
+        icon: '🛡️',
+        title: 'Buy with Confidence',
+        description:
+          '24/7 customer support and high-quality packaging included. These bowls are built to last and backed by a team committed to your satisfaction.',
+      },
+    ],
+    specs: [
+      { label: 'Material', value: 'BPA-Free Melamine' },
+      { label: 'Capacity', value: '37 oz per bowl' },
+      { label: 'Set Includes', value: 'Bowl, Chopsticks, Chopstick Stand Saucer, Ladle' },
+      { label: 'Finish', value: 'Matte Black, Ridged Japanese Style' },
+      { label: 'Dishwasher Safe', value: 'Yes (top rack)' },
+      { label: 'Microwave Safe', value: 'No' },
+      { label: 'Shatter-Proof', value: 'Yes' },
+    ],
+  },
 ]
 
 export function getProduct(slug: string): Product | undefined {
