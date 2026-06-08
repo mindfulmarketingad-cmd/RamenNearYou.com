@@ -85,6 +85,64 @@ export const products: Product[] = [
       { label: 'Gift Box Included', value: 'Yes' },
     ],
   },
+  {
+    slug: 'sakura-chopsticks',
+    name: 'Sakura Stainless Steel Chopsticks (5 Pairs)',
+    tagline: "Japanese cherry blossom design meets food-grade steel — beautiful, practical, and built to last.",
+    description:
+      'Five pairs of food-grade 304 stainless steel chopsticks with a permanent laser-engraved sakura (cherry blossom) pattern. Lightweight, non-slip square body, dishwasher safe, and packaged in an elegant gift box.',
+    rating: 4.6,
+    reviewCount: 8423,
+    images: [
+      '/images/products/sakura-chopsticks.jpg',
+    ],
+    affiliateUrl: 'https://amzn.to/4odbos2',
+    badge: 'Top Rated',
+    category: 'Ramen Accessories',
+    metaTitle: 'Sakura Stainless Steel Chopsticks 5 Pairs | Japanese Cherry Blossom Design',
+    metaDescription:
+      'Food-grade 304 stainless steel chopsticks with laser-engraved sakura pattern. Non-slip, dishwasher safe, 5 pairs. Perfect gift for ramen lovers.',
+    features: [
+      {
+        icon: '🌸',
+        title: 'Permanent Sakura Pattern',
+        description:
+          'Laser-engraved cherry blossom design that never fades or peels — unlike painted or printed chopsticks that wear off with washing.',
+      },
+      {
+        icon: '🛡️',
+        title: 'Food-Grade 304 Stainless Steel',
+        description:
+          'Made from 18/8 stainless steel — the same material used in premium flatware. Rust-proof, hygienic, and built to last for years.',
+      },
+      {
+        icon: '✋',
+        title: 'Non-Slip Square Design',
+        description:
+          'Square profile is easy to hold and won\'t roll off the table. Etched tip grips noodles, tofu, and vegetables with precision — great for beginners too.',
+      },
+      {
+        icon: '🧼',
+        title: 'Dishwasher Safe',
+        description:
+          'Solid stainless construction means no hidden pores where bacteria can hide. Toss them in the dishwasher or rinse by hand — no special care needed.',
+      },
+      {
+        icon: '🎁',
+        title: 'Elegant Gift Set',
+        description:
+          'Five pairs in a beautiful gift box. An ideal present for Christmas, birthdays, anniversaries, or anyone who loves Japanese cuisine.',
+      },
+    ],
+    specs: [
+      { label: 'Material', value: '304 (18/8) Stainless Steel' },
+      { label: 'Quantity', value: '5 Pairs (10 chopsticks)' },
+      { label: 'Pattern', value: 'Laser-engraved Sakura (permanent)' },
+      { label: 'Body Shape', value: 'Square (anti-roll)' },
+      { label: 'Dishwasher Safe', value: 'Yes' },
+      { label: 'Gift Box Included', value: 'Yes' },
+    ],
+  },
 ]
 
 export function getProduct(slug: string): Product | undefined {
