@@ -143,6 +143,66 @@ export const products: Product[] = [
       { label: 'Gift Box Included', value: 'Yes' },
     ],
   },
+  {
+    slug: 'japanese-ramen-bowl-set',
+    name: 'Japanese Ceramic Ramen Bowl Set (2 Bowls + Spoons + Chopsticks)',
+    tagline: "Restaurant-quality ceramic, kiln-fired glazes, and a complete dining set — everything you need for the perfect bowl.",
+    description:
+      'Two large 40 oz ceramic ramen bowls with authentic Japanese kiln-transmutation glazes, paired with wooden spoons and chopsticks. Lead-free, cadmium-free, microwave and dishwasher safe — a beautiful set for home or gifting.',
+    rating: 4.7,
+    reviewCount: 6214,
+    images: [
+      '/images/products/ramen-bowl-set.jpg',
+    ],
+    affiliateUrl: 'https://amzn.to/4ecu0nB',
+    badge: 'Staff Pick',
+    category: 'Ramen Bowls',
+    metaTitle: 'Japanese Ceramic Ramen Bowl Set | 40oz Bowls with Spoons & Chopsticks',
+    metaDescription:
+      'Lead-free ceramic ramen bowls with kiln-fired glazes. 40oz capacity, microwave & dishwasher safe. Set of 2 bowls, spoons, and chopsticks — perfect for ramen at home.',
+    features: [
+      {
+        icon: '🏺',
+        title: 'Kiln Transmutation Glaze',
+        description:
+          'Each bowl is fired using advanced kiln transmutation technology — carefully controlling temperature and humidity to create stunning multi-color glazes. Every bowl is subtly one-of-a-kind.',
+      },
+      {
+        icon: '🛡️',
+        title: 'Lead-Free & Cadmium-Free Ceramic',
+        description:
+          'Non-porous surface resists food odors, stains, and bacteria. No toxic chemicals leaching into your food — a safer, healthier choice than melamine alternatives.',
+      },
+      {
+        icon: '🍜',
+        title: 'Authentic Japanese Style',
+        description:
+          'Traditional Japanese design elevates any Asian-inspired dish — ramen, pho, udon, salads, soups, dumplings, and more. The 8-inch diameter and 40 oz capacity hold generous portions without spilling.',
+      },
+      {
+        icon: '🔥',
+        title: 'Microwave, Oven & Dishwasher Safe',
+        description:
+          'Versatile enough for everyday use. Microwave, oven, freezer, and dishwasher safe — go from prep to table to cleanup without any fuss.',
+      },
+      {
+        icon: '🎁',
+        title: 'Complete Dining Set',
+        description:
+          'Includes 2 ceramic bowls, 2 wooden spoons, and 2 pairs of chopsticks, beautifully packaged. An ideal gift for housewarmings, weddings, birthdays, or holidays.',
+      },
+    ],
+    specs: [
+      { label: 'Material', value: 'Lead-free, Cadmium-free Ceramic' },
+      { label: 'Quantity', value: '2 Bowls, 2 Spoons, 2 Pairs Chopsticks' },
+      { label: 'Capacity', value: '40 oz per bowl' },
+      { label: 'Diameter', value: '8 inches' },
+      { label: 'Microwave Safe', value: 'Yes' },
+      { label: 'Dishwasher Safe', value: 'Yes' },
+      { label: 'Oven Safe', value: 'Yes' },
+      { label: 'Freezer Safe', value: 'Yes' },
+    ],
+  },
 ]
 
 export function getProduct(slug: string): Product | undefined {
