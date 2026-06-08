@@ -20,6 +20,7 @@ import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
+import ProductsCarousel from '@/components/products-carousel'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 
@@ -728,6 +729,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
         </section>
       )}
 
+      <ProductsCarousel />
       <Footer />
     </main>
   )
