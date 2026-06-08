@@ -27,7 +27,7 @@ export const products: Product[] = [
   {
     slug: 'stainless-steel-chopsticks',
     name: 'Stainless Steel Chopsticks (5 Pairs)',
-    tagline: 'Reusable, dishwasher-safe, laser-engraved — the last chopsticks you'll ever need.',
+    tagline: "Reusable, dishwasher-safe, laser-engraved — the last chopsticks you'll ever need.",
     description:
       'Upgrade your ramen nights with these food-grade 304 stainless steel chopsticks. Five uniquely engraved pairs so every family member gets their own set. Non-slip square body, anti-slip etched tip, and fully dishwasher safe.',
     price: '$14.99',
