@@ -38,8 +38,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/71YoW3FMblL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/71YoW3FMblL._AC_SL1000_.jpg',
     ],
-    affiliateUrl:
-      'https://www.amazon.com/Chopsticks-Stainless-Multipack-Dishwasher-Chopstick/dp/B08L797W7X?tag=ramennearyou-20',
+    affiliateUrl: 'https://amzn.to/4odbos2',
     badge: 'Best Seller',
     category: 'Ramen Accessories',
     metaTitle: 'Stainless Steel Chopsticks 5 Pairs | Reusable & Dishwasher Safe',
