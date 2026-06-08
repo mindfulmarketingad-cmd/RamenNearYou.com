@@ -356,7 +356,7 @@ function SearchMapInner() {
               : <Navigation className="w-7 h-7 text-[#B57F50]" />}
           </div>
           <h1 className="font-serif text-2xl font-bold text-[#1E2026]">
-            {geoState === 'loading' ? 'Getting your location…' : 'Ramen Near Me'}
+            {geoState === 'loading' ? 'Getting your location…' : 'Ramen Map | Searchmap For Ramen Restaurants'}
           </h1>
           {geoState === 'idle' && (
             <>
@@ -382,7 +382,7 @@ function SearchMapInner() {
         <Navbar />
         <div className="flex-1 flex flex-col items-center justify-center gap-5 px-4 text-center">
           <MapPin className="w-10 h-10 text-[#B57F50]/50" />
-          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">Location access denied</h1>
+          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">Ramen Map | Searchmap For Ramen Restaurants</h1>
           <p className="text-[#6B6862] text-sm max-w-xs">{geoError || 'Enable location in your browser settings and try again.'}</p>
           <div className="flex gap-3 flex-wrap justify-center">
             <button
