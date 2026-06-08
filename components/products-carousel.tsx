@@ -74,21 +74,14 @@ export default function ProductsCarousel() {
                   <span className="text-[10px] text-[#9B9490]">({product.reviewCount.toLocaleString()})</span>
                 </div>
 
-                <div className="flex items-baseline gap-1.5 mt-auto">
-                  <span className="font-bold text-[#1E2026]">{product.price}</span>
-                  {product.originalPrice && (
-                    <span className="text-[#9B9490] text-xs line-through">{product.originalPrice}</span>
-                  )}
-                </div>
-
                 <a
                   href={product.affiliateUrl}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+                  className="flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors mt-auto"
                 >
                   <ShoppingCart className="w-3.5 h-3.5" />
-                  Buy on Amazon
+                  Check Price On Amazon
                   <ExternalLink className="w-3 h-3 opacity-70" />
                 </a>
               </div>

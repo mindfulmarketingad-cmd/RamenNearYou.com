@@ -161,14 +161,6 @@ export default async function ProductPage({ params }: Props) {
 
               <p className="text-[#6B6862] text-base leading-relaxed">{product.description}</p>
 
-              {/* Price */}
-              <div className="flex items-baseline gap-3">
-                <span className="font-serif text-4xl font-bold text-[#1E2026]">{product.price}</span>
-                {product.originalPrice && (
-                  <span className="text-[#6B6862]/60 text-lg line-through">{product.originalPrice}</span>
-                )}
-              </div>
-
               {/* CTA */}
               <a
                 href={product.affiliateUrl}
@@ -177,7 +169,7 @@ export default async function ProductPage({ params }: Props) {
                 className="flex items-center justify-center gap-2.5 w-full px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-base transition-colors shadow-md shadow-[#B57F50]/20"
               >
                 <ShoppingCart className="w-5 h-5" />
-                Buy on Amazon
+                Check Price On Amazon
                 <ExternalLink className="w-4 h-4 opacity-70" />
               </a>
 
@@ -247,7 +239,7 @@ export default async function ProductPage({ params }: Props) {
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold transition-colors"
             >
               <ShoppingCart className="w-4 h-4" />
-              Buy on Amazon — {product.price}
+              Check Price On Amazon
               <ExternalLink className="w-3.5 h-3.5 opacity-70" />
             </a>
           </div>

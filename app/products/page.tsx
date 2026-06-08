@@ -90,17 +90,11 @@ export default function ProductsPage() {
                   <p className="text-[#6B6862] text-sm leading-relaxed line-clamp-2 flex-1">{product.description}</p>
 
                   <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="font-bold text-[#1E2026] text-lg">{product.price}</span>
-                      {product.originalPrice && (
-                        <span className="text-[#9B9490] text-sm line-through">{product.originalPrice}</span>
-                      )}
-                    </div>
                     <Link
                       href={`/products/${product.slug}`}
                       className="text-xs font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
                     >
-                      View →
+                      View details →
                     </Link>
                   </div>
 
@@ -111,7 +105,7 @@ export default function ProductsPage() {
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
                   >
                     <ShoppingCart className="w-4 h-4" />
-                    Buy on Amazon
+                    Check Price On Amazon
                     <ExternalLink className="w-3.5 h-3.5 opacity-70" />
                   </a>
                 </div>
