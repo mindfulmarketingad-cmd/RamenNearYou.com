@@ -73,8 +73,7 @@ export default async function ProductPage({ params }: Props) {
     brand: { '@type': 'Brand', name: 'RamenNearYou' },
     offers: {
       '@type': 'Offer',
-      price: product.price.replace('$', ''),
-      priceCurrency: 'USD',
+      ...(product.price && { price: product.price.replace('$', ''), priceCurrency: 'USD' }),
       availability: 'https://schema.org/InStock',
       url: product.affiliateUrl,
     },
@@ -166,15 +165,10 @@ export default async function ProductPage({ params }: Props) {
 
               {/* Quick-win bullet list */}
               <ul className="flex flex-col gap-2 pt-1">
-                {[
-                  'Food-grade 304 stainless steel — rust-proof',
-                  '5 uniquely engraved pairs in one gift box',
-                  'Dishwasher safe — no special care needed',
-                  'Anti-slip square body & etched tip',
-                ].map((point) => (
-                  <li key={point} className="flex items-start gap-2 text-sm text-[#1E2026]">
+                {product.features.slice(0, 4).map((f) => (
+                  <li key={f.title} className="flex items-start gap-2 text-sm text-[#1E2026]">
                     <Check className="w-4 h-4 text-[#B57F50] shrink-0 mt-0.5" />
-                    {point}
+                    {f.title}
                   </li>
                 ))}
               </ul>
@@ -183,7 +177,7 @@ export default async function ProductPage({ params }: Props) {
 
           {/* Features */}
           <section className="mb-14">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-8">Why These Chopsticks?</h2>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-8">Why This Product?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {product.features.map((f) => (
                 <div

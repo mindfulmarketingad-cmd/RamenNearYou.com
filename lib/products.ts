@@ -9,7 +9,7 @@ export interface Product {
   name: string
   tagline: string
   description: string
-  price: string
+  price?: string
   originalPrice?: string
   rating: number
   reviewCount: number
