@@ -203,6 +203,65 @@ export const products: Product[] = [
       { label: 'Freezer Safe', value: 'Yes' },
     ],
   },
+  {
+    slug: 'microwave-ramen-bowl-with-lid',
+    name: 'Microwave Ramen Bowl with Lid & Utensils',
+    tagline: "Two lids, built-in utensils, leakproof seal — the only ramen bowl built for real life on the go.",
+    description:
+      'A BPA-free, food-grade polypropylene ramen bowl with a heat-safe silicone microwave lid and a leakproof snap-lock carry lid. Stainless-steel chopsticks, a reusable spork, and a strainer clip inside the lid. Perfect for the office, commute, dorm, or anywhere instant noodles are required.',
+    rating: 4.5,
+    reviewCount: 3891,
+    images: [
+      '/images/products/microwave-ramen-bowl.jpg',
+    ],
+    affiliateUrl: 'https://amzn.to/4oeRMUp',
+    badge: 'Best for Travel',
+    category: 'Ramen Bowls',
+    metaTitle: 'Microwave Ramen Bowl with Lid & Built-In Utensils | Leakproof Travel Bowl',
+    metaDescription:
+      'BPA-free microwave ramen bowl with silicone splatter lid, snap-lock carry lid, chopsticks, spork, and strainer. Dishwasher safe. Perfect for work, travel, and dorms.',
+    features: [
+      {
+        icon: '🔴',
+        title: 'Dual-Lid System',
+        description:
+          'The tan silicone lid seals steam and stops splatter while microwaving. Swap to the red twist-lock lid when you\'re ready to carry — one bowl handles both cooking and commuting.',
+      },
+      {
+        icon: '🍜',
+        title: 'Built-In Utensil Kit',
+        description:
+          'Stainless-steel chopsticks, a reusable spork, and a slotted strainer all clip inside the lid. The whole kit travels as one piece — no rummaging for cutlery ever again.',
+      },
+      {
+        icon: '🚫',
+        title: 'No More Microwave Splatter',
+        description:
+          'The food-grade silicone lid covers the bowl during heating, sealing in steam and stopping broth from coating the microwave. Lift, eat, done — the break room stays clean.',
+      },
+      {
+        icon: '🔒',
+        title: 'Leakproof & Anti-Skid',
+        description:
+          'Snap-lock lid keeps broth, sauce, and steam inside your bag. Anti-skid base grips your desk while you eat. Cool-touch ergonomic handle stays comfortable straight out of the microwave.',
+      },
+      {
+        icon: '✅',
+        title: 'BPA-Free & Dishwasher Safe',
+        description:
+          'Made from high-temperature food-grade polypropylene — phthalate-free, BPA-free, and dishwasher safe. Lightweight and built for daily use without sacrificing durability.',
+      },
+    ],
+    specs: [
+      { label: 'Material', value: 'Food-grade Polypropylene (BPA-free)' },
+      { label: 'Lids Included', value: 'Silicone microwave lid + snap-lock carry lid' },
+      { label: 'Utensils', value: 'Stainless-steel chopsticks, spork, strainer' },
+      { label: 'Microwave Safe', value: 'Yes (with silicone lid)' },
+      { label: 'Dishwasher Safe', value: 'Yes' },
+      { label: 'Leakproof', value: 'Yes (snap-lock carry lid)' },
+      { label: 'Handle', value: 'Cool-touch ergonomic' },
+    ],
+  },
 ]
 
 export function getProduct(slug: string): Product | undefined {
