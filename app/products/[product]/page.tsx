@@ -121,31 +121,20 @@ export default async function ProductPage({ params }: Props) {
           {/* Hero grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-14">
 
-            {/* Images */}
-            <div className="flex flex-col gap-4">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-black/5">
-                <Image
-                  src={product.images[0]}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  priority
-                  unoptimized
-                />
-                {product.badge && (
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#B57F50] text-white text-xs font-bold shadow">
-                    {product.badge}
-                  </span>
-                )}
-              </div>
-              {product.images.length > 1 && (
-                <div className="grid grid-cols-4 gap-3">
-                  {product.images.map((src, i) => (
-                    <div key={i} className="relative aspect-square rounded-xl overflow-hidden bg-white border border-black/5">
-                      <Image src={src} alt={`${product.name} view ${i + 1}`} fill className="object-cover" unoptimized />
-                    </div>
-                  ))}
-                </div>
+            {/* Image */}
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-black/5">
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                fill
+                className="object-cover"
+                priority
+                unoptimized
+              />
+              {product.badge && (
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#B57F50] text-white text-xs font-bold shadow">
+                  {product.badge}
+                </span>
               )}
             </div>
 

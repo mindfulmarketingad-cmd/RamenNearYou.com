@@ -35,8 +35,7 @@ export const products: Product[] = [
     rating: 4.5,
     reviewCount: 12847,
     images: [
-      'https://m.media-amazon.com/images/I/71YoW3FMblL._AC_SL1000_.jpg',
-      'https://m.media-amazon.com/images/I/71YoW3FMblL._AC_SL1000_.jpg',
+      '/images/products/stainless-steel-chopsticks.jpg',
     ],
     affiliateUrl: 'https://amzn.to/4odbos2',
     badge: 'Best Seller',
