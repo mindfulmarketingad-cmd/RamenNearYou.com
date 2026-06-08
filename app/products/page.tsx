@@ -7,9 +7,14 @@ import Footer from '@/components/footer'
 import { products } from '@/lib/products'
 
 export const metadata: Metadata = {
-  title: 'Ramen Accessories & Products | Shop Ramen Gear',
-  description: 'Shop ramen accessories and gear recommended by RamenNearYou — chopsticks, bowls, and everything you need for the perfect ramen night at home.',
+  title: 'Ramen Products and Accessories | Soup Packets, Chopsticks and Bowls',
+  description: 'Shop the best ramen products and accessories — instant soup packets, reusable stainless steel chopsticks, and authentic Japanese ceramic bowls. Hand-picked gear to make every ramen night at home taste like your favorite shop.',
   alternates: { canonical: 'https://www.ramennearyou.com/products' },
+  openGraph: {
+    title: 'Ramen Products and Accessories | Soup Packets, Chopsticks and Bowls',
+    description: 'Shop the best ramen products and accessories — instant soup packets, reusable chopsticks, and authentic Japanese ceramic bowls for the perfect ramen night at home.',
+    url: 'https://www.ramennearyou.com/products',
+  },
 }
 
 function StarRating({ rating, count }: { rating: number; count: number }) {
@@ -52,9 +57,9 @@ export default function ProductsPage() {
 
           {/* Header */}
           <div className="mb-10">
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Gear</h1>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Products and Accessories | Soup Packets, Chopsticks and Bowls</h1>
             <p className="text-[#6B6862] text-lg max-w-2xl">
-              Everything you need for a proper ramen night at home — chopsticks, bowls, and more. All hand-picked and affiliate-supported.
+              Everything you need for a proper ramen night at home — soup packets, chopsticks, bowls, and more. All hand-picked and affiliate-supported.
             </p>
           </div>
 
