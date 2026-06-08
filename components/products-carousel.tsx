@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Star, ShoppingCart, ExternalLink } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { products } from '@/lib/products'
 
 function StarRating({ rating }: { rating: number }) {
@@ -80,9 +80,7 @@ export default function ProductsCarousel() {
                   rel="noopener noreferrer sponsored"
                   className="flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors mt-auto"
                 >
-                  <ShoppingCart className="w-3.5 h-3.5" />
-                  Check Price On Amazon
-                  <ExternalLink className="w-3 h-3 opacity-70" />
+                  CHECK PRICE
                 </a>
               </div>
             </article>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Star, ChevronRight, ShoppingCart, Check, ExternalLink } from 'lucide-react'
+import { Star, ChevronRight, Check } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { getProduct, products } from '@/lib/products'
@@ -157,9 +157,7 @@ export default async function ProductPage({ params }: Props) {
                 rel="noopener noreferrer sponsored"
                 className="flex items-center justify-center gap-2.5 w-full px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-base transition-colors shadow-md shadow-[#B57F50]/20"
               >
-                <ShoppingCart className="w-5 h-5" />
-                Check Price On Amazon
-                <ExternalLink className="w-4 h-4 opacity-70" />
+                CHECK PRICE
               </a>
 
               <p className="text-xs text-[#6B6862]/60 text-center -mt-1">
@@ -227,9 +225,7 @@ export default async function ProductPage({ params }: Props) {
               rel="noopener noreferrer sponsored"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold transition-colors"
             >
-              <ShoppingCart className="w-4 h-4" />
-              Check Price On Amazon
-              <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+              CHECK PRICE
             </a>
           </div>
 
