@@ -94,7 +94,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
           aggregateRating: {
             '@type': 'AggregateRating',
             ratingValue: r.rating,
-            reviewCount: r.reviewCount,
+            reviewCount: r.reviewCount ?? 0,
             bestRating: 5,
             worstRating: 1,
           },
@@ -167,12 +167,12 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                     />
                   ))}
                 </span>
-                <p className="text-xs text-[#9B9490]">{r.reviewCount.toLocaleString()} Google reviews</p>
+                <p className="text-xs text-[#9B9490]">{(r.reviewCount ?? 0).toLocaleString()} Google reviews</p>
               </div>
 
               {/* Distribution bars */}
               <div>
-                <RatingBars dist={dist} total={distTotal || r.reviewCount} />
+                <RatingBars dist={dist} total={distTotal || (r.reviewCount ?? 0)} />
               </div>
             </div>
 
