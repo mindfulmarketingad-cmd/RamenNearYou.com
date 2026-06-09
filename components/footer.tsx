@@ -6,6 +6,7 @@ const footerLinks = {
     { label: 'Browse Cities', href: '/cities' },
     { label: 'Broth Types', href: '/broth' },
     { label: 'Products', href: '/products' },
+    { label: 'Reviews', href: '/reviews' },
     { label: 'Blog', href: '/blog' },
     { label: 'Catering', href: '/catering' },
     { label: 'FAQ', href: '/faq' },
