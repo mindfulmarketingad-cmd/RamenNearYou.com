@@ -16588,3 +16588,278 @@ blogPosts.push({
 <h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this vegetarian or vegan?</h3>
 <p>Yes. Replace the chicken broth with a mushroom-kombu dashi: steep 1 oz dried shiitake mushrooms and a 4-inch piece of kombu in 8 cups cold water for 30 minutes, then simmer for 15 minutes and strain. Omit the chashu or substitute with pan-fried tofu (pressed, sliced, and seared until golden) marinated briefly in the same soy-mirin-sake mix. Use the same shoyu tare — it is already vegan. The bowl will be lighter but genuinely delicious.</p>`,
 })
+
+blogPosts.push({
+  slug: 'miso-chashu-ramen-recipe',
+  title: 'Miso Chashu Ramen Recipe: Rich Broth and Tender Pork',
+  h1: 'Miso Chashu Ramen Recipe: Rich Broth and Tender Pork',
+  description: 'A fully comprehensive guide to making Miso Chashu Ramen at home — rich collagen-infused pork broth laced with hatcho miso, tender braised pork belly, marinated soft-boiled eggs, and ramen noodles. Made in 1 hour with a pressure cooker.',
+  date: 'June 9, 2026',
+  readTime: '14 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>This is one real-deal bowl of ramen, my friends. One of the best things I have ever made — and I have a long list of "best things ever" that mostly involves melted cheese, chocolate, and bacon. But seriously, this Miso Chashu Ramen has become a favourite of all favourites in my kitchen.</p>
+
+<p>The base is rich, collagen-infused, and deeply flavoured pork broth laced with earthy hatcho miso. It is served with the toppings I love most: Chashu Pork (Japanese-style braised pork belly), a soft-boiled and marinated egg, crunchy vegetables, and properly slurpy noodles. This bowl is tied up in some of my best memories — cold winter nights, good company, steam rising from a bowl that took effort but rewarded every bit of it.</p>
+
+<p>Here is the thing: most people hear "ramen from scratch" and immediately picture a 16-hour project. And yes, that version exists and it is extraordinary. But this version uses a pressure cooker — my Instant Pot specifically — and produces a broth with genuine depth and body in just one hour of active cooking. The secret is that pressure cooking extracts collagen from the bones at a rate that would take 8 to 12 hours on the stovetop. The machine does the slaving. You do the enjoying.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;">⏱ Recipe at a Glance</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem;color:#3a3d44;font-size:0.9rem;">
+    <div><strong>Prep time:</strong> 1 hour</div>
+    <div><strong>Cook time:</strong> 3 hours</div>
+    <div><strong>Overnight marinating:</strong> Chashu pork + ramen eggs</div>
+    <div><strong>Active hands-on time:</strong> ~45 minutes</div>
+    <div><strong>Serves:</strong> 4</div>
+    <div><strong>Equipment:</strong> Instant Pot or pressure cooker</div>
+  </div>
+  <p style="margin:0.75rem 0 0;font-size:0.85rem;color:#6B6862;font-style:italic;">Note: Don't be alarmed by the prep time — it is mostly overnight marinating that requires almost no hands-on effort. The actual active cooking is straightforward and well worth it.</p>
+</div>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#why-pressure-cooker" style="color:#B57F50;text-decoration:none;">Why the pressure cooker changes everything</a></li>
+    <li><a href="#hatcho-miso" style="color:#B57F50;text-decoration:none;">Why I use hatcho miso</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Full ingredient list</a></li>
+    <li><a href="#chashu-pork" style="color:#B57F50;text-decoration:none;">Making the chashu pork (overnight marinade + braise)</a></li>
+    <li><a href="#ramen-eggs" style="color:#B57F50;text-decoration:none;">Making the ramen eggs (ajitsuke tamago)</a></li>
+    <li><a href="#pork-broth" style="color:#B57F50;text-decoration:none;">Making the pressure cooker pork broth</a></li>
+    <li><a href="#noodles-veg" style="color:#B57F50;text-decoration:none;">Noodles and vegetables</a></li>
+    <li><a href="#assembly" style="color:#B57F50;text-decoration:none;">Assembling the bowl</a></li>
+    <li><a href="#toppings" style="color:#B57F50;text-decoration:none;">Toppings guide</a></li>
+    <li><a href="#make-ahead" style="color:#B57F50;text-decoration:none;">Make-ahead and storage</a></li>
+    <li><a href="#tips" style="color:#B57F50;text-decoration:none;">Tips, substitutions, and troubleshooting</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="why-pressure-cooker" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why the Pressure Cooker Changes Everything</h2>
+
+<p>I have made ramen broth the traditional way — low and slow on the stovetop, simmering for 8 to 12 hours until the collagen from the bones dissolves into the liquid and the broth turns rich, silky, and opaque. It is extraordinary. It also requires the better part of a day and a level of commitment that rules it out for most weeknight cooking.</p>
+
+<p>The Instant Pot changed my ramen game more than any other piece of equipment I have bought. Under pressure, the temperature of the boiling liquid rises above the normal 212°F (100°C) ceiling — this higher temperature extracts collagen from bones dramatically faster than stovetop simmering. One hour at high pressure produces a broth with the body and depth of 4 to 6 hours of stovetop cooking. The result is not identical to a traditional long-simmered broth, but it is genuinely excellent and far better than anything you can achieve in one hour on the stove.</p>
+
+<p>My pressure cooker also has a slow cooker function, and yes, I could use that instead. But I cannot think of a single reason to ask the machine to work for 8 to 12 hours when it can produce the same result — or better — in one. The pressure cooker option wins every time.</p>
+
+<h2 id="hatcho-miso" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why I Use Hatcho Miso</h2>
+
+<p>Not all miso is created equal, and for this broth I specifically seek out hatcho miso. Here is why it matters.</p>
+
+<p>Hatcho miso is made purely from soybeans — no rice, no barley, no other grains added to the fermentation process. It is fermented for longer than any other miso type, typically two to three years, which produces a colour so dark it is almost black, a texture that is dense and dry rather than smooth and paste-like, and a flavour that is intensely concentrated, slightly bitter, and deeply savoury. It is a very high-quality ingredient with no additives and a fermented complexity that cheaper miso types simply cannot match.</p>
+
+<p>The key to using hatcho miso is restraint. Because the flavour is so concentrated, a small amount — I use two tablespoons for the entire batch of broth — goes a long way. Add too much and it overwhelms everything. The goal is to lace the broth with earthiness and depth, not to make the bowl taste like miso soup. If you cannot find hatcho miso, a combination of red miso (aka miso) and a smaller amount of white miso is a reasonable substitute. Avoid using only white or yellow miso here — the broth is robust enough that you need the depth of a darker miso to stand up to it.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Full Ingredient List</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Pork stock (pressure cooker)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 lbs pig's trotters, pork ribs, and/or chicken backs (a combination works well)</li>
+  <li>3 shallots, roughly chopped</li>
+  <li>3 scallions, roughly sliced</li>
+  <li>7 slices fresh ginger</li>
+  <li>5 cloves garlic</li>
+  <li>2 carrots, roughly chopped</li>
+  <li>2 tbsp hatcho miso paste</li>
+  <li>2 tbsp soy sauce</li>
+  <li>2 tbsp fish sauce</li>
+  <li>Water to just cover the bones (approximately 8–10 cups)</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Chashu pork (overnight marinade + 1-hour braise)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 lb (450g) pork belly, skin-on</li>
+  <li>2 cups water</li>
+  <li>⅓ cup soy sauce</li>
+  <li>¼ cup rice vinegar</li>
+  <li>¼ cup sake</li>
+  <li>½ cup brown sugar</li>
+  <li>2 shallots, finely chopped</li>
+  <li>6 cloves garlic, minced</li>
+  <li>2 tbsp fresh ginger, minced</li>
+  <li>1 tbsp sesame oil</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Ramen eggs (overnight marinade)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 large cold eggs (straight from the fridge)</li>
+  <li>4 tbsp soy sauce</li>
+  <li>4 tbsp mirin</li>
+  <li>1 cup water</li>
+  <li>Bowl of ice water (for shocking after boiling)</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">To garnish and serve</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>Ramen noodles (fresh, dried, udon, or soba — 4 portions)</li>
+  <li>Shiitake mushrooms, sliced</li>
+  <li>Chinese broccoli (gai lan) or bok choy, roughly chopped</li>
+  <li>Bean sprouts</li>
+  <li>Nori (dried seaweed), cut into rectangles</li>
+  <li>Chilli pepper or chilli crisp, to taste</li>
+  <li>Cilantro, roughly torn</li>
+  <li>Sesame seeds</li>
+  <li>Red pepper flakes</li>
+  <li>Salt and freshly ground black pepper to taste</li>
+</ul>
+
+<h2 id="chashu-pork" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Chashu Pork</h2>
+
+<p>Chashu Pork has its origins in Chinese barbecued pork — called Char Siu — traditionally marinated in Chinese spices and then roasted or barbecued over fire. The Japanese adaptation is braised rather than roasted, lower and slower, and the result is something completely its own: a deeply glazed, melt-in-your-mouth pork belly that is the centrepiece of the bowl.</p>
+
+<p>My version starts the night before. The pork belly marinates overnight in a soy-sake-brown sugar mixture, which begins breaking down the proteins and seasoning the meat all the way through. The next day, a hard sear in a cast-iron pot caramelises the surface — this is the step that builds the fond and gives the final slices their mahogany edges — and then it braises low and slow in the same marinade until the liquid reduces to a sticky, intensely flavoured glaze.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Prepare the marinade and marinate overnight</h3>
+<p>In a medium mixing bowl, combine the water, soy sauce, rice vinegar, sake, brown sugar, shallots, garlic, ginger, and sesame oil. Whisk until the sugar is mostly dissolved. Place the pork belly in a glass container or large zip-lock bag and pour the marinade over it. Seal and refrigerate overnight. I always try to flip the pork belly once during the marinating process if I think of it — it ensures even penetration on all sides.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Sear the pork belly (10 minutes)</h3>
+<p>The next day, remove the pork belly from the marinade and pat it dry with paper towels. Reserve every drop of the marinade — it becomes the braising liquid. Heat a dutch oven or heavy cast-iron pot with a neutral oil over medium-high heat. When the oil shimmers, add the pork belly and sear on all sides until deeply browned — about 10 minutes total, turning as each side builds a proper crust. Do not rush this step. The browning creates flavour compounds that transfer into the braising liquid and ultimately into every slice of chashu you serve.</p>
+
+<p>Remove the seared pork belly and set aside.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Sauté aromatics and braise (1 hour)</h3>
+<p>Into the same pot (with all the browned bits still in it), add the shallots, garlic, and ginger from the marinade. Cook over medium heat for about 3 minutes until the shallots soften and start to caramelise. Pour in the reserved marinade, scraping up the fond from the bottom of the pot. Return the pork belly to the pot and bring everything to a boil. Reduce the heat to medium-low, cover, and simmer for about 1 hour. Turn the pork belly from side to side every 15 minutes so it braises evenly and the marinade coats all surfaces.</p>
+
+<p>The braising is done when the liquid has reduced to approximately half a cup — thick, sticky, and deeply flavoured — and a skewer or chopstick meets almost no resistance when pushed through the thickest part of the belly. Turn off the heat and let the pork rest in the liquid.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Rest, refrigerate, and slice</h3>
+<p>Let the pork belly cool in the braising liquid. Once cool, transfer to the refrigerator. Cold chashu slices cleanly and holds together in a way that hot or warm pork belly cannot. I refrigerate it overnight if possible and slice it just before serving. Slice across the grain into rounds about ¼-inch thick. The caramelised edges will be deep amber, the interior soft enough to yield to a spoon.</p>
+
+<p>The reduced braising liquid is precious — it doubles as a finishing sauce. I keep it in the fridge and add a tablespoon to the ramen broth for extra depth, or drizzle it over the chashu slices when serving.</p>
+
+<h2 id="ramen-eggs" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Ramen Eggs (Ajitsuke Tamago)</h2>
+
+<p>My favourite part of this entire recipe is the ramen eggs. They look beautiful, they taste incredible, and — most importantly for a dish with this many components — they are genuinely easy. The technique is the same every time and it works perfectly: cold eggs, exactly 7 minutes in boiling water, ice bath, overnight marinade.</p>
+
+<p>A note on timing: I use 7 minutes for large eggs straight from the fridge. This produces a white that is fully set and an yolk that is jammy — flowing slightly at the centre, set at the edges, bright orange-gold in colour. If you prefer a more liquid yolk, try 6 minutes 30 seconds. If you want it fully set but still creamy, 7 minutes 30 seconds. Write down what works for you and your stove and repeat it every time. Consistency is the goal.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Soft-boil the eggs</h3>
+<p>Bring a medium pot of water to a full rolling boil. Using a spoon, carefully lower the cold eggs into the water one at a time. Reduce heat slightly to a steady medium boil — not a violent rolling boil that batters the eggs against the sides of the pot. Set a timer for exactly 7 minutes and do not leave the kitchen.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Ice bath</h3>
+<p>The moment the timer goes off, transfer the eggs immediately to a bowl of ice water. This stops the cooking instantly and gives you complete control over the final yolk texture. Cold water alone is not sufficient — use plenty of ice. Leave the eggs in the ice bath for at least 5 minutes, longer is fine.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Prepare the marinade</h3>
+<p>While the eggs cool, combine soy sauce, mirin, and water in a small bowl or jar. Stir to combine. Pour the marinade into a large zip-lock bag.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Peel and marinate overnight</h3>
+<p>Peel the cooled eggs carefully — the whites are delicate at this level of doneness. Place the peeled eggs in the zip-lock bag with the marinade. Seal the bag, then secure it with a bag clip to ensure the eggs are fully submerged in the marinade. Lay flat in the refrigerator and leave overnight. The whites will turn a deep amber-brown and absorb a sweet-salty flavour that is absolutely characteristic of great ramen. Halve them lengthwise just before serving, using a sharp knife or a piece of clean string pulled through the yolk.</p>
+
+<h2 id="pork-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Pressure Cooker Pork Broth</h2>
+
+<p>The broth is where the Instant Pot earns everything. What would take a traditional kitchen 8 to 12 hours of simmering gets done in 1 hour under pressure — and the result is a collagen-rich, deeply flavoured broth that coats the back of a spoon and smells like a serious ramen shop.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Blanch the bones (30 minutes)</h3>
+<p>Rinse the bones under cold running water. Place them in a large soup pot, cover with cold water, and bring to a boil over high heat. Let it boil hard for a few minutes — grey-brown impurities will rise to the surface as foam. Skim as much as you can, then reduce the heat and simmer for about 30 minutes. Drain, rinse the bones thoroughly under cold water, and scrub the pot. This blanching step is the difference between a clean, clear broth and one that tastes slightly muddy and off. Do not skip it.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Pressure cook the broth (1 hour)</h3>
+<p>Transfer the blanched bones to the pressure cooker. Add water to just cover the bones — approximately 8 to 10 cups depending on the size of your pot. Add the shallots, ginger, garlic, carrots, and scallions. Do not add the miso, soy sauce, or fish sauce yet — these go in after cooking.</p>
+
+<p>Seal the pressure cooker and cook on high pressure for 1 hour. Let the pressure release naturally for at least 15 minutes before opening. The broth will be golden to amber in colour, cloudy with dissolved collagen, and it will smell extraordinary.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Strain and season</h3>
+<p>Strain the broth through a fine-mesh sieve, discarding all the solids. Pour the strained broth back into a pot. Taste it — it should be rich and savoury but likely not yet fully seasoned.</p>
+
+<p>Add the soy sauce and fish sauce and stir. Then add the hatcho miso paste. Here is the most important technique for adding miso to broth: place the miso in a small ladle or mesh strainer, hold it just below the surface of the broth, and use a spoon to push the miso through the mesh while stirring the broth around it. This dissolves the miso evenly without leaving unmixed clumps. Never boil the broth after adding miso — the heat destroys the live cultures and dulls the flavour. Warm, not boiling, is the rule.</p>
+
+<p>Taste again and adjust. The broth should taste complex, savoury, slightly earthy from the miso, and rich in a way that plain broth never is. If it tastes thin, simmer uncovered for 10 minutes to concentrate. If it is too salty, add a splash of water.</p>
+
+<h2 id="noodles-veg" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Noodles and Vegetables</h2>
+
+<p>For the noodles I love the curly yellow ramen noodles you find at Asian grocery stores — they have the right chew and weight for a broth this robust. Udon works beautifully too, as does soba if you want something a bit more refined and earthy. I have not made homemade ramen noodles yet — that is a project for another day — but store-bought fresh or good dried noodles serve this bowl extremely well.</p>
+
+<p>Cook noodles according to the packaging instructions, but taste them 30 to 60 seconds early. I always pull noodles slightly before the suggested time because they continue cooking in the hot broth. Overcooked noodles in ramen are a genuine tragedy and one of the easiest mistakes to avoid.</p>
+
+<p>For the vegetables, I cook the shiitake mushrooms and Chinese broccoli directly in the pork broth for 3 to 5 minutes just before serving. This seasons the vegetables with the broth and adds a little of their flavour back into the soup. Bean sprouts go in raw — or blanched for 30 seconds if you prefer — directly into the bowl at assembly time.</p>
+
+<h2 id="assembly" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Assembling the Bowl</h2>
+
+<p>This is the part of ramen cooking that is genuinely theatrical and deeply satisfying. Have everything ready before you start — noodles cooked, chashu sliced, eggs halved, vegetables cooked, broth hot. Assembly moves fast and the bowl should go from kitchen to table in under two minutes.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Warm the serving bowls.</strong> Fill each bowl with hot water from the tap and let it sit while you finish the last components. A warm bowl keeps ramen hot significantly longer. Drain and dry just before ladling.</li>
+  <li><strong>Divide the noodles between the bowls.</strong> Use tongs or chopsticks. Arrange them loosely so broth can flow through rather than sitting on top of a solid noodle block.</li>
+  <li><strong>Ladle hot broth over the noodles.</strong> The broth should be at a full simmer when it hits the bowl — about 1.5 to 2 cups per serving. The noodles will rise and float slightly; that is what you want.</li>
+  <li><strong>Add the mushrooms and broccoli</strong> from the broth. Place them to one side of the bowl so each topping occupies its own space.</li>
+  <li><strong>Add the chashu slices.</strong> Two to three slices per bowl, fanned slightly so the cross-section of the pork is visible and the caramelised edges show.</li>
+  <li><strong>Place the halved egg yolk-side up.</strong> Position it so the orange yolk faces the diner. This is not vanity — it is information. The yolk colour tells you exactly what you are about to eat.</li>
+  <li><strong>Add bean sprouts</strong> in a small mound for crunch and freshness.</li>
+  <li><strong>Finish with garnishes:</strong> nori pieces leaned against the noodles, chilli pepper or chilli crisp to taste, scattered sesame seeds, cilantro, and a pinch of red pepper flakes. A light drizzle of sesame oil over the surface — no more than half a teaspoon — adds a toasty finish that fills the room the moment the bowl is set down.</li>
+  <li><strong>Season to taste</strong> with salt, freshly ground black pepper, or an extra splash of the chashu braising liquid if you want more depth.</li>
+</ol>
+
+<h2 id="toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Toppings Guide</h2>
+
+<p>Half the joy of this bowl is the toppings, and I encourage you to be as creative as you like. These are the ones I use and why:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Chashu pork</strong> — the centrepiece. Melt-in-your-mouth, juicy, deeply flavoured. Non-negotiable in my kitchen.</li>
+  <li><strong>Ajitsuke tamago (marinated soft-boiled egg)</strong> — the second essential. The jammy yolk and sweet-salty amber white make every bowl feel complete.</li>
+  <li><strong>Shiitake mushrooms</strong> — cooked in the broth. They add earthiness and an extra layer of umami that plays beautifully against the miso.</li>
+  <li><strong>Chinese broccoli (gai lan)</strong> — slightly bitter and vegetal, it cuts through the richness of the broth. Bok choy or broccolini work just as well.</li>
+  <li><strong>Bean sprouts</strong> — crunch and freshness. I sometimes blanch them for 30 seconds, sometimes add raw. Both work.</li>
+  <li><strong>Nori</strong> — pieces of roasted seaweed, leaned against the noodles so they partially submerge. They soften and add an oceanic note that anchors the bowl.</li>
+  <li><strong>Chilli pepper or chilli crisp</strong> — for heat. I use Lao Gan Ma chilli crisp oil most often — the fried shallots and chillies in it add texture as well as heat.</li>
+  <li><strong>Cilantro</strong> — a small handful, roughly torn. The bright, herbal quality lifts the bowl considerably. (Skip if you are in the "cilantro tastes like soap" camp — the bowl is excellent without it.)</li>
+  <li><strong>Sesame seeds</strong> — lightly toasted white sesame seeds, scattered over everything at the very end.</li>
+  <li><strong>Red pepper flakes</strong> — for heat and visual colour.</li>
+</ul>
+
+<h2 id="make-ahead" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Make-Ahead and Storage</h2>
+
+<p>This recipe is designed to be made in stages and everything stores well. Here is how I manage it:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Pork broth</strong> — keeps in the refrigerator for 5 days or in the freezer for 3 months. Make a double batch and freeze in 2-cup portions. Future-you will be extremely grateful.</li>
+  <li><strong>Chashu pork</strong> — keeps refrigerated in the braising liquid for up to 5 days. Freezes well for 2 months, sliced and wrapped tightly. Reheat briefly in the braising liquid or warm in the hot broth just before serving.</li>
+  <li><strong>Ramen eggs</strong> — best within 5 days of marinating. They will continue to firm up and deepen in colour over time. Day 1 is a little light; days 2 and 3 are perfect; day 5 is still very good but slightly saltier.</li>
+  <li><strong>Assembled bowl</strong> — ramen does not store once assembled. Noodles absorb all the broth and become soggy within minutes. Store all components separately and assemble fresh. The good news: with broth, chashu, and eggs all pre-made, assembly takes about 5 minutes.</li>
+</ul>
+
+<h2 id="tips" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Tips, Substitutions, and Troubleshooting</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Tips I always follow</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Blanch the bones.</strong> I mentioned this in the broth section and I will say it again here because it is the single step most often skipped. Unsmoothed impurities from unblanched bones make the broth taste slightly off — a flavour that is hard to describe but very easy to notice when you eat the finished bowl.</li>
+  <li><strong>Add miso off the heat.</strong> Never boil broth after adding miso. It kills the active cultures and flattens the complex flavour you are trying to preserve. Warm the broth to just below boiling, remove from heat, then whisk in the miso.</li>
+  <li><strong>Use cold eggs for the 7-minute timing.</strong> Room-temperature eggs cooked for 7 minutes will be slightly more set than cold eggs cooked for the same time. My timing is calibrated for cold, large eggs straight from the fridge. Adjust accordingly if yours are different.</li>
+  <li><strong>Let the chashu refrigerate overnight before slicing.</strong> Hot pork belly is delicious but does not slice cleanly. Cold chashu holds its shape perfectly and the slices look professional.</li>
+  <li><strong>Keep the braising liquid.</strong> It is essentially a flavoured tare. I add a tablespoon to each bowl of broth and it deepens the flavour noticeably.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Substitutions</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>No hatcho miso?</strong> Use red miso (aka miso) as the closest substitute. Use slightly more — about 3 tablespoons instead of 2 — to achieve similar depth.</li>
+  <li><strong>No sake?</strong> Dry sherry is a solid substitute in the chashu marinade. Dry white wine works in a pinch.</li>
+  <li><strong>No pig's trotters?</strong> Use all pork ribs and chicken backs, which are easier to find in most supermarkets. The broth will be slightly less gelatinous but still very good.</li>
+  <li><strong>No Instant Pot?</strong> Use a stovetop pressure cooker at the same time and pressure settings. If you have neither, simmer the blanched bones in a large pot over low heat for 4 to 6 hours. The broth will be less body-rich but still deeply flavoured.</li>
+  <li><strong>Vegetarian version?</strong> Replace the pork-based broth with a mushroom-kombu dashi (steep dried shiitake and kombu for 30 minutes, simmer 15 minutes, strain). Substitute the chashu with marinated and pan-fried firm tofu. Keep the miso, soy sauce, and all toppings except fish sauce (replace with extra soy sauce or a dash of rice vinegar).</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Troubleshooting</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Broth tastes flat despite pressure cooking:</strong> Add a splash of the chashu braising liquid and a teaspoon of sesame oil. Fat and concentrated flavour are almost always what a flat broth needs.</li>
+  <li><strong>Bowl is too salty:</strong> Dilute the broth with a little water before ladling. Next time, season gradually — add the soy sauce and fish sauce in small amounts, tasting after each addition.</li>
+  <li><strong>Chashu is tough:</strong> It needs more time. Return it to the pot with a splash of water and continue simmering on low until a chopstick pierces it with no resistance.</li>
+  <li><strong>Eggs are overcooked (fully set yolk):</strong> Reduce cooking time by 30 seconds next attempt. Egg size and refrigerator temperature both affect the outcome — use large cold eggs and adjust from there.</li>
+  <li><strong>Noodles are waterlogged:</strong> They were overcooked or assembled too far in advance. Pull noodles earlier and serve the bowl immediately after assembly.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this without a pressure cooker?</h3>
+<p>Yes. Simmer the blanched bones in a large pot over low heat for 4 to 6 hours, skimming occasionally. The broth will be slightly less gelatinous than the pressure cooker version but still very good. You can also use the slow cooker setting on an Instant Pot for 8 to 12 hours — it works, but I cannot think of a good reason to do it that way when the pressure setting achieves the same result in one hour.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the best cut of pork for chashu?</h3>
+<p>Pork belly is the classic and my strong preference. The fat-to-meat ratio in belly is ideal for braising — it stays moist and becomes tender in a way that leaner cuts cannot. Pork shoulder is a reasonable substitute and is slightly easier to find at non-Asian supermarkets. Avoid pork loin for chashu — it dries out during the long braise and is not worth the effort.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Where can I find hatcho miso?</h3>
+<p>Japanese grocery stores (Mitsuwa, H Mart, Marukai) reliably stock hatcho miso. Some Whole Foods locations carry it in the international section. Online is the most reliable option — Hikari Hatcho Miso and Marusan Hatcho Miso are both excellent and widely available online. If you cannot find it, red miso (aka miso) is the best substitute.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use the broth left over from the chashu braise?</h3>
+<p>Absolutely, and I recommend it. The chashu braising liquid is intensely flavoured — sweet, savoury, and deeply umami. I add one to two tablespoons per bowl of broth. Too much will overpower the miso. Think of it as a finishing seasoning rather than a base, and it elevates the bowl considerably.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How far in advance can I make all the components?</h3>
+<p>Everything improves with a day in the fridge. The ideal timeline is: start the chashu marinade and egg marinade two days before serving (so both have a full overnight and then another day in the fridge). Make the broth the day before. On the day of serving, all that is left is cooking the noodles and vegetables and assembling the bowls — about 20 minutes of active work. This is how I make it for dinner parties: all the effort happens days earlier, and the final assembly feels effortless.</p>`,
+})
