@@ -16863,3 +16863,206 @@ blogPosts.push({
 <h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How far in advance can I make all the components?</h3>
 <p>Everything improves with a day in the fridge. The ideal timeline is: start the chashu marinade and egg marinade two days before serving (so both have a full overnight and then another day in the fridge). Make the broth the day before. On the day of serving, all that is left is cooking the noodles and vegetables and assembling the bowls — about 20 minutes of active work. This is how I make it for dinner parties: all the effort happens days earlier, and the final assembly feels effortless.</p>`,
 })
+
+blogPosts.push({
+  slug: 'ramyeon-recipe-upgrade-instant-ramen-korean-way',
+  title: 'Ramyeon Recipe: Upgrade Instant Ramen the Korean Way',
+  h1: 'Ramyeon Recipe: Upgrade Instant Ramen the Korean Way',
+  description: 'Learn how to cook Korean ramyeon the right way — with a poached egg, fresh green onions, and perfect noodle timing. A simple upgrade that makes instant ramen taste like a real meal.',
+  date: '2026-06-09',
+  readTime: '8 min read',
+  category: 'Recipes',
+  headerImage: '/images/blog/ramyeon-pot.jpg',
+  headerImageAlt: 'Korean ramyeon cooking in a pot with green onions and dried vegetables',
+  content: `
+<div style="background:#F5F4F0;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:0.9rem;color:#4a4a4a;display:flex;flex-wrap:wrap;gap:1.5rem;">
+  <div><strong style="color:#1E2026;">Prep Time:</strong> 2 minutes</div>
+  <div><strong style="color:#1E2026;">Cook Time:</strong> 5–6 minutes</div>
+  <div><strong style="color:#1E2026;">Total Time:</strong> 8 minutes</div>
+  <div><strong style="color:#1E2026;">Serves:</strong> 1</div>
+  <div><strong style="color:#1E2026;">Difficulty:</strong> Very Easy</div>
+</div>
+
+<nav style="background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;">
+  <p style="font-weight:700;color:#1E2026;margin:0 0 0.75rem;">Table of Contents</p>
+  <ol style="padding-left:1.25rem;margin:0;line-height:2;color:#B57F50;font-size:0.9rem;">
+    <li><a href="#what-is-ramyeon" style="color:#B57F50;text-decoration:none;">What Is Ramyeon?</a></li>
+    <li><a href="#why-my-way" style="color:#B57F50;text-decoration:none;">Why I Cook It Differently From the Package</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Ingredients</a></li>
+    <li><a href="#the-noodle-timing-rule" style="color:#B57F50;text-decoration:none;">The Most Important Rule: Noodle Timing</a></li>
+    <li><a href="#step-by-step" style="color:#B57F50;text-decoration:none;">Step-by-Step Instructions</a></li>
+    <li><a href="#the-egg" style="color:#B57F50;text-decoration:none;">The Egg Makes All the Difference</a></li>
+    <li><a href="#the-pot" style="color:#B57F50;text-decoration:none;">Using the Korean Tin Pot</a></li>
+    <li><a href="#customise" style="color:#B57F50;text-decoration:none;">How to Customise Your Ramyeon</a></li>
+    <li><a href="#leftover-broth" style="color:#B57F50;text-decoration:none;">What to Do With Leftover Broth</a></li>
+    <li><a href="#which-brand" style="color:#B57F50;text-decoration:none;">Which Brand of Ramyeon to Use</a></li>
+    <li><a href="#serving" style="color:#B57F50;text-decoration:none;">What to Serve Alongside Ramyeon</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently Asked Questions</a></li>
+  </ol>
+</nav>
+
+<p>I still remember the first time I tried Korean ramyeon. I could not believe how tasty it was, how simple it was to make, and how curly the noodles were. Korean noodles were all straight at the time, so the shape of ramyeon noodles alone felt like a revelation. Over time I came to appreciate that ramyeon occupies a unique cultural space in Korea — it is fast food, comfort food, and midnight snack all in one, the rough equivalent of a bag of chips in the West. Everyone eats it; almost no one talks about it seriously. That is exactly why I want to talk about it seriously.</p>
+
+<p>I do not eat ramyeon every day, but when I want something hot, fast, and deeply satisfying, nothing beats a bowl of properly cooked Korean ramyeon with a poached egg, fresh green onions, and perfect noodle timing. The package instructions will get you to edible. My method gets you to genuinely delicious — and it takes the same amount of time.</p>
+
+<h2 id="what-is-ramyeon" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What Is Ramyeon?</h2>
+
+<p>Ramyeon (라면) is the Korean version of instant ramen. In Japan, ramen can be fresh or instant, but in Korea, ramyeon is by definition instant — it comes in a packet with dried noodles, a powdered soup base, and a small packet of dried vegetables. The most famous brand is Shin Ramyun by Nongshim, but there are dozens of varieties on the market, from mild and creamy to face-numbingly spicy.</p>
+
+<p>What makes Korean ramyeon different from Japanese instant ramen is the flavour profile. Korean ramyeon skews spicier, more savoury, and more aggressively seasoned. The broth is typically built on a gochugaru (Korean chilli flake) base with garlic, onion, and a deep, anchovy-forward umami kick. Even mild varieties have more heat than most Japanese instant options.</p>
+
+<p>The noodles themselves are also distinctive. They are round, tightly curled, and have a satisfying chew when properly cooked — springy and firm, not mushy. Getting that texture right is the central skill in making a great bowl of ramyeon, and I am going to teach you exactly how to do it.</p>
+
+<h2 id="why-my-way" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why I Cook It Differently From the Package</h2>
+
+<p>Every packet of Korean ramyeon comes with printed instructions. They work. But they are designed for the broadest possible audience, not for the best possible bowl. The package usually tells you to boil everything together for three to four minutes, which tends to produce noodles on the softer side by the time you are halfway through eating.</p>
+
+<p>My approach uses the same ingredients but adds a few small techniques that make a significant difference: I add the soup powder and noodles at the same time rather than staggering them (it lets the noodles absorb the seasoned broth as they cook), I crack a whole egg directly into the boiling broth to poach gently, and most importantly, I pull the pot off the heat a minute earlier than you might think. Those curly noodles keep cooking in the residual heat of the broth even after the flame is off — accounting for that carryover is what separates a great bowl from a soggy one.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Ingredients</h2>
+
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>1 package Korean ramyeon</strong> (Shin Ramyun, Buldak, Samyang, or your preferred brand) — includes noodle block, soup powder packet, and dried vegetable packet</li>
+  <li><strong>2½ cups (600ml) water</strong></li>
+  <li><strong>1 large egg</strong></li>
+  <li><strong>2 green onions</strong>, roughly chopped — both the white and green parts</li>
+</ul>
+
+<p><strong>Optional upgrades:</strong></p>
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>A slice of American cheese or a torn piece of mozzarella — melts into the broth and makes it creamy and rich (a popular Korean hack)</li>
+  <li>Half a cup of kimchi, chopped — adds fermented depth and extra heat</li>
+  <li>A handful of bean sprouts, raw or blanched for 30 seconds</li>
+  <li>Two or three slices of spam or canned tuna, drained</li>
+  <li>A teaspoon of butter — stirs into the broth at the end for extra body</li>
+  <li>A drizzle of sesame oil — finish the bowl with just a few drops for toasted aroma</li>
+  <li>Toasted sesame seeds, for garnish</li>
+</ul>
+
+<h2 id="the-noodle-timing-rule" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Most Important Rule: Noodle Timing</h2>
+
+<p>I want to address this before we get to the steps because it is the single biggest mistake people make with ramyeon. Do not overcook the noodles.</p>
+
+<p>Korean ramyeon noodles are flash-fried and dried, which means they rehydrate very quickly. They reach peak texture — springy, firm, curly — in about two and a half to three minutes of boiling. After that, they begin to soften rapidly. If you cook them for four or five minutes, they become limp and waterlogged, and by the time you finish the bowl they are practically mush.</p>
+
+<p>Here is the key insight: when you start eating, the noodles will be slightly firmer than you expect. That is intentional. The hot broth in the bowl continues to cook them gently as you eat. Three or four bites in, the texture is perfect. By the time you reach the bottom of the bowl, they have softened to exactly the right consistency. If you start with noodles that are already fully soft, you will be eating mush before you finish.</p>
+
+<p>Pull the noodles early. Always.</p>
+
+<h2 id="step-by-step" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Step-by-Step Instructions</h2>
+
+<p><strong>Step 1: Bring the water to a full rolling boil.</strong><br>
+Use 2½ cups (600ml) of water. I use a Korean tin pot when I have it — it heats up faster than a heavy pot and is exactly the right size for one packet — but any small pot works perfectly. High heat the whole way.</p>
+
+<p><strong>Step 2: Add the noodle block and soup powder together.</strong><br>
+Once the water is at a full boil, add the dried noodle block and tear open the soup powder packet directly into the water. Stir briefly so the powder dissolves into the water rather than clumping on the noodle block. Cover with the lid and let it come back to a boil — this takes about 30 to 45 seconds.</p>
+
+<p><strong>Step 3: Flip the noodle block and crack in the egg.</strong><br>
+Open the lid and use a spoon or chopsticks to flip the noodle block over. By now the bottom half will have softened enough that you can break the block apart with a few gentle prods. Crack one egg directly into the centre of the pot. Do not stir. Replace the lid and cook for 1 to 2 minutes. The goal is a gently poached egg — the white should be just set while the yolk remains runny. If you prefer a fully set yolk, give it the full 2 minutes; for a runny yolk, pull it at 1 minute and 15 seconds.</p>
+
+<img
+  src="/images/blog/ramyeon-pot.jpg"
+  alt="Korean ramyeon cooking in a pot with green onions and dried vegetables on top"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+/>
+
+<p><strong>Step 4: Add the garnishes and serve immediately.</strong><br>
+Remove the pot from the heat. Open the lid and scatter the chopped green onions over the surface. Tear open the dried vegetable packet (if included) and sprinkle it over the top. Do not stir these in — letting them sit on the surface keeps the green onions fresh and bright rather than wilting into the broth.</p>
+
+<p>Serve directly in the pot if you are using a Korean tin pot, or ladle into a bowl. Serve immediately. Ramyeon waits for no one.</p>
+
+<img
+  src="/images/blog/ramyeon-noodles.jpg"
+  alt="Curly Korean ramyeon noodles lifted with chopsticks from a Korean tin pot"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+/>
+
+<h2 id="the-egg" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Egg Makes All the Difference</h2>
+
+<p>I want to spend a moment on the egg because I think it is the single most important upgrade you can make to a packet of ramyeon. The egg does several things at once: the white adds protein and body, the yolk — if you keep it runny — breaks and swirls into the broth as you eat, enriching it and making it feel more substantial. The texture contrast between the firm noodles, the silky white, and the molten yolk is genuinely satisfying in a way that plain ramyeon without an egg just is not.</p>
+
+<p>Cracking the egg directly into the boiling broth and covering the pot produces a poached egg rather than a scrambled or stirred one. The trick is not to stir. Let the heat from the broth and the steam from the covered pot cook the egg from below and above simultaneously. The result is a perfectly contained poached egg sitting right in the centre of your bowl.</p>
+
+<p>If you prefer a different egg preparation, here are your options:</p>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Poached (my default)</strong> — crack in whole, cover, cook 1–2 minutes. Yolk runny to jammy depending on time.</li>
+  <li><strong>Beaten and stirred in</strong> — beat the egg separately, pour in while stirring vigorously. Creates silky egg ribbons throughout the broth, similar to egg drop soup.</li>
+  <li><strong>Soft-boiled and halved</strong> — cook a separate soft-boiled egg (7 minutes from boiling, ice bath, peel), halve it, and place on top of the finished bowl. More work but the most visually impressive result.</li>
+  <li><strong>Fried</strong> — fry an egg separately and slide it on top of the finished bowl, yolk-up. The fried egg white adds a crispy edge that is texturally very different from the broth-poached version.</li>
+</ul>
+
+<h2 id="the-pot" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Using the Korean Tin Pot</h2>
+
+<p>Koreans have a dedicated vessel for ramyeon: a lightweight, shiny aluminium or stainless steel pot with two handles, sized perfectly for one package of noodles. It is called a ramyeon pot (라면 냄비) and it is genuinely useful. The thin walls heat up almost instantaneously over high heat, the size prevents the broth from reducing too fast, and — this is the detail I love most — the lid doubles as a bowl. You slide a bundle of noodles onto the lid to cool them down for a few seconds before eating, the way you might blow on a spoonful of hot soup.</p>
+
+<p>That said, any pot works. A small saucepan, a medium pot, even a deep frying pan — the technique is identical. I have made ramyeon in a hotel room coffee maker before (I do not recommend it, but it was technically successful). The pot matters less than the timing.</p>
+
+<h2 id="customise" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">How to Customise Your Ramyeon</h2>
+
+<p>One of the great pleasures of ramyeon is how easy it is to personalise with whatever you have in the fridge. Here are the upgrades I use most often:</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">The Cheese Hack</h3>
+<p>This sounds strange and it is completely delicious. Tear one slice of American cheese into pieces and stir it into the finished broth just before eating. It melts almost instantly and transforms the spicy, salty broth into something creamy and round. Processed cheese works better than fresh mozzarella here because of how it melts — smooth and emulsified rather than stringy.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Kimchi</h3>
+<p>Chop half a cup of kimchi and add it with the noodles. The fermented kimchi breaks down slightly in the hot broth and adds complex sourness and deeper heat. This is sometimes called kimchi ramyeon and it is arguably even better than plain ramyeon. Use older, more fermented kimchi if you have it — the tangier and more sour, the better it works.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Spam or Tuna</h3>
+<p>A few slices of spam, canned tuna, or even sliced hot dogs add protein and substance. Add these with the noodles so they heat through. Spam in particular works beautifully with the salty, spicy broth — the two flavour profiles are designed for each other.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Butter</h3>
+<p>Half a teaspoon of unsalted butter stirred into the finished broth adds richness and rounds out the heat. It is a small change with a surprisingly big effect — the broth goes from sharp and spicy to smooth and complex.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Sesame Oil and Seeds</h3>
+<p>A few drops of sesame oil over the finished bowl and a pinch of toasted sesame seeds. This is the simplest possible upgrade and it makes the bowl feel finished and intentional rather than thrown together. The toasted aroma of sesame oil is one of those scents that immediately makes everything smell more appetising.</p>
+
+<h2 id="leftover-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What to Do With Leftover Broth</h2>
+
+<p>If you are still hungry after finishing the noodles — or if you just want to stretch the meal — scoop half a cup of cooked rice into the leftover broth at the bottom of the pot. This is called gukbap (국밥), literally soup-and-rice, and it is a standard Korean technique for finishing a bowl. The rice soaks up the rich, spicy broth and becomes deeply flavoured in a way that is hard to describe but very easy to want more of. You can eat it directly from the pot, which is the authentic way.</p>
+
+<p>I have also added a beaten egg to leftover ramyeon broth and cooked it into a quick egg-drop soup-style finish, which sounds weird and tastes excellent. The broth is good enough to eat on its own — do not waste it.</p>
+
+<h2 id="which-brand" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Which Brand of Ramyeon to Use</h2>
+
+<p>There are dozens of Korean ramyeon brands and flavours, and the differences between them are real and worth understanding:</p>
+
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Shin Ramyun (Nongshim)</strong> — the benchmark. Moderately spicy, deeply savoury, with a complex mushroom-beef-chilli broth. This is the brand I recommend to anyone making Korean ramyeon for the first time. The red packet is the original; the black packet (Shin Ramyun Black) is a premium version with a richer, more complex broth.</li>
+  <li><strong>Buldak (Samyang, Fire Chicken)</strong> — famous for being extremely spicy. The broth is thick, dark, and aggressively hot. Not for the faint of heart, but genuinely delicious if you have a tolerance for heat. The carbonara version is spicy but creamier and more approachable.</li>
+  <li><strong>Neoguri (Nongshim)</strong> — slightly thicker, creamier broth with a seafood-forward flavour. Excellent udon-style noodles, slightly wider and more chewy than standard ramyeon noodles. My favourite for the cheese upgrade because the creamier base works exceptionally well with the melted cheese.</li>
+  <li><strong>Chapagetti (Nongshim)</strong> — dry jjajangmyeon style, cooked and drained rather than served in broth. Completely different technique from what I describe here, but worth knowing about as a variation.</li>
+  <li><strong>Budae Jjigae Style (various brands)</strong> — Army stew flavour, with a sweeter, tomato-tinged broth. Less intensely spicy, more complex. Works very well with the spam and cheese additions.</li>
+</ul>
+
+<h2 id="serving" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What to Serve Alongside Ramyeon</h2>
+
+<p>Ramyeon is a meal on its own, but it is even better with the right accompaniments:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Kimchi</strong> — non-negotiable in my opinion. The fermented, spicy crunch of kimchi alongside the hot bowl is one of those flavour pairings that feels inevitable once you try it. Set it on the side and take bites between spoonfuls of noodle.</li>
+  <li><strong>Steamed rice</strong> — either eaten alongside or saved for the gukbap finish described above.</li>
+  <li><strong>Kkakdugi (radish kimchi)</strong> — cubed, fermented daikon radish. Crunchier and more refreshing than napa cabbage kimchi, and excellent with spicy ramyeon.</li>
+  <li><strong>Cold water or barley tea (boricha)</strong> — Koreans typically drink barley tea with ramyeon rather than anything cold and carbonated, though a cold Korean beer (Hite or Cass) is also extremely compatible.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use less soup powder to make the broth less salty?</h3>
+<p>Yes, and I do this regularly. Start with two-thirds of the soup powder packet, taste the broth before you add the noodles, and add more if you want. The full packet produces an intensely seasoned broth — delicious, but not for everyone. Using partial powder also lets you taste the actual flavour components rather than just salt and heat.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I add vegetables directly to the broth?</h3>
+<p>Absolutely. I add mushrooms (shiitake or enoki), bok choy, or cabbage directly to the boiling broth with the noodles. They cook in the same 2–3 minutes and absorb the seasoned broth as they soften. Bean sprouts are better added raw at the end or blanched separately — they turn mushy if boiled for the full noodle-cooking time.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Is ramyeon the same as Japanese ramen?</h3>
+<p>They share a common ancestor but are quite different in practice. Japanese instant ramen tends to be milder and more subtly seasoned; Korean ramyeon is generally spicier and more aggressively flavoured. Fresh Japanese ramen — the restaurant kind — is an entirely different animal from both, requiring hours of broth preparation. Korean ramyeon is always instant; there is no fresh, restaurant-style Korean ramyeon in the same tradition.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Where can I buy Korean ramyeon?</h3>
+<p>Most Asian grocery stores carry a wide selection. H Mart, Mitsuwa, and 99 Ranch all stock multiple brands and flavours. Korean brands like Shin Ramyun are also widely available at Walmart, Target, and Costco in the US. Online is the most reliable option if you want a specific brand or flavour.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make ramyeon in a microwave?</h3>
+<p>Yes, though the texture suffers. If you must, use a microwave-safe bowl, add 2 cups of water and the noodle block, microwave on high for 3 minutes, add the soup powder and any toppings, microwave for another 30 seconds. The noodles will be slightly softer and the broth less concentrated than stovetop, but it is still very good in a pinch. I have done this in hotel rooms when no other option existed.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Why are ramyeon noodles curly?</h3>
+<p>The curl comes from how they are dried after processing. Ramyeon noodles are flash-fried in oil and then shaped in a round brick while still malleable. As they cool and set, the curl is locked in. The curled shape actually serves a functional purpose: it creates more surface area for the broth to cling to compared to straight noodles, which is why properly cooked ramyeon noodles taste more intensely seasoned than you might expect from a simple soup.</p>
+`,
+})
