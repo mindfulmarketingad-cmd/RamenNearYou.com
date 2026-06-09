@@ -57,6 +57,38 @@ export default function NavbarClient() {
           </Link>
 
           <div className="flex items-center gap-2">
+            {/* Desktop nav links */}
+            <nav className="hidden sm:flex items-center gap-1">
+              <Link href="/products" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Products
+              </Link>
+              <Link href="/reviews" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Reviews
+              </Link>
+              <Link href="/catering" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Catering
+              </Link>
+              <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Blog
+              </Link>
+              {user ? (
+                <>
+                  <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                    <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
+                      {userInitial}
+                    </span>
+                  </Link>
+                  <button onClick={handleSignOut} className="px-3 py-2 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors rounded-lg hover:bg-black/5">
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link href="/auth/login" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  Sign In
+                </Link>
+              )}
+            </nav>
+
             <a
               href="tel:+13412034429"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 border border-[#B57F50]/20 transition-colors group"
@@ -68,8 +100,9 @@ export default function NavbarClient() {
               </div>
             </a>
 
+            {/* Mobile hamburger only */}
             <button
-              className="p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
+              className="sm:hidden p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
