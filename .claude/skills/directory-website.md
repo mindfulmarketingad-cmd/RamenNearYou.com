@@ -46,7 +46,49 @@ Use this skill when working on RamenNearYou.com. It provides full context on the
 
 ---
 
-## URL Structure
+## SEO Internal Linking Structure
+
+Every page must fit into this hierarchy and link **downward** to the next level:
+
+```
+Homepage (/)
+  └── Service Pages  (/[service])          e.g. /tonkotsu-ramen-near-me, /vegan-ramen-near-me
+        └── Service/City Pages  (/[service]/[city])  e.g. /tonkotsu/houston/texas
+```
+
+### Rules
+
+1. **Homepage → Service pages**: The homepage must link to all top-level service pages (broth types, diet filters, etc.).
+2. **Service pages → Service/City pages**: Each service page must link to its city-level variants.
+3. **Service/City pages → back up**: Each service/city page must link back to its parent service page and to the base city page (`/[city]/[state]`).
+4. **No orphan pages**: Every new page added must be reachable from at least one page one level above it. Update `sitemap.ts` and add in-page cross-links before considering the task done.
+5. **City pages as hubs**: `/[city]/[state]` pages must link to all service/city pages available for that city (the "Browse by Type" section already does this via `getCityFilterLinks()`).
+
+### Existing service pages
+
+| Service | URL |
+|---|---|
+| Tonkotsu near me | `/tonkotsu-ramen-near-me` |
+| Spicy near me | `/spicy-ramen-near-me` |
+| Miso near me | `/miso-ramen-near-me` |
+| Shoyu near me | `/shoyu-ramen-near-me` |
+| Vegan near me | `/vegan-ramen-near-me` |
+| Vegetarian near me | `/vegetarian-ramen-near-me` |
+| Korean near me | `/korean-ramen-near-me` |
+| Japanese near me | `/japanese-ramen-near-me` |
+| Tonkotsu by city | `/tonkotsu/[city]/[state]` |
+| City filter pages | `/[city]/[state]/[filter-slug]` |
+
+### Checklist when adding a new page
+
+- [ ] Page links to its parent (one level up)
+- [ ] Parent page links down to this new page
+- [ ] `sitemap.ts` includes the new URL(s)
+- [ ] No dead-end — page has at least one outbound internal link to a sibling or child
+
+---
+
+
 
 | URL | File | Notes |
 |---|---|---|
