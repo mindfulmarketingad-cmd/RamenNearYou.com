@@ -4,6 +4,7 @@ import FeaturedListings from '@/components/featured-listings'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
 import ProductsCarousel from '@/components/products-carousel'
+import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
 import Footer from '@/components/footer'
@@ -90,6 +91,7 @@ export default function HomePage() {
         </div>
 
         <CommunityCarousel />
+        <ServiceDirectory />
         <CityStateDirectory />
         <Footer />
       </main>

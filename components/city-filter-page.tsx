@@ -12,6 +12,7 @@ import {
   filterH1,
   restaurantLocalBusinessSchema,
   getCityFilterLinks,
+  getServiceHref,
   DIABETIC_BROTH_NOTE,
   DIABETIC_GENERAL,
   HEALTHY_GENERAL,
@@ -49,6 +50,7 @@ export default function CityFilterPage({
   }
   const pageUrl = `${baseUrl}/${filterSlug}`
   const relatedLinks = getCityFilterLinks(citySlug, stateSlug).filter((l) => l.slug !== filterSlug)
+  const servicePage = getServiceHref(spec)
 
   const cards: MapCard[] = restaurants.slice(0, 30).map((r, i) => ({
     rank: i + 1,
@@ -255,6 +257,15 @@ export default function CityFilterPage({
           >
             All ramen in {city}, {stateCode} →
           </Link>
+          {servicePage && (
+            <p className="mt-5 text-sm text-[#6B6862]">
+              Or explore{' '}
+              <Link href={servicePage.href} className="font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors">
+                {servicePage.label.toLowerCase()}
+              </Link>{' '}
+              nationwide.
+            </p>
+          )}
         </div>
       </section>
 

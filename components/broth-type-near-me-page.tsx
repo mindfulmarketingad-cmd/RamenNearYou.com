@@ -4,6 +4,7 @@ import { Star, MapPin, Utensils, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import type { Restaurant } from '@/lib/restaurants'
+import { getServiceCityLinks } from '@/lib/city-filter-pages'
 
 interface BrothInfo {
   type: string
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
+  const cityLinks = getServiceCityLinks(broth.type)
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -126,6 +128,31 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
             </div>
           </div>
         </section>
+
+        {/* Browse this broth by city (service > service+city links) */}
+        {cityLinks.length > 0 && (
+          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
+            <div className="max-w-7xl mx-auto">
+              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
+                {broth.type} Ramen by City
+              </h2>
+              <div className="flex flex-wrap gap-2.5">
+                {cityLinks.map((c) => (
+                  <Link
+                    key={c.href}
+                    href={c.href}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    {broth.type} Ramen in {c.city}, {c.stateCode}
+                    <span className="text-[#6B6862]/60 text-xs">{c.count}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* What is this broth type */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">

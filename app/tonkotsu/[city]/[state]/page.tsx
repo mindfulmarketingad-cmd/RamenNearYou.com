@@ -174,9 +174,16 @@ export default async function TonkotsuCityPage({ params }: Props) {
           <p className="text-[#6B6862] leading-relaxed mb-4">
             Tonkotsu ramen originated in Fukuoka, Japan and is defined by its thick, milky-white broth made from pork bones boiled at high heat for 8–18 hours. This extended cook breaks down collagen into gelatin, creating the signature creamy, rich consistency. It&apos;s the most umami-forward style of ramen — intensely savory, slightly fatty, and deeply satisfying.
           </p>
-          <p className="text-[#6B6862] leading-relaxed">
+          <p className="text-[#6B6862] leading-relaxed mb-6">
             Classic tonkotsu is served with thin straight noodles and topped with chashu pork belly, a soft-boiled marinated egg, green onions, bamboo shoots, nori, and black garlic oil (mayu). The restaurants listed above have been identified as serving tonkotsu or tonkotsu-style ramen in {cityName}, {stateCode}.
           </p>
+          <Link
+            href="/tonkotsu-ramen-near-me"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+          >
+            Explore tonkotsu ramen nationwide
+            <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 

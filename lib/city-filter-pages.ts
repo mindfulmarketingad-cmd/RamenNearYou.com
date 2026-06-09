@@ -2,6 +2,7 @@ import {
   restaurants,
   getRestaurantsByCity,
   getBrothTypes,
+  getTonkotsuCities,
   type Restaurant,
   type BrothType,
 } from './restaurants'
@@ -255,6 +256,83 @@ export function getCityFilterLinks(citySlug: string, stateSlug: string): CityFil
     links.push({ href, label, group, slug })
   }
   return links
+}
+
+// ---------------------------------------------------------------------------
+// Service axis: Homepage > Service page (/[broth]-ramen-near-me) >
+//               Service+City page (/tonkotsu/[city]/[state] or
+//               /[city]/[state]/[broth]-ramen)
+// ---------------------------------------------------------------------------
+
+// The eight top-level service pages, in homepage display order.
+export const SERVICE_PAGES: Array<{ broth: string; href: string; label: string }> = [
+  { broth: 'Tonkotsu', href: '/tonkotsu-ramen-near-me', label: 'Tonkotsu Ramen' },
+  { broth: 'Spicy', href: '/spicy-ramen-near-me', label: 'Spicy Ramen' },
+  { broth: 'Miso', href: '/miso-ramen-near-me', label: 'Miso Ramen' },
+  { broth: 'Shoyu', href: '/shoyu-ramen-near-me', label: 'Shoyu Ramen' },
+  { broth: 'Vegan', href: '/vegan-ramen-near-me', label: 'Vegan Ramen' },
+  { broth: 'Vegetarian', href: '/vegetarian-ramen-near-me', label: 'Vegetarian Ramen' },
+  { broth: 'Korean', href: '/korean-ramen-near-me', label: 'Korean Ramen' },
+  { broth: 'Japanese', href: '/japanese-ramen-near-me', label: 'Japanese Ramen' },
+]
+
+export interface ServiceCityLink {
+  href: string
+  city: string
+  stateCode: string
+  count: number
+}
+
+// Maps a service page's broth to the city-filter spec + slug used for its
+// service+city pages. Tonkotsu is handled separately (dedicated route).
+function serviceCitySpec(brothType: string): { spec: FilterSpec; slug: string } | null {
+  switch (brothType) {
+    case 'Spicy': return { spec: { kind: 'broth', broth: 'Spicy' }, slug: 'spicy-ramen' }
+    case 'Miso': return { spec: { kind: 'broth', broth: 'Miso' }, slug: 'miso-ramen' }
+    case 'Shoyu': return { spec: { kind: 'broth', broth: 'Shoyu' }, slug: 'shoyu-ramen' }
+    case 'Vegan': return { spec: { kind: 'vegan' }, slug: 'vegan-ramen' }
+    case 'Vegetarian': return { spec: { kind: 'vegetarian' }, slug: 'vegetarian-ramen' }
+    default: return null
+  }
+}
+
+// The service+city pages that EXIST for a given service, so the service page
+// can link down to them (and they link back up) — no orphans.
+export function getServiceCityLinks(brothType: string): ServiceCityLink[] {
+  if (brothType === 'Tonkotsu') {
+    return getTonkotsuCities(2).map((c) => ({
+      href: `/tonkotsu/${c.citySlug}/${c.stateSlug}`,
+      city: c.city,
+      stateCode: c.stateCode,
+      count: c.count,
+    }))
+  }
+  const mapped = serviceCitySpec(brothType)
+  if (!mapped) return []
+  const links: ServiceCityLink[] = []
+  for (const c of _majorCities) {
+    const matches = getFilterRestaurants(c.citySlug, c.stateSlug, mapped.spec)
+    if (matches.length < MIN_FILTER_MATCHES) continue
+    links.push({
+      href: `/${c.citySlug}/${c.stateSlug}/${mapped.slug}`,
+      city: c.city,
+      stateCode: c.stateCode,
+      count: matches.length,
+    })
+  }
+  return links.sort((a, b) => b.count - a.count)
+}
+
+// The parent service page for a city-filter spec, so service+city pages can
+// link back up. Returns null for specs with no service page (diabetic, healthy).
+export function getServiceHref(spec: FilterSpec): { href: string; label: string } | null {
+  if (spec.kind === 'broth') {
+    const match = SERVICE_PAGES.find((s) => s.broth === spec.broth)
+    return match ? { href: match.href, label: `${match.label} Near Me` } : null
+  }
+  if (spec.kind === 'vegan') return { href: '/vegan-ramen-near-me', label: 'Vegan Ramen Near Me' }
+  if (spec.kind === 'vegetarian') return { href: '/vegetarian-ramen-near-me', label: 'Vegetarian Ramen Near Me' }
+  return null
 }
 
 // LocalBusiness JSON-LD for a single restaurant (for embedding in ItemList).
