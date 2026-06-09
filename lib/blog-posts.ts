@@ -16282,3 +16282,309 @@ blogPosts.push({
 <h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the best broth for beginners?</h3>
 <p>Store-bought chicken bone broth with a shoyu tare. It is forgiving, widely available, and matches almost any noodle type. Bloom some garlic and ginger first, use Kettle &amp; Fire or Swanson bone broth, add two tablespoons of soy sauce and a teaspoon of mirin, finish with sesame oil and green onions. That is a genuinely good bowl of ramen with minimal effort — the perfect starting point for building more ambitious technique over time.</p>`,
 })
+
+blogPosts.push({
+  slug: 'how-to-make-chicken-ramen-shoyu-broth',
+  title: 'How to Make Chicken Ramen in a Shoyu Style Broth',
+  h1: 'How to Make Chicken Ramen in a Shoyu Style Broth',
+  description: 'A fully comprehensive guide to making chicken ramen in a shoyu-style broth at home — from scratch tare and aromatic chicken broth to chashu, marinated eggs, and assembly. Step-by-step, first person.',
+  date: 'June 9, 2026',
+  readTime: '13 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>Shoyu ramen is where I started. Before I ever attempted tonkotsu or built a dashi from scratch, I made shoyu ramen — and I made it badly for a long time. The first version I cooked smelled right, looked passable, and tasted like soy sauce dissolved in hot water. Not complex. Not layered. Just salty brown liquid with noodles.</p>
+
+<p>It took me a while to understand why. Shoyu ramen is not just broth seasoned with soy sauce. It is the combination of a carefully made chicken base, a concentrated shoyu tare built with mirin and sake, aromatics bloomed in fat, and the kind of patient assembly that turns simple ingredients into something that actually tastes like the bowl you are chasing. Once I understood the architecture — base broth separate from tare, aromatics cooked in fat before the liquid goes in, fat added at the end — everything clicked.</p>
+
+<p>This is the full guide. I will walk you through every component: the chicken broth, the shoyu tare, the chashu pork (optional but transformative), the marinated eggs, the noodles, and the assembly. The scratch version takes about three hours — most of it hands-off. A significantly faster weeknight version that still tastes genuinely excellent is possible in about 35 minutes, and I cover that too.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;">⏱ Recipe at a Glance</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem;color:#3a3d44;font-size:0.9rem;">
+    <div><strong>Prep time (full version):</strong> 30 minutes</div>
+    <div><strong>Cook time (full version):</strong> 2.5–3 hours</div>
+    <div><strong>Prep time (weeknight version):</strong> 10 minutes</div>
+    <div><strong>Cook time (weeknight version):</strong> 20–25 minutes</div>
+    <div><strong>Marinated eggs:</strong> 4 hours minimum (overnight ideal)</div>
+    <div><strong>Serves:</strong> 4 bowls (scale as needed)</div>
+  </div>
+</div>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#what-is-shoyu" style="color:#B57F50;text-decoration:none;">What is shoyu ramen?</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Full ingredient list</a></li>
+    <li><a href="#chicken-broth" style="color:#B57F50;text-decoration:none;">Making the chicken broth base</a></li>
+    <li><a href="#shoyu-tare" style="color:#B57F50;text-decoration:none;">Making the shoyu tare</a></li>
+    <li><a href="#chashu" style="color:#B57F50;text-decoration:none;">Chashu chicken or pork belly</a></li>
+    <li><a href="#marinated-eggs" style="color:#B57F50;text-decoration:none;">Marinated soft-boiled eggs (ajitsuke tamago)</a></li>
+    <li><a href="#noodles" style="color:#B57F50;text-decoration:none;">Choosing and cooking the noodles</a></li>
+    <li><a href="#assembly" style="color:#B57F50;text-decoration:none;">Assembling the bowl</a></li>
+    <li><a href="#weeknight-version" style="color:#B57F50;text-decoration:none;">The 35-minute weeknight version</a></li>
+    <li><a href="#toppings" style="color:#B57F50;text-decoration:none;">Toppings guide</a></li>
+    <li><a href="#tips" style="color:#B57F50;text-decoration:none;">Tips, variations, and troubleshooting</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="what-is-shoyu" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What Is Shoyu Ramen?</h2>
+
+<p>Shoyu ramen is one of the four classic ramen styles — alongside tonkotsu, miso, and shio — and it is arguably the most historically significant. The original Tokyo ramen, dating back to the early 20th century, was shoyu-based: a clear, amber-colored soup built on chicken or dashi stock and seasoned with a soy sauce tare. It is the ramen that defined the category before tonkotsu took over in popular imagination.</p>
+
+<p>The defining characteristic of shoyu ramen is the soy sauce tare — a concentrated seasoning that gives the bowl its color, its salty-umami backbone, and its distinctive savory depth. But "soy sauce soup" is an oversimplification. A great shoyu ramen has layers: the sweetness of mirin, the clean alcohol note of sake, the richness of chicken fat, the brightness of green onion, and the deep glutamate hit of the soy itself. All of these work together. Strip any one of them out and you feel the absence.</p>
+
+<p>The chicken broth base I use here is a <em>chintan</em> — a clear, golden broth made without the aggressive boiling that produces the cloudy, emulsified broths of tonkotsu. Chintan is cooked at a gentle simmer, which keeps it relatively clear and allows the clean chicken flavor to come through. It is what makes shoyu ramen feel simultaneously sophisticated and approachable.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Full Ingredient List</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the chicken broth (makes about 6 cups)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 lbs (900g) chicken bones, necks, and/or backs — or 1 whole chicken (3–4 lbs)</li>
+  <li>1 medium onion, halved and charred (see technique below)</li>
+  <li>1 head garlic, halved crosswise</li>
+  <li>2-inch piece fresh ginger, sliced into coins</li>
+  <li>2 green onion stalks, bruised</li>
+  <li>1 small piece kombu (dried kelp), about 4 inches — optional but adds significant umami</li>
+  <li>8 cups (2 liters) cold water</li>
+  <li>1 tsp kosher salt</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the shoyu tare (makes enough for 6–8 bowls)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>½ cup (120ml) soy sauce — I prefer a combination of regular and dark soy sauce (3:1 ratio) for color and depth</li>
+  <li>¼ cup (60ml) mirin</li>
+  <li>3 tbsp sake (or dry sherry as a substitute)</li>
+  <li>1 tbsp sugar</li>
+  <li>2 green onion stalks</li>
+  <li>2 cloves garlic, smashed</li>
+  <li>3 slices fresh ginger</li>
+  <li>1 small piece kombu</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the chashu (serves 4–6)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 lb (450g) pork belly or boneless chicken thighs</li>
+  <li>¼ cup soy sauce</li>
+  <li>¼ cup mirin</li>
+  <li>¼ cup sake</li>
+  <li>2 tbsp sugar</li>
+  <li>½ cup water</li>
+  <li>2 cloves garlic</li>
+  <li>2 slices ginger</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the marinated eggs (makes 4)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 large eggs</li>
+  <li>3 tbsp soy sauce</li>
+  <li>3 tbsp mirin</li>
+  <li>6 tbsp water</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the bowls (serves 4)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 portions fresh or dried ramen noodles (about 4 oz / 110g each)</li>
+  <li>4 tsp sesame oil or chicken fat (for finishing)</li>
+  <li>Toppings: sliced chashu, halved marinated egg, nori sheets, bamboo shoots, corn, blanched bean sprouts, thinly sliced green onions, white sesame seeds</li>
+</ul>
+
+<h2 id="chicken-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Chicken Broth Base</h2>
+
+<p>The broth is the foundation of the bowl. Everything else — tare, fat, toppings — layers on top of it. A weak broth produces a weak bowl no matter how good the tare is. A great broth can carry a bowl even if nothing else is particularly inspired. Spend the time here.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Blanch the bones (5 minutes)</h3>
+<p>Place chicken bones in a pot, cover with cold water, and bring to a boil. Boil hard for 2–3 minutes — you will see a grey-brown foam rise to the surface. This is impurities releasing from the bones. Drain, rinse the bones under cold water, and scrub the pot clean. This step is not optional if you want a clean, clear broth. I used to skip it. I stopped skipping it.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Char the onion and ginger (5 minutes)</h3>
+<p>Place the halved onion and ginger slices directly over a gas flame or cut-side down in a dry skillet over high heat. Cook until deeply charred — almost burnt on the cut surfaces. This adds a smoky, sweet complexity to the broth that raw onion cannot replicate. It is the technique used in Vietnamese pho and Japanese ramen shops alike, and it makes a noticeable difference.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Build and simmer the broth (2–2.5 hours)</h3>
+<p>Combine blanched bones, charred onion and ginger, garlic, green onions, kombu (if using), and cold water in a large pot. Add the salt. Bring to a gentle boil over medium heat — this should take about 15 minutes. The moment it boils, reduce heat to the lowest setting that maintains a gentle simmer. Small bubbles breaking the surface, not a rolling boil. Skim any foam that accumulates in the first 30 minutes.</p>
+
+<p>Simmer for 2–2.5 hours, partially covered. The broth should reduce by about a third and turn a rich golden color. If using kombu, remove it after the first 30 minutes of simmering — it can turn the broth bitter if cooked too long. Taste at the 90-minute mark. The broth should taste like clean, concentrated chicken with a faint sweetness from the onion. If it tastes flat, add another pinch of salt and continue simmering.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Strain and cool</h3>
+<p>Strain the broth through a fine-mesh sieve lined with a piece of cheesecloth if you want extra clarity. Let it cool, then refrigerate. The fat will solidify on the surface — save it. That solidified chicken fat is liquid gold for finishing bowls. The broth keeps for 5 days in the fridge or 3 months frozen.</p>
+
+<h2 id="shoyu-tare" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Shoyu Tare</h2>
+
+<p>The tare is what makes this shoyu ramen and not just chicken noodle soup. It is concentrated, deeply savory, and slightly sweet. Made correctly, it keeps in the fridge for a month and makes every subsequent bowl faster and better. I make a batch on Sunday and use it all week.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Combine all tare ingredients in a small saucepan: soy sauce, mirin, sake, sugar, green onions, garlic, ginger, and kombu.</li>
+  <li>Bring to a gentle simmer over medium-low heat, stirring to dissolve the sugar. Do not boil hard — you want to cook off the alcohol and meld the flavors, not reduce the tare aggressively.</li>
+  <li>Simmer gently for 8–10 minutes. The tare should smell sweet and deeply savory, like teriyaki sauce but more complex.</li>
+  <li>Remove the kombu at 5 minutes. Strain out the solids and let cool. Transfer to a sealed jar.</li>
+</ol>
+
+<p><strong>How much tare per bowl:</strong> Start with 2 tablespoons of tare at the bottom of each bowl before ladling in the broth. Adjust to taste — I usually end up between 2 and 3 tablespoons depending on how salty my broth turned out. The tare should season the soup, not overpower it.</p>
+
+<h2 id="chashu" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Chashu Chicken or Pork Belly</h2>
+
+<p>Chashu is the braised meat that sits atop every serious bowl of ramen. Pork belly is traditional and spectacular — fatty, tender, and deeply savory. Chicken thighs are a lighter alternative that works beautifully in a shoyu bowl and takes half the time. I make pork belly chashu when I have time and chicken thigh chashu on weeknights. Both are excellent.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Pork belly chashu (prep: 10 min · cook: 2–2.5 hours)</h3>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Roll the pork belly tightly (skin-side out) and tie with kitchen twine every inch. This is easiest with a partner or by wrapping in plastic wrap first and refrigerating for 30 minutes to set the shape.</li>
+  <li>Sear in a neutral oil in a heavy oven-safe pot over high heat — 2 minutes per side until deep brown all over. This step builds the flavor crust that defines good chashu.</li>
+  <li>Add braising liquid: soy sauce, mirin, sake, sugar, water, garlic, and ginger. The liquid should come about halfway up the pork.</li>
+  <li>Bring to a simmer, cover, and cook in a 275°F (135°C) oven for 2–2.5 hours, turning the pork once at the halfway mark. It is done when a skewer meets no resistance.</li>
+  <li>Let the pork cool in the braising liquid. Refrigerate overnight. Slice cold — thin, even slices that hold together beautifully. The braising liquid becomes chashu tare; add a tablespoon to your ramen broth for extra depth.</li>
+</ol>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Chicken thigh chashu (prep: 5 min · cook: 45 minutes)</h3>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Lay boneless, skin-on chicken thighs flat and roll tightly, skin-side out. Tie with kitchen twine.</li>
+  <li>Sear in oil skin-side down until golden, about 4 minutes. Turn and sear 2 more minutes.</li>
+  <li>Add the same braising liquid as above but reduce quantities by half. Simmer covered for 35–40 minutes until cooked through.</li>
+  <li>Cool in the liquid. Slice when cold. The skin gets slightly sticky and delicious — do not remove it before slicing.</li>
+</ol>
+
+<h2 id="marinated-eggs" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Marinated Soft-Boiled Eggs (Ajitsuke Tamago)</h2>
+
+<p>The marinated egg is not optional in my kitchen. A properly made ajitsuke tamago — soft-boiled to a jammy yolk, marinated until the white turns deep amber and tastes faintly of soy and sweet mirin — is one of the great simple pleasures in food. I make a batch of six every Sunday and keep them in the fridge all week. They go in ramen, on rice, and occasionally eaten standing at the counter at midnight.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Bring a pot of water to a full rolling boil. Lower eggs gently with a spoon — cold from the fridge is fine.</li>
+  <li>Cook for exactly <strong>6 minutes and 30 seconds</strong> for a jammy, flowing yolk. (6 minutes for very runny, 7 minutes for mostly set but still soft. I prefer 6:30.)</li>
+  <li>Transfer immediately to an ice bath — a bowl of water with plenty of ice — and let sit for 5 full minutes. This stops the cooking and makes peeling dramatically easier.</li>
+  <li>Peel carefully. The whites are delicate at this cook time.</li>
+  <li>Combine soy sauce, mirin, and water in a zip-lock bag or small container. Add the peeled eggs. They should be mostly submerged. Refrigerate for at least 4 hours — overnight gives the best flavor penetration and that deep amber color.</li>
+  <li>Slice in half lengthwise just before serving. The cross-section should show a bright orange-gold yolk that is set at the edges and still slightly liquid in the center.</li>
+</ol>
+
+<p>The marinade doubles as extra tare — a tablespoon added to the broth adds another layer of that sweet-salty flavor. I always do this.</p>
+
+<h2 id="noodles" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Choosing and Cooking the Noodles</h2>
+
+<p>Shoyu ramen traditionally uses thin to medium-thickness, slightly wavy noodles — the kind associated with Tokyo-style ramen. They are lighter than the thick, straight Hakata noodles of tonkotsu, and they work in harmony with a clear, delicate broth rather than fighting it for dominance.</p>
+
+<p>My preferences in order:</p>
+
+<ol style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Fresh Sun Noodle brand ramen noodles</strong> — found at Japanese and Korean grocery stores, sometimes at Whole Foods. The texture is noticeably superior to anything dried. Cook in the broth for 1.5–2 minutes.</li>
+  <li><strong>Fresh refrigerated ramen noodles (any brand)</strong> — Asian grocery stores usually stock their own house brand. Good quality and fast to cook.</li>
+  <li><strong>Dried thin ramen noodles (without seasoning packet)</strong> — available in the noodle aisle at Asian grocery stores. Cook in the broth for 3–4 minutes. Better than instant bricks for texture.</li>
+  <li><strong>Instant ramen noodle bricks (packet discarded)</strong> — perfectly serviceable. Use the noodle brick, skip the flavor packet, and season entirely with the homemade tare. Cook 2–3 minutes in broth.</li>
+</ol>
+
+<p>The non-negotiable rule: cook noodles directly in the broth, not in a separate pot of water. And pull them 30–45 seconds before they look done — they continue cooking in the hot bowl. I say this in every cooking guide I write because I have overcooked more noodles than I can count, and every time I do it I wish I had pulled them earlier.</p>
+
+<h2 id="assembly" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Assembling the Bowl</h2>
+
+<p>Assembly is where everything either comes together or falls apart. Order matters. Temperature matters. Speed matters — ramen is not a dish that waits politely while you fumble with toppings.</p>
+
+<p>Here is the exact sequence I follow every time:</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Warm the bowls.</strong> Fill each serving bowl with hot tap water and let it sit while you finish cooking. A warm bowl keeps ramen hot for an extra 5–7 minutes — which matters more than people realize. Dump the water and dry the bowl right before ladling.</li>
+  <li><strong>Add tare to the bowl first.</strong> Two to three tablespoons of shoyu tare at the bottom of the warm bowl. This is the Japanese technique called <em>tare wo shiku</em> (laying down the tare) — the hot broth poured on top emulsifies it instantly and distributes the seasoning evenly throughout the soup.</li>
+  <li><strong>Add a teaspoon of fat.</strong> A teaspoon of the solidified chicken fat you reserved from the broth, or sesame oil if you do not have chicken fat. Add it on top of the tare before the broth.</li>
+  <li><strong>Ladle hot broth over the tare and fat.</strong> About 1.5 to 2 cups per bowl. The broth should be at a full simmer when it hits the bowl — not hot but past its boiling point, but actively bubbling.</li>
+  <li><strong>Add the noodles.</strong> Use tongs or chopsticks to transfer noodles from the pot. Arrange them loosely in the bowl so they sit beneath the broth rather than piled on top.</li>
+  <li><strong>Add toppings in a deliberate arrangement.</strong> Ramen is eaten with the eyes first. Place chashu slices fanned to one side, egg halved and positioned yolk-up, nori leaned against the noodles, corn in a small mound, bamboo shoots opposite the chashu, bean sprouts lightly piled. Scatter green onions over everything.</li>
+  <li><strong>Drizzle with sesame oil and scatter sesame seeds.</strong> A final drizzle of toasted sesame oil over the surface — use a light hand, maybe ½ teaspoon — adds a toasty fragrance that hits you the moment the bowl is set down. A pinch of white sesame seeds is the finishing touch.</li>
+  <li><strong>Serve immediately.</strong> Walk it to the table. Ramen does not hold.</li>
+</ol>
+
+<h2 id="weeknight-version" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The 35-Minute Weeknight Version</h2>
+
+<p>I love the full scratch version. I also work five days a week and do not always have three hours. Here is the version I make on Tuesday nights — it uses store-bought broth and pre-made tare (from a batch I made on Sunday) and produces a bowl that is genuinely excellent, not a compromise.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.5rem;color:#1E2026;">⏱ Weeknight Version</p>
+  <ul style="margin:0;padding-left:1.25rem;color:#3a3d44;">
+    <li><strong>Prep:</strong> 10 minutes</li>
+    <li><strong>Cook time:</strong> 20–25 minutes</li>
+    <li><strong>Total:</strong> 30–35 minutes</li>
+  </ul>
+</div>
+
+<p><strong>What you need:</strong></p>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 cups (480ml) good-quality chicken bone broth (Kettle &amp; Fire or similar)</li>
+  <li>2–3 tbsp shoyu tare (store-bought mentsuyu works as a substitute — use 1.5 tbsp)</li>
+  <li>1 tsp sesame oil</li>
+  <li>2 garlic cloves, minced</li>
+  <li>1-inch piece ginger, grated</li>
+  <li>1 green onion stalk, sliced</li>
+  <li>1 portion ramen noodles</li>
+  <li>Toppings from the fridge (pre-made eggs, any leftover chashu, whatever vegetables you have)</li>
+</ul>
+
+<p><strong>Method:</strong></p>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Heat sesame oil in a small saucepan over medium heat. Add garlic and ginger, cook 60 seconds until fragrant.</li>
+  <li>Add chicken broth and bring to a gentle simmer. Add the white parts of the green onion. Simmer 10 minutes.</li>
+  <li>Add noodles directly to the broth. Cook until just underdone — about 2 minutes for fresh, 3–4 for dried.</li>
+  <li>Put tare at the bottom of a warmed bowl. Ladle broth and noodles over the top. Add toppings. Finish with sesame oil and sliced green onion greens.</li>
+</ol>
+
+<p>The secret to making the weeknight version taste less like a shortcut: bloom the aromatics in fat (that 60 seconds of garlic and ginger in sesame oil), use bone broth instead of regular broth, and have the tare made in advance so the seasoning is as layered as the from-scratch version. Three specific things that do 80% of the work.</p>
+
+<h2 id="toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Toppings Guide</h2>
+
+<p>Shoyu chicken ramen has a clean, delicate profile — which means the toppings should complement rather than overwhelm. I keep things relatively restrained compared to a tonkotsu build, focusing on texture contrast and freshness.</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Chashu (required)</strong> — 2–3 slices per bowl, either chicken or pork. The braising liquid from the chashu is excellent added to the broth in small amounts.</li>
+  <li><strong>Ajitsuke tamago (required)</strong> — one egg, halved, per bowl. See recipe above. No substitution is as satisfying.</li>
+  <li><strong>Nori</strong> — one or two sheets. Lean them against the noodles so they partially submerge in the broth. They soften and add oceanic umami as you eat. Essential in shoyu ramen specifically.</li>
+  <li><strong>Menma (bamboo shoots)</strong> — available canned. Rinse, sauté briefly with a splash of soy sauce and sesame oil. Adds crunch and an earthy, slightly fermented note.</li>
+  <li><strong>Bean sprouts</strong> — blanch for 30 seconds, shock in ice water. Adds fresh crunch and a slight sweetness. I often skip these on weeknights but always include them when making for guests.</li>
+  <li><strong>Corn</strong> — canned or frozen sweet corn, warmed. The sweetness plays particularly well against the salty-umami shoyu base.</li>
+  <li><strong>Narutomaki (fish cake)</strong> — the pink-and-white swirled slice you see in classic Tokyo ramen photographs. Available at Japanese grocery stores. More traditional than transformative, but it signals that you know what you are doing.</li>
+  <li><strong>Scallion greens</strong> — always. Sliced thin on the bias. Scattered over everything at the very end.</li>
+  <li><strong>White sesame seeds</strong> — a light scattering. Textural and visual.</li>
+  <li><strong>Togarashi</strong> — Japanese seven-spice blend. A pinch for anyone who wants heat. Offer it at the table rather than adding to the whole pot.</li>
+</ul>
+
+<h2 id="tips" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Tips, Variations, and Troubleshooting</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Tips I always follow</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Make the tare and eggs in advance.</strong> They both improve with time. Sunday batch cooking means weeknight ramen takes 25 minutes start to bowl.</li>
+  <li><strong>Never boil broth with noodles in it.</strong> A gentle simmer only. High heat makes noodles gummy and broths murky.</li>
+  <li><strong>Add tare to the bowl, not the pot.</strong> This lets each person adjust seasoning to their taste, and it preserves the broth for reuse without over-salting it.</li>
+  <li><strong>Reserve and use the chicken fat.</strong> The solid fat layer on top of refrigerated broth is the single ingredient that most improves a shoyu bowl. One teaspoon per bowl. Do not skip it.</li>
+  <li><strong>Taste everything before it goes in the bowl.</strong> Broth, tare, noodles. Adjust constantly. Ramen is a dish where active tasting matters.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Variations worth trying</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Spicy shoyu</strong> — add a tablespoon of doubanjiang (fermented chili bean paste) or gochujang to the tare. The heat integrates beautifully with the soy sauce base.</li>
+  <li><strong>Yuzu shoyu</strong> — add a teaspoon of yuzu juice or yuzu kosho to the finished bowl. The citrus brightens everything and makes the bowl smell extraordinary.</li>
+  <li><strong>Mushroom shoyu</strong> — steep dried shiitake mushrooms in the broth for 30 minutes before simmering. Remove and slice them, then use as a topping. The broth gains deep, earthy umami.</li>
+  <li><strong>Tori paitan style</strong> — cook the chicken broth at a rolling boil for 1 hour instead of a gentle simmer. This emulsifies the fat and collagen into a cloudy, creamy broth similar to tonkotsu but with chicken. Still season with shoyu tare. The result is richer and more luscious.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Troubleshooting common problems</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Broth is too light and thin:</strong> Simmer longer with the lid off. Or add a splash of the chashu braising liquid, which is concentrated and intensely flavored.</li>
+  <li><strong>Bowl is too salty:</strong> Add a splash of plain water or unsalted broth to dilute. Next time, use less tare and build up gradually.</li>
+  <li><strong>Noodles are mushy:</strong> Cooked too long. Pull noodles earlier — they cook faster in hot broth than the packaging suggests, and they continue cooking in the bowl.</li>
+  <li><strong>Broth tastes flat despite good ingredients:</strong> Almost always a fat or umami problem. Add a teaspoon of chicken fat, a few drops of sesame oil, or a small pinch of MSG. Flat broth is often just under-fatted.</li>
+  <li><strong>Egg yolk is fully set:</strong> Cook time was too long. Reduce by 30 seconds next attempt. Egg size also matters — large eggs need 6:30, extra-large need 7 minutes.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What type of soy sauce is best for shoyu tare?</h3>
+<p>I use a combination of regular Japanese soy sauce (like Kikkoman) and a smaller amount of dark soy sauce for color and depth. All regular soy sauce produces a slightly pale, thinner tare. All dark soy sauce is too thick and overwhelming. A 3:1 ratio of regular to dark is my default. Chinese soy sauce works in a pinch but has a slightly different flavor profile — acceptable, not ideal.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use store-bought chicken broth instead of making it from scratch?</h3>
+<p>Yes, and I do this regularly on weeknights. Kettle &amp; Fire Chicken Bone Broth is the best store-bought option I have found — it has real body and flavor. Swanson Unsalted is a reliable backup. Whatever you use, bloom aromatics in fat before adding it (garlic, ginger, scallion for 60 seconds in sesame oil) and your bowl will taste significantly more intentional than if you just heated broth from the carton.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the difference between shoyu tare and just adding soy sauce to broth?</h3>
+<p>The tare is cooked with mirin, sake, aromatics, and kombu — all of which add sweetness, complexity, and umami that raw soy sauce alone cannot provide. A tablespoon of soy sauce added directly to broth tastes flat and sharp. Two tablespoons of properly made shoyu tare tastes layered and complete. The 10 minutes of cooking time transforms the ingredients into something genuinely different.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How long does the shoyu tare keep?</h3>
+<p>The tare keeps in a sealed jar in the refrigerator for up to one month. The salt content acts as a preservative. I make a batch every 3–4 weeks and it is always ready when I need it. It can also be frozen for up to 6 months in ice cube trays — convenient individual portions.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Is shoyu ramen different from tonkotsu shoyu?</h3>
+<p>Yes. Traditional shoyu ramen uses a chicken or dashi base — light, clear, and relatively delicate. Tonkotsu shoyu blends a rich, emulsified pork bone broth with a shoyu tare — richer, creamier, and more intense. The tare may be similar but the base broth is entirely different. What I am describing in this guide is the classic chicken chintan shoyu style.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this vegetarian or vegan?</h3>
+<p>Yes. Replace the chicken broth with a mushroom-kombu dashi: steep 1 oz dried shiitake mushrooms and a 4-inch piece of kombu in 8 cups cold water for 30 minutes, then simmer for 15 minutes and strain. Omit the chashu or substitute with pan-fried tofu (pressed, sliced, and seared until golden) marinated briefly in the same soy-mirin-sake mix. Use the same shoyu tare — it is already vegan. The bowl will be lighter but genuinely delicious.</p>`,
+})
