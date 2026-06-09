@@ -3,6 +3,7 @@ import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
+import ProductsCarousel from '@/components/products-carousel'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
 import Footer from '@/components/footer'
@@ -42,6 +43,7 @@ export default function HomePage() {
         <Navbar />
         <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
         <NearbyRestaurantsCarousel />
+        <ProductsCarousel />
         <FeaturedListings />
 
         <div className="broth-stack">
