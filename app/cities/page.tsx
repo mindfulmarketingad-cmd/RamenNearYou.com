@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, MapPin, ExternalLink } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { getCities, getStates } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -10,82 +10,12 @@ export const metadata: Metadata = {
   description: 'Find ramen restaurants in cities across every US state. Browse our full directory by city and state.',
 }
 
-const ALL_STATES: { name: string; code: string; slug: string }[] = [
-  { name: 'Alabama', code: 'AL', slug: 'al' },
-  { name: 'Alaska', code: 'AK', slug: 'ak' },
-  { name: 'Arizona', code: 'AZ', slug: 'az' },
-  { name: 'Arkansas', code: 'AR', slug: 'ar' },
-  { name: 'California', code: 'CA', slug: 'ca' },
-  { name: 'Colorado', code: 'CO', slug: 'co' },
-  { name: 'Connecticut', code: 'CT', slug: 'ct' },
-  { name: 'Delaware', code: 'DE', slug: 'de' },
-  { name: 'Florida', code: 'FL', slug: 'fl' },
-  { name: 'Georgia', code: 'GA', slug: 'ga' },
-  { name: 'Hawaii', code: 'HI', slug: 'hi' },
-  { name: 'Idaho', code: 'ID', slug: 'id' },
-  { name: 'Illinois', code: 'IL', slug: 'il' },
-  { name: 'Indiana', code: 'IN', slug: 'in' },
-  { name: 'Iowa', code: 'IA', slug: 'ia' },
-  { name: 'Kansas', code: 'KS', slug: 'ks' },
-  { name: 'Kentucky', code: 'KY', slug: 'ky' },
-  { name: 'Louisiana', code: 'LA', slug: 'la' },
-  { name: 'Maine', code: 'ME', slug: 'me' },
-  { name: 'Maryland', code: 'MD', slug: 'md' },
-  { name: 'Massachusetts', code: 'MA', slug: 'ma' },
-  { name: 'Michigan', code: 'MI', slug: 'mi' },
-  { name: 'Minnesota', code: 'MN', slug: 'mn' },
-  { name: 'Mississippi', code: 'MS', slug: 'ms' },
-  { name: 'Missouri', code: 'MO', slug: 'mo' },
-  { name: 'Montana', code: 'MT', slug: 'mt' },
-  { name: 'Nebraska', code: 'NE', slug: 'ne' },
-  { name: 'Nevada', code: 'NV', slug: 'nv' },
-  { name: 'New Hampshire', code: 'NH', slug: 'nh' },
-  { name: 'New Jersey', code: 'NJ', slug: 'nj' },
-  { name: 'New Mexico', code: 'NM', slug: 'nm' },
-  { name: 'New York', code: 'NY', slug: 'ny' },
-  { name: 'North Carolina', code: 'NC', slug: 'nc' },
-  { name: 'North Dakota', code: 'ND', slug: 'nd' },
-  { name: 'Ohio', code: 'OH', slug: 'oh' },
-  { name: 'Oklahoma', code: 'OK', slug: 'ok' },
-  { name: 'Oregon', code: 'OR', slug: 'or' },
-  { name: 'Pennsylvania', code: 'PA', slug: 'pa' },
-  { name: 'Rhode Island', code: 'RI', slug: 'ri' },
-  { name: 'South Carolina', code: 'SC', slug: 'sc' },
-  { name: 'South Dakota', code: 'SD', slug: 'sd' },
-  { name: 'Tennessee', code: 'TN', slug: 'tn' },
-  { name: 'Texas', code: 'TX', slug: 'tx' },
-  { name: 'Utah', code: 'UT', slug: 'ut' },
-  { name: 'Vermont', code: 'VT', slug: 'vt' },
-  { name: 'Virginia', code: 'VA', slug: 'va' },
-  { name: 'Washington', code: 'WA', slug: 'wa' },
-  { name: 'Washington D.C.', code: 'DC', slug: 'dc' },
-  { name: 'West Virginia', code: 'WV', slug: 'wv' },
-  { name: 'Wisconsin', code: 'WI', slug: 'wi' },
-  { name: 'Wyoming', code: 'WY', slug: 'wy' },
-]
-
 export default function CitiesPage() {
   const cities = getCities()
-  const statesWithData = new Set(getStates().map(s => s.stateSlug))
-
-  // Group cities by state code
-  const byState = new Map<string, typeof cities>()
-  for (const city of cities) {
-    const existing = byState.get(city.stateCode) ?? []
-    existing.push(city)
-    byState.set(city.stateCode, existing)
-  }
-  // Sort cities within each state by count desc
-  for (const [, list] of byState) {
-    list.sort((a, b) => b.count - a.count)
-  }
-
-  // Build slug lookup: stateCode → stateSlug
-  const stateSlugByCode = new Map(getStates().map(s => [s.stateCode, s.stateSlug]))
+  const states = getStates()
 
   const totalCities = cities.length
   const totalRestaurants = cities.reduce((s, c) => s + c.count, 0)
-  const liveStates = byState.size
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
@@ -97,72 +27,31 @@ export default function CitiesPage() {
           <nav className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Browse Cities</span>
+            <span className="text-[#1E2026]">Browse by State</span>
           </nav>
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Find Ramen Near You</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Restaurants by City &amp; State</h1>
           <p className="text-[#6B6862] text-lg">
-            {totalRestaurants.toLocaleString()} restaurants across {totalCities} cities in {liveStates} states
+            Find ramen spots and restaurants near you by browsing every city and state in our directory.
           </p>
         </div>
       </section>
 
-      {/* State list */}
+      {/* State grid */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto space-y-10">
-          {ALL_STATES.map((state) => {
-            const stateCities = byState.get(state.code)
-            const hasData = !!stateCities?.length
-
-            return (
-              <div key={state.code}>
-                {/* State heading */}
-                <div className="flex items-center gap-3 mb-4">
-                  {hasData ? (
-                    <Link href={`/${stateSlugByCode.get(state.code)}`} className="font-serif text-xl font-bold text-[#1E2026] hover:text-[#B57F50] transition-colors flex items-center gap-1.5">
-                      {state.name}
-                      <ExternalLink className="w-3.5 h-3.5 text-[#B57F50]/60" />
-                    </Link>
-                  ) : (
-                    <h2 className="font-serif text-xl font-bold text-[#1E2026]">{state.name}</h2>
-                  )}
-                  <span className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest">{state.code}</span>
-                  {!hasData && (
-                    <span className="px-2 py-0.5 rounded-full bg-black/5 border border-black/8 text-[#6B6862] text-xs">
-                      Coming soon
-                    </span>
-                  )}
-                </div>
-
-                {hasData ? (
-                  <ul className="divide-y divide-white/5 rounded-xl border border-black/5 overflow-hidden">
-                    {stateCities.map((city) => (
-                      <li key={`${city.citySlug}-${city.stateSlug}`}>
-                        <Link
-                          href={`/${city.citySlug}/${city.stateSlug}`}
-                          className="flex items-center justify-between px-4 py-3 bg-[#F5F4F0] hover:bg-[#252830] transition-colors group"
-                        >
-                          <span className="flex items-center gap-2">
-                            <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
-                            <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#c8934f] transition-colors">
-                              {city.city}, {city.stateCode}
-                            </span>
-                          </span>
-                          <span className="text-[#6B6862] text-xs shrink-0 ml-4">
-                            {city.count} Ramen Restaurant{city.count !== 1 ? 's' : ''}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-[#6B6862]/50 text-sm italic pl-1">
-                    No listings yet — check back soon.
-                  </p>
-                )}
-              </div>
-            )
-          })}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {states.map((s) => (
+              <Link
+                key={s.stateSlug}
+                href={`/${s.stateSlug}`}
+                className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/5 hover:border-[#B57F50]/40 hover:bg-[#B57F50]/5 transition-colors group"
+              >
+                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{s.state}</span>
+                <span className="text-[#6B6862] text-xs shrink-0 ml-2">{s.cityCount}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
