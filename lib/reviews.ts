@@ -45,7 +45,7 @@ export function allReviewSlugs(): string[] {
 
 // Only the top-rated restaurants get a review page. Keep this list in one place
 // so the static params, the /reviews index, and lookups all stay in sync.
-export const REVIEW_PAGE_LIMIT = 400
+export const REVIEW_PAGE_LIMIT = 900
 
 let _reviewRestaurants: Restaurant[] | null = null
 export function getReviewRestaurants(): Restaurant[] {
