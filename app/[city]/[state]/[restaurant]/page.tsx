@@ -23,11 +23,20 @@ import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import CityFilterPage from '@/components/city-filter-page'
+import {
+  parseFilterSlug,
+  getMajorCity,
+  getFilterRestaurants,
+  getCityFilterStaticParams,
+  filterTitle,
+  filterDescription,
+} from '@/lib/city-filter-pages'
 
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  return [...restaurants]
+  const restaurantParams = [...restaurants]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 5000)
     .map((r) => ({
@@ -35,10 +44,31 @@ export async function generateStaticParams() {
       state: r.stateSlug,
       restaurant: r.slug,
     }))
+  // City × filter pages share this route's third segment.
+  return [...restaurantParams, ...getCityFilterStaticParams()]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
+
+  // City × filter page metadata (e.g. /atlanta/georgia/tonkotsu-ramen)
+  const spec = parseFilterSlug(restaurant)
+  const cityInfo = spec ? getMajorCity(city, state) : null
+  if (spec && cityInfo) {
+    const matches = getFilterRestaurants(city, state, spec)
+    if (matches.length > 0) {
+      const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+      const title = filterTitle(spec, cityInfo.city, cityInfo.stateCode)
+      const description = filterDescription(spec, cityInfo.city, cityInfo.stateCode, matches.length)
+      return {
+        title,
+        description,
+        alternates: { canonical: url },
+        openGraph: { title, description, url },
+      }
+    }
+  }
+
   const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
   const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
@@ -148,6 +178,19 @@ function getTodayHours(hours: Record<string, string[]> | null): string | null {
 
 export default async function RestaurantPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
+
+  // City × filter page (e.g. /atlanta/georgia/tonkotsu-ramen). Only major
+  // cities get these; anything else falls through to restaurant lookup.
+  const spec = parseFilterSlug(restaurant)
+  const cityInfo = spec ? getMajorCity(city, state) : null
+  if (spec && cityInfo) {
+    const matches = getFilterRestaurants(city, state, spec)
+    if (matches.length > 0) {
+      return <CityFilterPage spec={spec} cityInfo={cityInfo} restaurants={matches} />
+    }
+    notFound()
+  }
+
   const original = getRestaurant(city, state, restaurant)
   if (!original) notFound()
   const r = { ...original } as Restaurant
