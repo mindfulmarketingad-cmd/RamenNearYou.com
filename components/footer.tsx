@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { getStates } from '@/lib/restaurants'
 
 const footerLinks = {
   Browse: [
-    { label: 'Browse Cities', href: '/cities' },
     { label: 'Broth Types', href: '/broth' },
     { label: 'Products', href: '/products' },
     { label: 'Reviews', href: '/reviews' },
@@ -25,6 +25,8 @@ const footerLinks = {
 }
 
 export default function Footer() {
+  const states = getStates()
+
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -58,6 +60,22 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* States section */}
+        <div className="mt-12 pt-12 border-t border-black/5">
+          <h4 className="text-[#1E2026] text-sm font-semibold mb-5">Ramen by State</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-2.5">
+            {states.map((s) => (
+              <Link
+                key={s.stateSlug}
+                href={`/${s.stateSlug}`}
+                className="text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors truncate"
+              >
+                {s.state}
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Newsletter */}
