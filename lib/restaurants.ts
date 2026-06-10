@@ -123,6 +123,25 @@ export function getRestaurantsByBrothType(type: BrothType): Restaurant[] {
   return restaurants.filter(r => getBrothTypes(r).includes(type))
 }
 
+/**
+ * Matches a restaurant against a service/broth label used by the
+ * `/[broth]-ramen-near-me` service pages. Handles the broth styles in
+ * getBrothTypes plus the cuisine/diet styles (Vegetarian, Korean, Japanese)
+ * that are derived from amenities and subtypes.
+ */
+export function matchesServiceBroth(r: Restaurant, label: string): boolean {
+  const key = label.toLowerCase()
+  if (key === 'vegetarian') return !!r.amenities.vegetarianOptions
+  if (key === 'vegan') return !!r.amenities.veganOptions
+  if (key === 'korean') return (r.subtypes ?? '').toLowerCase().includes('korean')
+  if (key === 'japanese') return (r.subtypes ?? '').toLowerCase().includes('japanese')
+  return getBrothTypes(r).map(t => t.toLowerCase()).includes(key)
+}
+
+export function getRestaurantsByService(label: string): Restaurant[] {
+  return restaurants.filter(r => matchesServiceBroth(r, label))
+}
+
 export function getTonkotsuRestaurantsByCity(citySlug: string, stateSlug: string): Restaurant[] {
   return restaurants.filter(
     r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes('Tonkotsu')
