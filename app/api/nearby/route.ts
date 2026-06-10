@@ -20,12 +20,22 @@ function matchesBroth(r: (typeof restaurants)[number], broth: string): boolean {
   return types.includes(b)
 }
 
+function matchesDining(r: (typeof restaurants)[number], dining: string): boolean {
+  if (!dining) return true
+  if (dining === 'dinein') return !!r.amenities.dineIn
+  if (dining === 'takeout') return !!r.amenities.takeout
+  if (dining === 'delivery') return !!r.amenities.delivery
+  return true
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const lat = parseFloat(searchParams.get('lat') ?? '')
   const lng = parseFloat(searchParams.get('lng') ?? '')
   const limit = Math.min(parseInt(searchParams.get('limit') ?? '8'), 20)
   const broth = searchParams.get('broth') ?? ''
+  const dining = searchParams.get('dining') ?? ''
+  const radius = Math.min(parseFloat(searchParams.get('radius') ?? '50') || 50, 50)
 
   if (isNaN(lat) || isNaN(lng)) {
     return NextResponse.json({ error: 'lat and lng required' }, { status: 400 })
@@ -34,6 +44,7 @@ export async function GET(req: NextRequest) {
   const nearby = restaurants
     .filter((r) => r.latitude != null && r.longitude != null && r.businessStatus === 'OPERATIONAL')
     .filter((r) => !broth || matchesBroth(r, broth))
+    .filter((r) => matchesDining(r, dining))
     .map((r) => ({
       slug: r.slug,
       citySlug: r.citySlug,
@@ -47,9 +58,12 @@ export async function GET(req: NextRequest) {
       description: r.description,
       subtypes: r.subtypes,
       priceRange: r.priceRange,
+      dineIn: !!r.amenities.dineIn,
+      takeout: !!r.amenities.takeout,
+      delivery: !!r.amenities.delivery,
       distanceMiles: haversine(lat, lng, r.latitude!, r.longitude!),
     }))
-    .filter((r) => r.distanceMiles <= 50)
+    .filter((r) => r.distanceMiles <= radius)
     .sort((a, b) => a.distanceMiles - b.distanceMiles)
     .slice(0, limit)
 
