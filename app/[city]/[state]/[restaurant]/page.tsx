@@ -176,6 +176,51 @@ function getTodayHours(hours: Record<string, string[]> | null): string | null {
   return slots.join(' · ')
 }
 
+const SCHEMA_DAY: Record<string, string> = {
+  Monday: 'Monday', Tuesday: 'Tuesday', Wednesday: 'Wednesday',
+  Thursday: 'Thursday', Friday: 'Friday', Saturday: 'Saturday', Sunday: 'Sunday',
+}
+
+function parseSlotTime(raw: string): string | null {
+  const m = raw.trim().match(/^(\d+)(?::(\d+))?\s*(AM|PM)$/i)
+  if (!m) return null
+  let h = parseInt(m[1])
+  const min = parseInt(m[2] ?? '0')
+  const mer = m[3].toUpperCase()
+  if (mer === 'PM' && h !== 12) h += 12
+  if (mer === 'AM' && h === 12) h = 0
+  return `${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+}
+
+function parseHourSlot(slot: string): { opens: string; closes: string } | null {
+  // Handles "11:30AM-3PM", "5PM-9PM", "5-9PM"
+  const m = slot.match(/^(\d+(?::\d+)?\s*(?:AM|PM)?)\s*-\s*(\d+(?::\d+)?\s*(?:AM|PM))$/i)
+  if (!m) return null
+  const [, startRaw, endRaw] = m
+  const closes = parseSlotTime(endRaw)
+  if (!closes) return null
+  // If start has no AM/PM, inherit from end
+  const startWithMer = /AM|PM/i.test(startRaw) ? startRaw : startRaw + endRaw.match(/(AM|PM)/i)?.[1]
+  const opens = parseSlotTime(startWithMer ?? startRaw)
+  if (!opens) return null
+  return { opens, closes }
+}
+
+function buildOpeningHours(hours: Record<string, string[]>) {
+  const specs: Record<string, unknown>[] = []
+  for (const [day, slots] of Object.entries(hours)) {
+    const dayName = SCHEMA_DAY[day]
+    if (!dayName || !slots || slots[0] === 'Closed') continue
+    for (const slot of slots) {
+      const parsed = parseHourSlot(slot)
+      if (parsed) {
+        specs.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${dayName}`, opens: parsed.opens, closes: parsed.closes })
+      }
+    }
+  }
+  return specs.length > 0 ? specs : undefined
+}
+
 export default async function RestaurantPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
 
@@ -279,13 +324,26 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     name: r.name,
     servesCuisine: 'Ramen',
     url: `https://www.ramennearyou.com/${city}/${state}/${restaurant}`,
-    address: { '@type': 'PostalAddress', streetAddress: r.address, addressLocality: r.city, addressRegion: r.stateCode, addressCountry: 'US' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: r.street || r.address,
+      addressLocality: r.city,
+      addressRegion: r.stateCode,
+      postalCode: r.postalCode,
+      addressCountry: 'US',
+    },
+    ...(r.latitude != null && r.longitude != null && {
+      geo: { '@type': 'GeoCoordinates', latitude: r.latitude, longitude: r.longitude },
+    }),
     ...(r.phone && { telephone: r.phone }),
     ...(r.website && { sameAs: r.website }),
     ...(r.photo && { image: r.photo }),
+    ...(r.priceRange && { priceRange: r.priceRange }),
     ...(aggregateRating && { aggregateRating }),
     ...(reviewSchemaItems.length > 0 && { review: reviewSchemaItems }),
-    ...(r.priceRange && { priceRange: r.priceRange }),
+    ...(r.hours && Object.keys(r.hours).length > 0 && {
+      openingHoursSpecification: buildOpeningHours(r.hours),
+    }),
   }
 
   const breadcrumbSchema = {
