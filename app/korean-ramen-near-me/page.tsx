@@ -31,7 +31,7 @@ const brothInfo = {
   jsonLdName: 'Best Korean Ramen Restaurants Near Me',
 }
 
-const list = getRestaurantsByService('Korean').sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+const list = getRestaurantsByService('Korean').sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 300)
 
 export default function KoreanRamenNearMePage() {
   return <BrothTypeNearMePage broth={brothInfo} restaurants={list} />

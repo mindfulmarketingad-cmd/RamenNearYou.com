@@ -31,7 +31,7 @@ const brothInfo = {
   jsonLdName: 'Best Vegetarian Ramen Restaurants Near Me',
 }
 
-const list = getRestaurantsByService('Vegetarian').sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+const list = getRestaurantsByService('Vegetarian').sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 300)
 
 export default function VegetarianRamenNearMePage() {
   return <BrothTypeNearMePage broth={brothInfo} restaurants={list} />

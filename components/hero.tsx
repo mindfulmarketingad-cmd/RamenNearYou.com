@@ -36,10 +36,6 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 drop-shadow-lg">
               Find Ramen Near Me
             </h1>
-            <p className="text-white/85 text-base sm:text-lg mb-7 max-w-md mx-auto drop-shadow">
-              Answer a few quick questions and we’ll match you with the perfect bowl nearby.
-            </p>
-
             {/* Order Ramen Now CTA */}
             <button
               onClick={() => setQuizOpen(true)}
