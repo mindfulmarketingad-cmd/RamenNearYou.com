@@ -7,6 +7,7 @@ import ProductsCarousel from '@/components/products-carousel'
 import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
+import HomepageReviews from '@/components/homepage-reviews'
 import Footer from '@/components/footer'
 import { getSiteStats } from '@/lib/restaurants'
 
@@ -91,6 +92,7 @@ export default function HomePage() {
         </div>
 
         <CommunityCarousel />
+        <HomepageReviews />
         <ServiceDirectory />
         <CityStateDirectory />
         <Footer />
