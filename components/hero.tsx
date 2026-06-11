@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Utensils } from 'lucide-react'
+import { Utensils, ChefHat } from 'lucide-react'
 import Image from 'next/image'
 import RamenQuiz from '@/components/ramen-quiz'
+import CateringQuiz from '@/components/catering-quiz'
 
 interface Props {
   restaurantCount: number
@@ -13,6 +14,7 @@ interface Props {
 
 export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
   const [quizOpen, setQuizOpen] = useState(false)
+  const [cateringOpen, setCateringOpen] = useState(false)
 
   return (
     <>
@@ -36,7 +38,8 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 drop-shadow-lg">
               Find Ramen Near Me
             </h1>
-            {/* Order Ramen Now CTA */}
+
+            {/* Primary CTA */}
             <button
               onClick={() => setQuizOpen(true)}
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
@@ -45,7 +48,18 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
               Order Ramen Now
             </button>
 
-            <p className="text-white/70 text-xs mt-5 drop-shadow">
+            {/* Secondary catering CTA */}
+            <div className="mt-3">
+              <button
+                onClick={() => setCateringOpen(true)}
+                className="inline-flex items-center gap-1.5 text-white/75 hover:text-white text-sm font-medium transition-colors group"
+              >
+                <ChefHat className="w-4 h-4 text-[#B57F50] group-hover:text-white transition-colors" />
+                Order Catering
+              </button>
+            </div>
+
+            <p className="text-white/70 text-xs mt-4 drop-shadow">
               {restaurantCount.toLocaleString()}+ ramen spots · {cityCount.toLocaleString()} cities · {stateCount} states
             </p>
           </div>
@@ -55,8 +69,9 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
       {/* In-flow spacer reserving the hero's height in the layout */}
       <div aria-hidden className="h-[460px] sm:h-[500px]" />
 
-      {/* Quiz overlay */}
+      {/* Overlays */}
       {quizOpen && <RamenQuiz onClose={() => setQuizOpen(false)} />}
+      {cateringOpen && <CateringQuiz onClose={() => setCateringOpen(false)} />}
     </>
   )
 }
