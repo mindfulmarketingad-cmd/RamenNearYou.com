@@ -4,7 +4,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BrothRestaurantGrid from '@/components/broth-restaurant-grid'
 import type { Restaurant } from '@/lib/restaurants'
-import { getServiceCityLinks } from '@/lib/city-filter-pages'
+import { getServiceCityLinks, SERVICE_PAGES } from '@/lib/city-filter-pages'
 
 interface BrothInfo {
   type: string
@@ -142,6 +142,24 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
               <Link href="/cities" className="px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
                 Browse All Cities
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Cross-links to sibling ramen style pages */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">Explore More Ramen Styles Near You</h2>
+            <div className="flex flex-wrap gap-2.5">
+              {SERVICE_PAGES.filter((s) => s.broth !== broth.type).map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-[#ffffff] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                >
+                  {s.label} Near Me
+                </Link>
+              ))}
             </div>
           </div>
         </section>

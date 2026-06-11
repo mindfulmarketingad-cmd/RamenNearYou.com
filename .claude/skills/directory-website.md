@@ -219,3 +219,34 @@ Always guard `reviewsPerScore` and `hours` — they are `null` on newer restaura
 - Do not use `Object.keys(r.hours)` without null-checking first
 - Do not create a second admin client file — use `lib/supabase-admin.ts` only
 - Do not push to `main` — always push to the feature branch above
+
+---
+
+## Google AdSense readiness (applies to EVERY site built)
+
+Every site must pass AdSense review. Before launch (and after major changes), verify all of the following:
+
+### Required infrastructure
+- `public/ads.txt` with the publisher line: `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
+- `<meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">` in the root layout `<head>`
+- AdSense loader script in the root layout `<head>` (use Next.js `<Script strategy="afterInteractive">`)
+- `app/sitemap.ts` and `public/robots.txt` present; robots must not block content pages
+
+### Required pages (all linked in the footer)
+- Privacy Policy — must explicitly disclose Google AdSense, advertising cookies, and opt-out methods
+- Terms of Service
+- About page with real author/business info
+- Contact page
+
+### Content quality (most common rejection reason: "low value content")
+- NO thin pages: every indexable page needs substantive, unique content (not just a map, address, or a bare list)
+- NO orphan pages: every public page must be reachable through internal links (navbar, footer, or contextual links)
+- NO placeholder, lorem-ipsum, or under-construction pages — delete them before launch
+- NO deceptive content (fake phone numbers, fabricated credentials)
+- Descriptive anchor text on internal links (e.g. "Tonkotsu Ramen Near Me", not "click here")
+- Cookie consent banner with Google Consent Mode defaults (ad_storage denied until consent)
+
+### Internal linking structure
+- Footer links every major section: service pages, directories, legal pages, programs
+- Service/category pages cross-link to sibling pages
+- Hierarchy links up and down: Homepage > State > City > Filtered city pages
