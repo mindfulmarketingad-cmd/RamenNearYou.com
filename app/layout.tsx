@@ -60,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-white`}>
       <head>
+        <meta name="google-adsense-account" content="ca-pub-2173008413459742" />
         <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
         <Script id="gtag-consent-default" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
