@@ -8251,6 +8251,381 @@ blogPosts.push({
   outroContent: `<h2>Where to Find the Best Ramen in San Francisco</h2><p>San Francisco's best ramen is concentrated in Japantown (HINODEYA Japantown, Marufuku, Udon Mugizo, Kui Shin Bo, Waraku), the Mission District (Taishoken SF, Ramenwell, Fumi, Coco's), and the Marina (HINODEYA Chestnut, Torraku). For the highest-rated bowl in the city, Denya Ramen on Polk St is the emerging answer, while Mensho Tokyo SF on Geary remains the most celebrated destination. Marufuku in Japantown is where to go for authentic Hakata tonkotsu. Whatever neighborhood you're in, SF's ramen scene will not disappoint.</p>`,
 })
 
+const brothTypeCards: RestaurantCard[] = [
+  // — Tonkotsu —
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar – Buckhead',
+    rating: 4.7,
+    reviewCount: 2959,
+    address: '3714 Roswell Rd #35, Atlanta, GA 30342',
+    phone: '+1 404-254-4770',
+    description: "Atlanta's most-reviewed ramen restaurant and the definitive spot to experience tonkotsu in the South. JINYA's signature Tonkotsu Black — housemade noodles swimming in 16-hour pork bone broth finished with black garlic oil — is one of the richest, most satisfying bowls you'll find at a national chain. Nearly 3,000 Google reviews at 4.7 stars says it all.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGC7BquBSpHmTj4A8C9y4_0GU_48lDrJIRb7XtmeT962wpNby2bXoxLC7DkyFvMOWeMBRK5yP4jg5IWvZPKFM3qXbfY0qug4GTJEzbvgzlnFCTl4Qnd3ovRg3BnxmgyKbRp2uJW=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-buckhead',
+    citySlug: 'atlanta',
+    stateSlug: 'ga',
+    tags: ['Tonkotsu', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 2,
+    name: 'JINYA Ramen Bar – Midtown Houston',
+    rating: 4.8,
+    reviewCount: 11416,
+    address: '3201 Louisiana St Suite 105, Houston, TX 77006',
+    phone: '+1 832-925-8596',
+    description: "The highest-reviewed ramen restaurant in Texas with over 11,000 Google ratings. JINYA Midtown Houston serves a tonkotsu-forward menu where creamy pork bone broth is the headliner — their Spring Tonkotsu (light broth, pork belly, soft egg, crispy shallots) is the perfect introduction to the style for first-timers. Consistent 4.8 stars from thousands of diners.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHI01ecIwYk_aeFU9pFe_lk0pDSIc_9nhnRYcJzlvyk-Enw4HAaxtExjtS6IM1Yl2GhfVXqC_9twm5L7HB0X62iUrsJFofomlPbjghqa_4O8ocMAhtfs7dqim=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-midtown',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Tonkotsu', 'Japanese', 'Bar'],
+  },
+  {
+    rank: 3,
+    name: 'Koi Kaze Ramen Bar',
+    rating: 4.8,
+    reviewCount: 720,
+    address: '2716 W Olympic Blvd Ste #101, Los Angeles, CA 90006',
+    phone: '+1 213-277-1123',
+    description: 'A quietly acclaimed Los Angeles ramen bar where tonkotsu is the unambiguous focus. Koi Kaze slow-simmers pork bones for hours to produce a rich, cloudy broth that holds up under the weight of perfectly calibrated chashu, jammy soft-boiled eggs, and nori. At 4.8 stars and growing, this is one of LA\'s best-kept tonkotsu secrets.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGcqzOnQhtS2SnbBRT3mt5vGmHPB1AlbaUWgbmtH3fLcUUIHEZ49ZQvtYjfZdrTQZivL_XVhrabPtine5CTOMo9cpzDz5ioYBcOneouRERsnn2dkLVcYn1X-TQUEZ6uQOKhq117PixTUJ2OS3os9C0i7TATPhE-VObXE36Ymu-nW8JvHpEjSoO2=w800-h500-k-no',
+    slug: 'koi-kaze-ramen-bar',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Tonkotsu', 'Japanese', 'Ramen Bar'],
+  },
+  // — Shoyu —
+  {
+    rank: 4,
+    name: 'Kin Ramen',
+    rating: 4.8,
+    reviewCount: 4465,
+    address: '129 W 56th St, New York, NY 10019',
+    phone: '+1 212-933-9292',
+    description: "One of Midtown Manhattan's most respected bowls. Kin Ramen keeps their shoyu broth anchored in a deeply seasoned chicken-and-dashi base brightened by aged soy tare — the result is layered, complex, and never salty-aggressive. Over 4,400 five-star reviews confirm this is the real thing. A must-visit for anyone chasing authentic Tokyo-style shoyu ramen in New York.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHb3SS2vp3WX9jmL1bLgqkUHdd5STk2ZWLdiozkwQrl7lM6HEiuPP5VcyolETgFdtSdX2LVQASR51_GnOv6rNUAsYHCdFMKIuPP5K8em80VcyolETgFdtSdX2LMSR=w800-h500-k-no',
+    slug: 'kin-ramen',
+    citySlug: 'new-york',
+    stateSlug: 'ny',
+    tags: ['Shoyu', 'Japanese', 'Tokyo-Style'],
+  },
+  {
+    rank: 5,
+    name: 'Tenichi Ramen',
+    rating: 4.8,
+    reviewCount: 2153,
+    address: '382 7th Ave, Brooklyn, NY 11215',
+    phone: '+1 718-369-8808',
+    description: "Brooklyn's go-to neighborhood ramen shop for a carefully made shoyu bowl. Tenichi uses a double-stock base (chicken and kombu dashi) seasoned with their house shoyu tare, producing a golden, transparent broth with exceptional depth. The noodles are sourced from a dedicated Japanese noodle house. At 4.8 stars with over 2,000 reviews, this is Park Slope's ramen anchor.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHb3SS2vp3WX9jmL1bLgqkUHdd5STk2ZWLdiozkwQrl7lM6HEiuPP5VcyolETgFdtSdX2LVQASR51_GnOv6rNUAsYHCdFMKIuPP5K8em80VcyolETgFdtSdX2LMSR=w800-h500-k-no',
+    slug: 'tenichi-ramen',
+    citySlug: 'brooklyn',
+    stateSlug: 'ny',
+    tags: ['Shoyu', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 6,
+    name: 'House of Umami Ramen',
+    rating: 4.8,
+    reviewCount: 2674,
+    address: '45250 Ford Rd, Canton Township, MI 48187',
+    phone: '+1 734-359-3053',
+    description: "Michigan's highest-rated ramen destination and proof that serious Japanese ramen has arrived in the Midwest. House of Umami's shoyu bowl — their chicken-based tori shoyu — is the standout, featuring clean, soy-kissed broth over wavy wheat noodles with sous-vide chicken chashu. Vegan options and a full bar round out one of the most complete ramen menus in the region.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGupMhpAzItM1DxIHJqQrjg3S-pBp9kXKGlLZjMhIrNRz5zXGz_HuwNm_Po1r4LpLQnZsSiYqNyhL1Cs7rkB6TbDG2MiO2flsGXKypRC5Mu8_wb0d-5g-2DQfUWdWa8aPJY_eXaeSLo8q4=w800-h500-k-no',
+    slug: 'house-of-umami-ramen',
+    citySlug: 'canton-township',
+    stateSlug: 'mi',
+    tags: ['Shoyu', 'Japanese', 'Ramen Bar'],
+  },
+  // — Shio —
+  {
+    rank: 7,
+    name: 'MENSHO TOKYO',
+    rating: 4.8,
+    reviewCount: 551,
+    address: '9516 Culver Blvd, Culver City, CA 90232',
+    phone: '',
+    description: "MENSHO TOKYO is a direct import from one of Japan's most acclaimed ramen chefs, Chef Tomoharu Shono, whose Tokyo flagship draws lines around the block. The Culver City outpost brings his signature tori paitan shio — a light, clear salt broth made from free-range chicken bones and aged sea salt — to LA with uncompromising precision. One of the few places in America where you can taste what shio ramen looks like at its absolute ceiling.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6A3JyyupAPXYjN3-1AICmnNHeukv1Wm1J6SROkhk5HM4bHWJ1kk2RX-EJ1cxaAA9GJcPqy622reYCmLrkPcMzZ71Hbb5r1d61udleJky-HQU0HNC7XWU-UiYMSNOCg-BsJuf6DA=w800-h500-k-no',
+    slug: 'mensho-tokyo',
+    citySlug: 'culver-city',
+    stateSlug: 'ca',
+    tags: ['Shio', 'Tokyo-Style', 'Japanese'],
+  },
+  {
+    rank: 8,
+    name: 'HINODEYA Ramen & Bar Chestnut',
+    rating: 4.8,
+    reviewCount: 857,
+    address: '3340 Steiner St, San Francisco, CA 94123',
+    phone: '+1 415-949-9800',
+    description: "HINODEYA is a San Francisco institution that builds its menu around light, refined broths — their shio ramen is the purest expression of the style in Northern California. The broth is simmered from chicken and sea vegetables, seasoned with Pacific sea salt and finished with a drizzle of house-blended oil. Vegan-friendly options are also available. One of the Marina's most consistent and beloved ramen experiences.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-KBXX0TtWgGpR7Ve3JVeBb24WrgO9ohvvqj_F7VmPFYiYX5kxrh4FKY5sQQi6vhKKfDpBpA-UgWtLsGm9X6tLiH0w_IniEEOuBb_X4VazFCm0A6OIYbZymx8POI0YLbsDNGyeE_9A=w800-h500-k-no',
+    slug: 'hinodeya-ramen-and-bar-chestnut',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Shio', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 9,
+    name: 'Susuru Ramen',
+    rating: 4.8,
+    reviewCount: 669,
+    address: '33-19 36th Ave, Long Island City, NY 11106',
+    phone: '+1 718-806-1521',
+    description: 'A compact Long Island City ramen spot that serves one of the most beautifully clear shio broths in New York City. Susuru — whose name literally means "to slurp" in Japanese — takes their shio seriously: the broth is light gold, fragrant with chicken and seafood umami, and seasoned with mineral sea salt tare that lets every ingredient shine. The noodles are housemade daily.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEz2P9K5MB_GjCQnG5VNSjsO69aiD-5Q7CYYkvZacpfUSRaR6ZvE6deGjZ7bSUpA_HSXCgWl2vp2bKNwheuf1gLO9HZqIm1ErCMgtK57kgJN45Xf89E7d6jKf1n_KqCwp8v0OM=w800-h500-k-no',
+    slug: 'susuru-ramen',
+    citySlug: 'long-island-city',
+    stateSlug: 'ny',
+    tags: ['Shio', 'Japanese', 'Housemade Noodles'],
+  },
+  // — Miso —
+  {
+    rank: 10,
+    name: 'Zen Ramen & Bento',
+    rating: 4.8,
+    reviewCount: 851,
+    address: '51 W Main St, Dahlonega, GA 30533',
+    phone: '+1 706-864-5455',
+    description: "Tucked into a small North Georgia mountain town, Zen Ramen & Bento punches far above its zip code. Their miso ramen — a red miso base fortified with chicken stock, finished with toasted sesame oil and a soft egg — is the kind of bowl that makes regulars drive 45 minutes for a lunch. At 4.8 stars and nearly 900 reviews, it's the best ramen in the Georgia mountains by a wide margin.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAElWTAXu3zyyuIz8soiXrkPpOlFMzmpysKH5P13o1NJ_Qvs29uBXBupSIrzFrVQNCLPBJRgWUqnFNUniKR7kHjVN7TW1cAwkldz4I5GMNAGmlFdhmZfuWmTThNJRNV7K7g3VmMu=w800-h500-k-no',
+    slug: 'zen-ramen-bento',
+    citySlug: 'dahlonega',
+    stateSlug: 'ga',
+    tags: ['Miso', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 11,
+    name: 'Ramen Alley | Japanese',
+    rating: 4.8,
+    reviewCount: 543,
+    address: '217 Washington St Suite D, Columbus, IN 47201',
+    phone: '+1 812-552-5089',
+    description: "Columbus, Indiana's standout Japanese ramen shop and an unlikely destination for some of the Midwest's best miso ramen. Ramen Alley sources their miso from a traditional Japanese producer and builds the broth over multiple days — the result is a deeply savory, slightly sweet, fermented-forward bowl that holds its own against anything in a major metro. A craft beer and sake selection make this a full evening.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDfc3XjW-gl1_oe3Af06ij43vL7pXMU0ioO8LHHL-Tdiu7FcbEdIAY2cPR5V1YYtlTBA3mx9lIpYs0W9Sn-4y1gSYnHmFhsZ5gNvX8DohV2Nqq6mA2M9aWHQ=w800-h500-k-no',
+    slug: 'ramen-alley-japanese',
+    citySlug: 'columbus',
+    stateSlug: 'in',
+    tags: ['Miso', 'Japanese', 'Sake Bar'],
+  },
+  {
+    rank: 12,
+    name: 'Sakuratani Ramen & Izakaya',
+    rating: 4.8,
+    reviewCount: 621,
+    address: '531 Wood St, Bristol, RI 02809',
+    phone: '+1 401-396-5036',
+    description: "Rhode Island's top-rated ramen destination and a beautiful showcase for what miso ramen can become in the right hands. Sakuratani's signature white miso bowl — saikyo miso blended with dashi, finished with butter-sautéed corn, bamboo shoots, and slow-roasted pork belly — is rich without being heavy, a balance that takes real skill to achieve. The full izakaya menu and sake list make this a worthy destination from anywhere in New England.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFvqtX1JmNaUjQc_7STw5TgueYvH41QxhDL8sb2VLEUktjaRCYmu-Ua8lye_zQzBYDo0_QMzLyGmk2u1hR691D6Q=w800-h500-k-no',
+    slug: 'sakuratani-ramen-izakaya',
+    citySlug: 'bristol',
+    stateSlug: 'ri',
+    tags: ['Miso', 'Japanese', 'Izakaya'],
+  },
+]
+
+blogPosts.push({
+  slug: 'tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen',
+  title: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+  h1: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+  description: 'Not sure what type of ramen to order? I break down all four classic broth styles — tonkotsu, shoyu, shio, and miso — covering the history, preparation, flavor profiles, and the best restaurants to try each one near you.',
+  date: 'June 12, 2026',
+  readTime: '12 min read',
+  category: 'Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Top-Rated Restaurants for Each Ramen Style',
+  content: `<p>I remember the first time I sat down at a proper ramen counter and stared blankly at a menu with four completely unfamiliar Japanese words under the broth section. The server gave me a patient look and said, <em>"Think of tonkotsu as bold and rich, shoyu as savory and balanced, shio as light and delicate, and miso as deep and earthy."</em> That 10-second explanation unlocked something for me — I stopped ordering randomly and started actually understanding what I was eating.</p>
+
+<p>If you've ever stared at a ramen menu and picked something by pointing, this guide is for you. I'm going to break down all four classic ramen broth styles — where they came from, how they're made, what they taste like, and what to look for when you order each one. By the end, you'll be able to walk into any ramen shop in the country and know exactly what to ask for.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#tonkotsu" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Tonkotsu</a>
+    <a href="#shoyu" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Shoyu</a>
+    <a href="#shio" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Shio</a>
+    <a href="#miso" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Miso</a>
+    <a href="#comparison" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Side-by-Side</a>
+    <a href="#find-near-you" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Find Near You</a>
+  </div>
+</div>
+
+<h2 style="font-size:1.35rem;font-weight:700;color:#1E2026;margin:2rem 0 0.75rem;">First: What Is Tare, and Why Does It Matter?</h2>
+<p>Before we get into each broth style, it's worth understanding one word: <strong>tare</strong> (pronounced tah-reh). Tare is the concentrated seasoning paste or liquid that defines the flavor of a bowl of ramen. It's added to the base stock in the bowl just before serving, meaning the same base stock can produce entirely different ramen styles depending on which tare is used.</p>
+<p>The four main tare types map directly to the four classic ramen families:</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.4rem;"><strong>Tonkotsu tare</strong> — seasoning for pork bone broth (though tonkotsu is defined as much by the stock as the tare)</li>
+  <li style="margin-bottom:0.4rem;"><strong>Shoyu tare</strong> — soy sauce–based seasoning</li>
+  <li style="margin-bottom:0.4rem;"><strong>Shio tare</strong> — salt-based seasoning</li>
+  <li style="margin-bottom:0.4rem;"><strong>Miso tare</strong> — fermented soybean paste seasoning</li>
+</ul>
+<p>The base stock — whether that's chicken (tori), seafood (gyokai), pork (tonkotsu), or a blend — is layered underneath. A great bowl requires both a well-built stock <em>and</em> a well-crafted tare. Now let's get into each one.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="tonkotsu" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">1. Tonkotsu Ramen</h2>
+<p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Rich · Creamy · Pork Bone Broth</p>
+
+<p>Tonkotsu is probably the most famous ramen style in the United States, and for good reason — it's the boldest, most indulgent bowl you can order. When you see a thick, milky white broth with a rich, porky aroma drifting up from the bowl, you're looking at tonkotsu.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
+<p>Tonkotsu ramen was born in Kurume, a city in Fukuoka Prefecture on the island of Kyushu in southern Japan. The story goes that in 1937, a street vendor named Tokio Miyamoto accidentally over-boiled pork bones while running his stall — instead of the intended clear broth, the water turned thick, creamy, and opaque from the collagen and fat emulsifying into the liquid. The taste was revelatory. Fukuoka's Hakata district refined this technique over the following decades, and the Hakata tonkotsu style — characterized by extremely thin, straight noodles in a rich white broth — became the defining face of the style.</p>
+<p>Tonkotsu spread across Japan and then globally, partly because of how visceral and satisfying the flavor is, and partly because Fukuoka's ramen culture is uniquely open — Hakata-style shops pioneered the <em>kae-dama</em> system, where diners can order replacement noodles mid-bowl, and the open kitchen counter format that's now synonymous with ramen culture worldwide.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">How It's Made</h3>
+<p>Tonkotsu broth is made by boiling pork bones — specifically trotters, femur bones, and neck bones — at a full rolling boil for anywhere from 8 to 18 hours. The prolonged high heat does something chemically interesting: it breaks down the collagen in the bones into gelatin, emulsifies the fat, and releases marrow and calcium into the liquid. This is why tonkotsu is opaque and white rather than clear — it's a fully emulsified broth, similar in principle to a French double cream sauce, just built from bone.</p>
+<p>Serious tonkotsu shops skim the broth obsessively in the first hour to remove impurities, then let it rip at full boil. Some shops add chicken carcasses, kombu (kelp), or dried sardines to the base for additional umami depth. The broth is finished with a soy-based or salt-based tare and a fat layer — either lard, chicken fat (mayu), or black garlic oil (kuro mayu) — that floats on top and seals in heat.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">What to Expect in the Bowl</h3>
+<p>Classic Hakata tonkotsu is served in a small, narrow bowl with thin, straight noodles (lower hydration, firm texture), thinly sliced chashu pork, green onions, pickled ginger (beni shoga), sesame seeds, and kikurage mushrooms. The broth is dense — it will coat your spoon and leave a white film on the bowl. If it's too thin and watery, that's a bad sign. A proper tonkotsu bowl should have viscosity.</p>
+<p>Modern American tonkotsu has expanded the canon. You'll commonly see rich black garlic tonkotsu (kuro), spicy red miso tonkotsu (aka), and even tori paitan (chicken bone tonkotsu). All share the same opaque, creamy character even as the specific flavor profiles diverge.</p>
+
+<div style="background:#F5F4F0;border-left:3px solid #B57F50;padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1.5rem 0;">
+  <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Ask for <em>kata-men</em> (firm noodles) if you want more texture — tonkotsu broth is so rich it softens noodles fast. Thin, firm noodles are the authentic Hakata choice.</p>
+</div>
+
+<p>Ready to find tonkotsu ramen in your city? <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse tonkotsu ramen restaurants near you →</a></p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="shoyu" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">2. Shoyu Ramen</h2>
+<p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Savory · Balanced · Soy Sauce Seasoned</p>
+
+<p>Shoyu ramen is the oldest of the four major ramen styles and the one that shaped what most people picture when they think of a classic bowl of ramen: a clear-to-amber broth, wavy noodles, sliced chashu, bamboo shoots, and a soft-boiled egg. It's the baseline. The reference point. If tonkotsu is the showboat, shoyu is the craftsman.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
+<p>Shoyu ramen's origins trace to Asakusa in Tokyo, where a restaurant called Rairaiken began serving Chinese-inspired noodle soup in 1910. The dish quickly evolved to fit Japanese tastes: the Chinese chefs adapted their noodle soups by adding Japanese soy sauce (shoyu) to the seasoning, creating a distinctly Japanese flavor profile. By the 1940s and 50s, shoyu ramen had become the dominant style in Tokyo and the surrounding Kanto region.</p>
+<p>The Tokyo-style shoyu bowl became the cultural prototype for ramen globally — it's what appeared in countless Japanese movies and manga, and it's the style that most instant ramen packets are loosely inspired by. When non-Japanese people worldwide imagine ramen, they're usually imagining shoyu.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">How It's Made</h3>
+<p>The base stock for shoyu ramen is typically chicken (<em>tori</em>) or a chicken-and-pork blend, often enhanced with kombu, dried bonito (katsuobushi), or dried sardines (niboshi) for a rounded umami backbone. Critically, shoyu broth is simmered — not boiled hard — to keep the liquid clear and the flavor delicate. The broth itself is often lighter in body than tonkotsu.</p>
+<p>What defines shoyu ramen is the tare: a concentrated soy sauce seasoning that's blended, aged, and layered with mirin, sake, aromatics, and sometimes dried seafood. A skilled shoyu tare takes weeks or months to develop. It's mixed into the base stock at the last moment, creating a deep amber color and that characteristic saline-umami depth that's savory without being salty. The best shoyu bowls taste complex and almost sweet underneath the soy — there are layers in there if you slow down and pay attention.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">What to Expect in the Bowl</h3>
+<p>A classic Tokyo shoyu bowl features wavy, medium-thickness wheat noodles with medium hydration, sliced chashu pork belly or shoulder, menma (bamboo shoots), narutomaki (fish cake), nori, green onions, and a halved soft-boiled marinated egg (ajitsuke tamago). The broth should be clear to golden-amber — any cloudiness is either intentional (a tori shoyu variant) or a warning sign.</p>
+<p>Shoyu is the most food-friendly ramen style. Its balanced nature means it pairs beautifully with a wide range of toppings and adjustments, and it's the most common style in traditional Japanese ramen shops. If you're dining somewhere that takes ramen seriously but you're not sure what to order, shoyu is the safest bet — it's the one style that shows you exactly how good or mediocre the kitchen really is.</p>
+
+<div style="background:#F5F4F0;border-left:3px solid #B57F50;padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1.5rem 0;">
+  <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> A great shoyu bowl should be clear, not murky. If the broth looks cloudy and the shop claims it's shoyu, ask what's in the base stock — some shops intentionally make a cloudy tori shoyu, but most muddy broths are a quality signal.</p>
+</div>
+
+<p>Find shoyu ramen restaurants near you: <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse shoyu ramen spots near you →</a></p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="shio" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">3. Shio Ramen</h2>
+<p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Delicate · Clean · Salt Seasoned</p>
+
+<p>Shio ramen is the quiet genius of the four styles and the one that most clearly exposes a chef's technical ability. <em>Shio</em> (塩) simply means "salt" in Japanese — and a bowl of shio ramen is seasoned primarily with a salt-based tare rather than soy sauce or miso paste. The result is a pale, golden or near-transparent broth with a clean, mineral quality that lets every component of the stock shine through uninterrupted.</p>
+<p>Shio is also the oldest ramen style by origin — the very earliest iterations of ramen in Japan were seasoned with salt rather than soy sauce. It fell out of fashion as shoyu became dominant, but has experienced a major revival in modern ramen culture among chefs who appreciate the technical challenge of building deep flavor without the crutch of fermented soy.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
+<p>Shio ramen is most closely associated with Hakodate, a port city in Hokkaido, northern Japan. Hokkaido's proximity to the sea meant that the region historically seasoned foods with salt and dried seafood rather than soy sauce, and the ramen tradition there followed suit. Hakodate shio ramen — made with a chicken, pork bone, and kombu stock, lightly salted and served with thin noodles — remains one of Japan's most celebrated regional ramen styles.</p>
+<p>In contemporary ramen culture, shio has become the benchmark style for serious ramen chefs who want to showcase stock quality. Because there's no soy sauce or miso to hide behind, the clarity and depth of the base stock is everything. A shio bowl made with an extraordinary chicken-and-seafood stock is revelatory. A shio bowl made with a mediocre stock has nowhere to hide.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">How It's Made</h3>
+<p>The stock for shio ramen varies widely — chicken, pork, seafood, or complex multi-ingredient blends are all used — but the defining element is the <strong>shio tare</strong>: a concentrated salt seasoning typically built from sea salt dissolved in a mixture of sake, mirin, and aromatics (ginger, green onion, kelp). Some artisan shops age their shio tare with dried seafood — whole dried scallops, shrimp shells, dried anchovies — to develop mineral complexity over time.</p>
+<p>Because shio ramen relies on the stock for its primary flavor, the best shops invest disproportionately in their base. Free-range chicken carcasses, fresh seafood, high-quality kombu and bonito — these are the building blocks of a world-class shio bowl. The broth is always simmered at a low temperature (never the rolling boil of tonkotsu) to preserve clarity.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">What to Expect in the Bowl</h3>
+<p>Shio ramen is served with thin, straight, or wavy noodles — the lighter broth doesn't need a thick noodle to support it. Toppings tend to be restrained: sliced chicken or pork chashu, bamboo shoots, green onions, nori, and sometimes a halved soft-boiled egg. The broth should be pale gold to nearly clear, with an almost sparkling quality. You should be able to taste salt, the sweetness of the stock, a subtle seaweed minerality, and possibly a whisper of dried seafood.</p>
+<p>Shio is often the bowl that surprises first-time orderers who expect something more aggressive. It doesn't announce itself loudly. It rewards attention. If you find yourself halfway through a shio bowl thinking "this is somehow more complex than I expected," that's exactly right — you're tasting craftsmanship.</p>
+
+<div style="background:#F5F4F0;border-left:3px solid #B57F50;padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1.5rem 0;">
+  <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Shio ramen is the best style for evaluating a new ramen shop. Its simplicity means quality has nowhere to hide — if the shio is excellent, everything else on the menu will be too.</p>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="miso" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">4. Miso Ramen</h2>
+<p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Bold · Earthy · Fermented Depth</p>
+
+<p>Miso ramen is the fourth and youngest of the classic ramen styles — and also the one that generates the most creative experimentation. It's hearty, earthy, and warming in a way that makes it feel like the most complete meal of the four. If tonkotsu is bold and tonkotsu and shoyu are classic, miso is the one that feels most like comfort food: deeply savory, slightly sweet, with a fermented complexity that rewards every sip.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
+<p>Miso ramen was invented in Sapporo, the capital of Hokkaido, in the 1950s. The story traces to a restaurant called Aji no Sanpei, where the owner, Morito Omiya, began experimenting with adding miso paste — a fermented soybean staple already central to Hokkaido home cooking — to his ramen broth. Sapporo's cold climate demanded something heartier than Tokyo's shoyu style, and miso delivered exactly that. By the 1960s, Sapporo miso ramen had become nationally famous and was being mass-marketed as one of Japan's regional ramen identities.</p>
+<p>Sapporo's miso ramen typically features a pork-based stock stir-fried with aromatics (garlic, ginger, ground pork) and blended with red or white miso tare. The bowl is known for its generous toppings — corn, butter, bamboo shoots, ground pork, bean sprouts — and thick, wavy noodles that hold the dense broth. The buttery richness became iconic and has influenced how miso ramen is made globally.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">How It's Made</h3>
+<p>Miso ramen requires an extra step that the other three styles don't: the miso tare is often <strong>wok-fried or sautéed with aromatics</strong> before being incorporated into the broth. A skilled ramen cook heats a wok extremely hot, adds lard or sesame oil, sautés minced garlic and ginger, then adds ground pork and miso paste to create a fragrant, slightly caramelized tare base. This cooking step adds a roasted depth to the miso that you can't get from simply dissolving paste into stock.</p>
+<p>The base stock for miso ramen is usually pork or chicken — something robust enough to hold up to the miso's assertive flavor. The miso tare itself is endlessly variable: red miso (aka miso) produces a deeply savory, almost rustic bowl; white miso (shiro miso) or sweet miso yields something softer and sweeter. Many shops use proprietary blends of multiple miso varieties, which is why two miso ramen bowls at different restaurants can taste dramatically different despite the same nominal style.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">What to Expect in the Bowl</h3>
+<p>Miso ramen is served with thick, wavy noodles — the broth is dense enough to coat and cling to them. The broth is opaque, ranging from golden-brown to deep reddish-brown depending on the miso blend, and noticeably thicker than shoyu or shio. Classic Sapporo-style toppings include corn, butter, bean sprouts, bamboo, chashu pork, and green onion — the corn and butter combination is particularly iconic and elevates the bowl's sweetness and richness in a way that works surprisingly well.</p>
+<p>Miso ramen is also the most forgiving style for customization. Because miso is such a dominant flavor, shops can build elaborate, ingredient-heavy toppings without the additions feeling lost. If you enjoy bold, hearty flavors and want a bowl that feels like a full meal rather than a refined exercise in restraint, miso is your style.</p>
+
+<div style="background:#F5F4F0;border-left:3px solid #B57F50;padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1.5rem 0;">
+  <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Ask which miso the shop uses — red, white, or a blend. Red miso bowls are more intense and savory; white miso bowls are milder and sweeter. Knowing this helps you calibrate expectations and order the right variant for your palate.</p>
+</div>
+
+<p>Find miso ramen restaurants near you: <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse miso ramen spots near you →</a></p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="comparison" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Side-by-Side: Which Ramen Type Is Right for You?</h2>
+
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Style</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Broth Color</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Flavor Profile</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Noodle Type</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Origin</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Tonkotsu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Milky white / opaque</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rich, porky, creamy, fatty</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Thin, straight, firm</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Fukuoka / Kyushu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Boldness, indulgence</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shoyu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clear golden-amber</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Savory, balanced, umami</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Wavy, medium-thick</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Tokyo / Kanto</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Classic, versatile, first-timers</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shio</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Pale gold / translucent</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clean, mineral, delicate</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Thin, straight or wavy</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Hakodate / Hokkaido</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Subtlety, craftsmanship</td>
+      </tr>
+      <tr style="background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Miso</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Opaque golden-brown</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, deep, fermented</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Thick, wavy</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Sapporo / Hokkaido</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Heartiness, cold weather</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How to Find Each Style Near You</h2>
+<p>Now that you know the difference, finding the right bowl is the fun part. The most common style you'll find at American ramen restaurants is <strong>tonkotsu</strong> — it's what chains like JINYA, Ippudo, and Shin-Sen-Gumi built their US presence around. <strong>Shoyu</strong> is widely available at traditional Japanese ramen shops, particularly in cities with strong Japanese American communities like New York, Los Angeles, Seattle, and Chicago. <strong>Shio</strong> is the rarest style at casual shops but increasingly available at serious ramen destinations — look for it at shops that describe their bowls as "Tokyo-style" or that emphasize their stock sourcing. <strong>Miso</strong> is everywhere, though quality varies enormously — seek out shops that specify which miso they use or make their own tare in-house.</p>
+<p>One practical shortcut: <a href="/broth" style="color:#B57F50;text-decoration:underline;font-weight:600;">use our broth type filter</a> to browse restaurants by the ramen styles they serve. You can filter by tonkotsu, shoyu, miso, and more across thousands of restaurants in our directory — no more guessing at the menu.</p>`,
+  restaurantCards: brothTypeCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>The four classic ramen styles are more different from each other than most people realize before they sit down and work through them deliberately. <strong>Tonkotsu</strong> is the bold, crowd-pleasing showstopper built from pork bones. <strong>Shoyu</strong> is the balanced, soy-seasoned classic that Tokyo made famous. <strong>Shio</strong> is the delicate, salt-seasoned style that rewards patience and reveals a chef's true skill. <strong>Miso</strong> is the hearty, fermented Hokkaido original that feels like the most complete meal of the four.</p>
+<p>My honest recommendation for where to start: order shoyu the first time at any new ramen shop — it shows you the kitchen's baseline without any broth style covering for weaknesses. If the shoyu is excellent, come back and work through the rest of the menu. If the shio is available and the shop seems serious, order that instead — same principle, even higher signal. Save tonkotsu for when you want pure indulgence and miso for when you want something warming and hearty.</p>
+<p>And if you want to shortcut the search entirely, <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find tonkotsu ramen near you</a>, <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find shoyu ramen near you</a>, or <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find miso ramen near you</a> using our broth-filtered restaurant directory. We have thousands of ramen spots mapped across the US — find yours.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
