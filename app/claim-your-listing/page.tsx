@@ -4,7 +4,7 @@ import ClaimSearch from './claim-search'
 
 export const metadata = {
   title: 'Claim Your Listing | Ramen Near You',
-  description: 'Claim your ramen restaurant listing on Ramen Near You for $19.99/month. Update hours, photos, manage your page, and reach more ramen lovers.',
+  description: 'Claim your ramen restaurant listing free for 14 days, then $19.99/month. Update hours, manage your page, and reach more ramen lovers.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
@@ -21,7 +21,7 @@ export default function ClaimYourListingPage() {
             Claim Your Listing
           </h1>
           <p className="text-[#6B6862] leading-relaxed max-w-md mx-auto">
-            Take control of your restaurant&apos;s page on Ramen Near You. Update your hours, photos, and details — and reach thousands of ramen lovers every month.
+            Take control of your restaurant&apos;s page on Ramen Near You. Start free for 14 days — no upfront cost. Then just $19.99/month. Cancel anytime.
           </p>
         </div>
 

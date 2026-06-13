@@ -26,11 +26,14 @@ export default function ClaimSearch() {
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
       {/* Pricing header */}
       <div className="text-center mb-6 pb-6 border-b border-black/6">
-        <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">$19.99</span>
-          <span className="text-[#6B6862] text-sm mb-2">/month</span>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
+          14-Day Free Trial
         </div>
-        <p className="text-[#9B9490] text-xs">Cancel anytime. Billed monthly.</p>
+        <div className="flex items-end justify-center gap-1.5 mb-1">
+          <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
+          <span className="text-[#6B6862] text-sm mb-2">today</span>
+        </div>
+        <p className="text-[#9B9490] text-xs">Then $19.99/month after your free trial. Cancel anytime.</p>
       </div>
 
       {/* Benefits */}
