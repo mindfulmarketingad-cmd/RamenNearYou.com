@@ -38,23 +38,40 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-function makeNumberIcon(n: number, active: boolean) {
-  const size = active ? 36 : 28
-  const bg = active ? '#B57F50' : '#1E2026'
+function makeNumberIcon(n: number, active: boolean, featured = false) {
+  const size = active ? 38 : featured ? 32 : 28
+  const bg = featured ? '#B57F50' : active ? '#B57F50' : '#1E2026'
+  const border = featured ? (active ? '3px solid #fff' : '2.5px solid #fff') : (active ? '3px solid white' : '2px solid white')
+  const shadow = featured
+    ? `0 2px ${active ? 14 : 10}px rgba(181,127,80,${active ? 0.7 : 0.55})`
+    : `0 2px ${active ? 10 : 6}px rgba(0,0,0,${active ? 0.4 : 0.3})`
+
+  const starBadge = featured ? `
+    <div style="
+      position:absolute;top:-6px;right:-6px;
+      width:16px;height:16px;border-radius:50%;
+      background:#FFB800;border:1.5px solid white;
+      display:flex;align-items:center;justify-content:center;
+      font-size:9px;line-height:1;
+      box-shadow:0 1px 4px rgba(0,0,0,0.3);
+    ">★</div>` : ''
+
   return L.divIcon({
     className: '',
-    html: `<div style="
-      width:${size}px;height:${size}px;border-radius:50%;
-      background:${bg};color:white;
-      display:flex;align-items:center;justify-content:center;
-      font-size:${active ? 13 : 11}px;font-weight:700;font-family:serif;
-      border:${active ? '3px' : '2px'} solid white;
-      box-shadow:0 2px ${active ? 10 : 6}px rgba(0,0,0,${active ? 0.4 : 0.3});
-      transition:all 0.2s;
-    ">${n}</div>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-    popupAnchor: [0, -(size / 2 + 4)],
+    html: `<div style="position:relative;width:${size}px;height:${size}px;">
+      <div style="
+        width:${size}px;height:${size}px;border-radius:50%;
+        background:${bg};color:white;
+        display:flex;align-items:center;justify-content:center;
+        font-size:${active ? 13 : featured ? 12 : 11}px;font-weight:700;font-family:serif;
+        border:${border};
+        box-shadow:${shadow};
+        transition:all 0.2s;
+      ">${n}</div>${starBadge}
+    </div>`,
+    iconSize: [size + (featured ? 6 : 0), size + (featured ? 6 : 0)],
+    iconAnchor: [(size + (featured ? 6 : 0)) / 2, (size + (featured ? 6 : 0)) / 2],
+    popupAnchor: [0, -((size + (featured ? 6 : 0)) / 2 + 4)],
   })
 }
 
@@ -106,7 +123,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
     // Add markers
     withCoords.forEach(card => {
       const marker = L.marker([card.lat!, card.lng!], {
-        icon: makeNumberIcon(card.rank, card.rank === 1),
+        icon: makeNumberIcon(card.rank, card.rank === 1, card.featured),
         title: card.name,
       }).addTo(map)
 
@@ -136,7 +153,8 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
   useEffect(() => {
     if (!mapReady) return
     markersRef.current.forEach((marker, rank) => {
-      marker.setIcon(makeNumberIcon(rank, rank === activeRank))
+      const isFeatured = cards.find(c => c.rank === rank)?.featured
+      marker.setIcon(makeNumberIcon(rank, rank === activeRank, isFeatured))
     })
 
     // Fly to active card's location
