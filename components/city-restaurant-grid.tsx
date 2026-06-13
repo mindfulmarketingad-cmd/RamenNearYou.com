@@ -149,9 +149,10 @@ interface Props {
   city: string
   state: string
   verifiedSlugs?: string[]
+  featuredSlugs?: string[]
 }
 
-export default function CityRestaurantGrid({ restaurants, city, state, verifiedSlugs = [] }: Props) {
+export default function CityRestaurantGrid({ restaurants, city, state, verifiedSlugs = [], featuredSlugs = [] }: Props) {
   const [userPos, setUserPos] = useState<{ lat: number; lng: number } | null>(null)
   const [showFilters, setShowFilters] = useState(false)
 
@@ -381,6 +382,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
         {filtered.map(({ r, brothType, distance, openStatus, closingTime }) => {
           const isSpicy = (r.name + ' ' + r.description).toLowerCase().includes('spicy')
           const isVerified = verifiedSlugs.includes(r.slug)
+          const isFeatured = featuredSlugs.includes(r.slug)
 
           return (
             <Link
@@ -413,7 +415,13 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   <p className="font-bold text-[#1E2026] text-base leading-snug group-hover:text-[#B57F50] transition-colors">
                     {r.name}
                   </p>
-                  {isVerified && (
+                  {isFeatured && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold shrink-0">
+                      <BadgeCheck className="w-3 h-3" />
+                      Verified
+                    </span>
+                  )}
+                  {!isFeatured && isVerified && (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold shrink-0">
                       <BadgeCheck className="w-3 h-3" />
                       Verified

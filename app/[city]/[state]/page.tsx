@@ -11,6 +11,7 @@ import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getCityFilterLinks } from '@/lib/city-filter-pages'
 import { createClient } from '@/lib/supabase/server'
+import { getFeaturedSlugsForCity } from '@/lib/featured-city'
 
 export async function generateStaticParams() {
   return getCities()
@@ -50,9 +51,18 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const brothLinks = filterLinks.filter((l) => l.group === 'broth')
   const dietLinks = filterLinks.filter((l) => l.group === 'diet')
 
-  // Build scroll-map cards from top-rated restaurants in this city (cap at 30)
+  const featuredSlugs = getFeaturedSlugsForCity(city, state)
+
+  // Build scroll-map cards: featured restaurants pinned first, then by rating
   const topRestaurants = [...restaurants]
     .sort((a, b) => {
+      const aFeat = featuredSlugs.indexOf(a.slug)
+      const bFeat = featuredSlugs.indexOf(b.slug)
+      if (aFeat !== -1 || bFeat !== -1) {
+        if (aFeat === -1) return 1
+        if (bFeat === -1) return -1
+        return aFeat - bFeat
+      }
       const ra = a.rating ?? 0
       const rb = b.rating ?? 0
       if (rb !== ra) return rb - ra
@@ -78,6 +88,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     lat: r.latitude ?? null,
     lng: r.longitude ?? null,
     perfectFor: getPerfectFor(r),
+    featured: featuredSlugs.includes(r.slug),
   }))
 
   const supabase = await createClient()
@@ -235,6 +246,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 city={city}
                 state={state}
                 verifiedSlugs={verifiedSlugs}
+                featuredSlugs={featuredSlugs}
               />
             </div>
           )}

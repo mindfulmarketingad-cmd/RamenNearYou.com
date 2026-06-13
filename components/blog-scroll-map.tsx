@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Phone, ChevronRight, Star } from 'lucide-react'
+import { MapPin, Phone, ChevronRight, Star, BadgeCheck } from 'lucide-react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -23,6 +23,7 @@ export interface MapCard {
   lat: number | null
   lng: number | null
   perfectFor?: string[]
+  featured?: boolean
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -208,12 +209,24 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 }`}>
                   {card.rank}
                 </div>
+                {card.featured && (
+                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-[11px] font-bold shadow-md">
+                    <BadgeCheck className="w-3 h-3" /> Featured
+                  </div>
+                )}
               </div>
 
               {/* Content */}
               <div className="flex flex-col flex-1 p-5 gap-2.5">
                 <div>
-                  <h2 className="font-semibold text-[#1E2026] text-lg leading-snug mb-1">{card.name}</h2>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h2 className="font-semibold text-[#1E2026] text-lg leading-snug">{card.name}</h2>
+                    {card.featured && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold shrink-0">
+                        <BadgeCheck className="w-3 h-3" /> Verified
+                      </span>
+                    )}
+                  </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <StarRating rating={card.rating} />
                     <span className="text-[#1E2026]/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>

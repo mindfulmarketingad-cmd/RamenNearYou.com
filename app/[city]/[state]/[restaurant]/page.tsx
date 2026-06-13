@@ -23,6 +23,7 @@ import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { getFeaturedSlugsForCity } from '@/lib/featured-city'
 import CityFilterPage from '@/components/city-filter-page'
 import {
   parseFilterSlug,
@@ -245,6 +246,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 4)
 
+  const featuredSlugsForCity = getFeaturedSlugsForCity(r.citySlug, r.stateSlug)
+  const isFeatured = featuredSlugsForCity.includes(r.slug)
+
   const supabase = await createClient()
   let isVerified = false
   let isOwner = false
@@ -412,7 +416,11 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">{r.name}</h1>
-                {isVerified && (
+                {isFeatured ? (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold">
+                    <BadgeCheck className="w-3.5 h-3.5" />Verified
+                  </span>
+                ) : isVerified && (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold">
                     <BadgeCheck className="w-3.5 h-3.5" />Verified
                   </span>
