@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Star, ChevronLeft, ChevronRight, MapPin, Loader2 } from 'lucide-react'
 import CardSaveButton from '@/components/card-save-button'
+import RestaurantImage from '@/components/restaurant-image'
 
 interface NearbyRestaurant {
   slug: string
@@ -60,19 +61,13 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
     >
       {/* Photo */}
       <div className="relative w-full h-44 bg-[#F5F4F0] overflow-hidden">
-        {r.photo ? (
-          <Image
-            src={r.photo}
-            alt={r.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="300px"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <MapPin className="w-8 h-8 text-[#B57F50]/30" />
-          </div>
-        )}
+        <RestaurantImage
+          src={r.photo}
+          alt={r.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="300px"
+        />
         {/* Distance badge */}
         <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#1E2026] shadow-sm">
           {r.distanceMiles < 1 ? 'Under 1 mi' : `${r.distanceMiles.toFixed(1)} mi`}

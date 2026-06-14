@@ -6,7 +6,7 @@ import Image from 'next/image'
 const DEFAULT = '/images/hero-ramen.jpg'
 
 interface Props {
-  src: string
+  src?: string | null
   alt: string
   fill?: boolean
   sizes?: string

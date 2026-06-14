@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, Utensils, Search, X, LocateFixed } from 'lucide-react'
+import RestaurantImage from '@/components/restaurant-image'
 
 export interface GridRestaurant {
   slug: string
@@ -183,19 +184,13 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
               className="group flex flex-col bg-[#ffffff] rounded-xl border border-black/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 overflow-hidden"
             >
               <div className="relative w-full h-44 bg-[#F5F4F0] overflow-hidden">
-                {r.photo ? (
-                  <Image
-                    src={r.photo}
-                    alt={r.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[#B57F50]/30">
-                    <Utensils className="w-12 h-12" />
-                  </div>
-                )}
+                <RestaurantImage
+                  src={r.photo}
+                  alt={r.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
                 {r.priceRange && (
                   <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs font-medium backdrop-blur-sm">
                     {r.priceRange}

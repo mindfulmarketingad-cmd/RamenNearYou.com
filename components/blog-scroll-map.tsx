@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, ChevronRight, Star, BadgeCheck } from 'lucide-react'
+import RestaurantImage from '@/components/restaurant-image'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -214,13 +215,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
             >
               {/* Photo + rank */}
               <div className="relative w-full h-48 sm:h-52 bg-[#F5F4F0] shrink-0">
-                {card.photo ? (
-                  <Image src={card.photo} alt={card.name} fill className="object-cover" unoptimized />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <MapPin className="w-8 h-8 text-[#B57F50]/30" />
-                  </div>
-                )}
+                <RestaurantImage src={card.photo} alt={card.name} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 560px" />
                 {/* Number badge */}
                 <div className={`absolute top-3 left-3 w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold font-serif shadow-lg border-2 border-white transition-colors ${
                   card.rank === activeRank ? 'bg-[#B57F50]' : 'bg-[#1E2026]'

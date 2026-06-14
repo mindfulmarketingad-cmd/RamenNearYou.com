@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, ArrowRight, Utensils } from 'lucide-react'
 import type { Restaurant } from '@/lib/restaurants'
+import RestaurantImage from '@/components/restaurant-image'
 
 interface BrothNearMeSectionProps {
   title: string
@@ -45,19 +46,13 @@ export default function BrothNearMeSection({
               className="group flex flex-col bg-[#ffffff] rounded-xl border border-black/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 overflow-hidden"
             >
               <div className="relative w-full h-32 bg-[#F5F4F0] overflow-hidden">
-                {r.photo ? (
-                  <Image
-                    src={r.photo}
-                    alt={r.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 640px) 50vw, 25vw"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Utensils className="w-8 h-8 text-[#B57F50]/30" />
-                  </div>
-                )}
+                <RestaurantImage
+                  src={r.photo}
+                  alt={r.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
               </div>
               <div className="p-3 flex-1 flex flex-col gap-1">
                 <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-2">
