@@ -17,7 +17,6 @@ import ReviewSection from '@/components/review-section'
 import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
-import OutboundLink from '@/components/outbound-link'
 import AuthGatedOutboundLink from '@/components/auth-gated-outbound-link'
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
@@ -498,7 +497,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </AuthGatedOutboundLink>
             )}
             {r.googleMapsLink && (
-              <OutboundLink
+              <AuthGatedOutboundLink
                 url={r.googleMapsLink}
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
@@ -507,7 +506,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               >
                 <Navigation2 className="w-4 h-4 text-[#B57F50]" />
                 Get Directions
-              </OutboundLink>
+              </AuthGatedOutboundLink>
             )}
             <div className="flex items-center gap-2">
               <VisitButton slug={r.slug} restaurantName={r.name} initialCount={0} />
@@ -686,11 +685,11 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   </a>
                 )}
                 {r.website && (
-                  <OutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#B57F50] transition-colors">
+                  <AuthGatedOutboundLink url={r.website} restaurantSlug={r.slug} restaurantName={r.name} destination="website" className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#B57F50] transition-colors">
                     <Globe className="w-4 h-4 text-[#B57F50] shrink-0" />
                     <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
                     <ExternalLink className="w-3 h-3 shrink-0 text-[#9B9490]" />
-                  </OutboundLink>
+                  </AuthGatedOutboundLink>
                 )}
               </div>
 
@@ -738,10 +737,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   </AuthGatedOutboundLink>
                 )}
                 {r.googleMapsLink && (
-                  <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions"
+                  <AuthGatedOutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions"
                     className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-medium transition-colors border border-black/8">
                     <Navigation2 className="w-4 h-4 text-[#B57F50]" />Get Directions
-                  </OutboundLink>
+                  </AuthGatedOutboundLink>
                 )}
               </div>
             </div>
