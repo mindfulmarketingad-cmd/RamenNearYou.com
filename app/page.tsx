@@ -44,7 +44,6 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
         <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
-        <StatsBar />
 
         {/* Everything below scrolls up over the fixed parallax hero */}
         <div className="relative z-10 bg-white shadow-[0_-24px_48px_rgba(0,0,0,0.18)]">
@@ -63,6 +62,7 @@ export default function HomePage() {
             </svg>
           </div>
 
+          <StatsBar />
           <NearbyRestaurantsCarousel />
         <FeaturedListings />
 
