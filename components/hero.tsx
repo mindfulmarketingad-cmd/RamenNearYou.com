@@ -8,13 +8,7 @@ import RamenQuiz from '@/components/ramen-quiz'
 import CateringQuiz from '@/components/catering-quiz'
 import { createClient } from '@/lib/supabase/client'
 
-interface Props {
-  restaurantCount: number
-  cityCount: number
-  stateCount: number
-}
-
-export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
+export default function Hero() {
   const router = useRouter()
   const [quizOpen, setQuizOpen] = useState(false)
   const [cateringOpen, setCateringOpen] = useState(false)
@@ -87,10 +81,6 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
                 Order Catering
               </button>
             </div>
-
-            <p className="text-white/70 text-xs mt-4 drop-shadow">
-              {restaurantCount.toLocaleString()}+ ramen spots · {cityCount.toLocaleString()} cities · {stateCount} states
-            </p>
           </div>
         </div>
       </div>

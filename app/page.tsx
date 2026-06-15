@@ -9,7 +9,6 @@ import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
 import HomepageReviews from '@/components/homepage-reviews'
 import Footer from '@/components/footer'
-import { getSiteStats } from '@/lib/restaurants'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -36,14 +35,13 @@ const websiteSchema = {
 }
 
 export default function HomePage() {
-  const { restaurants, cities, states } = getSiteStats()
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
-        <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
+        <Hero />
 
         {/* Everything below scrolls up over the fixed parallax hero */}
         <div className="relative z-10 bg-white shadow-[0_-24px_48px_rgba(0,0,0,0.18)]">
