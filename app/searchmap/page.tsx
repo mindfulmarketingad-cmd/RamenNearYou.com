@@ -8,12 +8,15 @@ import Image from 'next/image'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight, ChevronUp, ChevronDown,
   SlidersHorizontal, X, ArrowUpDown, Search, Flame, Leaf,
-  Droplets, Soup, Wind, List, LayoutGrid, PlusCircle,
+  Droplets, Soup, Wind, List, LayoutGrid, PlusCircle, Lock,
 } from 'lucide-react'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import { searchRestaurants } from '@/lib/search'
 import Navbar from '@/components/navbar'
+import { createClient } from '@/lib/supabase/client'
 import type { MapBounds } from '@/components/ramen-map'
+
+const FREE_SEARCHES = 1
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -168,6 +171,47 @@ function SearchMapInner() {
   const [geocoding, setGeocoding] = useState(false)
   const [geocodeError, setGeocodeError] = useState('')
 
+  // Search gating — anonymous visitors get FREE_SEARCHES searches, then must sign in.
+  const [signedIn, setSignedIn] = useState<boolean | null>(null)
+  const [searchesUsed, setSearchesUsed] = useState(0)
+  const [searchGateOpen, setSearchGateOpen] = useState(false)
+
+  useEffect(() => {
+    try {
+      const stored = parseInt(localStorage.getItem('sm_search_count') || '0', 10)
+      if (!Number.isNaN(stored)) setSearchesUsed(stored)
+    } catch { /* ignore */ }
+
+    const supabase = createClient()
+    supabase.auth.getSession().then(({ data: { session } }) => setSignedIn(!!session))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(!!session)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // Returns true if the search may proceed; otherwise opens the sign-in gate.
+  function attemptSearch(): boolean {
+    if (signedIn === true) return true
+    if (signedIn === null) return true // auth state not resolved yet — don't gate prematurely
+    if (searchesUsed >= FREE_SEARCHES) {
+      setSearchGateOpen(true)
+      return false
+    }
+    const next = searchesUsed + 1
+    setSearchesUsed(next)
+    try { localStorage.setItem('sm_search_count', String(next)) } catch { /* ignore */ }
+    return true
+  }
+
+  function handleLocalQueryChange(value: string) {
+    // Starting a new name search (empty → text) counts as a search.
+    if (localQuery === '' && value !== '') {
+      if (!attemptSearch()) return
+    }
+    setLocalQuery(value)
+  }
+
   async function geocodeLocation(query: string) {
     const clean = query.trim()
     if (!clean) return
@@ -175,6 +219,7 @@ function SearchMapInner() {
       setGeocodeError('Please enter a valid 5-digit ZIP code')
       return
     }
+    if (!attemptSearch()) return
     setGeocoding(true)
     setGeocodeError('')
     try {
@@ -215,6 +260,7 @@ function SearchMapInner() {
     !!visibleBounds && (!searchedBounds || !boundsRoughlyEqual(visibleBounds, searchedBounds))
 
   function handleSearchThisArea() {
+    if (!attemptSearch()) return
     if (visibleBounds) setSearchedBounds(visibleBounds)
   }
 
@@ -455,7 +501,7 @@ function SearchMapInner() {
               <input
                 type="text"
                 value={localQuery}
-                onChange={e => setLocalQuery(e.target.value)}
+                onChange={e => handleLocalQueryChange(e.target.value)}
                 placeholder="Search restaurants…"
                 className="w-full pl-8 pr-8 py-2 text-sm bg-white border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
               />
@@ -1005,6 +1051,44 @@ function SearchMapInner() {
           </div>
         </div>
       </div>
+
+      {/* Sign-in gate — shown after the free search is used up */}
+      {searchGateOpen && (
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
+            <button
+              onClick={() => setSearchGateOpen(false)}
+              aria-label="Close"
+              className="absolute right-4 top-4 text-[#9B9490] hover:text-[#1E2026] transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="w-14 h-14 rounded-full bg-[#B57F50]/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-6 h-6 text-[#B57F50]" />
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
+              Sign in to keep searching
+            </h2>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
+              You&apos;ve used your free search. Create a free account or sign in to search unlimited ramen spots, save your favorites, and get directions.
+            </p>
+            <div className="flex flex-col gap-2.5">
+              <Link
+                href={`/auth/signup?redirectTo=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/searchmap')}`}
+                className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+              >
+                Create free account
+              </Link>
+              <Link
+                href={`/auth/login?redirectTo=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/searchmap')}`}
+                className="w-full px-5 py-3 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
+              >
+                I already have an account
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
