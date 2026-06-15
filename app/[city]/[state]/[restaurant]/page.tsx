@@ -18,6 +18,7 @@ import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
+import AuthGatedOutboundLink from '@/components/auth-gated-outbound-link'
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
@@ -473,7 +474,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </a>
             )}
             {orderUrl && (
-              <OutboundLink
+              <AuthGatedOutboundLink
                 url={orderUrl}
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
@@ -482,10 +483,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               >
                 <ShoppingBag className="w-4 h-4" />
                 Order Now
-              </OutboundLink>
+              </AuthGatedOutboundLink>
             )}
             {menuUrl && (
-              <OutboundLink
+              <AuthGatedOutboundLink
                 url={menuUrl}
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
@@ -494,7 +495,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               >
                 <BookOpen className="w-4 h-4" />
                 View Full Menu
-              </OutboundLink>
+              </AuthGatedOutboundLink>
             )}
             {r.googleMapsLink && (
               <OutboundLink
@@ -725,16 +726,16 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               {/* CTA buttons */}
               <div className="px-5 pb-5 pt-4 border-t border-black/5 space-y-2.5">
                 {orderUrl && (
-                  <OutboundLink url={orderUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="website"
+                  <AuthGatedOutboundLink url={orderUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="website"
                     className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
                     <ShoppingBag className="w-4 h-4" />Order Now
-                  </OutboundLink>
+                  </AuthGatedOutboundLink>
                 )}
                 {menuUrl && (
-                  <OutboundLink url={menuUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="menu"
+                  <AuthGatedOutboundLink url={menuUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="menu"
                     className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors">
                     <BookOpen className="w-4 h-4" />View Full Menu
-                  </OutboundLink>
+                  </AuthGatedOutboundLink>
                 )}
                 {r.googleMapsLink && (
                   <OutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions"

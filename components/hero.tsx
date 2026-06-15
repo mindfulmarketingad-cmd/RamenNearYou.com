@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Utensils, ChefHat } from 'lucide-react'
 import Image from 'next/image'
 import RamenQuiz from '@/components/ramen-quiz'
 import CateringQuiz from '@/components/catering-quiz'
+import { createClient } from '@/lib/supabase/client'
 
 interface Props {
   restaurantCount: number
@@ -13,8 +15,35 @@ interface Props {
 }
 
 export default function Hero({ restaurantCount, cityCount, stateCount }: Props) {
+  const router = useRouter()
   const [quizOpen, setQuizOpen] = useState(false)
   const [cateringOpen, setCateringOpen] = useState(false)
+  const [signedIn, setSignedIn] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getSession().then(({ data: { session } }) => setSignedIn(!!session))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(!!session)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  async function handleOrderRamen() {
+    // Gate the Order Ramen CTA behind sign-in.
+    let isAuthed = signedIn
+    if (isAuthed === null) {
+      const supabase = createClient()
+      const { data: { session } } = await supabase.auth.getSession()
+      isAuthed = !!session
+      setSignedIn(isAuthed)
+    }
+    if (isAuthed) {
+      setQuizOpen(true)
+    } else {
+      router.push('/auth/login?redirectTo=/')
+    }
+  }
 
   return (
     <>
@@ -41,7 +70,7 @@ export default function Hero({ restaurantCount, cityCount, stateCount }: Props) 
 
             {/* Primary CTA */}
             <button
-              onClick={() => setQuizOpen(true)}
+              onClick={handleOrderRamen}
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
             >
               <Utensils className="w-5 h-5" />
