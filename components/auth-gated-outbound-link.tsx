@@ -65,7 +65,7 @@ export default function AuthGatedOutboundLink({
     e.preventDefault()
 
     // Auth state not resolved yet — check synchronously before deciding.
-    let isAuthed = signedIn
+    let isAuthed: boolean | null = signedIn
     if (isAuthed === null) {
       const supabase = createClient()
       const { data: { session } } = await supabase.auth.getSession()
