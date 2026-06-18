@@ -3,11 +3,11 @@ import { restaurants } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Spicy Ramen Near Me — Find Local Spicy Ramen Restaurants',
+  title: 'Best Spicy Ramen Near Me — Top-Rated Spots Near You',
   description: 'Find the best spicy ramen near you. Browse top-rated ramen restaurants serving tantanmen, volcano ramen, and bold spicy broths in your area.',
   alternates: { canonical: 'https://www.ramennearyou.com/spicy-ramen-near-me' },
   openGraph: {
-    title: 'Spicy Ramen Near Me — Find Local Spicy Ramen Restaurants',
+    title: 'Best Spicy Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best spicy ramen near you. Top-rated ramen restaurants serving bold, heat-packed bowls.',
     url: 'https://www.ramennearyou.com/spicy-ramen-near-me',
   },

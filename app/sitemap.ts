@@ -97,6 +97,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/shio-ramen-near-me`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/vegan-ramen-near-me`,
       lastModified: LAST_CONTENT,
       changeFrequency: 'weekly' as const,

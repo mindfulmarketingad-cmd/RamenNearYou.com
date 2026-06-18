@@ -3,12 +3,12 @@ import { restaurants } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Miso Ramen Near Me — Find Local Miso Ramen Restaurants',
-  description: 'Find the best miso ramen near you. Browse top-rated ramen restaurants serving rich Hokkaido-style miso broth with corn, butter, and chashu pork.',
+  title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
+  description: 'Craving miso ramen near you? Browse the best miso ramen restaurants near me — rich Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
   alternates: { canonical: 'https://www.ramennearyou.com/miso-ramen-near-me' },
   openGraph: {
-    title: 'Miso Ramen Near Me — Find Local Miso Ramen Restaurants',
-    description: 'Find the best miso ramen near you. Rich, fermented miso broth with toppings like corn, butter, and chashu pork.',
+    title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
+    description: 'Find the best miso ramen near you — rich, fermented Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
     url: 'https://www.ramennearyou.com/miso-ramen-near-me',
   },
 }

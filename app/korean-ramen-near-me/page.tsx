@@ -3,11 +3,11 @@ import { getRestaurantsByService } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Korean Ramen Near Me — Find Local Korean Ramen Restaurants',
+  title: 'Best Korean Ramen Near Me — Top-Rated Spots Near You',
   description: 'Find the best Korean ramen near you. Browse top-rated spots serving spicy ramyeon-inspired bowls, kimchi broths, and Korean-Japanese fusion ramen.',
   alternates: { canonical: 'https://www.ramennearyou.com/korean-ramen-near-me' },
   openGraph: {
-    title: 'Korean Ramen Near Me — Find Local Korean Ramen Restaurants',
+    title: 'Best Korean Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best Korean ramen near you. Bold ramyeon-inspired bowls and kimchi broths.',
     url: 'https://www.ramennearyou.com/korean-ramen-near-me',
   },

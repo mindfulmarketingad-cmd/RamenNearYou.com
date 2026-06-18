@@ -7,6 +7,7 @@ const footerLinks = {
     { label: 'Spicy Ramen Near Me', href: '/spicy-ramen-near-me' },
     { label: 'Miso Ramen Near Me', href: '/miso-ramen-near-me' },
     { label: 'Shoyu Ramen Near Me', href: '/shoyu-ramen-near-me' },
+    { label: 'Shio Ramen Near Me', href: '/shio-ramen-near-me' },
     { label: 'Vegan Ramen Near Me', href: '/vegan-ramen-near-me' },
     { label: 'Vegetarian Ramen Near Me', href: '/vegetarian-ramen-near-me' },
     { label: 'Korean Ramen Near Me', href: '/korean-ramen-near-me' },

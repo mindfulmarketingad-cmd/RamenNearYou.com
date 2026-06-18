@@ -3,11 +3,11 @@ import { getRestaurantsByService } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Japanese Ramen Near Me — Find Local Japanese Ramen Restaurants',
+  title: 'Best Japanese Ramen Near Me — Top-Rated Spots Near You',
   description: 'Find the best Japanese ramen near you. Browse top-rated restaurants serving authentic Tokyo shoyu, Sapporo miso, and Hakata tonkotsu ramen.',
   alternates: { canonical: 'https://www.ramennearyou.com/japanese-ramen-near-me' },
   openGraph: {
-    title: 'Japanese Ramen Near Me — Find Local Japanese Ramen Restaurants',
+    title: 'Best Japanese Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best Japanese ramen near you. Authentic Tokyo, Sapporo, and Hakata styles.',
     url: 'https://www.ramennearyou.com/japanese-ramen-near-me',
   },

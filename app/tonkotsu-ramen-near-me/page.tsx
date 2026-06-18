@@ -3,12 +3,12 @@ import { restaurants } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Tonkotsu Ramen Near Me — Find Local Tonkotsu Ramen Restaurants',
-  description: 'Find the best tonkotsu ramen near you. Browse top-rated ramen restaurants serving rich, creamy pork bone broth slow-simmered to perfection.',
+  title: 'Best Tonkotsu Ramen Near Me — Top-Rated Spots Near You',
+  description: 'Craving tonkotsu ramen near you? Browse the best tonkotsu ramen restaurants near me — rich, creamy pork bone broth, ranked by rating with maps, hours & reviews.',
   alternates: { canonical: 'https://www.ramennearyou.com/tonkotsu-ramen-near-me' },
   openGraph: {
-    title: 'Tonkotsu Ramen Near Me — Find Local Tonkotsu Ramen Restaurants',
-    description: 'Find the best tonkotsu ramen near you. Rich, creamy pork bone broth slow-simmered for hours.',
+    title: 'Best Tonkotsu Ramen Near Me — Top-Rated Spots Near You',
+    description: 'Find the best tonkotsu ramen near you — rich, creamy pork bone broth, ranked by rating with maps, hours & reviews.',
     url: 'https://www.ramennearyou.com/tonkotsu-ramen-near-me',
   },
 }
