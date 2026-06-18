@@ -23,7 +23,7 @@ export default function CeramicRamenBowlsPage() {
           <nav className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/collections" className="hover:text-[#1E2026] transition-colors">Collections</Link>
+            <Link href="/products" className="hover:text-[#1E2026] transition-colors">Products</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1E2026]">Ceramic Ramen Bowls</span>
           </nav>

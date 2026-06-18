@@ -116,6 +116,36 @@ export default function ProductsPage() {
             ))}
           </div>
 
+          {/* Shop by collection */}
+          <section className="mt-16">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">Shop by Collection</h2>
+            <p className="text-[#6B6862] mb-6">Curated picks for everything you need at the ramen table.</p>
+            <Link
+              href="/collections/ceramic-ramen-bowls"
+              className="group flex flex-col sm:flex-row items-stretch bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-[#B57F50]/30 transition-colors"
+            >
+              <div className="relative w-full sm:w-64 aspect-[4/3] sm:aspect-auto bg-[#F5F4F0] shrink-0">
+                <Image
+                  src="https://m.media-amazon.com/images/I/81TftH6jeQL._AC_SL1500_.jpg"
+                  alt="Ceramic ramen bowls collection"
+                  fill
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  unoptimized
+                />
+              </div>
+              <div className="flex flex-col justify-center p-6 gap-2">
+                <p className="text-[10px] font-semibold text-[#B57F50] uppercase tracking-widest">Ramen Accessories</p>
+                <h3 className="font-semibold text-[#1E2026] text-xl">Ceramic Ramen Bowls</h3>
+                <p className="text-[#6B6862] text-sm leading-relaxed">
+                  Hand-picked Japanese-style ceramic bowls — deep enough for a proper portion and built to retain heat. Perfect for tonkotsu, miso, and shoyu ramen at home.
+                </p>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#B57F50] group-hover:text-[#c8934f] transition-colors mt-1">
+                  View collection <ChevronRight className="w-4 h-4" />
+                </span>
+              </div>
+            </Link>
+          </section>
+
           <p className="text-center text-xs text-[#9B9490] mt-10">
             * Links are affiliate links. We may earn a small commission at no extra cost to you.
           </p>
