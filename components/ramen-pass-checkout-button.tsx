@@ -46,7 +46,8 @@ export default function RamenPassCheckoutButton({ className, children }: Props) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ referralCode }),
       })
-      const data = await res.json()
+      let data: { url?: string; error?: string } = {}
+      try { data = await res.json() } catch { /* non-JSON response */ }
       if (res.ok && data.url) {
         window.location.href = data.url
       } else {
@@ -54,7 +55,7 @@ export default function RamenPassCheckoutButton({ className, children }: Props) 
         setLoading(false)
       }
     } catch {
-      setError('Network error. Please try again.')
+      setError('Something went wrong. Please try again.')
       setLoading(false)
     }
   }

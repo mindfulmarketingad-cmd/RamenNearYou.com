@@ -42,26 +42,33 @@ export async function POST(request: Request) {
 
   const stripe = new Stripe(stripeKey)
 
-  const session = await stripe.checkout.sessions.create({
-    mode: 'subscription',
-    payment_method_types: ['card'],
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${BASE_URL}/dashboard?welcome=1&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/ramen-pass?cancelled=1`,
-    customer_email: user.email,
-    metadata: {
-      product: 'ramen_pass',
-      user_id: user.id,
-      referral_code: referralCode ?? '',
-    },
-    subscription_data: {
+  let session: Stripe.Checkout.Session
+  try {
+    session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      payment_method_types: ['card'],
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${BASE_URL}/dashboard?welcome=1&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${BASE_URL}/ramen-pass?cancelled=1`,
+      customer_email: user.email,
       metadata: {
         product: 'ramen_pass',
         user_id: user.id,
         referral_code: referralCode ?? '',
       },
-    },
-  })
+      subscription_data: {
+        metadata: {
+          product: 'ramen_pass',
+          user_id: user.id,
+          referral_code: referralCode ?? '',
+        },
+      },
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to create checkout session'
+    console.error('[ramen-pass/checkout]', message)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
   return NextResponse.json({ url: session.url })
 }
