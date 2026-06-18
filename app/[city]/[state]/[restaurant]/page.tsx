@@ -745,8 +745,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
             </div>
 
-            {/* Claim listing */}
-            {isOwner ? (
+            {/* Owner manage panel */}
+            {isOwner && (
               <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 space-y-3">
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-5 h-5 text-sky-500" />
@@ -755,24 +755,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <p className="text-[#6B6862] text-xs leading-relaxed">Update your description, hours, phone, website and menu link.</p>
                 <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
                   Manage Listing
-                </Link>
-              </div>
-            ) : isVerified ? (
-              <div className="rounded-2xl border border-black/8 bg-[#F5F4F0] p-5 space-y-2">
-                <div className="flex items-center gap-2">
-                  <BadgeCheck className="w-4.5 h-4.5 text-[#9B9490]" />
-                  <p className="font-semibold text-[#9B9490] text-sm">Already Claimed</p>
-                </div>
-                <p className="text-[#9B9490] text-xs">This listing has been claimed by its owner.</p>
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-[#B57F50]/30 bg-gradient-to-br from-[#B57F50]/10 to-[#F5F4F0] p-5 space-y-3">
-                <p className="font-bold text-[#1E2026] text-sm">Own this restaurant?</p>
-                <p className="text-[#6B6862] text-xs leading-relaxed">
-                  Claim your listing to update hours, description, and reach more ramen lovers.
-                </p>
-                <Link href={`/claim/${city}/${state}/${restaurant}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
-                  Claim This Listing
                 </Link>
               </div>
             )}
