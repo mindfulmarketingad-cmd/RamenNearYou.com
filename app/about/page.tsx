@@ -163,7 +163,7 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/cities"
-              className="px-6 py-3 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white font-medium text-sm transition-colors"
+              className="px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-medium text-sm transition-colors"
             >
               Browse by City
             </Link>

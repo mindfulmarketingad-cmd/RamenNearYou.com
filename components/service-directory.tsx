@@ -30,7 +30,7 @@ export default function ServiceDirectory() {
             <Link
               key={s.href}
               href={s.href}
-              className="group flex items-center justify-between gap-3 px-5 py-4 rounded-xl bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
+              className="group flex items-center justify-between gap-3 px-5 py-4 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
             >
               <span>
                 <span className="block text-[#1E2026] font-semibold text-sm group-hover:text-[#B57F50] transition-colors">

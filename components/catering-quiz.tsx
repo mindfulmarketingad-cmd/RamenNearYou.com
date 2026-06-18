@@ -147,7 +147,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
   const progress = (step / TOTAL_STEPS) * 100
 
   const input = 'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors'
-  const btn   = 'w-full py-3 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
+  const btn   = 'w-full py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
 
   function card(selected: boolean) {
     return `p-4 rounded-xl border-2 text-left transition-all cursor-pointer ${

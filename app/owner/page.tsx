@@ -65,7 +65,7 @@ export default async function OwnerDashboardPage() {
               <p className="text-[#6B6862] text-sm mb-5">Find your restaurant and submit a claim to start managing its listing.</p>
               <Link
                 href="/claim-your-listing"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
               >
                 Claim Your Listing <ChevronRight className="w-4 h-4" />
               </Link>
@@ -129,7 +129,7 @@ export default async function OwnerDashboardPage() {
                         )}
                         <Link
                           href={`/owner/${c.restaurant_slug}`}
-                          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
                         >
                           <Edit3 className="w-3 h-3" /> Edit Listing
                         </Link>

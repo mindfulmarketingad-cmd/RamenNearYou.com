@@ -83,7 +83,7 @@ function LoginForm() {
         type="button"
         onClick={handleGoogleSignIn}
         disabled={googleLoading || loading}
-        className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-lg bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <GoogleIcon />
         {googleLoading ? 'Redirecting…' : 'Continue with Google'}
@@ -121,7 +121,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading || googleLoading}
-          className="w-full px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>

@@ -153,7 +153,7 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
           </p>
           <button
             onClick={handleAddPhotos}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-none transition-colors"
           >
             <Upload className="w-4 h-4" />
             Add Photos

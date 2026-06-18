@@ -89,7 +89,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
           </p>
           <Link
             href="/featured/apply"
-            className="shrink-0 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+            className="shrink-0 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
           >
             Get Featured
           </Link>

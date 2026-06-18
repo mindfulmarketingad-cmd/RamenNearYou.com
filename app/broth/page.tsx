@@ -227,7 +227,7 @@ export default async function BrothPage({
               </p>
               <Link
                 href="/searchmap"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
               >
                 Find Ramen Near Me →
               </Link>

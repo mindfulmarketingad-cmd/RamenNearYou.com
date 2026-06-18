@@ -78,7 +78,7 @@ export default function AmbassadorPage() {
               <p className="text-[#6B6862] mb-4">You need to be signed in to apply.</p>
               <Link
                 href="/auth/login?redirectTo=/ambassador"
-                className="inline-block px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
+                className="inline-block px-6 py-3 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
               >
                 Sign in to apply
               </Link>
@@ -190,7 +190,7 @@ export default function AmbassadorPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full px-6 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? 'Submitting…' : 'Submit Application'}
               </button>

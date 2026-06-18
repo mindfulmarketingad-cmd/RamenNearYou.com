@@ -63,7 +63,7 @@ export default function LocationPrompt() {
           <div className="flex items-center gap-2 mt-3">
             <button
               onClick={enableLocation}
-              className="px-4 py-1.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+              className="px-4 py-1.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
             >
               Enable Location
             </button>

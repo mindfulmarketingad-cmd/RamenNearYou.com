@@ -10,7 +10,7 @@ export default function RestaurantCompareButton({ restaurant }: Props) {
   return (
     <Link
       href={`/compare?a=${restaurant.slug}`}
-      className="group w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-xl bg-[#1E2026] hover:bg-[#B57F50] border border-transparent hover:border-[#c8934f] text-white transition-all duration-200 shadow-sm hover:shadow-md"
+      className="group w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-none bg-[#1E2026] hover:bg-[#B57F50] border border-transparent hover:border-[#c8934f] text-white transition-all duration-200 shadow-sm hover:shadow-md"
     >
       <div className="flex items-center gap-3">
         <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors shrink-0">

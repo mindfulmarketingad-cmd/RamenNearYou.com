@@ -78,7 +78,7 @@ export default function ProductsCarousel() {
                   href={product.affiliateUrl}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors mt-auto"
+                  className="flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors mt-auto"
                 >
                   CHECK PRICE
                 </a>

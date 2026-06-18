@@ -139,7 +139,7 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
               <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
                 Browse All Broth Types
               </Link>
-              <Link href="/cities" className="px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
+              <Link href="/cities" className="px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
                 Browse All Cities
               </Link>
             </div>

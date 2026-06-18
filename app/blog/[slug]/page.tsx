@@ -295,7 +295,7 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="text-[#6B6862] text-sm mb-4">Looking for great ramen near you?</p>
             <Link
               href="/cities"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#B57F50] text-white font-medium text-sm hover:bg-[#c8934f] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-[#B57F50] text-white font-medium text-sm hover:bg-[#c8934f] transition-colors"
             >
               Browse Ramen Restaurants →
             </Link>

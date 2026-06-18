@@ -182,14 +182,14 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                 href={googleReviewsUrl(r)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
               >
                 Read Google Reviews
                 <ExternalLink className="w-4 h-4" />
               </a>
               <Link
                 href={listingUrl}
-                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#1E2026] hover:bg-[#33363d] text-white text-sm font-semibold transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-none bg-[#1E2026] hover:bg-[#33363d] text-white text-sm font-semibold transition-colors"
               >
                 View Full Listing
               </Link>

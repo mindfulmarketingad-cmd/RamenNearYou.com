@@ -130,7 +130,7 @@ export default function RecentlyAdded() {
                 </div>
 
                 <div className="mt-auto pt-2">
-                  <button className="w-full py-2.5 rounded-lg border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-[#1E2026] transition-all duration-200">
+                  <button className="w-full py-2.5 rounded-none border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-[#1E2026] transition-all duration-200">
                     View Restaurant
                   </button>
                 </div>

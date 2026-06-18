@@ -102,7 +102,7 @@ export default function NavbarClient() {
 
             <Link
               href="/searchmap"
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
             >
               <Utensils className="w-3.5 h-3.5" />
               Order Ramen
@@ -124,7 +124,7 @@ export default function NavbarClient() {
         <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
           <Link
             href="/searchmap"
-            className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold"
+            className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
             onClick={() => setMenuOpen(false)}
           >
             <Utensils className="w-4 h-4" />

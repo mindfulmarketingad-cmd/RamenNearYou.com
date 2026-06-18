@@ -119,7 +119,7 @@ export default function ShareButton({ url, title }: Props) {
               {/* Copy Link */}
               <button
                 onClick={copyLink}
-                className="flex items-center justify-center gap-3 w-full px-5 py-3 rounded-xl bg-white border border-black/10 hover:border-[#B57F50] text-[#1E2026] text-sm font-medium transition-colors"
+                className="flex items-center justify-center gap-3 w-full px-5 py-3 rounded-none bg-white border border-black/10 hover:border-[#B57F50] text-[#1E2026] text-sm font-medium transition-colors"
               >
                 {copied ? (
                   <><Check className="w-4 h-4 text-green-500" /><span className="text-green-600">Copied!</span></>

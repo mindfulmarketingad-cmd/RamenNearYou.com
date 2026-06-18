@@ -46,7 +46,7 @@ export default function SavedList() {
         </p>
         <Link
           href="/cities"
-          className="px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
+          className="px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
         >
           Browse Restaurants
         </Link>

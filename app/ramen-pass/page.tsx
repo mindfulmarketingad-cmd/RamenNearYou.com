@@ -87,7 +87,7 @@ export default function RamenPassPage() {
                   Earn up to <strong>${MONTHLY_CREDIT_CAP.toFixed(2)}</strong> back each month —
                   your net cost can be as low as <strong>${(RAMEN_PASS_PRICE - MONTHLY_CREDIT_CAP).toFixed(2)}</strong>.
                 </p>
-                <RamenPassCheckoutButton className="inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-[#1E2026] text-base font-bold shadow-lg transition-all duration-200 hover:-translate-y-0.5">
+                <RamenPassCheckoutButton className="inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 rounded-none bg-white text-[#1E2026] text-base font-bold shadow-lg transition-all duration-200 hover:-translate-y-0.5">
                   Get Ramen Pass
                 </RamenPassCheckoutButton>
                 <p className="text-white/60 text-xs mt-3 text-center">Cancel anytime · Billed monthly</p>
@@ -181,7 +181,7 @@ export default function RamenPassPage() {
             </div>
 
             <div className="text-center mt-12">
-              <RamenPassCheckoutButton className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-base font-bold shadow-lg transition-all duration-200 hover:-translate-y-0.5 min-w-[220px]">
+              <RamenPassCheckoutButton className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-base font-bold shadow-lg transition-all duration-200 hover:-translate-y-0.5 min-w-[220px]">
                 Get Ramen Pass — ${RAMEN_PASS_PRICE}/mo
               </RamenPassCheckoutButton>
             </div>

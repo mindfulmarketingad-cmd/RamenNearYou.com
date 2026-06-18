@@ -102,7 +102,7 @@ export default function HomepageFeaturedCTA() {
                 </p>
                 <Link
                   href="/featured/apply"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
                 >
                   <Crown className="w-4 h-4" />
                   Get Featured

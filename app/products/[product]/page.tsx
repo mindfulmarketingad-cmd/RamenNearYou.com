@@ -154,7 +154,7 @@ export default async function ProductPage({ params }: Props) {
                 href={product.affiliateUrl}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="flex items-center justify-center gap-2.5 w-full px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-base transition-colors shadow-md shadow-[#B57F50]/20"
+                className="flex items-center justify-center gap-2.5 w-full px-8 py-4 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-base transition-colors shadow-md shadow-[#B57F50]/20"
               >
                 CHECK PRICE
               </a>
@@ -217,7 +217,7 @@ export default async function ProductPage({ params }: Props) {
               href={product.affiliateUrl}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold transition-colors"
             >
               CHECK PRICE
             </a>

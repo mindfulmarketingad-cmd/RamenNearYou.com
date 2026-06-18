@@ -30,7 +30,7 @@ export default function CitiesSection() {
         <p className="text-[#6B6862] text-xs mb-4">Follow a city to get updates on new ramen spots.</p>
         <Link
           href="/cities"
-          className="inline-block px-4 py-2 rounded-lg bg-[#B57F50] text-white text-xs font-medium hover:bg-[#c8934f] transition-colors"
+          className="inline-block px-4 py-2 rounded-none bg-[#B57F50] text-white text-xs font-medium hover:bg-[#c8934f] transition-colors"
         >
           Browse Cities
         </Link>

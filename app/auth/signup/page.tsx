@@ -103,7 +103,7 @@ export default function SignupPage() {
           <p className="text-[#6B6862] leading-relaxed mb-6">
             We&apos;ve sent a confirmation link to <span className="text-[#1E2026]">{email}</span>. Click it to activate your account.
           </p>
-          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
+          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
             Back to sign in
           </Link>
         </div>
@@ -136,7 +136,7 @@ export default function SignupPage() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={googleLoading || loading}
-              className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-lg bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <GoogleIcon />
               {googleLoading ? 'Redirecting…' : 'Continue with Google'}
@@ -188,7 +188,7 @@ export default function SignupPage() {
               <button
                 type="submit"
                 disabled={loading || googleLoading}
-                className="w-full px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating account…' : 'Create account'}
               </button>

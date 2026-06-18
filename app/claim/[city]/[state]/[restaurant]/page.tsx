@@ -87,7 +87,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
 
                 <a
                   href={stripeLink}
-                  className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                  className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
                 >
                   Subscribe & Claim — $19.99/mo
                 </a>

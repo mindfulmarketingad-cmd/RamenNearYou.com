@@ -59,7 +59,7 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
           <Link
             key={r.reviewSlug}
             href={`/reviews/${r.reviewSlug}`}
-            className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
+            className="flex items-center justify-between gap-3 px-4 py-3 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
           >
             <div className="min-w-0">
               <p className="text-sm font-semibold text-[#1E2026] truncate">{r.name}</p>
@@ -85,7 +85,7 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
         <div className="text-center mt-8">
           <button
             onClick={() => setLimit((l) => l + PAGE_SIZE * 2)}
-            className="px-6 py-3 rounded-xl bg-[#1E2026] hover:bg-[#33363d] text-white text-sm font-semibold transition-colors"
+            className="px-6 py-3 rounded-none bg-[#1E2026] hover:bg-[#33363d] text-white text-sm font-semibold transition-colors"
           >
             Load more ({(filtered.length - limit).toLocaleString()} remaining)
           </button>

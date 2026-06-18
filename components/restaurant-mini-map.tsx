@@ -99,7 +99,7 @@ export default function RestaurantMiniMap({ lat, lng, name, address, directionsU
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors whitespace-nowrap"
         >
           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden>
             <path d="M21.71 11.29l-9-9a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42l9 9a1 1 0 0 0 1.42 0l9-9a1 1 0 0 0 0-1.42zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>

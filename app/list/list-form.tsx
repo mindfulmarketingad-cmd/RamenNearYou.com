@@ -65,7 +65,7 @@ export default function ListForm() {
         </p>
         <Link
           href="/"
-          className="inline-block mt-6 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
+          className="inline-block mt-6 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
         >
           Back to Home
         </Link>
@@ -217,7 +217,7 @@ export default function ListForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full py-3.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'submitting' ? 'Submitting…' : 'Submit for Review'}
       </button>

@@ -478,7 +478,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
                 destination="website"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold shadow-sm transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold shadow-sm transition-colors"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Order Now
@@ -490,7 +490,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
                 destination="menu"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-white border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors"
               >
                 <BookOpen className="w-4 h-4" />
                 View Full Menu
@@ -502,7 +502,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 restaurantSlug={r.slug}
                 restaurantName={r.name}
                 destination="directions"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-medium transition-colors"
               >
                 <Navigation2 className="w-4 h-4 text-[#B57F50]" />
                 Get Directions
@@ -625,7 +625,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/40 transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-none bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/40 transition-colors"
                     >
                       <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                       Read all reviews on Google
@@ -726,7 +726,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               <div className="px-5 pb-5 pt-4 border-t border-black/5 space-y-2.5">
                 {orderUrl && (
                   <AuthGatedOutboundLink url={orderUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="website"
-                    className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
+                    className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
                     <ShoppingBag className="w-4 h-4" />Order Now
                   </AuthGatedOutboundLink>
                 )}

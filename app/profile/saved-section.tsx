@@ -37,7 +37,7 @@ export default function SavedSection() {
         <p className="text-[#6B6862] text-xs mb-4">Hit the Save button on any restaurant listing to build your list.</p>
         <Link
           href="/cities"
-          className="inline-block px-4 py-2 rounded-lg bg-[#B57F50] text-white text-xs font-medium hover:bg-[#c8934f] transition-colors"
+          className="inline-block px-4 py-2 rounded-none bg-[#B57F50] text-white text-xs font-medium hover:bg-[#c8934f] transition-colors"
         >
           Browse Restaurants
         </Link>

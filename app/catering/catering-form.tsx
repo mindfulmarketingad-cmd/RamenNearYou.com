@@ -136,7 +136,7 @@ export default function CateringForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? 'Sending…' : 'Get Free Quotes'}
       </button>

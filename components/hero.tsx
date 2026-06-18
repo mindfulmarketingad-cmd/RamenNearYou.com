@@ -65,7 +65,7 @@ export default function Hero() {
             {/* Primary CTA */}
             <button
               onClick={handleOrderRamen}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
             >
               <Utensils className="w-5 h-5" />
               Order Ramen Now

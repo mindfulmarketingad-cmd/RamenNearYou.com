@@ -369,7 +369,7 @@ export default function JinyaMenuPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/atlanta/ga/jinya-ramen-bar-buckhead"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
               >
                 JINYA Buckhead →
               </Link>

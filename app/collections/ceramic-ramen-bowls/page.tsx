@@ -87,7 +87,7 @@ export default function CeramicRamenBowlsPage() {
                     {product.name}
                   </p>
                   <div className="mt-auto">
-                    <span className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2 rounded-xl bg-[#B57F50] group-hover:bg-[#c8934f] text-white text-xs font-bold transition-colors">
+                    <span className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2 rounded-none bg-[#B57F50] group-hover:bg-[#c8934f] text-white text-xs font-bold transition-colors">
                       Check Price <ExternalLink className="w-3 h-3" />
                     </span>
                   </div>

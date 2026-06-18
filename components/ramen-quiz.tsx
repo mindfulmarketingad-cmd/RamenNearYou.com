@@ -284,7 +284,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                       <button
                         key={c.label}
                         onClick={() => selectChoice(c.value)}
-                        className={`flex items-start text-left px-5 py-4 rounded-xl border bg-white transition-all duration-150 hover:shadow-sm ${
+                        className={`flex items-start text-left px-5 py-4 rounded-none border bg-white transition-all duration-150 hover:shadow-sm ${
                           selected
                             ? 'border-[#B57F50] ring-2 ring-[#B57F50]/20 shadow-sm'
                             : 'border-black/8 hover:border-[#B57F50]/40'
@@ -354,7 +354,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
               <p className="font-serif text-xl font-bold text-[#1E2026] mb-4">{errorMsg}</p>
               <button
                 onClick={restart}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
                 Start over
@@ -383,7 +383,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                   <p className="text-[#6B6862] mb-4">Try widening your distance or choosing a different broth type.</p>
                   <button
                     onClick={restart}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
                   >
                     <RotateCcw className="w-4 h-4" />
                     Start over
@@ -484,7 +484,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
             href={orderUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
           >
             <ExternalLink className="w-3 h-3" />
             Order now
@@ -493,7 +493,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
           <Link
             href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
             onClick={onNavigate}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
           >
             Order now
           </Link>

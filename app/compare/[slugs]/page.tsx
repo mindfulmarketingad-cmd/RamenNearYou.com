@@ -571,7 +571,7 @@ export default async function CompareSlugPage({
             </p>
             <Link
               href="/compare"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors shadow-md"
             >
               <ArrowLeftRight className="w-4 h-4" />
               Start a new comparison

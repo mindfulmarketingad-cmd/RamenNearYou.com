@@ -104,7 +104,7 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
                   <button
                     onClick={() => act(c.id, 'reject')}
                     disabled={busy === c.id}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-black/10 hover:bg-black/5 text-[#1E2026] text-xs font-bold transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-white border border-black/10 hover:bg-black/5 text-[#1E2026] text-xs font-bold transition-colors disabled:opacity-50"
                   >
                     <X className="w-3.5 h-3.5" />
                     Reject

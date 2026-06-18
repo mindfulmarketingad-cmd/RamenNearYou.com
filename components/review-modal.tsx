@@ -186,7 +186,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-[#1E2026] font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-[#1E2026] font-semibold text-sm rounded-none transition-colors flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
             {submitting ? 'Submitting…' : 'Submit Review'}

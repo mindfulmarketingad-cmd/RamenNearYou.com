@@ -218,7 +218,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         <div className="max-w-7xl mx-auto">
           <Link
             href={`/searchmap?city=${city}&state=${state}`}
-            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-sm shadow-md shadow-[#B57F50]/25 transition-all duration-200"
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-sm shadow-md shadow-[#B57F50]/25 transition-all duration-200"
           >
             <Navigation className="w-4 h-4" />
             Find Ramen in {cityName}, {stateCode}
@@ -344,7 +344,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           </p>
           <Link
             href={`/${state}`}
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
           >
             See all ramen in {stateName} →
           </Link>
@@ -370,7 +370,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               </div>
               <Link
                 href={`/ambassador?city=${encodeURIComponent(cityName)}`}
-                className="shrink-0 px-6 py-3 rounded-xl bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                className="shrink-0 px-6 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
               >
                 Apply Now →
               </Link>

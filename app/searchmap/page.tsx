@@ -411,7 +411,7 @@ function SearchMapInner() {
               </p>
               <button
                 onClick={requestLocation}
-                className="px-6 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold rounded-lg transition-colors"
+                className="px-6 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold rounded-none transition-colors"
               >
                 Allow Location Access
               </button>
@@ -433,7 +433,7 @@ function SearchMapInner() {
           <div className="flex gap-3 flex-wrap justify-center">
             <button
               onClick={requestLocation}
-              className="px-5 py-2.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-lg transition-colors"
+              className="px-5 py-2.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-none transition-colors"
             >
               Try Again
             </button>
@@ -589,7 +589,7 @@ function SearchMapInner() {
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as SortBy)}
-                className="flex-1 bg-white border border-black/8 text-[#1E2026] text-xs rounded-lg px-2 py-1 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
+                className="flex-1 bg-white border border-black/8 text-[#1E2026] text-xs rounded-none px-2 py-1 outline-none focus:border-[#B57F50] transition-colors cursor-pointer"
               >
                 {SORT_OPTIONS.map(o => (
                   <option key={o.value} value={o.value}>{o.label}</option>
@@ -658,7 +658,7 @@ function SearchMapInner() {
                   </p>
                   <Link
                     href="/list"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
                     Submit a Listing
@@ -779,7 +779,7 @@ function SearchMapInner() {
               <div className="p-3 border-t border-black/5">
                 <Link
                   href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="block w-full py-2.5 text-center text-sm font-medium bg-[#B57F50] hover:bg-[#c8934f] text-white rounded-lg transition-colors"
+                  className="block w-full py-2.5 text-center text-sm font-medium bg-[#B57F50] hover:bg-[#c8934f] text-white rounded-none transition-colors"
                 >
                   View {r.name} →
                 </Link>
@@ -867,7 +867,7 @@ function SearchMapInner() {
                     <button
                       type="submit"
                       disabled={geocoding}
-                      className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-lg transition-colors disabled:opacity-60"
+                      className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-none transition-colors disabled:opacity-60"
                     >
                       {geocoding ? '…' : 'Go'}
                     </button>
@@ -1041,7 +1041,7 @@ function SearchMapInner() {
                 <div className="shrink-0 px-3 pb-3 pt-1 border-t border-black/8">
                   <Link
                     href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
                   >
                     View {r.name} →
                   </Link>
@@ -1075,13 +1075,13 @@ function SearchMapInner() {
             <div className="flex flex-col gap-2.5">
               <Link
                 href={`/auth/signup?redirectTo=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/searchmap')}`}
-                className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+                className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
               >
                 Create free account
               </Link>
               <Link
                 href={`/auth/login?redirectTo=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/searchmap')}`}
-                className="w-full px-5 py-3 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
+                className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
               >
                 I already have an account
               </Link>

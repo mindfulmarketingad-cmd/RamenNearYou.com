@@ -107,7 +107,7 @@ export default function ProductsPage() {
                     href={product.affiliateUrl}
                     target="_blank"
                     rel="noopener noreferrer sponsored"
-                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
                   >
                     CHECK PRICE
                   </a>

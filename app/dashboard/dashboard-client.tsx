@@ -71,7 +71,7 @@ export default function DashboardClient() {
         </p>
         <Link
           href="/ramen-pass"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-bold transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-bold transition-colors"
         >
           Learn about Ramen Pass
         </Link>
@@ -175,7 +175,7 @@ export default function DashboardClient() {
                 setCopied(true)
                 setTimeout(() => setCopied(false), 1500)
               }}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#1E2026] text-white text-xs font-semibold shrink-0"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-none bg-[#1E2026] text-white text-xs font-semibold shrink-0"
             >
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               {copied ? 'Copied' : 'Copy'}

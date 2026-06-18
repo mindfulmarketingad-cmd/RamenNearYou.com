@@ -128,7 +128,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-60"
+          className="px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-60"
         >
           {loading ? 'Searching…' : 'Find Nearby'}
         </button>
@@ -136,7 +136,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
           type="button"
           onClick={useMyLocation}
           disabled={loading}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-black/10 bg-white text-[#1E2026] text-sm font-medium hover:border-[#B57F50] transition-colors disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-none border border-black/10 bg-white text-[#1E2026] text-sm font-medium hover:border-[#B57F50] transition-colors disabled:opacity-60"
         >
           <LocateFixed className="w-4 h-4 text-[#B57F50]" />
           Use my location
@@ -171,7 +171,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
         <div className="text-center py-16 bg-white rounded-xl border border-black/5">
           <p className="text-[#1E2026] font-semibold mb-1">No {brothType.toLowerCase()} ramen within {RADIUS_MILES} miles</p>
           <p className="text-[#6B6862] text-sm mb-4">Try a different ZIP code or clear the filter to see all locations.</p>
-          <button onClick={clearFilter} className="px-4 py-2 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
+          <button onClick={clearFilter} className="px-4 py-2 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
             Show all locations
           </button>
         </div>

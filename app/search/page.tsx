@@ -116,7 +116,7 @@ export default async function SearchPage({
             </div>
             <button
               type="submit"
-              className="px-5 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold rounded-lg transition-colors whitespace-nowrap"
+              className="px-5 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold rounded-none transition-colors whitespace-nowrap"
             >
               Search
             </button>
@@ -135,7 +135,7 @@ export default async function SearchPage({
               {query && (
                 <Link
                   href={`/searchmap?q=${encodeURIComponent(query)}`}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-medium transition-colors whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-medium transition-colors whitespace-nowrap"
                 >
                   <Map className="w-3.5 h-3.5" />
                   View on Map
@@ -230,7 +230,7 @@ export default async function SearchPage({
               <Search className="w-12 h-12 text-[#B57F50]/30 mx-auto mb-4" />
               <p className="text-[#1E2026] text-lg font-medium mb-2">No results for &ldquo;{query}&rdquo;</p>
               <p className="text-[#6B6862] text-sm mb-6">Try searching by restaurant name, city name, or zip code.</p>
-              <Link href="/cities" className="px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
+              <Link href="/cities" className="px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
                 Browse All Cities
               </Link>
             </div>

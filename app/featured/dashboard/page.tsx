@@ -56,7 +56,7 @@ export default async function FeaturedDashboardPage() {
             <p className="text-[#6B6862] text-sm mb-6">Get your restaurant in front of thousands of ramen lovers every month.</p>
             <Link
               href="/featured/apply"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
             >
               Get Featured <ChevronRight className="w-4 h-4" />
             </Link>
@@ -143,7 +143,7 @@ export default async function FeaturedDashboardPage() {
           <p className="text-[#6B6862] text-sm">Want to boost visibility even more?</p>
           <Link
             href="/featured/apply"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
           >
             <Crown className="w-4 h-4" /> Get Another Featured Spot
           </Link>

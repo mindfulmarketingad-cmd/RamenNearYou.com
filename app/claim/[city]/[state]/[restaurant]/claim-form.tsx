@@ -120,7 +120,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
         </p>
         <Link
           href={`/${restaurant.citySlug}/${restaurant.stateSlug}/${restaurant.slug}`}
-          className="inline-block mt-6 px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors"
+          className="inline-block mt-6 px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors"
         >
           Back to Listing
         </Link>
@@ -297,7 +297,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       <button
         type="submit"
         disabled={loading || !confirmed}
-        className="w-full px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {loading ? 'Submitting claim…' : 'Submit Claim'}
       </button>
