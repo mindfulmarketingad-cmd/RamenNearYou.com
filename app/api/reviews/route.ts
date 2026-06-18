@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { applyContributionReward, hasActiveRamenPass } from '@/lib/rewards'
+
+// Word count of review text, ignoring any HTML tags.
+function wordCount(text: string | null | undefined): number {
+  if (!text) return 0
+  return text.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length
+}
 
 // GET /api/reviews?slug=...
 export async function GET(request: Request) {
@@ -68,6 +75,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'You already reviewed this restaurant' }, { status: 409 })
   }
 
+  // Count existing reviews BEFORE inserting — drives the first-review bonus.
+  const { count: priorReviewCount } = await insertClient
+    .from('reviews')
+    .select('id', { count: 'exact', head: true })
+    .eq('restaurant_slug', restaurant_slug)
+
   const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous'
 
   const { data, error } = await insertClient
@@ -85,7 +98,25 @@ export async function POST(request: Request) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  return NextResponse.json({ review: data })
+  // Ramen Pass contribution credit (members only).
+  let reward = null
+  if (await hasActiveRamenPass(user.id)) {
+    const words = wordCount(reviewBody)
+    const hasPhoto = Array.isArray(photos) && photos.length > 0
+
+    if (words >= 50 && hasPhoto) {
+      reward = await applyContributionReward(user.id, 5.0, 'review_with_photo', data.id)
+    } else if (words >= 50) {
+      reward = await applyContributionReward(user.id, 2.0, 'review_only', data.id)
+    }
+
+    // First-ever review on this listing earns a bonus (stacks, cap-limited).
+    if ((priorReviewCount ?? 0) === 0) {
+      await applyContributionReward(user.id, 2.0, 'first_review_bonus', restaurant_slug)
+    }
+  }
+
+  return NextResponse.json({ review: data, reward })
 }
 
 // DELETE /api/reviews?id=...

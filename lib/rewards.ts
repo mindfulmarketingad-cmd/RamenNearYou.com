@@ -21,6 +21,18 @@ export interface RewardResult {
   error?: string
 }
 
+// True only when the user has a live Ramen Pass — credit is members-only.
+export async function hasActiveRamenPass(userId: string): Promise<boolean> {
+  const admin = createAdminClient()
+  if (!admin) return false
+  const { data } = await admin
+    .from('ramen_pass_subscriptions')
+    .select('status')
+    .eq('user_id', userId)
+    .maybeSingle()
+  return data?.status === 'active' || data?.status === 'trialing'
+}
+
 // Recalculate a user's contribution count + rank, firing a rank-up email on change.
 async function bumpContributionsAndRank(userId: string) {
   const admin = createAdminClient()
