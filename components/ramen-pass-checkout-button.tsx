@@ -36,7 +36,7 @@ export default function RamenPassCheckoutButton({ className, children }: Props) 
     const supabase = createClient()
     const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
-      router.push('/auth/login?redirectTo=/pass')
+      router.push('/auth/login?redirectTo=/ramen-pass')
       return
     }
 

@@ -70,7 +70,7 @@ export default function DashboardClient() {
           every review, photo, and check-in.
         </p>
         <Link
-          href="/pass"
+          href="/ramen-pass"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white font-bold transition-colors"
         >
           Learn about Ramen Pass

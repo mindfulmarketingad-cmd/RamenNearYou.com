@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     payment_method_types: ['card'],
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${BASE_URL}/dashboard?welcome=1&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/pass?cancelled=1`,
+    cancel_url: `${BASE_URL}/ramen-pass?cancelled=1`,
     customer_email: user.email,
     metadata: {
       product: 'ramen_pass',
