@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight,
   ExternalLink, BadgeCheck, ShoppingBag,
-  BookOpen, Navigation2, AlertTriangle,
+  BookOpen, Navigation2, AlertTriangle, Store,
 } from 'lucide-react'
 import { restaurants, getRestaurant, getRestaurantsByCity, type Restaurant } from '@/lib/restaurants'
 import { expandDescription } from '@/lib/expand-description'
@@ -330,10 +330,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     url: `https://www.ramennearyou.com/${city}/${state}/${restaurant}`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: r.street || r.address,
+      streetAddress: r.address,
       addressLocality: r.city,
       addressRegion: r.stateCode,
-      postalCode: r.postalCode,
       addressCountry: 'US',
     },
     ...(r.latitude != null && r.longitude != null && {
@@ -368,19 +367,63 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const brothTypes = r.subtypes ? r.subtypes.split(',').slice(0, 3).map(s => s.trim()).filter(Boolean) : []
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#F5F4F0]">
       <PageViewTracker slug={r.slug} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
-      {/* Hero photo */}
-      <div className="relative w-full h-56 sm:h-72 bg-[#F5F4F0] mt-16">
+      {/* ── HERO ── tall photo with gradient overlay, info overlaid at bottom */}
+      <div className="relative w-full h-72 sm:h-[420px] bg-[#1E2026] mt-16">
         <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="100vw" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        {/* Heavy gradient bottom-to-top */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+
+        {/* Overlaid content at bottom of hero */}
+        <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-8 pt-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Status + price + broth tags */}
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              {r.businessStatus === 'OPERATIONAL' && (
+                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${openNow ? 'bg-emerald-500/90 text-white' : 'bg-red-500/80 text-white'}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${openNow ? 'bg-white' : 'bg-white'}`} />
+                  {openNow ? 'Open Now' : 'Closed'}
+                  {todayHours && <span className="ml-1 font-normal opacity-80">· {todayHours}</span>}
+                </span>
+              )}
+              {r.priceRange && (
+                <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-xs font-medium backdrop-blur-sm border border-white/20">{r.priceRange}</span>
+              )}
+              {brothTypes.map(t => (
+                <span key={t} className="px-2.5 py-0.5 rounded-full bg-[#B57F50]/80 text-white text-xs backdrop-blur-sm border border-[#B57F50]/40">{t}</span>
+              ))}
+              {(isFeatured || isVerified) && (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-white text-xs font-semibold backdrop-blur-sm border border-white/20">
+                  <BadgeCheck className="w-3.5 h-3.5" />Verified
+                </span>
+              )}
+            </div>
+
+            {/* Restaurant name */}
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight drop-shadow-lg mb-3">
+              {r.name}
+            </h1>
+
+            {/* Rating row */}
+            {(r.rating || r.reviewCount > 0) && (
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-2xl text-white leading-none">{r.rating?.toFixed(1) ?? '—'}</span>
+                <StarRating rating={r.rating} size="md" />
+                <span className="text-white/70 text-sm">
+                  ({(r.reviewCount ?? 0).toLocaleString()} {r.reviewCount === 1 ? 'review' : 'reviews'})
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Page content */}
+      {/* ── PAGE CONTENT ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Breadcrumb */}
@@ -394,140 +437,95 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           <span className="text-[#1E2026]">{r.name}</span>
         </nav>
 
-        {/* ─── Restaurant Header ─── */}
-        <div className="pb-6 border-b border-black/8">
-          {/* Name row */}
-          <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                {r.businessStatus === 'OPERATIONAL' && (
-                  <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${openNow ? 'bg-emerald-100 text-emerald-700' : 'bg-red-50 text-red-600'}`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${openNow ? 'bg-emerald-500' : 'bg-red-500'}`} />
-                    {openNow ? 'Open Now' : 'Closed'}
-                    {todayHours && <span className="ml-1 font-normal opacity-70">· {todayHours}</span>}
-                  </span>
-                )}
-                {r.priceRange && (
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#F5F4F0] text-[#6B6862] text-xs font-medium border border-black/8">{r.priceRange}</span>
-                )}
-                {brothTypes.map(t => (
-                  <span key={t} className="px-2.5 py-0.5 rounded-full bg-[#B57F50]/10 text-[#B57F50] text-xs border border-[#B57F50]/20">{t}</span>
-                ))}
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">{r.name}</h1>
-                {isFeatured ? (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold">
-                    <BadgeCheck className="w-3.5 h-3.5" />Verified
-                  </span>
-                ) : isVerified && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold">
-                    <BadgeCheck className="w-3.5 h-3.5" />Verified
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
+        {/* ── 5-col grid: 3 main + 2 sidebar ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 pb-16">
 
-          {/* Yelp-style rating row */}
-          {(r.rating || r.reviewCount > 0) && (
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-              <div className="flex items-center gap-3">
-                <span className="font-bold text-4xl text-[#1E2026] leading-none">{r.rating?.toFixed(1) ?? '—'}</span>
-                <div>
-                  <StarRating rating={r.rating} size="lg" />
-                  <p className="text-[#6B6862] text-sm mt-0.5">
-                    {(r.reviewCount ?? 0).toLocaleString()} {r.reviewCount === 1 ? 'review' : 'reviews'}
-                  </p>
+          {/* ── MAIN COLUMN ── */}
+          <div className="lg:col-span-3 space-y-10">
+
+            {/* CTA Card */}
+            <div className="bg-white rounded-2xl border border-black/8 shadow-sm p-6">
+              <h2 className="font-serif text-lg font-bold text-[#1E2026] mb-4">Visit or Order</h2>
+              <div className="flex flex-col gap-2.5">
+
+                {/* Uber Eats (specific slugs only) */}
+                {['chef-mak-noodle-house', 'the-bento-bowl', 'kumo-sushi-ramen', 'crave-noodles'].includes(r.slug) && (
+                  <a
+                    href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="flex w-full items-center justify-center gap-3 px-4 py-2.5 rounded-none bg-[#1a1f2e] hover:bg-[#252b3b] text-white transition-colors"
+                  >
+                    <div className="flex flex-col leading-tight">
+                      <span className="text-white text-[11px] font-normal">Uber</span>
+                      <span className="text-[#06C167] text-[11px] font-bold">Eats</span>
+                    </div>
+                    <span className="text-white text-sm font-bold">Order Food</span>
+                  </a>
+                )}
+
+                {/* Order Now */}
+                {orderUrl && (
+                  <AuthGatedOutboundLink
+                    url={orderUrl}
+                    restaurantSlug={r.slug}
+                    restaurantName={r.name}
+                    destination="website"
+                    className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    Order Now
+                  </AuthGatedOutboundLink>
+                )}
+
+                {/* View Full Menu */}
+                {menuUrl && (
+                  <AuthGatedOutboundLink
+                    url={menuUrl}
+                    restaurantSlug={r.slug}
+                    restaurantName={r.name}
+                    destination="menu"
+                    className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-white border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    View Full Menu
+                  </AuthGatedOutboundLink>
+                )}
+
+                {/* Get Directions — plain anchor, no auth gate */}
+                {r.googleMapsLink && (
+                  <a
+                    href={r.googleMapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-medium transition-colors border border-black/8"
+                  >
+                    <Navigation2 className="w-4 h-4 text-[#B57F50]" />
+                    Get Directions
+                  </a>
+                )}
+
+                {/* Read Google Reviews — plain anchor, no auth gate */}
+                {r.placeId && (
+                  <a
+                    href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-medium transition-colors border border-black/8"
+                  >
+                    <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                    Read Google Reviews
+                    <ExternalLink className="w-3.5 h-3.5 text-[#9B9490]" />
+                  </a>
+                )}
+
+                {/* Share + Compare row */}
+                <div className="flex items-center gap-2 pt-1">
+                  <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
+                  <RestaurantCompareButton restaurant={r} />
                 </div>
               </div>
-              {r.placeId && (
-                <a
-                  href={`https://search.google.com/local/reviews?placeid=${r.placeId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#F5F4F0] hover:bg-[#eae9e5] border border-black/8 text-[#1E2026] text-sm font-medium transition-colors"
-                >
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                  Read Google Reviews
-                  <ExternalLink className="w-3 h-3 text-[#9B9490]" />
-                </a>
-              )}
             </div>
-          )}
-
-          {/* Primary action buttons */}
-          <div className="flex flex-wrap gap-3">
-            {['chef-mak-noodle-house', 'the-bento-bowl', 'kumo-sushi-ramen', 'crave-noodles'].includes(r.slug) && (
-              <a
-                href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl bg-[#1a1f2e] hover:bg-[#252b3b] text-white shadow-sm transition-colors"
-              >
-                <div className="flex flex-col leading-tight">
-                  <span className="text-white text-[11px] font-normal">Uber</span>
-                  <span className="text-[#06C167] text-[11px] font-bold">Eats</span>
-                </div>
-                <span className="text-white text-sm font-bold">Order Food</span>
-              </a>
-            )}
-            {orderUrl && (
-              <AuthGatedOutboundLink
-                url={orderUrl}
-                restaurantSlug={r.slug}
-                restaurantName={r.name}
-                destination="website"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold shadow-sm transition-colors"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                Order Now
-              </AuthGatedOutboundLink>
-            )}
-            {menuUrl && (
-              <AuthGatedOutboundLink
-                url={menuUrl}
-                restaurantSlug={r.slug}
-                restaurantName={r.name}
-                destination="menu"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-white border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors"
-              >
-                <BookOpen className="w-4 h-4" />
-                View Full Menu
-              </AuthGatedOutboundLink>
-            )}
-            {r.googleMapsLink && (
-              <AuthGatedOutboundLink
-                url={r.googleMapsLink}
-                restaurantSlug={r.slug}
-                restaurantName={r.name}
-                destination="directions"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-medium transition-colors"
-              >
-                <Navigation2 className="w-4 h-4 text-[#B57F50]" />
-                Get Directions
-              </AuthGatedOutboundLink>
-            )}
-            <div className="flex items-center gap-2 flex-wrap">
-              {!isOwner && (
-                <Link
-                  href="/claim-your-listing"
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors whitespace-nowrap"
-                >
-                  Claim This Business
-                </Link>
-              )}
-              <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
-              <RestaurantCompareButton restaurant={r} />
-            </div>
-          </div>
-        </div>
-
-        {/* ─── Two-column layout ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-8">
-
-          {/* ── Main column ── */}
-          <div className="lg:col-span-2 space-y-10">
 
             {/* About */}
             {(() => {
@@ -535,7 +533,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               if (!about) return null
               const paras = about.split('\n\n').filter(Boolean)
               return (
-                <section>
+                <section className="bg-white rounded-2xl border border-black/8 shadow-sm p-6">
                   <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">About {r.name}</h2>
                   <div className="space-y-3">
                     {paras.map((p, i) => (
@@ -546,8 +544,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               )
             })()}
 
-            {/* Quick-facts grid */}
-            <section>
+            {/* At a Glance */}
+            <section className="bg-white rounded-2xl border border-black/8 shadow-sm p-6">
               <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">At a Glance</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
@@ -571,7 +569,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   </div>
                 </div>
 
-                {/* Amenities highlights */}
+                {/* Amenities */}
                 <div className="sm:col-span-2">
                   <p className="text-xs font-semibold text-[#9B9490] uppercase tracking-widest mb-2">Features</p>
                   <div className="flex flex-wrap gap-2">
@@ -589,7 +587,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                       { active: r.amenities.parking,           label: '🅿️ Parking' },
                       { active: r.amenities.creditCards,       label: '💳 Credit Cards' },
                     ].filter(a => a.active).map(a => (
-                      <span key={a.label} className="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#1E2026] text-xs font-medium shadow-xs">
+                      <span key={a.label} className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-xs font-medium">
                         {a.label}
                       </span>
                     ))}
@@ -600,9 +598,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
             {/* Rating breakdown */}
             {totalReviews > 0 && (
-              <section>
+              <section className="bg-white rounded-2xl border border-black/8 shadow-sm p-6">
                 <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">Rating Breakdown</h2>
-                <div className="bg-[#F5F4F0] rounded-2xl border border-black/5 p-6">
+                <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6">
                   <div className="flex items-center gap-6 mb-6">
                     <div className="text-center">
                       <p className="font-bold text-5xl text-[#1E2026] leading-none">{r.rating?.toFixed(1)}</p>
@@ -650,13 +648,52 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
           </div>
 
-          {/* ── Sidebar ── */}
-          <div className="space-y-5">
+          {/* ── SIDEBAR ── */}
+          <div className="lg:col-span-2 space-y-6">
 
-            {/* Contact card */}
+            {/* Claim This Business — premium gold card for non-owners */}
+            {!isOwner && (
+              <div className="rounded-2xl bg-gradient-to-br from-[#B57F50] to-[#9a6b42] p-6 shadow-lg">
+                <Store className="w-8 h-8 text-white mb-4" />
+                <h3 className="font-serif text-lg font-bold text-white mb-2">Is this your restaurant?</h3>
+                <p className="text-white/80 text-sm leading-relaxed mb-4">
+                  Claim your free listing to update your hours, photos, and menu — and start attracting more customers.
+                </p>
+                <ul className="space-y-1.5 mb-5">
+                  {['Edit hours, photos & menu', 'Respond to reviews', 'Get discovered by more customers'].map(benefit => (
+                    <li key={benefit} className="flex items-center gap-2 text-white/90 text-sm">
+                      <span className="text-white font-bold">✓</span>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/claim/${city}/${state}/${restaurant}`}
+                  className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-white text-[#9a6b42] font-bold text-sm hover:bg-white/90 transition-colors"
+                >
+                  Claim This Listing →
+                </Link>
+              </div>
+            )}
+
+            {/* Owner manage panel */}
+            {isOwner && (
+              <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="w-5 h-5 text-sky-500" />
+                  <p className="font-bold text-[#1E2026] text-sm">You own this listing</p>
+                </div>
+                <p className="text-[#6B6862] text-xs leading-relaxed">Update your description, hours, phone, website and menu link.</p>
+                <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
+                  Manage Listing
+                </Link>
+              </div>
+            )}
+
+            {/* Contact & Info card */}
             <div className="rounded-2xl border border-black/8 bg-white shadow-sm overflow-hidden">
               <div className="px-5 pt-5 pb-4 border-b border-black/5">
-                <p className="font-bold text-[#1E2026] text-sm">Contact & Location</p>
+                <p className="font-bold text-[#1E2026] text-sm">Contact & Info</p>
               </div>
               <div className="px-5 py-4 space-y-3.5">
                 {r.address && (
@@ -727,43 +764,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   </div>
                 </div>
               )}
-
-              {/* CTA buttons */}
-              <div className="px-5 pb-5 pt-4 border-t border-black/5 space-y-2.5">
-                {orderUrl && (
-                  <AuthGatedOutboundLink url={orderUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="website"
-                    className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
-                    <ShoppingBag className="w-4 h-4" />Order Now
-                  </AuthGatedOutboundLink>
-                )}
-                {menuUrl && (
-                  <AuthGatedOutboundLink url={menuUrl} restaurantSlug={r.slug} restaurantName={r.name} destination="menu"
-                    className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors">
-                    <BookOpen className="w-4 h-4" />View Full Menu
-                  </AuthGatedOutboundLink>
-                )}
-                {r.googleMapsLink && (
-                  <AuthGatedOutboundLink url={r.googleMapsLink} restaurantSlug={r.slug} restaurantName={r.name} destination="directions"
-                    className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-medium transition-colors border border-black/8">
-                    <Navigation2 className="w-4 h-4 text-[#B57F50]" />Get Directions
-                  </AuthGatedOutboundLink>
-                )}
-              </div>
             </div>
-
-            {/* Owner manage panel */}
-            {isOwner && (
-              <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 space-y-3">
-                <div className="flex items-center gap-2">
-                  <BadgeCheck className="w-5 h-5 text-sky-500" />
-                  <p className="font-bold text-[#1E2026] text-sm">You own this listing</p>
-                </div>
-                <p className="text-[#6B6862] text-xs leading-relaxed">Update your description, hours, phone, website and menu link.</p>
-                <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
-                  Manage Listing
-                </Link>
-              </div>
-            )}
 
             {/* Mini map */}
             {r.latitude && r.longitude && (
