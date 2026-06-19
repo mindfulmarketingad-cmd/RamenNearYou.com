@@ -252,25 +252,25 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const supabase = await createClient()
   let isVerified = false
   let isOwner = false
-  {
-    // Use admin client to bypass RLS so any visitor sees the verified state
-    const claimsClient = createAdminClient() ?? supabase
-    if (claimsClient) {
-      const { data } = await claimsClient
-        .from('claims')
-        .select('id, user_id')
-        .eq('restaurant_slug', r.slug)
-        .eq('status', 'approved')
-        .maybeSingle()
-      isVerified = !!data
 
-      if (data?.user_id && supabase) {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user && user.id === data.user_id) isOwner = true
-      }
+  // Use admin client to bypass RLS so any visitor sees the verified/claimed state
+  const claimsClient = createAdminClient() ?? supabase
+  if (claimsClient) {
+    const { data } = await claimsClient
+      .from('claims')
+      .select('id, user_id')
+      .eq('restaurant_slug', r.slug)
+      .eq('status', 'approved')
+      .maybeSingle()
+    isVerified = !!data
+
+    if (data?.user_id && supabase) {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user && user.id === data.user_id) isOwner = true
     }
   }
 
+  if (supabase) {
     const { data: ov } = await supabase
       .from('restaurant_overrides')
       .select('description, phone, website, menu_link, hours')
