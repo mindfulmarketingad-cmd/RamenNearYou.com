@@ -759,6 +759,19 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               </div>
             )}
 
+            {/* Claim this business */}
+            {!isOwner && (
+              <div className="rounded-2xl border border-black/8 bg-[#F5F4F0] p-4 text-center">
+                <p className="text-[#6B6862] text-xs mb-2">Is this your restaurant?</p>
+                <Link
+                  href="/claim-your-listing"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+                >
+                  Claim this business →
+                </Link>
+              </div>
+            )}
+
             {/* Mini map */}
             {r.latitude && r.longitude && (
               <RestaurantMiniMapClient
