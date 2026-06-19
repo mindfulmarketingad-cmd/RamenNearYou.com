@@ -508,9 +508,15 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 Get Directions
               </AuthGatedOutboundLink>
             )}
-            <div className="flex items-center gap-2">
-              <VisitButton slug={r.slug} restaurantName={r.name} initialCount={0} />
-              <SaveButton slug={r.slug} restaurantName={r.name} />
+            <div className="flex items-center gap-2 flex-wrap">
+              {!isOwner && (
+                <Link
+                  href="/claim-your-listing"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors whitespace-nowrap"
+                >
+                  Claim This Business
+                </Link>
+              )}
               <ShareButton title={r.name} url={`https://www.ramennearyou.com/${city}/${state}/${restaurant}`} />
               <RestaurantCompareButton restaurant={r} />
             </div>
@@ -755,19 +761,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                 <p className="text-[#6B6862] text-xs leading-relaxed">Update your description, hours, phone, website and menu link.</p>
                 <Link href={`/owner/${r.slug}`} className="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-colors">
                   Manage Listing
-                </Link>
-              </div>
-            )}
-
-            {/* Claim this business */}
-            {!isOwner && (
-              <div className="rounded-2xl border border-black/8 bg-[#F5F4F0] p-4 text-center">
-                <p className="text-[#6B6862] text-xs mb-2">Is this your restaurant?</p>
-                <Link
-                  href="/claim-your-listing"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
-                >
-                  Claim this business →
                 </Link>
               </div>
             )}
