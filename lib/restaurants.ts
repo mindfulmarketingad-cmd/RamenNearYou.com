@@ -161,6 +161,25 @@ export function getTonkotsuCities(minCount = 2): Array<{ city: string; state: st
   return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
 }
 
+export function getRestaurantsByBrothAndCity(broth: BrothType, citySlug: string, stateSlug: string): Restaurant[] {
+  return restaurants.filter(
+    r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes(broth)
+  )
+}
+
+export function getCitiesForBroth(broth: BrothType, minCount = 2): Array<{ city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }> {
+  const map = new Map<string, { city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
+  for (const r of restaurants) {
+    if (!getBrothTypes(r).includes(broth)) continue
+    const key = `${r.citySlug}|${r.stateSlug}`
+    const entry = map.get(key)
+    if (entry) { entry.count++ } else {
+      map.set(key, { city: r.city, state: r.state, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
+    }
+  }
+  return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
+}
+
 export function getNearbyCities(citySlug: string, stateSlug: string, maxCount = 6): Array<{ city: string; stateCode: string; citySlug: string; stateSlug: string; count: number; distanceMiles: number }> {
   const cityRestaurants = restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug && r.latitude && r.longitude)
   if (!cityRestaurants.length) return []
