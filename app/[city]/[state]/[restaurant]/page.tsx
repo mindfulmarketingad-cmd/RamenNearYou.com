@@ -399,7 +399,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
               ))}
               {(isFeatured || isVerified) && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-white text-xs font-semibold backdrop-blur-sm border border-white/20">
-                  <BadgeCheck className="w-3.5 h-3.5" />Verified
+                  <BadgeCheck className="w-3.5 h-3.5 text-sky-400" />Verified
                 </span>
               )}
             </div>
