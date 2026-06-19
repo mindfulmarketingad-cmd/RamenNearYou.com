@@ -67,7 +67,7 @@ export default async function OwnerEditPage({ params }: { params: Promise<{ slug
         </div>
         <p className="text-[#6B6862] text-sm mb-6">{base.address}</p>
         <p className="text-[#6B6862] text-sm mb-8 leading-relaxed">
-          Edit the content shown on your listing. Changes go live immediately. Our team is notified of every edit for quality control.
+          Edit the content shown on your listing. Changes are reviewed by our team before going live, usually within 24 hours.
         </p>
 
         <OwnerEditForm slug={base.slug} restaurantName={base.name} initial={initial} />
