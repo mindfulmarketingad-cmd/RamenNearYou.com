@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Broth-by-city pages (e.g. /tonkotsu/houston/texas, /miso/chicago/illinois)
-  const tonkotsuCityPages = getTonkotsuCities(2).map((c) => ({
+  const tonkotsuCityPages = getTonkotsuCities(1).map((c) => ({
     url: `${BASE_URL}/tonkotsu/${c.citySlug}/${c.stateSlug}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly' as const,

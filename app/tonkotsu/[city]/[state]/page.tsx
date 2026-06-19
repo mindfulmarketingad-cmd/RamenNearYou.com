@@ -16,7 +16,7 @@ interface Props {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return getTonkotsuCities(2).map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  return getTonkotsuCities(1).map((c) => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
