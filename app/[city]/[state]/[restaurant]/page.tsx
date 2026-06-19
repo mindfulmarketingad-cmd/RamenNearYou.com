@@ -651,8 +651,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           {/* ── SIDEBAR ── */}
           <div className="lg:col-span-2 space-y-6">
 
-            {/* Claim This Business — premium gold card for non-owners */}
-            {!isOwner && (
+            {/* Claim This Business — only show if not yet claimed and not the owner */}
+            {!isOwner && !isVerified && (
               <div className="rounded-2xl bg-gradient-to-br from-[#B57F50] to-[#9a6b42] p-6 shadow-lg">
                 <Store className="w-8 h-8 text-white mb-4" />
                 <h3 className="font-serif text-lg font-bold text-white mb-2">Is this your restaurant?</h3>
