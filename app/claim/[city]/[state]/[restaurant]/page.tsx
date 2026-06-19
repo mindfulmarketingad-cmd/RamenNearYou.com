@@ -70,11 +70,17 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
             // Pricing wall
             <div className="space-y-6">
               <div className="bg-[#F5F4F0] rounded-2xl border border-black/5 p-8">
+                {/* Free trial badge */}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 text-xs font-semibold mb-5">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  14-Day Free Trial — $0 Up Front
+                </div>
+
                 <div className="flex items-end gap-2 mb-1">
                   <span className="font-serif text-5xl font-bold text-[#1E2026]">$19.99</span>
                   <span className="text-[#6B6862] text-sm mb-2">/month</span>
                 </div>
-                <p className="text-[#9B9490] text-sm mb-6">Cancel anytime. Billed monthly.</p>
+                <p className="text-[#9B9490] text-sm mb-6">After your free trial. Cancel anytime.</p>
 
                 <ul className="space-y-3 mb-8">
                   {BENEFITS.map(({ icon: Icon, text }) => (
@@ -89,11 +95,11 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
                   href={stripeLink}
                   className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
                 >
-                  Subscribe & Claim — $19.99/mo
+                  Start Free Trial — $0 Today
                 </a>
 
                 <p className="text-center text-xs text-[#9B9490] mt-4">
-                  After subscribing, return to this page to complete your claim.
+                  No charge for 14 days. After that, $19.99/mo. After subscribing, return here to complete your claim.
                 </p>
               </div>
 
