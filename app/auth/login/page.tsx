@@ -148,7 +148,7 @@ export default function LoginPage() {
             <span className="font-serif text-xl font-bold text-[#1E2026]">RamenNearYou</span>
           </Link>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Welcome back</h1>
-          <p className="text-[#6B6862] text-sm">Sign in to manage your listings</p>
+          <p className="text-[#6B6862] text-sm">Sign in to view menus, place orders, and claim or manage your restaurant listing</p>
         </div>
         <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8">
           <Suspense fallback={<div className="text-[#6B6862] text-sm text-center">Loading…</div>}>
