@@ -25,6 +25,7 @@ export default function RestaurantImage({ src, alt, fill, sizes, className, prio
       sizes={sizes}
       className={className}
       priority={priority}
+      unoptimized
       onError={() => setImgSrc(DEFAULT)}
     />
   )

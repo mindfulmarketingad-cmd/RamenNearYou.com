@@ -52,7 +52,7 @@ export function computeMapData(): MapPoint[] {
       latitude: r.latitude,
       longitude: r.longitude,
       rating: r.rating,
-      reviewCount: r.reviewCount,
+      reviewCount: r.reviewCount ?? 0,
       priceRange: r.priceRange,
       photo: r.photo,
       hours: r.hours,

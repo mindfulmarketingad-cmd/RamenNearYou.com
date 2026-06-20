@@ -191,7 +191,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
           <div style="min-width:160px">
             <strong style="font-size:13px">${r.name}</strong><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
-            ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)} (${r.reviewCount.toLocaleString()})</span>` : ''}
+            ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
           </div>
         `)
         .on('click', () => onSelect(r.slug))

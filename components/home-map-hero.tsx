@@ -244,7 +244,7 @@ export default function HomeMapHero() {
       if (closestActive || hasLocation) {
         list.sort((a, b) => a.distKm - b.distKm)
       } else {
-        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
+        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
       }
 
       return list.slice(0, 300)
@@ -584,13 +584,14 @@ export default function HomeMapHero() {
             ) : (
               <div className="divide-y divide-black/5">
                 {displayList.map(r => {
+                  const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}`
                   const active = r.slug === selectedSlug
                   const showDist = closestActive || hasLocation
                   const isVisited = visited.has(r.slug)
                   const isBest = r.slug === bestBowlSlug
                   return (
                     <Link
-                      key={r.slug}
+                      key={uid}
                       id={`home-card-${r.slug}`}
                       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
