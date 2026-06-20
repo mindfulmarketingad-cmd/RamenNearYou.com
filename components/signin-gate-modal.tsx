@@ -1,7 +1,6 @@
 'use client'
 
 import { X, UtensilsCrossed } from 'lucide-react'
-import { FREE_MONTHLY_LIMIT } from '@/lib/usage'
 
 interface Props {
   onClose: () => void
@@ -36,9 +35,8 @@ export default function SigninGateModal({ onClose, redirectTo = '/' }: Props) {
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
-          The map, full menus, and ordering are for members. Create a free
-          account to unlock them — you get <strong>{FREE_MONTHLY_LIMIT} free uses
-          every month</strong>, no payment required.
+          The map, full menus, and ordering are for members. Create a
+          <strong> free account</strong> to unlock them — no payment required.
         </p>
 
         <div className="flex flex-col gap-2.5">
