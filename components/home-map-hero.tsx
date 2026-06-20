@@ -11,6 +11,7 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import SigninGateModal from '@/components/signin-gate-modal'
+import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import AiRamenSearchPanel from '@/components/ai-ramen-search-panel'
 import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
@@ -106,16 +107,24 @@ export default function HomeMapHero() {
   const [searchingArea, setSearchingArea] = useState(false)
   const [bestBowlSlug, setBestBowlSlug] = useState<string | null>(null)
 
-  // Access gating: signed-out → sign-in modal; signed-in → full access.
-  const { evaluate } = useGate()
-  const [gateMode, setGateMode] = useState<null | 'signin'>(null)
+  // Access gating
+  const { evaluate, evaluatePremium } = useGate()
+  const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
 
   useEffect(() => { setVisited(loadPassport()) }, [])
 
-  // Returns true if the action may proceed; otherwise opens the sign-in gate.
+  // Returns true if the action may proceed; otherwise opens the appropriate gate.
   function requireAccess(): boolean {
-    if (evaluate() === 'ok') return true
-    setGateMode('signin')
+    const result = evaluate()
+    if (result === 'ok') return true
+    setGateMode(result)
+    return false
+  }
+  // requirePremium: also requires an active Ramen Pass subscription.
+  function requirePremium(): boolean {
+    const result = evaluatePremium()
+    if (result === 'ok') return true
+    setGateMode(result)
     return false
   }
   const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
@@ -279,7 +288,7 @@ export default function HomeMapHero() {
   }
 
   function handleBestBowl() {
-    if (!requireAccess()) return
+    if (!requirePremium()) return
     if (!displayList.length) return
     const best = [...displayList].sort(
       (a, b) => bestBowlScore(b, hasLocation) - bestBowlScore(a, hasLocation)
@@ -366,7 +375,7 @@ export default function HomeMapHero() {
             </button>
 
             <button
-              onClick={() => setShowAiPanel(true)}
+              onClick={() => { if (requirePremium()) setShowAiPanel(true) }}
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#7c3aed] hover:to-[#6366f1] shadow-sm transition-all"
             >
               <Sparkles className="w-3.5 h-3.5" /> Ramen Near Me AI
@@ -746,8 +755,8 @@ export default function HomeMapHero() {
         )}
       </div>
 
-      {/* Sign-in gate for guests */}
       {gateMode === 'signin' && <SigninGateModal onClose={() => setGateMode(null)} redirectTo="/" />}
+      {gateMode === 'subscribe' && <SubscribeGateModal onClose={() => setGateMode(null)} featureName="Ramen Pass features" />}
     </section>
   )
 }

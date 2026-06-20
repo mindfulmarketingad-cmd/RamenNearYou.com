@@ -1,13 +1,16 @@
 'use client'
 
-import { X, Sparkles } from 'lucide-react'
+import { X, Sparkles, Check } from 'lucide-react'
+
+const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
 
 interface Props {
   onClose: () => void
+  featureName?: string
 }
 
 // Shown to signed-in but unsubscribed users who try to access Ramen Pass features.
-export default function SubscribeGateModal({ onClose }: Props) {
+export default function SubscribeGateModal({ onClose, featureName = 'this feature' }: Props) {
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
@@ -24,24 +27,40 @@ export default function SubscribeGateModal({ onClose }: Props) {
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold mb-3">
-          Ramen Pass
+          Ramen Pass — $4.99/month
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-          Unlock Ramen Near Me AI
+          Unlock {featureName}
         </h2>
 
-        <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
-          Natural language ramen search is a <strong>Ramen Pass</strong> feature.
-          Subscribers get AI-powered recommendations, priority listings, and exclusive perks.
+        <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+          Start your <strong>free trial</strong> to access AI-powered ramen search,
+          Best Bowl picks, and more — cancel anytime.
         </p>
+
+        <ul className="text-left space-y-2 mb-6">
+          {[
+            'Ramen Near Me AI — natural language search',
+            'Best Bowl Near Me — instant ranked picks',
+            'Priority listings & exclusive perks',
+            'Free trial, then just $4.99/month',
+          ].map(item => (
+            <li key={item} className="flex items-start gap-2 text-sm text-[#1E2026]">
+              <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+              {item}
+            </li>
+          ))}
+        </ul>
 
         <div className="flex flex-col gap-2.5">
           <a
-            href="/ramen-pass"
+            href={STRIPE_CHECKOUT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            Get Ramen Pass
+            Start Free Trial — $0 Today
           </a>
           <button
             onClick={onClose}
@@ -50,6 +69,10 @@ export default function SubscribeGateModal({ onClose }: Props) {
             Maybe later
           </button>
         </div>
+
+        <p className="text-[#9B9490] text-[11px] mt-3">
+          Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a> to activate your access.
+        </p>
       </div>
     </div>
   )
