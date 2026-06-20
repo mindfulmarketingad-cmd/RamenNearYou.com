@@ -20,6 +20,9 @@ export const FIND_PAGES = [
   { href: '/find/cheap-ramen', label: 'Ramen Under $15 Near Me', emoji: '💰' },
   { href: '/find/ramen-date-night', label: 'Date Night Ramen Near Me', emoji: '🍷' },
   { href: '/find/ramen-lunch', label: 'Ramen for Lunch Near Me', emoji: '⏱️' },
+  { href: '/find/beef-ramen', label: 'Beef Ramen Near Me', emoji: '🥩' },
+  { href: '/find/thick-noodle-ramen', label: 'Thick Noodle Ramen Near Me', emoji: '🍜' },
+  { href: '/find/thin-noodle-ramen', label: 'Thin Noodle Ramen Near Me', emoji: '🍝' },
   { href: '/find/ramen-bars', label: 'Ramen Bars Near Me', emoji: '🍺' },
   { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me', emoji: '🗺️' },
 ]
