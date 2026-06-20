@@ -35,7 +35,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-          Start your <strong>free trial</strong> to access AI-powered ramen search,
+          Get unlimited access to AI-powered ramen search,
           Best Bowl picks, and more — cancel anytime.
         </p>
 
@@ -44,7 +44,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
             'Ramen Near Me AI — natural language search',
             'Best Bowl Near Me — instant ranked picks',
             'Priority listings & exclusive perks',
-            'Free trial, then just $4.99/month',
+            'Just $4.99/month, cancel anytime',
           ].map(item => (
             <li key={item} className="flex items-start gap-2 text-sm text-[#1E2026]">
               <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -60,7 +60,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
             rel="noopener noreferrer"
             className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            Start Free Trial — $0 Today
+            Subscribe — $4.99/month
           </a>
           <button
             onClick={onClose}
