@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
@@ -11,7 +11,8 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import SubscribeGateModal from '@/components/subscribe-gate-modal'
-import { createClient } from '@/lib/supabase/client'
+import SigninGateModal from '@/components/signin-gate-modal'
+import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
@@ -103,27 +104,25 @@ export default function HomeMapHero() {
   const [searchingArea, setSearchingArea] = useState(false)
   const [bestBowlSlug, setBestBowlSlug] = useState<string | null>(null)
 
-  // Access gating — existing signed-in users keep access; everyone else must
-  // start a subscription before using the map's features.
-  const [signedIn, setSignedIn] = useState<boolean | null>(null)
-  const [gateOpen, setGateOpen] = useState(false)
+  // Access gating: signed-out → sign-in modal; signed-in non-subscribers get
+  // 3 free uses/month then the subscribe modal; subscribers are unlimited.
+  const { evaluate, consume } = useGate()
+  const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
+  // The map only spends one free use per visit, no matter how many filters /
+  // chips the user toggles in that session.
+  const mapConsumedRef = useRef(false)
 
   useEffect(() => { setVisited(loadPassport()) }, [])
 
-  useEffect(() => {
-    const supabase = createClient()
-    if (!supabase) { setSignedIn(false); return }
-    supabase.auth.getUser().then(({ data }) => setSignedIn(!!data.user))
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      setSignedIn(!!session)
-    })
-    return () => subscription.unsubscribe()
-  }, [])
-
-  // Returns true if the action may proceed; otherwise opens the subscribe gate.
+  // Returns true if the action may proceed; otherwise opens the right gate.
   function requireAccess(): boolean {
-    if (signedIn === false) { setGateOpen(true); return false }
-    return true // signed in, or auth still resolving (don't gate prematurely)
+    const result = evaluate()
+    if (result === 'ok') {
+      if (!mapConsumedRef.current) { consume(); mapConsumedRef.current = true }
+      return true
+    }
+    setGateMode(result)
+    return false
   }
   const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
 
@@ -728,8 +727,9 @@ export default function HomeMapHero() {
         </button>
       </div>
 
-      {/* Subscription gate — shown when a non-subscriber uses a map feature */}
-      {gateOpen && <SubscribeGateModal onClose={() => setGateOpen(false)} />}
+      {/* Access gates — sign-in for guests, subscribe once free uses run out */}
+      {gateMode === 'signin' && <SigninGateModal onClose={() => setGateMode(null)} redirectTo="/" />}
+      {gateMode === 'subscribe' && <SubscribeGateModal onClose={() => setGateMode(null)} />}
     </section>
   )
 }

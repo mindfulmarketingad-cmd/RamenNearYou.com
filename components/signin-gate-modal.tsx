@@ -1,16 +1,17 @@
 'use client'
 
-import { X, Lock } from 'lucide-react'
+import { X, UtensilsCrossed } from 'lucide-react'
 import { FREE_MONTHLY_LIMIT } from '@/lib/usage'
-
-const STRIPE_SUBSCRIBE_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
 
 interface Props {
   onClose: () => void
+  redirectTo?: string
 }
 
-// Shown to signed-in members who have used all their free monthly uses.
-export default function SubscribeGateModal({ onClose }: Props) {
+// Shown to signed-out visitors when they try to use a members-only feature
+// (searchmap, ordering, full menus). Free account — no payment here.
+export default function SigninGateModal({ onClose, redirectTo = '/' }: Props) {
+  const next = encodeURIComponent(redirectTo)
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
@@ -23,42 +24,36 @@ export default function SubscribeGateModal({ onClose }: Props) {
         </button>
 
         <div className="w-14 h-14 rounded-full bg-[#B57F50]/10 flex items-center justify-center mx-auto mb-4">
-          <Lock className="w-6 h-6 text-[#B57F50]" />
+          <UtensilsCrossed className="w-6 h-6 text-[#B57F50]" />
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
-          14-Day Free Trial
+          Free Account
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-          Unlock All Features
+          Sign in to keep slurping
         </h2>
 
-        <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
-          <span className="text-[#6B6862] text-sm mb-2">today</span>
-        </div>
-
         <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
-          You&apos;ve used your {FREE_MONTHLY_LIMIT} free visits this month. Go
-          unlimited — menus, ordering, filters, Best Bowl Finder, heatmap, and
-          your Ramen Passport. Start your <strong>14-day free trial</strong> —
-          no cost upfront, then just <strong>$4.99/month</strong>. Cancel anytime.
+          The map, full menus, and ordering are for members. Create a free
+          account to unlock them — you get <strong>{FREE_MONTHLY_LIMIT} free uses
+          every month</strong>, no payment required.
         </p>
 
         <div className="flex flex-col gap-2.5">
           <a
-            href={STRIPE_SUBSCRIBE_URL}
+            href={`/auth/signup?redirectTo=${next}`}
             className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            Start Free Trial — $0 Today
+            Create Free Account
           </a>
-          <button
-            onClick={onClose}
+          <a
+            href={`/auth/login?redirectTo=${next}`}
             className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
           >
-            Maybe later
-          </button>
+            I already have an account
+          </a>
         </div>
       </div>
     </div>
