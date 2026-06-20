@@ -29,7 +29,7 @@ export default function SubscribeGateModal({ onClose }: Props) {
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-          Unlock the full ramen map
+          Unlock All Features
         </h2>
 
         <div className="flex items-end justify-center gap-1.5 mb-1">
