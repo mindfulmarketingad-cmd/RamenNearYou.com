@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { FIND_PAGES } from '@/components/find-cross-links'
 
 export const metadata: Metadata = {
   title: 'Find Ramen Near Me | Browse by Filter | RamenNearYou',
@@ -10,33 +9,69 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.ramennearyou.com/find' },
 }
 
+const CATEGORIES = [
+  {
+    heading: 'By Hours',
+    pages: [
+      { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me' },
+      { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me' },
+    ],
+  },
+  {
+    heading: 'By Broth',
+    pages: [
+      { href: '/find/tonkotsu-ramen', label: 'Tonkotsu Ramen Near Me' },
+      { href: '/find/miso-ramen', label: 'Miso Ramen Near Me' },
+      { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me' },
+      { href: '/find/shio-ramen', label: 'Shio Ramen Near Me' },
+      { href: '/find/spicy-ramen', label: 'Spicy Ramen Near Me' },
+    ],
+  },
+  {
+    heading: 'By Diet & Price',
+    pages: [
+      { href: '/find/vegan-ramen', label: 'Vegan Ramen Near Me' },
+      { href: '/find/cheap-ramen', label: 'Ramen Under $15 Near Me' },
+    ],
+  },
+  {
+    heading: 'By Venue',
+    pages: [
+      { href: '/find/ramen-bars', label: 'Ramen Bars Near Me' },
+      { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me' },
+    ],
+  },
+]
+
 export default function FindHubPage() {
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Find Ramen Near Me</h1>
-        <p className="text-[#6B6862] text-sm mb-8">
+        <p className="text-[#6B6862] text-sm mb-10">
           Browse ramen restaurants filtered by what you need right now.
         </p>
 
-        <div className="space-y-3">
-          {FIND_PAGES.map(f => (
-            <Link
-              key={f.href}
-              href={f.href}
-              className="flex items-center gap-4 p-4 bg-white rounded-xl border border-black/8 hover:border-[#B57F50]/40 hover:bg-[#B57F50]/4 transition-all group"
-            >
-              <span className="text-2xl shrink-0">{f.emoji}</span>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#c8934f] transition-colors">
-                  {f.label}
-                </p>
-              </div>
-              <svg className="w-4 h-4 text-[#1E2026]/20 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+        <div className="space-y-8">
+          {CATEGORIES.map(cat => (
+            <div key={cat.heading}>
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+                {cat.heading}
+              </h2>
+              <ul className="space-y-1">
+                {cat.pages.map(p => (
+                  <li key={p.href}>
+                    <Link
+                      href={p.href}
+                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                    >
+                      {p.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>
