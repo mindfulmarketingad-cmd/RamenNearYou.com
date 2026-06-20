@@ -107,6 +107,16 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     ambassador = ambassadorResult.data ?? null
   }
 
+  // Restaurant names, best-rated first — used for the SEO intro sentence.
+  const orderedNames = [...restaurants]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+    .map(r => r.name)
+  const nameList =
+    orderedNames.length === 1
+      ? orderedNames[0]
+      : orderedNames.slice(0, -1).join(', ') + ' and ' + orderedNames[orderedNames.length - 1]
+  const introSentence = `The best ramen restaurants in ${cityName}, ${stateName} are ${nameList}.`
+
   // Top restaurant for FAQ answer 1
   const topRated = [...restaurants]
     .filter(r => r.rating && r.reviewCount)
@@ -214,7 +224,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 Best Ramen Restaurants In {cityName}, {stateName}
               </h1>
               <p className="text-[#6B6862] text-lg mb-4">
-                Browse Ramen Restaurants In {cityName}, {stateCode}.
+                {introSentence}
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="text-[#6B6862]/60 text-sm">
