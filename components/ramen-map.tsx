@@ -109,12 +109,13 @@ interface Props {
   onUserMove?: (bounds: MapBounds) => void
   onMapCenter?: (center: { lat: number; lng: number }) => void
   centerLatLng?: { lat: number; lng: number } | null
+  userLocation?: { lat: number; lng: number } | null
   accentColor?: string
   heatmap?: boolean
   visitedSlugs?: Set<string>
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, accentColor = '#B57F50', heatmap = false, visitedSlugs }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -168,6 +169,12 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     if (!ready || !mapRef.current || !centerLatLng) return
     mapRef.current.flyTo([centerLatLng.lat, centerLatLng.lng], 13, { duration: 1.2 })
   }, [ready, centerLatLng])
+
+  // Fly to user's GPS location when geolocation is granted
+  useEffect(() => {
+    if (!ready || !mapRef.current || !userLocation) return
+    mapRef.current.flyTo([userLocation.lat, userLocation.lng], 13, { duration: 1.2 })
+  }, [ready, userLocation])
 
   // Add restaurant markers (hidden while heatmap mode is active)
   useEffect(() => {

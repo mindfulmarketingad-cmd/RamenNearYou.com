@@ -664,6 +664,7 @@ export default function HomeMapHero() {
               onUserMove={setVisibleBounds}
               onMapCenter={handleMapCenter}
               centerLatLng={geocodedCenter}
+              userLocation={userPos}
               accentColor={accentColor}
               heatmap={heatmap}
               visitedSlugs={visited}
