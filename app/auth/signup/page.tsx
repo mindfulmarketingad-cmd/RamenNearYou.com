@@ -92,6 +92,8 @@ export default function SignupPage() {
     }
   }
 
+  const STRIPE_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
+
   if (success) {
     return (
       <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
@@ -101,11 +103,19 @@ export default function SignupPage() {
           </div>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-3">Check your email</h1>
           <p className="text-[#6B6862] leading-relaxed mb-6">
-            We&apos;ve sent a confirmation link to <span className="text-[#1E2026]">{email}</span>. Click it to activate your account.
+            We&apos;ve sent a confirmation link to <span className="text-[#1E2026]">{email}</span>. Click it to activate your account, then start your free trial below.
           </p>
-          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
-            Back to sign in
-          </Link>
+          <div className="flex flex-col gap-3">
+            <a
+              href={STRIPE_URL}
+              className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+            >
+              Start Free Trial — $0 Today
+            </a>
+            <Link href="/auth/login" className="w-full inline-block px-4 py-2.5 rounded-none border border-black/10 text-[#1E2026] text-sm font-medium hover:border-black/20 transition-colors">
+              Back to sign in
+            </Link>
+          </div>
         </div>
       </main>
     )

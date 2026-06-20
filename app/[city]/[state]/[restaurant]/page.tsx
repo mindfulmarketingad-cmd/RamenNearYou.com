@@ -472,16 +472,16 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
                 {/* Order Now */}
                 {orderUrl && (
-                  <AuthGatedOutboundLink
+                  <SubscriptionGatedOutboundLink
                     url={orderUrl}
                     restaurantSlug={r.slug}
                     restaurantName={r.name}
-                    destination="website"
+                    destination="order"
                     className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     Order Now
-                  </AuthGatedOutboundLink>
+                  </SubscriptionGatedOutboundLink>
                 )}
 
                 {/* View Full Menu */}

@@ -9,6 +9,8 @@ interface Props {
 }
 
 export default function SubscribeGateModal({ onClose }: Props) {
+  const signupUrl = `/auth/signup?redirectTo=${encodeURIComponent(STRIPE_SUBSCRIBE_URL)}`
+
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
@@ -39,19 +41,20 @@ export default function SubscribeGateModal({ onClose }: Props) {
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
           Menus, ordering, filters, Best Bowl Finder, heatmap, and your Ramen
-          Passport are members-only. Start your <strong>14-day free trial</strong> —
-          no cost upfront, then just <strong>$4.99/month</strong>. Cancel anytime.
+          Passport are members-only. Create a free account, then start your{' '}
+          <strong>14-day free trial</strong> — no cost upfront, then just{' '}
+          <strong>$4.99/month</strong>. Cancel anytime.
         </p>
 
         <div className="flex flex-col gap-2.5">
           <a
-            href={STRIPE_SUBSCRIBE_URL}
+            href={signupUrl}
             className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            Start Free Trial — $0 Today
+            Create Account — Start Free Trial
           </a>
           <a
-            href="/auth/login"
+            href={`/auth/login?redirectTo=${encodeURIComponent(STRIPE_SUBSCRIBE_URL)}`}
             className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
           >
             I already have an account
