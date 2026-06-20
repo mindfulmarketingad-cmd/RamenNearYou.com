@@ -18,6 +18,7 @@ import PhotoSection from '@/components/photo-section'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import AuthGatedOutboundLink from '@/components/auth-gated-outbound-link'
+import SubscriptionGatedOutboundLink from '@/components/subscription-gated-outbound-link'
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
@@ -485,7 +486,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
                 {/* View Full Menu */}
                 {menuUrl && (
-                  <AuthGatedOutboundLink
+                  <SubscriptionGatedOutboundLink
                     url={menuUrl}
                     restaurantSlug={r.slug}
                     restaurantName={r.name}
@@ -494,7 +495,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   >
                     <BookOpen className="w-4 h-4" />
                     View Full Menu
-                  </AuthGatedOutboundLink>
+                  </SubscriptionGatedOutboundLink>
                 )}
 
                 {/* Get Directions — plain anchor, no auth gate */}

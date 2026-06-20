@@ -6,10 +6,11 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Flame, Clock, SlidersHorizontal,
-  PlusCircle, List as ListIcon, Map as MapIcon, Check, Trophy, Lock,
+  PlusCircle, List as ListIcon, Map as MapIcon, Check, Trophy,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
+import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import { createClient } from '@/lib/supabase/client'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
 import {
@@ -17,9 +18,6 @@ import {
   matchesPrice, bestBowlScore, type MapPoint,
 } from '@/lib/ramen-taxonomy'
 import { loadPassport, savePassport, earnedBadges, nextBadge } from '@/lib/passport'
-
-// Stripe payment link — $0 today, 14-day free trial, then $4.99/month.
-const STRIPE_SUBSCRIBE_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -220,33 +218,39 @@ export default function HomeMapHero() {
   }, [bowls, moods])
 
   const displayList = useMemo(() => {
-    const enriched = data.map(r => ({
-      ...r,
-      distKm: haversineKm(distanceOrigin.lat, distanceOrigin.lng, r.latitude!, r.longitude!),
-    }))
+    try {
+      const enriched = data.map(r => ({
+        ...r,
+        distKm: r.latitude != null && r.longitude != null
+          ? haversineKm(distanceOrigin.lat, distanceOrigin.lng, r.latitude, r.longitude)
+          : Infinity,
+      }))
 
-    let list = enriched.filter(r => {
-      if (flags.has('open-now') && !isOpenNow(r.hours)) return false
-      if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
-      if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
-      if (bowls.size > 0 && !r.bowls.some(k => bowls.has(k))) return false
-      if (moods.size > 0 && !r.moods.some(k => moods.has(k))) return false
-      if (prices.size > 0 && ![...prices].some(k => matchesPrice(r, k))) return false
-      return true
-    })
+      let list = enriched.filter(r => {
+        if (flags.has('open-now') && !isOpenNow(r.hours)) return false
+        if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
+        if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
+        if (bowls.size > 0 && !(r.bowls ?? []).some(k => bowls.has(k))) return false
+        if (moods.size > 0 && !(r.moods ?? []).some(k => moods.has(k))) return false
+        if (prices.size > 0 && ![...prices].some(k => matchesPrice(r, k))) return false
+        return true
+      })
 
-    if (localQuery.trim()) {
-      const q = localQuery.toLowerCase()
-      list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
+      if (localQuery.trim()) {
+        const q = localQuery.toLowerCase()
+        list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
+      }
+
+      if (closestActive || hasLocation) {
+        list.sort((a, b) => a.distKm - b.distKm)
+      } else {
+        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
+      }
+
+      return list.slice(0, 300)
+    } catch {
+      return []
     }
-
-    if (closestActive || hasLocation) {
-      list.sort((a, b) => a.distKm - b.distKm)
-    } else {
-      list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
-    }
-
-    return list.slice(0, 300)
   }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, closestActive, hasLocation])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
@@ -724,56 +728,7 @@ export default function HomeMapHero() {
       </div>
 
       {/* Subscription gate — shown when a non-subscriber uses a map feature */}
-      {gateOpen && (
-        <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
-            <button
-              onClick={() => setGateOpen(false)}
-              aria-label="Close"
-              className="absolute right-4 top-4 text-[#9B9490] hover:text-[#1E2026] transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="w-14 h-14 rounded-full bg-[#B57F50]/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-6 h-6 text-[#B57F50]" />
-            </div>
-
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
-              14-Day Free Trial
-            </div>
-
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-              Unlock the full ramen map
-            </h2>
-
-            <div className="flex items-end justify-center gap-1.5 mb-1">
-              <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
-              <span className="text-[#6B6862] text-sm mb-2">today</span>
-            </div>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
-              Filters, Best Bowl Finder, heatmap, late-night search and your Ramen
-              Passport are members-only. Start your <strong>14-day free trial</strong> —
-              no cost upfront, then just <strong>$4.99/month</strong>. Cancel anytime.
-            </p>
-
-            <div className="flex flex-col gap-2.5">
-              <a
-                href={STRIPE_SUBSCRIBE_URL}
-                className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
-              >
-                Start Free Trial — $0 Today
-              </a>
-              <a
-                href="/auth/login?redirectTo=/"
-                className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
-              >
-                I already have an account
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {gateOpen && <SubscribeGateModal onClose={() => setGateOpen(false)} />}
     </section>
   )
 }

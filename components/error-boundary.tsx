@@ -23,8 +23,9 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: unknown) {
-    // Swallow — the fallback keeps the page usable.
     if (process.env.NODE_ENV !== 'production') console.error('ErrorBoundary caught:', error)
+    // Auto-reset after a short delay so transient errors don't permanently hide content.
+    setTimeout(() => this.setState({ hasError: false }), 1500)
   }
 
   render() {

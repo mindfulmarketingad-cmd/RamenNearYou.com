@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
@@ -45,12 +44,8 @@ export default function HomePage() {
         <ErrorBoundary
           fallback={
             <section className="pt-16 bg-[#F5F4F0]">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 text-center">
-                <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">Find Ramen Near You</h1>
-                <p className="text-[#6B6862] text-sm mt-2 mb-5">The map is taking a break — browse ramen by city instead.</p>
-                <Link href="/cities" className="inline-block px-5 py-2.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors">
-                  Browse Cities
-                </Link>
+              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full border-2 border-[#B57F50] border-t-transparent animate-spin" />
               </div>
             </section>
           }
