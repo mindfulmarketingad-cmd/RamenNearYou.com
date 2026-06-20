@@ -112,6 +112,9 @@ export default function HomeMapHero() {
   const [selectedBroths, setSelectedBroths] = useState<Set<string>>(new Set())
   const [mobileView, setMobileView] = useState<MobileView>('map')
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
+  const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
+  const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
+  const [searchingArea, setSearchingArea] = useState(false)
 
   function requestLocation() {
     if (!('geolocation' in navigator)) { setGeoState('denied'); return }
@@ -227,6 +230,31 @@ export default function HomeMapHero() {
     setQuickFilters(new Set())
     setSelectedBroths(new Set())
     setLocalQuery('')
+  }
+
+  const handleMapCenter = useCallback((center: { lat: number; lng: number }) => {
+    setMapDragCenter(center)
+    setShowSearchAreaBtn(true)
+  }, [])
+
+  async function handleSearchArea() {
+    if (!mapDragCenter) return
+    setSearchingArea(true)
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${mapDragCenter.lat}&lon=${mapDragCenter.lng}`
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
+      const data = await res.json()
+      const zip: string | undefined = data?.address?.postcode?.replace(/[^0-9]/g, '').slice(0, 5)
+      if (zip) setLocationSearch(zip)
+      setGeocodedCenter(mapDragCenter)
+    } catch {
+      // silently fall back — just re-center without ZIP update
+      setGeocodedCenter(mapDragCenter)
+    } finally {
+      setSearchingArea(false)
+      setShowSearchAreaBtn(false)
+      setMapDragCenter(null)
+    }
   }
 
   return (
@@ -428,10 +456,26 @@ export default function HomeMapHero() {
             hoveredSlug={hoveredSlug}
             onSelect={handleSelect}
             onUserMove={setVisibleBounds}
+            onMapCenter={handleMapCenter}
             centerLatLng={geocodedCenter}
           />
 
-          {geoState === 'idle' && (
+          {/* Search this area button — appears after user drags the map */}
+          {showSearchAreaBtn && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
+              <button
+                onClick={handleSearchArea}
+                disabled={searchingArea}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-[#F5F4F0] text-[#1E2026] text-sm font-semibold shadow-lg shadow-black/25 border border-black/10 transition-colors disabled:opacity-70"
+              >
+                {searchingArea
+                  ? <><Loader2 className="w-4 h-4 animate-spin text-[#B57F50]" /> Searching…</>
+                  : <><Search className="w-4 h-4 text-[#B57F50]" /> Search this area</>}
+              </button>
+            </div>
+          )}
+
+          {geoState === 'idle' && !showSearchAreaBtn && (
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
               <button
                 onClick={requestLocation}

@@ -74,10 +74,11 @@ interface Props {
   hoveredSlug?: string | null
   onSelect: (slug: string) => void
   onUserMove?: (bounds: MapBounds) => void
+  onMapCenter?: (center: { lat: number; lng: number }) => void
   centerLatLng?: { lat: number; lng: number } | null
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, centerLatLng }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -159,19 +160,25 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     })
   }, [ready, restaurants, selectedSlug, onSelect])
 
-  // Bounds emit
+  // Bounds emit + center callback on user drag
   useEffect(() => {
-    if (!ready || !mapRef.current || !onUserMove) return
+    if (!ready || !mapRef.current) return
     const map = mapRef.current
-    function emit() {
+    function emitBounds() {
       if (!mapRef.current) return
       const b = mapRef.current.getBounds()
       onUserMove?.({ north: b.getNorth(), south: b.getSouth(), east: b.getEast(), west: b.getWest() })
     }
-    map.on('dragend', emit)
-    map.on('zoomend', emit)
-    return () => { map.off('dragend', emit); map.off('zoomend', emit) }
-  }, [ready, onUserMove])
+    function emitCenter() {
+      if (!mapRef.current) return
+      const c = mapRef.current.getCenter()
+      onMapCenter?.({ lat: c.lat, lng: c.lng })
+      emitBounds()
+    }
+    map.on('dragend', emitCenter)
+    map.on('zoomend', emitBounds)
+    return () => { map.off('dragend', emitCenter); map.off('zoomend', emitBounds) }
+  }, [ready, onUserMove, onMapCenter])
 
   // Update active marker icon + pan
   useEffect(() => {
