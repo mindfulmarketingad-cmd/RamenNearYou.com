@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { CAPITAL_CITIES } from '@/lib/capital-cities'
 
 export const metadata: Metadata = {
   title: 'Find Ramen Near Me | Browse by Filter | RamenNearYou',
@@ -93,6 +94,25 @@ export default function FindHubPage() {
               </ul>
             </div>
           ))}
+
+          {/* State Capitals */}
+          <div>
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+              By State Capital
+            </h2>
+            <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
+              {CAPITAL_CITIES.map(c => (
+                <li key={c.param} className="break-inside-avoid">
+                  <Link
+                    href={`/find/${c.param}`}
+                    className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                  >
+                    {c.city}, {c.stateCode}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <Footer />

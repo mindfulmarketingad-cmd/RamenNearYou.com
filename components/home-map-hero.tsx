@@ -74,6 +74,7 @@ interface HomeMapHeroProps {
   initialBowls?: string[]
   initialMoods?: string[]
   initialPrices?: string[]
+  initialCenter?: { lat: number; lng: number }
   pageTitle?: string
   pageDescription?: string
 }
@@ -83,6 +84,7 @@ export default function HomeMapHero({
   initialBowls = [],
   initialMoods = [],
   initialPrices = [],
+  initialCenter,
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
 }: HomeMapHeroProps) {
@@ -93,7 +95,7 @@ export default function HomeMapHero({
 
   const [geoState, setGeoState] = useState<GeoState>('idle')
   const [userPos, setUserPos] = useState<{ lat: number; lng: number } | null>(null)
-  const [geocodedCenter, setGeocodedCenter] = useState<{ lat: number; lng: number } | null>(null)
+  const [geocodedCenter, setGeocodedCenter] = useState<{ lat: number; lng: number } | null>(initialCenter ?? null)
   const [geocoding, setGeocoding] = useState(false)
   const [geocodeError, setGeocodeError] = useState('')
   const [locationSearch, setLocationSearch] = useState('')
