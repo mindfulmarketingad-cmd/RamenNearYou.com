@@ -33,7 +33,7 @@ function parseSlot(slot: string): { start: number; end: number } | null {
   return { start, end }
 }
 
-export function isOpenNow(hours: Record<string, string[]>): boolean | null {
+export function isOpenNow(hours: Record<string, string[]> | null): boolean | null {
   if (!hours || Object.keys(hours).length === 0) return null
   const now = new Date()
   const dayName = DAYS[now.getDay()]
@@ -48,6 +48,36 @@ export function isOpenNow(hours: Record<string, string[]>): boolean | null {
     if (currentMinutes >= parsed.start && currentMinutes < parsed.end) return true
   }
   return false
+}
+
+/** Latest closing time today in minutes from midnight (overnight slots > 1440). */
+export function latestCloseToday(hours: Record<string, string[]> | null): number | null {
+  if (!hours || Object.keys(hours).length === 0) return null
+  const slots = hours[DAYS[new Date().getDay()]]
+  if (!slots || slots.length === 0) return null
+  let latest: number | null = null
+  for (const slot of slots) {
+    if (slot === 'Closed') continue
+    const p = parseSlot(slot)
+    if (!p) continue
+    let end = p.end
+    if (p.start === 0 && p.end === 1440) end = 2880 // "Open 24 hours" → very late
+    else if (end <= p.start) end += 1440 // closes after midnight
+    if (latest === null || end > latest) latest = end
+  }
+  return latest
+}
+
+/** Open until `minClose` (default 9 PM) or later today. */
+export function isOpenLate(hours: Record<string, string[]> | null, minClose = 21 * 60): boolean {
+  const c = latestCloseToday(hours)
+  return c != null && c >= minClose
+}
+
+/** Open past midnight today. */
+export function isOpenPastMidnight(hours: Record<string, string[]> | null): boolean {
+  const c = latestCloseToday(hours)
+  return c != null && c > 1440
 }
 
 function minutesToLabel(minutes: number): string {
