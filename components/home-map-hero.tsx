@@ -11,6 +11,7 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import SigninGateModal from '@/components/signin-gate-modal'
+import AiRamenSearchPanel from '@/components/ai-ramen-search-panel'
 import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
 import {
@@ -90,6 +91,8 @@ export default function HomeMapHero() {
   const [moods, setMoods] = useState<Set<string>>(new Set())
   const [prices, setPrices] = useState<Set<string>>(new Set())
   const [showFilters, setShowFilters] = useState(false)
+
+  const [showAiPanel, setShowAiPanel] = useState(false)
 
   // Map modes
   const [heatmap, setHeatmap] = useState(false)
@@ -362,6 +365,13 @@ export default function HomeMapHero() {
               <Sparkles className="w-3.5 h-3.5" /> Best Bowl Near Me
             </button>
 
+            <button
+              onClick={() => setShowAiPanel(true)}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#7c3aed] hover:to-[#6366f1] shadow-sm transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5" /> Ramen Near Me AI
+            </button>
+
             <Chip active={flags.has('closest')} label="Closest" emoji="🧭"
               onClick={() => { if (!requireAccess()) return; if (!hasLocation) { requestLocation(); return } toggleFlag('closest') }} />
             <Chip active={flags.has('open-now')} label="Open Now" emoji="🟢"
@@ -520,7 +530,7 @@ export default function HomeMapHero() {
       )}
 
       {/* Map + list */}
-      <div className="relative h-[68vh] min-h-[460px] flex border-t border-black/8">
+      <div className="relative h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
         {/* Left list panel */}
         <div className={`w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0 ${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex`}>
           <div className="px-3 py-2.5 border-b border-black/8">
@@ -717,6 +727,23 @@ export default function HomeMapHero() {
             ? <><ListIcon className="w-4 h-4" /> Show list</>
             : <><MapIcon className="w-4 h-4" /> Show map</>}
         </button>
+
+        {/* AI ramen search panel — slides in over the map */}
+        {showAiPanel && (
+          <AiRamenSearchPanel
+            onClose={() => setShowAiPanel(false)}
+            allRestaurants={data}
+            userLat={userPos?.lat ?? geocodedCenter?.lat}
+            userLng={userPos?.lng ?? geocodedCenter?.lng}
+            onSelectSlug={(slug) => {
+              setSelectedSlug(slug)
+              setShowAiPanel(false)
+              setTimeout(() => {
+                document.getElementById(`home-card-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              }, 60)
+            }}
+          />
+        )}
       </div>
 
       {/* Sign-in gate for guests */}
