@@ -35,18 +35,17 @@ export default function FindCrossLinks({ currentHref }: Props) {
         <h2 className="text-xs font-bold uppercase tracking-widest text-[#9B9490] mb-4">
           More Ramen Searches Near Me
         </h2>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-x-5 gap-y-1">
           {FIND_PAGES.map(p => (
             <Link
               key={p.href}
               href={p.href}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm border transition-colors ${
+              className={`text-sm py-0.5 transition-colors ${
                 p.href === currentHref
-                  ? 'bg-[#1E2026] text-white border-[#1E2026] font-semibold'
-                  : 'bg-white text-[#1E2026] border-black/12 hover:border-[#B57F50]/50 hover:text-[#B57F50]'
+                  ? 'text-[#B57F50] font-semibold'
+                  : 'text-[#6B6862] hover:text-[#B57F50] hover:underline'
               }`}
             >
-              <span>{p.emoji}</span>
               {p.label}
             </Link>
           ))}

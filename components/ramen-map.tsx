@@ -9,6 +9,8 @@ import 'leaflet/dist/leaflet.css'
 export type MapRestaurant = {
   name: string
   slug: string
+  citySlug: string
+  stateSlug: string
   city: string
   stateCode: string
   latitude: number | null
@@ -196,7 +198,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
         .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
-            <strong style="font-size:13px">${r.name}</strong><br/>
+            <a href="/${r.citySlug}/${r.stateSlug}/${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
             ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
           </div>
