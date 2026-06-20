@@ -9,7 +9,7 @@ const SITEMAP = [
     links: [
       { label: 'Homepage', href: '/' },
       { label: 'Search Restaurants', href: '/search' },
-      { label: 'Ramen Near Me (Map)', href: '/searchmap' },
+      { label: 'Ramen Near Me (Map)', href: '/' },
       { label: 'Browse All Cities', href: '/cities' },
     ],
   },

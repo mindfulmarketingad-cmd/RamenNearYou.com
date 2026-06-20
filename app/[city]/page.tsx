@@ -48,7 +48,8 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     if (entry) entry.count++
     else cityGroups.set(r.citySlug, { city: r.city, citySlug: r.citySlug, count: 1 })
   }
-  const cities = Array.from(cityGroups.values()).sort((a, b) => a.city.localeCompare(b.city))
+  // Exclude single-restaurant cities — those don't have their own city page.
+  const cities = Array.from(cityGroups.values()).filter((c) => c.count >= 2).sort((a, b) => a.city.localeCompare(b.city))
 
   const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
 

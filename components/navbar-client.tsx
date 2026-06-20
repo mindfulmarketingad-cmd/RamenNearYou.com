@@ -59,7 +59,7 @@ export default function NavbarClient() {
           <div className="flex items-center gap-2">
             {/* Desktop nav links */}
             <nav className="hidden sm:flex items-center gap-1">
-              <Link href="/searchmap" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+              <Link href="/" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                 <Search className="w-3.5 h-3.5" />
                 Search
               </Link>
@@ -74,9 +74,6 @@ export default function NavbarClient() {
               </Link>
               <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                 Blog
-              </Link>
-              <Link href="/ramen-pass" className="px-3 py-2 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors rounded-lg hover:bg-[#B57F50]/5">
-                Ramen Pass
               </Link>
               {user ? (
                 <>
@@ -101,7 +98,7 @@ export default function NavbarClient() {
             </nav>
 
             <Link
-              href="/searchmap"
+              href="/"
               className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
             >
               <Utensils className="w-3.5 h-3.5" />
@@ -123,7 +120,7 @@ export default function NavbarClient() {
       {menuOpen && (
         <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
           <Link
-            href="/searchmap"
+            href="/"
             className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
             onClick={() => setMenuOpen(false)}
           >
@@ -132,7 +129,7 @@ export default function NavbarClient() {
           </Link>
 
           <nav className="flex flex-col gap-1 pt-3">
-            <Link href="/searchmap" className="flex items-center gap-2 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+            <Link href="/" className="flex items-center gap-2 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               <Search className="w-4 h-4 text-[#B57F50]" />
               Search
             </Link>
@@ -147,9 +144,6 @@ export default function NavbarClient() {
             </Link>
             <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               Blog
-            </Link>
-            <Link href="/ramen-pass" className="py-2 text-sm font-semibold text-[#B57F50]" onClick={() => setMenuOpen(false)}>
-              Ramen Pass
             </Link>
 
             {user ? (

@@ -145,12 +145,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/searchmap`,
-      lastModified: LAST_CONTENT,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
       url: `${BASE_URL}/featured/apply`,
       lastModified: LAST_CONTENT,
       changeFrequency: 'monthly' as const,

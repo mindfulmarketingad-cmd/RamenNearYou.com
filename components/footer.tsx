@@ -14,7 +14,7 @@ const footerLinks = {
     { label: 'Japanese Ramen Near Me', href: '/japanese-ramen-near-me' },
   ],
   Browse: [
-    { label: 'Search the Ramen Map', href: '/searchmap' },
+    { label: 'Search the Ramen Map', href: '/' },
     { label: 'Ramen Broth Types', href: '/broth' },
     { label: 'Browse Cities & States', href: '/cities' },
     { label: 'Compare Ramen Restaurants', href: '/compare' },

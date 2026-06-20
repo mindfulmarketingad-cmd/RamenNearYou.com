@@ -6,16 +6,20 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Flame, Clock, SlidersHorizontal,
-  PlusCircle, List as ListIcon, Map as MapIcon, Check, Trophy,
+  PlusCircle, List as ListIcon, Map as MapIcon, Check, Trophy, Lock,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
+import { createClient } from '@/lib/supabase/client'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   matchesPrice, bestBowlScore, type MapPoint,
 } from '@/lib/ramen-taxonomy'
 import { loadPassport, savePassport, earnedBadges, nextBadge } from '@/lib/passport'
+
+// Stripe payment link — $0 today, 14-day free trial, then $4.99/month.
+const STRIPE_SUBSCRIBE_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -101,7 +105,29 @@ export default function HomeMapHero() {
   const [searchingArea, setSearchingArea] = useState(false)
   const [bestBowlSlug, setBestBowlSlug] = useState<string | null>(null)
 
+  // Access gating — existing signed-in users keep access; everyone else must
+  // start a subscription before using the map's features.
+  const [signedIn, setSignedIn] = useState<boolean | null>(null)
+  const [gateOpen, setGateOpen] = useState(false)
+
   useEffect(() => { setVisited(loadPassport()) }, [])
+
+  useEffect(() => {
+    const supabase = createClient()
+    if (!supabase) { setSignedIn(false); return }
+    supabase.auth.getUser().then(({ data }) => setSignedIn(!!data.user))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSignedIn(!!session)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // Returns true if the action may proceed; otherwise opens the subscribe gate.
+  function requireAccess(): boolean {
+    if (signedIn === false) { setGateOpen(true); return false }
+    return true // signed in, or auth still resolving (don't gate prematurely)
+  }
+  const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
 
   // Fetch the slim map dataset once.
   useEffect(() => {
@@ -229,6 +255,7 @@ export default function HomeMapHero() {
 
   async function handleSearchArea() {
     if (!mapDragCenter) return
+    if (!requireAccess()) return
     setSearchingArea(true)
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${mapDragCenter.lat}&lon=${mapDragCenter.lng}`
@@ -247,6 +274,7 @@ export default function HomeMapHero() {
   }
 
   function handleBestBowl() {
+    if (!requireAccess()) return
     if (!displayList.length) return
     const best = [...displayList].sort(
       (a, b) => bestBowlScore(b, hasLocation) - bestBowlScore(a, hasLocation)
@@ -301,7 +329,7 @@ export default function HomeMapHero() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
             <form
-              onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
+              onSubmit={e => { e.preventDefault(); if (!requireAccess()) return; geocodeLocation(locationSearch) }}
               className="relative shrink-0"
             >
               <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
@@ -333,12 +361,12 @@ export default function HomeMapHero() {
             </button>
 
             <Chip active={flags.has('closest')} label="Closest" emoji="🧭"
-              onClick={() => { if (!hasLocation) { requestLocation(); return } toggleFlag('closest') }} />
+              onClick={() => { if (!requireAccess()) return; if (!hasLocation) { requestLocation(); return } toggleFlag('closest') }} />
             <Chip active={flags.has('open-now')} label="Open Now" emoji="🟢"
-              onClick={() => toggleFlag('open-now')} />
+              onClick={withGate(() => toggleFlag('open-now'))} />
 
             <button
-              onClick={() => setShowFilters(v => !v)}
+              onClick={withGate(() => setShowFilters(v => !v))}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                 showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}
@@ -352,7 +380,7 @@ export default function HomeMapHero() {
             <div className="h-5 w-px bg-black/10 shrink-0" />
 
             <button
-              onClick={() => setHeatmap(v => !v)}
+              onClick={withGate(() => setHeatmap(v => !v))}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                 heatmap ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}
@@ -360,7 +388,7 @@ export default function HomeMapHero() {
               <Flame className="w-3.5 h-3.5" /> Heatmap
             </button>
             <button
-              onClick={() => setPassportMode(v => !v)}
+              onClick={withGate(() => setPassportMode(v => !v))}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                 passportMode ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}
@@ -499,7 +527,8 @@ export default function HomeMapHero() {
               <input
                 type="text"
                 value={localQuery}
-                onChange={e => setLocalQuery(e.target.value)}
+                onFocus={() => requireAccess()}
+                onChange={e => { if (!requireAccess()) return; setLocalQuery(e.target.value) }}
                 placeholder="Search restaurants…"
                 className="w-full pl-8 pr-8 py-2 text-sm bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
               />
@@ -655,7 +684,7 @@ export default function HomeMapHero() {
           {geoState === 'idle' && !showSearchAreaBtn && !dataLoading && (
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
               <button
-                onClick={requestLocation}
+                onClick={withGate(requestLocation)}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
               >
                 <Navigation className="w-4 h-4" /> Use my location
@@ -685,6 +714,58 @@ export default function HomeMapHero() {
             : <><MapIcon className="w-4 h-4" /> Show map</>}
         </button>
       </div>
+
+      {/* Subscription gate — shown when a non-subscriber uses a map feature */}
+      {gateOpen && (
+        <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
+            <button
+              onClick={() => setGateOpen(false)}
+              aria-label="Close"
+              className="absolute right-4 top-4 text-[#9B9490] hover:text-[#1E2026] transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-14 h-14 rounded-full bg-[#B57F50]/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-6 h-6 text-[#B57F50]" />
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
+              14-Day Free Trial
+            </div>
+
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
+              Unlock the full ramen map
+            </h2>
+
+            <div className="flex items-end justify-center gap-1.5 mb-1">
+              <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
+              <span className="text-[#6B6862] text-sm mb-2">today</span>
+            </div>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
+              Filters, Best Bowl Finder, heatmap, late-night search and your Ramen
+              Passport are members-only. Start your <strong>14-day free trial</strong> —
+              no cost upfront, then just <strong>$4.99/month</strong>. Cancel anytime.
+            </p>
+
+            <div className="flex flex-col gap-2.5">
+              <a
+                href={STRIPE_SUBSCRIBE_URL}
+                className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+              >
+                Start Free Trial — $0 Today
+              </a>
+              <a
+                href="/auth/login?redirectTo=/"
+                className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
+              >
+                I already have an account
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

@@ -30,7 +30,9 @@ export function getCities() {
       map.set(key, { city: r.city, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
     }
   }
-  return Array.from(map.values()).sort((a,b) => b.count - a.count)
+  // Only surface cities with 2+ ramen listings — single-restaurant cities
+  // don't warrant their own directory page.
+  return Array.from(map.values()).filter(c => c.count >= 2).sort((a,b) => b.count - a.count)
 }
 
 export function getStates() {

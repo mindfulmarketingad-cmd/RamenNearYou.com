@@ -46,6 +46,11 @@ const nextConfig = {
     ])
 
     return [
+      // Removed sections — fold back into the homepage map
+      { source: '/searchmap', destination: '/', permanent: true },
+      { source: '/ramen-pass', destination: '/', permanent: true },
+      { source: '/pass', destination: '/', permanent: true },
+      { source: '/join', destination: '/', permanent: true },
       // Specific slug fixes
       {
         source: '/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9',
