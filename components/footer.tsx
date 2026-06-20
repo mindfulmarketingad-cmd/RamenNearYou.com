@@ -2,21 +2,36 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const footerLinks = {
+  'Ramen Near Me': [
+    { label: 'Tonkotsu Ramen Near Me', href: '/tonkotsu-ramen-near-me' },
+    { label: 'Spicy Ramen Near Me', href: '/spicy-ramen-near-me' },
+    { label: 'Miso Ramen Near Me', href: '/miso-ramen-near-me' },
+    { label: 'Shoyu Ramen Near Me', href: '/shoyu-ramen-near-me' },
+    { label: 'Vegan Ramen Near Me', href: '/vegan-ramen-near-me' },
+    { label: 'Vegetarian Ramen Near Me', href: '/vegetarian-ramen-near-me' },
+    { label: 'Korean Ramen Near Me', href: '/korean-ramen-near-me' },
+    { label: 'Japanese Ramen Near Me', href: '/japanese-ramen-near-me' },
+  ],
   Browse: [
-    { label: 'Browse Cities', href: '/cities' },
-    { label: 'Broth Types', href: '/broth' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Catering', href: '/catering' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Search the Ramen Map', href: '/searchmap' },
+    { label: 'Ramen Broth Types', href: '/broth' },
+    { label: 'Browse Cities & States', href: '/cities' },
+    { label: 'Compare Ramen Restaurants', href: '/compare' },
+    { label: 'Ramen Products & Kits', href: '/products' },
+    { label: 'Restaurant Reviews', href: '/reviews' },
+    { label: 'Ramen Blog & Guides', href: '/blog' },
+    { label: 'Ramen FAQ', href: '/faq' },
   ],
   Restaurants: [
     { label: 'List Your Restaurant', href: '/list' },
-    { label: 'Claim a Listing', href: '/cities' },
+    { label: 'Claim Your Listing', href: '/claim-your-listing' },
     { label: 'Get Catering Leads', href: '/catering' },
+    { label: 'Become an Ambassador', href: '/ambassador' },
+    { label: 'Apply to Be Featured', href: '/featured/apply' },
   ],
   Company: [
-    { label: 'About', href: '/about' },
+    { label: 'About RamenNearYou', href: '/about' },
+    { label: 'Contact Us', href: '/contact' },
     { label: 'Privacy Policy', href: '/privacy-policy' },
     { label: 'Terms of Service', href: '/terms-of-service' },
   ],
@@ -26,7 +41,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-4">

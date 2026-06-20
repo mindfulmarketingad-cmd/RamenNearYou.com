@@ -123,6 +123,7 @@ function SearchMapInner() {
   const cityParam = searchParams.get('city')
   const stateParam = searchParams.get('state')
   const qParam = searchParams.get('q')?.trim() ?? ''
+  const zipParam = searchParams.get('zip')?.trim() ?? ''
 
   const qRestaurants = useMemo(() => {
     if (!qParam) return null
@@ -168,17 +169,22 @@ function SearchMapInner() {
   const [geocodeError, setGeocodeError] = useState('')
 
   async function geocodeLocation(query: string) {
-    if (!query.trim()) return
+    const clean = query.trim()
+    if (!clean) return
+    if (!/^\d{5}$/.test(clean)) {
+      setGeocodeError('Please enter a valid 5-digit ZIP code')
+      return
+    }
     setGeocoding(true)
     setGeocodeError('')
     try {
-      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=us&limit=1`
+      const url = `https://nominatim.openstreetmap.org/search?format=json&postalcode=${encodeURIComponent(clean)}&countrycodes=us&limit=1`
       const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
       const data = await res.json()
       if (data.length > 0) {
         setGeocodedCenter({ lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) })
       } else {
-        setGeocodeError('Location not found — try a city, state, or ZIP code')
+        setGeocodeError('ZIP code not found — check the number and try again')
       }
     } catch {
       setGeocodeError('Search failed — check your connection')
@@ -186,6 +192,14 @@ function SearchMapInner() {
       setGeocoding(false)
     }
   }
+
+  useEffect(() => {
+    if (zipParam && /^\d{5}$/.test(zipParam)) {
+      setLocationSearch(zipParam)
+      geocodeLocation(zipParam)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zipParam])
 
   // Filter state
   const [distanceMiles, setDistanceMiles] = useState<DistanceMiles>(20)
@@ -342,7 +356,7 @@ function SearchMapInner() {
               : <Navigation className="w-7 h-7 text-[#B57F50]" />}
           </div>
           <h1 className="font-serif text-2xl font-bold text-[#1E2026]">
-            {geoState === 'loading' ? 'Getting your location…' : 'Ramen Near Me'}
+            {geoState === 'loading' ? 'Getting your location…' : 'Ramen Map | Searchmap For Ramen Restaurants'}
           </h1>
           {geoState === 'idle' && (
             <>
@@ -368,7 +382,7 @@ function SearchMapInner() {
         <Navbar />
         <div className="flex-1 flex flex-col items-center justify-center gap-5 px-4 text-center">
           <MapPin className="w-10 h-10 text-[#B57F50]/50" />
-          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">Location access denied</h1>
+          <h1 className="font-serif text-2xl font-bold text-[#1E2026]">Ramen Map | Searchmap For Ramen Restaurants</h1>
           <p className="text-[#6B6862] text-sm max-w-xs">{geoError || 'Enable location in your browser settings and try again.'}</p>
           <div className="flex gap-3 flex-wrap justify-center">
             <button
@@ -402,9 +416,11 @@ function SearchMapInner() {
                 <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
                 <input
                   type="text"
+                  inputMode="numeric"
+                  maxLength={5}
                   value={locationSearch}
-                  onChange={e => { setLocationSearch(e.target.value); setGeocodeError('') }}
-                  placeholder="Search by city, state, or ZIP…"
+                  onChange={e => { setLocationSearch(e.target.value.replace(/\D/g, '')); setGeocodeError('') }}
+                  placeholder="Enter ZIP code…"
                   className="w-full pl-8 pr-16 py-2 text-sm bg-white border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
                 />
                 <button
@@ -795,9 +811,11 @@ function SearchMapInner() {
                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
                     <input
                       type="text"
+                      inputMode="numeric"
+                      maxLength={5}
                       value={locationSearch}
-                      onChange={e => { setLocationSearch(e.target.value); setGeocodeError('') }}
-                      placeholder="City, state, or ZIP…"
+                      onChange={e => { setLocationSearch(e.target.value.replace(/\D/g, '')); setGeocodeError('') }}
+                      placeholder="Enter ZIP code…"
                       className="w-full pl-8 pr-14 py-2.5 text-sm bg-white border border-black/8 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
                     />
                     <button

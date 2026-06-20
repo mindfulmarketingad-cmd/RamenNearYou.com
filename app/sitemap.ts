@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
-import { getCities, getRestaurantsByCity, getStates } from '@/lib/restaurants'
+import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities } from '@/lib/restaurants'
+import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
 
 const BASE_URL = 'https://www.ramennearyou.com'
@@ -40,6 +41,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: LAST_CONTENT,
     changeFrequency: 'monthly' as const,
     priority: 0.5,
+  }))
+
+  // City × filter pages (e.g. /atlanta/georgia/tonkotsu-ramen)
+  const cityFilterPages = getCityFilterStaticParams().map((p) => ({
+    url: `${BASE_URL}/${p.city}/${p.state}/${p.restaurant}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
+  // Tonkotsu-by-city pages (e.g. /tonkotsu/houston/texas)
+  const tonkotsuCityPages = getTonkotsuCities(2).map((c) => ({
+    url: `${BASE_URL}/tonkotsu/${c.citySlug}/${c.stateSlug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
   }))
 
   return [
@@ -172,6 +189,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogPostPages,
     ...statePages,
     ...cityPages,
+    ...cityFilterPages,
+    ...tonkotsuCityPages,
     ...restaurantPages,
   ]
 }

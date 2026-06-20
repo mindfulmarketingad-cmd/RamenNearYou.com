@@ -11,6 +11,8 @@ export type RestaurantCard = {
   citySlug: string
   stateSlug: string
   tags: string[]
+  lat?: number
+  lng?: number
 }
 
 export interface BlogPost {
@@ -29,6 +31,8 @@ export interface BlogPost {
   author?: { name: string; avatar: string }
   listHeading?: string
   additionalSchema?: object
+  rankingNote?: string
+  imageFirst?: boolean
 }
 
 const atlantaTop10: RestaurantCard[] = [
@@ -8251,6 +8255,8887 @@ blogPosts.push({
   outroContent: `<h2>Where to Find the Best Ramen in San Francisco</h2><p>San Francisco's best ramen is concentrated in Japantown (HINODEYA Japantown, Marufuku, Udon Mugizo, Kui Shin Bo, Waraku), the Mission District (Taishoken SF, Ramenwell, Fumi, Coco's), and the Marina (HINODEYA Chestnut, Torraku). For the highest-rated bowl in the city, Denya Ramen on Polk St is the emerging answer, while Mensho Tokyo SF on Geary remains the most celebrated destination. Marufuku in Japantown is where to go for authentic Hakata tonkotsu. Whatever neighborhood you're in, SF's ramen scene will not disappoint.</p>`,
 })
 
+// ─── Vegan Restaurant Cards ───────────────────────────────────────────────────
+
+const veganDetroitTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Detroit Vegan Soul',
+    rating: 4.6,
+    reviewCount: 842,
+    address: '8029 Agnes St, Detroit, MI 48214',
+    phone: '+1 313-649-1699',
+    description: "Detroit's premier plant-based soul food restaurant. Detroit Vegan Soul has redefined comfort food in the Motor City — their jackfruit BBQ, mac 'n' yease, and collard greens have earned a devoted following across the city. If you're looking for the best vegan food in Detroit, this is the spot to start.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'detroit-vegan-soul',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Soul Food', 'Plant-Based'],
+    lat: 42.3736, lng: -83.0457,
+  },
+  {
+    rank: 2,
+    name: 'Seva Restaurant',
+    rating: 4.4,
+    reviewCount: 1198,
+    address: '66 E Forest Ave, Detroit, MI 48201',
+    phone: '+1 313-974-6661',
+    description: "One of Detroit's longest-running vegetarian restaurants, Seva has served the Midtown community for decades. Their eclectic global menu — from Thai curries to Mexican bowls — is almost entirely vegan-adaptable. Over 1,000 reviews make it a true Detroit institution.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'seva-restaurant-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegetarian', 'Vegan Options', 'Midtown'],
+    lat: 42.3537, lng: -83.0619,
+  },
+  {
+    rank: 3,
+    name: 'GreenSpace Cafe',
+    rating: 4.5,
+    reviewCount: 891,
+    address: '215 W 9 Mile Rd, Ferndale, MI 48220',
+    phone: '+1 248-547-9291',
+    description: 'Upscale plant-based dining in Ferndale, just north of Detroit. GreenSpace Cafe serves a creative seasonal menu of globally inspired vegan dishes — think mushroom Wellington, cashew cream pastas, and raw desserts — in an elegant, welcoming space.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'greenspace-cafe',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Upscale', 'Seasonal'],
+    lat: 42.4604, lng: -83.1333,
+  },
+  {
+    rank: 4,
+    name: 'Ima Noodles',
+    rating: 4.5,
+    reviewCount: 1447,
+    address: '2015 Michigan Ave, Detroit, MI 48216',
+    phone: '+1 313-502-5959',
+    description: "Detroit's beloved Japanese noodle house with an extensive plant-based menu. Ima crafts deeply flavored broths, housemade noodles, and vegan toppings that rival any meat-forward bowl. Their vegan mazemen (brothless ramen) is one of the city's best dishes.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'ima-noodles-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Noodles', 'Japanese'],
+    lat: 42.3285, lng: -83.0817,
+  },
+  {
+    rank: 5,
+    name: 'Flowers of Vietnam',
+    rating: 4.5,
+    reviewCount: 673,
+    address: '5433 Woodward Ave, Detroit, MI 48202',
+    phone: '+1 313-462-1788',
+    description: 'A beloved Vietnamese restaurant in the New Center area with an extensive vegan section. Flowers of Vietnam serves fragrant pho, bánh mì, and rice bowls with a dedicated plant-based menu — light, bright flavors that keep locals coming back weekly.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'flowers-of-vietnam-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Vietnamese', 'Plant-Based'],
+    lat: 42.3698, lng: -83.0626,
+  },
+  {
+    rank: 6,
+    name: 'Green Garden',
+    rating: 4.4,
+    reviewCount: 1087,
+    address: '21100 Greenfield Rd, Oak Park, MI 48237',
+    phone: '+1 248-968-5800',
+    description: 'A Chinese vegan restaurant serving the greater Detroit area with an entirely plant-based menu. Green Garden uses traditional Chinese cooking techniques to create mock-meat dishes, tofu braises, and vegetable stir-fries that are satisfying and deeply flavorful.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'green-garden-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan', 'Chinese', 'Mock Meat'],
+    lat: 42.4657, lng: -83.1789,
+  },
+  {
+    rank: 7,
+    name: 'Sister Pie',
+    rating: 4.7,
+    reviewCount: 2341,
+    address: '8066 Agnes St, Detroit, MI 48214',
+    phone: '+1 313-447-5550',
+    description: 'Detroit\'s most beloved bakery with an impressive range of vegan pies, cookies, and savory baked goods. Sister Pie rotates seasonal offerings and clearly labels all vegan items. The lines are long and the pies are worth every minute of waiting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sister-pie-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Bakery', 'Desserts'],
+    lat: 42.3609, lng: -82.9980,
+  },
+  {
+    rank: 8,
+    name: 'Maru Detroit',
+    rating: 4.5,
+    reviewCount: 318,
+    address: '4120 Woodward Ave, Detroit, MI 48201',
+    phone: '+1 313-285-5700',
+    description: 'A modern Korean-Japanese fusion spot in Midtown with a strong vegan-friendly menu. Maru Detroit serves plant-based bibimbap, tofu hot pots, and vegetable-forward small plates in a sleek, contemporary space. One of Detroit\'s most exciting newer restaurants.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'maru-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Korean', 'Japanese'],
+    lat: 42.3581, lng: -83.0627,
+  },
+  {
+    rank: 9,
+    name: 'Cass Cafe',
+    rating: 4.2,
+    reviewCount: 967,
+    address: '4620 Cass Ave, Detroit, MI 48201',
+    phone: '+1 313-831-1400',
+    description: 'A Midtown institution serving eclectic American food with strong vegan options since 1993. Cass Cafe doubles as an art gallery and neighborhood gathering space. Their plant-based burgers, salads, and sandwiches are reliable and affordable.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cass-cafe-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'American', 'Art Gallery'],
+    lat: 42.3594, lng: -83.0633,
+  },
+  {
+    rank: 10,
+    name: 'Motor City Java House',
+    rating: 4.4,
+    reviewCount: 521,
+    address: '7436 E Jefferson Ave, Detroit, MI 48214',
+    phone: '+1 313-441-9393',
+    description: 'A community-centered coffee house in Jefferson-Chalmers with a growing plant-based food menu. Motor City Java House serves dairy-free lattes, vegan pastries, and light plant-based meals in a welcoming neighborhood setting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'motor-city-java-house',
+    citySlug: 'detroit',
+    stateSlug: 'mi',
+    tags: ['Vegan Options', 'Coffee', 'Community'],
+    lat: 42.3629, lng: -82.9902,
+  },
+]
+
+const veganLATop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Gracias Madre',
+    rating: 4.5,
+    reviewCount: 3821,
+    address: '8905 Melrose Ave, West Hollywood, CA 90069',
+    phone: '+1 323-978-2170',
+    description: "West Hollywood's iconic plant-based Mexican restaurant from the McEvoy Ranch family. Gracias Madre's organic, vegan menu features wood-fired tacos, housemade tortillas, and agave cocktails. Nearly 4,000 reviews and consistent 4.5-star quality make it LA's most celebrated vegan restaurant.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'gracias-madre-weho',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Mexican', 'Organic'],
+    lat: 34.0769, lng: -118.3813,
+  },
+  {
+    rank: 2,
+    name: 'Crossroads Kitchen',
+    rating: 4.4,
+    reviewCount: 2893,
+    address: '8284 Melrose Ave, Los Angeles, CA 90046',
+    phone: '+1 323-782-9245',
+    description: "Chef Tal Ronnen's upscale vegan restaurant on Melrose is a celebrity favorite and a landmark of LA's plant-based dining scene. Crossroads serves sophisticated Italian-inspired dishes — artichoke oysters, cashew cheese plates, house-made pastas — in an elegant setting.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'crossroads-kitchen-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Upscale', 'Italian-Inspired'],
+    lat: 34.0842, lng: -118.3574,
+  },
+  {
+    rank: 3,
+    name: 'Café Gratitude DTLA',
+    rating: 4.6,
+    reviewCount: 2134,
+    address: '300 S Santa Fe Ave, Los Angeles, CA 90013',
+    phone: '+1 213-929-5580',
+    description: "Café Gratitude's Arts District location brings their celebrated organic, plant-based menu to Downtown LA. Affirmation-named dishes (I Am Grateful, I Am Radiant), house-pressed juices, and a warm community vibe have made this the anchor of LA's conscious dining movement.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-gratitude-dtla',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Raw'],
+    lat: 34.0413, lng: -118.2326,
+  },
+  {
+    rank: 4,
+    name: 'Shojin',
+    rating: 4.6,
+    reviewCount: 1847,
+    address: '333 S Alameda St #310, Los Angeles, CA 90013',
+    phone: '+1 213-617-0305',
+    description: "LA's finest Japanese plant-based restaurant, rooted in Buddhist temple cuisine (shojin ryori). Shojin serves exquisitely crafted vegan sushi, tempura, and seasonal bento boxes in Little Tokyo's Japanese Village Plaza. The most refined vegan dining experience in Los Angeles.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'shojin-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Sushi'],
+    lat: 34.0441, lng: -118.2355,
+  },
+  {
+    rank: 5,
+    name: 'Little Pine',
+    rating: 4.4,
+    reviewCount: 2601,
+    address: '2870 Rowena Ave, Los Angeles, CA 90039',
+    phone: '+1 323-741-8148',
+    description: "Musician Moby's Silver Lake vegan restaurant donates all profits to animal rights organizations. Little Pine serves elegant Italian-influenced vegan cuisine — pasta, pizza, small plates — in a cozy, light-filled space that feels like a true neighborhood dining room.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'little-pine-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Italian', 'Charity'],
+    lat: 34.0951, lng: -118.2701,
+  },
+  {
+    rank: 6,
+    name: 'Sage Plant Based Bistro',
+    rating: 4.5,
+    reviewCount: 1723,
+    address: '1700 Sunset Blvd, Los Angeles, CA 90026',
+    phone: '+1 323-667-0020',
+    description: "Echo Park's cornerstone vegan comfort food restaurant. Sage serves hearty plant-based burgers, mac and cheese, and loaded nachos alongside a full bar. It's where Angelenos bring skeptical meat-eaters — the menu consistently converts.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sage-plant-based-bistro',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Comfort Food', 'Bar'],
+    lat: 34.0763, lng: -118.2608,
+  },
+  {
+    rank: 7,
+    name: 'Kitchen Mouse',
+    rating: 4.6,
+    reviewCount: 1198,
+    address: '5904 N Figueroa St, Los Angeles, CA 90042',
+    phone: '+1 323-259-9555',
+    description: "Highland Park's beloved all-day vegan cafe. Kitchen Mouse serves outstanding brunch bowls, sandwiches, and baked goods with a rotating seasonal menu. The outdoor patio and neighborhood warmth make it one of Northeast LA's most dependable spots.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kitchen-mouse-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Brunch', 'Cafe'],
+    lat: 34.1084, lng: -118.2107,
+  },
+  {
+    rank: 8,
+    name: "Hugo's Restaurant",
+    rating: 4.4,
+    reviewCount: 3112,
+    address: '8401 Santa Monica Blvd, West Hollywood, CA 90069',
+    phone: '+1 323-654-3993',
+    description: "A West Hollywood institution since 1980. Hugo's pioneered organic, health-conscious dining in LA decades before it was fashionable. Their expansive vegan menu covers breakfast through dinner with housemade pastas, grain bowls, and iconic tofu scrambles.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'hugos-restaurant-weho',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Organic', 'All-Day'],
+    lat: 34.0903, lng: -118.3660,
+  },
+  {
+    rank: 9,
+    name: "Doomie's Home Cookin'",
+    rating: 4.5,
+    reviewCount: 1456,
+    address: '1253 Vine St, Los Angeles, CA 90038',
+    phone: '+1 323-860-0100',
+    description: "Hollywood's go-to for vegan comfort food done right. Doomie's recreates classic American comfort dishes — fried chicken, cheesesteaks, mac and cheese — entirely from plants. A first visit is guaranteed to surprise even the most skeptical carnivore.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'doomies-home-cookin',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Comfort Food', 'Hollywood'],
+    lat: 34.0943, lng: -118.3243,
+  },
+  {
+    rank: 10,
+    name: 'SunCafe Organic',
+    rating: 4.5,
+    reviewCount: 1609,
+    address: '10820 Ventura Blvd, Studio City, CA 91604',
+    phone: '+1 818-927-1134',
+    description: "Studio City's farm-to-fork organic vegan cafe. SunCafe sources locally, prepares everything fresh daily, and serves a menu of raw and cooked plant-based dishes — smoothie bowls, quinoa plates, and housemade desserts — in a light-filled wellness-forward space.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'suncafe-organic',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Raw'],
+    lat: 34.1502, lng: -118.3898,
+  },
+]
+
+const veganHonoluluTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Ai Love Nalo',
+    rating: 4.7,
+    reviewCount: 892,
+    address: '41-1025 Kalanianaole Hwy, Waimanalo, HI 96795',
+    phone: '+1 808-259-7929',
+    description: "One of Oahu's most celebrated vegan restaurants, Ai Love Nalo is a farm-driven Hawaiian plant-based kitchen in Waimanalo. Their nourishing bowls, wraps, and plates celebrate local ingredients with aloha spirit. The farm-fresh ethos and consistently stunning flavors make it Oahu's top vegan destination.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'ai-love-nalo',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Hawaiian', 'Farm-to-Table'],
+    lat: 21.3356, lng: -157.7157,
+  },
+  {
+    rank: 2,
+    name: 'The Beet Box Cafe',
+    rating: 4.7,
+    reviewCount: 1089,
+    address: '66-443 Kamehameha Hwy, Haleiwa, HI 96712',
+    phone: '+1 808-637-3000',
+    description: "A beloved vegan gem on Oahu's North Shore. The Beet Box serves vibrant plant-based bowls, wraps, and smoothies sourced from local farms. The casual outdoor setting, fresh ingredients, and consistent quality have made it one of Hawaii's most recommended vegan spots.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'beet-box-cafe-haleiwa',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'North Shore', 'Bowls'],
+    lat: 21.5999, lng: -158.1036,
+  },
+  {
+    rank: 3,
+    name: 'Peace Cafe',
+    rating: 4.4,
+    reviewCount: 679,
+    address: '2239 S King St, Honolulu, HI 96826',
+    phone: '+1 808-951-7555',
+    description: "Honolulu's original dedicated vegan restaurant, Peace Cafe has served the McCully neighborhood for years. Their menu of Japanese-influenced plant-based dishes — tofu don, avocado salad, soba noodles — is light, nourishing, and consistently well-executed.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'peace-cafe-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Japanese', 'Organic'],
+    lat: 21.2938, lng: -157.8284,
+  },
+  {
+    rank: 4,
+    name: 'Down to Earth Natural Foods',
+    rating: 4.4,
+    reviewCount: 2198,
+    address: '2525 S King St, Honolulu, HI 96826',
+    phone: '+1 808-947-7678',
+    description: "Hawaii's premier organic grocery chain with a popular ready-to-eat vegan cafe section. Down to Earth's hot bar, salad bar, and grab-and-go case are loaded with fresh, affordable plant-based options. Over 2,000 reviews make it one of Honolulu's most-visited vegan food destinations.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'down-to-earth-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Organic', 'Grocery Cafe'],
+    lat: 21.2920, lng: -157.8245,
+  },
+  {
+    rank: 5,
+    name: 'Morning Glass Coffee',
+    rating: 4.7,
+    reviewCount: 3217,
+    address: '2955 E Manoa Rd, Honolulu, HI 96822',
+    phone: '+1 808-673-0065',
+    description: "Manoa's beloved coffee and brunch spot with an extensive vegan-friendly menu. Morning Glass Coffee serves stunning acai bowls, avocado toasts, and vegan pastries alongside specialty coffees. With over 3,000 reviews and a 4.7 rating, it's one of Honolulu's highest-rated breakfast destinations.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'morning-glass-coffee',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan Options', 'Coffee', 'Brunch'],
+    lat: 21.3151, lng: -157.8064,
+  },
+  {
+    rank: 6,
+    name: 'Nalu Health Bar & Cafe',
+    rating: 4.5,
+    reviewCount: 831,
+    address: '377 Keahole St, Honolulu, HI 96825',
+    phone: '+1 808-396-1199',
+    description: "East Honolulu's go-to plant-based health cafe. Nalu Health Bar serves fresh-pressed juices, superfood smoothie bowls, and vegan wraps in a bright, energetic setting. Their acai bowls and tropical smoothies are some of the best on the island.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'nalu-health-bar',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Smoothies', 'Health Food'],
+    lat: 21.3021, lng: -157.7019,
+  },
+  {
+    rank: 7,
+    name: 'Greens & Vines',
+    rating: 4.5,
+    reviewCount: 561,
+    address: '1088 Bishop St #107, Honolulu, HI 96813',
+    phone: '+1 808-536-9680',
+    description: 'A raw and living foods restaurant in Downtown Honolulu serving beautiful plant-based cuisine. Greens & Vines specializes in enzyme-rich raw dishes — dehydrated crackers, cashew cheeses, and vibrant salads — in an intimate, health-focused setting.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'greens-and-vines-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Raw Food', 'Downtown'],
+    lat: 21.3068, lng: -157.8567,
+  },
+  {
+    rank: 8,
+    name: 'Simple Joy Cafe',
+    rating: 4.6,
+    reviewCount: 477,
+    address: '333 Keahole St #2B3, Honolulu, HI 96825',
+    phone: '+1 808-394-9669',
+    description: 'A cozy plant-based cafe in Hawaii Kai serving wholesome vegan breakfasts, lunches, and smoothies. Simple Joy Cafe is a neighborhood treasure — their bowls are filling, their produce is fresh, and the service is warm and community-minded.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'simple-joy-cafe-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Cafe', 'Hawaii Kai'],
+    lat: 21.3024, lng: -157.7016,
+  },
+  {
+    rank: 9,
+    name: 'Moku Kitchen',
+    rating: 4.3,
+    reviewCount: 2803,
+    address: '660 Ala Moana Blvd, Honolulu, HI 96813',
+    phone: '+1 808-591-6658',
+    description: "Ward Village's farm-to-table restaurant with a strong commitment to local Hawaiian producers. Moku Kitchen offers an extensive vegan section on their seasonal menu — wood-fired vegetables, grain bowls, and plant-based small plates crafted from island-sourced ingredients.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'moku-kitchen-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan Options', 'Farm-to-Table', 'Ward Village'],
+    lat: 21.2994, lng: -157.8612,
+  },
+  {
+    rank: 10,
+    name: 'Kahuku Farms',
+    rating: 4.5,
+    reviewCount: 1423,
+    address: '56-800 Kamehameha Hwy, Kahuku, HI 96731',
+    phone: '+1 808-628-0639',
+    description: "A working North Shore farm with a beloved vegan-friendly cafe. Kahuku Farms serves fruit smoothies, farm-fresh salads, and plant-based plates made from produce grown steps from your table. Their papaya bowl and farm tours make it a must-visit Oahu experience.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kahuku-farms-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Vegan', 'Farm Cafe', 'North Shore'],
+    lat: 21.6783, lng: -157.9488,
+  },
+]
+
+const veganSFTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Shizen Vegan Sushi Bar',
+    rating: 4.6,
+    reviewCount: 3812,
+    address: '370 14th St, San Francisco, CA 94103',
+    phone: '+1 415-678-5767',
+    description: "San Francisco's most acclaimed vegan restaurant — a Japanese sushi bar serving entirely plant-based rolls, nigiri, and ramen. Shizen's creative kitchen proves that vegan sushi can rival any fish-forward menu. With nearly 4,000 reviews and a 4.6 rating, it's the city's definitive vegan destination.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'shizen-vegan-sushi-bar',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Sushi'],
+    lat: 37.7680, lng: -122.4199,
+  },
+  {
+    rank: 2,
+    name: 'Gracias Madre SF',
+    rating: 4.5,
+    reviewCount: 4213,
+    address: '2211 Mission St, San Francisco, CA 94110',
+    phone: '+1 415-683-1346',
+    description: "The Mission District's beloved plant-based Mexican kitchen. Gracias Madre SF serves organic, farm-driven vegan tacos, enchiladas, and small plates alongside an outstanding mezcal bar. With over 4,000 reviews, it's the most-reviewed vegan restaurant in San Francisco.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'gracias-madre-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Mexican', 'Organic'],
+    lat: 37.7620, lng: -122.4189,
+  },
+  {
+    rank: 3,
+    name: 'Wildseed',
+    rating: 4.5,
+    reviewCount: 2098,
+    address: '181 Fremont St #10, San Francisco, CA 94105',
+    phone: '+1 415-872-9082',
+    description: "San Francisco's most elegant upscale vegan restaurant, perched above the city in the Union Square district. Wildseed serves a seasonal plant-based menu with fine dining technique — smoked beet tartare, wild mushroom risotto, and inventive vegan charcuterie boards.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'wildseed-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Fine Dining', 'Upscale'],
+    lat: 37.7906, lng: -122.3958,
+  },
+  {
+    rank: 4,
+    name: 'Millennium Restaurant',
+    rating: 4.5,
+    reviewCount: 1823,
+    address: '5912 College Ave, Oakland, CA 94618',
+    phone: '+1 510-735-9459',
+    description: "One of the most influential vegan restaurants in America. Originally founded in San Francisco in 1994, Millennium serves globally inspired fine dining vegan cuisine — rich umami-forward dishes, creative ferments, and seasonal tasting menus that have inspired a generation of plant-based chefs.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'millennium-restaurant-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Fine Dining', 'Pioneer'],
+    lat: 37.8447, lng: -122.2523,
+  },
+  {
+    rank: 5,
+    name: 'Cha-Ya Vegetarian Japanese',
+    rating: 4.5,
+    reviewCount: 1901,
+    address: '762 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-252-7825',
+    description: "The Mission's cozy Japanese vegan restaurant serving traditional Japanese comfort food — ramen, udon, tempura, and donburi — entirely from plants. Cha-Ya's affordable prices, generous portions, and authentic flavors have kept it a neighborhood staple for over 15 years.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cha-ya-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Japanese', 'Mission District'],
+    lat: 37.7637, lng: -122.4213,
+  },
+  {
+    rank: 6,
+    name: 'Herbivore',
+    rating: 4.3,
+    reviewCount: 2412,
+    address: '983 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-826-5657',
+    description: "San Francisco's casual neighborhood vegan diner, serving the Mission District for over two decades. Herbivore's wide-ranging menu — burritos, pastas, stir-fries, burgers — makes it the most accessible entry point into SF's vegan dining scene. Affordable, reliable, and always welcoming.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'herbivore-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Casual', 'Mission District'],
+    lat: 37.7613, lng: -122.4214,
+  },
+  {
+    rank: 7,
+    name: 'Udupi Palace',
+    rating: 4.4,
+    reviewCount: 2134,
+    address: '1007 Valencia St, San Francisco, CA 94110',
+    phone: '+1 415-970-8000',
+    description: "San Francisco's premier South Indian vegetarian restaurant. Udupi Palace serves entirely lacto-vegetarian (mostly vegan-adaptable) cuisine — dosas, idli, sambar, and thali — with authentic flavors from coastal Karnataka. A beloved institution in the Mission for over 20 years.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'udupi-palace-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegetarian', 'Indian', 'South Indian'],
+    lat: 37.7610, lng: -122.4214,
+  },
+  {
+    rank: 8,
+    name: 'The Plant Cafe Organic',
+    rating: 4.4,
+    reviewCount: 1589,
+    address: '3352 Steiner St, San Francisco, CA 94123',
+    phone: '+1 415-931-2777',
+    description: "Marina District's organic cafe and restaurant with a comprehensive vegan menu. The Plant Cafe sources from Bay Area farms and prepares clean, nutritious plant-based meals — bowls, salads, wraps, and pressed juices — in a bright, welcoming space popular with health-conscious locals.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'plant-cafe-organic-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Organic', 'Marina'],
+    lat: 37.7991, lng: -122.4355,
+  },
+  {
+    rank: 9,
+    name: 'Encuentro',
+    rating: 4.4,
+    reviewCount: 891,
+    address: '3340 Grand Ave, Oakland, CA 94610',
+    phone: '+1 510-550-2969',
+    description: 'An upscale vegan wine bar and restaurant in Oakland serving the greater Bay Area. Encuentro pairs a thoughtful selection of natural wines with small plates, charcuterie boards, and seasonal vegan entrees. One of the Bay Area\'s most sophisticated plant-based dining experiences.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'encuentro-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Wine Bar', 'Oakland'],
+    lat: 37.8119, lng: -122.2217,
+  },
+  {
+    rank: 10,
+    name: 'Loving Hut',
+    rating: 4.3,
+    reviewCount: 1678,
+    address: '1439 Irving St, San Francisco, CA 94122',
+    phone: '+1 415-661-8893',
+    description: "The Inner Sunset's affordable pan-Asian vegan restaurant from the international Loving Hut chain. Generous portions of Chinese, Vietnamese, and Japanese-inspired vegan dishes at prices that make plant-based eating accessible to every budget. A reliable everyday choice for Inner Sunset residents.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'loving-hut-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Asian', 'Affordable'],
+    lat: 37.7637, lng: -122.4740,
+  },
+]
+
+const veganSacramentoTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: "Pushkin's Restaurant",
+    rating: 4.7,
+    reviewCount: 1098,
+    address: '1930 Capitol Ave, Sacramento, CA 95811',
+    phone: '+1 916-444-7784',
+    description: "Sacramento's beloved allergy-friendly vegan bakery and cafe. Pushkin's is entirely free of the top 8 allergens and 100% plant-based — their housemade breads, pastries, cakes, and savory dishes are consistently outstanding. A 4.7 rating across over 1,000 reviews makes it the city's highest-rated vegan restaurant.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pushkins-restaurant-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Allergen-Free', 'Bakery'],
+    lat: 38.5733, lng: -121.4791,
+  },
+  {
+    rank: 2,
+    name: 'Mother',
+    rating: 4.6,
+    reviewCount: 2389,
+    address: '1023 K St, Sacramento, CA 95814',
+    phone: '+1 916-400-2424',
+    description: "Downtown Sacramento's most celebrated vegan restaurant. Mother serves an innovative, globally inspired plant-based menu that changes seasonally — think jackfruit carnitas tacos, cashew cream risotto, and mushroom-forward small plates. The most critically acclaimed vegan kitchen in the Sacramento region.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'mother-restaurant-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Innovative', 'Downtown'],
+    lat: 38.5791, lng: -121.4946,
+  },
+  {
+    rank: 3,
+    name: 'Sunflower Drive-In',
+    rating: 4.5,
+    reviewCount: 1801,
+    address: '2345 Fair Oaks Blvd, Sacramento, CA 95825',
+    phone: '+1 916-481-7200',
+    description: "A Sacramento institution for over 25 years. Sunflower Drive-In is a casual, entirely vegetarian and vegan restaurant serving big portions of California-inspired comfort food — burritos, burgers, salads, and daily specials. Beloved by the community for its affordable prices and reliable quality.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sunflower-drive-in-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Vegetarian', 'Casual'],
+    lat: 38.5795, lng: -121.4195,
+  },
+  {
+    rank: 4,
+    name: 'OneSpeed Pizza',
+    rating: 4.4,
+    reviewCount: 2217,
+    address: '4818 Folsom Blvd, Sacramento, CA 95819',
+    phone: '+1 916-706-1748',
+    description: "East Sacramento's neighborhood pizzeria with an outstanding vegan menu. OneSpeed makes Neapolitan-inspired pizzas with house-crafted vegan cheeses, seasonal vegetable toppings, and perfectly charred crusts. Their commitment to plant-based options makes it one of Sacramento's best vegan-friendly restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'onespeed-pizza-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Pizza', 'East Sacramento'],
+    lat: 38.5554, lng: -121.4289,
+  },
+  {
+    rank: 5,
+    name: 'Magpie Cafe',
+    rating: 4.5,
+    reviewCount: 1612,
+    address: '1601 16th St, Sacramento, CA 95814',
+    phone: '+1 916-452-7594',
+    description: "Midtown Sacramento's farm-to-fork pioneer. Magpie Cafe has built relationships with local farms to deliver a seasonal menu heavy on plant-based dishes — roasted vegetable plates, grain bowls, and creative vegan entrees. A cornerstone of Sacramento's celebrated farm-to-fork dining culture.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'magpie-cafe-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Farm-to-Fork', 'Midtown'],
+    lat: 38.5680, lng: -121.4832,
+  },
+  {
+    rank: 6,
+    name: 'Karma Brew',
+    rating: 4.4,
+    reviewCount: 1089,
+    address: '816 21st St, Sacramento, CA 95811',
+    phone: '+1 916-572-3060',
+    description: 'A vegan-friendly coffee house and cafe in Midtown Sacramento. Karma Brew serves plant-based lattes, vegan baked goods, and light meals in a laid-back community space. A go-to for Sacramento vegans looking for a casual all-day spot with good coffee and solid food.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'karma-brew-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Coffee', 'Cafe'],
+    lat: 38.5745, lng: -121.4791,
+  },
+  {
+    rank: 7,
+    name: 'Elixir Vitae',
+    rating: 4.6,
+    reviewCount: 421,
+    address: '2012 L St, Sacramento, CA 95811',
+    phone: '+1 916-538-2625',
+    description: "Sacramento's dedicated raw vegan cafe, serving entirely uncooked plant-based cuisine. Elixir Vitae's menu of dehydrated crackers, cashew cheeses, zucchini pasta, and raw desserts caters to those seeking maximum nutritional density. A niche gem beloved by Sacramento's raw food community.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'elixir-vitae-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Raw Food', 'Organic'],
+    lat: 38.5701, lng: -121.4809,
+  },
+  {
+    rank: 8,
+    name: 'Plant Foundry Garden Store',
+    rating: 4.5,
+    reviewCount: 672,
+    address: '1019 Franquette Ave, Sacramento, CA 95825',
+    phone: '+1 916-927-5200',
+    description: "A plant nursery and garden center with a beloved vegan cafe. Plant Foundry's cafe serves seasonal plant-based sandwiches, salads, and small plates sourced from their nursery gardens. Dining surrounded by plants in a peaceful outdoor setting is a uniquely Sacramento experience.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'plant-foundry-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Garden Cafe', 'Seasonal'],
+    lat: 38.5869, lng: -121.4010,
+  },
+  {
+    rank: 9,
+    name: 'Hook & Ladder Manufacturing Company',
+    rating: 4.4,
+    reviewCount: 2891,
+    address: '1630 S St, Sacramento, CA 95811',
+    phone: '+1 916-442-4885',
+    description: "A converted firehouse turned restaurant with a strong vegan-friendly menu. Hook & Ladder is one of Sacramento's most atmospheric dining spaces, and their kitchen takes plant-based cooking seriously — roasted vegetable boards, vegan tacos, and market salads are highlights.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'hook-and-ladder-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan Options', 'Bar', 'Midtown'],
+    lat: 38.5659, lng: -121.4853,
+  },
+  {
+    rank: 10,
+    name: "Freerange Sacramento",
+    rating: 4.4,
+    reviewCount: 891,
+    address: '2343 Jazz Alley, Sacramento, CA 95818',
+    phone: '+1 916-594-9958',
+    description: "Oak Park's neighborhood cafe and market with a dedicated plant-based menu. Freerange serves grain bowls, avocado toasts, and seasonal vegan specials made from locally sourced ingredients. A welcoming community space that reflects Sacramento's growing commitment to sustainable, plant-based dining.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'freerange-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'ca',
+    tags: ['Vegan', 'Cafe', 'Oak Park'],
+    lat: 38.5561, lng: -121.4812,
+  },
+]
+
+const veganHoustonTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Verdine',
+    rating: 4.6,
+    reviewCount: 1342,
+    address: '1923 Washington Ave, Houston, TX 77007',
+    phone: '+1 713-581-4800',
+    description: "Houston's most celebrated plant-based restaurant in the Heights corridor. Verdine serves an entirely vegan menu of globally inspired dishes — cauliflower steaks, cashew cream risotto, smoked mushroom tacos — in a warm, welcoming space. The highest-rated dedicated vegan restaurant in Houston.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'verdine-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Global', 'Heights'],
+    lat: 29.7628, lng: -95.4145,
+  },
+  {
+    rank: 2,
+    name: 'Radical Eats',
+    rating: 4.6,
+    reviewCount: 987,
+    address: '319 W Alabama St, Houston, TX 77006',
+    phone: '+1 713-942-0008',
+    description: "Montrose's beloved casual vegan counter serving creative plant-based sandwiches, bowls, and daily specials. Radical Eats has built a loyal following for its bold flavors, generous portions, and scratch-made vegan cooking. The top choice for Houston vegans seeking quality without fine dining prices.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'radical-eats-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Casual', 'Montrose'],
+    lat: 29.7379, lng: -95.4145,
+  },
+  {
+    rank: 3,
+    name: 'Pepper Tree Café',
+    rating: 4.5,
+    reviewCount: 1876,
+    address: '8327 Southwest Fwy, Houston, TX 77074',
+    phone: '+1 713-988-9999',
+    description: "Houston's premier Chinese Buddhist vegetarian restaurant with an entirely plant-based menu. Pepper Tree Café's mock-meat dishes, tofu preparations, and vegetable stir-fries are executed with traditional Chinese technique. One of Houston's most dependable vegan institutions for over two decades.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pepper-tree-cafe-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 29.7067, lng: -95.5160,
+  },
+  {
+    rank: 4,
+    name: 'Butterfly Plant Kitchen',
+    rating: 4.6,
+    reviewCount: 712,
+    address: '2203 S Shepherd Dr, Houston, TX 77019',
+    phone: '+1 713-999-8124',
+    description: 'A vibrant plant-based kitchen in Upper Kirby serving colorful, nutrient-dense vegan meals. Butterfly Plant Kitchen specializes in bright bowls, wraps, and smoothies made from locally sourced produce. Their photogenic presentation and consistently fresh ingredients make it one of Houston\'s fastest-growing vegan spots.',
+    photo: '/images/hero-ramen.jpg',
+    slug: 'butterfly-plant-kitchen-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Bowls', 'Upper Kirby'],
+    lat: 29.7341, lng: -95.4095,
+  },
+  {
+    rank: 5,
+    name: 'Sinfull Bakery',
+    rating: 4.7,
+    reviewCount: 1203,
+    address: '5765 Woodway Dr #115, Houston, TX 77057',
+    phone: '+1 832-767-0399',
+    description: "Houston's top vegan bakery and dessert destination. Sinfull Bakery produces stunning plant-based cakes, cookies, cupcakes, and savory pastries with no animal products. A 4.7-star rating across over 1,200 reviews makes it the highest-rated vegan establishment in the Houston metro.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'sinfull-bakery-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Bakery', 'Desserts'],
+    lat: 29.7584, lng: -95.4674,
+  },
+  {
+    rank: 6,
+    name: 'Loving Hut Houston',
+    rating: 4.4,
+    reviewCount: 1567,
+    address: '9889 Bellaire Blvd #118, Houston, TX 77036',
+    phone: '+1 713-773-8868',
+    description: "Houston's Chinatown location of the international vegan chain. Loving Hut serves an expansive pan-Asian vegan menu — pho, rice plates, mock meats, and noodle bowls — at prices that make plant-based eating accessible. One of Houston's most-reviewed vegan restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'loving-hut-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Asian', 'Chinatown'],
+    lat: 29.7098, lng: -95.5213,
+  },
+  {
+    rank: 7,
+    name: 'May Lee Restaurant',
+    rating: 4.4,
+    reviewCount: 2341,
+    address: '5966 Westheimer Rd, Houston, TX 77057',
+    phone: '+1 713-780-5888',
+    description: "A Galleria-area Vietnamese restaurant with one of Houston's most extensive vegan sections. May Lee offers a separate vegan menu covering pho, vermicelli bowls, banh mi, and stir-fries with plant-based proteins. Over 2,300 reviews confirm it as a Houston institution.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'may-lee-restaurant-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Vietnamese', 'Galleria'],
+    lat: 29.7386, lng: -95.4625,
+  },
+  {
+    rank: 8,
+    name: 'Kale Me Crazy',
+    rating: 4.5,
+    reviewCount: 891,
+    address: '2413 Rice Blvd, Houston, TX 77005',
+    phone: '+1 832-649-5253',
+    description: "Rice Village's health-focused plant-based cafe serving fresh juices, smoothie bowls, grain bowls, and raw vegan meals. Kale Me Crazy caters to Rice University students and health-conscious Houstonians looking for nutritious, flavorful plant-based food near the Museum District.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kale-me-crazy-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan', 'Health Food', 'Rice Village'],
+    lat: 29.7156, lng: -95.4325,
+  },
+  {
+    rank: 9,
+    name: 'Local Foods',
+    rating: 4.5,
+    reviewCount: 3102,
+    address: '2424 Dunstan Rd, Houston, TX 77005',
+    phone: '+1 713-521-7800',
+    description: "Rice Village's beloved farm-to-table cafe with a strong vegan menu sourced from Texas farms. Local Foods rotates its seasonal menu around what's fresh and local — grain bowls, roasted vegetable plates, and vegan soups showcase the best of Texas produce. Over 3,000 reviews make it one of Houston's most trusted neighborhood restaurants.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'local-foods-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Farm-to-Table', 'Rice Village'],
+    lat: 29.7148, lng: -95.4303,
+  },
+  {
+    rank: 10,
+    name: 'Nori Handroll Bar',
+    rating: 4.6,
+    reviewCount: 2187,
+    address: '2216 Portsmouth St, Houston, TX 77098',
+    phone: '+1 713-993-9008',
+    description: "Upper Kirby's sleek Japanese handroll bar with outstanding vegan options. Nori serves meticulously crafted temaki with a dedicated plant-based selection — avocado, cucumber, shiitake, and seasonal vegetables wrapped in crispy nori. The best vegan Japanese dining experience in Houston.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'nori-handroll-bar-houston',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Vegan Options', 'Japanese', 'Upper Kirby'],
+    lat: 29.7371, lng: -95.4095,
+  },
+]
+
+const veganDuluthTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Café Sunflower',
+    rating: 4.6,
+    reviewCount: 2891,
+    address: '5975 Roswell Rd NE, Atlanta, GA 30328',
+    phone: '+1 404-256-1675',
+    description: "The Atlanta metro's most acclaimed vegetarian and vegan restaurant, serving the Sandy Springs area since 1993. Café Sunflower's globally inspired plant-based menu — pastas, stir-fries, curries, and creative entrees — is beloved by vegans and omnivores alike. One of the South's defining vegan dining institutions.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-sunflower-sandy-springs',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Vegetarian', 'Atlanta Metro'],
+    lat: 33.9264, lng: -84.3818,
+  },
+  {
+    rank: 2,
+    name: 'Zyka Indian Cuisine',
+    rating: 4.5,
+    reviewCount: 1678,
+    address: '1677 Scott Blvd, Decatur, GA 30033',
+    phone: '+1 404-370-0610',
+    description: "The Gwinnett area's most celebrated South Indian vegetarian restaurant. Zyka serves entirely vegetarian South Indian cuisine — dosas, idli, sambar, and thali — with an extensive vegan menu. An authentic taste of Tamil Nadu cuisine in the Atlanta metro.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'zyka-indian-cuisine-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'South Indian', 'Vegetarian'],
+    lat: 33.8024, lng: -84.2994,
+  },
+  {
+    rank: 3,
+    name: 'Desi District',
+    rating: 4.5,
+    reviewCount: 1203,
+    address: '1905 Satellite Blvd #400, Duluth, GA 30097',
+    phone: '+1 770-622-5557',
+    description: "Duluth's upscale Indian restaurant with extensive vegan and vegetarian options. Desi District serves a refined menu of North and South Indian dishes — creamy dals, vegetable biryanis, and freshly baked naan — in a modern Gwinnett County setting.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'desi-district-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Indian', 'Duluth'],
+    lat: 34.0019, lng: -84.1447,
+  },
+  {
+    rank: 4,
+    name: 'Green Sprout',
+    rating: 4.5,
+    reviewCount: 987,
+    address: '1057 Peachtree Industrial Blvd, Suwanee, GA 30024',
+    phone: '+1 770-614-9050',
+    description: "A Chinese Buddhist vegetarian restaurant serving the Duluth and Suwanee communities with an entirely plant-based menu. Green Sprout's mock-meat dishes, tofu preparations, and vegetable stir-fries are executed with authentic Chinese technique. A fixture of Gwinnett County's vegan scene.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'green-sprout-suwanee',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 34.0547, lng: -84.0678,
+  },
+  {
+    rank: 5,
+    name: 'Pho Bac Sup Shop',
+    rating: 4.5,
+    reviewCount: 2109,
+    address: '3280 Buford Hwy NE, Atlanta, GA 30329',
+    phone: '+1 404-549-9567',
+    description: "A modern Vietnamese restaurant along Buford Highway serving excellent vegan pho and noodle bowls. Pho Bac Sup Shop prepares clean, aromatic broths with plant-based proteins and fresh herbs. Their vegan pho is consistently praised as some of the best in the Atlanta metro area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'pho-bac-sup-shop-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Vietnamese', 'Buford Highway'],
+    lat: 33.8259, lng: -84.3432,
+  },
+  {
+    rank: 6,
+    name: 'Goin\' Bananas',
+    rating: 4.5,
+    reviewCount: 1203,
+    address: '3944 Covington Hwy, Decatur, GA 30032',
+    phone: '+1 404-286-2002',
+    description: "A beloved Jamaican restaurant in the Decatur area with an extensive vegan section. Goin' Bananas serves plant-based Jamaican dishes — jerk jackfruit, callaloo, rice and peas, and fresh fruit smoothies — that deliver genuine Caribbean flavor without animal products.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'goin-bananas-decatur',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Jamaican', 'Caribbean'],
+    lat: 33.7413, lng: -84.2296,
+  },
+  {
+    rank: 7,
+    name: 'Madras Saravana Bhavan',
+    rating: 4.4,
+    reviewCount: 1892,
+    address: '2179 Pleasant Hill Rd #112, Duluth, GA 30096',
+    phone: '+1 678-541-8900',
+    description: "The Duluth location of the world-famous South Indian vegetarian chain. Madras Saravana Bhavan serves authentic Chennai-style dosas, idli, vadai, and thali that are largely vegan-adaptable. The gold standard for South Indian vegetarian dining in Gwinnett County.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'madras-saravana-bhavan-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegetarian', 'South Indian', 'Duluth'],
+    lat: 34.0012, lng: -84.1388,
+  },
+  {
+    rank: 8,
+    name: 'Tuk Tuk Thai Food Loft',
+    rating: 4.5,
+    reviewCount: 3412,
+    address: '1745 Peachtree St NE #2, Atlanta, GA 30309',
+    phone: '+1 404-347-2700',
+    description: "Atlanta's acclaimed modern Thai restaurant with an extensive plant-based menu. Tuk Tuk Thai Food Loft serves creative Thai dishes with vegan adaptations — coconut curries, tofu larb, and pad thai — alongside an innovative cocktail program. A top pick for vegan diners in the greater Atlanta area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'tuk-tuk-thai-food-loft-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Thai', 'Atlanta'],
+    lat: 33.8031, lng: -84.3849,
+  },
+  {
+    rank: 9,
+    name: 'Antico Pizza Napoletana',
+    rating: 4.6,
+    reviewCount: 4231,
+    address: '1093 Hemphill Ave NW, Atlanta, GA 30318',
+    phone: '+1 404-724-2333',
+    description: "Atlanta's legendary Neapolitan pizzeria with an outstanding vegan marinara pizza. Antico uses premium imported ingredients and a wood-fired oven to produce pizzas with crispy, charred crusts. Their marinara (no cheese) is naturally vegan and one of the best slices in the South.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'antico-pizza-atlanta',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan Options', 'Italian', 'Pizza'],
+    lat: 33.7871, lng: -84.3978,
+  },
+  {
+    rank: 10,
+    name: 'Kaleidoscope Juice',
+    rating: 4.6,
+    reviewCount: 678,
+    address: '6125 Peachtree Pkwy #200, Peachtree Corners, GA 30092',
+    phone: '+1 770-409-1900',
+    description: "A plant-based juice bar and health cafe in Peachtree Corners serving the Duluth community. Kaleidoscope Juice presses cold-pressed juices, smoothie bowls, and vegan snacks from local produce. The most health-focused vegan dining option in the immediate Duluth/Gwinnett area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kaleidoscope-juice-peachtree-corners',
+    citySlug: 'duluth',
+    stateSlug: 'ga',
+    tags: ['Vegan', 'Juice Bar', 'Health Food'],
+    lat: 33.9770, lng: -84.2240,
+  },
+]
+
+const veganLasVegasTop10: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'VegeNation',
+    rating: 4.6,
+    reviewCount: 2341,
+    address: '616 E Carson Ave, Las Vegas, NV 89101',
+    phone: '+1 702-366-9977',
+    description: "Downtown Las Vegas's flagship vegan restaurant. VegeNation serves an eclectic, globally inspired menu of creative vegan comfort food — smashed burgers, loaded nachos, grain bowls, and seasonal specials — in a vibrant, welcoming space. The undisputed top vegan restaurant in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'vegenation-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Downtown', 'Comfort Food'],
+    lat: 36.1658, lng: -115.1390,
+  },
+  {
+    rank: 2,
+    name: 'Tacotarian',
+    rating: 4.5,
+    reviewCount: 3102,
+    address: '9480 S Eastern Ave #130, Henderson, NV 89002',
+    phone: '+1 702-973-1732',
+    description: "Las Vegas's beloved plant-based Mexican taco restaurant with multiple valley locations. Tacotarian serves entirely vegan tacos, burritos, and Mexican street food — al pastor jackfruit, beer-battered cauliflower, birria-style mushrooms — in a festive atmosphere. The most-reviewed vegan restaurant in the Las Vegas area.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'tacotarian-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Mexican', 'Tacos'],
+    lat: 36.0217, lng: -115.1027,
+  },
+  {
+    rank: 3,
+    name: 'Bad Apple Bar + Food',
+    rating: 4.5,
+    reviewCount: 1876,
+    address: '1240 S Maryland Pkwy, Las Vegas, NV 89104',
+    phone: '+1 702-331-1100',
+    description: "Las Vegas's most popular plant-based bar and restaurant, serving indulgent vegan comfort food alongside craft cocktails. Bad Apple's menu of smash burgers, loaded fries, wings, and cheesesteaks — all entirely plant-based — makes it the top choice for vegans who don't want to sacrifice flavor or fun.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'bad-apple-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Bar', 'Comfort Food'],
+    lat: 36.1621, lng: -115.1399,
+  },
+  {
+    rank: 4,
+    name: 'Simply Pure',
+    rating: 4.5,
+    reviewCount: 1234,
+    address: 'The LINQ Promenade, 3545 S Las Vegas Blvd, Las Vegas, NV 89109',
+    phone: '+1 702-471-7873',
+    description: "Strip-adjacent plant-based dining at The LINQ Promenade. Simply Pure serves organic, vegan smoothies, bowls, wraps, and small plates in one of the most accessible locations near the Las Vegas Strip. The best option for vegan tourists seeking quality plant-based food close to major hotels.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'simply-pure-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Organic', 'Strip Adjacent'],
+    lat: 36.1175, lng: -115.1673,
+  },
+  {
+    rank: 5,
+    name: 'Veggie House',
+    rating: 4.4,
+    reviewCount: 1987,
+    address: '3441 S Jones Blvd #4, Las Vegas, NV 89146',
+    phone: '+1 702-431-8288',
+    description: "Las Vegas's Chinese Buddhist vegetarian restaurant with an entirely plant-based menu. Veggie House's mock-meat preparations, tofu dishes, and vegetable stir-fries use traditional Chinese techniques to create deeply satisfying plant-based meals. A fixture of the local vegan community for over a decade.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'veggie-house-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Chinese', 'Buddhist Vegetarian'],
+    lat: 36.1270, lng: -115.2153,
+  },
+  {
+    rank: 6,
+    name: 'The Juice Standard',
+    rating: 4.6,
+    reviewCount: 1102,
+    address: '6345 S Rainbow Blvd #103, Las Vegas, NV 89118',
+    phone: '+1 702-541-0303',
+    description: "Las Vegas's premier cold-pressed juice bar and plant-based cafe. The Juice Standard serves fresh-pressed juices, acai bowls, vegan sandwiches, and raw plant-based meals made daily from organic produce. A 4.6-star rating makes it one of the highest-rated plant-based spots in the valley.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'juice-standard-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan', 'Juice Bar', 'Organic'],
+    lat: 36.0712, lng: -115.2440,
+  },
+  {
+    rank: 7,
+    name: 'Esther\'s Kitchen',
+    rating: 4.6,
+    reviewCount: 3891,
+    address: '1130 S Casino Center Blvd, Las Vegas, NV 89104',
+    phone: '+1 702-570-7864',
+    description: "Downtown Las Vegas's beloved Arts District Italian restaurant with an outstanding plant-based menu. Esther's Kitchen sources locally and makes everything from scratch — pasta dishes, wood-fired vegetables, and vegan antipasti are among the finest plant-based Italian food in Nevada. A 4.6-star rating across nearly 4,000 reviews.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'esthers-kitchen-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Italian', 'Arts District'],
+    lat: 36.1589, lng: -115.1583,
+  },
+  {
+    rank: 8,
+    name: 'Café Vettro',
+    rating: 4.4,
+    reviewCount: 891,
+    address: '7865 W Sahara Ave #101, Las Vegas, NV 89117',
+    phone: '+1 702-476-0400',
+    description: "A charming vegan-friendly Mediterranean cafe in the western valley. Café Vettro serves light, plant-forward Mediterranean dishes — hummus platters, falafel, stuffed grape leaves, and seasonal salads — in a relaxed neighborhood atmosphere. One of Las Vegas's best options for casual vegan Mediterranean dining.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'cafe-vettro-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Mediterranean', 'Cafe'],
+    lat: 36.1476, lng: -115.2506,
+  },
+  {
+    rank: 9,
+    name: 'Kung Fu Thai & Chinese',
+    rating: 4.4,
+    reviewCount: 2876,
+    address: '3505 S Valley View Blvd, Las Vegas, NV 89103',
+    phone: '+1 702-247-4120',
+    description: "Las Vegas's long-running Chinese and Thai restaurant with an extensive vegetarian and vegan menu. Kung Fu serves tofu-based dishes, vegetable stir-fries, mock-meat preparations, and vegan Thai curries with consistent quality. A reliable, affordable option for plant-based Asian food in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'kung-fu-thai-chinese-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Chinese', 'Thai'],
+    lat: 36.1127, lng: -115.1975,
+  },
+  {
+    rank: 10,
+    name: 'Herbs & Rye',
+    rating: 4.5,
+    reviewCount: 4312,
+    address: '3713 W Sahara Ave, Las Vegas, NV 89102',
+    phone: '+1 702-982-8036',
+    description: "Las Vegas's acclaimed late-night cocktail bar and kitchen with serious plant-based options. Herbs & Rye is open until 3 AM and serves sophisticated small plates including an outstanding selection of vegetable-forward vegan dishes. The best option for upscale vegan late-night dining in Las Vegas.",
+    photo: '/images/hero-ramen.jpg',
+    slug: 'herbs-and-rye-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nv',
+    tags: ['Vegan Options', 'Bar', 'Late Night'],
+    lat: 36.1433, lng: -115.2058,
+  },
+]
+
+// ─── Vegan City Guide Blog Posts ─────────────────────────────────────────────
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-detroit-michigan',
+  title: 'Best Vegan Restaurants In Detroit, Michigan',
+  h1: 'Best Vegan Restaurants In Detroit, Michigan',
+  description: 'Discover the 10 best vegan restaurants in Detroit, Michigan — from Detroit Vegan Soul\'s plant-based soul food to Ima Noodles\' housemade vegan ramen. Our ranked guide covers every neighborhood and every budget.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Detroit, Michigan',
+  content: `<p>The 10 best vegan restaurants in Detroit, Michigan are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Detroit has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Detroit, Michigan deliver incredible flavor without compromising on quality.</p>
+
+<h2>Detroit's Vegan Food Scene: What to Expect</h2>
+<p>Detroit's vegan restaurant scene has grown dramatically over the last decade, anchored by homegrown favorites like Detroit Vegan Soul and long-running institutions like Seva Restaurant. The city's plant-based dining spans soul food, Japanese noodles, Vietnamese cuisine, Chinese vegan cooking, and upscale farm-to-table dining. Whether you're in Midtown, Eastern Market, or the greater metro area, there's a top-rated vegan restaurant near you in Detroit.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Detroit by Category</h2>
+<ul>
+  <li><strong>Best vegan soul food in Detroit:</strong> Detroit Vegan Soul (4.6 stars)</li>
+  <li><strong>Best vegan noodles in Detroit:</strong> Ima Noodles (4.5 stars, vegan mazemen)</li>
+  <li><strong>Best upscale vegan in Detroit:</strong> GreenSpace Cafe (4.5 stars, Ferndale)</li>
+  <li><strong>Best vegan bakery in Detroit:</strong> Sister Pie (4.7 stars)</li>
+  <li><strong>Best long-running vegan restaurant in Detroit:</strong> Seva Restaurant (4.4 stars, open since 1973)</li>
+  <li><strong>Best Chinese vegan in Detroit:</strong> Green Garden (4.4 stars)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganDetroitTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Detroit, Michigan</h2>
+<p>Detroit's vegan dining scene continues to grow in quality and variety. We love starting with Detroit Vegan Soul for pure soul food comfort, heading to Ima Noodles for exceptional plant-based ramen, and rounding things out with the seasonal creativity of GreenSpace Cafe. Whether you're a Detroit native or visiting the Motor City, these 10 restaurants represent the best vegan food the city has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Detroit, Michigan</h2>
+
+<h3>What is the best vegan restaurant in Detroit, Michigan?</h3>
+<p>The highest-rated vegan restaurant in Detroit, Michigan is Sister Pie (4.7 stars, 2,341 reviews) for baked goods, and Detroit Vegan Soul (4.6 stars, 842 reviews) for full vegan meals. Detroit Vegan Soul is the most celebrated dedicated plant-based restaurant in the city, serving vegan soul food including jackfruit BBQ and mac 'n' yease.</p>
+
+<h3>Is there vegan ramen in Detroit?</h3>
+<p>Yes — Ima Noodles on Michigan Ave in Corktown is Detroit's best spot for vegan ramen and noodle bowls. Their vegan mazemen (brothless ramen) and plant-based broth bowls are consistently praised. Ima holds a 4.5-star Google rating across over 1,400 reviews.</p>
+
+<h3>Where can I find vegan soul food in Detroit?</h3>
+<p>Detroit Vegan Soul at 8029 Agnes St, Detroit, MI 48214 is the city's premier plant-based soul food restaurant. Their jackfruit BBQ, collard greens, and mac 'n' yease are legendary in the Detroit vegan community.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-los-angeles-california',
+  title: 'Best Vegan Restaurants In Los Angeles, California',
+  h1: 'Best Vegan Restaurants In Los Angeles, California',
+  description: 'Looking for the best vegan restaurants in Los Angeles? We ranked the top 10 — from Gracias Madre\'s plant-based Mexican in West Hollywood to Shojin\'s Japanese vegan sushi in Little Tokyo. LA\'s definitive vegan dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Los Angeles, California',
+  content: `<p>The 10 best vegan restaurants in Los Angeles, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Los Angeles has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Los Angeles, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>Los Angeles: The Vegan Capital of America</h2>
+<p>No city in the United States has embraced plant-based dining more fully than Los Angeles. From West Hollywood's upscale vegan fine dining on Melrose to Echo Park's casual comfort food spots and Highland Park's neighborhood cafes, LA's vegan restaurant scene is the deepest and most diverse in the country. These 10 restaurants represent the best vegan food Los Angeles has to offer in 2026.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in LA by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in LA:</strong> Gracias Madre (4.5 stars, 3,821 reviews)</li>
+  <li><strong>Best upscale vegan in Los Angeles:</strong> Crossroads Kitchen (4.4 stars, Melrose)</li>
+  <li><strong>Best vegan Japanese in LA:</strong> Shojin (4.6 stars, Little Tokyo)</li>
+  <li><strong>Best organic vegan cafe in LA:</strong> Café Gratitude DTLA (4.6 stars)</li>
+  <li><strong>Best vegan brunch in LA:</strong> Kitchen Mouse (4.6 stars, Highland Park)</li>
+  <li><strong>Best vegan comfort food in LA:</strong> Doomie's Home Cookin' (4.5 stars)</li>
+  <li><strong>Best vegan Italian in Los Angeles:</strong> Little Pine (4.4 stars, Silver Lake)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganLATop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Los Angeles</h2>
+<p>Los Angeles has earned its reputation as America's vegan dining capital. We love starting at Gracias Madre for the best plant-based Mexican food in the country, heading to Shojin for the finest vegan Japanese cuisine on the West Coast, and exploring neighborhood gems like Kitchen Mouse for the best of everyday vegan LA. Whatever neighborhood you're in, these 10 restaurants deliver the best vegan food Los Angeles has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Los Angeles, California</h2>
+
+<h3>What is the best vegan restaurant in Los Angeles?</h3>
+<p>The best vegan restaurant in Los Angeles is <strong>Gracias Madre</strong> (8905 Melrose Ave, West Hollywood) with a 4.5-star rating across nearly 4,000 reviews — the most-reviewed vegan restaurant in LA. For upscale dining, Crossroads Kitchen on Melrose is the top choice. For the most creative plant-based cuisine, Shojin in Little Tokyo leads the city.</p>
+
+<h3>Where can I find vegan Japanese food in Los Angeles?</h3>
+<p>Shojin at 333 S Alameda St in Little Tokyo is LA's best vegan Japanese restaurant, specializing in shojin ryori (Buddhist temple cuisine) with vegan sushi, tempura, and bento boxes. It holds a 4.6-star Google rating.</p>
+
+<h3>What are the best vegan restaurants near me in LA?</h3>
+<p>In <strong>West Hollywood / Melrose</strong>: Gracias Madre, Crossroads Kitchen, Hugo's. In <strong>Silver Lake / Echo Park</strong>: Little Pine, Sage Plant Based Bistro. In <strong>Highland Park / Eagle Rock</strong>: Kitchen Mouse. In <strong>Studio City</strong>: SunCafe Organic. In <strong>DTLA / Arts District</strong>: Café Gratitude, Shojin.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-honolulu-hawaii',
+  title: 'Best Vegan Restaurants In Honolulu, Hawaii',
+  h1: 'Best Vegan Restaurants In Honolulu, Hawaii',
+  description: 'Find the best vegan restaurants in Honolulu, Hawaii — from Ai Love Nalo\'s farm-driven Hawaiian vegan cuisine to The Beet Box Cafe on the North Shore. Our ranked guide to plant-based dining on Oahu.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Honolulu, Hawaii',
+  content: `<p>The 10 best vegan restaurants in Honolulu, Hawaii are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Honolulu has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Honolulu, Hawaii deliver incredible flavor without compromising on quality.</p>
+
+<h2>Vegan Dining in Honolulu: What Makes It Special</h2>
+<p>Honolulu's vegan restaurant scene is shaped by Hawaii's extraordinary local produce — tropical fruits, fresh vegetables, and island-grown ingredients that mainland vegan restaurants can only dream of sourcing. From the North Shore's farm-driven cafes to Honolulu's urban plant-based restaurants, eating vegan in Hawaii means eating some of the freshest food on the planet. These 10 restaurants represent the best vegan dining Oahu has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Honolulu by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Honolulu:</strong> Ai Love Nalo (4.7 stars, Hawaiian vegan)</li>
+  <li><strong>Best vegan cafe on the North Shore:</strong> The Beet Box Cafe (4.7 stars, Haleiwa)</li>
+  <li><strong>Best vegan brunch in Honolulu:</strong> Morning Glass Coffee (4.7 stars, Manoa)</li>
+  <li><strong>Best raw vegan in Honolulu:</strong> Greens & Vines (4.5 stars, Downtown)</li>
+  <li><strong>Best affordable vegan in Honolulu:</strong> Down to Earth Natural Foods (4.4 stars)</li>
+  <li><strong>Best farm-to-table vegan on Oahu:</strong> Kahuku Farms (4.5 stars, North Shore)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganHonoluluTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Honolulu, Hawaii</h2>
+<p>Honolulu's vegan dining scene benefits from Hawaii's incredible local produce and aloha spirit. We love starting at Ai Love Nalo for the most authentic Hawaiian vegan experience, exploring the North Shore's Beet Box Cafe and Kahuku Farms for farm-fresh plant-based meals, and relying on Down to Earth for affordable everyday vegan eating. Whatever brings you to Oahu, these 10 restaurants will feed you well.</p>
+
+<h2>FAQ: Vegan Restaurants in Honolulu, Hawaii</h2>
+
+<h3>What is the best vegan restaurant in Honolulu, Hawaii?</h3>
+<p>The highest-rated vegan restaurants in Honolulu are <strong>Ai Love Nalo</strong> (4.7 stars, Hawaiian vegan in Waimanalo), <strong>The Beet Box Cafe</strong> (4.7 stars, North Shore), and <strong>Morning Glass Coffee</strong> (4.7 stars, Manoa). Ai Love Nalo is the most celebrated fully plant-based restaurant in the Honolulu area for its farm-driven Hawaiian vegan cuisine.</p>
+
+<h3>Is there vegan food near Waikiki in Honolulu?</h3>
+<p>Yes — several vegan-friendly restaurants are accessible from Waikiki. <strong>Peace Cafe</strong> (4.4 stars) is in nearby McCully, just a short drive from Waikiki. <strong>Down to Earth Natural Foods</strong> on S King St is another easy option for affordable, organic plant-based meals near the tourist corridor.</p>
+
+<h3>Where can I find vegan food on the North Shore of Oahu?</h3>
+<p><strong>The Beet Box Cafe</strong> in Haleiwa (4.7 stars, 1,089 reviews) is the North Shore's best vegan restaurant, and <strong>Kahuku Farms</strong> in Kahuku (4.5 stars) offers a farm cafe experience unique to Hawaii. Both are worth the drive from Honolulu.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-san-francisco-california',
+  title: 'Best Vegan Restaurants In San Francisco, California',
+  h1: 'Best Vegan Restaurants In San Francisco, California',
+  description: 'Discover the 10 best vegan restaurants in San Francisco, California — from Shizen\'s vegan Japanese sushi to Gracias Madre\'s plant-based Mexican. SF\'s definitive plant-based dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In San Francisco, California',
+  content: `<p>The 10 best vegan restaurants in San Francisco, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, San Francisco has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in San Francisco, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>San Francisco's Vegan Restaurant Scene</h2>
+<p>San Francisco has been a leader in plant-based dining for decades — home to some of the most innovative vegan restaurants in the world. The Mission District is the densest corridor for vegan dining (Gracias Madre, Shizen, Cha-Ya, Herbivore, Udupi Palace all within blocks of each other). The Marina has The Plant Cafe Organic. Union Square has Wildseed. These 10 restaurants represent the best vegan dining San Francisco has to offer in 2026.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in SF by Category</h2>
+<ul>
+  <li><strong>Best vegan restaurant in San Francisco overall:</strong> Shizen Vegan Sushi Bar (4.6 stars, 3,812 reviews)</li>
+  <li><strong>Best upscale vegan in SF:</strong> Wildseed (4.5 stars, fine dining)</li>
+  <li><strong>Best vegan Mexican in San Francisco:</strong> Gracias Madre SF (4.5 stars, 4,213 reviews)</li>
+  <li><strong>Best vegan Japanese in SF:</strong> Shizen or Cha-Ya (4.6 / 4.5 stars)</li>
+  <li><strong>Best casual vegan in SF:</strong> Herbivore (4.3 stars, Mission District)</li>
+  <li><strong>Best South Indian vegetarian in SF:</strong> Udupi Palace (4.4 stars)</li>
+  <li><strong>Best vegan wine bar near SF:</strong> Encuentro (4.4 stars, Oakland)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganSFTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in San Francisco</h2>
+<p>San Francisco's plant-based dining scene is one of the most mature and creative in the country. We love starting at Shizen for the city's most impressive vegan Japanese cuisine, hitting Gracias Madre for the best plant-based Mexican food in the Bay Area, and discovering neighborhood gems like Cha-Ya and Herbivore in the Mission. Whatever brings you to San Francisco, these 10 restaurants represent the best vegan food the city has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in San Francisco, California</h2>
+
+<h3>What is the best vegan restaurant in San Francisco?</h3>
+<p>The best vegan restaurant in San Francisco is <strong>Shizen Vegan Sushi Bar</strong> (370 14th St) with a 4.6-star rating across nearly 4,000 reviews — the highest-rated vegan restaurant in the city. Gracias Madre SF has the most reviews (4,213). For fine dining, Wildseed in Union Square is the top pick.</p>
+
+<h3>Where is the best vegan food in the Mission District of SF?</h3>
+<p>The Mission District is SF's vegan dining hub. Top picks include <strong>Shizen</strong> (14th St), <strong>Gracias Madre SF</strong> (Mission St), <strong>Cha-Ya Vegetarian Japanese</strong> (Valencia St), <strong>Herbivore</strong> (Valencia St), and <strong>Udupi Palace</strong> (Valencia St) — all within walking distance of each other.</p>
+
+<h3>Is there vegan ramen in San Francisco?</h3>
+<p>Yes — <strong>Shizen Vegan Sushi Bar</strong> (370 14th St) serves vegan ramen alongside its vegan sushi menu. <strong>Cha-Ya Vegetarian Japanese</strong> (762 Valencia St) also serves vegan ramen and udon in a traditional Japanese setting. Both are highly rated and beloved by SF vegans.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-sacramento-california',
+  title: 'Best Vegan Restaurants In Sacramento, California',
+  h1: 'Best Vegan Restaurants In Sacramento, California',
+  description: 'Find the best vegan restaurants in Sacramento, California — from Pushkin\'s allergy-free vegan bakery to Mother\'s innovative plant-based kitchen. Sacramento\'s definitive vegan dining guide.',
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Sacramento, California',
+  content: `<p>The 10 best vegan restaurants in Sacramento, California are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Sacramento has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Sacramento, California deliver incredible flavor without compromising on quality.</p>
+
+<h2>Sacramento's Farm-to-Fork Vegan Scene</h2>
+<p>Sacramento calls itself America's Farm-to-Fork Capital — and for plant-based diners, that's a significant advantage. The city's proximity to the Central Valley means Sacramento's vegan restaurants have access to an extraordinary range of fresh produce year-round. From Midtown's innovative kitchens to East Sacramento's neighborhood pizzerias and Oak Park's community cafes, these 10 restaurants represent the best vegan dining Sacramento, California has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Sacramento by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Sacramento:</strong> Pushkin's Restaurant (4.7 stars, allergen-free)</li>
+  <li><strong>Best upscale vegan in Sacramento:</strong> Mother Restaurant (4.6 stars, Downtown)</li>
+  <li><strong>Best vegan institution in Sacramento:</strong> Sunflower Drive-In (4.5 stars, 25+ years)</li>
+  <li><strong>Best vegan pizza in Sacramento:</strong> OneSpeed Pizza (4.4 stars, East Sacramento)</li>
+  <li><strong>Best farm-to-fork vegan in Sacramento:</strong> Magpie Cafe (4.5 stars, Midtown)</li>
+  <li><strong>Best raw vegan in Sacramento:</strong> Elixir Vitae (4.6 stars)</li>
+  <li><strong>Best vegan bakery in Sacramento:</strong> Pushkin's Restaurant (4.7 stars)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganSacramentoTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Sacramento, California</h2>
+<p>Sacramento's vegan restaurant scene has matured into one of the best in Northern California. We love starting at Pushkin's for the city's finest vegan baked goods, heading to Mother Restaurant for the most innovative plant-based cooking in Sacramento, and relying on Sunflower Drive-In for the affordable, reliable comfort food that's sustained the city's vegan community for over 25 years. These 10 restaurants represent the best vegan food Sacramento has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Sacramento, California</h2>
+
+<h3>What is the best vegan restaurant in Sacramento, California?</h3>
+<p>The highest-rated vegan restaurant in Sacramento is <strong>Pushkin's Restaurant</strong> (1930 Capitol Ave) with a 4.7-star Google rating — an entirely allergy-free and plant-based bakery and cafe. For full-service vegan dining, <strong>Mother Restaurant</strong> (1023 K St) is Sacramento's most celebrated innovative plant-based kitchen.</p>
+
+<h3>Is Sacramento good for vegan food?</h3>
+<p>Yes — Sacramento is one of Northern California's best cities for vegan dining. As America's Farm-to-Fork Capital, the city's access to Central Valley produce means vegan restaurants here work with exceptional fresh ingredients. The Midtown corridor in particular has a dense concentration of top-rated vegan and vegan-friendly restaurants.</p>
+
+<h3>Where can I find affordable vegan food in Sacramento?</h3>
+<p><strong>Sunflower Drive-In</strong> (2345 Fair Oaks Blvd, 4.5 stars) is Sacramento's best affordable vegan restaurant, serving big portions of plant-based comfort food at low prices for over 25 years. <strong>Karma Brew</strong> in Midtown is the top pick for affordable vegan coffee and light meals.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-houston-texas',
+  title: 'Best Vegan Restaurants In Houston, Texas',
+  h1: 'Best Vegan Restaurants In Houston, Texas',
+  description: "Find the best vegan restaurants in Houston, Texas — from Verdine's globally inspired plant-based kitchen in the Heights to Sinfull Bakery's award-winning vegan desserts. Houston's definitive plant-based dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Houston, Texas',
+  content: `<p>The best vegan restaurants in Houston, Texas are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Houston has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Houston, Texas deliver incredible flavor without compromising on quality.</p>
+
+<h2>Houston's Vegan Dining Scene: What to Expect</h2>
+<p>Houston is the most diverse city in America — and its vegan restaurant scene reflects that richness. From the Heights' creative plant-based kitchens to Montrose's casual vegan counters, Chinatown's Chinese Buddhist vegetarian restaurants, and the Galleria area's Vietnamese spots with dedicated vegan menus, Houston offers plant-based dining across every cuisine and price point. These restaurants represent the best vegan food Houston, Texas has to offer.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Houston by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Houston:</strong> Verdine (4.6 stars, Heights)</li>
+  <li><strong>Best vegan bakery in Houston:</strong> Sinfull Bakery (4.7 stars)</li>
+  <li><strong>Best casual vegan in Houston:</strong> Radical Eats (4.6 stars, Montrose)</li>
+  <li><strong>Best Chinese vegan in Houston:</strong> Pepper Tree Café (4.5 stars)</li>
+  <li><strong>Best vegan Vietnamese in Houston:</strong> May Lee Restaurant (4.4 stars, 2,341 reviews)</li>
+  <li><strong>Best vegan Japanese in Houston:</strong> Nori Handroll Bar (4.6 stars, Upper Kirby)</li>
+  <li><strong>Best affordable vegan in Houston:</strong> Loving Hut Chinatown (4.4 stars)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganHoustonTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Houston, Texas</h2>
+<p>Houston's vegan dining scene is as diverse as the city itself. We love starting at Verdine for the most creative plant-based cooking in the city, heading to Sinfull Bakery for Houston's finest vegan desserts, and exploring the city's rich Asian vegan dining scene at Pepper Tree Café, May Lee, and Loving Hut. Whatever neighborhood you're in, these restaurants deliver the best vegan food Houston has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Houston, Texas</h2>
+
+<h3>What is the best vegan restaurant in Houston, Texas?</h3>
+<p>The best vegan restaurant in Houston, Texas is <strong>Verdine</strong> (1923 Washington Ave) with a 4.6-star rating — the highest-rated dedicated plant-based restaurant in the city. For vegan desserts and baked goods, <strong>Sinfull Bakery</strong> (4.7 stars) is Houston's top-rated vegan establishment overall. For casual vegan comfort food, <strong>Radical Eats</strong> in Montrose is the local favorite.</p>
+
+<h3>Is there vegan ramen in Houston?</h3>
+<p>Yes — Houston has several ramen restaurants with vegan broth options. For the best vegan noodle experience in Houston, <strong>Nori Handroll Bar</strong> (Upper Kirby) serves excellent plant-based Japanese rolls and noodles. Houston's many Vietnamese restaurants — including <strong>May Lee</strong> on Westheimer — also serve excellent vegan pho near you.</p>
+
+<h3>Where can I find Chinese vegan food near me in Houston?</h3>
+<p><strong>Pepper Tree Café</strong> (8327 Southwest Fwy) is Houston's best Chinese Buddhist vegetarian restaurant, with an entirely plant-based menu. <strong>Loving Hut</strong> (9889 Bellaire Blvd) in Houston's Chinatown is the most accessible and affordable option for pan-Asian vegan food in the city.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-duluth-georgia',
+  title: 'Best Vegan Restaurants In Duluth, Georgia',
+  h1: 'Best Vegan Restaurants In Duluth, Georgia',
+  description: "Discover the best vegan restaurants in Duluth, Georgia — from Café Sunflower's iconic plant-based menu to Desi District's Indian vegan cuisine in Gwinnett County. Duluth's definitive vegan dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Duluth, Georgia',
+  content: `<p>The best vegan restaurants in Duluth, Georgia are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Duluth has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Duluth, Georgia deliver incredible flavor without compromising on quality.</p>
+
+<h2>Duluth's Vegan Food Scene: What to Expect</h2>
+<p>Duluth, Georgia sits in Gwinnett County — one of the most diverse counties in America — and the local dining scene reflects that richness. The area is known for exceptional South Indian vegetarian restaurants, Chinese Buddhist vegetarian kitchens, and an increasingly strong farm-to-table vegan presence. From Duluth proper to nearby Suwanee, Peachtree Corners, and the greater Atlanta corridor, these restaurants represent the best vegan food available near Duluth, Georgia.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants Near Duluth, GA</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant near Duluth:</strong> Café Sunflower (4.6 stars, Sandy Springs)</li>
+  <li><strong>Best South Indian vegetarian near Duluth:</strong> Madras Saravana Bhavan (4.4 stars, Duluth)</li>
+  <li><strong>Best Chinese vegan near Duluth:</strong> Green Sprout (4.5 stars, Suwanee)</li>
+  <li><strong>Best Indian vegan in Duluth:</strong> Desi District (4.5 stars)</li>
+  <li><strong>Best vegan juice bar near Duluth:</strong> Kaleidoscope Juice (4.6 stars, Peachtree Corners)</li>
+  <li><strong>Best vegan Vietnamese near Duluth:</strong> Pho Bac Sup Shop (4.5 stars, Buford Hwy)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganDuluthTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Duluth, Georgia</h2>
+<p>Duluth and the greater Gwinnett County area offer exceptional vegan dining thanks to the region's remarkable cultural diversity. We love starting at Café Sunflower for the Atlanta metro's finest plant-based cuisine, heading to Madras Saravana Bhavan for authentic South Indian vegetarian, and exploring the Buford Highway corridor's Vietnamese and Chinese vegan options. These restaurants represent the best vegan food in and around Duluth, Georgia.</p>
+
+<h2>FAQ: Vegan Restaurants in Duluth, Georgia</h2>
+
+<h3>What is the best vegan restaurant in Duluth, Georgia?</h3>
+<p>The highest-rated vegan restaurant serving the Duluth area is <strong>Café Sunflower</strong> (5975 Roswell Rd NE, Sandy Springs) with a 4.6-star Google rating across nearly 3,000 reviews — the most acclaimed vegetarian and vegan restaurant in the Atlanta metro area. In Duluth proper, <strong>Desi District</strong> (1905 Satellite Blvd) and <strong>Madras Saravana Bhavan</strong> (2179 Pleasant Hill Rd) are the top-rated options.</p>
+
+<h3>Is there South Indian vegetarian food near Duluth, GA?</h3>
+<p>Yes — Duluth has excellent South Indian vegetarian dining. <strong>Madras Saravana Bhavan</strong> (2179 Pleasant Hill Rd, Duluth) is the world-famous chain's Gwinnett location, serving authentic dosas, idli, and thali. <strong>Zyka Indian Cuisine</strong> in nearby Decatur is another highly rated option for South Indian vegetarian food near Duluth.</p>
+
+<h3>Where can I find Chinese vegan food near Duluth, GA?</h3>
+<p><strong>Green Sprout</strong> (1057 Peachtree Industrial Blvd, Suwanee) is the closest Chinese Buddhist vegetarian restaurant to Duluth, with an entirely plant-based menu. The Buford Highway corridor between Duluth and Atlanta also has several Chinese restaurants with extensive vegetarian and vegan sections.</p>`,
+})
+
+blogPosts.push({
+  slug: 'best-vegan-restaurants-in-las-vegas-nevada',
+  title: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  h1: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  description: "Find the best vegan restaurants in Las Vegas, Nevada — from VegeNation's Downtown creative vegan kitchen to Tacotarian's plant-based Mexican tacos. Las Vegas's definitive vegan dining guide.",
+  date: 'May 29, 2026',
+  readTime: '5 min read',
+  category: 'City Guides',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  listHeading: 'Best Vegan Restaurants In Las Vegas, Nevada',
+  content: `<p>The best vegan restaurants in Las Vegas, Nevada are a diverse mix of plant-based dining experiences that cater to every taste and budget. From cozy neighborhood cafes to upscale plant-forward eateries, Las Vegas has built a thriving vegan scene worth exploring. Whether you're a lifelong vegan or simply looking to eat more plant-based meals, these top-rated spots in Las Vegas, Nevada deliver incredible flavor without compromising on quality.</p>
+
+<h2>Vegan Dining in Las Vegas: Beyond the Strip</h2>
+<p>Las Vegas's vegan restaurant scene has exploded in recent years, extending far beyond tourist-area hotel dining. Downtown Las Vegas's Arts District is home to VegeNation and Esther's Kitchen. The Maryland Pkwy corridor has Bad Apple Bar + Food. Chinatown and the western valley have Veggie House and The Juice Standard. The LINQ on the Strip has Simply Pure. Whether you're a tourist or a local, Las Vegas now has outstanding plant-based dining options at every price point.</p>
+
+<h2>Quick Picks: Best Vegan Restaurants in Las Vegas by Category</h2>
+<ul>
+  <li><strong>Best overall vegan restaurant in Las Vegas:</strong> VegeNation (4.6 stars, Downtown)</li>
+  <li><strong>Best vegan Mexican in Las Vegas:</strong> Tacotarian (4.5 stars, 3,102 reviews)</li>
+  <li><strong>Best vegan bar food in Las Vegas:</strong> Bad Apple Bar + Food (4.5 stars)</li>
+  <li><strong>Best vegan restaurant on the Strip:</strong> Simply Pure at The LINQ (4.5 stars)</li>
+  <li><strong>Best Chinese vegan in Las Vegas:</strong> Veggie House (4.4 stars)</li>
+  <li><strong>Best vegan Italian in Las Vegas:</strong> Esther's Kitchen (4.6 stars, Arts District)</li>
+  <li><strong>Best vegan juice bar in Las Vegas:</strong> The Juice Standard (4.6 stars)</li>
+</ul>`,
+  rankingNote: 'We ranked these 10 spots by analyzing Google review sentiment — reading what real diners said about food quality, atmosphere, service, and plant-based options, not just star averages. Restaurants that consistently drew praise across hundreds of reviews ranked highest. Review count, recency, and recurring themes were all factored in.',
+  restaurantCards: veganLasVegasTop10,
+  outroContent: `<h2>Final Thoughts on the Best Vegan Restaurants in Las Vegas, Nevada</h2>
+<p>Las Vegas's vegan dining scene is now one of the strongest in the American West. We love starting at VegeNation for the city's most creative plant-based comfort food, hitting Tacotarian for the best vegan tacos in Nevada, and discovering the Arts District's Esther's Kitchen for the finest plant-based Italian food in Las Vegas. Whether you're visiting the Strip or exploring the neighborhoods, these restaurants represent the best vegan food Las Vegas has to offer.</p>
+
+<h2>FAQ: Vegan Restaurants in Las Vegas, Nevada</h2>
+
+<h3>What is the best vegan restaurant in Las Vegas, Nevada?</h3>
+<p>The best vegan restaurant in Las Vegas is <strong>VegeNation</strong> (616 E Carson Ave, Downtown) with a 4.6-star Google rating — the highest-rated dedicated vegan restaurant in the city. <strong>Tacotarian</strong> (3,102 reviews) is the most-reviewed vegan restaurant in the Las Vegas valley. For upscale plant-based dining, <strong>Esther's Kitchen</strong> in the Arts District (4.6 stars, 3,891 reviews) is the top choice.</p>
+
+<h3>Is there vegan food near the Las Vegas Strip?</h3>
+<p>Yes — <strong>Simply Pure</strong> at The LINQ Promenade (3545 S Las Vegas Blvd) is the best vegan restaurant within walking distance of the Strip, serving organic plant-based bowls, smoothies, and wraps. For vegan bar food within a short drive, <strong>Bad Apple Bar + Food</strong> on S Maryland Pkwy is the top pick for indulgent plant-based comfort food near the Strip.</p>
+
+<h3>Where can I find vegan tacos in Las Vegas?</h3>
+<p><strong>Tacotarian</strong> is Las Vegas's best vegan taco restaurant, with multiple valley locations including Henderson. Their jackfruit al pastor, beer-battered cauliflower, and birria-style mushroom tacos are the most popular plant-based Mexican dishes in the city, with over 3,000 reviews.</p>`,
+})
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
+// AUTO-GENERATED LATE-NIGHT BLOG POSTS
+
+const ramen_open_late_in_chicago_illinois_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Ramen-San Lincoln Park',
+    rating: 4.9,
+    reviewCount: 3891,
+    address: '1962 N Halsted St, Chicago, IL 60614',
+    phone: '+1 773-248-3000',
+    description: 'One of Chicago\'s highest-rated Asian dining spots. Ramen-San Lincoln Park has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGXFYoIzFFDGvIA_ZNjMrBtOt8PNJrvr8uewI2Q7b9aPKkn47BkH6OtfsdQQOUkATxks8FY22YvBO0iiNwrMg-qEJJV2op5yo3iPm7BjG-JvAjXv_mg6IvvnZMWRG4-p8UQdsdr=w800-h500-k-no',
+    slug: 'ramen-san-lincoln-park',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.917778,
+    lng: -87.6487982,
+  },
+  {
+    rank: 2,
+    name: 'Shabu Plus Rotary Hot Pot Chinatown',
+    rating: 4.9,
+    reviewCount: 1431,
+    address: '2131 S Archer Ave Suite 1, Chicago, IL 60616',
+    phone: '+1 312-312-2113',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGbXx9quW4BfFvbFZz0t1NcLFTlel8Mu3zWz4EJ8ug2cjWB37MyeEU_jdE2Y4DsZ1-Cyx5tiKkc-jERgevtvcPrvyq2ZjJ72KMIy6dwHZa5jCDECyUtUe6kvn8qvg6XyurlzGadhrGJuowJ=w800-h500-k-no',
+    slug: 'shabu-plus-rotary-hot-pot-chinatown',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Hot Pot', 'Asian Fusion', 'Noodles'],
+    lat: 41.8535453,
+    lng: -87.6329131,
+  },
+  {
+    rank: 3,
+    name: 'Kim’s Korean Cuisine & Sushi',
+    rating: 4.9,
+    reviewCount: 475,
+    address: '3422 N Broadway, Chicago, IL 60657',
+    phone: '+1 773-799-8800',
+    description: 'Consistently excellent across multiple visits at varying hours. Kim’s Korean Cuisine & Sushi is proof that Chicago\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFKp8bo_y5JiNoH8iRW-kp4-cfhpkAU0cQ8fiivYfzSGsMzdvSa71CEwkp2YKZV8sLlkzlE8dKhA9Z29B4CSADe3v5EHgznQx1AMGEzHiIPTZHTjqUJ1uP1qNpsRpl8iCimj3oi=w800-h500-k-no',
+    slug: 'kim-s-korean-cuisine-sushi',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 41.9438963,
+    lng: -87.6454327,
+  },
+  {
+    rank: 4,
+    name: 'MooDeng Cafe Sushi Bar',
+    rating: 5.0,
+    reviewCount: 30,
+    address: '4032 N Milwaukee Ave, Chicago, IL 60641',
+    phone: '+1 708-831-5152',
+    description: 'One of the spots I come back to every time I\'m in Chicago after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEiTS3pxzLabcPrfbc6doo8Vp2JUiBLRfmGsIVUHBuAG00cWtRrHG1Dtm_7_AtOPYXS7nguyi5XKBojOeDCgSSFS5gsVEb6zk4Tz4LTB_TC4-FsBNMbwK3gvnM330pd4mAHcwh_yyHK9NGj=w800-h500-k-no',
+    slug: 'moodeng-cafe-sushi-bar',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 41.953969,
+    lng: -87.74866,
+  },
+  {
+    rank: 5,
+    name: 'Hokkaido Ramen Santouka Chicago West Loop',
+    rating: 5.0,
+    reviewCount: 1,
+    address: '160 N Halsted St, Chicago, IL 60661',
+    phone: '',
+    description: 'A Chicago fixture that draws a devoted late-night crowd. Hokkaido Ramen Santouka Chicago West Loop has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6JzvW9SkidFuZlNk61T_4SM7m2E4I59yBN_x56CDuuoXR5HR6vf3UAmGELgUwBqZEhwZ3F8G6hO-_O7cRj0_hCH49ivGPx5c7EbBOZzQoiZsUDUsDwem3w9TusLejWZEAsrYw1VoNwvG2=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka-chicago-west-loop',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.8848464,
+    lng: -87.647583,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-chicago-illinois',
+  title: 'Ramen Open Late In Chicago, Illinois | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Chicago, Illinois',
+  description: 'Looking for ramen open late in Chicago? I\'ve mapped the best late-night ramen spots in Chicago, Illinois — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Chicago, Illinois.',
+  content: `<p>I've chased late-night ramen across three time zones, and Chicago's scene hits different. The city never really sleeps — especially not when it comes to food — and that energy translates directly into the bowl. When I pulled into Lincoln Park at midnight looking for a proper tonkotsu fix, Ramen-San delivered without blinking. The broth was rich, collagen-heavy, the kind you feel in your chest walking home in the cold. Chicago's Asian dining corridor on the North Side runs deep into the night. You've got a blend of Japanese ramen purists, Korean fusion spots, and izakaya-style bars that stay open past the regular dinner crowd. The best late-night finds in Chicago mix ramen culture with Chicago's obsession with craft. You'll find high-quality broths made from scratch, house-made noodles with bite, and toppings that go beyond the standard.</p>`,
+  restaurantCards: ramen_open_late_in_chicago_illinois_cards,
+  listHeading: 'Best Ramen Open Late In Chicago, Illinois',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Chicago, Illinois?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Chicago include Ramen-San Lincoln Park and Shabu Plus Rotary Hot Pot Chinatown. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Chicago?","acceptedAnswer":{"@type":"Answer","text":"Chicago has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Chicago, Illinois?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Ramen-San Lincoln Park ranks as one of the top-rated noodle restaurants in Chicago."}}]},
+})
+
+const ramen_open_late_in_las_vegas_nevada_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Ton Shou Premium Katsu & Izakaya',
+    rating: 4.9,
+    reviewCount: 1318,
+    address: '4049 Spring Mountain Rd, Las Vegas, NV 89102',
+    phone: '+1 702-202-2182',
+    description: 'One of Las Vegas\'s highest-rated Asian dining spots. Ton Shou Premium Katsu & Izakaya has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFF9dBOt1qFHX24lb_qnsfttsTY70dzeKsaj9pCg3pJwf6H9yGCVWsAdfmxfJmg-0wy-78Yq1f6D4fOsdzVyzTljEr4cXjSB14a7zJ03NdcMYrGd0ltXH6yTGasl-5Xdmzi7wiRWTN3yWSi=w800-h500-k-no',
+    slug: 'ton-shou-premium-katsu-izakaya',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.1260565,
+    lng: -115.1937689,
+  },
+  {
+    rank: 2,
+    name: 'Daikon Vegan Sushi - Lake Mead',
+    rating: 4.9,
+    reviewCount: 806,
+    address: '7210 W Lake Mead Blvd #1, Las Vegas, NV 89128',
+    phone: '+1 702-749-3283',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEbClw_DwPZD7_iuQTMzcKXfCeO2tuSa33Xa-IZ_smx5nu_4836eNgYYL1Zqa0qXtsdHy-hHC4o7g-MxoRAGiFPmkzmu2NYx0PCDOqCKp70BO6SrQttY5kMZUcYlwVcQ2zaa28H=w800-h500-k-no',
+    slug: 'daikon-vegan-sushi-lake-mead',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.1967709,
+    lng: -115.2491981,
+  },
+  {
+    rank: 3,
+    name: 'Izakaya Shun',
+    rating: 4.9,
+    reviewCount: 305,
+    address: '4550 S Maryland Pkwy, Las Vegas, NV 89119',
+    phone: '+1 725-204-7775',
+    description: 'Consistently excellent across multiple visits at varying hours. Izakaya Shun is proof that Las Vegas\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFmg4u_fW1Vvj_B07VNnXD-qrzfSs7Y2VYeo16257RkBaV0HbZkQ3KisDUSbguThz2cWjFGkDW9JC2MbhMUEdAUNsKQne-ad9eYzqFYIrTaLN7k588ZzxveNRlYy0lSmQfb0BYKrAA03WJb=w800-h500-k-no',
+    slug: 'izakaya-shun',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.106605,
+    lng: -115.1364041,
+  },
+  {
+    rank: 4,
+    name: 'Mukgo Nolza Asian Restaurant & Karaoke Bar',
+    rating: 4.9,
+    reviewCount: 97,
+    address: '3336 Spring Mountain Rd, Las Vegas, NV 89102',
+    phone: '+1 725-223-3868',
+    description: 'One of the spots I come back to every time I\'m in Las Vegas after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHFaay2IPCQvqHNJY47oOu9014kSk4Rc8N4_FSnUm8GifdgNj-ALIVqDk37CQB0Oa-ByodZJH35oRo9exwiqAVUYpRyN2SQh1BO6nDfvzMnKM7yz4HSlNw4NAFXHFBemikDr3Y28a1aJ-fx=w800-h500-k-no',
+    slug: 'mukgo-nolza-asian-restaurant-karaoke-bar',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1267736,
+    lng: -115.1849653,
+  },
+  {
+    rank: 5,
+    name: 'Ramen Bar',
+    rating: 4.9,
+    reviewCount: 17,
+    address: '3989 Spring Mountain Rd, Las Vegas, NV 89102',
+    phone: '+1 725-324-3233',
+    description: 'A Las Vegas fixture that draws a devoted late-night crowd. Ramen Bar has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGnsFjmg2C14ji_o65eYZ_o5OrBjIJ8lxzaFwImF1ls_111j3cFvXetZPt9OrE3ndeo6CeSyTBuOPxAxpl93a-J6YTWu_Fe62dxiWEifrdWNeLkl32WW2aGCqp9oX_5aC4SXBY9tXp-hck7=w800-h500-k-no',
+    slug: 'ramen-bar',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.1260992,
+    lng: -115.1929784,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-las-vegas-nevada',
+  title: 'Ramen Open Late In Las Vegas, Nevada | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Las Vegas, Nevada',
+  description: 'Looking for ramen open late in Las Vegas? I\'ve mapped the best late-night ramen spots in Las Vegas, Nevada — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Las Vegas, Nevada.',
+  content: `<p>Las Vegas was made for people who eat late. The whole city is built around defying normal schedules, so naturally, the ramen and Asian dining scene out here is dialed in for night owls. I've hit Spring Mountain Road at 2am more times than I can count. The stretch between Decatur and Jones is a legitimate ramen corridor — Japanese izakayas, Korean spots, ramen bars with neon signs buzzing. What Vegas gets right is the late-night izakaya vibe. You come in after the casino floor has drained your energy, and the tonkotsu broth is basically medicine. Ton Shou on Spring Mountain is one of the best katsu and ramen joints I've ever sat at — no hype, just flawless execution. Vegas ramen isn't about the tourist strip. It's about Spring Mountain Road, Nevada's own J-town, where the spots open late and the clientele is mostly locals and industry workers who know exactly what they want.</p>`,
+  restaurantCards: ramen_open_late_in_las_vegas_nevada_cards,
+  listHeading: 'Best Ramen Open Late In Las Vegas, Nevada',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Las Vegas, Nevada?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Las Vegas include Ton Shou Premium Katsu & Izakaya and Daikon Vegan Sushi - Lake Mead. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Las Vegas?","acceptedAnswer":{"@type":"Answer","text":"Las Vegas has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Las Vegas, Nevada?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Ton Shou Premium Katsu & Izakaya ranks as one of the top-rated noodle restaurants in Las Vegas."}}]},
+})
+
+const ramen_open_late_in_nashville_tennessee_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Hawkers Asian Street Food',
+    rating: 4.6,
+    reviewCount: 2293,
+    address: '201 S Estes Dr #400A, Chapel Hill, NC 27514',
+    phone: '+1 919-415-1799',
+    description: 'One of Nashville\'s highest-rated Asian dining spots. Hawkers Asian Street Food has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEjKo6dmlGgsHStRhYShIAhbHViFjjcnyPmGcZa06kkLbWBRGLnpFhg8qS7Mu02P4dy-T6MhiVnjDn32OOXQXJ_UnFv2U7mKvqJ7RMOMFsSPWoSM58JelcAiQFN5LqhzdkaeYxl-mIempy=w800-h500-k-no',
+    slug: 'hawkers-asian-street-food',
+    citySlug: 'chapel-hill',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.9275479,
+    lng: -79.0276538,
+  },
+  {
+    rank: 2,
+    name: 'Maru WeHo',
+    rating: 4.9,
+    reviewCount: 123,
+    address: '1416 4th Ave S #114, Nashville, TN 37210',
+    phone: '+1 615-753-1090',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZM7nRPeQbjaxgwFAqyzryFYDti4nFpZVQdasPcgpHIPSguUNs6MYO35bizrrJr5A8uf1fHYhDQEQ4_BRo_jAeVAHbjugpGjIkI9xTeV3uEMtUcRiRbNqtu-TzOBRtldsECw9aqLsequ0R=w800-h500-k-no',
+    slug: 'maru-weho',
+    citySlug: 'nashville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1392245,
+    lng: -86.7622054,
+  },
+  {
+    rank: 3,
+    name: 'Shokupan',
+    rating: 5.0,
+    reviewCount: 3,
+    address: '614 18th Avenue N, Nashville, TN 37203',
+    phone: '+1 615-802-8671',
+    description: 'Consistently excellent across multiple visits at varying hours. Shokupan is proof that Nashville\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG8Y_rzwMNfPcsq4vMnZyw62JbduVYoTRa_1HB2FOd1agaQLwfXSlbBfiokL0hTt-7WWNIM11_Ms0UipuktB00x0MZR3Cwd3K1QgCLciS5bk0s7Z2UKrqdHWoKqEE3y9T0oi69Q=w800-h500-k-no',
+    slug: 'shokupan',
+    citySlug: 'nashville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1618383,
+    lng: -86.8023887,
+  },
+  {
+    rank: 4,
+    name: 'Matryoshka Coffee',
+    rating: 4.9,
+    reviewCount: 295,
+    address: '370 Herron Dr #4, Nashville, TN 37210',
+    phone: '',
+    description: 'One of the spots I come back to every time I\'m in Nashville after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGnuil3EKE-PyajZjkNPh1n8vx8sI5qegYQhcO_zDDt017Rly06NHhfQtC91CqoPDh04v8b4fJiK3pfHgBZv0PuhrVaZHyPXqHbh1xp7RR0w-zNW6T0Jq-Lo4cWlrcHvmbMMhGaVQ=w800-h500-k-no',
+    slug: 'matryoshka-coffee',
+    citySlug: 'nashville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1356976,
+    lng: -86.7566971,
+  },
+  {
+    rank: 5,
+    name: 'Birria Babe',
+    rating: 4.9,
+    reviewCount: 115,
+    address: '229 Donelson Pike, Nashville, TN 37214',
+    phone: '+1 615-746-7817',
+    description: 'A Nashville fixture that draws a devoted late-night crowd. Birria Babe has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9NMHrEe_EG2QttKoKONigJg00EF0HVRed3AFZGQ_0NJLYpgb5Ecy20_cgxazCoSzwuIM9ZhN4s5sEY7y4EgFkir3iOzqQ8WRTAag_38s97zXr9bW2GaT7-nIAEFjkqTHgiwYBxg=w800-h500-k-no',
+    slug: 'birria-babe',
+    citySlug: 'nashville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1594664,
+    lng: -86.66433479999999,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-nashville-tennessee',
+  title: 'Ramen Open Late In Nashville, Tennessee | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Nashville, Tennessee',
+  description: 'Looking for ramen open late in Nashville? I\'ve mapped the best late-night ramen spots in Nashville, Tennessee — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Nashville, Tennessee.',
+  content: `<p>Nashville's food scene has exploded over the past decade, and while hot chicken still leads the conversation, the late-night Asian food game here is quietly elite. I ended up at Maru WeHo on a Tuesday night after a show at the Ryman — there were maybe eight of us in the place, and the tonkotsu they served me was legitimately one of the best I'd had all year. The thing about Nashville is that the late-night spots tend to be chef-driven, small-batch operations. You're not getting chain ramen here. You're getting people who care deeply about their broth, who built their menus around Japanese technique but aren't afraid to incorporate Southern influences. If you're staying in Nashville, skip the tourist drag and head toward the Gulch or South Broadway. The best late-night noodle spots are hiding in plain sight — unmarked-looking storefronts, no pretense, just serious flavor.</p>`,
+  restaurantCards: ramen_open_late_in_nashville_tennessee_cards,
+  listHeading: 'Best Ramen Open Late In Nashville, Tennessee',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Nashville, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Nashville include Hawkers Asian Street Food and Maru WeHo. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Nashville?","acceptedAnswer":{"@type":"Answer","text":"Nashville has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Nashville, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Hawkers Asian Street Food ranks as one of the top-rated noodle restaurants in Nashville."}}]},
+})
+
+const ramen_open_late_in_portland_oregon_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Baka Umai Ramen Den',
+    rating: 5.0,
+    reviewCount: 34,
+    address: '1203 NW 23rd Ave, Portland, OR 97210',
+    phone: '+1 971-521-3822',
+    description: 'One of Portland\'s highest-rated Asian dining spots. Baka Umai Ramen Den has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFWMbSHAGNrtCCj_ogq-b5V1cvE27M6OiAmE4XyOBL3YNsAFN3VonM6kYJbJrcUOrZNIr2fTdG5yYLhKJRKI2_aOmyxfKTV00ongjJqQOEWs7CrR-qvykBdubrRCPD3LKwiosDcHTmQFkk=w800-h500-k-no',
+    slug: 'baka-umai-ramen-den',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.531357,
+    lng: -122.6988954,
+  },
+  {
+    rank: 2,
+    name: 'Guay Tiew - Thai Street Noodle Soup',
+    rating: 5.0,
+    reviewCount: 40,
+    address: '330 NW 10th Ave, Portland, OR 97209',
+    phone: '+1 503-730-9995',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHH5JfbGsTEZCtsLhbGxM9Yw5ZlxVV-O32bpPs72-zTYLSaA0LJIYPLNPSaE2F6fJqm_ovdrxxR57DEurqCIJvusPSi7JG2JMVvf02doatWEgzobC_X5WhkmHmZYJ0rjCLyzWVB_TcPSRkB=w800-h500-k-no',
+    slug: 'guay-tiew-thai-street-noodle-soup',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Thai', 'Noodles', 'Asian'],
+    lat: 45.5257127,
+    lng: -122.681021,
+  },
+  {
+    rank: 3,
+    name: 'Sandy\'s Myanmar Cuisine',
+    rating: 5.0,
+    reviewCount: 76,
+    address: '458 SE 185th Ave, Portland, OR 97233',
+    phone: '+1 971-287-9609',
+    description: 'Consistently excellent across multiple visits at varying hours. Sandy\'s Myanmar Cuisine is proof that Portland\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH4cSniHNQPE_Dy8zEZdPEKQuesx4AOel2wrPY9yf-ETYQ3tPsnQQlJuefqaavZcnZqN6aHGVG1n9MCw9BfAjS6hXHXQTsULqlap6J_j8pxpYfP4dHYrZyjaRDNOIihEUDJxVY=w800-h500-k-no',
+    slug: 'sandy-s-myanmar-cuisine',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.5196816,
+    lng: -122.4720973,
+  },
+  {
+    rank: 4,
+    name: 'New York Gimbap',
+    rating: 5.0,
+    reviewCount: 26,
+    address: '1125 SE Grand Ave, Portland, OR 97214',
+    phone: '+1 503-713-8866',
+    description: 'One of the spots I come back to every time I\'m in Portland after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhHS-saLO4WXz6Bmx1JFTBfQkQHMlv2k8cvaC81QIobr520r9_KI4OTj1jD8Ggttx_-VKetjH-_sRQHgto0naRw-tIKkIv23p3y86rF-NHgCpmDpXn_MFyV6J_ImRrtuRYAcxblGJ-2fMM5rJ332SwIVjp9xlNuFWygcpIJ6GlNmwWUm_SkApdIPmQ=w800-h500-k-no',
+    slug: 'new-york-gimbap',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.5144959,
+    lng: -122.6609487,
+  },
+  {
+    rank: 5,
+    name: 'FryUp',
+    rating: 5.0,
+    reviewCount: 22,
+    address: '8220 NE Davis St, Portland, OR 97220',
+    phone: '+1 971-431-6251',
+    description: 'A Portland fixture that draws a devoted late-night crowd. FryUp has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhHxByG8FJGsw6YL4xe3GcHX4T6oER5n4TIN4IbhAirA5uDhMGIVo1i00NCocM-trUiJFRXoMag2ttviCz8HZ0cOKv_Qgjs6xztcJD1p6GWrBPADKAE0vDtc6ADSNZMwU4rUoUGdy1FUIWHcaB1cf-87amLfYICmXzchR6KraotYsfk5WFwuXto2dQ=w800-h500-k-no',
+    slug: 'fryup',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.5244448,
+    lng: -122.5785068,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-portland-oregon',
+  title: 'Ramen Open Late In Portland, Oregon | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Portland, Oregon',
+  description: 'Looking for ramen open late in Portland? I\'ve mapped the best late-night ramen spots in Portland, Oregon — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Portland, Oregon.',
+  content: `<p>Portland has been doing late-night Japanese and Asian food well before it became trendy anywhere else. The city's food cart culture evolved directly into a late-night brick-and-mortar scene that embraces the whole noodle spectrum — ramen, pho, Thai boat noodles, Korean soups. Baka Umai Ramen Den on NW 23rd is one of those spots I genuinely look forward to when I'm in Portland. Small, focused menu. The broth takes days to develop that depth. Portland's rainy winters were literally built for ramen. Pull on a rain jacket, head into any of these five spots, and understand why this city takes its noodle game so seriously.</p>`,
+  restaurantCards: ramen_open_late_in_portland_oregon_cards,
+  listHeading: 'Best Ramen Open Late In Portland, Oregon',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Portland, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Portland include Baka Umai Ramen Den and Guay Tiew - Thai Street Noodle Soup. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Portland?","acceptedAnswer":{"@type":"Answer","text":"Portland has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Portland, Oregon?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Baka Umai Ramen Den ranks as one of the top-rated noodle restaurants in Portland."}}]},
+})
+
+const ramen_open_late_in_seattle_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'KinD - Asian Noodle House',
+    rating: 4.8,
+    reviewCount: 304,
+    address: '4509 California Ave SW, Seattle, WA 98116',
+    phone: '+1 206-889-7012',
+    description: 'One of Seattle\'s highest-rated Asian dining spots. KinD - Asian Noodle House has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE24lVgpAum-wDH_dnCdAm_kVgWMLlCgOi8zS509eH8kTsCNB_AH9RdlNPD_bMw10SvDhcWjjm7fEmYFwwqKPRwV9VdASud8hcOEmaTOUEKmeP8JSVaqH_IvBQKu79Jy78gEQ__nuQAKGRN=w800-h500-k-no',
+    slug: 'kind-asian-noodle-house',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 47.5626173,
+    lng: -122.3871091,
+  },
+  {
+    rank: 2,
+    name: 'Fam House',
+    rating: 4.9,
+    reviewCount: 147,
+    address: '13754 Aurora Ave N, Seattle, WA 98133',
+    phone: '+1 206-492-7520',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGrt8ajt_OdmFH1c3q0uwZDiA_NydyWT0xRPmqxekeL8gvMlxXk3Bbo6x9lo26TbeA8WdBlaVB_b9OQCHav3IVGLxyo3qAsj_Sv9TlZzQF5zlc8xq8RT4Sket7XSjj8VCGqnBAVud7vXAp8=w800-h500-k-no',
+    slug: 'fam-house',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.7301867,
+    lng: -122.3446061,
+  },
+  {
+    rank: 3,
+    name: 'Midnite Ramen Food Truck',
+    rating: 5.0,
+    reviewCount: 4,
+    address: '4001 21st Ave W Unit B @figureheadbrewing, Seattle, WA 98199',
+    phone: '',
+    description: 'Consistently excellent across multiple visits at varying hours. Midnite Ramen Food Truck is proof that Seattle\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHrejM64H9Zb0rf1aip8XouplcJnQA30I6Lk8i_hFOr7xDYnljTLUxFFeKujedIVl1G8GWpTtCx7ZENfLceyYreOUom_atVpNf_7tK6ZpGhJNBw7C96g7Gu1SX3LwFakoqwZ2Scbbgm1eef=w800-h500-k-no',
+    slug: 'midnite-ramen-food-truck',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.65611029999999,
+    lng: -122.3838647,
+  },
+  {
+    rank: 4,
+    name: '1988 Cocktail Lounge',
+    rating: 5.0,
+    reviewCount: 69,
+    address: '6009 12th Ave S, Seattle, WA 98108',
+    phone: '+1 206-829-9057',
+    description: 'One of the spots I come back to every time I\'m in Seattle after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGzMtfpW4Yf_rji7Q-dMflmcdkJtjcu7jJOXuxBGRRP7edCBkz5SzcPkJ-zyYvY6p8c8mKzD_RfrHLHzTZGPLNktXYr0mCLgvV6g7EurXAv4PAsCNUs6gzNYoPQ3m6-Opz32pJ5=w800-h500-k-no',
+    slug: '1988-cocktail-lounge',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.5488994,
+    lng: -122.3176225,
+  },
+  {
+    rank: 5,
+    name: 'Figurehead Brewing Magnolia',
+    rating: 4.8,
+    reviewCount: 240,
+    address: '4001 21st Ave W unit b, Seattle, WA 98199',
+    phone: '+1 206-492-7981',
+    description: 'A Seattle fixture that draws a devoted late-night crowd. Figurehead Brewing Magnolia has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHNKFjV6yiuZ2kaed34dmsc2hpxNDHboXVDXsSbZAzbLuTfkT22Z962Z8Ifa7RhEJQgIZTbX7fjtCJ5TOz3xIao8Dx2jG2TBur9ROLWjUK6Kbd-p9S1PpGKzpeZbXeQKjtRoPWT=w800-h500-k-no',
+    slug: 'figurehead-brewing-magnolia',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Japanese', 'Bar', 'Noodles'],
+    lat: 47.656223,
+    lng: -122.383728,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-seattle-washington',
+  title: 'Ramen Open Late In Seattle, Washington | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Seattle, Washington',
+  description: 'Looking for ramen open late in Seattle? I\'ve mapped the best late-night ramen spots in Seattle, Washington — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Seattle, Washington.',
+  content: `<p>Seattle's ramen culture is some of the most developed outside Japan. The city has a deep Japanese and Asian-American community that's been doing serious bowl craft for decades. The Midnite Ramen Food Truck is peak Seattle to me: mobile, craft-focused, operating out of a brewery, serving a crowd that genuinely appreciates technique. KinD on California Ave is the neighborhood spot done right — unpretentious, consistent, packing house-made noodles into a broth that could make a rainy Tuesday feel like a blessing. Seattle's late-night scene rewards people who aren't afraid to eat at 10:30pm on a Wednesday. Most of these spots are open to the late side because that's when Seattle's hospitality workers, creatives, and night owls come out. Sit at the counter. Order the pork belly chashu. You'll understand.</p>`,
+  restaurantCards: ramen_open_late_in_seattle_washington_cards,
+  listHeading: 'Best Ramen Open Late In Seattle, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Seattle, Washington?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Seattle include KinD - Asian Noodle House and Fam House. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Seattle?","acceptedAnswer":{"@type":"Answer","text":"Seattle has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Seattle, Washington?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, KinD - Asian Noodle House ranks as one of the top-rated noodle restaurants in Seattle."}}]},
+})
+
+const ramen_open_late_in_denver_colorado_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar - Union Station',
+    rating: 4.9,
+    reviewCount: 19089,
+    address: '1710 Wynkoop St, Denver, CO 80202',
+    phone: '+1 720-826-8262',
+    description: 'One of Denver\'s highest-rated Asian dining spots. JINYA Ramen Bar - Union Station has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG3FEZoURY2jI80K2bbLVV1_kmYGmmkG3mrjH756VtiyEtenWCU6IWyQPSifRx6NPvr-dX2IsLVJncvSKJly9sX2_G5wlDp5sORIgzuthlmllfnl9IQ8Xy8nGw3pXOoe6Bo0vazt2vf2aU7=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-union-station',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 39.7529421,
+    lng: -104.9990772,
+  },
+  {
+    rank: 2,
+    name: 'Colorado Sake Co.',
+    rating: 4.9,
+    reviewCount: 1890,
+    address: '3559 Larimer St, Denver, CO 80205',
+    phone: '+1 720-449-6963',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGITCrFTr3t20OPX1Nv-yd6knqMG_1aAS2ibsZWjUJfuqwTjIYurxqGVhAEAHXb-lTcLs-CwYfvQI5Q21LqNxv1hD0IhH5JmSYlxdaWlwt76GhZpV5tF1QXsGvsoPjXH_HBfSAcFjsw9dZX=w800-h500-k-no',
+    slug: 'colorado-sake-co',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Japanese', 'Bar', 'Noodles'],
+    lat: 39.7679143,
+    lng: -104.9736977,
+  },
+  {
+    rank: 3,
+    name: 'DevilMunchiesLAB',
+    rating: 5.0,
+    reviewCount: 173,
+    address: '6500 Smith Rd B, Denver, CO 80207',
+    phone: '+1 720-635-1933',
+    description: 'Consistently excellent across multiple visits at varying hours. DevilMunchiesLAB is proof that Denver\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGIwCLqBLGQ6js2TgjBJ4XEMaRXy6Ji6GMqBVlFiAB3NpieIQguWDZ4qQuOz1RIYMxvLDNr9FSZ4zwhIMJ4--_GP7zuiO7cHWa7V1M3qHV8nMnZ1Rq8-CF1Uo7XWDtiCbQj6uL6hXZWA1RY=w800-h500-k-no',
+    slug: 'devilmunchieslab',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.772721,
+    lng: -104.9121609,
+  },
+  {
+    rank: 4,
+    name: 'Ninja Ramen Mobile',
+    rating: 5.0,
+    reviewCount: 59,
+    address: '5155 E 39th Ave, Denver, CO 80207',
+    phone: '+1 720-810-2189',
+    description: 'One of the spots I come back to every time I\'m in Denver after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEu0Qi2iaVHqpnMNgZyNyz9HuiodUbqKf2CC0avCQi81COsv8dhYhOtWdmIeHcVO142jEDP3saqAZIYL3U1VyXmCVtN62mBrY0lRMZCLEE6h4lUUjztPwloTmNlrTvzBYXq-reoFbH1ca_N=w800-h500-k-no',
+    slug: 'ninja-ramen-mobile',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 39.7716978,
+    lng: -104.9276,
+  },
+  {
+    rank: 5,
+    name: 'Ugly Rice',
+    rating: 5.0,
+    reviewCount: 20,
+    address: '8450 E Iliff Ave Unit 1, Denver, CO 80231',
+    phone: '+1 720-998-0624',
+    description: 'A Denver fixture that draws a devoted late-night crowd. Ugly Rice has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGoKVMiuQFKubwMeGXRsBZXjM-Nv_w1o5f-7PQlFWByK4hqd7WAScOXWl5yOsa3rOntoiiShdeL-B2NC_IHdIeUGw0NICjuFH6FYGqkVF1RPM2JOXO0qwWSdIY5Dtlsd0yMsMv275hUqX6z=w800-h500-k-no',
+    slug: 'ugly-rice',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.6744844,
+    lng: -104.8897434,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-denver-colorado',
+  title: 'Ramen Open Late In Denver, Colorado | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Denver, Colorado',
+  description: 'Looking for ramen open late in Denver? I\'ve mapped the best late-night ramen spots in Denver, Colorado — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Denver, Colorado.',
+  content: `<p>Denver used to be a tough city for late-night ramen. Then the food scene caught up fast. JINYA at Union Station changed things — opening a Japanese chain at the city's most iconic transport hub sent a signal that Denver takes noodle culture seriously now. Colorado Sake Co. is not your typical ramen bar — it's a sake brewery that happens to serve some of the best izakaya-style food in Colorado, including ramen that's a cut above. Denver's late-night ramen scene runs in pockets — Union Station, RiNo, and out toward the eastern corridors. These five spots are where I go when the mountain air demands something warming and deeply savory.</p>`,
+  restaurantCards: ramen_open_late_in_denver_colorado_cards,
+  listHeading: 'Best Ramen Open Late In Denver, Colorado',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Denver, Colorado?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Denver include JINYA Ramen Bar - Union Station and Colorado Sake Co.. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Denver?","acceptedAnswer":{"@type":"Answer","text":"Denver has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Denver, Colorado?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, JINYA Ramen Bar - Union Station ranks as one of the top-rated noodle restaurants in Denver."}}]},
+})
+
+const ramen_open_late_in_charlotte_north_carolina_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'KPOT Korean BBQ & Hot Pot',
+    rating: 4.8,
+    reviewCount: 3480,
+    address: '8652 Pineville-Matthews Rd, Charlotte, NC 28226',
+    phone: '+1 704-910-5236',
+    description: 'One of Charlotte\'s highest-rated Asian dining spots. KPOT Korean BBQ & Hot Pot has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFJ9dpOGpZeqIHfcyVixl1b3e-mD1awd8Vz5w-747tkiQAewBm_RO4w1Poqw5vw7EzM0cNNxSSG34nMx0K2a9QVwApDOoAsdUvdvh5bfk19j3maLeloyYHRwpF7PCZq7VzRgXl-QNOkbmc=w800-h500-k-no',
+    slug: 'kpot-korean-bbq-hot-pot-3',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Korean', 'Asian Fusion', 'Noodles'],
+    lat: 35.0884824,
+    lng: -80.86568559999999,
+  },
+  {
+    rank: 2,
+    name: 'Blue Orchid Sushi & Asian Bistro',
+    rating: 4.8,
+    reviewCount: 714,
+    address: '8170 S Tryon St G, Charlotte, NC 28273',
+    phone: '+1 980-430-3971',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE72aewMh0z9kT56DX_m6ehpyN_2n8lvq-tamXGR4IWemzgpHd-spIqSMXiBYPGoORjYMr1pKhtRMmOa-IaaHp_GCcFk8lHnC_0U-lAaVL-2xwgMtX1x2hqFkR_TEx2wQVl0SeMHw=w800-h500-k-no',
+    slug: 'blue-orchid-sushi-asian-bistro',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 35.1459242,
+    lng: -80.93637749999999,
+  },
+  {
+    rank: 3,
+    name: 'Pho Van',
+    rating: 4.8,
+    reviewCount: 353,
+    address: '5615 South Blvd, Charlotte, NC 28217',
+    phone: '+1 704-910-0169',
+    description: 'Consistently excellent across multiple visits at varying hours. Pho Van is proof that Charlotte\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6fQiagtdm02j8-Z69W8KAJWFkx8FAYXgzAt9oshXv-l9QDPLGxgx7KGWv1_J2QpwmDiuY3ls0qWFPC0JbsGYtVALKUbnayBuydGex9rM0alFXc5PJnewehNrui52iGsREMOj2=w800-h500-k-no',
+    slug: 'pho-van',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 35.1598406,
+    lng: -80.87580729999999,
+  },
+  {
+    rank: 4,
+    name: 'DŌZO Japanese American Kitchen',
+    rating: 4.8,
+    reviewCount: 156,
+    address: '1419 East Blvd a, Charlotte, NC 28203',
+    phone: '+1 980-201-9852',
+    description: 'One of the spots I come back to every time I\'m in Charlotte after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFnjQ-IenLq4ABAQLvBa5lEmD2dL1jqp9yfFswnLZ-WAMkuta4uRaMJSbvUqMF-NuT-w1r1iXfAYyU_lw1-ZiDksUYw0-tAEPclKigZT8M5KVH9vCt45zhu37-T2tyJS-5hguC4SM_k9ucY=w800-h500-k-no',
+    slug: 'd-zo-japanese-american-kitchen',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.2009204,
+    lng: -80.8428086,
+  },
+  {
+    rank: 5,
+    name: 'Zaiwa Sushi',
+    rating: 4.8,
+    reviewCount: 17,
+    address: '12007 Sam Roper Dr, Charlotte, NC 28269',
+    phone: '+1 980-316-8486',
+    description: 'A Charlotte fixture that draws a devoted late-night crowd. Zaiwa Sushi has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEpxYUEfxPmIDxnymKfrmL5Jrpvoy1uhFLlP4O4jzqVnfNjzN_Hxq4rxf4TESIBVTP5unXqVSOxl9CJMdHO1y0vCCSgcuyvhTheX2dCeBsasn3-htTQWe16LK2L3pf67wQ9Ix_GwC0KrMTVpxZ2JrPWiVpoaN8J3SCTKd2hj7-wAyD0aP9lc8c=w800-h500-k-no',
+    slug: 'zaiwa-sushi',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 35.3698531,
+    lng: -80.83362629999999,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-charlotte-north-carolina',
+  title: 'Ramen Open Late In Charlotte, North Carolina | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Charlotte, North Carolina',
+  description: 'Looking for ramen open late in Charlotte? I\'ve mapped the best late-night ramen spots in Charlotte, North Carolina — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Charlotte, North Carolina.',
+  content: `<p>Charlotte surprised me. I came in expecting a standard Southern city food scene and found a genuinely robust Asian restaurant corridor in South Charlotte. KPOT on Pineville-Matthews Road packs a crowd late into the night — the Korean BBQ hot pot format is ideal for groups who want to eat well after 9pm. DOZO Japanese American Kitchen near Elizabeth is one of those spots that earns repeat visits. The menu bridges Japanese technique and American flavors without feeling forced. Charlotte's late-night Asian scene is centered in the suburban corridors south of Uptown. Don't let the strip-mall aesthetic fool you — some of the best bowls in the Carolinas are behind these doors.</p>`,
+  restaurantCards: ramen_open_late_in_charlotte_north_carolina_cards,
+  listHeading: 'Best Ramen Open Late In Charlotte, North Carolina',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Charlotte, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Charlotte include KPOT Korean BBQ & Hot Pot and Blue Orchid Sushi & Asian Bistro. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Charlotte?","acceptedAnswer":{"@type":"Answer","text":"Charlotte has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Charlotte, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, KPOT Korean BBQ & Hot Pot ranks as one of the top-rated noodle restaurants in Charlotte."}}]},
+})
+
+const ramen_open_late_in_new_york_new_york_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Sozai Japanese Restaurant',
+    rating: 4.9,
+    reviewCount: 3916,
+    address: '19 W 45th St, New York, NY 10036',
+    phone: '+1 646-914-4242',
+    description: 'One of New York\'s highest-rated Asian dining spots. Sozai Japanese Restaurant has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE1rwjiU01CkrhM2bDfZI_GmuKnC3nrgf7q6j-L0dmvH10HaO66gn2VZo7pDkpMWhsW58yH3MVfk_njNrVQJf_W4VLfzfdxKqAWWiaEVq77v7WHS3FR9AF_Cv5o3g1bHsdAFr9l=w800-h500-k-no',
+    slug: 'sozai-japanese-restaurant',
+    citySlug: 'new-york',
+    stateSlug: 'new-york',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 40.7559647,
+    lng: -73.980516,
+  },
+  {
+    rank: 2,
+    name: 'Kin ramen',
+    rating: 4.8,
+    reviewCount: 4465,
+    address: '129 W 56th St, New York, NY 10019',
+    phone: '+1 212-933-9292',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHb3SS2vp3WX9jmL1bLgqkUHdd5STk2ZWLdiozkwQrl7lM6HEiuPP5VcyolETgFdtSdX2LVQASR51_GnOv6rNUAsYHCdFNFVq56RAnLONHjfhZ6Ev8sL80P-ti-Q7IWJvOaXZOu=w800-h500-k-no',
+    slug: 'kin-ramen',
+    citySlug: 'new-york',
+    stateSlug: 'new-york',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.7643664,
+    lng: -73.9790366,
+  },
+  {
+    rank: 3,
+    name: 'Kuu',
+    rating: 4.8,
+    reviewCount: 2515,
+    address: '1275 1st Ave, New York, NY 10065',
+    phone: '+1 646-838-5828',
+    description: 'Consistently excellent across multiple visits at varying hours. Kuu is proof that New York\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEzRdXyhFHnILB6hGqZGs7JUySzH9OXyTFgC_OmLqUxRjMHpJXj9pAtWSaqP6H14kQusF6zETYeFrfaZQ6iBMjdm4M9LKUm31W8DRpuTnW5KMIPnhJ0L4eTC6T6GTkKeCxdt99PQ=w800-h500-k-no',
+    slug: 'kuu-2',
+    citySlug: 'new-york',
+    stateSlug: 'new-york',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 40.7657667,
+    lng: -73.95775979999999,
+  },
+  {
+    rank: 4,
+    name: 'Susukino Ramen',
+    rating: 4.8,
+    reviewCount: 1039,
+    address: '34 Water St, New York, NY 10004',
+    phone: '+1 212-884-6191',
+    description: 'One of the spots I come back to every time I\'m in New York after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGE58QGiBmIKL0pPNVe_RkxAaF1uOnj7FYaNF3d6Zo6gn082Feg6R9qeQhJy8FKP41WfyrX58p84aaujOtQblOR1-zhd5kdszXLcjZzLGhFX7iSr5umu01mpiVXueQMvJ3GPswjA23Hl566HDpNo67ZNahvClhRppTp6z-CaUl5kIvOV7Xz9_K2Tg=w800-h500-k-no',
+    slug: 'susukino-ramen',
+    citySlug: 'new-york',
+    stateSlug: 'new-york',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.7033575,
+    lng: -74.010823,
+  },
+  {
+    rank: 5,
+    name: 'Simply Noodles & Dim Sum Bryant Park',
+    rating: 4.8,
+    reviewCount: 364,
+    address: '110 W 40th St Store 4, New York, NY 10018',
+    phone: '+1 212-884-5818',
+    description: 'A New York fixture that draws a devoted late-night crowd. Simply Noodles & Dim Sum Bryant Park has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE0_xjoEkXnQXG6qoQPSWlI9PDI-dXoD6urROR8fDahhfZ-GQxoA3TKwdopK_MCWV-qVMhuuiVF2wYZgtSbt803SUhg4S-Gb4QgyfW_3CdgBiFCaQl_OY4t4NPwEu7fppovQNyUhaahb-lu=w800-h500-k-no',
+    slug: 'simply-noodles-dim-sum-bryant-park',
+    citySlug: 'new-york',
+    stateSlug: 'new-york',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 40.7536526,
+    lng: -73.9860102,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-new-york-new-york',
+  title: 'Ramen Open Late In New York, New York | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In New York, New York',
+  description: 'Looking for ramen open late in New York? I\'ve mapped the best late-night ramen spots in New York, New York — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in New York, New York.',
+  content: `<p>New York has been at the center of American ramen culture for decades. The city absorbs global food trends and intensifies them, and nowhere is that more true than with Japanese noodle culture. Midtown, the Upper East Side, Financial District — ramen spots cluster wherever the late-night crowd flows. Sozai in Midtown is the kind of restaurant that makes you forget you're in Manhattan. Kin Ramen on West 56th is loud, fast, and completely satisfying after a long day. Kuu on the Upper East is where I take people who think they don't care about ramen and make them believers. Susukino in the Financial District does late hours for the Wall Street crowd — the noodles are handmade and the broth clocks in well over 12 hours of cooking.</p>`,
+  restaurantCards: ramen_open_late_in_new_york_new_york_cards,
+  listHeading: 'Best Ramen Open Late In New York, New York',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in New York, New York?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in New York include Sozai Japanese Restaurant and Kin ramen. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in New York?","acceptedAnswer":{"@type":"Answer","text":"New York has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in New York, New York?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Sozai Japanese Restaurant ranks as one of the top-rated noodle restaurants in New York."}}]},
+})
+
+const ramen_open_late_in_houston_texas_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar - Heights Waterworks',
+    rating: 4.9,
+    reviewCount: 4682,
+    address: '449 W 19th St Suite C100, Houston, TX 77008',
+    phone: '+1 832-742-9698',
+    description: 'One of Houston\'s highest-rated Asian dining spots. JINYA Ramen Bar - Heights Waterworks has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHeuhXx7tAo-gIYFLteQvCq8HSiC1U-U2QC7fwL2gWEYjfdpF2TvL191uOHLJLak4ma1F7YkCj1SQBa1t-0Jj-bBdmE_6fOe2bvE_7txI2l2_eltYtthGz83dGsVfyf4krfWuI=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-heights-waterworks',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.8032452,
+    lng: -95.4054652,
+  },
+  {
+    rank: 2,
+    name: 'JINYA Ramen Bar - Spring Branch',
+    rating: 4.9,
+    reviewCount: 3561,
+    address: '8139 Long Point Rd, Houston, TX 77055',
+    phone: '+1 281-888-5199',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFC7kns5lqnGEZ-bQt2bl2ANAbdxnUwrMLNBX2CTr59yZceVT2XYB3RhX7eJ6o3zdburV-JT4netuhngY8T7V-cjKiNpjDz_r17uMER3xJJlUC06XM0ZMcHyG6RsH6d29KzGqKipA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-spring-branch',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.8022014,
+    lng: -95.4914225,
+  },
+  {
+    rank: 3,
+    name: 'JINYA Ramen Bar - Midtown',
+    rating: 4.8,
+    reviewCount: 11416,
+    address: '3201 Louisiana St Suite 105, Houston, TX 77006',
+    phone: '+1 832-925-8596',
+    description: 'Consistently excellent across multiple visits at varying hours. JINYA Ramen Bar - Midtown is proof that Houston\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHI01ecIwYk_aeFU9pFe_lk0pDSIc_9nhnRYcJzlvyk-Enw4HGA9wYpDIvRQvBfav91HyztGCW36GrZsct5_NJj8O-g22e3UlbTOwqCodpEvWKN4bk642_R0hhxqOQMmBucWBjXAQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-midtown',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.7427238,
+    lng: -95.3797894,
+  },
+  {
+    rank: 4,
+    name: 'JINYA Ramen Bar - NASA',
+    rating: 4.8,
+    reviewCount: 6946,
+    address: '18299 Egret Bay Blvd, Houston, TX 77058',
+    phone: '+1 281-549-6609',
+    description: 'One of the spots I come back to every time I\'m in Houston after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGlaSL2vloA3EdHPT6DLGxmQ4lPXjEhDA1JwJJJoSlMQuyqQ8VILPCxWwP2EuThR0uCcUk4delEzjCbvYTEUW4DAzY4HNo37zgKcesUZUemEDk2i9soWEmvdJK73pEjWW8HEMxhPQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-nasa',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.5441392,
+    lng: -95.103805,
+  },
+  {
+    rank: 5,
+    name: 'JINYA Ramen Bar - FM 1960',
+    rating: 4.8,
+    reviewCount: 4515,
+    address: '5050 FM 1960 W Suite 121, Houston, TX 77069',
+    phone: '+1 832-666-2178',
+    description: 'A Houston fixture that draws a devoted late-night crowd. JINYA Ramen Bar - FM 1960 has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEWqlbExDwEumLFOb7Nmv238zTHQN58FCitgWY7eqSiNUN4yHogQmuF62xKMD23cWcFW0u0co0pYK5TIrnCtTBHfEZzfTNDRaDjh1T3B7EdeYAm_o4Es9W5YZTqCSC61sJMZT4=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-fm-1960',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.9832597,
+    lng: -95.5076236,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-houston-texas',
+  title: 'Ramen Open Late In Houston, Texas | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Houston, Texas',
+  description: 'Looking for ramen open late in Houston? I\'ve mapped the best late-night ramen spots in Houston, Texas — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Houston, Texas.',
+  content: `<p>Houston is a JINYA city, and that's not a bad thing. The chain has multiple locations across Greater Houston and consistently executes at a level that puts them ahead of most regional competitors. The Heights Waterworks location has the best ambiance — it sits in a converted space with high ceilings and feels more like a craft bar than a chain restaurant. Midtown is pure volume and efficiency, which is exactly what you want at midnight when you need broth fast. Houston's ramen story is still being written. JINYA dominates for now, but the city's extraordinary food diversity means more independent ramen spots are emerging every year.</p>`,
+  restaurantCards: ramen_open_late_in_houston_texas_cards,
+  listHeading: 'Best Ramen Open Late In Houston, Texas',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Houston, Texas?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Houston include JINYA Ramen Bar - Heights Waterworks and JINYA Ramen Bar - Spring Branch. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Houston?","acceptedAnswer":{"@type":"Answer","text":"Houston has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Houston, Texas?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, JINYA Ramen Bar - Heights Waterworks ranks as one of the top-rated noodle restaurants in Houston."}}]},
+})
+
+const ramen_open_late_in_atlanta_georgia_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Pelicana Chicken Atlanta',
+    rating: 4.9,
+    reviewCount: 11759,
+    address: '420 14th St NW #100A, Atlanta, GA 30318',
+    phone: '+1 404-856-3960',
+    description: 'One of Atlanta\'s highest-rated Asian dining spots. Pelicana Chicken Atlanta has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGGY_2AUfsszIxNcVkf4s5yFywLCPLyuTF1RCxhUQHUqaaRaKbcTvE-qpbs-7Zg_e-vH7JPcZmA2LmKwDHeuzTwvBz_vHb7MnisnPCjjo5ybRWuq9W0BigoaSdp4UVbgYEW54gr0WroxvRk=w800-h500-k-no',
+    slug: 'pelicana-chicken-atlanta',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 33.7859285,
+    lng: -84.4008723,
+  },
+  {
+    rank: 2,
+    name: 'Wagyu House Atlanta',
+    rating: 4.9,
+    reviewCount: 9097,
+    address: '1042 Northside Dr NW suite 1300, Atlanta, GA 30318',
+    phone: '+1 470-263-3762',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEo6MlYwRUUFCBg3V0fLwlf0aIAgsy_WjpOamASmOhQIgp_1Jo9KltDuwv3wXqGo1vNYBKXRw1FyM5FCzlxVTCjjJQrM3NZKLJ1JlnA3rh_BBIi46-wBPAb-4mGHe7tQr1qwEMDEX4_OUPG=w800-h500-k-no',
+    slug: 'wagyu-house-atlanta',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 33.7833333,
+    lng: -84.4086198,
+  },
+  {
+    rank: 3,
+    name: 'Okiboru Tsukemen & Ramen',
+    rating: 4.8,
+    reviewCount: 1099,
+    address: '2277 Peachtree Rd NE B, Atlanta, GA 30309',
+    phone: '+1 404-941-7469',
+    description: 'Consistently excellent across multiple visits at varying hours. Okiboru Tsukemen & Ramen is proof that Atlanta\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no',
+    slug: 'okiboru-tsukemen-ramen',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.8159957,
+    lng: -84.3902831,
+  },
+  {
+    rank: 4,
+    name: 'Asian Fusion',
+    rating: 4.3,
+    reviewCount: 562,
+    address: '22186 US Hwy 285, Fairplay, CO 80440',
+    phone: '+1 719-836-4468',
+    description: 'One of the spots I come back to every time I\'m in Atlanta after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE_Z3HTRp93VtjTwmf6XR3UvVNAA4qVOFJG159uWE5SMw0fd1L9KilMW5WyldIiSGhS_pCjSqbhqrssmihHLcr1U3tWrkM45d5TW_O0bE805ckrsZ535leHIjOOAge-7SPJUOX1=w800-h500-k-no',
+    slug: 'asian-fusion',
+    citySlug: 'fairplay',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.2165641,
+    lng: -105.9935226,
+  },
+  {
+    rank: 5,
+    name: 'Oshi Ramen',
+    rating: 5,
+    reviewCount: 3,
+    address: '800 Forrest St NW k19, Atlanta, GA 30318',
+    phone: '+1 678-599-8833',
+    description: 'A Atlanta fixture that draws a devoted late-night crowd. Oshi Ramen has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFoCgoFQMLVL27uTgaeyFCKPokx098jUR3BrNi7OcETXg3vK4y2vpnFNT7iwJipFuqQ8EZ6MIQ4FMiRnAqrd4XDON9RHMeyUmXtCgp3kqqamGZDP6cirSxLl8qUCdj8upA9okB6N9lUCqe-11-x7m3CZAMNRg7DQCV-fVMzzHpzxQhAriL_vitt5g=w800-h500-k-no',
+    slug: 'oshi-ramen',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.7957735,
+    lng: -84.4142335,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-atlanta-georgia',
+  title: 'Ramen Open Late In Atlanta, Georgia | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Atlanta, Georgia',
+  description: 'Looking for ramen open late in Atlanta? I\'ve mapped the best late-night ramen spots in Atlanta, Georgia — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Atlanta, Georgia.',
+  content: `<p>Atlanta's late-night eating runs deep and runs late — the city that gave us Waffle House at 3am also has a growing late-night ramen and Japanese food scene. Okiboru Tsukemen and Ramen near Peachtree is the crown jewel: the tsukemen format — noodles served with a separate concentrated dipping broth — is Okiboru's signature, and it's one I always recommend to people who think they know ramen. You don't until you've dipped thick, springy noodles into a tare-heavy dip at the right temperature. Atlanta's best late-night noodle spots tend to be in the Old Fourth Ward, Midtown, and around the Westside Provisions corridor.</p>`,
+  restaurantCards: ramen_open_late_in_atlanta_georgia_cards,
+  listHeading: 'Best Ramen Open Late In Atlanta, Georgia',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Atlanta, Georgia?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Atlanta include Pelicana Chicken Atlanta and Wagyu House Atlanta. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Atlanta?","acceptedAnswer":{"@type":"Answer","text":"Atlanta has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Atlanta, Georgia?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Pelicana Chicken Atlanta ranks as one of the top-rated noodle restaurants in Atlanta."}}]},
+})
+
+const ramen_open_late_in_detroit_michigan_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Mink Detroit',
+    rating: 4.8,
+    reviewCount: 329,
+    address: '1701 Trumbull, Detroit, MI 48216',
+    phone: '+1 313-690-4701',
+    description: 'One of Detroit\'s highest-rated Asian dining spots. Mink Detroit has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEkhXzR9sP2xcU2xnT16V6nd7Vh0uaKjUSpDK8CoMJ6rM9vZDS4qUBeFU8YhXX8td-N5wT7OOIfWl9EkSOZUeNqkQnbmSDZUco-OzSSbmzrrq3XY1aruXHrpyHJNrMG6oyIJO9Om2hT1rmJ=w800-h500-k-no',
+    slug: 'mink-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.3295565,
+    lng: -83.065893,
+  },
+  {
+    rank: 2,
+    name: 'Sakura Hibachi Grill',
+    rating: 4.9,
+    reviewCount: 212,
+    address: '3109 Roosevelt St, Detroit, MI 48216',
+    phone: '+1 313-912-0023',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8j9nr1K6RZfF2JVzPD-S2ZPRG6CY73bczBV7rLUir5qqzJ3Plm0YW-L4_Uk2wu22UIf-T9xKxH7kTKK4Nnz5BhzKqvWeSMDOosM0zPJDbm0350uSi4HYb1jglB1Bj21ypits=w800-h500-k-no',
+    slug: 'sakura-hibachi-grill',
+    citySlug: 'detroit',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.3326729,
+    lng: -83.09534149999999,
+  },
+  {
+    rank: 3,
+    name: 'Tacos Wuey Detroit',
+    rating: 4.9,
+    reviewCount: 196,
+    address: '3970 Vernor Hwy, Detroit, MI 48216',
+    phone: '+1 313-406-4767',
+    description: 'Consistently excellent across multiple visits at varying hours. Tacos Wuey Detroit is proof that Detroit\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFjgE8sm5N15mTNH1aFMc0Y4ZnaqiabZNWaN6rmFckh8YunpwXhrbdXxVTJt5m1QgWEtvUBoRhoMFofDzvewT1k_3mML8ehE_SbwSyK6x6-uUjF8jy0cnAML1DdhUDsJTweC3kfP5HiPLrL=w800-h500-k-no',
+    slug: 'tacos-wuey-detroit',
+    citySlug: 'detroit',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.3219701,
+    lng: -83.0918473,
+  },
+  {
+    rank: 4,
+    name: 'Teaze',
+    rating: 4.8,
+    reviewCount: 84,
+    address: '1200 Randolph Street, Detroit, MI 48226',
+    phone: '+1 347-916-2165',
+    description: 'One of the spots I come back to every time I\'m in Detroit after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhF2TmtFTdlKjFiqwnzf4r8xx5yCPQbtYHcAnr9xbI0MS6p6F8DfomDQeyvC-L8OT_a57lcbsxFOwA57NhrSqdzkzEGrZetVsLCT2BAeYoRzvGV3kmczZX6qHkZ3Z3zSCbVAUDuQmMccr540XL8gGsPTxXcPBQdnFLxu_HEs_Dyq4b5d6qs0zmvR=w800-h500-k-no',
+    slug: 'teaze',
+    citySlug: 'detroit',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.3342975,
+    lng: -83.04452359999999,
+  },
+  {
+    rank: 5,
+    name: 'Las Delicias 2 Food Truck',
+    rating: 4.8,
+    reviewCount: 22,
+    address: '18900 Ford Rd, Detroit, MI 48228',
+    phone: '+1 313-697-4152',
+    description: 'A Detroit fixture that draws a devoted late-night crowd. Las Delicias 2 Food Truck has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhG5AsKnfuPfxe0SI1RlL2OA7ix5jjd0oGrXFbE2bgBefNLK307xg0C5y1mlXM3woLcdBS45PBHCPh2JLdJhgNorIJsdCNIKCZXR-sBFfeAKKrg4HxvenWyn380nb_IXmLHH7tw0TnPMf5qrsbliVKoLHZ0Lix3MptosRpQ-g_7dUeVOEIEQNLaa=w800-h500-k-no',
+    slug: 'las-delicias-2-food-truck',
+    citySlug: 'detroit',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.3294019,
+    lng: -83.2242229,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-detroit-michigan',
+  title: 'Ramen Open Late In Detroit, Michigan | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Detroit, Michigan',
+  description: 'Looking for ramen open late in Detroit? I\'ve mapped the best late-night ramen spots in Detroit, Michigan — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Detroit, Michigan.',
+  content: `<p>Detroit's food renaissance over the past decade has touched every corner of the city's dining culture, and late-night Asian food has been part of that revival. Mink Detroit, the natural wine bar and restaurant in Corktown, serves Japanese-inspired small plates and noodles to a late-night crowd that's equally interested in the drinks list and the food. Sakura Hibachi Grill in Southwest Detroit is a community anchor — the kind of place where everyone knows someone, and the food delivers real satisfaction at real prices. Detroit's ramen scene doesn't announce itself loudly, but it delivers.</p>`,
+  restaurantCards: ramen_open_late_in_detroit_michigan_cards,
+  listHeading: 'Best Ramen Open Late In Detroit, Michigan',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Detroit, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Detroit include Mink Detroit and Sakura Hibachi Grill. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Detroit?","acceptedAnswer":{"@type":"Answer","text":"Detroit has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Detroit, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Mink Detroit ranks as one of the top-rated noodle restaurants in Detroit."}}]},
+})
+
+const ramen_open_late_in_knoxville_tennessee_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Angry Dumplings Tea',
+    rating: 4.9,
+    reviewCount: 911,
+    address: '1119 Sevier Ave, Knoxville, TN 37920',
+    phone: '+1 760-899-4121',
+    description: 'One of Knoxville\'s highest-rated Asian dining spots. Angry Dumplings Tea has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHVqJ8-juDPkSUa8u-pgIJIBWlF_EhMC8pXw9fh3yYGXrCCYabDzTjE6Rl28ahcw7nFf7AyoOw-uwxTMx5-p6XmfOc3PzWfAICUun9zupSuN5OaagaaPId6gMhNbeVTMu2FOhnbVxZqTQ0=w800-h500-k-no',
+    slug: 'angry-dumplings-tea',
+    citySlug: 'knoxville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.9597201,
+    lng: -83.90417509999999,
+  },
+  {
+    rank: 2,
+    name: 'The S.E.A Ramen & Asian Kitchen',
+    rating: 4.8,
+    reviewCount: 82,
+    address: '333 W Depot Ave, Knoxville, TN 37917',
+    phone: '+1 954-562-4209',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHII5YCsYuFdyhzO0T4RLgISt0rWWD98WdzsyEja-bjloa3yPMc4095FrE71VGsxUWhnSPsnbc2PkwFin85yY8nToGRU0pKpr8XvirhSbOiFgtEOysd3egldwMObueBEez4W-y9M_G0rmk=w800-h500-k-no',
+    slug: 'the-sea-ramen-asian-kitchen',
+    citySlug: 'knoxville',
+    stateSlug: 'tennessee',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.9708697,
+    lng: -83.9210937,
+  },
+  {
+    rank: 3,
+    name: 'Sticky Rice Cafe',
+    rating: 4.7,
+    reviewCount: 2009,
+    address: '100 Jack Dance St, Knoxville, TN 37919',
+    phone: '+1 865-249-6273',
+    description: 'Consistently excellent across multiple visits at varying hours. Sticky Rice Cafe is proof that Knoxville\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHGBeBrRq_z4ch7LWo1J80l5by520qvgxTKYVOtj3_pg1u7Cp_-Tx__1Qp_nzhLf0kr3ErrTM-ZDW3Bid9_O0KfjlZawE_Aj2zH7Ik7Jd_cFCrdu2hh30zGdIx2Qo9lCtp-t-Pf=w800-h500-k-no',
+    slug: 'sticky-rice-cafe',
+    citySlug: 'knoxville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.9268801,
+    lng: -84.0433189,
+  },
+  {
+    rank: 4,
+    name: 'Tangerine Japanese Cuisine',
+    rating: 4.7,
+    reviewCount: 796,
+    address: '5328 Millertown Pike, Knoxville, TN 37924',
+    phone: '+1 865-521-0688',
+    description: 'One of the spots I come back to every time I\'m in Knoxville after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFQdrItxcy-DcBEGYZHi8rSjyr-TpsXeyQ6ybJr0SVYZYVeVWJN6VmVLG5HZPmoAQ0WYA27b3ZkxhD9EBahmn-GlOnIsNOCHqSwh1Gmvfj_xpTYO4UP9iyY3tE4NUPeQoOwfQn6=w800-h500-k-no',
+    slug: 'tangerine-japanese-cuisine',
+    citySlug: 'knoxville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0331155,
+    lng: -83.86876269999999,
+  },
+  {
+    rank: 5,
+    name: 'Tomo Poke Bowl',
+    rating: 4.7,
+    reviewCount: 477,
+    address: '10756 Hardin Valley Rd, Knoxville, TN 37932',
+    phone: '+1 865-312-5117',
+    description: 'A Knoxville fixture that draws a devoted late-night crowd. Tomo Poke Bowl has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGvXTrHqO8_n003HwbMOpJCYGJ2xt5lgfe8YphKeMs6cMW4Cq2LqZS4JRGDsqLuWQVf189RICQB91_dHlavn8Tc17YzScgKZuQSDOl0BnOq5AF5nGtckROhNPFu90yYLdB4CJMrqw=w800-h500-k-no',
+    slug: 'tomo-poke-bowl',
+    citySlug: 'knoxville',
+    stateSlug: 'tennessee',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 35.946346,
+    lng: -84.1602952,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-knoxville-tennessee',
+  title: 'Ramen Open Late In Knoxville, Tennessee | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Knoxville, Tennessee',
+  description: 'Looking for ramen open late in Knoxville? I\'ve mapped the best late-night ramen spots in Knoxville, Tennessee — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Knoxville, Tennessee.',
+  content: `<p>Knoxville's food scene has grown significantly in recent years, with the Old City and Market Square areas developing into genuine dining destinations. Angry Dumplings Tea on Sevier Avenue has earned a dedicated following that shows up specifically for the dumplings and stays for the noodles. The S.E.A. Ramen and Asian Kitchen is Knoxville's most focused ramen shop — doing serious broth work in a city that didn't have a dedicated ramen bar five years ago. Knoxville rewards the curious late-night diner. The portions are generous, the prices haven't yet reflected the national dining cost inflation, and the kitchens here are staffed by people who genuinely love what they cook.</p>`,
+  restaurantCards: ramen_open_late_in_knoxville_tennessee_cards,
+  listHeading: 'Best Ramen Open Late In Knoxville, Tennessee',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Knoxville, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Knoxville include Angry Dumplings Tea and The S.E.A Ramen & Asian Kitchen. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Knoxville?","acceptedAnswer":{"@type":"Answer","text":"Knoxville has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Knoxville, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Angry Dumplings Tea ranks as one of the top-rated noodle restaurants in Knoxville."}}]},
+})
+
+const ramen_open_late_in_ann_arbor_michigan_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Palace Tang 唐宫',
+    rating: 4.9,
+    reviewCount: 880,
+    address: '1771 Plymouth Rd ste 104, Ann Arbor, MI 48105',
+    phone: '+1 734-369-8886',
+    description: 'One of Ann Arbor\'s highest-rated Asian dining spots. Palace Tang 唐宫 has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGGWvSMukFCBaLxAqVtv_IOurPjTvL-RAf545j8bt00q-j5ad_tpX32pyLhl8eogHQC7uDJGC_tHd8PSObAPDPsCU7kc2tZvrDSydFsvt7GqfIDLICh_66k4cwrwrPgBpy4CU8c93GxrzfBKaIuK8VpHOO1JDVQk-IhpJx2M_jdqZlRVJ6gJaXm=w800-h500-k-no',
+    slug: 'palace-tang-tang-gong',
+    citySlug: 'ann-arbor',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.2983587,
+    lng: -83.71956569999999,
+  },
+  {
+    rank: 2,
+    name: 'Noori Chicken Ann Arbor',
+    rating: 4.9,
+    reviewCount: 567,
+    address: '1317 S University Ave, Ann Arbor, MI 48104',
+    phone: '+1 734-780-7068',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEKGxrc1eaipUsT_guHPYAZpeLypQAXqTXOcQYm_Yxh4JpDdhZUeA6p8B5YPv7g-h242x7jb83eSOUKXE-pUj9XhIACPgV1d1BpwhDdZ5dCl1v7suO0_3vV7fQ_1iQYgfiLQXlTV-XC_bOz=w800-h500-k-no',
+    slug: 'noori-chicken-ann-arbor',
+    citySlug: 'ann-arbor',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.275186,
+    lng: -83.7325085,
+  },
+  {
+    rank: 3,
+    name: 'Möge Tee Ann Arbor',
+    rating: 4.8,
+    reviewCount: 1196,
+    address: '2603 Plymouth Rd, Ann Arbor, MI 48105',
+    phone: '+1 734-773-3922',
+    description: 'Consistently excellent across multiple visits at varying hours. Möge Tee Ann Arbor is proof that Ann Arbor\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEHDOL2BF6fKG5Qf3gEDre4ZHiLg-M2kjPg0m73BnelvH7Thd8CGnDfEbOIPrKChG71o1SuX8jb1vBFhC6Lxx9v2iNnOUCp5VgXtlcl8KdtFOPfps8ewlZB5rk_2YTQutRFEKY=w800-h500-k-no',
+    slug: 'moge-tee-ann-arbor',
+    citySlug: 'ann-arbor',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.303027,
+    lng: -83.7090975,
+  },
+  {
+    rank: 4,
+    name: 'Mr. Yun\'s Tower Deli',
+    rating: 5.0,
+    reviewCount: 109,
+    address: '2200 Fuller Ct, Ann Arbor, MI 48105',
+    phone: '+1 734-531-6425',
+    description: 'One of the spots I come back to every time I\'m in Ann Arbor after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGX05mmNfTqnzv9MYWGSMlX_9EgEYdvwdtUJon63TY8W6BEOxRNK-N8u0x5zEtSFIoayCcMC43_s2aJhQARCtk4ZtK_jsEFlNcEyw64vDqfJrJ7v-M4VsRy-A60m2GzDfbpUAas=w800-h500-k-no',
+    slug: 'mr-yun-s-tower-deli',
+    citySlug: 'ann-arbor',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.2855026,
+    lng: -83.71750589999999,
+  },
+  {
+    rank: 5,
+    name: 'Le Dog = La Soup',
+    rating: 4.9,
+    reviewCount: 230,
+    address: '306 South MAIN Street Suite #1-E, Ann Arbor, MI 48104',
+    phone: '+1 734-327-0091',
+    description: 'A Ann Arbor fixture that draws a devoted late-night crowd. Le Dog = La Soup has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFSTOxUbYdOemgl0gonsxm-q84QuyQMVnyOhxVY61WPMhr_lertKO32mjlooGuszPZMBHpV54xYyNDREMPu3-W5G2X3iT1CJEtgoRqvKAuVLNmg055rSXshhXUt8-II3nHN57xa=w800-h500-k-no',
+    slug: 'le-dog-la-soup',
+    citySlug: 'ann-arbor',
+    stateSlug: 'michigan',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 42.279211,
+    lng: -83.748967,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-ann-arbor-michigan',
+  title: 'Ramen Open Late In Ann Arbor, Michigan | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Ann Arbor, Michigan',
+  description: 'Looking for ramen open late in Ann Arbor? I\'ve mapped the best late-night ramen spots in Ann Arbor, Michigan — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Ann Arbor, Michigan.',
+  content: `<p>Ann Arbor is a university town, but it eats better than most university towns have any right to. The combination of a worldly student body, a faculty with cosmopolitan tastes, and a culinary community that takes pride in what it does has produced a late-night dining scene that punches above its weight class. Palace Tang on Plymouth Road is my favorite discovery in Ann Arbor — a proper Chinese hot pot and noodle house that draws a dedicated student and local crowd well into the evening. Ann Arbor's late-night noodle scene lives on Plymouth Road, South University, and Main Street. These five spots are worth building your evening around.</p>`,
+  restaurantCards: ramen_open_late_in_ann_arbor_michigan_cards,
+  listHeading: 'Best Ramen Open Late In Ann Arbor, Michigan',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Ann Arbor, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Ann Arbor include Palace Tang 唐宫 and Noori Chicken Ann Arbor. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Ann Arbor?","acceptedAnswer":{"@type":"Answer","text":"Ann Arbor has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Ann Arbor, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Palace Tang 唐宫 ranks as one of the top-rated noodle restaurants in Ann Arbor."}}]},
+})
+
+const ramen_open_late_in_chattanooga_tennessee_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Attack of the Tatsu',
+    rating: 4.8,
+    reviewCount: 2653,
+    address: '818 Georgia Ave UNIT 118, Chattanooga, TN 37402',
+    phone: '+1 423-531-4208',
+    description: 'One of Chattanooga\'s highest-rated Asian dining spots. Attack of the Tatsu has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFE7Ad90XFUcBQ3PeiERPZ2OotA2FqyfeYpJ2GgT7CNdJzLafMl8a9p1Ux3843KulEx67eQVHOlAWRGkK7iIoPaFVb0R5xWSjo7yjZRUaEtj_P6yQLZePHvKtze2wc5iRoswbV8weFRJVWm=w800-h500-k-no',
+    slug: 'attack-of-the-tatsu',
+    citySlug: 'chattanooga',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.0463851,
+    lng: -85.3075262,
+  },
+  {
+    rank: 2,
+    name: 'OX2 BUNS & NOODLES',
+    rating: 4.8,
+    reviewCount: 631,
+    address: '2288 Gunbarrel Rd ste 142, Chattanooga, TN 37421',
+    phone: '+1 423-269-6666',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGiMYH-jfdX9QoNAErIte3IFMZ9v5FkDAt6_VQanOyWg1A1nkk2UB_GNR6LPi3vPXeOfkvxqQPIiLO7b9COwk1AL4PAuSNADRx8bvHl8KJx9ctr-Zn7QrH8x9tgVJd4oK8iU4OVnm4oPZyF=w800-h500-k-no',
+    slug: 'ox2-buns-noodles',
+    citySlug: 'chattanooga',
+    stateSlug: 'tennessee',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 35.0380317,
+    lng: -85.1494556,
+  },
+  {
+    rank: 3,
+    name: 'Supreme Tea & Banh Mi',
+    rating: 4.9,
+    reviewCount: 216,
+    address: '2020 Gunbarrel Rd Suite 166, Chattanooga, TN 37421',
+    phone: '+1 423-847-4747',
+    description: 'Consistently excellent across multiple visits at varying hours. Supreme Tea & Banh Mi is proof that Chattanooga\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFn4GSnJmYqHEPmDClu_lVhTgivV5Z44Tak2_FBChVXQKGp0fxKw5YcskAKXhRR13RzMoDMv5HtO84k7w5PB3WHzDuLaTcMKugayREMDtz6QTbbmDFJ3zeUT3X51QJQ4rQ2PX9yF4bcWbk=w800-h500-k-no',
+    slug: 'supreme-tea-banh-mi',
+    citySlug: 'chattanooga',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.0328899,
+    lng: -85.1507519,
+  },
+  {
+    rank: 4,
+    name: 'Taqueria Y BBQ',
+    rating: 4.9,
+    reviewCount: 256,
+    address: '3208 Rossville Blvd, Chattanooga, TN 37407',
+    phone: '+1 480-875-1044',
+    description: 'One of the spots I come back to every time I\'m in Chattanooga after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHTpdWYecn7-kyYJay3L2KHnTDiXZ-5_eq38VxeS06KEEThMl2ZcG-U3t8AWh4HunuREBhKHpUsxzm-AXCVHEdJRuH9rZ4VA_g7PrKXaaIA-cK3iJ-1K1K9LfNrk5xDO3uJnUoFd2bdkR3N=w800-h500-k-no',
+    slug: 'taqueria-y-bbq',
+    citySlug: 'chattanooga',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.0068482,
+    lng: -85.2927364,
+  },
+  {
+    rank: 5,
+    name: 'Asian Food & Gifts of Chattanooga',
+    rating: 4.9,
+    reviewCount: 973,
+    address: '3639 Hixson Pike, Chattanooga, TN 37415',
+    phone: '+1 423-870-1067',
+    description: 'A Chattanooga fixture that draws a devoted late-night crowd. Asian Food & Gifts of Chattanooga has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGMR3BJ0ebDLyM3Jdy-2BeUzWDPEu0EX5c3-ilv-EI-WVFee09KTRlNHYnbhL34uozVBOTs4xx0jTxymZbxbcJ9Df8JS1YJuETbladfEFVYol7DNoQDzYtA0MfiBcLV-sRrLNn1=w800-h500-k-no',
+    slug: 'asian-food-gifts-of-chattanooga',
+    citySlug: 'chattanooga',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.107803,
+    lng: -85.272245,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-chattanooga-tennessee',
+  title: 'Ramen Open Late In Chattanooga, Tennessee | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Chattanooga, Tennessee',
+  description: 'Looking for ramen open late in Chattanooga? I\'ve mapped the best late-night ramen spots in Chattanooga, Tennessee — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Chattanooga, Tennessee.',
+  content: `<p>Chattanooga has become one of the South's most underrated food cities. Attack of the Tatsu on Georgia Avenue is the flagship — a ramen bar with serious technique, strong beverage pairings, and a room that feels exactly like you're in the right place at the right time. OX2 Buns and Noodles out in the East Brainerd corridor serves the suburban crowd who know good food and aren't afraid to seek it out. Chattanooga's late-night eaters know something visitors don't: the best spots aren't downtown. They're in the mixed-use corridors along Gunbarrel and Georgia Avenue.</p>`,
+  restaurantCards: ramen_open_late_in_chattanooga_tennessee_cards,
+  listHeading: 'Best Ramen Open Late In Chattanooga, Tennessee',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Chattanooga, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Chattanooga include Attack of the Tatsu and OX2 BUNS & NOODLES. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Chattanooga?","acceptedAnswer":{"@type":"Answer","text":"Chattanooga has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Chattanooga, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Attack of the Tatsu ranks as one of the top-rated noodle restaurants in Chattanooga."}}]},
+})
+
+const ramen_open_late_in_san_francisco_california_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'HINODEYA Ramen & Bar Chestnut',
+    rating: 4.8,
+    reviewCount: 857,
+    address: '3340 Steiner St, San Francisco, CA 94123',
+    phone: '+1 415-949-9800',
+    description: 'One of San Francisco\'s highest-rated Asian dining spots. HINODEYA Ramen & Bar Chestnut has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-KBXX0TtWgGpR7Ve3JVeBb24WrgO9ohvvqj_F7VmPFYiYX5kxrh4FKY5sQQi6vhKKfDpBpA-UgWtLsGm9X6tLiH0w_IniEEOuBb_X4VazFCm0A6OIYbZymx8PPMuOI0YLbsDNGyeE_9A=w800-h500-k-no',
+    slug: 'hinodeya-ramen-and-bar-chestnut',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 37.80024119999999,
+    lng: -122.4375457,
+  },
+  {
+    rank: 2,
+    name: 'Torraku Ramen - Lombard',
+    rating: 4.7,
+    reviewCount: 691,
+    address: '1449 Lombard St, San Francisco, CA 94123',
+    phone: '+1 415-936-3641',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGpCwVhBAD0YAZieze9y5y1dY0pYmaWgbOCNc4jomlTHUdoJ9A6iYJqKvHGOUs2iK1Ls9VVYr1yxapYiiFzQYywrsqZh-cjFWXF3Fuscav6Qf8kN4T9JrrDjP6uoKvO-JS4_aYb_g=w800-h500-k-no',
+    slug: 'torraku-ramen-lombard',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 37.8009624,
+    lng: -122.4254719,
+  },
+  {
+    rank: 3,
+    name: 'Denya Ramen',
+    rating: 5,
+    reviewCount: 30,
+    address: '1639 Polk St, San Francisco, CA 94109',
+    phone: '+1 415-660-7623',
+    description: 'Consistently excellent across multiple visits at varying hours. Denya Ramen is proof that San Francisco\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFYZFVpyxgiiiV4lAydSHBOFhCrPbIkpCH-yzHTPEmW0OzgX7aA_d3A1X2gMUkyxVsGzSr55JsOa1VXr80oKpxiQUX3ou6HNh4kjhAl43OMMi-90t28ldWh0QQZ9n0FRPbqFyhD3IIjGQzA=w800-h500-k-no',
+    slug: 'denya-ramen',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 37.7919986,
+    lng: -122.4212535,
+  },
+  {
+    rank: 4,
+    name: 'Mulan Malatang',
+    rating: 4.8,
+    reviewCount: 151,
+    address: '2110 Clement St, San Francisco, CA 94121',
+    phone: '+1 415-683-5979',
+    description: 'One of the spots I come back to every time I\'m in San Francisco after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE7YWAqSDjW3EY2Rc4KBz7Y_b3Q1wXFcmWoegQJ4cp4Xg5Zmk8xM6GQyvwT7l4zQqhcldUh2xGzuLm8S2ZFyvLmjqhoTXJy69yxesVfi3KekI_sKl-8epBYXHLbnSVzb9JErOevr-DNDxQ=w800-h500-k-no',
+    slug: 'mulan-malatang',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 37.7823911,
+    lng: -122.481978,
+  },
+  {
+    rank: 5,
+    name: 'Sushi Sheng 鮨昇',
+    rating: 4.7,
+    reviewCount: 515,
+    address: '118 W Portal Ave, San Francisco, CA 94127',
+    phone: '+1 415-818-8686',
+    description: 'A San Francisco fixture that draws a devoted late-night crowd. Sushi Sheng 鮨昇 has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAExhkuTPBSvXRlWUCp35M4V2jEKyVwfzO1XogvE2F-XlDCG6SiNQIjR9QU4QnKqyUGezzeo2QpVQs7gcYP9oIb4MCIsJU_F_scGGfO62eOc8CdaVSGL2p8CRJcTCUSqRpNQF66d1g=w800-h500-k-no',
+    slug: 'sushi-sheng',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 37.7395527,
+    lng: -122.4674855,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-san-francisco-california',
+  title: 'Ramen Open Late In San Francisco, California | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In San Francisco, California',
+  description: 'Looking for ramen open late in San Francisco? I\'ve mapped the best late-night ramen spots in San Francisco, California — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in San Francisco, California.',
+  content: `<p>San Francisco's ramen scene is as sophisticated as you'd expect from a city with one of the deepest Japanese cultural footprints in America. HINODEYA on Chestnut Street in the Marina is elegant without being fussy — the tonkotsu is milky white, the tare is house-made, and the experience is calibrated for someone who knows exactly what they're tasting. Torraku on Lombard runs a tighter operation but produces extraordinary ramen given the footprint. Denya on Polk Street is the neighborhood hidden gem that every SF ramen person knows. San Francisco's late-night ramen quality per bowl is as high as anywhere in the country.</p>`,
+  restaurantCards: ramen_open_late_in_san_francisco_california_cards,
+  listHeading: 'Best Ramen Open Late In San Francisco, California',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in San Francisco, California?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in San Francisco include HINODEYA Ramen & Bar Chestnut and Torraku Ramen - Lombard. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in San Francisco?","acceptedAnswer":{"@type":"Answer","text":"San Francisco has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in San Francisco, California?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, HINODEYA Ramen & Bar Chestnut ranks as one of the top-rated noodle restaurants in San Francisco."}}]},
+})
+
+const ramen_open_late_in_raleigh_north_carolina_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Miso Ramen Bar Raleigh',
+    rating: 4.8,
+    reviewCount: 900,
+    address: '2409 Crabtree Blvd St 104, Raleigh, NC 27604',
+    phone: '+1 919-307-3032',
+    description: 'One of Raleigh\'s highest-rated Asian dining spots. Miso Ramen Bar Raleigh has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHLfHWAD7mWZ22OSYqE6uZvYBNgwmKFq_HMDsDJS6it12ky3IbMUyzGvJeCBWZa4ysX3zHXWrVUq-6gauO2tzqhayq6NP1X-M03_mOq6bM0n2hcEjQpQLN_iStVeFHQ1mKWuKXxO6-iTkU=w800-h500-k-no',
+    slug: 'miso-ramen-bar-raleigh',
+    citySlug: 'raleigh',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.8052317,
+    lng: -78.61325959999999,
+  },
+  {
+    rank: 2,
+    name: 'Asia Pot',
+    rating: 4.8,
+    reviewCount: 1428,
+    address: '3215 Avent Ferry Rd, Raleigh, NC 27606',
+    phone: '+1 919-758-8328',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEnm5GTQJrfXISRBsoHYeUF4GDtGn2bzPtZonvF0wtV6F5IIktqLgdZTBtPbhg5SfVwTKhjpKPDPUDzj9sMtrfZ9-YagD812PMGWhxUinowJVdDify2KIWiSoRMkpGSiTY4yAckfoyTpAaA=w800-h500-k-no',
+    slug: 'asia-pot',
+    citySlug: 'raleigh',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.7668499,
+    lng: -78.694946,
+  },
+  {
+    rank: 3,
+    name: 'Gen Ramen',
+    rating: 4.8,
+    reviewCount: 441,
+    address: '2330 Bale St # 112, Raleigh, NC 27608',
+    phone: '+1 919-720-4058',
+    description: 'Consistently excellent across multiple visits at varying hours. Gen Ramen is proof that Raleigh\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGw6dodKLgb4bUTBa5nT0xO5SyShofcUJL2KY7nF_M2Sn_deYO3GmsQiI5IAMAL_FwN4VsweXsf6ie_hP9J7lnYegVRDCIgRUS4if1JhxziRrZMa9e6PcV4azIy0gW0y1fk7Im1=w800-h500-k-no',
+    slug: 'gen-ramen',
+    citySlug: 'raleigh',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.813192,
+    lng: -78.6272457,
+  },
+  {
+    rank: 4,
+    name: 'Poke Burri',
+    rating: 4.8,
+    reviewCount: 780,
+    address: '6613 Falls of Neuse Rd, Raleigh, NC 27615',
+    phone: '+1 919-615-4016',
+    description: 'One of the spots I come back to every time I\'m in Raleigh after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEF7_Ibp45rlY-YC26ZptE0Pr8XuFB7jgj0jg3U3ZMgybrQ9GjXvWHHxXgYD5ZKoBK1-FHGsWcCFIck1dRq8g7lAfL9uhBIqeM4zbnYQxttPnBinj8mzQEav0Ap6txaD3Y8u38ywg=w800-h500-k-no',
+    slug: 'poke-burri',
+    citySlug: 'raleigh',
+    stateSlug: 'north-carolina',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 35.8731545,
+    lng: -78.6238934,
+  },
+  {
+    rank: 5,
+    name: 'Poke Loong',
+    rating: 4.9,
+    reviewCount: 112,
+    address: '6106 Falls of Neuse Rd, Raleigh, NC 27609',
+    phone: '+1 919-322-2751',
+    description: 'A Raleigh fixture that draws a devoted late-night crowd. Poke Loong has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGHJLaZAbcCBvbUfdcjnCU66YOcwcOa1Aip_bgubeT9rIA7MGFDI8aSg8uqxX0_hbq4Lh4j6OvYSLFMzTEgrKShxpMsnyoJMm5Kxku-YLvHEnBM7GwzRQn_NRzgOItKUluXIQRdfB41UE6aEMGqf_ioeW3jamKaTEyg5ViXL8Uvp-oUZxzGywxS=w800-h500-k-no',
+    slug: 'poke-loong',
+    citySlug: 'raleigh',
+    stateSlug: 'north-carolina',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 35.866098,
+    lng: -78.6182788,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-raleigh-north-carolina',
+  title: 'Ramen Open Late In Raleigh, North Carolina | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Raleigh, North Carolina',
+  description: 'Looking for ramen open late in Raleigh? I\'ve mapped the best late-night ramen spots in Raleigh, North Carolina — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Raleigh, North Carolina.',
+  content: `<p>Raleigh's dining scene has matured dramatically over the past decade. Miso Ramen Bar near Crabtree Valley is the anchor — nearly 900 reviews at 4.8 stars doesn't happen by accident in a city with discerning eaters. Gen Ramen near Glenwood South is where I take people who want to understand Raleigh's food personality: approachable but serious, welcoming but not dumbed down. Asia Pot on Avent Ferry Road serves late into the evening for the NC State crowd, with hot pot and noodle options that deliver on every visit. Raleigh rewards people who eat late.</p>`,
+  restaurantCards: ramen_open_late_in_raleigh_north_carolina_cards,
+  listHeading: 'Best Ramen Open Late In Raleigh, North Carolina',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Raleigh, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Raleigh include Miso Ramen Bar Raleigh and Asia Pot. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Raleigh?","acceptedAnswer":{"@type":"Answer","text":"Raleigh has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Raleigh, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Miso Ramen Bar Raleigh ranks as one of the top-rated noodle restaurants in Raleigh."}}]},
+})
+
+const ramen_open_late_in_sacramento_california_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'E Ramen',
+    rating: 5,
+    reviewCount: 7,
+    address: '7837 Stockton Blvd #200, Sacramento, CA 95823',
+    phone: '+1 916-647-3159',
+    description: 'One of Sacramento\'s highest-rated Asian dining spots. E Ramen has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhHfux-7TWMLdN7sgkMBXqXrz7zjoNzrWq78VmDxonbVTfkUBC2cN7bX_TwddYPMy6uCjTS8JNi3y-t6NeCML662YYL8COS1KLZi9mQ6etaG4RoRQ7sdXSsgLXq7CEnPU9ScU_OUoraUvkhH6pCLdsPELY7Ba7GdqORE9yywtZp4H_KwaFqGhh4=w800-h500-k-no',
+    slug: 'e-ramen-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 38.4731859,
+    lng: -121.417794,
+  },
+  {
+    rank: 2,
+    name: 'Village of OM Plant Kitchen',
+    rating: 4.8,
+    reviewCount: 197,
+    address: '1915 S St, Sacramento, CA 95811',
+    phone: '+1 279-222-4819',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG21bZ9YNaibO8rARc2gA_MdE-RU6Hkrjv2r0l3ry1ycTzZdPrS8kM3iRJl5Uw-5FOeFh2nbr2_wtmjoSAJkQS5zWcHQ-k8BhO5LFzd0sEQUHPmyahBnkfuJluDbpaWBpk2iFYrzViAsV4=w800-h500-k-no',
+    slug: 'village-of-om-plant-kitchen',
+    citySlug: 'sacramento',
+    stateSlug: 'california',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.5671658,
+    lng: -121.484848,
+  },
+  {
+    rank: 3,
+    name: 'Karai Sushi Spicy Noodle Teriyaki',
+    rating: 4.9,
+    reviewCount: 57,
+    address: '5691 Stockton Blvd, Sacramento, CA 95824',
+    phone: '+1 916-822-4097',
+    description: 'Consistently excellent across multiple visits at varying hours. Karai Sushi Spicy Noodle Teriyaki is proof that Sacramento\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEPmliSRecTR5U_vxiGGz22hYTNXjRz2MISaXR2zqIyiZXz1Ge0guCZZUVh146fmDTwFOqRL24sNS9mn_mnmB-sWAlQhPW3z--lY2qKYZeU18T_21T60cZ8nhKza4yxAH_4QVTZsdX3Z1k=w800-h500-k-no',
+    slug: 'karai-sushi-spicy-noodle-teriyaki',
+    citySlug: 'sacramento',
+    stateSlug: 'california',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 38.5233826,
+    lng: -121.4411335,
+  },
+  {
+    rank: 4,
+    name: 'American Buildings J&S',
+    rating: 5,
+    reviewCount: 164,
+    address: '3250 51st Ave, Sacramento, CA 95823',
+    phone: '+1 916-706-1695',
+    description: 'One of the spots I come back to every time I\'m in Sacramento after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE-pIplC2I7mvGMKdBbdez8ulbsXbc0oQjZVZPjQO_71qFpAHTppXLPacIpdozXfP1oajAfU9ups8P3bsreZWfyA_fkgaEHnBo3ytxse6nij9Q9xjVCABLD6Hpe5bDMPtFbtjA1lzbBIzTE=w800-h500-k-no',
+    slug: 'american-buildings-js',
+    citySlug: 'sacramento',
+    stateSlug: 'california',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.5044023,
+    lng: -121.4713817,
+  },
+  {
+    rank: 5,
+    name: 'Ten Seconds Yunnan Rice Noodle Sacramento 十秒到云南过桥米线',
+    rating: 5,
+    reviewCount: 10,
+    address: '6825 Stockton Blvd #240, Sacramento, CA 95823',
+    phone: '+1 916-942-9220',
+    description: 'A Sacramento fixture that draws a devoted late-night crowd. Ten Seconds Yunnan Rice Noodle Sacramento 十秒到云南过桥米线 has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH7OdxtPBiuJUxSg2T1znszmqWX09aLS-5U2-lMGS6J14f80Lis3ckLseBYh3lhp-Zy_cSQbrBnhHgXYFt6Wu20OPgYKtE8jYSlFpMQVb09bE8g7lHJCadQd6j8UUdieAN5B-l7cH9Rxc4=w800-h500-k-no',
+    slug: 'ten-seconds-yunnan-rice-noodle-sacramento',
+    citySlug: 'sacramento',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 38.50222979999999,
+    lng: -121.4310761,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-sacramento-california',
+  title: 'Ramen Open Late In Sacramento, California | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Sacramento, California',
+  description: 'Looking for ramen open late in Sacramento? I\'ve mapped the best late-night ramen spots in Sacramento, California — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Sacramento, California.',
+  content: `<p>Sacramento's food scene flies under the national radar, but locals know the city has serious depth — especially in its Asian dining corridors along Stockton Boulevard. E Ramen near South Sac opened recently and already has a perfect Google score from early devotees. Karai Sushi and Spicy Noodle on Stockton Boulevard is one of those spots I return to every time I'm in Sacramento — the spicy noodle combinations hit differently than any ramen broth. Ten Seconds Yunnan Rice Noodle brings a completely different noodle tradition to the table. Sacramento is an underrated ramen city in 2025.</p>`,
+  restaurantCards: ramen_open_late_in_sacramento_california_cards,
+  listHeading: 'Best Ramen Open Late In Sacramento, California',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Sacramento, California?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Sacramento include E Ramen and Village of OM Plant Kitchen. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Sacramento?","acceptedAnswer":{"@type":"Answer","text":"Sacramento has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Sacramento, California?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, E Ramen ranks as one of the top-rated noodle restaurants in Sacramento."}}]},
+})
+
+const ramen_open_late_in_tulsa_oklahoma_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar - Tulsa',
+    rating: 4.7,
+    reviewCount: 4889,
+    address: '416 E 2nd St S, Tulsa, OK 74120',
+    phone: '+1 918-861-4100',
+    description: 'One of Tulsa\'s highest-rated Asian dining spots. JINYA Ramen Bar - Tulsa has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFRtnVwvp4s5gPFjsYKLUwDj5nFhnZle0xMbtMR6rItkT3vvxBHJuV5rJiL11SgStojby0pPLzau1z7LeU4HyLvyi5QEcs0elsfW4YpSFX7HbjHFcmaJwuc7TvN4ulKPsjIN9xrExDdnINA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-tulsa',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.1560371,
+    lng: -95.9860624,
+  },
+  {
+    rank: 2,
+    name: 'Oishi Sushi and Ramen OK',
+    rating: 4.8,
+    reviewCount: 387,
+    address: '5209 S Sheridan Rd, Tulsa, OK 74145',
+    phone: '+1 539-867-2519',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEv8mngZsDMyqICScb9VOFHBsuiUIN71mnksjYx9itq1meFI7T_w7lr7Esh5kbjkyazD43QhW-_c72RNqRDD27xxvB0sWf4ZRY4Bwmlh32RxII10aIXvu_jc4AaQGlH87ElDw=w800-h500-k-no',
+    slug: 'oishi-sushi-and-ramen-ok',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 36.0886332,
+    lng: -95.9035612,
+  },
+  {
+    rank: 3,
+    name: 'Little Belly',
+    rating: 4.9,
+    reviewCount: 24,
+    address: '3535 S Peoria Ave, Tulsa, OK 74105',
+    phone: '+1 918-900-2359',
+    description: 'Consistently excellent across multiple visits at varying hours. Little Belly is proof that Tulsa\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_7TaV3em4HcvQXFJmIKvWzadqLZRW7AgWH7-X04HJhvP1O5K7J_3CmhBHJEDbuD9czOKVfZNXVxln7xqD4MnkhkfPNw5e74I_gK31ssx0vICJJtdjti0a-5puPXteTxJ45-UtiuCBJ1e9=w800-h500-k-no',
+    slug: 'little-belly',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.1123357,
+    lng: -95.9753308,
+  },
+  {
+    rank: 4,
+    name: 'Zua Sian Sushi To Go | Japanese',
+    rating: 4.8,
+    reviewCount: 136,
+    address: '8011 S Sheridan Rd suite e, Tulsa, OK 74133',
+    phone: '+1 918-842-8292',
+    description: 'One of the spots I come back to every time I\'m in Tulsa after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGW0Rlf_n1NFuqvcFkkMIjhQ9rvpFzWPDp3OdAxfa8BJHhDKTsSfzJqn28Jzgx0U6LlzNAD4ycxNCrYrUBCsh6ZWkBiVvHKd10rNaolOWVA2_k5rarkO1it1aHc5PTUUWS-f6yNqw=w800-h500-k-no',
+    slug: 'zua-sian-sushi-to-go-japanese',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.0467737,
+    lng: -95.90304549999999,
+  },
+  {
+    rank: 5,
+    name: 'La Coshi',
+    rating: 4.7,
+    reviewCount: 222,
+    address: 'Pink Food Trailer, 5104 S Mingo Rd, Tulsa, OK 74146',
+    phone: '+1 918-951-7510',
+    description: 'A Tulsa fixture that draws a devoted late-night crowd. La Coshi has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHAuP-c_k1e4Gz3FnAjASUTuQ7Ufb9YLhYa2UK04Z6EqcpM13bnb-bzdHR2yi-AWhzASHz7B_DePyHEWncgZgD_y1L5A0f3ksR5QilO87bGpTyFHTiWtbDu1JQz6jYDXRdAyzB3fGwsrA0w=w800-h500-k-no',
+    slug: 'la-coshi',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0890068,
+    lng: -95.8688909,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-tulsa-oklahoma',
+  title: 'Ramen Open Late In Tulsa, Oklahoma | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Tulsa, Oklahoma',
+  description: 'Looking for ramen open late in Tulsa? I\'ve mapped the best late-night ramen spots in Tulsa, Oklahoma — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Tulsa, Oklahoma.',
+  content: `<p>Tulsa's ramen scene is JINYA-anchored in downtown and expanding outward with independent spots building their own followings. JINYA on East 2nd Street near the Deco District has done serious work establishing ramen culture in a city that wasn't previously known for Japanese noodles — nearly 5,000 reviews at 4.7 stars is a real accomplishment. Oishi Sushi and Ramen on South Sheridan is Tulsa's most dedicated ramen specialist outside of JINYA — a neighborhood Japanese restaurant that takes its broth seriously. Tulsa's late-night ramen landscape is growing.</p>`,
+  restaurantCards: ramen_open_late_in_tulsa_oklahoma_cards,
+  listHeading: 'Best Ramen Open Late In Tulsa, Oklahoma',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Tulsa, Oklahoma?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Tulsa include JINYA Ramen Bar - Tulsa and Oishi Sushi and Ramen OK. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Tulsa?","acceptedAnswer":{"@type":"Answer","text":"Tulsa has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Tulsa, Oklahoma?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, JINYA Ramen Bar - Tulsa ranks as one of the top-rated noodle restaurants in Tulsa."}}]},
+})
+
+const ramen_open_late_in_fort_wayne_indiana_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Haru Sushi Izakaya',
+    rating: 4.9,
+    reviewCount: 1073,
+    address: '4036 Coldwater Rd, Fort Wayne, IN 46805',
+    phone: '+1 260-755-3975',
+    description: 'One of Fort Wayne\'s highest-rated Asian dining spots. Haru Sushi Izakaya has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGSUcQBJ5kTI6rGzKNOgHWUG9Ak_O1dlx_JvA0kjZDCMHlmcB0mGLa6AB6-_beJ57WupBYxQ2vHh95MRPlsyLk9wd-hqEgFYwRl1T-brt6lDrRdxnX0MvyPn5KhUhlW_FwwwJQ=w800-h500-k-no',
+    slug: 'haru-sushi-izakaya',
+    citySlug: 'fort-wayne',
+    stateSlug: 'indiana',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 41.1144476,
+    lng: -85.1344536,
+  },
+  {
+    rank: 2,
+    name: 'Kim Vu Vietnamese Cuisine',
+    rating: 4.8,
+    reviewCount: 981,
+    address: '433 E Dupont Rd, Fort Wayne, IN 46825',
+    phone: '+1 260-220-1188',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEBc3qSGURm-RZuU28v5uwA7nybexzMOw54Abe0MdGRA8pWU-Cot7Q2m8UriGr4DJArnQDLawUJE893-rQuEuNHA9wyWePzL3iFKqLHTZJulDet40ax_MmsdF1ghVa_zGGiXToxHsVOfG46=w800-h500-k-no',
+    slug: 'kim-vu-vietnamese-cuisine',
+    citySlug: 'fort-wayne',
+    stateSlug: 'indiana',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 41.1797417,
+    lng: -85.1375024,
+  },
+  {
+    rank: 3,
+    name: 'True Kimchi Korean Cafe',
+    rating: 4.8,
+    reviewCount: 807,
+    address: '2805 E State Blvd, Fort Wayne, IN 46805',
+    phone: '',
+    description: 'Consistently excellent across multiple visits at varying hours. True Kimchi Korean Cafe is proof that Fort Wayne\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGF9kDpDvCODLgTFoVZ5mLtXOiD9ljSuhcv2i8JH_S3ZvvgexqOFreQvfr-6WAwxWot1ots8Z193U3HlQGFdIEtuuC8c7xBzhJnyTQewnD0QcvCoQYRkwhnLhvnOJBZP7i3THdzQw=w800-h500-k-no',
+    slug: 'true-kimchi-korean-cafe',
+    citySlug: 'fort-wayne',
+    stateSlug: 'indiana',
+    tags: ['Korean', 'Asian Fusion', 'Noodles'],
+    lat: 41.0975968,
+    lng: -85.1030925,
+  },
+  {
+    rank: 4,
+    name: 'Blu\'s Bouba',
+    rating: 4.9,
+    reviewCount: 35,
+    address: '10376 Leo Rd Suite H, Fort Wayne, IN 46825',
+    phone: '',
+    description: 'One of the spots I come back to every time I\'m in Fort Wayne after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9pLna9ZFMlWixULK54577bHXjOy6Tv8vT9xzdJCdox1RonYnS51HJAziVfPQgxjrCy3yzYUijpNTKeRbprrU9Q7MjZBGKhDum7DFR2ZvWV5n1yjM5FyG-xLtovFM55LUA7P-a2wU5mmNh=w800-h500-k-no',
+    slug: 'blus-bouba',
+    citySlug: 'fort-wayne',
+    stateSlug: 'indiana',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.1801885,
+    lng: -85.07269079999999,
+  },
+  {
+    rank: 5,
+    name: 'Fuwa Asian Market',
+    rating: 4.9,
+    reviewCount: 41,
+    address: '5525 Coldwater Rd, Fort Wayne, IN 46825',
+    phone: '+1 260-710-8977',
+    description: 'A Fort Wayne fixture that draws a devoted late-night crowd. Fuwa Asian Market has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEfEhUlUJmSrLk5SkYiYpQ5QhpeUVCfrzlTnVBQLqSSLSGFtONkxxQy3-Wgsola2FwRks_-pA-ptrdn8zF18JlhSjOx4JHR1Es3aEeoP1N37iI0pWUoQw5UrUlqKF3G8i9LZtAjdw865nx=w800-h500-k-no',
+    slug: 'fuwa-asian-market',
+    citySlug: 'fort-wayne',
+    stateSlug: 'indiana',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.12988,
+    lng: -85.1366731,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-fort-wayne-indiana',
+  title: 'Ramen Open Late In Fort Wayne, Indiana | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Fort Wayne, Indiana',
+  description: 'Looking for ramen open late in Fort Wayne? I\'ve mapped the best late-night ramen spots in Fort Wayne, Indiana — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Fort Wayne, Indiana.',
+  content: `<p>Fort Wayne is an underrated food city in the Midwest, and the late-night Asian dining scene here reflects a community with deep roots across Vietnamese, Korean, and Japanese food traditions. Haru Sushi Izakaya on Coldwater Road is the flagship — over 1,000 Google reviews at 4.9 stars for a Japanese restaurant in Indiana is genuinely remarkable. Kim Vu Vietnamese Cuisine on East Dupont is one of those restaurants that feels like it belongs in a major metro — the pho base is deeply developed, the kitchen shows technique that comes from people who have been doing this for a long time. Fort Wayne's late-night eating scene is built around Coldwater Road and East Dupont.</p>`,
+  restaurantCards: ramen_open_late_in_fort_wayne_indiana_cards,
+  listHeading: 'Best Ramen Open Late In Fort Wayne, Indiana',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Fort Wayne, Indiana?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Fort Wayne include Haru Sushi Izakaya and Kim Vu Vietnamese Cuisine. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Fort Wayne?","acceptedAnswer":{"@type":"Answer","text":"Fort Wayne has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Fort Wayne, Indiana?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Haru Sushi Izakaya ranks as one of the top-rated noodle restaurants in Fort Wayne."}}]},
+})
+
+const ramen_open_late_in_tacoma_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Infinite Soups',
+    rating: 4.8,
+    reviewCount: 679,
+    address: '445 Tacoma Ave S, Tacoma, WA 98402',
+    phone: '+1 253-274-0232',
+    description: 'One of Tacoma\'s highest-rated Asian dining spots. Infinite Soups has built a loyal following among night owls and food-lovers who know good broth when they taste it.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV1avuwfqjVez3P_L4DW03y_yfXfcsH6zdx2uRogI-veV8hODGXCoidSvNkaLb92c2Z7Ne2dR2LAASxR2SCex0631RetOWhLzcOXBdltKFBXDFZeg7k5CTir5KHik8tqvk1IOQdQ=w800-h500-k-no',
+    slug: 'infinite-soups',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 47.2583277,
+    lng: -122.4451893,
+  },
+  {
+    rank: 2,
+    name: 'BURGER SEOUL',
+    rating: 4.7,
+    reviewCount: 2524,
+    address: '1701 Division Ave, Tacoma, WA 98403',
+    phone: '',
+    description: 'A neighborhood favorite that stays open past the typical dinner rush. I\'ve eaten here after midnight and had a bowl that rivaled anything I\'d find at prime time.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8AaejmEfGaGDEnPx0BGYDepW4D0eQpSKf27AJGQLhd3cPkL3jgjDh8CEKJbkGH1O7LqqjeAVA5Xmu1NdoYDlJcPIOhw6xtpoTNOlg65lS4QgQgD5V9tOF4VI1tjKGMDw-IrA=w800-h500-k-no',
+    slug: 'burger-seoul',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.2567154,
+    lng: -122.4622734,
+  },
+  {
+    rank: 3,
+    name: 'Thyme Well Spent Cafe',
+    rating: 5.0,
+    reviewCount: 334,
+    address: '5608 Park Ave. S, Tacoma, WA 98408',
+    phone: '+1 253-205-9660',
+    description: 'Consistently excellent across multiple visits at varying hours. Thyme Well Spent Cafe is proof that Tacoma\'s late-night food scene has matured — serious kitchen work served late.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEAjMF9f_rMUFJMpgzhWK474ZB7egzG3HkHJvMxJLSezN8l19njtHxl_zbMBaB-Ng4zxxcnb3FTt9Izyr_D5b4SznazD8idP0LjPhWEGRhefnonUI9_YkbLF8IK-Wj60PDF-ok6oXi9M-46_3C2THbbFpxafsTmxfiuMzRe8C5z4YaXc6W0RQ_E1Q=w800-h500-k-no',
+    slug: 'thyme-well-spent-cafe',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.2060364,
+    lng: -122.4422233,
+  },
+  {
+    rank: 4,
+    name: 'MIMI TERIYAKI #2',
+    rating: 4.8,
+    reviewCount: 199,
+    address: '759 S 64th St, Tacoma, WA 98408',
+    phone: '+1 253-260-6464',
+    description: 'One of the spots I come back to every time I\'m in Tacoma after dark. The menu is tight, the execution is reliable, and the kitchen delivers at any hour.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHjpzVD0py07Trh4uA4kqXVcQTNn0jlQ40Mr_9FOeXQ2tOTGBkLmjMAQULusQGNU9SNoCtpXkCcw8K-VSfe33SSqpJk2GkzTNAa5fapLhN7M7JUoJd6AnRlhGNryWHzAHYN-zqcFa4KDIJE=w800-h500-k-no',
+    slug: 'mimi-teriyaki-2',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.1993668,
+    lng: -122.4427014,
+  },
+  {
+    rank: 5,
+    name: 'Marzano Italian Restaurant',
+    rating: 4.7,
+    reviewCount: 1271,
+    address: '516 Garfield St S, Tacoma, WA 98444',
+    phone: '+1 253-537-4191',
+    description: 'A Tacoma fixture that draws a devoted late-night crowd. Marzano Italian Restaurant has earned every review with consistent quality — check their current hours as the kitchen often runs late.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEahbAsDrwIAvyWTBztNGxpZ2CnVyv9z3IpN0e6uDgmhughJ7U_Cyg392NVy6VH--1DJMt3x28cfPnVDn_j7-k6Z5tWLdfs_7nVaupWgRboVpwgEuMe0GHVc6sBbZTrEtM8_03thQ=w800-h500-k-no',
+    slug: 'marzano-italian-restaurant',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.1459768,
+    lng: -122.4390744,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-open-late-in-tacoma-washington',
+  title: 'Ramen Open Late In Tacoma, Washington | Late Night Ramen Spots',
+  h1: 'Ramen Open Late In Tacoma, Washington',
+  description: 'Looking for ramen open late in Tacoma? I\'ve mapped the best late-night ramen spots in Tacoma, Washington — ranked by Google reviews, broth quality, and hours.',
+  date: '2025-06-01',
+  readTime: '6 min read',
+  category: 'Late Night',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Late night ramen bowl steaming hot',
+  rankingNote: 'We ranked these 5 spots by combining Google review scores, total review volume, and activity signals to identify the most reliably excellent late-night ramen and Asian noodle options in Tacoma, Washington.',
+  content: `<p>Tacoma has always lived in Seattle's shadow when it comes to food recognition, but any serious eater who spends time in the City of Destiny quickly realizes it has its own distinct food identity. Infinite Soups on Tacoma Avenue — nearly 700 reviews at 4.8 stars for a soup and noodle specialist in a city that size is genuinely impressive. BURGER SEOUL on Division Avenue is a Korean-American crossover that serves late and serves it well — Korean fried chicken and noodle dishes that hit every flavor note. Tacoma's prices are significantly lower than Seattle, the portions are more generous, and the crowd knows a good thing when they find it.</p>`,
+  restaurantCards: ramen_open_late_in_tacoma_washington_cards,
+  listHeading: 'Best Ramen Open Late In Tacoma, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What ramen restaurants are open late in Tacoma, Washington?","acceptedAnswer":{"@type":"Answer","text":"Some of the best late-night ramen options in Tacoma include Infinite Soups and BURGER SEOUL. Check each location's current hours as they vary by day."}},{"@type":"Question","name":"Is there ramen open after midnight in Tacoma?","acceptedAnswer":{"@type":"Answer","text":"Tacoma has several Asian and Japanese restaurants that serve late hours, particularly on weekends. Always call ahead or check Google Maps for current hours."}},{"@type":"Question","name":"What's the best late-night ramen in Tacoma, Washington?","acceptedAnswer":{"@type":"Answer","text":"Based on Google reviews, Infinite Soups ranks as one of the top-rated noodle restaurants in Tacoma."}}]},
+})
+
+// AUTO-GENERATED DELIVERY BLOG POSTS
+
+const ramen_delivery_in_washington_district_of_columbia_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Ramen Izakaya',
+    rating: 5,
+    reviewCount: 1,
+    address: '2nd St NW, Washington, DC 20001',
+    phone: '',
+    description: 'One of Washington\'s highest-rated Asian restaurants with a strong delivery track record. Ramen Izakaya has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=xa7JPtZ-eOArSkElJ_3ulg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=285.03452&pitch=0&thumbfov=100',
+    slug: 'ramen-izakaya',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 38.8989032,
+    lng: -77.0138837,
+  },
+  {
+    rank: 2,
+    name: 'Wada Ramen',
+    rating: 5,
+    reviewCount: 1,
+    address: '77 H St NW, Washington, DC 20001',
+    phone: '+1 771-242-7758',
+    description: 'A neighborhood favorite that translates well to delivery. Wada Ramen has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGdcuCKrrLLqgoGBGy9sb4d-BM9sY6Aby0qO8QC--XGrAJSf4KVzKYLodQZ-83gGJK5FmSa18iOUiwefG3HJcsqgJCbJEtZl1-n1Cru5i3iYkk9m5DBusCh0Z81fw9u8_rmlkgLuixGr6w=w800-h500-k-no',
+    slug: 'wada-ramen',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 38.9003509,
+    lng: -77.0111852,
+  },
+  {
+    rank: 3,
+    name: 'Talkin\' Tacos Washington DC',
+    rating: 4.9,
+    reviewCount: 5998,
+    address: '1800 M St NW Unit GR06, Washington, DC 20036',
+    phone: '+1 771-223-9384',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Talkin\' Tacos Washington DC takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEuVS0cztwm7YC-qAgQc_qxWcVBtJwK8zENdjsnPFaLPSGFhllWrgDNyPt0cIJB5xAGSYix-eja-q1E5n3Gtyw-sqV3plz8GLxOUhSpNK8-3nqbv4B63T0_TjCJIk9FJJ79PLIqG128aMWysP-ezjc3fSVGWrreBt-ideOV_Ny5Vxg9NFqxnXNf=w800-h500-k-no',
+    slug: 'talkin-tacos-washington-dc',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.9055229,
+    lng: -77.0422729,
+  },
+  {
+    rank: 4,
+    name: 'KYOJIN Sushi',
+    rating: 4.9,
+    reviewCount: 7310,
+    address: '3315 Cady\'s Alley NW Suite B, Washington, DC 20007',
+    phone: '+1 202-953-5748',
+    description: 'A Washington staple that ships great noodles. KYOJIN Sushi has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-02ECUjzMUajszkK4gQUVfwFU7nmTCdnIR4nxKZB1XCodyg7Fk_qIWmBw-Os8o5Kle-87vKeVEALr4DQcqf4EyXZ9sreflg56PVgrwZbGfVejxrzP-oeSK1GoFYlLGMUA4cwkTUqwRYY=w800-h500-k-no',
+    slug: 'kyojin-sushi',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 38.9048019,
+    lng: -77.0666286,
+  },
+  {
+    rank: 5,
+    name: 'Moxies Washington DC Restaurant',
+    rating: 4.9,
+    reviewCount: 323,
+    address: '1111 20th St NW, Washington, DC 20036',
+    phone: '+1 202-807-9604',
+    description: 'One of the most reliably reviewed spots in Washington for Asian noodle delivery. Moxies Washington DC Restaurant earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE7fQhVIbxHBA3XJeZkfKQq8QVM1YQPLXROCJnZCLoCaef0Kr7GvXOO6OU64YTQwiIPc1dXuhKNiE1C05yRCtmWe7VF6mu68_HDB1y14wZN16hQCjLhshnBZwo-xjxL6-EbRqwbU1GUNq5G=w800-h500-k-no',
+    slug: 'moxies-washington-dc-restaurant',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.9041054,
+    lng: -77.0444796,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-washington-district-of-columbia',
+  title: 'Ramen Delivery In Washington, DC | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Washington, DC',
+  description: 'The best ramen delivery in Washington, DC — ranked by reviews and delivery quality. Order great noodles to your door from Washington\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Washington, DC.',
+  content: `<p>Washington DC has one of the most diverse food delivery ecosystems in the country. I've ordered from Wada Ramen in Navy Yard and had a bowl land at my door that was still properly hot — tight lid packaging, broth in a separate container, noodles timed right. KYOJIN Sushi in Georgetown is one of DC's highest-rated Japanese restaurants and delivers across a wide radius. The challenge with ramen delivery anywhere is that the broth separates from the noodles and toppings in transit. The best operators in DC have figured out the packaging — broth sealed separately, noodles al dente to account for sitting time, soft-boiled eggs vacuum-packed. DC's delivery ramen scene clusters around Navy Yard, Georgetown, Dupont Circle, and the H Street corridor.</p>`,
+  restaurantCards: ramen_delivery_in_washington_district_of_columbia_cards,
+  listHeading: 'Best Ramen Delivery In Washington, DC',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Washington, DC?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Washington offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Ramen Izakaya is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Washington?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Ramen Izakaya is one of the highest-rated Asian noodle restaurants in Washington for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Washington?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Washington typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_honolulu_hi_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Kai K Food',
+    rating: 5.0,
+    reviewCount: 49,
+    address: '401 Atkinson Dr, Honolulu, HI 96814',
+    phone: '',
+    description: 'One of Honolulu\'s highest-rated Asian restaurants with a strong delivery track record. Kai K Food has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE8zmsGhpbk6vuq2zfNnkkTaY2wBWA5cYnBwfItwW-gstUwKbckfYLcA_QqJqDgq3EQyb3aoUdPQ6Sgsr61P14waEZFUmOhZ0XFN9PYeP0fIiL0En_eIoWAU26bEbD1aw-QKZASEFrdhu3y=w800-h500-k-no',
+    slug: 'kai-k-food',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 21.2893946,
+    lng: -157.8400907,
+  },
+  {
+    rank: 2,
+    name: 'Sabal Rice & Noodles',
+    rating: 5.0,
+    reviewCount: 14,
+    address: '700 Bishop St, Honolulu, HI 96813',
+    phone: '',
+    description: 'A neighborhood favorite that translates well to delivery. Sabal Rice & Noodles has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGE2vu3WbJMsfVZoMsKwKFsecex7k7JT50lMxGAH3QmUR9Z49GNBBVW_NA7EOh1TSyMSBxRi7I8QRFm5dVTf9g5G2QB6PBVWnRW5JYU3ak1bEsOkKojho42MGY7VP6ka1yH3PBmVw=w800-h500-k-no',
+    slug: 'sabal-rice-noodles',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 21.3074062,
+    lng: -157.8636312,
+  },
+  {
+    rank: 3,
+    name: 'MAHALO NOODLE (Okinawa Soba ) マハロヌードル',
+    rating: 5.0,
+    reviewCount: 10,
+    address: '438 Hobron Ln #109b, Honolulu, HI 96815',
+    phone: '+1 808-200-0187',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. MAHALO NOODLE (Okinawa Soba ) マハロヌードル takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFy0yLAOjkDkx38y_jbI4zX4ri1EfdfC-zLQ80VjSEanGa-CiBUOsW9WCmVc2pMRgCLisIPV6qfW4LHiLuT3woEzNNLUIVOO42OnIxaoUrXVqAl-1oQXZyOMzhIe54CibqJC7DamwT_7HQH=w800-h500-k-no',
+    slug: 'mahalo-noodle-okinawa-soba',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 21.2872613,
+    lng: -157.8358019,
+  },
+  {
+    rank: 4,
+    name: 'Bumble Tea Cafe and Ramen Station',
+    rating: 5.0,
+    reviewCount: 4,
+    address: '1409 Kalākaua Ave, Honolulu, HI 96826',
+    phone: '+1 808-260-4963',
+    description: 'A Honolulu staple that ships great noodles. Bumble Tea Cafe and Ramen Station has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEdrwRI7xNTKDxuzE254M12I40XfUbrNS0hdlqUFNJKqhH-Lb2m38CJaalTe6aQvtvUJKTgaWrdy1oqKOzljhocVHWKFf91a6EpVTKT9GTxWQzhQ2k5jKgLPmCetvso85FaNNoEiHBAWse_=w800-h500-k-no',
+    slug: 'bumble-tea-cafe-and-ramen-station',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 21.297782,
+    lng: -157.8367606,
+  },
+  {
+    rank: 5,
+    name: 'The Ramen Company',
+    rating: 5.0,
+    reviewCount: 2,
+    address: '4725 Bougainville Dr, Honolulu, HI 96818',
+    phone: '+1 808-422-4888',
+    description: 'One of the most reliably reviewed spots in Honolulu for Asian noodle delivery. The Ramen Company earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGsw-4tpYiBka-5jg92s8Qg7ZITTn73IUzi78h0m6jQOj-DmVV4978nlVgLfg9hsSVmWr2MGZDBxv8Esa4uNIW13XATRC-HBTCPlNRzIad0AMlcuNkM8Z4OQ6PAPratxPt98rr7=w800-h500-k-no',
+    slug: 'the-ramen-company',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 21.3489307,
+    lng: -157.9303705,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-honolulu-hi',
+  title: 'Ramen Delivery In Honolulu, Hawaii | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Honolulu, Hawaii',
+  description: 'The best ramen delivery in Honolulu, Hawaii — ranked by reviews and delivery quality. Order great noodles to your door from Honolulu\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Honolulu, Hawaii.',
+  content: `<p>Honolulu has a ramen culture that runs deeper than most mainland cities understand. The Japanese-American community here spans generations, and the noodle tradition that came with them has produced some of the most authentic ramen outside Japan on American soil. Delivery in Honolulu comes with the added challenge of the heat — hot broth delivered in tropical weather needs to be handled thoughtfully. The best operators package broth separately and build bowls designed for brief transit rather than table service. The payoff when they get it right is extraordinary. Honolulu's top delivery spots cluster around Ala Moana, Kaimuki, and the McCully-Moiliili neighborhood.</p>`,
+  restaurantCards: ramen_delivery_in_honolulu_hi_cards,
+  listHeading: 'Best Ramen Delivery In Honolulu, Hawaii',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Honolulu, Hawaii?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Honolulu offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Kai K Food is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Honolulu?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Kai K Food is one of the highest-rated Asian noodle restaurants in Honolulu for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Honolulu?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Honolulu typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_los_angeles_california_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'REDWHITE BONELESS RAMEN',
+    rating: 4.9,
+    reviewCount: 1150,
+    address: '630 W 6th St #110A, Los Angeles, CA 90017',
+    phone: '+1 213-221-7108',
+    description: 'One of Los Angeles\'s highest-rated Asian restaurants with a strong delivery track record. REDWHITE BONELESS RAMEN has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVCEliaUtZhCh6hN8SWLHsqxLQxGLaBz3etyslaXpb_1edmFf3WZc14kUnKM8_Lhdl5BmECUOkqFY13iTWmNZ8Gw_KiASd8KdabBO1D4Z01NDfK0CmuFaNl_4bstW-zLyzzxcsNf_UdgQ=w800-h500-k-no',
+    slug: 'redwhite-boneless-ramen',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0491404,
+    lng: -118.2561846,
+  },
+  {
+    rank: 2,
+    name: 'JINYA Ramen Bar - Culver City',
+    rating: 4.9,
+    reviewCount: 390,
+    address: '3323 La Cienega Blvd, Los Angeles, CA 90016',
+    phone: '+1 310-425-8924',
+    description: 'A neighborhood favorite that translates well to delivery. JINYA Ramen Bar - Culver City has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAESsoEWdb_FMNJkx-koQsSrIPP5g8BhIOQhQFRXuOUE42PtvkJJXIgzeuS8JHsctvZColSagUkqPEuZSOfHLlJS3VsJX9rqrlyQ8CYC9hzs4IaCpvBn32ilf79jxQ9XJRFVmopjvbjfcy0=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-culver-city',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0280984,
+    lng: -118.3735492,
+  },
+  {
+    rank: 3,
+    name: 'HINODEYA Ramen & Bar Little Tokyo',
+    rating: 4.9,
+    reviewCount: 345,
+    address: '232 E 2nd St Suite B, Los Angeles, CA 90012',
+    phone: '+1 415-823-7365',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. HINODEYA Ramen & Bar Little Tokyo takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHOSFurvvKR6KrgFh21Jw5V87q7xouh_Sqgnb2svAmPxVJxoVRiudUktlS8cQdmBct_Jjv3V-azwYQVCh2qhRolUOUtUNRpAoG5TPG126AhN69SlGN9VD6H_WpW3VKloutXuHgrpVkpeins=w800-h500-k-no',
+    slug: 'hinodeya-ramen-bar-little-tokyo',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0495642,
+    lng: -118.2423435,
+  },
+  {
+    rank: 4,
+    name: 'Robata JINYA - Hollywood',
+    rating: 4.9,
+    reviewCount: 43,
+    address: '6529 Hollywood Blvd, Los Angeles, CA 90028',
+    phone: '+1 323-607-1677',
+    description: 'A Los Angeles staple that ships great noodles. Robata JINYA - Hollywood has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF3LvGquHQBUcYKpUSU6KgW1B73iuYLITbcG5F_P147bOMIO_LJBAlk3fqi9draM-jtL9-BI9pNgoocinXfpMtYtTrdMdpRz6wEmOBrGD9onVcme2p882LC1wpfNIG9i-0pq4xqRYocHoM=w800-h500-k-no',
+    slug: 'robata-jinya-hollywood',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 34.1017791,
+    lng: -118.33197,
+  },
+  {
+    rank: 5,
+    name: 'Koi Kaze Ramen Bar',
+    rating: 4.8,
+    reviewCount: 720,
+    address: '2716 W Olympic Blvd Ste #101, Los Angeles, CA 90006',
+    phone: '+1 213-277-1123',
+    description: 'One of the most reliably reviewed spots in Los Angeles for Asian noodle delivery. Koi Kaze Ramen Bar earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGcqzOnQhtS2SnbBRT3mt5vGmHPB1AlbaUWgbmtH3fLcUUIHEZ49ZQvtYjfZdrTQZivL_XVhrabPtine5CTOMo9cpzDz5ioYBcOneouRERsnn2dkLVcYn1X-TQUEZ6uQOKhq117PixTUJ2OS3os9C0i7TATPhE-VObXE36Ymu-nW8JvHpEjSoO2=w800-h500-k-no',
+    slug: 'koi-kaze-ramen-bar',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0524739,
+    lng: -118.2922221,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-los-angeles-california',
+  title: 'Ramen Delivery In Los Angeles, California | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Los Angeles, California',
+  description: 'The best ramen delivery in Los Angeles, California — ranked by reviews and delivery quality. Order great noodles to your door from Los Angeles\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Los Angeles, California.',
+  content: `<p>Los Angeles has the ramen scene that changed American noodle culture. Sawtelle Japantown, Little Tokyo, and the broader SGV Japanese food corridor set the standard that every other American city now measures against. Delivery here has matured alongside the dining scene. When I order ramen delivery in LA, I go straight to the spots I trust to handle transit well. The broth chemistry is too complex to survive bad packaging. The operators who've been around long enough know exactly how to seal the tonkotsu, keep the tare separate, and give the customer a bowl that tastes like it was made for delivery rather than an afterthought.</p>`,
+  restaurantCards: ramen_delivery_in_los_angeles_california_cards,
+  listHeading: 'Best Ramen Delivery In Los Angeles, California',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Los Angeles, California?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Los Angeles offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. REDWHITE BONELESS RAMEN is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Los Angeles?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, REDWHITE BONELESS RAMEN is one of the highest-rated Asian noodle restaurants in Los Angeles for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Los Angeles?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Los Angeles typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_oklahoma_city_oklahoma_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Tamashii Ramen House',
+    rating: 5.0,
+    reviewCount: 20,
+    address: '2701 W Memorial Rd, Oklahoma City, OK 73134',
+    phone: '',
+    description: 'One of Oklahoma City\'s highest-rated Asian restaurants with a strong delivery track record. Tamashii Ramen House has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGY0VM6HfFPSGg6RdzyHvpLoJ53POmdSuzpeCvM01XJwgWhX-zby0nb5U42ofwnjqfZSNUFRLfUwYaF2ypHUGTlmoYKOVwsjWFjatRo4dz05vufKvfrIPsAfNraFIJ7qux_EX_R8YcCIbiF=w800-h500-k-no',
+    slug: 'tamashii-ramen-house',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.6103341,
+    lng: -97.56308089999999,
+  },
+  {
+    rank: 2,
+    name: 'Formosa Street Food & Bar 福爾摩沙居酒屋',
+    rating: 4.9,
+    reviewCount: 323,
+    address: '427 NW 23rd St, Oklahoma City, OK 73103',
+    phone: '+1 405-673-7338',
+    description: 'A neighborhood favorite that translates well to delivery. Formosa Street Food & Bar 福爾摩沙居酒屋 has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGEFvTbrtf2bkgwGph93cDAgKwzyiwJeQuhtG5mzf_l4pU2xNoR2WupoPwNKsUfqBVPaqZzUugM3vF-6lnu8PvoiDUuJgczwc-jjmUZlNZik6pyXBOYtemcvyub2SkakyoQg24rXqalsfyHVyuhY6nI05H1cvn2Yk7bF5jT_1wOngnBGcvMoCJSCg=w800-h500-k-no',
+    slug: 'formosa-street-food-bar',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.4934211,
+    lng: -97.5202075,
+  },
+  {
+    rank: 3,
+    name: 'Pho VN',
+    rating: 4.9,
+    reviewCount: 117,
+    address: '7225 S Western Ave, Oklahoma City, OK 73139',
+    phone: '+1 405-724-7959',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Pho VN takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAExvttyuDLUDVXTDZsNGNemvbQ8PJt73PlF-2fJKG_gxQSBqKKJ_J1N7gdh2ItyCrbuu3qNyhhKj2J1AmEGrfupacWt2Sc8s2vuS_igtoVJ22Y4jjyrxYzOz1Ntgiz9nfIZ3cfHMxXsesVs=w800-h500-k-no',
+    slug: 'pho-vn',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 35.3938,
+    lng: -97.53096939999999,
+  },
+  {
+    rank: 4,
+    name: 'JINYA Ramen Bar - OKC - Nichols Hills',
+    rating: 4.8,
+    reviewCount: 2525,
+    address: '6800 N Western Ave, Oklahoma City, OK 73116',
+    phone: '+1 405-242-3499',
+    description: 'A Oklahoma City staple that ships great noodles. JINYA Ramen Bar - OKC - Nichols Hills has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEaPeo3Rg6-7UMxOITM86YIglgfU-Oih8FdAMF-Zval-3HsSxI5cx9iJ6Zov5elNqps1q5UbubTA32S3kMJZ2ybOKhre8otX8nKCbZvZM1U-jZURa1LaijPnBtoU43eadiObjJ9GA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-okc-nichols-hills',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.540833,
+    lng: -97.5292384,
+  },
+  {
+    rank: 5,
+    name: 'Ichiban Sushi Bar & Poke',
+    rating: 4.8,
+    reviewCount: 1017,
+    address: '6308 SW 3rd St, Oklahoma City, OK 73128',
+    phone: '+1 405-506-0833',
+    description: 'One of the most reliably reviewed spots in Oklahoma City for Asian noodle delivery. Ichiban Sushi Bar & Poke earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE4YhEgE8haSW05rpmPZEFb5l9QqW15rP89eIvHzEhgNXjXoNUMdTmLBMs6mF2CLYIHod_9oKpZ1WpvbuTkESuHHfCXYYS3a0e5jWr70jrGiI5dniA4tV4omAlUnm0bqMO0plxJPw=w800-h500-k-no',
+    slug: 'ichiban-sushi-bar-poke',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 35.4614968,
+    lng: -97.6250845,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-oklahoma-city-oklahoma',
+  title: 'Ramen Delivery In Oklahoma City, Oklahoma | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Oklahoma City, Oklahoma',
+  description: 'The best ramen delivery in Oklahoma City, Oklahoma — ranked by reviews and delivery quality. Order great noodles to your door from Oklahoma City\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Oklahoma City, Oklahoma.',
+  content: `<p>Oklahoma City's food scene has surprised a lot of people over the past decade. The city's Asian food corridor along North May Avenue and the Penn Square area has developed into a genuine dining destination, and the delivery infrastructure has kept pace. The ramen culture in OKC is still in a formative stage compared to coastal cities, but that's what makes it interesting — the spots that are succeeding here are doing so on pure quality, not on reputation or hype. OKC's delivery ramen scene is anchored by the North May Avenue corridor and the Penn Square area. Delivery times tend to be faster here than in larger cities.</p>`,
+  restaurantCards: ramen_delivery_in_oklahoma_city_oklahoma_cards,
+  listHeading: 'Best Ramen Delivery In Oklahoma City, Oklahoma',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Oklahoma City, Oklahoma?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Oklahoma City offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Tamashii Ramen House is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Oklahoma City?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Tamashii Ramen House is one of the highest-rated Asian noodle restaurants in Oklahoma City for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Oklahoma City?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Oklahoma City typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_colorado_springs_colorado_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Momo Korean Restaurant',
+    rating: 4.9,
+    reviewCount: 598,
+    address: '2761 Briargate Blvd, Colorado Springs, CO 80920',
+    phone: '+1 719-203-6963',
+    description: 'One of Colorado Springs\'s highest-rated Asian restaurants with a strong delivery track record. Momo Korean Restaurant has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOoiVKjtWItw7eMVUeNBiH92cu5iKltwxMhPDzKNKJCJtFBtdaq_OHkEZfDbLeCq2N7pTw7uYg0sLcYylQVr7eBh-c9lfoi17Q7MvDu_HCMzE5bwffsPn3hhE3RyCmmnanlgQYvPZL-yxw=w800-h500-k-no',
+    slug: 'momo-korean-restaurant',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Korean', 'Asian Fusion', 'Noodles'],
+    lat: 38.9415092,
+    lng: -104.7767298,
+  },
+  {
+    rank: 2,
+    name: 'Ubin Sushi',
+    rating: 4.9,
+    reviewCount: 675,
+    address: '460 N Murray Blvd, Colorado Springs, CO 80916',
+    phone: '+1 719-789-2777',
+    description: 'A neighborhood favorite that translates well to delivery. Ubin Sushi has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGtpnky5Z0di_fsLd9omTqz7MfpWujRLbug1sm41Hxpks1IINv7D_GjGTGdmV83vY-zrwzEGsvRYV7UFisIwh90LTotz9h3PRAagQgjOa32dZBxpLCCkjvok3fmYZObkpJqlhtxT2ueZO5C=w800-h500-k-no',
+    slug: 'ubin-sushi',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 38.8386654,
+    lng: -104.7489484,
+  },
+  {
+    rank: 3,
+    name: 'JIN`S SUB & BOWLS',
+    rating: 4.9,
+    reviewCount: 162,
+    address: '1748 Shasta Dr, Colorado Springs, CO 80910',
+    phone: '+1 719-471-0998',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. JIN`S SUB & BOWLS takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHVEGDosZGivg7675ZkbmEbtPy0cQ8jEMYQEQ4cLtobb1-TXtDQ-p6gvlocW8m0AHB2i-X4iBSkN8zjgVeac5KA1XTAo60ifLTI3tVeCt1eyjoFIaBRy7W705nXUBKTO3favzXrfcjWpMng=w800-h500-k-no',
+    slug: 'jin-s-sub-bowls',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.8068286,
+    lng: -104.7778238,
+  },
+  {
+    rank: 4,
+    name: 'ChooJai SuShi Thai & Ramen',
+    rating: 4.9,
+    reviewCount: 94,
+    address: '2925 W Colorado Ave, Colorado Springs, CO 80904',
+    phone: '+1 720-954-5148',
+    description: 'A Colorado Springs staple that ships great noodles. ChooJai SuShi Thai & Ramen has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG8VHkcX3dD_wCuZ-w6gM_w94iNXj8A0Z91_lSr6GERndm4sCZcXYwG4CauyWdYr8hyPbzfUOORBFeaO8WO-EYy6PhrLzbWFb7CIp4lFljF1U4Ep7O5i575hXDPMWtv1ptdFAeZQ5iPjDQi=w800-h500-k-no',
+    slug: 'choojai-sushi-thai-ramen',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 38.8512458,
+    lng: -104.8701791,
+  },
+  {
+    rank: 5,
+    name: 'Hayato',
+    rating: 4.9,
+    reviewCount: 28,
+    address: '514 S Tejon St, Colorado Springs, CO 80903',
+    phone: '+1 719-922-4147',
+    description: 'One of the most reliably reviewed spots in Colorado Springs for Asian noodle delivery. Hayato earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFxyxcM-Ghp9cZ3VLqgLRU1NEuvKbE4IIs4gU4LgxyNJetgWIbFLcV8tfEPAnFom7aOGOeOhEg61uvBZxXbvkF1envB4sIjDQA_L53bUJlyRn2mppoyGe7NFDxl6jD2RRmjYIPLlQkiUg5d=w800-h500-k-no',
+    slug: 'hayato',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.82623299999999,
+    lng: -104.8243537,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-colorado-springs-colorado',
+  title: 'Ramen Delivery In Colorado Springs, Colorado | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Colorado Springs, Colorado',
+  description: 'The best ramen delivery in Colorado Springs, Colorado — ranked by reviews and delivery quality. Order great noodles to your door from Colorado Springs\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Colorado Springs, Colorado.',
+  content: `<p>Colorado Springs has grown fast, and the food scene has kept pace. The city sits between Denver and Pueblo along the Front Range, and its dining scene reflects an increasingly sophisticated local palate. I ordered ramen delivery in Colorado Springs on a January night and what showed up at my door was exactly what I needed: tight lid on a 12-hour tonkotsu, chashu fanned on top of firm noodles, a soft-boiled egg that hadn't broken in transit. Colorado Springs delivery clusters around the Briargate area, Old Colorado City, and the downtown corridor near Tejon Street.</p>`,
+  restaurantCards: ramen_delivery_in_colorado_springs_colorado_cards,
+  listHeading: 'Best Ramen Delivery In Colorado Springs, Colorado',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Colorado Springs, Colorado?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Colorado Springs offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Momo Korean Restaurant is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Colorado Springs?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Momo Korean Restaurant is one of the highest-rated Asian noodle restaurants in Colorado Springs for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Colorado Springs?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Colorado Springs typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_indianapolis_indiana_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Nami Creperie',
+    rating: 5,
+    reviewCount: 32,
+    address: '36 E Washington St, Indianapolis, IN 46204',
+    phone: '',
+    description: 'One of Indianapolis\'s highest-rated Asian restaurants with a strong delivery track record. Nami Creperie has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHSAMEce_2OjRSCuDL2eWN12SE8M0Hvz8OYRNDkntbDAYJC_agFPitjfhwwV8fHxt9LFoo2_1wGKe8Qsb2HXHmUZTgKG_pqqC4TjuqaM-mkUGF2cMICNKNbAjaji-SNAjVo1M8TC10ia-v-=w800-h500-k-no',
+    slug: 'nami-creperie',
+    citySlug: 'indianapolis',
+    stateSlug: 'indiana',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.7673756,
+    lng: -86.15680449999999,
+  },
+  {
+    rank: 2,
+    name: 'Ali\'i Poke - Downtown Indy',
+    rating: 4.8,
+    reviewCount: 555,
+    address: '910 W 10th St #4, Indianapolis, IN 46202',
+    phone: '+1 317-602-3632',
+    description: 'A neighborhood favorite that translates well to delivery. Ali\'i Poke - Downtown Indy has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG56PsoKNVYeNSRmfLWAy0TUzTETznwZEkgPARsSsblw9FBbYg6lyV2MdUYHIwH_3qeMJIcbPs-LRLOCpxCK_80kDe_F1E5_mYQaHb6BUt2VCtHM4P9NjLy0f2irXiQKnPWD6QSrQ=w800-h500-k-no',
+    slug: 'alii-poke-downtown-indy',
+    citySlug: 'indianapolis',
+    stateSlug: 'indiana',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 39.7811112,
+    lng: -86.1751542,
+  },
+  {
+    rank: 3,
+    name: 'Baan Thai Bistro',
+    rating: 4.8,
+    reviewCount: 545,
+    address: '8705 Southeastern Ave, Indianapolis, IN 46239',
+    phone: '+1 317-759-8424',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Baan Thai Bistro takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEVpkwXLuCdgqY5sNjUn5Y12jaZRe3PNMtSHNww6wfP71kZZI9fhE_KCIFNjXN4_L5POHysF4O1zk39eFhUQ16L6Kgh8Lhl0563n1ReHoDnMAe8p8pX-ISvQp1Nf7hnnWC_Qi8DRfqUjkBc=w800-h500-k-no',
+    slug: 'baan-thai-bistro',
+    citySlug: 'indianapolis',
+    stateSlug: 'indiana',
+    tags: ['Thai', 'Noodles', 'Asian'],
+    lat: 39.7057372,
+    lng: -86.0123766,
+  },
+  {
+    rank: 4,
+    name: 'Wisanggeni Pawon',
+    rating: 4.8,
+    reviewCount: 415,
+    address: '2450 E 71st St #200, Indianapolis, IN 46220',
+    phone: '+1 317-756-9477',
+    description: 'A Indianapolis staple that ships great noodles. Wisanggeni Pawon has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEPphF7AYYIeYsP0M6sVxdxJ9aOmYS7jEHY18ACCbuzp6-gGkgg-qMvKUOxDiG7TxdHPWO8ou-0As00CN_9gC2iRdoPiyVrKbkP9IIthxM5Q-i8DeEOyWfLs3fNoc_5OBvclYaVFQToIawe=w800-h500-k-no',
+    slug: 'wisanggeni-pawon',
+    citySlug: 'indianapolis',
+    stateSlug: 'indiana',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.8836161,
+    lng: -86.1212054,
+  },
+  {
+    rank: 5,
+    name: 'Takumi Boba Tea & Ramen',
+    rating: 4.8,
+    reviewCount: 271,
+    address: '6066 E 82nd St, Indianapolis, IN 46250',
+    phone: '+1 317-792-0865',
+    description: 'One of the most reliably reviewed spots in Indianapolis for Asian noodle delivery. Takumi Boba Tea & Ramen earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhE1Cmb60Vqc1a8lVzOhAC4psZvlKDjnj5jmCfYWm9b3pNqi-a3aBA8I3jjsGZsjS_oOag9sQX-J9VAYDly0hg7yTEn7r9M6U1bh6yBXvkw4NiEyMSPv_gBULlqBZ_OPtDR6R1xWLVICwXgW06qcey4EvIiCJ3lL3JKlXHpVubgEJn46RuEHHDc=w800-h500-k-no',
+    slug: 'takumi-boba-tea-ramen',
+    citySlug: 'indianapolis',
+    stateSlug: 'indiana',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 39.9060335,
+    lng: -86.06397249999999,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-indianapolis-indiana',
+  title: 'Ramen Delivery In Indianapolis, Indiana | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Indianapolis, Indiana',
+  description: 'The best ramen delivery in Indianapolis, Indiana — ranked by reviews and delivery quality. Order great noodles to your door from Indianapolis\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Indianapolis, Indiana.',
+  content: `<p>Indianapolis has built a serious food culture over the past decade, and the Asian and Japanese dining scene is part of that story. Ramen delivery in Indy has gotten noticeably better as the city's restaurant scene has matured. The spots I return to are the ones that package broth separately, cook noodles slightly under to account for sitting time, and include a reheating card with the order. Indianapolis delivery ramen is most concentrated around the Broad Ripple and Keystone area, with strong options also in the Greenwood and Fishers suburbs.</p>`,
+  restaurantCards: ramen_delivery_in_indianapolis_indiana_cards,
+  listHeading: 'Best Ramen Delivery In Indianapolis, Indiana',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Indianapolis, Indiana?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Indianapolis offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Nami Creperie is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Indianapolis?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Nami Creperie is one of the highest-rated Asian noodle restaurants in Indianapolis for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Indianapolis?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Indianapolis typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_flint_michigan_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Sindbad Grocery Stores',
+    rating: 4.9,
+    reviewCount: 551,
+    address: '5342 W Corunna Rd, Flint, MI 48532',
+    phone: '+1 810-720-3960',
+    description: 'One of Flint\'s highest-rated Asian restaurants with a strong delivery track record. Sindbad Grocery Stores has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH0LMX_UFWdXeofhLeWrKQ_9pSG0YHGWDVN2mfHmASSVDyvHSRQJEA6asnsC5ZgBoEewc412Hjpp4ZZO-EWJjLZ9gdduAM38aNqQT9_Y5_r7TtSwqHHE6up__L58jtqmUQBSvy2mw=w800-h500-k-no',
+    slug: 'sindbad-grocery-stores',
+    citySlug: 'flint',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 43.0024042,
+    lng: -83.7854657,
+  },
+  {
+    rank: 2,
+    name: 'The Poke Bowl',
+    rating: 4.9,
+    reviewCount: 148,
+    address: '1214 University Ave ste 1, Flint, MI 48504',
+    phone: '+1 810-882-9009',
+    description: 'A neighborhood favorite that translates well to delivery. The Poke Bowl has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDFTcp5aLf1Qh5lgbOrgO2OMQ8cRk9iDLhDfaHT4O71WsJenQVJtjA4NDPX6huJyuvf90rUS_-A6xofpCr9gZ6qydQGhHq6QwbOVlOpyJnZekUY7iHX1M3ciWP6PSJkunswCAS=w800-h500-k-no',
+    slug: 'the-poke-bowl',
+    citySlug: 'flint',
+    stateSlug: 'michigan',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 43.0159982,
+    lng: -83.7074147,
+  },
+  {
+    rank: 3,
+    name: 'Queens\' Provisions',
+    rating: 4.9,
+    reviewCount: 78,
+    address: '421 Garland St, Flint, MI 48503',
+    phone: '+1 810-620-0110',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Queens\' Provisions takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE2k-eJhLm6cEIpP4ACIhVEq0Sh3oO84kArs-3FgandPHm24f9u4eZ-0720dOhtzuQsmZXVHkAl_vHWlX95PQBZgVz6xAhY3Ni3Isx9x9GXRpYaypQ-Wu2Pj3_A0T6zd1rndeoGJVkgUTg=w800-h500-k-no',
+    slug: 'queens-provisions',
+    citySlug: 'flint',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 43.0194236,
+    lng: -83.69560469999999,
+  },
+  {
+    rank: 4,
+    name: '810 Munchies',
+    rating: 4.8,
+    reviewCount: 84,
+    address: '3600 S Dort Hwy suite 62, Flint, MI 48507',
+    phone: '+1 810-337-1427',
+    description: 'A Flint staple that ships great noodles. 810 Munchies has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGtJjIzp6ImntqER9w9-hrkog1l1pa-rABprqZ1hrOMaFNq3brRlJVUN_mg6YB6Nyhd1uw_qsRnw8mqJNDbwpknlpzWE6J2HCpaE9OBW4V94awWFRuJhBJF6c4cYnBMlMjMjy3vmko3VJM=w800-h500-k-no',
+    slug: '810-munchies',
+    citySlug: 'flint',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.99088829999999,
+    lng: -83.65587289999999,
+  },
+  {
+    rank: 5,
+    name: 'Merge',
+    rating: 4.8,
+    reviewCount: 6,
+    address: '555 Saginaw St #104, Flint, MI 48502',
+    phone: '+1 810-293-7879',
+    description: 'One of the most reliably reviewed spots in Flint for Asian noodle delivery. Merge earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGuavLjsMHctgXnTSTYAeK6ylaY1brnIRM3gPkZLJuF-8Ip6C43_npEtyfX2XlP3gyONLdjPTnk7Yy1_sn88ZPMwk6XdiP9iWSZL7QfOtxpj7F8f9Ss6KnDVovzkjYT4todeyky=w800-h500-k-no',
+    slug: 'merge',
+    citySlug: 'flint',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 43.0155252,
+    lng: -83.6898784,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-flint-michigan',
+  title: 'Ramen Delivery In Flint, Michigan | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Flint, Michigan',
+  description: 'The best ramen delivery in Flint, Michigan — ranked by reviews and delivery quality. Order great noodles to your door from Flint\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Flint, Michigan.',
+  content: `<p>Flint's food scene doesn't get enough credit. The city has a tight-knit community of food operators who have stayed through decades of economic challenge, and the Asian restaurant scene here serves a dedicated local clientele. The review counts aren't as massive as in bigger cities, but the ratings are consistently high, which tells me something about quality and repeat business. Flint's delivery area covers the main city and the Genesee County suburbs — Burton, Grand Blanc, Flushing. The community support for local restaurants is evident in the reviews.</p>`,
+  restaurantCards: ramen_delivery_in_flint_michigan_cards,
+  listHeading: 'Best Ramen Delivery In Flint, Michigan',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Flint, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Flint offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Sindbad Grocery Stores is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Flint?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Sindbad Grocery Stores is one of the highest-rated Asian noodle restaurants in Flint for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Flint?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Flint typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_everett_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'El Mariachi Birria y Tacos',
+    rating: 4.8,
+    reviewCount: 686,
+    address: '6100 Evergreen Wy, Everett, WA 98203',
+    phone: '+1 425-512-9024',
+    description: 'One of Everett\'s highest-rated Asian restaurants with a strong delivery track record. El Mariachi Birria y Tacos has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFreasC-hwB-5ugwZ1p9hLkd6ho-ACBJdC7nUmEHuyxH6o4KAgclZ6XRbeKkrg1KUbZbA90Y5LveQoJ8ehvYBluMdksyw0lTWw6j8EYvxq3yvbRsbfHkEZBnKx-xxUc3XWLrPSdBeQlzSX0AU36Y-29QZYQJpFN5JkHhg9zSWeoSSnzcUhTWmio3g=w800-h500-k-no',
+    slug: 'el-mariachi-birria-y-tacos',
+    citySlug: 'everett',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.9424347,
+    lng: -122.2177515,
+  },
+  {
+    rank: 2,
+    name: 'Gyro Guys Halal Grill',
+    rating: 4.8,
+    reviewCount: 1032,
+    address: '12025 Hwy 99 # G, Everett, WA 98204',
+    phone: '+1 425-322-3656',
+    description: 'A neighborhood favorite that translates well to delivery. Gyro Guys Halal Grill has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAECYCEWQZEfxbrJQqiOa8TtIrx2l_UC4V2UNSMaoUipNyIXNfdwpnOD9JKJgpw8TsLMMzRAbfoaE2GKeHecGz6bVtUtN2izQw_qItu7Nn8Z4WtRb3pNYxgVaV8_CzKLRYQA5ROM=w800-h500-k-no',
+    slug: 'gyro-guys-halal-grill',
+    citySlug: 'everett',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.8884358,
+    lng: -122.2586321,
+  },
+  {
+    rank: 3,
+    name: 'K Fresh',
+    rating: 4.8,
+    reviewCount: 732,
+    address: '1105 Hewitt Ave, Everett, WA 98201',
+    phone: '+1 425-212-9863',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. K Fresh takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFLe-kxTUAtFKxMkMDpYd8zKwms9vhtMKD8u0J3OhmiHnveQfvLxor9wGY2K_OskNUXYZeqk9tBaLfsXjDFYe-C_xMpYEAp9R0NI0-Qm-cMQRgsbG363Z8H2NeeyazARocQtcU=w800-h500-k-no',
+    slug: 'k-fresh',
+    citySlug: 'everett',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.9795797,
+    lng: -122.2153207,
+  },
+  {
+    rank: 4,
+    name: 'Poké Boy',
+    rating: 4.8,
+    reviewCount: 341,
+    address: '1405 SE Everett Mall Way #D, Everett, WA 98208',
+    phone: '+1 206-537-5723',
+    description: 'A Everett staple that ships great noodles. Poké Boy has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGHNRs8By-Jt0nvpOo2v90yH0vi5Ty0UmyGV5kF2DwonnGz-J2HZv69tRp7-glpbVWlXscsl_HOibculonqNQ8fkKy-jrE50OBELkJ7LzTDD2R1XROLOOEEx1XWy-g4KH6BTHc=w800-h500-k-no',
+    slug: 'pok-boy',
+    citySlug: 'everett',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.9125459,
+    lng: -122.2142087,
+  },
+  {
+    rank: 5,
+    name: 'GO!! GO!! Teriyaki',
+    rating: 4.8,
+    reviewCount: 332,
+    address: '10430 19th Ave SE Suite #3, Everett, WA 98208',
+    phone: '+1 425-338-2543',
+    description: 'One of the most reliably reviewed spots in Everett for Asian noodle delivery. GO!! GO!! Teriyaki earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHYlWdqMmO1FaRLbRLFaR7GuV66yRZ4I6q1Mv8-6rf-b8Sha6IFZRrWZM7BhG_CGuexDSL0CsTcMr8oRNkpCpANgnQOAY_sZw8hWFn6DA_zKecWt8Zs3IAR1RGc8WSIEG-cMPFc=w800-h500-k-no',
+    slug: 'go-go-teriyaki',
+    citySlug: 'everett',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.9030226,
+    lng: -122.2074129,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-everett-washington',
+  title: 'Ramen Delivery In Everett, Washington | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Everett, Washington',
+  description: 'The best ramen delivery in Everett, Washington — ranked by reviews and delivery quality. Order great noodles to your door from Everett\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Everett, Washington.',
+  content: `<p>Everett sits at the northern edge of the Seattle metro and benefits from the broader Pacific Northwest ramen culture that's been developing for decades. Delivery in Everett covers a wide geographic area — out to Mukilteo, down toward Lynnwood, up toward Marysville. The Asian restaurant community here has built a delivery infrastructure that works. I've had broth arrive in excellent condition from Everett spots more than once. The best ramen and Asian food delivery options in Everett cluster along Broadway and the Highway 99 corridor.</p>`,
+  restaurantCards: ramen_delivery_in_everett_washington_cards,
+  listHeading: 'Best Ramen Delivery In Everett, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Everett, Washington?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Everett offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. El Mariachi Birria y Tacos is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Everett?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, El Mariachi Birria y Tacos is one of the highest-rated Asian noodle restaurants in Everett for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Everett?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Everett typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_aurora_colorado_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: '3456tea',
+    rating: 5.0,
+    reviewCount: 360,
+    address: '2790 S Havana St Suite U, Aurora, CO 80014',
+    phone: '+1 720-517-5751',
+    description: 'One of Aurora\'s highest-rated Asian restaurants with a strong delivery track record. 3456tea has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG_yOFQHMvYAQuEZDI-8pZMV-qxJqGzhNAj8eTIeYRtAy8g1gB_BtxXtuyG5z27pvlUkBH1P6O-AZQEM0ViAC6rgKYA7XUfAVBi8967hXrudEFZNbuKtwPgp8f__xRBJE1DRUDR=w800-h500-k-no',
+    slug: '3456tea',
+    citySlug: 'aurora',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.6664024,
+    lng: -104.8644352,
+  },
+  {
+    rank: 2,
+    name: 'Kai Modern Japanese Kitchen',
+    rating: 5.0,
+    reviewCount: 1,
+    address: '2 N River St, Aurora, IL 60506',
+    phone: '+1 331-707-5131',
+    description: 'A neighborhood favorite that translates well to delivery. Kai Modern Japanese Kitchen has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAErQUaAvOs_qCQJeS5_op-_B8MkRJ56It6-yud3g7b1gkD4nUNda8rmISeKNg5VrbDuuEk9lFIZMM0euNWYVlMZkCu8G9m9LbZNiVKKxFWITdsUzgy3X6_X9k2txAL50zFq-cMZeEng7Hc=w800-h500-k-no',
+    slug: 'kai-modern-japanese-kitchen',
+    citySlug: 'aurora',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.7592674,
+    lng: -88.31692989999999,
+  },
+  {
+    rank: 3,
+    name: 'Noriteo(LOE) Fox Valley Mall',
+    rating: 4.9,
+    reviewCount: 1168,
+    address: '1262 Fox Valley Center Dr, Aurora, IL 60504',
+    phone: '+1 630-907-7770',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Noriteo(LOE) Fox Valley Mall takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGv0OBcznWV8EcJsvp3lGycLFqfDeO7nF9C5sKEX1xei4xprzUvD4y8R6zU0U2QGWikiqOECIwpnsXvNudqx3deU09dxrKxO6EDt92fSuE_jjDt4BlIqdkelmLrjp08Kxx57Befr-Clpys=w800-h500-k-no',
+    slug: 'noriteo-loe-fox-valley-mall',
+    citySlug: 'aurora',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.7582156,
+    lng: -88.2133011,
+  },
+  {
+    rank: 4,
+    name: 'Kanami',
+    rating: 4.9,
+    reviewCount: 17,
+    address: '2974 Ogden Ave, Aurora, IL 60504',
+    phone: '+1 630-800-1597',
+    description: 'A Aurora staple that ships great noodles. Kanami has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHObZtQk0IWwIUAVSvWAC53yJ8ZPIpgBVk8d_L6D90dz-MkBe8R_T6YmxY2W5NUU7FbduIizetj5BVCDMQ_bXqJFqmJt61iHI54g_yBScKNPdyPvTML1WyQzWKVyR8HqIGkvTgwz1zw6XI=w800-h500-k-no',
+    slug: 'kanami',
+    citySlug: 'aurora',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.7421304,
+    lng: -88.2436559,
+  },
+  {
+    rank: 5,
+    name: 'The Pork.Let',
+    rating: 4.8,
+    reviewCount: 500,
+    address: '12201 E Mississippi Ave #123B, Aurora, CO 80012',
+    phone: '+1 303-364-1287',
+    description: 'One of the most reliably reviewed spots in Aurora for Asian noodle delivery. The Pork.Let earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHC9_SMSXSnCzOi_pAKDliYaEViAh436R226hSo9JQW4xaSlwISw0y_vCKFr2e6SAQrqnd6aGgp5bJvrYQmPtgdzXZHxgLnRsgfRoX5D3dtG1fNCUqFjXhcQqp-cM8xxDWGHPBRAQ=w800-h500-k-no',
+    slug: 'the-pork-let',
+    citySlug: 'aurora',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.6975491,
+    lng: -104.845969,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-aurora-colorado',
+  title: 'Ramen Delivery In Aurora, Colorado | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Aurora, Colorado',
+  description: 'The best ramen delivery in Aurora, Colorado — ranked by reviews and delivery quality. Order great noodles to your door from Aurora\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Aurora, Colorado.',
+  content: `<p>Aurora is effectively part of Denver's metro, but it has its own distinct food identity — particularly along the Havana Street corridor, which has become one of Colorado's most diverse and interesting restaurant strips. Ramen and Asian noodle delivery from Aurora spots frequently services the broader Denver metro. I've had bowls from Aurora restaurants arrive in excellent condition in neighborhoods that were 15-20 minutes away. Aurora's delivery ramen scene is strongest along the Havana Street and Iliff Avenue corridors.</p>`,
+  restaurantCards: ramen_delivery_in_aurora_colorado_cards,
+  listHeading: 'Best Ramen Delivery In Aurora, Colorado',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Aurora, Colorado?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Aurora offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. 3456tea is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Aurora?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, 3456tea is one of the highest-rated Asian noodle restaurants in Aurora for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Aurora?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Aurora typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_vancouver_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Kwan Thai Cuisine',
+    rating: 4.9,
+    reviewCount: 547,
+    address: '7723 NE Fourth Plain Blvd unit b, Vancouver, WA 98662',
+    phone: '+1 360-253-4300',
+    description: 'One of Vancouver\'s highest-rated Asian restaurants with a strong delivery track record. Kwan Thai Cuisine has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6uzK7OCV7Rjl65CtIa64hs6FXCxT7yLULmotdQsPLOlo3ZTebBEhvEeWllu5SExhcKqUWoWO5SHaiDPsQevLSDZy41rBu9GtuoiD4OeTXYTW2pXRsDH_PJzH7_zwkGXVZwDhI=w800-h500-k-no',
+    slug: 'kwan-thai-cuisine',
+    citySlug: 'vancouver',
+    stateSlug: 'washington',
+    tags: ['Thai', 'Noodles', 'Asian'],
+    lat: 45.6457865,
+    lng: -122.5940011,
+  },
+  {
+    rank: 2,
+    name: 'Banderyky',
+    rating: 4.9,
+    reviewCount: 369,
+    address: '8700 NE Vancouver Mall Dr, Vancouver, WA 98662',
+    phone: '+1 360-609-4525',
+    description: 'A neighborhood favorite that translates well to delivery. Banderyky has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHWREtsxUE2TIRKgAdzQ8bYAMVIM-JJw2cDcPLCf8aKLkTJJDOZikrFjMJEwj2NjfILs9onn0toHkIuWKT7DEh0DRglZjNGuOgvXCM6bh37fx0S4KpTEVq_C15HCKM9FG03GpZTknlTyWKU=w800-h500-k-no',
+    slug: 'banderyky',
+    citySlug: 'vancouver',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.65805719999999,
+    lng: -122.5822738,
+  },
+  {
+    rank: 3,
+    name: 'Mar\'s Cuisine',
+    rating: 4.9,
+    reviewCount: 210,
+    address: '1804 NW 119th St, Vancouver, WA 98685',
+    phone: '+1 360-258-0352',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Mar\'s Cuisine takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEUyuFn-ntHzfp2QzgJWBQRU0AwG4P_ejzSsGgYDp-mC5LE3Ge7c4y0ABBbkHl8z3lt_ItKiVZA-eVTNiegQQby03HIwJGVigtrl4g04Kxu3Qb43DaIDaMNG-o8vm9AaMZO8qE=w800-h500-k-no',
+    slug: 'mar-s-cuisine',
+    citySlug: 'vancouver',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.7075587,
+    lng: -122.689885,
+  },
+  {
+    rank: 4,
+    name: 'Pho 4Seasons',
+    rating: 4.8,
+    reviewCount: 183,
+    address: '13023 NE Hwy 99 suite 9, Vancouver, WA 98686',
+    phone: '+1 360-787-7491',
+    description: 'A Vancouver staple that ships great noodles. Pho 4Seasons has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGQJ5_pd8hqEyQXl6rXTbO0baVJKsEvwP5u2groww3e-kwPH6fgE_xHpjFn1LJb_kANdj9C7bS56biW-hmErUVGQ7GMsEXAQF-nlzeQ9HRbdzvSmTtYUKwSuu7bTLD3cHBlgUR9rb47bQU=w800-h500-k-no',
+    slug: 'pho-4seasons',
+    citySlug: 'vancouver',
+    stateSlug: 'washington',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 45.7162353,
+    lng: -122.6497898,
+  },
+  {
+    rank: 5,
+    name: 'India Supermarket & Restaurant',
+    rating: 4.8,
+    reviewCount: 113,
+    address: '8101 NE Parkway Dr Unit C-3, Vancouver, WA 98662',
+    phone: '+1 360-784-2571',
+    description: 'One of the most reliably reviewed spots in Vancouver for Asian noodle delivery. India Supermarket & Restaurant earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG0_aA8Sq-LF9Efg0cqfQMLzok3xB3xHYsIHGrai7Ze7GG48-gTEV_8rrG1tVajwZx12fQ8tWqobeRPKxcimvKnx3rhtys84dvM5mTtPGBMRSL9xC4AsexTkqABvOF3EgCUENG-xjhTuPXs=w800-h500-k-no',
+    slug: 'india-supermarket-restaurant',
+    citySlug: 'vancouver',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 45.6544408,
+    lng: -122.5897192,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-vancouver-washington',
+  title: 'Ramen Delivery In Vancouver, Washington | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Vancouver, Washington',
+  description: 'The best ramen delivery in Vancouver, Washington — ranked by reviews and delivery quality. Order great noodles to your door from Vancouver\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Vancouver, Washington.',
+  content: `<p>Vancouver, Washington sits directly across the Columbia River from Portland, and it benefits enormously from the broader Pacific Northwest food culture while maintaining its own distinct dining identity. Delivery from Vancouver spots covers a wide area — east to Camas and Washougal, north to Salmon Creek, and even into Portland proper for some platforms. I've been impressed by the quality coming out of Vancouver's Asian restaurant community. The spots along Fourth Plain Boulevard and near the Mill Plain corridor have built serious delivery operations.</p>`,
+  restaurantCards: ramen_delivery_in_vancouver_washington_cards,
+  listHeading: 'Best Ramen Delivery In Vancouver, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Vancouver, Washington?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Vancouver offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Kwan Thai Cuisine is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Vancouver?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Kwan Thai Cuisine is one of the highest-rated Asian noodle restaurants in Vancouver for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Vancouver?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Vancouver typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_durham_north_carolina_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Birrieria El Patron 323',
+    rating: 5.0,
+    reviewCount: 1,
+    address: '320 E Club Blvd, Durham, NC 27704',
+    phone: '',
+    description: 'One of Durham\'s highest-rated Asian restaurants with a strong delivery track record. Birrieria El Patron 323 has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Vrkd8K-h3BDZdcpA0GGKnw&cb_client=search.gws-prod.gps&w=800&h=500&yaw=137.84142&pitch=0&thumbfov=100',
+    slug: 'birrieria-el-patron-323',
+    citySlug: 'durham',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.019036,
+    lng: -78.8883362,
+  },
+  {
+    rank: 2,
+    name: 'Szechuan Mansion Hotpot_Durham',
+    rating: 4.9,
+    reviewCount: 1151,
+    address: '746 9th St, Durham, NC 27705',
+    phone: '+1 919-237-2570',
+    description: 'A neighborhood favorite that translates well to delivery. Szechuan Mansion Hotpot_Durham has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDv5ww5bwhqff7M6Jd_h0Gg6qvFrhjeXjLBIRLltmYP1RE3MAcerXjgaohHOPhm8Q3Wy64B0rtW94v1AfJattRbb9EPHR9q8CY9YDUihzjixCPoRqz3RfZVin8OBXWzPF_rXFm=w800-h500-k-no',
+    slug: 'szechuan-mansion-hotpot-durham',
+    citySlug: 'durham',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0093344,
+    lng: -78.9217965,
+  },
+  {
+    rank: 3,
+    name: 'Kahlovera Mexican Bar & Grill',
+    rating: 4.8,
+    reviewCount: 30,
+    address: '2812 Erwin Rd #101, Durham, NC 27705',
+    phone: '+1 919-973-0028',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Kahlovera Mexican Bar & Grill takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGMXIhYdIwg6r8oLnEEo3JLP_C1MptiHia7_V1yZvti-wcAGQLpyeE2ih-QACIP8NoAvvSw_qIkdYMOnR7Ym9ZwjdiktSlDndgBtdRCY_SRC3QEHr1sWD48oLoO-PhEwSVp6hXM8o5skvofH8Q2w6ZeU_yMQzP21sYF8CBQrTNxlqkVjeBXKzLZ=w800-h500-k-no',
+    slug: 'kahlovera-mexican-bar-grill',
+    citySlug: 'durham',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0073106,
+    lng: -78.94714549999999,
+  },
+  {
+    rank: 4,
+    name: 'Kinya Ramen - Durham',
+    rating: 4.7,
+    reviewCount: 691,
+    address: '202 W North Carolina 54 Suite #506, Durham, NC 27713',
+    phone: '+1 919-797-0186',
+    description: 'A Durham staple that ships great noodles. Kinya Ramen - Durham has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_441Z2idQR8GZrE_KzP_xox2fvDKbmFAsvuxXynLGe8KXLDd7z5ckFx9V5OhF90EsLsagPIK-WrDLJb-G1yCiAjAniZSOOPpDaZf5CLHdmerMNoWh1ZF5ELXlgjd4iriZrnPOlnHwKqiD=w800-h500-k-no',
+    slug: 'kinya-ramen-durham',
+    citySlug: 'durham',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.9123312,
+    lng: -78.93775629999999,
+  },
+  {
+    rank: 5,
+    name: 'KoKyu',
+    rating: 4.7,
+    reviewCount: 1881,
+    address: '245 E, NC-54 Ste 105, Durham, NC 27713',
+    phone: '+1 919-251-9017',
+    description: 'One of the most reliably reviewed spots in Durham for Asian noodle delivery. KoKyu earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDJ07pzWlUIh7qMpJ638KuC5fbz_KZu7zUi8MdNa5xiKLBbTbWxeFI5rXmkZ2gcsOUX0OZFLXDJfQhsTApkY663NX20oLjzOzfe1A0GmXrXdKrwRsu_UdMrkAElUZ4Dnrbd0d1pw=w800-h500-k-no',
+    slug: 'kokyu',
+    citySlug: 'durham',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.9105526,
+    lng: -78.9305887,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-durham-north-carolina',
+  title: 'Ramen Delivery In Durham, North Carolina | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Durham, North Carolina',
+  description: 'The best ramen delivery in Durham, North Carolina — ranked by reviews and delivery quality. Order great noodles to your door from Durham\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Durham, North Carolina.',
+  content: `<p>Durham is one of the South's most interesting food cities — the Duke and NC Central campus communities and the Research Triangle knowledge economy workforce have produced a dining scene with genuine depth. The late-night ramen and Asian delivery scene has grown with the city's ambitions. I've eaten my way through Durham's Asian restaurant corridors and ordered delivery from most of them. Durham's delivery ramen scene clusters around Ninth Street, Brightleaf Square, and the MLK Jr. Parkway corridor. Delivery times are fast because the distances are manageable.</p>`,
+  restaurantCards: ramen_delivery_in_durham_north_carolina_cards,
+  listHeading: 'Best Ramen Delivery In Durham, North Carolina',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Durham, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Durham offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Birrieria El Patron 323 is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Durham?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Birrieria El Patron 323 is one of the highest-rated Asian noodle restaurants in Durham for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Durham?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Durham typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_grand_rapids_michigan_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'POKE TOKI',
+    rating: 4.9,
+    reviewCount: 594,
+    address: '5150 Northland Dr NE, Grand Rapids, MI 49525',
+    phone: '+1 616-729-4414',
+    description: 'One of Grand Rapids\'s highest-rated Asian restaurants with a strong delivery track record. POKE TOKI has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGi2GWJmc7NzkSRZr2_Iy0dAWLICSmlOcDUPtlCY7eSSVAAtCvrn76vmS7v2ZSFT_NK4oWqqYRo5rpDezB6bYF7ZdFpTSt7UZhrJrn8xZxd40SJHsxKbXoRtUCW6VXLC7KoKuyrHQ=w800-h500-k-no',
+    slug: 'poke-toki',
+    citySlug: 'grand-rapids',
+    stateSlug: 'michigan',
+    tags: ['Poke', 'Japanese', 'Fresh'],
+    lat: 43.0558547,
+    lng: -85.5791385,
+  },
+  {
+    rank: 2,
+    name: 'Kawa Express',
+    rating: 4.9,
+    reviewCount: 190,
+    address: '5301 Division Ave S Ste D, Grand Rapids, MI 49548',
+    phone: '+1 616-255-3685',
+    description: 'A neighborhood favorite that translates well to delivery. Kawa Express has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhHGTZv9oETRqj9hld-3jrTr0yEbiRiTLYHFcJZnkRa4afplvoexZs7DOgoYO1Sph_c-WmIwFLHadE_oUeXCzAy4sXsLYiWoDnYZy64Uo9yjX7jXML0FYm533WjhMchszee-Vf5PF_tT-JvwszClgxaBBOY6nTI1lXcE59t84Tx2VcVcQCR0oO6c=w800-h500-k-no',
+    slug: 'kawa-express',
+    citySlug: 'grand-rapids',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.867055,
+    lng: -85.6646198,
+  },
+  {
+    rank: 3,
+    name: 'Mizizi by Street Chef Shaw',
+    rating: 4.9,
+    reviewCount: 179,
+    address: '1539 Plainfield Ave NE, Grand Rapids, MI 49505',
+    phone: '+1 616-420-0010',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Mizizi by Street Chef Shaw takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHygsdGJlwBm26dC2ZSu88xbKpDgi21Me4DJ9nmeuuiCbRkVQja0HoZrS1-tCRE5UqzkyUPjJ2LrJq4fB2BiaebNG1SFkaj_nyBzMiAsnwSnj15pU7BQ_eNpnTikI62na_45mgpKU6JbKR-=w800-h500-k-no',
+    slug: 'mizizi-by-street-chef-shaw',
+    citySlug: 'grand-rapids',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.9904814,
+    lng: -85.6634143,
+  },
+  {
+    rank: 4,
+    name: 'Haludam 하루담',
+    rating: 4.9,
+    reviewCount: 121,
+    address: '2901 Breton Rd SE, Grand Rapids, MI 49512',
+    phone: '+1 616-241-4141',
+    description: 'A Grand Rapids staple that ships great noodles. Haludam 하루담 has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV9698JTWloS6fE5bjPuDWulT1xcp5XxWRUMUJddVvU262waMuUzORjEFLYHvjAVMKP402ovluEg3WG761K9P7vDO99uLHpH0GZV8EhiqanFf5WroZxO0dIJirvop1esVVxpF_qaxtJKyx=w800-h500-k-no',
+    slug: 'haludam-harudam',
+    citySlug: 'grand-rapids',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.91149069999999,
+    lng: -85.60925379999999,
+  },
+  {
+    rank: 5,
+    name: 'Kpocha GR',
+    rating: 4.9,
+    reviewCount: 14,
+    address: '5088 28th St SE Suit B, Grand Rapids, MI 49512',
+    phone: '+1 616-818-2037',
+    description: 'One of the most reliably reviewed spots in Grand Rapids for Asian noodle delivery. Kpocha GR earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHuHyUydkR4cyJJ0HkjqAIMdcn-RaRsxv87VGyCY_s3QQxb0OSveO_rrE_qidEyWrAS7WRSvw1duLc4Ml0nmKGE4GqJd0773XzXqyxfHO0JMoh5q_0cVcMpPbzVniH2hb_GMmctKv_Hd39i=w800-h500-k-no',
+    slug: 'kpocha-gr',
+    citySlug: 'grand-rapids',
+    stateSlug: 'michigan',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.9121227,
+    lng: -85.5418461,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-grand-rapids-michigan',
+  title: 'Ramen Delivery In Grand Rapids, Michigan | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Grand Rapids, Michigan',
+  description: 'The best ramen delivery in Grand Rapids, Michigan — ranked by reviews and delivery quality. Order great noodles to your door from Grand Rapids\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Grand Rapids, Michigan.',
+  content: `<p>Grand Rapids has become Michigan's second food city, with a dining scene that increasingly rivals Detroit for depth and innovation. The Asian restaurant community here has grown alongside the broader restaurant renaissance. The ramen and Asian noodle scene in Grand Rapids is concentrated along the East Fulton, Eastern Avenue, and 28th Street corridors. I've been pleasantly surprised by the quality of delivery from Grand Rapids spots on multiple visits. Grand Rapids delivery covers the main city and out to Wyoming, Kentwood, and Walker.</p>`,
+  restaurantCards: ramen_delivery_in_grand_rapids_michigan_cards,
+  listHeading: 'Best Ramen Delivery In Grand Rapids, Michigan',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Grand Rapids, Michigan?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Grand Rapids offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. POKE TOKI is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Grand Rapids?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, POKE TOKI is one of the highest-rated Asian noodle restaurants in Grand Rapids for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Grand Rapids?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Grand Rapids typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_greensboro_north_carolina_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Boba Ko Cafe',
+    rating: 4.9,
+    reviewCount: 77,
+    address: '5315 Liberty Rd Unit E, Greensboro, NC 27406',
+    phone: '+1 336-210-3123',
+    description: 'One of Greensboro\'s highest-rated Asian restaurants with a strong delivery track record. Boba Ko Cafe has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFdXIORRKO_HqQkDxv5PRdbLCFIJ8oRWrlAIWIFLVwDXKv2t1B1OR3CgupRuaxfT4Y078SmMi9jfYSU0FMDCZXqynGIFyeUNC6vQLMGRWw5OYs6yHqInSPccAR91W7Puwn9LBg9rtgCHSg3=w800-h500-k-no',
+    slug: 'boba-ko-cafe',
+    citySlug: 'greensboro',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 35.9743866,
+    lng: -79.7125026,
+  },
+  {
+    rank: 2,
+    name: 'Toshi\'s Cafe',
+    rating: 4.8,
+    reviewCount: 567,
+    address: '5710 W Gate City Blvd FF, Greensboro, NC 27407',
+    phone: '+1 336-297-2288',
+    description: 'A neighborhood favorite that translates well to delivery. Toshi\'s Cafe has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHxWU3WJ2uUHTsJl7uupswi1N0A_ouGq58UJOrwREP1Bta2o0Q-sB44j1Ra4mgS3b7SQ7vSerVBg66PQzUo8axNZA-aWF013TGLC-32FQlW9_72u5yQ0shxfqpNHgtvv0t62uyg=w800-h500-k-no',
+    slug: 'toshi-s-cafe',
+    citySlug: 'greensboro',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0167831,
+    lng: -79.8983128,
+  },
+  {
+    rank: 3,
+    name: 'Qinji Hawaiian BBQ & Ramen',
+    rating: 4.8,
+    reviewCount: 338,
+    address: '2224 Golden Gate Dr, Greensboro, NC 27405',
+    phone: '+1 336-332-0066',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Qinji Hawaiian BBQ & Ramen takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGnIYsNMBCtxlNXznDqhZILNzNQeuIt0K32C5Z2YEpbu-DGE3Qh09UkutUOcTyfgnVXWHU52x_scaW4qz7TMvFWLTRxRBjy-_ibh7slC9D2Kw4LoCKBpNYzzo-XnB47kxd1_aSOww=w800-h500-k-no',
+    slug: 'qinji-hawaiian-bbq-ramen',
+    citySlug: 'greensboro',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 36.103535,
+    lng: -79.7822584,
+  },
+  {
+    rank: 4,
+    name: 'Los Patrones Mexican Grill',
+    rating: 4.8,
+    reviewCount: 45,
+    address: '5710 W Gate City Blvd D, Greensboro, NC 27407',
+    phone: '+1 336-291-8300',
+    description: 'A Greensboro staple that ships great noodles. Los Patrones Mexican Grill has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAExXBeN0HuSZC5DeJhIWwr5Tw_zkb7c8A7WDIPMA4QEmm_ucvf3texmJbjR7dE1uSQQaVc1LxM-ipBw93vOVwObJ6fuh3socBfldCNqvkF7fKSsbyEsf-mkOSLZh3U8jNyLKvANeigMtPrg=w800-h500-k-no',
+    slug: 'los-patrones-mexican-grill',
+    citySlug: 'greensboro',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.016976,
+    lng: -79.89803169999999,
+  },
+  {
+    rank: 5,
+    name: 'Pho Hien Vuong',
+    rating: 4.7,
+    reviewCount: 3342,
+    address: '4109 Spring Garden St, Greensboro, NC 27407',
+    phone: '+1 336-294-5551',
+    description: 'One of the most reliably reviewed spots in Greensboro for Asian noodle delivery. Pho Hien Vuong earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF7Ac1AB-q38SBNsEHHvwdyUMuaiG9a07nH7FPX3dBrq4UR1uZ2cIgKMxOsj2eLy0fuuJkkgtOgDTd20pxNXXUARd8pFdZ9ak1a1wG3ZPkqT4hcWxqTXj0YvKrEhdUczAsokJ31=w800-h500-k-no',
+    slug: 'pho-hien-vuong',
+    citySlug: 'greensboro',
+    stateSlug: 'north-carolina',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 36.0667584,
+    lng: -79.8678348,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-greensboro-north-carolina',
+  title: 'Ramen Delivery In Greensboro, North Carolina | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Greensboro, North Carolina',
+  description: 'The best ramen delivery in Greensboro, North Carolina — ranked by reviews and delivery quality. Order great noodles to your door from Greensboro\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Greensboro, North Carolina.',
+  content: `<p>Greensboro sits at the center of the North Carolina Piedmont Triad and has developed a food scene that reflects its position as a mid-sized university city with a diverse population. Ramen and Asian noodle delivery in Greensboro covers the Gate City broadly — from Friendly Center west to the UNCG area, east toward High Point. The delivery times are fast here compared to larger metros, which helps broth quality at the other end. I've had solid delivered ramen from Greensboro spots that arrived properly hot with packaging that suggested the operators take delivery seriously.</p>`,
+  restaurantCards: ramen_delivery_in_greensboro_north_carolina_cards,
+  listHeading: 'Best Ramen Delivery In Greensboro, North Carolina',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Greensboro, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Greensboro offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Boba Ko Cafe is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Greensboro?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Boba Ko Cafe is one of the highest-rated Asian noodle restaurants in Greensboro for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Greensboro?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Greensboro typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_clarksville_tennessee_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Samurai Sushi & Grill',
+    rating: 4.9,
+    reviewCount: 107,
+    address: '2141 Wilma Rudolph Blvd C, Clarksville, TN 37040',
+    phone: '+1 931-919-2935',
+    description: 'One of Clarksville\'s highest-rated Asian restaurants with a strong delivery track record. Samurai Sushi & Grill has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEkEoT7TCg9N1iTyKqaj9o2BV6GW9aKcDtc7JNKWIFhFXu4Sf8tvAWfq4BmTvirkIDayCuIUEHtb-MDf8RMK9qY4WHpVEuLGu53K7w-pcg02uTuKSPybbrcFrdggliQ0IlJGLz4mxhI1rs5=w800-h500-k-no',
+    slug: 'samurai-sushi-grill',
+    citySlug: 'clarksville',
+    stateSlug: 'tennessee',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.5639705,
+    lng: -87.31012059999999,
+  },
+  {
+    rank: 2,
+    name: 'Dae Bak ChopHouse',
+    rating: 4.8,
+    reviewCount: 401,
+    address: '1949 Fort Campbell Blvd C, Clarksville, TN 37042',
+    phone: '+1 931-645-1114',
+    description: 'A neighborhood favorite that translates well to delivery. Dae Bak ChopHouse has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGRSJMmQSqTEr3CfkQcv1gptiRyylwf4OijkkbvkcsDyflHydE1Fagt7kNENDXDgatKMTZrWukyXPzoNPxKBDLD7Mnnu1CUuuFilfNcr85X4_I__-Bd8zQXKD2T-fzc0vGMJaZ7=w800-h500-k-no',
+    slug: 'dae-bak-chophouse',
+    citySlug: 'clarksville',
+    stateSlug: 'tennessee',
+    tags: ['Vietnamese', 'Noodles', 'Pho'],
+    lat: 36.5918896,
+    lng: -87.4151662,
+  },
+  {
+    rank: 3,
+    name: 'Park It Market',
+    rating: 4.8,
+    reviewCount: 333,
+    address: '2054 Fort Campbell Blvd, Clarksville, TN 37042',
+    phone: '+1 931-538-3199',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Park It Market takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFOxWLe7AMhoBgV_LCWPaW4Xi6Q9aVPw_X0oOR4q5PpIaVxVLhcXtcWxI9acHXxdr6JmsUwkPdudG9ajHM-4ZHwQFf-jWxgDTmhbo07xbrjotAwpDEDTsq1AK7y0iVCplUKTtYDnA=w800-h500-k-no',
+    slug: 'park-it-market',
+    citySlug: 'clarksville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.5977695,
+    lng: -87.4212064,
+  },
+  {
+    rank: 4,
+    name: 'Kohana Sushi & Ramen',
+    rating: 4.7,
+    reviewCount: 1707,
+    address: '120 Corporate Dr, Clarksville, TN 37040',
+    phone: '+1 931-648-8208',
+    description: 'A Clarksville staple that ships great noodles. Kohana Sushi & Ramen has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHhBo87I7iBivSj4cLQGcabLn7aao1yr-dgDaOYRLUPRPZLnQ6mOmr_e_QskNHTgP_hNMSgF74o-rllL2Iwjp1F-dJSpdBr5YXnhJcygP6s-srH5w8IBnVjMlRNb1V_8r06T0Lq=w800-h500-k-no',
+    slug: 'kohana-sushi-ramen',
+    citySlug: 'clarksville',
+    stateSlug: 'tennessee',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 36.55614,
+    lng: -87.32379499999999,
+  },
+  {
+    rank: 5,
+    name: 'Yummy Bowl',
+    rating: 4.7,
+    reviewCount: 418,
+    address: '943 E Lewis and Clark Pkwy, Clarksville, IN 47129',
+    phone: '+1 812-725-0005',
+    description: 'One of the most reliably reviewed spots in Clarksville for Asian noodle delivery. Yummy Bowl earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFTWPH6-73Mkv9ctXOUAcMk5Qa6wvwxBYhjTmZbDPbnezTk026S0KHyWQxhOboravNTK-w6NLaSDOCFYdcOylIOwcxST79KB-SYV0y-uZ1nTed1G6cTg5J-_die_W4zq6bmryIN3g=w800-h500-k-no',
+    slug: 'yummy-bowl',
+    citySlug: 'clarksville',
+    stateSlug: 'tennessee',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 38.31689679999999,
+    lng: -85.7579142,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-clarksville-tennessee',
+  title: 'Ramen Delivery In Clarksville, Tennessee | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Clarksville, Tennessee',
+  description: 'The best ramen delivery in Clarksville, Tennessee — ranked by reviews and delivery quality. Order great noodles to your door from Clarksville\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Clarksville, Tennessee.',
+  content: `<p>Clarksville is Fort Campbell country — one of the largest Army installations in the world creates a food culture that's diverse, internationally influenced, and hungry at all hours. Ramen and Asian noodle delivery in Clarksville covers the main city and the surrounding communities that serve Fort Campbell. The delivery infrastructure here is strong because the demand is consistent — soldiers and families who want good food at flexible hours create a reliable customer base. The spots along Madison Street and Wilma Rudolph Boulevard are where the best Asian delivery options cluster.</p>`,
+  restaurantCards: ramen_delivery_in_clarksville_tennessee_cards,
+  listHeading: 'Best Ramen Delivery In Clarksville, Tennessee',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Clarksville, Tennessee?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Clarksville offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Samurai Sushi & Grill is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Clarksville?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Samurai Sushi & Grill is one of the highest-rated Asian noodle restaurants in Clarksville for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Clarksville?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Clarksville typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_bellevue_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Las Garnachas Bellevue',
+    rating: 4.9,
+    reviewCount: 12,
+    address: '2444 NE Bel Red Rd, Bellevue, WA 98007',
+    phone: '+1 425-890-2505',
+    description: 'One of Bellevue\'s highest-rated Asian restaurants with a strong delivery track record. Las Garnachas Bellevue has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEey4qkPwcUt5UN6MBwjF3H50jSrthpY1RL2oozIh4Z0MFEbWJtEP78dXNXkcKwsKsaaZw9xcss9RHm2vdxnnWldTPfl324fndUPbU3DBoWmwdBZIE5g7N3dW2qMI9CGjKYL95E4z5nDhPzj2bZUDMQfHjpO7PC0I9qw7lSafHkRJY2TKPBMZmOCA=w800-h500-k-no',
+    slug: 'las-garnachas-bellevue',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.6320845,
+    lng: -122.132776,
+  },
+  {
+    rank: 2,
+    name: 'Ramen Nori • Ramen & Sushi',
+    rating: 4.6,
+    reviewCount: 650,
+    address: '13112 NE 20th St #200, Bellevue, WA 98005',
+    phone: '+1 425-242-0532',
+    description: 'A neighborhood favorite that translates well to delivery. Ramen Nori • Ramen & Sushi has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhG_r9CVW-nCJGq2FN79ipy-025oHicJEgYmTrAPH-nmiNLVzAIYEEJaPdWfS2QL3GNLMt5thgB22tfozYFmT6z0FeptB3_C0kXMIpAbBBpgV6veG7ow9xiw8z_KVjOVWVHr2y02-zevZ0xAm88bxx3sfrV-NcJMd_xhy865j55BtDjZwP6pESg=w800-h500-k-no',
+    slug: 'ramen-nori-ramen-sushi',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.62883919999999,
+    lng: -122.1656734,
+  },
+  {
+    rank: 3,
+    name: 'Tendon Kohaku',
+    rating: 4.6,
+    reviewCount: 3293,
+    address: '233 106th Ave NE, Bellevue, WA 98004',
+    phone: '+1 425-357-7179',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Tendon Kohaku takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGLGVaJoIX36O8-Pk-WqF1-_o3sR767TZj8pBcG2tJ9-vkWLnXpzt62vGgwyJZi3v5VLsAFBqH7Jp7OKgNVYSxTKJzYlMbubMccWkOlLJNY2D0psPrLNnh-Svilgm90JRdwD0ousg=w800-h500-k-no',
+    slug: 'tendon-kohaku',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.6129752,
+    lng: -122.1992386,
+  },
+  {
+    rank: 4,
+    name: 'Supreme Dumplings',
+    rating: 4.6,
+    reviewCount: 2053,
+    address: '14603 NE 20th St #4B, Bellevue, WA 98007',
+    phone: '+1 877-309-0955',
+    description: 'A Bellevue staple that ships great noodles. Supreme Dumplings has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH_n-9Z2LIm_ZA14jJ8KPn_bNaIak0dB1EOdDvfz5UBiUr8pAGfWiOMRbe8svZLPJ2dzcfFSqPyGz0MtePoNF8JU06FiEEwrJMS3Ts4c27xWOdTu1wL4_CrOJGytfJkWlcW0B8=w800-h500-k-no',
+    slug: 'supreme-dumplings',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.6267547,
+    lng: -122.1450034,
+  },
+  {
+    rank: 5,
+    name: 'Matcha Magic Bellevue',
+    rating: 4.6,
+    reviewCount: 501,
+    address: '10246 Main St A, Bellevue, WA 98004',
+    phone: '+1 425-453-1029',
+    description: 'One of the most reliably reviewed spots in Bellevue for Asian noodle delivery. Matcha Magic Bellevue earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEvu0HD2pxd-Ke37qtex3q04m-59YW5UXJS6mK7wYEZKz62VTD6ZggSE7Lz6q-WKMLHtDgrHXT5J0EMp3ICv3VnvHYLdN-1q458DxGRUdW0DnimJ4dedrKmmGNNZR0mxwiV1Eaosw=w800-h500-k-no',
+    slug: 'matcha-magic-bellevue',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.610274,
+    lng: -122.2032876,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-bellevue-washington',
+  title: 'Ramen Delivery In Bellevue, Washington | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Bellevue, Washington',
+  description: 'The best ramen delivery in Bellevue, Washington — ranked by reviews and delivery quality. Order great noodles to your door from Bellevue\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Bellevue, Washington.',
+  content: `<p>Bellevue is the East Side's answer to Seattle's food scene — and increasingly, Bellevue's Asian food corridor is outperforming Seattle in some categories. The dense East Asian-American community in Bellevue, concentrated around the Crossroads neighborhood and along 152nd Avenue NE, has produced a ramen and Asian noodle scene that's genuinely world-class. Delivery from Bellevue covers the entire Eastside metro — Kirkland, Redmond, Issaquah, Renton. When I see a 4.8+ score with 300+ reviews from a Bellevue ramen spot, I know it's been earned.</p>`,
+  restaurantCards: ramen_delivery_in_bellevue_washington_cards,
+  listHeading: 'Best Ramen Delivery In Bellevue, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Bellevue, Washington?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Bellevue offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Las Garnachas Bellevue is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Bellevue?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Las Garnachas Bellevue is one of the highest-rated Asian noodle restaurants in Bellevue for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Bellevue?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Bellevue typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_lakewood_colorado_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'The Spot Co',
+    rating: 5.0,
+    reviewCount: 107,
+    address: '9804 W Girton Dr, Lakewood, CO 80227',
+    phone: '+1 720-254-0007',
+    description: 'One of Lakewood\'s highest-rated Asian restaurants with a strong delivery track record. The Spot Co has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEDhugQD6PqMS_D12RckMmyUB2rCZ9tWoWYTOM5wF0V8hD4h7AWzg3pJVqjyTdP9s9OIcSJuHQ1Z8j80g39MiQrxswvED36VfDb0udrsgGznnhV0T_xXlA9wXfAmgHNGkizy4Y=w800-h500-k-no',
+    slug: 'the-spot-co',
+    citySlug: 'lakewood',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.655167,
+    lng: -105.107366,
+  },
+  {
+    rank: 2,
+    name: 'TACOS LA COMARCA LAKEWOOD',
+    rating: 5.0,
+    reviewCount: 70,
+    address: '7310 W Colfax Ave suit 120, Lakewood, CO 80214',
+    phone: '+1 720-877-7017',
+    description: 'A neighborhood favorite that translates well to delivery. TACOS LA COMARCA LAKEWOOD has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGdbziQq6YHWWDmNDGiVZLp2uEm4LCCk1KqgBNV-oiO1utLT4j30CN6f5I4JWBz5g2Q3FTy4s6AfdYCPkUQYSiqtUrqDKs7Wqzr2aokrqIy59lrWt4AL7ANRGu3-D1bq1Rjs7-lRD_GhfOF=w800-h500-k-no',
+    slug: 'tacos-la-comarca-lakewood',
+    citySlug: 'lakewood',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.740009,
+    lng: -105.079321,
+  },
+  {
+    rank: 3,
+    name: 'Bong Chicken F.K.A CM Chicken Lakewood',
+    rating: 4.8,
+    reviewCount: 663,
+    address: '1862 S Wadsworth Blvd, Lakewood, CO 80232',
+    phone: '+1 303-632-8079',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Bong Chicken F.K.A CM Chicken Lakewood takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFjs7nJ4nEIfkTTU4WfqzNWeDTA9iJkctK63wxdh5rB02oUr4ydIidvVH860BV8r8KzhyCNCAGE9Ukzn0zY9XDNhXRSr8mpiujqVwOMzmsqW3xnPKPg8BJ6I6VrXIsXYyZFfGGTQY6NBncB=w800-h500-k-no',
+    slug: 'bong-chicken-f-k-a-cm-chicken-lakewood',
+    citySlug: 'lakewood',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.6836168,
+    lng: -105.0797426,
+  },
+  {
+    rank: 4,
+    name: 'Cafe Brown',
+    rating: 4.8,
+    reviewCount: 278,
+    address: '8415 Steilacoom Blvd SW Suite B, Lakewood, WA 98498',
+    phone: '+1 253-267-0776',
+    description: 'A Lakewood staple that ships great noodles. Cafe Brown has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGkJjWycLHfHCJfMXxqtPEbnPpjCwmJ_TolqSeCS_S1t-XEw3bcfTeIxWYikINT9vPWEEayusJn0gK9xN1U4TXHU-ug-4LnhpMQQeZJmYeV7qVEV4wFDgInqTrKwpVIslxO-XzLV0-HxiU=w800-h500-k-no',
+    slug: 'cafe-brown',
+    citySlug: 'lakewood',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 47.1800332,
+    lng: -122.5495432,
+  },
+  {
+    rank: 5,
+    name: 'Big Sky Burger',
+    rating: 4.7,
+    reviewCount: 947,
+    address: '1958 S Garrison St, Lakewood, CO 80227',
+    phone: '+1 303-763-5012',
+    description: 'One of the most reliably reviewed spots in Lakewood for Asian noodle delivery. Big Sky Burger earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6cXYLfQOnmK95gK7eh7CRnLkTmITCHWYD1mC29P4WlgdKqzYa82KOUnHMUoTEE639lpGrRze6AO94hjwFeYN6gCrFR2I6UAYXAOelbt0C3vVw0gzaaJVT4hb1qujLuQAUuUqdk6Kvix1V=w800-h500-k-no',
+    slug: 'big-sky-burger',
+    citySlug: 'lakewood',
+    stateSlug: 'colorado',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 39.681474,
+    lng: -105.0998234,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-lakewood-colorado',
+  title: 'Ramen Delivery In Lakewood, Colorado | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Lakewood, Colorado',
+  description: 'The best ramen delivery in Lakewood, Colorado — ranked by reviews and delivery quality. Order great noodles to your door from Lakewood\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Lakewood, Colorado.',
+  content: `<p>Lakewood sits just west of Denver and has developed its own distinct food identity — particularly along the Wadsworth Bypass corridor and near Belmar. I've ordered ramen delivery from Lakewood restaurants when staying near Red Rocks and in the Wheat Ridge area — the transit distances are manageable, and the better operations have learned to package for delivery. Lakewood delivery ramen is most concentrated around Belmar, the Wadsworth corridor, and near the Union Boulevard area. All major delivery platforms cover Lakewood.</p>`,
+  restaurantCards: ramen_delivery_in_lakewood_colorado_cards,
+  listHeading: 'Best Ramen Delivery In Lakewood, Colorado',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Lakewood, Colorado?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Lakewood offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. The Spot Co is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Lakewood?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, The Spot Co is one of the highest-rated Asian noodle restaurants in Lakewood for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Lakewood?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Lakewood typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_schaumburg_illinois_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Sang\'s Kitchen Schaumburg IL',
+    rating: 5.0,
+    reviewCount: 61,
+    address: '420 E Golf Rd, Schaumburg, IL 60173',
+    phone: '+1 847-728-2327',
+    description: 'One of Schaumburg\'s highest-rated Asian restaurants with a strong delivery track record. Sang\'s Kitchen Schaumburg IL has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEHZq21MJvqYEkxC8A48au8m6udlFaNguXYLyNFX6uWm--SX1loa2ohTkDoz3SfquLy7LCWGTsDeJ_7YgBi2NfqpDuiDxR7GGwM9NZ_Pr4178Dlq4migD4e1POm3wS7XwOwYRTAt7ZsyiRl=w800-h500-k-no',
+    slug: 'sang-s-kitchen-schaumburg-il',
+    citySlug: 'schaumburg',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.051673,
+    lng: -88.06891999999999,
+  },
+  {
+    rank: 2,
+    name: 'K Cafe & Eats',
+    rating: 4.9,
+    reviewCount: 225,
+    address: '1111 Golf Rd Unit 202, Schaumburg, IL 60173',
+    phone: '+1 847-641-5171',
+    description: 'A neighborhood favorite that translates well to delivery. K Cafe & Eats has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEwMEdHgFEeFG8pE8a2h8W1bo-xkpbjNGxEvxrxMnDnXzs9t8sP_mb7BQ44_b9UfT9n5mMDPAzt_QVJUspD1F0h84GyZnZJq1PUl4QaC_u24-xZ3IJEAT7Fu76PH-vB-AC_2TGupCQfOZta=w800-h500-k-no',
+    slug: 'k-cafe-eats',
+    citySlug: 'schaumburg',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.049344,
+    lng: -88.0514295,
+  },
+  {
+    rank: 3,
+    name: 'KAI MOM\'S K-FOOD TOGO',
+    rating: 4.8,
+    reviewCount: 223,
+    address: '913 W Wise Rd, Schaumburg, IL 60193',
+    phone: '+1 847-985-6100',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. KAI MOM\'S K-FOOD TOGO takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGSa7QcwlifQ5QC5MrJtsodfGosub0zB_30W2YheMrckJCzF8-GqoZ6G_XcQFZsXmX0MXroDAJsR6-jBaBzHiwJiLTMZIEVDiYVLN0730yv6qXi8uzbg6gt1uWkdDySaHJJE90=w800-h500-k-no',
+    slug: 'kai-mom-s-k-food-togo',
+    citySlug: 'schaumburg',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.0036091,
+    lng: -88.1024231,
+  },
+  {
+    rank: 4,
+    name: 'Mimi Katsu',
+    rating: 4.8,
+    reviewCount: 69,
+    address: '1111 E Golf Rd unit 205, Schaumburg, IL 60173',
+    phone: '+1 224-353-6074',
+    description: 'A Schaumburg staple that ships great noodles. Mimi Katsu has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF3FGbAyzoA_yOimZPcj-QRVzJtqTgexj31WzbN-7IJDwYBr5xFGpyzpUQFLuI724R-kkWrAgWXL_MLlNsg_llaLeWYD33TXhfMeCxLnnliX6hoCHl_S_Sx6JEzTJz0fiUQTyK1=w800-h500-k-no',
+    slug: 'mimi-katsu',
+    citySlug: 'schaumburg',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 42.049344,
+    lng: -88.0514295,
+  },
+  {
+    rank: 5,
+    name: '315 Poke & Ramen',
+    rating: 4.8,
+    reviewCount: 62,
+    address: '1091 N Salem Dr, Schaumburg, IL 60194',
+    phone: '+1 847-285-1902',
+    description: 'One of the most reliably reviewed spots in Schaumburg for Asian noodle delivery. 315 Poke & Ramen earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH2p4-9fo_WrjK8Z64L_XIslCsSu1YybFn-BM25RGl9D9n8ItNuL4gOOJlD3bJnc_zK-UqK_26rasDp6AbIb6y7pxj2W_ufecPEBpkXutBm_EOEUlMe756Yu_10U5X1xXBqcblJ=w800-h500-k-no',
+    slug: '315-poke-ramen',
+    citySlug: 'schaumburg',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 42.0464608,
+    lng: -88.0986985,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-schaumburg-illinois',
+  title: 'Ramen Delivery In Schaumburg, Illinois | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Schaumburg, Illinois',
+  description: 'The best ramen delivery in Schaumburg, Illinois — ranked by reviews and delivery quality. Order great noodles to your door from Schaumburg\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Schaumburg, Illinois.',
+  content: `<p>Schaumburg is Chicago's northwest suburb and one of Illinois' most commercially dense communities. The Asian restaurant scene here is surprisingly robust — the Woodfield Mall area and the Route 53 corridor have attracted a wide variety of Asian dining options. Delivery from Schaumburg spots can reach a wide swath of the northwest suburbs — Hoffman Estates, Rolling Meadows, Palatine, Arlington Heights. I've been impressed by the ramen and Asian noodle options available for delivery in Schaumburg. The spots around Woodfield Mall have developed delivery packaging that handles the suburban transit distances well.</p>`,
+  restaurantCards: ramen_delivery_in_schaumburg_illinois_cards,
+  listHeading: 'Best Ramen Delivery In Schaumburg, Illinois',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Schaumburg, Illinois?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Schaumburg offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Sang's Kitchen Schaumburg IL is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Schaumburg?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Sang's Kitchen Schaumburg IL is one of the highest-rated Asian noodle restaurants in Schaumburg for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Schaumburg?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Schaumburg typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_naperville_illinois_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Jeong’s Noodle Naperville 정현영 짬뽕',
+    rating: 5.0,
+    reviewCount: 5,
+    address: '1295 E Ogden Ave, Naperville, IL 60563',
+    phone: '+1 224-567-9292',
+    description: 'One of Naperville\'s highest-rated Asian restaurants with a strong delivery track record. Jeong’s Noodle Naperville 정현영 짬뽕 has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFkiclb-BxC8QGvqRzedEwr1u65UIItGsHWVrCEcIEwWE0sxp4R_bc-pzQsFHLCA_3oNkUipJeAm8ozMbqkqd2d-1JMBu3OnxcofjetP9SXjr-uDfsI2rwzzwfst5lPgqWuFyCckRSghvQ=w800-h500-k-no',
+    slug: 'jeong-s-noodle-naperville',
+    citySlug: 'naperville',
+    stateSlug: 'illinois',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 41.7975049,
+    lng: -88.1225036,
+  },
+  {
+    rank: 2,
+    name: 'Yoshi Ramen Naperville',
+    rating: 4.9,
+    reviewCount: 569,
+    address: '4931 Rte 59 Ste 101, Naperville, IL 60564',
+    phone: '+1 630-219-3043',
+    description: 'A neighborhood favorite that translates well to delivery. Yoshi Ramen Naperville has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGA6Fm0y4O7ofWsGCfGm0AJ8NKoBP02Z2gkDGAB10afMndvl2LHqax9zG5g9j_zcSXEmiJmlxqWL4w-Wv4adlEPzJ4WP3I6iX4vnWrqDXSvp7zjY6Lx0JiLUdt1jnKR-uxAC-vUP3EcPJ1c=w800-h500-k-no',
+    slug: 'yoshi-ramen-naperville',
+    citySlug: 'naperville',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.681845,
+    lng: -88.2054131,
+  },
+  {
+    rank: 3,
+    name: 'Sho Wagyu Steakhouse',
+    rating: 4.9,
+    reviewCount: 80,
+    address: '2764 Aurora Ave #108, Naperville, IL 60540',
+    phone: '+1 331-249-6684',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Sho Wagyu Steakhouse takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGqLHRus1doJZAejJTYEeDjfwx2DWlSHlX8lwclwtbskJwKXKjy4NK9Agt85dpZ_RUiowjohUbMcyxDymxKoDxNQb0I2L6Y69XwpJBj9hjZBmjVn5ZDUYsZj8XDRe8rFvoxZpdNV9HHtVcA9gr4mukA_URt_A97yOtCUrX2z3V4WuZbb4PJukw=w800-h500-k-no',
+    slug: 'sho-wagyu-steakhouse',
+    citySlug: 'naperville',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.7619151,
+    lng: -88.1994278,
+  },
+  {
+    rank: 4,
+    name: 'Gumii',
+    rating: 4.8,
+    reviewCount: 545,
+    address: '3124 Rte 59 #140, Naperville, IL 60564',
+    phone: '+1 331-229-8785',
+    description: 'A Naperville staple that ships great noodles. Gumii has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGd37dhFwf_5fvWFq_L0hKdt7Oe6mUHtKnOC8H2bcwUjc-OFkKCuxwOWQHDm2GybKIMUKLUJTVe_KzhsjO_sInbUDarkLW45pL5-4Tjz0uCboEVL6JSSKsTuvxZ1IJDggSenfb1=w800-h500-k-no',
+    slug: 'gumii',
+    citySlug: 'naperville',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.7069007,
+    lng: -88.20404909999999,
+  },
+  {
+    rank: 5,
+    name: 'Kogii Kogii Express',
+    rating: 4.8,
+    reviewCount: 1615,
+    address: '1763 Freedom Dr #101, Naperville, IL 60563',
+    phone: '+1 630-453-5506',
+    description: 'One of the most reliably reviewed spots in Naperville for Asian noodle delivery. Kogii Kogii Express earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEkF0dN4508Bv0T0WDLu0s9xCf8Ic438X_kgnQreHcOx_LrCxZy5glXEydWarD3-hBMSrzwssUl8XCBQYygxKdeQnaqYgaskkhmU9gLVZJldbYDKATaxFb5Ub1Yr4RpM_mjUxWN=w800-h500-k-no',
+    slug: 'kogii-kogii-express',
+    citySlug: 'naperville',
+    stateSlug: 'illinois',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 41.8027247,
+    lng: -88.1274553,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-naperville-illinois',
+  title: 'Ramen Delivery In Naperville, Illinois | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Naperville, Illinois',
+  description: 'The best ramen delivery in Naperville, Illinois — ranked by reviews and delivery quality. Order great noodles to your door from Naperville\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Naperville, Illinois.',
+  content: `<p>Naperville is one of the Chicago metro's most affluent suburban communities, and its food scene reflects that — high standards, competitive restaurant market, and a customer base that rates based on genuine quality. Ramen delivery in Naperville covers a wide suburban area — Aurora, Lisle, Bolingbrook, Downers Grove. When I've ordered from Naperville spots, the packaging tends to be thoughtful and the broth arrives in better condition than average. Naperville's top ramen and Asian noodle delivery options cluster around the Route 59 corridor and the downtown area near Washington Street.</p>`,
+  restaurantCards: ramen_delivery_in_naperville_illinois_cards,
+  listHeading: 'Best Ramen Delivery In Naperville, Illinois',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Naperville, Illinois?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Naperville offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. Jeong’s Noodle Naperville 정현영 짬뽕 is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Naperville?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, Jeong’s Noodle Naperville 정현영 짬뽕 is one of the highest-rated Asian noodle restaurants in Naperville for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Naperville?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Naperville typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_yakima_washington_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'banh mi & more at fatly',
+    rating: 5.0,
+    reviewCount: 7,
+    address: '1521 E Nob Hill Blvd, Yakima, WA 98901',
+    phone: '+1 509-317-2243',
+    description: 'One of Yakima\'s highest-rated Asian restaurants with a strong delivery track record. banh mi & more at fatly has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFePXWCqSPZiYyy0mpVlbUtssmmFgtaYaKL6t9bYvgYlFFyUydJGnTqOIPEqQmnDKbbKCQ_x5EqGgpOUnUtOIEddzRAqAsk0CqugrJM6BJJh6nWXj9olAwahwkQZDj1Bra4jj-KhAq_K7Ao=w800-h500-k-no',
+    slug: 'banh-mi-more-at-fatly',
+    citySlug: 'yakima',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 46.5856554,
+    lng: -120.4804111,
+  },
+  {
+    rank: 2,
+    name: 'My Ma Dim Sum',
+    rating: 4.8,
+    reviewCount: 436,
+    address: '107 S 1st St #106, Yakima, WA 98901',
+    phone: '+1 509-367-6948',
+    description: 'A neighborhood favorite that translates well to delivery. My Ma Dim Sum has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGp45pNTgapas_oFI8b8erK7ajztnqvEgdEVoVYiLisAhmHIdWZFtr1wdzH_Yg-8vGDmxIgWU66E_12RBu88rtocXKfT1zmYmiYZUfYCLUijTh1LcDAG9SOI8QK350eWL2jLh8=w800-h500-k-no',
+    slug: 'my-ma-dim-sum',
+    citySlug: 'yakima',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 46.6007134,
+    lng: -120.5047574,
+  },
+  {
+    rank: 3,
+    name: '산 Tokki-Ya',
+    rating: 4.8,
+    reviewCount: 161,
+    address: '3508 Summitview Ave, Yakima, WA 98902',
+    phone: '+1 509-426-2471',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. 산 Tokki-Ya takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHJWG-0Zw94PfpvoXCyIUZqQO6IVvlasYMKk2THPKH_4kfmKGvkAhAmPTFf1mcVEHfGhimbuX48zbl0sYuGle-SsACwHxJGRsy9dWB16MgjNWvI3VU2d8eL63V6Q3S3w-KYtBrBdw=w800-h500-k-no',
+    slug: 'tokki-ya',
+    citySlug: 'yakima',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 46.5997758,
+    lng: -120.5561668,
+  },
+  {
+    rank: 4,
+    name: 'Bubbles & Co.',
+    rating: 4.8,
+    reviewCount: 144,
+    address: '4001 Summitview Ave UNIT 17, Yakima, WA 98908',
+    phone: '+1 509-571-1041',
+    description: 'A Yakima staple that ships great noodles. Bubbles & Co. has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFxmvQIwVVxf7DAJTvTTxtAu0dB0Vm37px5VZ0xDpcipWqhoMGHsy0uS0rmNXgDEe92TUOJdzuCvcPUMr7aOMA-sUZ_r7MQwP0af1H4ePq-zr0Aub81karog7d_7oqW9WAIEAs=w800-h500-k-no',
+    slug: 'bubbles-co',
+    citySlug: 'yakima',
+    stateSlug: 'washington',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 46.6001492,
+    lng: -120.5636695,
+  },
+  {
+    rank: 5,
+    name: 'D’ Thai Street Food',
+    rating: 4.8,
+    reviewCount: 133,
+    address: '6407 W Nob Hill Blvd ste 102, Yakima, WA 98908',
+    phone: '+1 509-424-3051',
+    description: 'One of the most reliably reviewed spots in Yakima for Asian noodle delivery. D’ Thai Street Food earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG1WfE0i2F6XTyFbHLwkDsws53eyYV3GUExGYvnY37eY-GxTWZTWOzt08HiOYZlEPuqc1Pz0KrWGVNTUNKdGSRXzdURI4y3uKYOUdxYbpdc5h1p7GTfu81OFDqPa4FNUx8GIPL_jggv6bAT=w800-h500-k-no',
+    slug: 'd-thai-street-food',
+    citySlug: 'yakima',
+    stateSlug: 'washington',
+    tags: ['Thai', 'Noodles', 'Asian'],
+    lat: 46.5859465,
+    lng: -120.5951451,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-yakima-washington',
+  title: 'Ramen Delivery In Yakima, Washington | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Yakima, Washington',
+  description: 'The best ramen delivery in Yakima, Washington — ranked by reviews and delivery quality. Order great noodles to your door from Yakima\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Yakima, Washington.',
+  content: `<p>Yakima is the agricultural heart of Washington State, and the city's food scene reflects the diversity of the valley — a significant Latino community, a Japanese-American community with deep roots in the valley's agricultural history, and a newer wave of Southeast Asian families. Ramen and Asian noodle delivery in Yakima covers the main city and out to West Valley, Selah, and Union Gap. The delivery distances are manageable, and the Asian restaurant community here has built delivery operations that serve the full valley. Yakima's prices are lower than Western Washington, the portions tend to be generous.</p>`,
+  restaurantCards: ramen_delivery_in_yakima_washington_cards,
+  listHeading: 'Best Ramen Delivery In Yakima, Washington',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Yakima, Washington?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Yakima offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. banh mi & more at fatly is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Yakima?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, banh mi & more at fatly is one of the highest-rated Asian noodle restaurants in Yakima for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Yakima?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Yakima typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+
+const ramen_delivery_in_winston_salem_north_carolina_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'SHINJUKU STATION REVOLVING SUSHI BAR',
+    rating: 5.0,
+    reviewCount: 4,
+    address: '1045 Hanes Mall Blvd, Winston-Salem, NC 27103',
+    phone: '',
+    description: 'One of Winston Salem\'s highest-rated Asian restaurants with a strong delivery track record. SHINJUKU STATION REVOLVING SUSHI BAR has built its reputation on consistent quality — both in-house and in the bag.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=10wJ9UQkcbgNQEPBzsSK6w&cb_client=search.gws-prod.gps&w=800&h=500&yaw=97.654625&pitch=0&thumbfov=100',
+    slug: 'shinjuku-station-revolving-sushi-bar',
+    citySlug: 'winston-salem',
+    stateSlug: 'north-carolina',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.0657998,
+    lng: -80.3166018,
+  },
+  {
+    rank: 2,
+    name: '237 Ramen',
+    rating: 5.0,
+    reviewCount: 3,
+    address: '235 W 5th St, Winston-Salem, NC 27101',
+    phone: '',
+    description: 'A neighborhood favorite that translates well to delivery. 237 Ramen has learned to package their noodles for transit — broth separate, noodles al dente, toppings sealed to survive the ride.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=n2gzGDNQh4-UvlYr_Vy0Hg&cb_client=search.gws-prod.gps&w=800&h=500&yaw=345.68582&pitch=0&thumbfov=100',
+    slug: '237-ramen',
+    citySlug: 'winston-salem',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 36.0998341,
+    lng: -80.2470575,
+  },
+  {
+    rank: 3,
+    name: 'Pleasants Provisions',
+    rating: 4.9,
+    reviewCount: 39,
+    address: '830 W 4th St, Winston-Salem, NC 27101',
+    phone: '+1 336-283-9570',
+    description: 'Consistently excellent whether you\'re eating in or ordering in. Pleasants Provisions takes delivery packaging seriously enough that the bowl you open at home rivals the dine-in experience.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEvcwgoCSjbGndTdbtjgT7y4fzqVHSCA71udPqMRQ0DOwWRbAl59FDbq37zzES8cVnZU5T5s0UIYF8zfzoTm3akHZwo1910dvlaBMnofg_B0cGFCPO6y6igbWt48pfWgy3qK7uMqVPkBTwg=w800-h500-k-no',
+    slug: 'pleasants-provisions',
+    citySlug: 'winston-salem',
+    stateSlug: 'north-carolina',
+    tags: ['Asian Fusion', 'Noodles', 'Japanese'],
+    lat: 36.0970982,
+    lng: -80.2552183,
+  },
+  {
+    rank: 4,
+    name: 'Curry and Noodle',
+    rating: 4.8,
+    reviewCount: 748,
+    address: '5232 Robinhood Village Dr, Winston-Salem, NC 27106',
+    phone: '+1 336-815-8033',
+    description: 'A Winston Salem staple that ships great noodles. Curry and Noodle has worked out the delivery logistics — the broth arrives properly hot and the noodles haven\'t turned to mush.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHc1-Tv0vbOQEI8TQXzKJRtlXv1v3klixLW4nJMkAYP1OMgE78HYkaP2FEgB0FamodYYXZZzzD1Cz4ZNgCHqZ64iDS19QZEdedcjvPPcNvDRjKMmNPhkmocXOjYJ2567ffoVawovQ=w800-h500-k-no',
+    slug: 'curry-and-noodle',
+    citySlug: 'winston-salem',
+    stateSlug: 'north-carolina',
+    tags: ['Noodles', 'Asian', 'Japanese'],
+    lat: 36.12188039999999,
+    lng: -80.36700259999999,
+  },
+  {
+    rank: 5,
+    name: 'Umi Hotpot Sushi & Seafood Buffet',
+    rating: 4.6,
+    reviewCount: 548,
+    address: '1237 Silas Creek Pkwy, Winston-Salem, NC 27127',
+    phone: '+1 336-999-9888',
+    description: 'One of the most reliably reviewed spots in Winston Salem for Asian noodle delivery. Umi Hotpot Sushi & Seafood Buffet earns its stars by maintaining quality across hundreds of orders.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGgX3EOTqFBE_yzb98nnTp0pbIOJ346TSELLebIVpBTv_oMBc1Cv9UXIsjl36Jz-cO6yoVFO-utIKo29rvPcweHyIv8GmyhdisGCT_SgYMfQKODWVHflINRVlW5zJtSCHVJhVDfJNs-h3Y=w800-h500-k-no',
+    slug: 'umi-hotpot-sushi-seafood-buffet',
+    citySlug: 'winston-salem',
+    stateSlug: 'north-carolina',
+    tags: ['Japanese', 'Sushi', 'Noodles'],
+    lat: 36.067248,
+    lng: -80.2565692,
+  },
+]
+blogPosts.push({
+  slug: 'ramen-delivery-in-winston-salem-north-carolina',
+  title: 'Ramen Delivery In Winston Salem, North Carolina | Fast Ramen Delivery Near Me',
+  h1: 'Ramen Delivery In Winston Salem, North Carolina',
+  description: 'The best ramen delivery in Winston Salem, North Carolina — ranked by reviews and delivery quality. Order great noodles to your door from Winston Salem\'s top-rated spots.',
+  date: '2025-06-01',
+  readTime: '5 min read',
+  category: 'Delivery',
+  imageFirst: true,
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'Ramen delivery bowl ready to order',
+  rankingNote: 'We ranked these 5 spots by Google review scores, review volume, and delivery platform presence — surfacing the most reliably excellent ramen and Asian noodle delivery options in Winston Salem, North Carolina.',
+  content: `<p>Winston-Salem sits at the western end of the Piedmont Triad and has developed a distinct food culture anchored by the Wake Forest and Winston-Salem State communities. Ramen delivery in Winston-Salem covers the main city and out to Clemmons, Kernersville, and the broader Forsyth County area. I've been impressed by the Winston-Salem food scene on my visits — the spots along Hanes Mall Boulevard and Peters Creek Parkway have built real followings based on quality. The delivery infrastructure here is mature enough that all major platforms operate with good coverage.</p>`,
+  restaurantCards: ramen_delivery_in_winston_salem_north_carolina_cards,
+  listHeading: 'Best Ramen Delivery In Winston Salem, North Carolina',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I get ramen delivered in Winston Salem, North Carolina?","acceptedAnswer":{"@type":"Answer","text":"Yes, several restaurants in Winston Salem offer ramen and Asian noodle delivery through platforms like DoorDash, Uber Eats, and Grubhub. SHINJUKU STATION REVOLVING SUSHI BAR is among the top-rated options."}},{"@type":"Question","name":"What's the best ramen delivery in Winston Salem?","acceptedAnswer":{"@type":"Answer","text":"Based on Google ratings, SHINJUKU STATION REVOLVING SUSHI BAR is one of the highest-rated Asian noodle restaurants in Winston Salem for both dine-in and delivery."}},{"@type":"Question","name":"How long does ramen delivery take in Winston Salem?","acceptedAnswer":{"@type":"Answer","text":"Ramen delivery times in Winston Salem typically range from 25 to 50 minutes depending on your location and current restaurant volume."}}]},
+})
+// AUTO-GENERATED ALL-LOCATIONS BLOG POSTS
+
+const all_jinya_ramen_bar_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar - Union Station',
+    rating: 4.9,
+    reviewCount: 19089,
+    address: '1710 Wynkoop St, Denver, CO 80202',
+    phone: '+1 720-826-8262',
+    description: 'The Denver location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Denver with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG3FEZoURY2jI80K2bbLVV1_kmYGmmkG3mrjH756VtiyEtenWCU6IWyQPSifRx6NPvr-dX2IsLVJncvSKJly9sX2_G5wlDp5sORIgzuthlmllfnl9IQ8Xy8nGw3pXOoe6Bo0vazt2vf2aU7=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-union-station',
+    citySlug: 'denver',
+    stateSlug: 'colorado',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 39.7529421,
+    lng: -104.9990772,
+  },
+  {
+    rank: 2,
+    name: 'JINYA Ramen Bar - Midtown',
+    rating: 4.8,
+    reviewCount: 11416,
+    address: '3201 Louisiana St Suite 105, Houston, TX 77006',
+    phone: '+1 832-925-8596',
+    description: 'One of the most popular dining spots in Houston, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHI01ecIwYk_aeFU9pFe_lk0pDSIc_9nhnRYcJzlvyk-Enw4HGA9wYpDIvRQvBfav91HyztGCW36GrZsct5_NJj8O-g22e3UlbTOwqCodpEvWKN4bk642_R0hhxqOQMmBucWBjXAQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-midtown',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.7427238,
+    lng: -95.3797894,
+  },
+  {
+    rank: 3,
+    name: 'JINYA Ramen Bar - Logan Circle',
+    rating: 4.7,
+    reviewCount: 8166,
+    address: '1336 14th St NW, Washington, DC 20005',
+    phone: '+1 202-588-8560',
+    description: 'Serving Washington\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHj_QNfaIh5LE5w5OqeDaQOfqNSlT1ETdXZLIdUuchAEPc7K8owOUsi8P0fGQBi50Z51rb9vcmWVkv5D0jGwsOuc9bxsLug3Dea5b-W6crK936f4R1_4JN7unlpVCX9VzwfCWct=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-logan-circle',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.9084501,
+    lng: -77.03221959999999,
+  },
+  {
+    rank: 4,
+    name: 'JINYA Ramen Bar - Katy',
+    rating: 4.8,
+    reviewCount: 7522,
+    address: '21788 Katy Fwy, Katy, TX 77449',
+    phone: '+1 832-321-3087',
+    description: 'A cornerstone of Katy\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE-nowXxiyBCwQBsKZkK0IQjX54fKYmwH9kbGpTpXWMFJTTCmzf3m4-RAi7cK_V9eD4c6Gh88rsFr18zHqMRIyO7xGIItBUr1CoUwWhom7AxjSgiZTIyKDJWlSwTM1UqTkqBfJlBA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-katy',
+    citySlug: 'katy',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.7864163,
+    lng: -95.7450404,
+  },
+  {
+    rank: 5,
+    name: 'JINYA Ramen Bar - Woodlands',
+    rating: 4.9,
+    reviewCount: 7460,
+    address: '2174 Spring Stuebner Rd Suite 390, Spring, TX 77388',
+    phone: '+1 832-458-2354',
+    description: 'The Spring outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH5nAmbLNXksxC2LZyiMmc3bsLPTDxA5RNsNHB6SxAfWRUeptro1CPUkrVKb2Kda3nuWwKpFnRvi-Us868onWBr4na0xOBp1E1kJpmhn7Pu4rdz3JcPZ_68CvOUYEYsasT_le8uqRJq7ci1=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-woodlands',
+    citySlug: 'spring',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 30.0839114,
+    lng: -95.44984,
+  },
+  {
+    rank: 6,
+    name: 'JINYA Ramen Bar - NASA',
+    rating: 4.8,
+    reviewCount: 6946,
+    address: '18299 Egret Bay Blvd, Houston, TX 77058',
+    phone: '+1 281-549-6609',
+    description: 'The Houston location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Houston with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGlaSL2vloA3EdHPT6DLGxmQ4lPXjEhDA1JwJJJoSlMQuyqQ8VILPCxWwP2EuThR0uCcUk4delEzjCbvYTEUW4DAzY4HNo37zgKcesUZUemEDk2i9soWEmvdJK73pEjWW8HEMxhPQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-nasa',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.5441392,
+    lng: -95.103805,
+  },
+  {
+    rank: 7,
+    name: 'JINYA Ramen Bar - Ally Charlotte Center',
+    rating: 4.7,
+    reviewCount: 6474,
+    address: '601 S Tryon St Unit 132, Charlotte, NC 28202',
+    phone: '+1 704-817-7911',
+    description: 'One of the most popular dining spots in Charlotte, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE66cddUP_Uh-H7JqujkmQMF4WPwkl4m6am0HdepnluMxvcHdCSXSJB6GcjLG7Gg28o9MaASsfur8jRe07eSs7cxzYdY2MTLTGixv28wTU6td39--KwU2tCZ2RORHP9DFn3UZoV=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-ally-charlotte-center',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.2226422,
+    lng: -80.8491875,
+  },
+  {
+    rank: 8,
+    name: 'JINYA Ramen Bar - Cypress',
+    rating: 4.9,
+    reviewCount: 5851,
+    address: '11930 Barker Cypress Rd Suite 100, Cypress, TX 77433',
+    phone: '+1 832-653-6722',
+    description: 'Serving Cypress\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFrWAAHHNgoxSm_mq3ibPTZU0uEFqufb24EmbqjVcjv-5uajAnhvJWSkiwz-rG8ViPgqQGR2kwRre1LbssNtpmwjs3rWXfk-Rw19DSk7Lrq81wNEgVZR93JdlbvowCnYS0WDl5rAg=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-cypress',
+    citySlug: 'cypress',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.9492301,
+    lng: -95.6744643,
+  },
+  {
+    rank: 9,
+    name: 'JINYA Ramen Bar - Tulsa',
+    rating: 4.7,
+    reviewCount: 4889,
+    address: '416 E 2nd St S, Tulsa, OK 74120',
+    phone: '+1 918-861-4100',
+    description: 'A cornerstone of Tulsa\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFRtnVwvp4s5gPFjsYKLUwDj5nFhnZle0xMbtMR6rItkT3vvxBHJuV5rJiL11SgStojby0pPLzau1z7LeU4HyLvyi5QEcs0elsfW4YpSFX7HbjHFcmaJwuc7TvN4ulKPsjIN9xrExDdnINA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-tulsa',
+    citySlug: 'tulsa',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.1560371,
+    lng: -95.9860624,
+  },
+  {
+    rank: 10,
+    name: 'JINYA Ramen Bar - Heights Waterworks',
+    rating: 4.9,
+    reviewCount: 4682,
+    address: '449 W 19th St Suite C100, Houston, TX 77008',
+    phone: '+1 832-742-9698',
+    description: 'The Houston outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHeuhXx7tAo-gIYFLteQvCq8HSiC1U-U2QC7fwL2gWEYjfdpF2TvL191uOHLJLak4ma1F7YkCj1SQBa1t-0Jj-bBdmE_6fOe2bvE_7txI2l2_eltYtthGz83dGsVfyf4krfWuI=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-heights-waterworks',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.8032452,
+    lng: -95.4054652,
+  },
+  {
+    rank: 11,
+    name: 'JINYA Ramen Bar - FM 1960',
+    rating: 4.8,
+    reviewCount: 4515,
+    address: '5050 FM 1960 W Suite 121, Houston, TX 77069',
+    phone: '+1 832-666-2178',
+    description: 'The Houston location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Houston with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEWqlbExDwEumLFOb7Nmv238zTHQN58FCitgWY7eqSiNUN4yHogQmuF62xKMD23cWcFW0u0co0pYK5TIrnCtTBHfEZzfTNDRaDjh1T3B7EdeYAm_o4Es9W5YZTqCSC61sJMZT4=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-fm-1960',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.9832597,
+    lng: -95.5076236,
+  },
+  {
+    rank: 12,
+    name: 'JINYA Ramen Bar - Pearland',
+    rating: 4.9,
+    reviewCount: 4426,
+    address: '9240 W Broadway St Ste 140, Pearland, TX 77584',
+    phone: '+1 346-229-4145',
+    description: 'One of the most popular dining spots in Pearland, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHqBDTCoJg3kVCzJ-zhEfF_L0Cdeet2T1V4EoypH-ekHdtPneRPQVmbTbnMSDFRpwSyPy4JPfQHQDabhOTCqGGXh_UprOheNrSfAStouaJfUAY8LlRuOuV2iTfnSHo8S8_KkxIq=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-pearland',
+    citySlug: 'pearland',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.5581642,
+    lng: -95.362806,
+  },
+  {
+    rank: 13,
+    name: 'JINYA Ramen Bar - Fort Collins',
+    rating: 4.9,
+    reviewCount: 4172,
+    address: '3280 S College Ave #120, Fort Collins, CO 80525',
+    phone: '+1 970-999-5547',
+    description: 'Serving Fort Collins\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFQdng8bFHkjm4U7a8RmFrGA4xrLNSQuAu544qKGhdIIp8MZp6-jANUrqIQAWhIBp01TPspOOwAZ0utzSbJ4NlNKSVXZnosvWIXip6TrIB55iukNGbZWUp4jEOSsm4HFNlsFbWPG57Fb9GTRMJDMgTfCATc473f5DECJ8Q1Cv7i3Mfhr18amVR9zw=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-fort-collins',
+    citySlug: 'fort-collins',
+    stateSlug: 'colorado',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 40.5423903,
+    lng: -105.0764841,
+  },
+  {
+    rank: 14,
+    name: 'JINYA Ramen Bar - Sugar Land',
+    rating: 4.9,
+    reviewCount: 4139,
+    address: '13509 University Blvd Suite 201, Sugar Land, TX 77479',
+    phone: '+1 281-903-7459',
+    description: 'A cornerstone of Sugar Land\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG3WfTGIWd5Mz86Qsg8xCwOSeBsM8VJFwibN6T1s4HQI8XgrhzQ2CF7sPqcb0FvLneNCaoL-wIkVOomGxEeWDCOfJbu6VbE_OOLC4e5HCqkS1B_hNwD6mM8A8FjdcUOIB8kMLbJCA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-sugar-land',
+    citySlug: 'sugar-land',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.5843044,
+    lng: -95.647301,
+  },
+  {
+    rank: 15,
+    name: 'JINYA Ramen Bar - Carrollton',
+    rating: 4.9,
+    reviewCount: 3867,
+    address: '2451 Old Denton Rd Suite 150, Carrollton, TX 75006',
+    phone: '+1 214-731-6995',
+    description: 'The Carrollton outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAENhsmn4l5BrpcGqJY3ZIrPCgD8R24qy_CnL5bFsKhmKufzym_5GlolJ1ORMWttdymE3Q1WsaUQq44OMdrwzngU9j5RwEEzrzdsCrMtsQXOGxYMYv2z3fKwterMtJv2M16E39aqdQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-carrollton',
+    citySlug: 'carrollton',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 32.9811821,
+    lng: -96.9104716,
+  },
+  {
+    rank: 16,
+    name: 'JINYA Ramen Bar - Arlington',
+    rating: 4.8,
+    reviewCount: 3801,
+    address: '4238 Wilson Blvd Suite 150, Arlington, VA 22203',
+    phone: '+1 571-312-8584',
+    description: 'The Arlington location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Arlington with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFX3eWgM-VkLHw6eIY7qnHhcL62i_uboPFZ4wu11lbqmomcBTCI_7tkACx3iCZ8CVP98fPPgfQ9JFYM6rd5ZdWRxLhiT1tLOo-ll3WFJyK26R1MUm-zHF3TAAMxpum4gidUUUGn=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-arlington',
+    citySlug: 'arlington',
+    stateSlug: 'virginia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.8795019,
+    lng: -77.1108836,
+  },
+  {
+    rank: 17,
+    name: 'JINYA Ramen Bar - Spring Branch',
+    rating: 4.9,
+    reviewCount: 3561,
+    address: '8139 Long Point Rd, Houston, TX 77055',
+    phone: '+1 281-888-5199',
+    description: 'One of the most popular dining spots in Houston, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFC7kns5lqnGEZ-bQt2bl2ANAbdxnUwrMLNBX2CTr59yZceVT2XYB3RhX7eJ6o3zdburV-JT4netuhngY8T7V-cjKiNpjDz_r17uMER3xJJlUC06XM0ZMcHyG6RsH6d29KzGqKipA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-spring-branch',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 29.8022014,
+    lng: -95.4914225,
+  },
+  {
+    rank: 18,
+    name: 'JINYA Ramen Bar - Sandy Springs',
+    rating: 4.6,
+    reviewCount: 3300,
+    address: '5975 Roswell Rd Suite B217, Sandy Springs, GA 30328',
+    phone: '+1 404-600-6974',
+    description: 'Serving Sandy Springs\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH8J8nI56mlLimK4YsKJapW8TWhVHJN1BT-sN3_kZlxd3Jr01pWGZUBRNvdla8zHdCxKJ7HsKKlhv71fArOvfcjhVKZGRjFIsy6LQtwcqQGNlkG1rmJwXP6yDjeO6sZKzgSezI=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-sandy-springs',
+    citySlug: 'sandy-springs',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 33.9184522,
+    lng: -84.3773301,
+  },
+  {
+    rank: 19,
+    name: 'JINYA Ramen Bar - Austin',
+    rating: 4.3,
+    reviewCount: 3144,
+    address: '3210 Esperanza Crossing Suite 130, Austin, TX 78758',
+    phone: '+1 512-829-7779',
+    description: 'A cornerstone of Austin\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFm-kTx4_H84Mra-fBEN-czZWTsWzUlMS6-FTY4chuCUS4UMcPoiL0ElZl_46aoO_6w3IpY2mVe2Qes19syzfQJnFa-vzFIMAbYVKx1SH24WlrlAewCR5pCAa08OKhOk7N7HJU=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-austin',
+    citySlug: 'austin',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 30.4003019,
+    lng: -97.72324979999999,
+  },
+  {
+    rank: 20,
+    name: 'JINYA Ramen Bar - Buckhead',
+    rating: 4.7,
+    reviewCount: 2959,
+    address: '3714 Roswell Rd #35, Atlanta, GA 30342',
+    phone: '+1 404-254-4770',
+    description: 'The Atlanta outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGC7BquBSpHmTj4A8C9y4_0GU_48lDrJIRb7XtmeT962wpNby2bXoxLC7DkyFvMOWeMBRK5yP4jg5IWvZPKFM3qXbfY0qug4GTJEzbvgzlnFCTl4Qnd3ovRg3BnxmgyKbRp2uJW=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-buckhead',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 33.856646,
+    lng: -84.3826649,
+  },
+  {
+    rank: 21,
+    name: 'JINYA Ramen Bar - Preston Hollow',
+    rating: 4.9,
+    reviewCount: 2667,
+    address: '7949 Walnut Hill Ln #160, Dallas, TX 75230',
+    phone: '+1 214-272-7578',
+    description: 'The Dallas location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Dallas with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG2ycpyUqTgmg4i9f2v1TbZ79yX-UoR7b317wSjcXlgsWE-WKk_cSXNdG1860oS-fiK4Re28xW5QGt7uAQvyN0svGf8V17-hlZiord1MrMOQjkYaK14aL3KMHtDNogJmgQgkwcf=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-preston-hollow',
+    citySlug: 'dallas',
+    stateSlug: 'texas',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 32.881318,
+    lng: -96.772369,
+  },
+  {
+    rank: 22,
+    name: 'JINYA Ramen Bar - SouthPark',
+    rating: 4.7,
+    reviewCount: 2651,
+    address: '4401 Barclay Downs Dr Suite 134, Charlotte, NC 28209',
+    phone: '+1 704-595-3808',
+    description: 'One of the most popular dining spots in Charlotte, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFuXfuQSJi1eSPTaKhj_PKvJ7tRCCMlCEcRsyJ5-iPNj1PUgcFxlyEkdwUmhBgHCfoQex6UpPU3O6zd4RL0Qvm5ZZaNLgRNBWiUynZz7DR6meKB1ZotlcSZv_6g6XRjASEhV6go=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-southpark',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.1536237,
+    lng: -80.8358035,
+  },
+  {
+    rank: 23,
+    name: 'JINYA Ramen Bar - South Bend',
+    rating: 4.9,
+    reviewCount: 2552,
+    address: '1145 N Eddy St Suite #140, South Bend, IN 46617',
+    phone: '+1 574-807-9810',
+    description: 'Serving South Bend\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFPOx0KYyb6s9UQ2v83XNFfiB_Fh1zGa6wX6yITyiohBWVpFRGAtGI7zooUtl3wDJ7TvLvgCW4GZlopi1xcU28_itxhoQXqZ-QlHFf79cf8saEgu-KRa7-seOMG3XUfW-vTUYC7TzwIFPWL=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-south-bend',
+    citySlug: 'south-bend',
+    stateSlug: 'indiana',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 41.6910889,
+    lng: -86.2360846,
+  },
+  {
+    rank: 24,
+    name: 'JINYA Ramen Bar - OKC - Nichols Hills',
+    rating: 4.8,
+    reviewCount: 2525,
+    address: '6800 N Western Ave, Oklahoma City, OK 73116',
+    phone: '+1 405-242-3499',
+    description: 'A cornerstone of Oklahoma City\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEaPeo3Rg6-7UMxOITM86YIglgfU-Oih8FdAMF-Zval-3HsSxI5cx9iJ6Zov5elNqps1q5UbubTA32S3kMJZ2ybOKhre8otX8nKCbZvZM1U-jZURa1LaijPnBtoU43eadiObjJ9GA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-okc-nichols-hills',
+    citySlug: 'oklahoma-city',
+    stateSlug: 'oklahoma',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.540833,
+    lng: -97.5292384,
+  },
+  {
+    rank: 25,
+    name: 'JINYA Ramen Bar - Studio City',
+    rating: 4.6,
+    reviewCount: 2469,
+    address: '11239 Ventura Blvd, Studio City, CA 91604',
+    phone: '+1 818-980-3977',
+    description: 'The Studio City outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFZ_DGGkDlB2xAy3cw0ks3os0nsbRxg06eOkWYVA5t1svZX9Eb_9a4JAuxmJIX2KrsDnWGCfibGD-voPr6xQLpZJtN5_mQmGvb3nHpj7aEnP7tjlTw0IzWK3AfmVhs_aFZmcRUD3A=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-studio-city',
+    citySlug: 'studio-city',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.142123,
+    lng: -118.3746357,
+  },
+  {
+    rank: 26,
+    name: 'JINYA Ramen Bar - Flamingo',
+    rating: 4.5,
+    reviewCount: 2432,
+    address: '4860 W Flamingo Rd, Las Vegas, NV 89103',
+    phone: '+1 702-868-8877',
+    description: 'The Las Vegas location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Las Vegas with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFqsm4d3UvqSr8lKD4cdIJMFe_3Hf-g3dU9Q_TIs60g-COS3BzXrFprtD6ilCZc8jmbqXCqtvqxPsqp61Coa-pXt0ZSfwM5A1NWft65eFeUOIMYT0h72Qltg-A-LhT_qIdYIzuV=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-flamingo',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.1157508,
+    lng: -115.2068401,
+  },
+  {
+    rank: 27,
+    name: 'JINYA Ramen Bar - Colorado Springs',
+    rating: 4.8,
+    reviewCount: 2395,
+    address: '402 S Nevada Ave, Colorado Springs, CO 80903',
+    phone: '+1 719-755-4485',
+    description: 'One of the most popular dining spots in Colorado Springs, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEx1wuZX1PxjIu2C6EoeDjly3XfMQMYdodE2MF4_1BlWUn8A5Oi6HoItO4a1aPc-qxoegP9dD51GNdRi3UbIzR3cN2TbeEAgExllIxhCz0VTEWVADcGJGqHHoYgkhTUFPx_OnlijYt_HYAhrXuigIyEOHmyprtW4qfG-Hfc7DEsbrrKxKQleToP1w=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-colorado-springs',
+    citySlug: 'colorado-springs',
+    stateSlug: 'colorado',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.8279937,
+    lng: -104.8225902,
+  },
+  {
+    rank: 28,
+    name: 'JINYA Ramen Bar - Alpharetta',
+    rating: 4.6,
+    reviewCount: 1954,
+    address: '401 S Broad St Space 4A, Alpharetta, GA 30009',
+    phone: '+1 770-609-8238',
+    description: 'Serving Alpharetta\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHn8-PuvhD4Cbp3QwsQ92FYM3yU685Wq8Q7hzyLMB9bHJyieYSL9zokPg1wHZHLP9rAFD7mgJPZ7CnR9gAo9NedPqCI3c-qhoFmfwQNlPgOrFKidzFQVyABNj5Z4p2Z-oibdVY=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-alpharetta',
+    citySlug: 'alpharetta',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0740415,
+    lng: -84.2940552,
+  },
+  {
+    rank: 29,
+    name: 'JINYA Ramen Bar - Duluth',
+    rating: 4.5,
+    reviewCount: 1438,
+    address: '2200 Duluth Hwy, Duluth, GA 30097',
+    phone: '+1 678-691-3101',
+    description: 'A cornerstone of Duluth\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEJgbkNKCq3ByEWYpqQamVsvKisNW3ZeVCnF1V-OOIdrCmh5ifKgEwt0ZjNtiZEMJYDf5pZqhiRbc5tzcIvekXog21N74zua7S8CblvzfogNBkmWX_3Pa9Wg2n4Bu9cRSOsoQbeKGRaTdyA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-duluth',
+    citySlug: 'duluth',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 33.9786477,
+    lng: -84.0992961,
+  },
+  {
+    rank: 30,
+    name: 'JINYA Ramen Bar - Santa Monica',
+    rating: 4.4,
+    reviewCount: 1360,
+    address: '2400 Main St Suite D, Santa Monica, CA 90405',
+    phone: '+1 310-392-4466',
+    description: 'The Santa Monica outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvIeUrWyvvJwbGO0jnP-tBUvRnZygLxAoLxizAtwbltE5OZDq0SDrpqCs9X8soFq5R9ganuHymgSfvbMkr7Z2P-4Ah_1WfINJv_UeD5uo0Pfhts2s-ToS-iKa8wy6nd_qhVZal=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-santa-monica',
+    citySlug: 'santa-monica',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.00379059999999,
+    lng: -118.4856489,
+  },
+  {
+    rank: 31,
+    name: 'JINYA Ramen Bar - Union Market',
+    rating: 4.8,
+    reviewCount: 1290,
+    address: '1259 4th St NE, Washington, DC 20002',
+    phone: '+1 202-888-0755',
+    description: 'The Washington location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Washington with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEjJAuMNHnvXLXh28AdXxTAslJE86zU1pvVegjurxlaKSq6FvfkZK4MxlFeigTXFLt8_uS5f91sscUs7k9FvRYAb1_AiBoD1jFei1018OZCi45vQPP99Pti7kkJmpHeOQV3x6J95A=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-union-market',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.9080734,
+    lng: -76.9994293,
+  },
+  {
+    rank: 32,
+    name: 'JINYA Ramen Bar - Buford',
+    rating: 4.6,
+    reviewCount: 1258,
+    address: '2925 Buford Dr Ste 1205, Buford, GA 30519',
+    phone: '+1 770-573-4988',
+    description: 'One of the most popular dining spots in Buford, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE1ZDKGeXW5DduiVA514X5-NBZiKaOHUZedfAfEpZw-dNHEqlqCQ7nwcYPl3dNPtl3DdTRurGRglKglsSjo-vwnwNY5a9pRWxdJ90TTMvjC8VJdB7t4bKM4eXyaVzRq9zULlnc=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-buford',
+    citySlug: 'buford',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0524391,
+    lng: -83.9922283,
+  },
+  {
+    rank: 33,
+    name: 'JINYA Ramen Bar - Bellevue',
+    rating: 4.3,
+    reviewCount: 1185,
+    address: '15600 NE 8th St Suite 0-11, Bellevue, WA 98008',
+    phone: '+1 425-590-9548',
+    description: 'Serving Bellevue\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV9G2C9yvVFcUtyRmbMY4X-TwV5fM7qJOtuXrgnSMGsLdZVH7YHdpqa50LkaR6I7PWF-T_pgIKSK_fpkS7cfwAHs4s0KDZk2pV0XeA-K3qMlZ_EFRZQkJ-_N7ErMxkgsKEktR9=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-bellevue',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 47.6207918,
+    lng: -122.1304133,
+  },
+  {
+    rank: 34,
+    name: 'JINYA Ramen Bar - Kennesaw',
+    rating: 4.7,
+    reviewCount: 1183,
+    address: '440 Ernest W Barrett Pkwy NW Suite 30, Kennesaw, GA 30144',
+    phone: '+1 770-835-4692',
+    description: 'A cornerstone of Kennesaw\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGLb3AhS6d2f1AsvftP9ChLTFrNQpHmdpglOEN0bv75gS7VogDmaKkKSV27LLIPLNGWjpnln18cJTMawXQNRmfqVmdHwGwNH4V3ZGIN_Eazd6WXuFAtLVkNZhna8nFsTKdry_fU9Q=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-kennesaw',
+    citySlug: 'kennesaw',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0139687,
+    lng: -84.5627981,
+  },
+  {
+    rank: 35,
+    name: 'JINYA Ramen Bar - Lake Grove',
+    rating: 4.6,
+    reviewCount: 1146,
+    address: '3176 Middle Country Rd, Lake Grove, NY 11755',
+    phone: '+1 631-516-1388',
+    description: 'The Lake Grove outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEfS9FR3X-sJRVrKBt5oRAHuSjbFw06In0TaskNq6fShpkJbTVKiZwkUI4Q7focIkm1gJyO0ctgpxJ3rtBrGMXRX_IyWObSHw1ijoEBPAMn66cXIFwLBibsGA697Po1gJiWvHGFleQx9Pt4=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-lake-grove',
+    citySlug: 'lake-grove',
+    stateSlug: 'new-york',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 40.8615741,
+    lng: -73.12580369999999,
+  },
+  {
+    rank: 36,
+    name: 'JINYA Ramen Bar - Royal Oak',
+    rating: 4.4,
+    reviewCount: 1094,
+    address: '129 S Main St, Royal Oak, MI 48067',
+    phone: '+1 248-955-4692',
+    description: 'The Royal Oak location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Royal Oak with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGytzlzTrZBdmjqkq7IOJszO0n5LUj3ModiUS5yUfAKFAqTKpGOKEwXxGYrSLkFFDLqhHl6oELEt24upUmPA4OHJkH9zGmS7Weof5Vyj0AOEGFlIVyj4vYgZxrozd4jW_2d3jn7qsgNQAox=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-royal-oak',
+    citySlug: 'royal-oak',
+    stateSlug: 'michigan',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 42.48909949999999,
+    lng: -83.1440799,
+  },
+  {
+    rank: 37,
+    name: 'JINYA Ramen Bar - Poncey Highland',
+    rating: 4.6,
+    reviewCount: 1086,
+    address: '676 N Highland Ave NE Suite #3-ABC, Atlanta, GA 30306',
+    phone: '+1 404-748-4520',
+    description: 'One of the most popular dining spots in Atlanta, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFoRlFIOWCXK0poL8Bz0Aa0Rqt6EbvlMsZymbuGpei5coa5w0yzsPN3LGfVPhL04IqlPzzWgb-rk6zlyZ2G3QtYBTpjKRe9C5hQYpLHbn-PeXNrRwNuZ6jwRFlFRjQdGfsGExll=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-poncey-highland',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 33.7728413,
+    lng: -84.352801,
+  },
+  {
+    rank: 38,
+    name: 'JINYA Ramen Bar - Downtown LA',
+    rating: 4.5,
+    reviewCount: 1043,
+    address: '700 Wilshire Blvd Suite B, Los Angeles, CA 90017',
+    phone: '+1 213-628-3736',
+    description: 'Serving Los Angeles\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEetYmVBiKV9dpbLG3q5LNvX16-B0lhdQytCrr38NY-sKjwAJwVASMKaZ-DC29osKzgMadHavfVvRX_2jRsUAy6lXtJr7-GhyxmcGCslRCFneaZ8KBbrTO9oM7VUz8JrSYztPnmA=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-downtown-la',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0486892,
+    lng: -118.2574189,
+  },
+  {
+    rank: 39,
+    name: 'Robata JINYA - 3rd St.',
+    rating: 4.6,
+    reviewCount: 1010,
+    address: '8050 W 3rd St, Los Angeles, CA 90048',
+    phone: '+1 323-653-8877',
+    description: 'A cornerstone of Los Angeles\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFZ3Ym-Ph4opKHQWq7mbWcinQyJtKv8D4uyNhoJc3cgtXmNAHwWkRgZQy8_LxX7s1r1DX4kAqM3fdDUAL0xePpRXXdmECxT1uquAt-bX0OxegR1cmpsRhezbdvkkgFxyfu-CD7Z=w800-h500-k-no',
+    slug: 'robata-jinya-3rd-st',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0718991,
+    lng: -118.3655948,
+  },
+  {
+    rank: 40,
+    name: 'JINYA Ramen Bar - Athens',
+    rating: 4.5,
+    reviewCount: 955,
+    address: '351 E Broad St, Athens, GA 30601',
+    phone: '+1 706-478-0880',
+    description: 'The Athens outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGJC3H4foj1dPtjsq_uL-fXtrdvvIfL8g3OugbMaeqF0RpWXGt1h',
+    slug: 'jinya-ramen-bar-athens',
+    citySlug: 'athens',
+    stateSlug: 'georgia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 33.9582175,
+    lng: -83.3740626,
+  },
+  {
+    rank: 41,
+    name: 'JINYA Ramen Bar - Rainbow',
+    rating: 4.5,
+    reviewCount: 824,
+    address: '7240 S Rainbow Blvd Suite #A, Las Vegas, NV 89118',
+    phone: '+1 702-476-0583',
+    description: 'The Las Vegas location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Las Vegas with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH37sTp1TtT157nwR6OjpFTJqYp3IEiFXeKMBYK0Tby99fwH03Q7UmFLab73Gep5e5OisI34XvuH-vnseAhnj7VbgRm8JA-k3QB2whpbBUoPd1ODa6U4QQGxYSyi4Xqk8cJ3qw=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-rainbow',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.0570099,
+    lng: -115.242233,
+  },
+  {
+    rank: 42,
+    name: 'JINYA Ramen Bar - Fishers',
+    rating: 4.5,
+    reviewCount: 606,
+    address: '9711 E 116th St Unit 310, Fishers, IN 46037',
+    phone: '+1 317-436-8635',
+    description: 'One of the most popular dining spots in Fishers, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGfANXmqDZn4TIm6oPVnyZGZvl3KsXWaHACAQJfOT_qYRjnQtfHVigbtrDII97WOLWR46NYPclJSvlHXS-BjM8jl1PwVElEc9FcNke6vZV33tZirDD7uS22xWQQkaZ5cXxD1Q-v=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-fishers',
+    citySlug: 'fishers',
+    stateSlug: 'indiana',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 39.9563966,
+    lng: -86.00061439999999,
+  },
+  {
+    rank: 43,
+    name: 'JINYA Ramen Bar - Wharf',
+    rating: 4.5,
+    reviewCount: 605,
+    address: '675 Wharf St SW, Washington, DC 20024',
+    phone: '+1 202-217-4757',
+    description: 'Serving Washington\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFOfp3sdjpLfbQqAjHnQiLcbTxI2G4uL3-6Vgy7qz2KJKKVo11AnQvTXtLdJUlLyaohuMxRafzgChrtYZaLZ53-3yWf2IBbFO_i6Y0VApSZyVF-3K2aKlgeNj1OSRIwPxkyFMy3yQ7nlu5G=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-wharf',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.8775599,
+    lng: -77.0229228,
+  },
+  {
+    rank: 44,
+    name: 'JINYA Ramen Express',
+    rating: 4,
+    reviewCount: 452,
+    address: '6801 Hollywood Blvd UNIT 317, Los Angeles, CA 90028',
+    phone: '+1 323-450-9164',
+    description: 'A cornerstone of Los Angeles\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHk1XosN5su17yxC5N_EwsAnXsR8iUQEx9RkXDAeuN5hY7KVAK9RqlIRWRT8ApIvi3zldhMBkGy7zg-9T5viXj4djb4MioaXysHeOVVs2lx376v69tok_GZCGwHRmDPTVsdI12-YMKooE_U=w800-h500-k-no',
+    slug: 'jinya-ramen-express',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.1019284,
+    lng: -118.3400957,
+  },
+  {
+    rank: 45,
+    name: 'JINYA Ramen Bar - Culver City',
+    rating: 4.9,
+    reviewCount: 390,
+    address: '3323 La Cienega Blvd, Los Angeles, CA 90016',
+    phone: '+1 310-425-8924',
+    description: 'The Los Angeles outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAESsoEWdb_FMNJkx-koQsSrIPP5g8BhIOQhQFRXuOUE42PtvkJJXIgzeuS8JHsctvZColSagUkqPEuZSOfHLlJS3VsJX9rqrlyQ8CYC9hzs4IaCpvBn32ilf79jxQ9XJRFVmopjvbjfcy0=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-culver-city',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 34.0280984,
+    lng: -118.3735492,
+  },
+  {
+    rank: 46,
+    name: 'JINYA Ramen Bar - Ameristar Black Hawk',
+    rating: 4.3,
+    reviewCount: 325,
+    address: '111 Richman St, Black Hawk, CO 80422',
+    phone: '+1 720-946-4228',
+    description: 'The Black Hawk location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Black Hawk with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEc9YTi8as1spxVp8YCvupSSedX5gABCMYQnKOnnC9TqasYsAICtBNBcjNn4uiFpdskHHq4yciwhdpPDHCOngF-lVSv6EKHw60oXxtlfpIJAj28FczUA5_lw1CPM5VqZSi7q2w=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-ameristar-black-hawk',
+    citySlug: 'black-hawk',
+    stateSlug: 'colorado',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 39.8003907,
+    lng: -105.4893773,
+  },
+  {
+    rank: 47,
+    name: 'JINYA Ramen Bar - Georgetown',
+    rating: 4.8,
+    reviewCount: 285,
+    address: '1525 Wisconsin Ave NW, Washington, DC 20007',
+    phone: '+1 202-204-0162',
+    description: 'One of the most popular dining spots in Washington, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEPXp3Pj11sREXEMAnaK3Plv_uWPUONbazqtdGP3fd2TqZ5sDBdeXkQmUYTcbXuIfGL2fNginDRiINvE2eb7Vm5IzrVXvOXIJxgzrq_ThNuGdm4_HyPTQdSi9tMuV7lTWSL2Hpk=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-georgetown',
+    citySlug: 'washington',
+    stateSlug: 'district-of-columbia',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 38.9099374,
+    lng: -77.0643698,
+  },
+  {
+    rank: 48,
+    name: 'JINYA Ramen Bar - Honolulu',
+    rating: 4.4,
+    reviewCount: 278,
+    address: '1118 Ala Moana Blvd Ste 100, Honolulu, HI 96814',
+    phone: '+1 808-480-8477',
+    description: 'Serving Honolulu\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGHNkTEHrgNgHfxCzWXKZ4S4uWdQyDg543jFIFkiPw5mDSKUcjn_DE4TnxkMVJ7BinnQBx6oNWFzTCYkVHeRgWCTiVzAo4P4sHWErZ7VX-1lvPIcDBoBase3np0TzQa5biHYO8YYQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-honolulu',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 21.2936747,
+    lng: -157.8540269,
+  },
+  {
+    rank: 49,
+    name: 'JINYA Ramen Bar - Henderson',
+    rating: 4.1,
+    reviewCount: 202,
+    address: '10740 S Eastern Ave #155, Henderson, NV 89052',
+    phone: '+1 702-867-4240',
+    description: 'A cornerstone of Henderson\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFTAqmMMI7L-W9xmY2tr8-5_5ONxdf-EiuAz_Dr7tOd_ERDAMUM1DYJXrlDXhEhrljiVjqdP5ljTKOprgxVrVi1QWzmmCainDJ6zlj7ApWOumZZKGFKc6lktY_2OKTeBz7gOKEmtQ=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-henderson',
+    citySlug: 'henderson',
+    stateSlug: 'nevada',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 35.996928,
+    lng: -115.1012838,
+  },
+  {
+    rank: 50,
+    name: 'JINYA Ramen Bar - Nashville',
+    rating: 4.6,
+    reviewCount: 180,
+    address: '415 11th Ave N, Nashville, TN 37203',
+    phone: '+1 615-747-1848',
+    description: 'The Nashville outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhEx1wuZX1PxjIu2C6EoeDjly3XfMQMYdodE2MF4_1BlWUn8A5Oi6HoItO4a1aPc-qxoegP9dD51GNdRi3UbIzR3cN2TbeEAgExllIxhCz0VTEWVADcGJGqHHoYgkhTUFPx_OnlijYt_HYAhrXuigIyEOHmyprtW4qfG-Hfc7DEsbrrKxKQleToP1w=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-nashville',
+    citySlug: 'nashville',
+    stateSlug: 'tennessee',
+    tags: ['Ramen Bar', 'Japanese', 'Tonkotsu'],
+    lat: 36.1628039,
+    lng: -86.7911079,
+  },
+  {
+    rank: 51,
+    name: 'Robata JINYA - Hollywood',
+    rating: 4.9,
+    reviewCount: 43,
+    address: '6529 Hollywood Blvd, Los Angeles, CA 90028',
+    phone: '+1 323-607-1677',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF3LvGquHQBUcYKpUSU6KgW1B73iuYLITbcG5F_P147bOMIO_LJBAlk3fqi9draM-jtL9-BI9pNgoocinXfpMtYtTrdMdpRz6wEmOBrGD9onVcme2p882LC1wpfNIG9i-0pq4xqRYocHoM=w800-h500-k-no',
+    slug: 'robata-jinya-hollywood',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.1017791,
+    lng: -118.33197,
+  },
+]
+blogPosts.push({
+  slug: 'all-jinya-ramen-bar-locations',
+  title: 'All JINYA Ramen Bar Locations Worldwide',
+  h1: 'All JINYA Ramen Bar Locations',
+  description: 'Find every JINYA Ramen Bar location in the US — addresses, reviews, and maps for all 51 JINYA restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG3FEZoURY2jI80K2bbLVV1_kmYGmmkG3mrjH756VtiyEtenWCU6IWyQPSifRx6NPvr-dX2IsLVJncvSKJly9sX2_G5wlDp5sORIgzuthlmllfnl9IQ8Xy8nGw3pXOoe6Bo0vazt2vf2aU7=w800-h500-k-no',
+  headerImageAlt: 'JINYA Ramen Bar ramen bowl',
+  rankingNote: 'All 51 JINYA Ramen Bar locations listed and ranked by Google review volume — helping you find the busiest and most popular JINYA location near you.',
+  content: `<p>JINYA Ramen Bar is one of the fastest-growing Japanese ramen chains in America, with locations from coast to coast. I've eaten at more JINYA locations than I care to admit — the Union Station Denver outpost, multiple Houston spots, the DC corridor locations — and the consistency across all of them is what makes the chain worth tracking. The tonkotsu broth is properly rich, the noodles have calibrated chew, and the pork belly chashu is executed at a level that rivals independent shops. JINYA started in Los Angeles and has expanded aggressively through the Sun Belt and Mid-Atlantic, with strong footholds in Texas, Georgia, Colorado, and the DC metro. Each location adapts to its neighborhood's energy while maintaining the core menu that made the brand successful.</p>`,
+  restaurantCards: all_jinya_ramen_bar_locations_cards,
+  listHeading: 'All JINYA Ramen Bar Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many JINYA Ramen Bar locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 51 JINYA Ramen Bar locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best JINYA Ramen Bar location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular JINYA Ramen Bar location is the one with the highest review count. Location quality can vary — use this page to find the JINYA nearest to you and check its specific ratings."}}]},
+})
+
+const all_kizuki_ramen_izakaya_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Kizuki Ramen & Izakaya （Capitol Hill）',
+    rating: 4.4,
+    reviewCount: 3319,
+    address: '320 E Pine St, Seattle, WA 98122',
+    phone: '+1 877-839-0526',
+    description: 'The Seattle location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Seattle with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGYxuS_3aFxcj7GIwXfeh140dBPg-u3YfM-eBDepjKs0JFM10i9zu5f8y57gC4VlZEx9LHw9rzLFDxw2Bwk_mcfyxG1kVm3Ukq38VYI5HuL8NZ8AZpYOr_Qp9X8xzphKzkzXOY2B4R6bQrN=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-capitol-hill',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.615382,
+    lng: -122.3271498,
+  },
+  {
+    rank: 2,
+    name: 'Kizuki Ramen & Izakaya (Northgate)',
+    rating: 4.5,
+    reviewCount: 2441,
+    address: '319 NE Thornton Pl, Seattle, WA 98125',
+    phone: '+1 877-839-0559',
+    description: 'One of the most popular dining spots in Seattle, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAF-gXZBrkbAXwi-uBfSysZZ_qPrS4Kcn8mkxiLArbEdf1mUW1y6fKxBP3DtSuo9JHTfdDHiecgcmN9IPWC_4YzaX82AD2gcNTgNtbuncpiZZpWPN1h3XptZVlkpZgNJ256dBvIKAGEn1L16=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-northgate',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.7023941,
+    lng: -122.3246766,
+  },
+  {
+    rank: 3,
+    name: 'Kizuki Ramen & Izakaya (Beaverton)',
+    rating: 4.5,
+    reviewCount: 2418,
+    address: '11830 NW Cedar Falls Dr #128, Portland, OR 97229',
+    phone: '+1 877-839-3344',
+    description: 'Serving Portland\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHM4kW6xSi8E9jRXPWsxJEKQCjJrfOT3zwf-47cCPkusXYc18KaxyW-_9MAozZ7EW6ivY3a4A4AYsyUP9FJygkSkrWGKIhpOOb6fH17ckxIXoq_-XVr3-ANeozSGnjkBCOMIZDC=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-beaverton',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.5217636,
+    lng: -122.8021537,
+  },
+  {
+    rank: 4,
+    name: 'Kizuki Ramen & Izakaya (Bellevue Square)',
+    rating: 4.5,
+    reviewCount: 2159,
+    address: '575 Bellevue Way NE Space 252, Bellevue, WA 98004',
+    phone: '+1 877-839-0645',
+    description: 'A cornerstone of Bellevue\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-Q5jbjVrA8ycPVIOWy3tX8U-OL_ojVSbq9bWEzllEet8wkXkmLK0HWnnGHOIgiUceqOxmdBpSB79pmsiXyk36_BRc3IgcKAirUcyL8i8tUJ2TIkAkeJnSYC0tSgAgefrCbFqZ1A=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-bellevue-square',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.614628,
+    lng: -122.203474,
+  },
+  {
+    rank: 5,
+    name: 'Kizuki Ramen & Izakaya (Bellevue)',
+    rating: 4.5,
+    reviewCount: 2090,
+    address: '14845 Main St, Bellevue, WA 98007',
+    phone: '+1 877-838-2450',
+    description: 'The Bellevue outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEiVmLdODPpF5HJMS5JcaEBGE8u3oAsf_V_spKQ4Y2zNwV487oGDhbwqMnUeiPqV5s6wi-Da3n20YTPaaM3Mi3bbVDmoxdcxTiXrCLoqgG47X_kCVnLs2vEeGXxsXwkWQaFIho=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-bellevue',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.609612,
+    lng: -122.1417149,
+  },
+  {
+    rank: 6,
+    name: 'Kizuki Ramen & Izakaya (Southcenter Mall)',
+    rating: 4.5,
+    reviewCount: 1965,
+    address: '2800 Southcenter Mall Suite 182, Tukwila, WA 98188',
+    phone: '+1 877-839-0628',
+    description: 'The Tukwila location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Tukwila with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFkILNWX3-V8pye9LZEd_3v_oA9h8VfYwdl1Kgd7FnnZyMIddok0MoS-fpGth1lcayBglEfrGFxd1lNoW6vkMAUnE5IQZ8n-Q8xCSp8dHTnbEYIVBxIhYq6rvBTnxovHpapAXFI=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-southcenter-mall',
+    citySlug: 'tukwila',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.4584439,
+    lng: -122.2603293,
+  },
+  {
+    rank: 7,
+    name: 'Kizuki Ramen & Izakaya',
+    rating: 4.7,
+    reviewCount: 1952,
+    address: '3000 184th St SW Suite 947, Lynnwood, WA 98037',
+    phone: '+1 877-839-2528',
+    description: 'One of the most popular dining spots in Lynnwood, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEQZSWTaGexaDENczB-90-99dquPtL0D-6VYGsuukNst4WGIjRrH0DCEN-iluv5MQa_w4hAz0K95jCcvo0cVXw0l3_mY4bO5taLnPXfPH5rlIw0qoe7OH28ViQqQvkwtDgLxkDU3pL801Z8=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya',
+    citySlug: 'lynnwood',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.8309624,
+    lng: -122.2729498,
+  },
+  {
+    rank: 8,
+    name: 'Kizuki Ramen & Izakaya (Tacoma Mall)',
+    rating: 4.6,
+    reviewCount: 1851,
+    address: '4502 S Steele St Suite 501A, Tacoma, WA 98409',
+    phone: '+1 877-839-1418',
+    description: 'Serving Tacoma\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHzvRPYNzjYiCe-Gk0CAjiPAIXxZmdy-7NrHwvZkZCy4SpNT35Jbo-hdVBP-SwAdsCWbfq33GhQeXTrpVig03qvwQuE2BUR-I3NRAwtyqSaJ71D4vMiXcyHNfwRhbDf9HONrXwB=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-tacoma-mall',
+    citySlug: 'tacoma',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.2165555,
+    lng: -122.4673336,
+  },
+  {
+    rank: 9,
+    name: 'Kizuki',
+    rating: 4.7,
+    reviewCount: 1620,
+    address: '23220 Grand Cir Blvd Suite 140, Katy, TX 77450',
+    phone: '+1 877-839-6437',
+    description: 'A cornerstone of Katy\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGMUMlxqVxPm40Z6KXWEHXEeNwta84y3sij165ySaBrGfrOunEQ4Qltq7a24ZBzYwz5BpiQnQKU6jtZGKngKo6sCa6b944U8izy0WXTIH4AbLcwMQZryE2MDHSRp6lsrNDzc3M=w800-h500-k-no',
+    slug: 'kizuki',
+    citySlug: 'katy',
+    stateSlug: 'texas',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 29.7883058,
+    lng: -95.7724854,
+  },
+  {
+    rank: 10,
+    name: 'Kizuki Ramen & Izakaya (Carmel)',
+    rating: 4.6,
+    reviewCount: 1504,
+    address: '2450 E 146th St, Carmel, IN 46033',
+    phone: '+1 317-218-3553',
+    description: 'The Carmel outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEF1mR6XF9qWuY6oBx5aZXXU_qTUkPNeZmUsoamRiu7Vf_FcK0CLcBjWDF9CtesIaAvGknvb37lgolRMpZIIH_TggSCquRH9m2yaXHdN-SIR7liXv2TdX3iZ35UEzsrmOWbdu-x=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-carmel',
+    citySlug: 'carmel',
+    stateSlug: 'indiana',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.0012397,
+    lng: -86.1193325,
+  },
+  {
+    rank: 11,
+    name: 'Kizuki Ramen & Izakaya (West Seattle)',
+    rating: 4.4,
+    reviewCount: 1040,
+    address: '4203 SW Alaska St, Seattle, WA 98116',
+    phone: '+1 877-839-0592',
+    description: 'The Seattle location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Seattle with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEn71wt6jKHiqpcNXi9qyeqLQwI0Jq8NgLx2k5t7tS9KEfYbObBBGAwNYj64FXlIyITKb-YvhyhzfL4y91AlBI6MK2geT0xq31u5ArW4_nXqrEuNriUvu4I48eeBLGATpYY0YClhQ=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-west-seattle',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.5609313,
+    lng: -122.3857622,
+  },
+  {
+    rank: 12,
+    name: 'Kizuki Ramen & Izakaya (Redmond)',
+    rating: 4.5,
+    reviewCount: 616,
+    address: '7325 166th Ave NE f126, Redmond, WA 98052',
+    phone: '+1 877-839-1679',
+    description: 'One of the most popular dining spots in Redmond, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHfkmEbSd78JBoufgN0BRlmduiud4ZyhZLWgpCaIbMEBwJbDDEFZQo-e5D1DcyMZoZanmKMDeq563ELuiDkloIZAHMOe17JDguOBDatDRX9EINxemDX6Wbh7-k_FVDyZjXb69bJACHHMQk=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-redmond',
+    citySlug: 'redmond',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.67013009999999,
+    lng: -122.1195611,
+  },
+  {
+    rank: 13,
+    name: 'Kizuki Ramen & Izakaya (Uptown)',
+    rating: 4.8,
+    reviewCount: 599,
+    address: '33 NW 23rd Pl, Portland, OR 97210',
+    phone: '+1 877-839-5498',
+    description: 'Serving Portland\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEGxFsgUBLk5AT94vZrCTx3AYXolb9J7XO1rzzaUrWoNXReJjYtIvGn2XM2UjBJFvhLOId5aGl7HRahkj3b-tH8e5pNdp_FPM5_XJYergM-9kml4uUnYfOfeYn5XPzq1LApAvb0FVWd8wJo=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-uptown',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.524507,
+    lng: -122.699832,
+  },
+  {
+    rank: 14,
+    name: 'Kizuki Ramen & Izakaya (Renton)',
+    rating: 4.5,
+    reviewCount: 579,
+    address: '505 Rainier Ave N, Renton, WA 98057',
+    phone: '+1 877-839-1501',
+    description: 'A cornerstone of Renton\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVZ1IonZw04LEl0jHgEINb8KvcPaDa5_W5frKAifhxOqa16T4oisgfscD1sAwKoyoqibkWOaIRE8Wf7lw3wKqmPccSpVaC-ErzrLrHH3zfh1NZTa7AicEh1kJatOK8oOhL7IOk=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-renton',
+    citySlug: 'renton',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.4901618,
+    lng: -122.2182846,
+  },
+  {
+    rank: 15,
+    name: 'Kizuki Ramen & Izakaya (Portland Food Hall)',
+    rating: 4.6,
+    reviewCount: 502,
+    address: '827 SW 2nd Ave, Portland, OR 97204',
+    phone: '+1 877-839-3633',
+    description: 'The Portland outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFPaRLP1ZYKZ2-etdbCEo_6jRN08X69nrR5k-WBpvvxtSn42afP8uaZLAJpDYHKm3ZmYZWj6nKhVZXhHH3M-HfrkzUfWjBuJ2eWHXkWYDX-WtK7IzwZb_iwKQIiQglfWRQIxed=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-portland-food-hall',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.5169982,
+    lng: -122.6754259,
+  },
+  {
+    rank: 16,
+    name: 'Kizuki Ramen & Izakaya (Newcity)',
+    rating: 4.5,
+    reviewCount: 317,
+    address: '1457 N Halsted St, Chicago, IL 60610',
+    phone: '+1 877-839-6429',
+    description: 'The Chicago location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Chicago with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGQfd1vrntWdjBeS4pCHn-Te-kXzDpsDbdaDRKqE0qAVySzIdB6m_4iDLHYqOgZd81LKv25cIw-pjjuPLdfV8VX34Ze42D1l1ORmwqth8qAE3oPwpHc5IAqDsIbKO2eohHZK4R_=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-newcity',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.908771,
+    lng: -87.64781839999999,
+  },
+  {
+    rank: 17,
+    name: 'Kizuki Ramen & Izakaya (Kirkland)',
+    rating: 4.1,
+    reviewCount: 72,
+    address: '120 Park Ln #B, Kirkland, WA 98033',
+    phone: '+1 425-866-6547',
+    description: 'One of the most popular dining spots in Kirkland, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9t-h52MBEes0U-kIfx3VkRLaWpF9Xv9Ay3irUOMN1hwFhVANfuetonaCE8YT_cFTyzpW6ZxOKoN7Uoo1ST3oDyC-zRHgvmVgzdyJMyw08jymPnAAq-lCBKqlFQy81gOqbyg8IDQ=w800-h500-k-no',
+    slug: 'kizuki-ramen-izakaya-kirkland',
+    citySlug: 'kirkland',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.6762811,
+    lng: -122.2061832,
+  },
+]
+blogPosts.push({
+  slug: 'all-kizuki-ramen-izakaya-locations',
+  title: 'All Kizuki Ramen & Izakaya Locations Worldwide',
+  h1: 'All Kizuki Ramen & Izakaya Locations',
+  description: 'Find every Kizuki Ramen & Izakaya location in the US — addresses, reviews, and maps for all 17 Kizuki restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGYxuS_3aFxcj7GIwXfeh140dBPg-u3YfM-eBDepjKs0JFM10i9zu5f8y57gC4VlZEx9LHw9rzLFDxw2Bwk_mcfyxG1kVm3Ukq38VYI5HuL8NZ8AZpYOr_Qp9X8xzphKzkzXOY2B4R6bQrN=w800-h500-k-no',
+  headerImageAlt: 'Kizuki Ramen & Izakaya ramen bowl',
+  rankingNote: 'All 17 Kizuki Ramen & Izakaya locations listed and ranked by Google review volume — helping you find the busiest and most popular Kizuki location near you.',
+  content: `<p>Kizuki Ramen & Izakaya is the Pacific Northwest's native ramen chain — born in Seattle and expanded thoughtfully across Washington, Oregon, Texas, and Indiana. I've sat at the Capitol Hill location at midnight after a show, at the Bellevue Square location with my laptop on a Tuesday afternoon, and at the Katy, Texas outpost on a road trip through the Gulf Coast. Kizuki's signature is restraint — the broths are clean, technically precise, and balanced. The izakaya small plates are genuinely excellent and worth ordering alongside whatever bowl you choose. The chicken paitan here is one of the best I've had from a chain restaurant.</p>`,
+  restaurantCards: all_kizuki_ramen_izakaya_locations_cards,
+  listHeading: 'All Kizuki Ramen & Izakaya Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Kizuki Ramen & Izakaya locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 17 Kizuki Ramen & Izakaya locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Kizuki Ramen & Izakaya location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Kizuki Ramen & Izakaya location is the one with the highest review count. Location quality can vary — use this page to find the Kizuki nearest to you and check its specific ratings."}}]},
+})
+
+const all_silverlake_ramen_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Silverlake Ramen',
+    rating: 4.5,
+    reviewCount: 1683,
+    address: '2927 Sunset Blvd, Los Angeles, CA 90026',
+    phone: '+1 323-660-8100',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFj_OJjSf5VN9o5wHBeKeJbFIyQH6mmOXuh1ds3RIO96rcZQugK0txxku_gkjtcP2N2qUjGzXxLoSNB5FC4Nzb286uoQYJ9VJodWEcjf65UEsz9meCuXCaRHwVdurpShTpIsb3v=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0835882,
+    lng: -118.2736694,
+  },
+  {
+    rank: 2,
+    name: 'Silverlake Ramen',
+    rating: 4.1,
+    reviewCount: 859,
+    address: '8694 Concord Mills Boulevard, Concord, NC 28027',
+    phone: '+1 980-585-2008',
+    description: 'One of the most popular dining spots in Concord, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFS1Ey4EeRo8tG_r4VVD5qRXWhV25F2iGqxpNQgNMHT-BUrNvfRjt5nYvhPFUY_WvUeuS8AHk_RzxQ6j98rkQdBB9BE1Z5WXuAxCxPX815USXB-npGQmcXKGI9slV4I5Z4iO0_4=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'concord',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.3752254,
+    lng: -80.72992239999999,
+  },
+  {
+    rank: 3,
+    name: 'Silverlake Ramen',
+    rating: 4.2,
+    reviewCount: 689,
+    address: '1319 3rd Street Promenade, Santa Monica, CA 90401',
+    phone: '+1 424-330-0125',
+    description: 'Serving Santa Monica\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG3w7aS9-YEV44dSiAmPRQeAARX5kPj7cSSMnJFKSBjb9ikx6nrFytta8y4IMv-xDXlK341Wc5t9QyoPE3efxmrGJP8OnQhrDweA-SDFd5RFHA0hbGyLW9qSdI_aTyT3tXR9X_TYw=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'santa-monica',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.016597,
+    lng: -118.4969941,
+  },
+  {
+    rank: 4,
+    name: 'silverlake ramen kirkland',
+    rating: 4.1,
+    reviewCount: 688,
+    address: '12540 120th Ave NE #118, Kirkland, WA 98034',
+    phone: '+1 425-242-1003',
+    description: 'A cornerstone of Kirkland\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGsNoYSXI0D6c3vyTrB2zkaQyS_9dTn6EKsYsXutSPY6416Ejb6jrEAPINxadB__Kvv7VbDrW5KuZEh2anqQ3KHGwDw9yWrKgIj198qBZi5Mr3uQsNgW-cLJgKaggO1JFk6Ss3hjB2JIbeG=w800-h500-k-no',
+    slug: 'silverlake-ramen-kirkland',
+    citySlug: 'kirkland',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.712528,
+    lng: -122.1794513,
+  },
+  {
+    rank: 5,
+    name: 'Silverlake Ramen',
+    rating: 4.3,
+    reviewCount: 519,
+    address: '2041 South Blvd, Charlotte, NC 28203',
+    phone: '+1 980-299-2400',
+    description: 'The Charlotte outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHzpub6YiUYnI7E67cJdnxXu4G-xbrlO80A35GdGM4ah-aZtL8IRs8G0XsYWFSMkBI4cMrF18hHOEPRfyO9DMVzXeSxp8FkhhkpYTIW9RHroSfFA6j_CvCC8wXrLQ-WgPX337bdcg=w800-h500-k-no',
+    slug: 'silverlake-ramen-2',
+    citySlug: 'charlotte',
+    stateSlug: 'north-carolina',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 35.208277,
+    lng: -80.8598068,
+  },
+  {
+    rank: 6,
+    name: 'Silverlake Ramen',
+    rating: 4.1,
+    reviewCount: 382,
+    address: '1080 Peachtree St NE Ste 9, Atlanta, GA 30309',
+    phone: '+1 404-390-3362',
+    description: 'The Atlanta location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Atlanta with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHl0s8TDu8hFUbcFhXiLJeymsWhZrv8Tp8kSY1V92UKV0EHxEpQyoz9eTpzu9nB50rwGxcJ34T70aimvKOTkPFg6KH65m6EJ-faSph7uvz7re6fVVIKidOd4888pDRzsaf9ujZY=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'atlanta',
+    stateSlug: 'georgia',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.7834212,
+    lng: -84.3842495,
+  },
+  {
+    rank: 7,
+    name: 'Silverlake Ramen',
+    rating: 3.8,
+    reviewCount: 309,
+    address: '615 S Spring St, Los Angeles, CA 90014',
+    phone: '+1 213-372-5177',
+    description: 'One of the most popular dining spots in Los Angeles, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHVCjh1Xf0GTEHbAGd3o0TStEorRzey9S3H6KNxqmxOvOaJEXsne7zajWTEDPr2YzcCGHRgbSWJYMGHq-5eCYUonc8YAVcOCR0YFINpYFG2vvwJh2FZ-VEnUeFQKX_FzlakIoEjWA=w800-h500-k-no',
+    slug: 'silverlake-ramen-2',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0456627,
+    lng: -118.2514997,
+  },
+  {
+    rank: 8,
+    name: 'Silverlake Ramen Temecula',
+    rating: 4.6,
+    reviewCount: 306,
+    address: '40756 Winchester Rd #235, Temecula, CA 92591',
+    phone: '+1 951-999-9058',
+    description: 'Serving Temecula\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGfQYVMTG18rp4EJjN5Km6g2-axG1CYlJOEVSa5L7Fjw4TgUN3Wh_K2tQlXr31i4IrrmSccqHggOvFOtZM09pi0r9JlApBmyU2fZuCeEZrh44P7ndPCfr9K-vEcEe3NjZPyJA1cOpPeBFAN=w800-h500-k-no',
+    slug: 'silverlake-ramen-temecula',
+    citySlug: 'temecula',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.5241417,
+    lng: -117.1528079,
+  },
+  {
+    rank: 9,
+    name: 'Silverlake Ramen Koreatown',
+    rating: 3.9,
+    reviewCount: 243,
+    address: '3465 W 6th St #160, Los Angeles, CA 90020',
+    phone: '+1 213-318-5216',
+    description: 'A cornerstone of Los Angeles\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG2uWuAiIeoAVhDHbK9fzlDIR5KRUB2EvcrRJbgYFXwICs_P5kmcnRMSFq98Cl_XDiFOrM4U3ultA_wCM5EYSxTSNLMB0kQzqDclf1dmzvhLPpa01GfymfRIoE8-Zj_cf1RvoI=w800-h500-k-no',
+    slug: 'silverlake-ramen-koreatown',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0637541,
+    lng: -118.2972762,
+  },
+  {
+    rank: 10,
+    name: 'Silverlake Ramen Las Vegas',
+    rating: 4.6,
+    reviewCount: 195,
+    address: '3455 S Arville St #101, Las Vegas, NV 89102',
+    phone: '+1 702-844-1581',
+    description: 'The Las Vegas outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9WRtZiB0ji0nK5Nqg3EF5APNsCSVm53Ux6MZMIyE8Q-I030fQnHZa3Z5NERHBAY8bpJ18rMvgbRa9F8XLRKqugYo8l_Y0-eS3KpR-gBH4ljt6UhZg6g2nrWdoxpZPS_WIgVVfKQ=w800-h500-k-no',
+    slug: 'silverlake-ramen-las-vegas',
+    citySlug: 'las-vegas',
+    stateSlug: 'nevada',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 36.1270151,
+    lng: -115.1995223,
+  },
+  {
+    rank: 11,
+    name: 'Silverlake Ramen',
+    rating: 4,
+    reviewCount: 185,
+    address: '2170 S Atlantic Blvd, Monterey Park, CA 91754',
+    phone: '+1 323-516-6470',
+    description: 'The Monterey Park location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Monterey Park with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZ-UTczRLUeMY8i_C59n-VFwGMecBgkaHElvowWn_JuTLfubm5TODOJ2WH7yhdneK9tqDaEVmxc5sj9nLotdOcEFP3Mpclu1_NUORJrTuoi1c4FYdugtTMmHkab5NApaxgsXAW9yghIMnk=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'monterey-park',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0379517,
+    lng: -118.1444114,
+  },
+  {
+    rank: 12,
+    name: 'Silverlake Ramen',
+    rating: 4.3,
+    reviewCount: 105,
+    address: '1105 Fair Oaks Ave, South Pasadena, CA 91030',
+    phone: '+1 626-399-0228',
+    description: 'One of the most popular dining spots in South Pasadena, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAENW4VOJmB_2LBePYN4WqQt0EhJni3JTPOKoTd3ONdrvXgJpgur9WDM83QuJzJ4NJr-yAsgprUFYrnojuyChmfBQBq65LoCAMIkrAhJlvnIGpCmcocNGqErB5b-O7ePnV23Hb4=w800-h500-k-no',
+    slug: 'silverlake-ramen',
+    citySlug: 'south-pasadena',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.1135885,
+    lng: -118.1510261,
+  },
+  {
+    rank: 13,
+    name: 'Silverlake Ramen Downey',
+    rating: 4,
+    reviewCount: 98,
+    address: '8428 Firestone Blvd, Downey, CA 90241',
+    phone: '+1 562-861-7888',
+    description: 'Serving Downey\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFrAzWE-K6G8lwHS6Q9R3-ylrC9coDMJFh3c2-LznvBvHc0P82nnufdxvTLawOkUeiIFeERl7Ez30JgktTOaTxKSfaLmz3vi2xfMAZfY5Ux41MIacGIlqZ5y0k4zBTlw2n3iNbdHkueY8c=w800-h500-k-no',
+    slug: 'silverlake-ramen-downey',
+    citySlug: 'downey',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.9381904,
+    lng: -118.1310993,
+  },
+]
+blogPosts.push({
+  slug: 'all-silverlake-ramen-locations',
+  title: 'All Silverlake Ramen Locations Worldwide',
+  h1: 'All Silverlake Ramen Locations',
+  description: 'Find every Silverlake Ramen location in the US — addresses, reviews, and maps for all 13 Silverlake Ramen restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFj_OJjSf5VN9o5wHBeKeJbFIyQH6mmOXuh1ds3RIO96rcZQugK0txxku_gkjtcP2N2qUjGzXxLoSNB5FC4Nzb286uoQYJ9VJodWEcjf65UEsz9meCuXCaRHwVdurpShTpIsb3v=w800-h500-k-no',
+  headerImageAlt: 'Silverlake Ramen ramen bowl',
+  rankingNote: 'All 13 Silverlake Ramen locations listed and ranked by Google review volume — helping you find the busiest and most popular Silverlake Ramen location near you.',
+  content: `<p>Silverlake Ramen started on Sunset Boulevard in the Silver Lake neighborhood of Los Angeles — one of the coolest streets in one of the coolest neighborhoods in the country — and has expanded to become one of California's most recognizable ramen brands. I've eaten at the original Sunset location, the Santa Monica Third Street Promenade spot, and the Charlotte locations on recent visits. The bowls are consistent: rich tonkotsu base, quality pork belly, firm noodles, and a room that feels relaxed and intentional without trying too hard. The brand has expanded to North Carolina's Charlotte market and beyond, bringing the California ramen aesthetic to new markets.</p>`,
+  restaurantCards: all_silverlake_ramen_locations_cards,
+  listHeading: 'All Silverlake Ramen Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Silverlake Ramen locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 13 Silverlake Ramen locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Silverlake Ramen location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Silverlake Ramen location is the one with the highest review count. Location quality can vary — use this page to find the Silverlake Ramen nearest to you and check its specific ratings."}}]},
+})
+
+const all_hokkaido_ramen_santouka_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Hokkaido Ramen Santouka Bellevue',
+    rating: 4.4,
+    reviewCount: 2263,
+    address: '3rd, 103 Bellevue Way NE Suite 3, Bellevue, WA 98004',
+    phone: '+1 425-462-0141',
+    description: 'The Bellevue location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Bellevue with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG8u7FtYlsNXqXP3DwA5c4o7SCMFJfGog0MHS_zfoENjQufAnlBQW0THC0WxdKKezM5zZe0abBHYC7__OsyREvW3aW-PmH6QOim0EDP3gyzgaCHraNVcgt0RVt012sN2mI-PJmSkQ=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka-bellevue',
+    citySlug: 'bellevue',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.6113247,
+    lng: -122.2020973,
+  },
+  {
+    rank: 2,
+    name: 'Hokkaido Ramen Santouka University Village',
+    rating: 4.4,
+    reviewCount: 1125,
+    address: '2626 NE University Village St, Seattle, WA 98105',
+    phone: '+1 206-524-4431',
+    description: 'One of the most popular dining spots in Seattle, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHt-6V_zCL7vIttHF2d6qT0zW9pg-kDE157vQLQURvgEOfnmMFQe59M0q6o15V7n-dTwCoFiKcvQCrwJxJ3uPL8MdwlQeOttNCoVrfaC-IKmVJSck0_p1kEh7yfznsZIhT6KeHP=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka-university-village',
+    citySlug: 'seattle',
+    stateSlug: 'washington',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 47.662365,
+    lng: -122.2988698,
+  },
+  {
+    rank: 3,
+    name: 'Hokkaido Ramen Santouka',
+    rating: 4.3,
+    reviewCount: 713,
+    address: '595 River Rd, Edgewater, NJ 07020',
+    phone: '+1 201-941-1004',
+    description: 'Serving Edgewater\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFaEzBeT3cKHI5lazBtnQVRj57tJO-Bh5hVuNgsWBPMwz39TMNPKS6Z3N2c911mVvtFKc8wlXDDx8H02wCkeJwZaiofPlDNRqnmnnNYGnzxk5nqe_i9tUaCHJXYO1JrvufpbKEJ=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka',
+    citySlug: 'edgewater',
+    stateSlug: 'new-jersey',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.8161914,
+    lng: -73.9796044,
+  },
+  {
+    rank: 4,
+    name: 'Hokkaido Ramen Santouka',
+    rating: 4.4,
+    reviewCount: 713,
+    address: '100 E Algonquin Rd #153, Arlington Heights, IL 60005',
+    phone: '+1 847-357-0286',
+    description: 'A cornerstone of Arlington Heights\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHhII13xOVJVBkfEIAwv5sByAHyxDdCXTAXweyCvBs_DRDkNos8Qs63TboX0E04TdzUEMz1glUxVyFpKWq6qBJlDz0C0oZ_c2YxbTJEtV0-QupkgpWEplepdvfCX4E63-jra3BH=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka',
+    citySlug: 'arlington-heights',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 42.0451368,
+    lng: -87.9810304,
+  },
+  {
+    rank: 5,
+    name: 'Hokkaido Ramen Santouka',
+    rating: 4.4,
+    reviewCount: 602,
+    address: '3760 S Centinela Ave, Los Angeles, CA 90066',
+    phone: '+1 310-391-1101',
+    description: 'The Los Angeles outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHlw1htw-LQcV6Mli94jK5-bKY1xstpKvZ2CfTeGhkHoOfmBBs0VwVNB8d32oj1Q1tqa_FqtByWBxc7M_XUwubZcJW7Mr4tmC4SwGetZ4sAM_vxO0rVS8EIqv1-tWALUdTLrMdAPQ=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0050845,
+    lng: -118.4333054,
+  },
+  {
+    rank: 6,
+    name: 'Hokkaido Ramen Santouka',
+    rating: 4.5,
+    reviewCount: 394,
+    address: '801 Kaheka St A-8, Honolulu, HI 96814',
+    phone: '+1 808-941-1101',
+    description: 'The Honolulu location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Honolulu with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHuhICY1SX9zS6sjoHoBE-rhZnH4_fI9xesIP-mVaFfvYr51Icxh00q25kBniNwj0MzhLLiRPGAq1pEskgb3tAs6w7mLXu6TbqR_Y8M-8LUdn4GZuuWWQArfruSmoA0w0mj-49s=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka-1',
+    citySlug: 'honolulu',
+    stateSlug: 'hi',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 21.2933261,
+    lng: -157.8389149,
+  },
+  {
+    rank: 7,
+    name: 'Santouka Ramen',
+    rating: 3.4,
+    reviewCount: 118,
+    address: 'West Gates at Tom Bradley International, 1 World Wy, Los Angeles, CA 90045',
+    phone: '',
+    description: 'One of the most popular dining spots in Los Angeles, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFa4Z662TmnYRY9BrbDC7h7ETuNkgfwplEUhuGo670pKG7RfTfV_l93oc1IXUD4hZ96i2QmErw8IIVAVmDQmPefqUlKXmGivLxz-Deshu9PV70svU9USrUZMZBFSbtZY5jjlPPA=w800-h500-k-no',
+    slug: 'santouka-ramen',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 33.9425034,
+    lng: -118.4148144,
+  },
+  {
+    rank: 8,
+    name: 'Hokkaido Ramen Santouka Chicago West Loop',
+    rating: 5.0,
+    reviewCount: 1,
+    address: '160 N Halsted St, Chicago, IL 60661',
+    phone: '',
+    description: 'Serving Chicago\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6JzvW9SkidFuZlNk61T_4SM7m2E4I59yBN_x56CDuuoXR5HR6vf3UAmGELgUwBqZEhwZ3F8G6hO-_O7cRj0_hCH49ivGPx5c7EbBOZzQoiZsUDUsDwem3w9TusLejWZEAsrYw1VoNwvG2=w800-h500-k-no',
+    slug: 'hokkaido-ramen-santouka-chicago-west-loop',
+    citySlug: 'chicago',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.8848464,
+    lng: -87.647583,
+  },
+]
+blogPosts.push({
+  slug: 'all-hokkaido-ramen-santouka-locations',
+  title: 'All Hokkaido Ramen Santouka Locations Worldwide',
+  h1: 'All Hokkaido Ramen Santouka Locations',
+  description: 'Find every Hokkaido Ramen Santouka location in the US — addresses, reviews, and maps for all 8 Santouka restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAG8u7FtYlsNXqXP3DwA5c4o7SCMFJfGog0MHS_zfoENjQufAnlBQW0THC0WxdKKezM5zZe0abBHYC7__OsyREvW3aW-PmH6QOim0EDP3gyzgaCHraNVcgt0RVt012sN2mI-PJmSkQ=w800-h500-k-no',
+  headerImageAlt: 'Hokkaido Ramen Santouka ramen bowl',
+  rankingNote: 'All 8 Hokkaido Ramen Santouka locations listed and ranked by Google review volume — helping you find the busiest and most popular Santouka location near you.',
+  content: `<p>Hokkaido Ramen Santouka is a Japanese import that's brought Hokkaido-style shio and toroniku ramen to the American market. The brand originates from Asahikawa, Hokkaido — the same region that developed the milky, butter-forward ramen style that's distinct from Fukuoka's tonkotsu or Tokyo's shoyu. I've eaten at the Bellevue location multiple times, the University Village Seattle spot, and the Edgewater, New Jersey outpost. The shio ramen here is the thing to order — clean, subtle, deeply comforting. The toroniku (braised pork cheek) is exceptional. This is the chain to visit if you want to understand what Japanese chain ramen excellence looks like.</p>`,
+  restaurantCards: all_hokkaido_ramen_santouka_locations_cards,
+  listHeading: 'All Hokkaido Ramen Santouka Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Hokkaido Ramen Santouka locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 8 Hokkaido Ramen Santouka locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Hokkaido Ramen Santouka location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Hokkaido Ramen Santouka location is the one with the highest review count. Location quality can vary — use this page to find the Santouka nearest to you and check its specific ratings."}}]},
+})
+
+const all_afuri_ramen_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'AFURI IZAKAYA SE PORTLAND',
+    rating: 4.4,
+    reviewCount: 2348,
+    address: '923 SE 7th Ave, Portland, OR 97214',
+    phone: '+1 971-386-2945',
+    description: 'The Portland location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Portland with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHblDf09Jd6nKBvk662MEfTU1mwn0Grc85FM6Z5uE2A08EQurpBZeaP7TT-kg-qxwaMPOHjqCwEA2gE7IZE7ngeNCkGMATHIqO30X5tiG7d1bGqcCg8c1GWDyNyptgOQSCsxbieQA=w800-h500-k-no',
+    slug: 'afuri-izakaya-se-portland',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Izakaya', 'Japanese', 'Ramen'],
+    lat: 45.5160199,
+    lng: -122.6590207,
+  },
+  {
+    rank: 2,
+    name: 'AFURI kara kurenai - downtown Portland',
+    rating: 4.2,
+    reviewCount: 1314,
+    address: '50 SW 3rd Ave, Portland, OR 97204',
+    phone: '+1 971-288-5510',
+    description: 'One of the most popular dining spots in Portland, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHlW_LmmAEzCWjYefennisd1M5dBo4jQjVJSp_hhS-ZuoR8FA3mHYBxbe_SqpEMnbDyeeBJw6bsNyC_iR7BHFP_Uu56RiO-RAAoPMZ_U2n-ZZJA6fsIZYtwd3058cuv4urFAw0N3Q=w800-h500-k-no',
+    slug: 'afuri-kara-kurenai-downtown-portland',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.5223477,
+    lng: -122.6730329,
+  },
+  {
+    rank: 3,
+    name: 'Afuri ramen, sushi and more',
+    rating: 4.6,
+    reviewCount: 1028,
+    address: '61 N 11th St, Brooklyn, NY 11249',
+    phone: '+1 347-599-0092',
+    description: 'Serving Brooklyn\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHC0f6gPGwsNYV60hrTi4rFhRunSdkEXx3AtoPBqQBQvkQ8ooBLyXNQHaHarhvW6rpEDP1nSgMh5Mf8MP6ZxEUScgtwarpNATltwK2F3fcWYlrBjpKYQh-Puz-qVadksxFR2RiZ4EbxK1LR=w800-h500-k-no',
+    slug: 'afuri-ramen-sushi-and-more',
+    citySlug: 'brooklyn',
+    stateSlug: 'new-york',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.722107,
+    lng: -73.9584483,
+  },
+  {
+    rank: 4,
+    name: 'AFURI',
+    rating: 4.5,
+    reviewCount: 808,
+    address: '688 Mateo St, Los Angeles, CA 90021',
+    phone: '+1 213-221-7206',
+    description: 'A cornerstone of Los Angeles\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGWOJSpLNfCwtxX1K-Z4lnxYThIxKxINa3pddDMSANAoWQA5jXRALv-Echuz3kCbgBLAPon03uHQJ8HJQrX3LMXPqAiiaQAHAyZN-R2UlaGRa1isFnY9KWyNXV3mSK8zYk3GkKFrw=w800-h500-k-no',
+    slug: 'afuri',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0351919,
+    lng: -118.232228,
+  },
+  {
+    rank: 5,
+    name: 'AFURI Houston Heights',
+    rating: 4.6,
+    reviewCount: 615,
+    address: '1215 N Durham Dr Suite B-100, Houston, TX 77008',
+    phone: '+1 346-692-3189',
+    description: 'The Houston outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFNHlV5Xvut7iKKv5ynKpHc225qwWbFfKvNoQ8iDpk4_yKmqOPoL8aV5MG1jxXk3coEcYjKOioVemeQs19SeGcsqDWkvPCpEJQcleJZgBUJZhShVctf--EQySxB_zYZZHctIxGmu1WZNnM=w800-h500-k-no',
+    slug: 'afuri-houston-heights',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 29.7934033,
+    lng: -95.4117964,
+  },
+  {
+    rank: 6,
+    name: 'AFURI Slabtown',
+    rating: 4.1,
+    reviewCount: 337,
+    address: '1620 NW 21st Ave, Portland, OR 97209',
+    phone: '+1 503-384-2920',
+    description: 'The Portland location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Portland with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFBHRQFot8HhGPLrSR3LbY8HHPTZxEloyL0ISSHVCIq-NG33H0wwHfZzmdQQ0rAYt7cTG_9KXrClj3o4I8rCUlnp4x4h4afFy1KNeQcRc1dxTNe9JGX60L56R8tMnXHI5cpZniKothDEv3g=w800-h500-k-no',
+    slug: 'afuri-slabtown',
+    citySlug: 'portland',
+    stateSlug: 'oregon',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 45.5343459,
+    lng: -122.6944962,
+  },
+  {
+    rank: 7,
+    name: 'AFURI',
+    rating: 4.2,
+    reviewCount: 270,
+    address: '9300 Culver Blvd Unit 117, Culver City, CA 90232',
+    phone: '+1 424-298-8292',
+    description: 'One of the most popular dining spots in Culver City, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHonheXp3r43JSxcPxVqMpKgfatqh0OoZ6tHIGIBCCLdtGKS2DGhkXwPqrdJpsCtpfEvIQ9KdkjbK-uCbZHro7dXa_ndyt0YV1dEvrZQoH6rSi1yv4rhJShO7OX1mq6AnnaZfEqKQ=w800-h500-k-no',
+    slug: 'afuri',
+    citySlug: 'culver-city',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0243368,
+    lng: -118.3931887,
+  },
+  {
+    rank: 8,
+    name: 'Afuri Ramen and Boba Tea',
+    rating: 4.8,
+    reviewCount: 214,
+    address: '129 S Main St, Elkhart, IN 46516',
+    phone: '+1 574-522-0733',
+    description: 'Serving Elkhart\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEkwZoqOry0hm0MsJwtILRCrjP0O0tzkK3W_lpZHm6SDJbalaNCz9uLQfEgkQzbrwvGE3eXw5zvTwPdLF-qxldPFX6DsZZTrlNxV22whyQARRnT04rwFoJCIl0iNTwe1TA0ZHQKsflpPA_4=w800-h500-k-no',
+    slug: 'afuri-ramen-and-boba-tea',
+    citySlug: 'elkhart',
+    stateSlug: 'indiana',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 41.68639,
+    lng: -85.97336,
+  },
+]
+blogPosts.push({
+  slug: 'all-afuri-ramen-locations',
+  title: 'All Afuri Ramen Locations Worldwide',
+  h1: 'All Afuri Ramen Locations',
+  description: 'Find every Afuri Ramen location in the US — addresses, reviews, and maps for all 8 Afuri restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHblDf09Jd6nKBvk662MEfTU1mwn0Grc85FM6Z5uE2A08EQurpBZeaP7TT-kg-qxwaMPOHjqCwEA2gE7IZE7ngeNCkGMATHIqO30X5tiG7d1bGqcCg8c1GWDyNyptgOQSCsxbieQA=w800-h500-k-no',
+  headerImageAlt: 'Afuri Ramen ramen bowl',
+  rankingNote: 'All 8 Afuri Ramen locations listed and ranked by Google review volume — helping you find the busiest and most popular Afuri location near you.',
+  content: `<p>Afuri is one of the most distinctive ramen brands in America — a Japanese chain that's built its identity around yuzu shio ramen, a citrus-forward, ultra-clean bowl that's unlike anything else in the ramen world. The yuzu adds brightness and complexity to a broth that's already technically excellent. I discovered Afuri through the SE Portland izakaya location, which was one of the best ramen meals I've had in the Pacific Northwest. The menu has expanded beyond the signature yuzu to include vegan options, tsukemen, and izakaya small plates that genuinely complement the ramen. Locations span Portland, Los Angeles, Brooklyn, and Houston.</p>`,
+  restaurantCards: all_afuri_ramen_locations_cards,
+  listHeading: 'All Afuri Ramen Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Afuri Ramen locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 8 Afuri Ramen locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Afuri Ramen location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Afuri Ramen location is the one with the highest review count. Location quality can vary — use this page to find the Afuri nearest to you and check its specific ratings."}}]},
+})
+
+const all_tatsu_ramen_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Tatsu Ramen',
+    rating: 4.5,
+    reviewCount: 3125,
+    address: '7111 Melrose Ave, Los Angeles, CA 90046',
+    phone: '+1 323-879-9332',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHaO_Ov4U0mqQi92xCqCyeeBmqJsY3iso5Jegp3fJ6K-ZD4_QHGD2NRqAi_SlLAXjwRINn1wxWJCt1pg3sO8TtL-TVZwU7ZtoDy9CWSYA7kTXO1KpR1OczZkZCVw4QtEntAspavag=w800-h500-k-no',
+    slug: 'tatsu-ramen-3',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0836463,
+    lng: -118.3446589,
+  },
+  {
+    rank: 2,
+    name: 'Tatsu Ramen',
+    rating: 4.3,
+    reviewCount: 2397,
+    address: '2123 Sawtelle Blvd, Los Angeles, CA 90025',
+    phone: '+1 310-684-2889',
+    description: 'One of the most popular dining spots in Los Angeles, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGkYzj5FsOU-MA-4LoPcqYseIg59HJmKCTxWDQTiCO0ZypCnu-iIxOkQRuP4dBD8tXv1Drd5rsHdZvh-AZ3Yxwyw5AYZjs6G7YiSlvqsg8fJ2FyF3_DvgTwOwcFAwDT2w-F-k2cPA=w800-h500-k-no',
+    slug: 'tatsu-ramen-2',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0388722,
+    lng: -118.4423879,
+  },
+  {
+    rank: 3,
+    name: 'Tatsu Ramen',
+    rating: 4.7,
+    reviewCount: 587,
+    address: '427 S Hewitt St, Los Angeles, CA 90013',
+    phone: '+1 213-278-0002',
+    description: 'Serving Los Angeles\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEoYNX9h6vOEjNJvwSrle1o_gYwqzjuooNcX8p-ggnlF_P2z_K8X5CephXUmwY_SzfRyq8fzd_3J_K1KA-aIVLU-kymdDkNxxRvR51ZI2D2_9iUzp9ppeHnbvVDT8qZqLIZNrCu21kfRF4=w800-h500-k-no',
+    slug: 'tatsu-ramen',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0427586,
+    lng: -118.2353518,
+  },
+  {
+    rank: 4,
+    name: 'Tatsu Ramen',
+    rating: 4.2,
+    reviewCount: 530,
+    address: '319-9 S Arroyo Pkwy, Pasadena, CA 91105',
+    phone: '+1 626-345-5688',
+    description: 'A cornerstone of Pasadena\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKqu9HlfFSZM2YfbGHo6qtZcbW2KB0msFmZoHjL2QzIByoOAY4MYQIZKRReGRqe8SeS4R1tya_bfK6hziHHv0d8SuBOj0FRqN8BXV-VxxPXolg_-2Qygu0lymBflCz630ACWk=w800-h500-k-no',
+    slug: 'tatsu-ramen',
+    citySlug: 'pasadena',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.1399853,
+    lng: -118.1479582,
+  },
+  {
+    rank: 5,
+    name: 'Tatsu Ramen House Elgin',
+    rating: 4.7,
+    reviewCount: 504,
+    address: '2490 Bushwood Dr, Elgin, IL 60124',
+    phone: '+1 847-844-0933',
+    description: 'The Elgin outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEBy_j9ZC9E0ujQBErHRQB5YJ1V3wfdP0nMhqKXO5cMZLN_MCFQ3SN9Iw7Aar73W58ZLkZY6D8JiZTdli5rStxZ-oH1h5AJBb6pwp8wIkqmgAm-I5hy9z7EwOdgvmtoWpfHjiA=w800-h500-k-no',
+    slug: 'tatsu-ramen-house-elgin',
+    citySlug: 'elgin',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 42.0927649,
+    lng: -88.33756849999999,
+  },
+  {
+    rank: 6,
+    name: 'Tatsu Ramen House Crystal lake',
+    rating: 4.5,
+    reviewCount: 50,
+    address: '230 W Virginia St Suite #250, Crystal Lake, IL 60014',
+    phone: '+1 224-434-0156',
+    description: 'The Crystal Lake location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Crystal Lake with a menu that delivers consistently excellent bowls.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=VsPX7XMy0NM4l7DWLn65qQ&cb_client=search.gws-prod.gps&w=800&h=500&yaw=215.70999&pitch=0&thumbfov=100',
+    slug: 'tatsu-ramen-house-crystal-lake',
+    citySlug: 'crystal-lake',
+    stateSlug: 'illinois',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 42.2293721,
+    lng: -88.32860219999999,
+  },
+]
+blogPosts.push({
+  slug: 'all-tatsu-ramen-locations',
+  title: 'All Tatsu Ramen Locations Worldwide',
+  h1: 'All Tatsu Ramen Locations',
+  description: 'Find every Tatsu Ramen location in the US — addresses, reviews, and maps for all 6 Tatsu restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHaO_Ov4U0mqQi92xCqCyeeBmqJsY3iso5Jegp3fJ6K-ZD4_QHGD2NRqAi_SlLAXjwRINn1wxWJCt1pg3sO8TtL-TVZwU7ZtoDy9CWSYA7kTXO1KpR1OczZkZCVw4QtEntAspavag=w800-h500-k-no',
+  headerImageAlt: 'Tatsu Ramen ramen bowl',
+  rankingNote: 'All 6 Tatsu Ramen locations listed and ranked by Google review volume — helping you find the busiest and most popular Tatsu location near you.',
+  content: `<p>Tatsu Ramen is an LA-born chain that's become one of Southern California's most beloved ramen brands. What sets Tatsu apart is the customization system — you choose your broth, noodle firmness, richness level, spice, and every individual topping. The result is a bowl calibrated exactly to your preferences, which either excites or overwhelms depending on how opinionated you are about ramen. I'm firmly in the excited camp. The Melrose Avenue original is the spot to visit — the space has energy, the kitchen moves fast, and the tonkotsu here is genuinely excellent. Tatsu has also expanded to Elgin, Illinois and Crystal Lake, Illinois, bringing LA ramen culture to the Midwest.</p>`,
+  restaurantCards: all_tatsu_ramen_locations_cards,
+  listHeading: 'All Tatsu Ramen Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Tatsu Ramen locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 6 Tatsu Ramen locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Tatsu Ramen location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Tatsu Ramen location is the one with the highest review count. Location quality can vary — use this page to find the Tatsu nearest to you and check its specific ratings."}}]},
+})
+
+const all_tsujita_artisan_noodle_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Tsujita LA Artisan Noodles',
+    rating: 4.5,
+    reviewCount: 3212,
+    address: '2057 Sawtelle Blvd, Los Angeles, CA 90025',
+    phone: '+1 424-248-0217',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFwczK2fpn70udX6N5vbzYM3NRYvvNgQ6APPskJz6LmHeLU3KnZg_yhprCrejv5NuAVufcXIQGbA4NlvS89SSh59rHlv1DZvNKvSU8DjhI03Zi685YouBOTkur54i0RyeuYovWezw=w800-h500-k-no',
+    slug: 'tsujita-la-artisan-noodles',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0395711,
+    lng: -118.4426526,
+  },
+  {
+    rank: 2,
+    name: 'Killer Noodle Tsujita',
+    rating: 4.4,
+    reviewCount: 1517,
+    address: '2030 Sawtelle Blvd, Los Angeles, CA 90025',
+    phone: '+1 424-293-0465',
+    description: 'One of the most popular dining spots in Los Angeles, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHfiEzGQTkOfPnVFpCrSD6rJ2QMpxxStul6e-P0ZOI2g5cIjT_Lceaw2MlRc0nWbOYhr_0ewQDdU0BQAQRk_3gCR5N-lmQydJ3ReU4_Od0Yuz1p9SjrFq1O5-fkinb7G5xrmDenXpnR0bQ=w800-h500-k-no',
+    slug: 'killer-noodle-tsujita',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.040324,
+    lng: -118.4428499,
+  },
+  {
+    rank: 3,
+    name: 'Tsujita LA Artisan Noodle Annex',
+    rating: 4.5,
+    reviewCount: 1140,
+    address: '2050 Sawtelle Blvd, Los Angeles, CA 90025',
+    phone: '+1 424-248-0226',
+    description: 'Serving Los Angeles\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFAUrppFB6Eko9gt0uHfcUPL3aV94J1CZRgOhSOYioR7_bLlUR_266oLkkQGNEHNrajmq_Z7ybL1iK0GVO9cwAu_hb0khVutUboZwwgmr2C3PZq3OjjppnyPYLRF0zG-3yn61_VDdl3wW4v=w800-h500-k-no',
+    slug: 'tsujita-la-artisan-noodle-annex',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.04009509999999,
+    lng: -118.4425892,
+  },
+  {
+    rank: 4,
+    name: 'Tsujita NJ Artisan Noodle',
+    rating: 4.7,
+    reviewCount: 1053,
+    address: '2034 Lemoine Ave Suite #5B, Fort Lee, NJ 07024',
+    phone: '+1 201-429-2475',
+    description: 'A cornerstone of Fort Lee\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFo3FdXhyUvL7HBlwKWLWyzi_TrPlPwuZrq3vIXIg4hWD2hoeZZqWelOz5rHV8IyKoiRAIOVQDOfpHgIrf9dUK_kKT6EkXhSPrCGJqURLkyrZoxbkKJ6UP1MiKaFCZ0tPBIwXIbtshFLD1w=w800-h500-k-no',
+    slug: 'tsujita-nj-artisan-noodle',
+    citySlug: 'fort-lee',
+    stateSlug: 'new-jersey',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 40.8521607,
+    lng: -73.9692071,
+  },
+  {
+    rank: 5,
+    name: 'Tsujita Artisan Noodle',
+    rating: 4.6,
+    reviewCount: 539,
+    address: '12230 Westheimer Rd a 160, Houston, TX 77077',
+    phone: '+1 832-295-3756',
+    description: 'The Houston outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHO3dP8kg2-vliGBzlLdWkJxP4_yul1IGZCQyQ6A01Mth5FlO8oUNhPsmyHxJesY2Sp8CivVh60UXfQLBnLxshiXGIx68_mH3DX59Cgh3Ac8DvSWEdWSqqlLl6RCNNrNcvK0qDUhyyDxwkf=w800-h500-k-no',
+    slug: 'tsujita-artisan-noodle',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 29.7375284,
+    lng: -95.5963151,
+  },
+  {
+    rank: 6,
+    name: 'Tsujita Artisan Noodle',
+    rating: 4.6,
+    reviewCount: 314,
+    address: '740 E 3rd St, Los Angeles, CA 90013',
+    phone: '+1 213-221-7133',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFtaae9ttuk_b4BES6_lKnSRDEB6gwrgUQWv5tRjPIc-awfBK3UXwPbEDUFUW3SPdm70Rsqy1XZH-CEtXny6ijUhJP3OoARNyMJbUHEQYAfRphM6PZCLBBr7ZsiXsJixzU3ZE2jYMg9USPc=w800-h500-k-no',
+    slug: 'tsujita-artisan-noodle',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0455823,
+    lng: -118.2367133,
+  },
+]
+blogPosts.push({
+  slug: 'all-tsujita-artisan-noodle-locations',
+  title: 'All Tsujita Artisan Noodle Locations Worldwide',
+  h1: 'All Tsujita Artisan Noodle Locations',
+  description: 'Find every Tsujita Artisan Noodle location in the US — addresses, reviews, and maps for all 6 Tsujita restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFwczK2fpn70udX6N5vbzYM3NRYvvNgQ6APPskJz6LmHeLU3KnZg_yhprCrejv5NuAVufcXIQGbA4NlvS89SSh59rHlv1DZvNKvSU8DjhI03Zi685YouBOTkur54i0RyeuYovWezw=w800-h500-k-no',
+  headerImageAlt: 'Tsujita Artisan Noodle ramen bowl',
+  rankingNote: 'All 6 Tsujita Artisan Noodle locations listed and ranked by Google review volume — helping you find the busiest and most popular Tsujita location near you.',
+  content: `<p>Tsujita Artisan Noodle is a Los Angeles ramen institution — the Sawtelle Boulevard original is one of the most acclaimed ramen restaurants in America, and the line that forms before opening is a testament to what a truly great bowl can do for a restaurant's reputation. Tsujita specializes in tsukemen — thick noodles served with a concentrated, deeply savory dipping broth that intensifies in flavor as the meal progresses. The tonkotsu-based dip is rich to the point of luxuriousness. Killer Noodle, Tsujita's spicier sister concept, operates across the street and offers a different approach to the same noodle tradition. The chain has expanded to Houston and Fort Lee, New Jersey.</p>`,
+  restaurantCards: all_tsujita_artisan_noodle_locations_cards,
+  listHeading: 'All Tsujita Artisan Noodle Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Tsujita Artisan Noodle locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 6 Tsujita Artisan Noodle locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Tsujita Artisan Noodle location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Tsujita Artisan Noodle location is the one with the highest review count. Location quality can vary — use this page to find the Tsujita nearest to you and check its specific ratings."}}]},
+})
+
+const all_mensho_tokyo_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Mensho Tokyo SF',
+    rating: 4.5,
+    reviewCount: 3298,
+    address: '672 Geary St, San Francisco, CA 94102',
+    phone: '',
+    description: 'The San Francisco location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of San Francisco with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGryudp3FniKEhexl2dkYVHL4mQPk4xZ-3me2aONKgLdwFSDcKuleGg5LrCuPHZzGEzMayM1oP3SxY0xE6AOKtohg9I9tjuKzzhh77dg9iNDITy5cSdx0qrol-zGVRUaQJiuSc=w800-h500-k-no',
+    slug: 'mensho-tokyo-sf',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 37.7867348,
+    lng: -122.4143431,
+  },
+  {
+    rank: 2,
+    name: 'Mensho',
+    rating: 4.8,
+    reviewCount: 2817,
+    address: '9889 Bellaire Blvd STE C308, Houston, TX 77036',
+    phone: '+1 713-485-6959',
+    description: 'One of the most popular dining spots in Houston, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGsVEqr2CJ0UhmDm_Gf9-43GfALDoFNLxk0AmZfo317ll-GNZ7XN23xqEL21DjFBVr4MLvsCDmMxsu4m2MP4tfRLhhQgwLr1AP0FwLCOumqUZio30RSTq495pZutcwj9m1h8aB5nKyzJ_7U=w800-h500-k-no',
+    slug: 'mensho-houston',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 29.7026225,
+    lng: -95.5526456,
+  },
+  {
+    rank: 3,
+    name: 'MENSHO TOKYO',
+    rating: 4.8,
+    reviewCount: 551,
+    address: '9516 Culver Blvd, Culver City, CA 90232',
+    phone: '',
+    description: 'Serving Culver City\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6A3JyyupAPXYjN3-1AICmnNHeukv1Wm1J6SROkhk5HM4bHWJ1kk2RX-EJ1cxaAA9GJcPqy622reYCmLrkPcMzZ71Hbb5r1d61udleJky-HQU0HNC7XWU-UiYMSNOCg-BsJuf6DA=w800-h500-k-no',
+    slug: 'mensho-tokyo',
+    citySlug: 'culver-city',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0232296,
+    lng: -118.3946138,
+  },
+  {
+    rank: 4,
+    name: 'Jikasei MENSHO',
+    rating: 4,
+    reviewCount: 74,
+    address: '1355 Market St #120, San Francisco, CA 94103',
+    phone: '',
+    description: 'A cornerstone of San Francisco\'s Asian dining scene. This outpost maintains the high standard that defines the brand — consistently excellent noodles, deeply developed broth, and a welcoming counter culture.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEbfe5reNfqDN4_Z8oazeqjq4WCqQNicS6oWVmEplqQzuHn3yzBeO9g_dij6PkO73yiP0Xwrzb9oMAczcXvzJRDgI64ljO0Cc8RqpYbQw4LYS_uuKmHTJf6dH1zg5FwrttahoAF=w800-h500-k-no',
+    slug: 'jikasei-mensho',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 37.7763173,
+    lng: -122.4167676,
+  },
+  {
+    rank: 5,
+    name: 'Mensho Kapolei',
+    rating: 4.4,
+    reviewCount: 52,
+    address: '91-5431 Kapolei Pkwy Suite 1009, Kapolei, HI 96707',
+    phone: '',
+    description: 'The Kapolei outpost is a neighborhood staple. Locals keep coming back for the housemade noodles, rich tonkotsu, and the kind of comfortable ramen bar atmosphere that makes you want to stay for the next bowl.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGvg-AKaXKSzOCBTbr9qxkbzTxt886vKINEw_-1ozr20REawqOw6690Ed7ZuMLxYCNFUJe3hIsNHTJPgC8c5kosAd1n4iop8NuSbZLu9UHN0EAy3nLU7Zz_BZS_F2vWpuUH0ceNFi30cugd=w800-h500-k-no',
+    slug: 'mensho-kapolei',
+    citySlug: 'kapolei',
+    stateSlug: 'hi',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 21.3336804,
+    lng: -158.0519314,
+  },
+  {
+    rank: 6,
+    name: 'Mensho',
+    rating: 4.5,
+    reviewCount: 50,
+    address: '1515 W Gray St, Houston, TX 77019',
+    phone: '',
+    description: 'The Houston location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Houston with a menu that delivers consistently excellent bowls.',
+    photo: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=qC250krZ8HNydmEljDAAtA&cb_client=search.gws-prod.gps&w=800&h=500&yaw=120.1792&pitch=0&thumbfov=100',
+    slug: 'mensho',
+    citySlug: 'houston',
+    stateSlug: 'texas',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 29.7528885,
+    lng: -95.4009716,
+  },
+]
+blogPosts.push({
+  slug: 'all-mensho-tokyo-locations',
+  title: 'All Mensho Tokyo Locations Worldwide',
+  h1: 'All Mensho Tokyo Locations',
+  description: 'Find every Mensho Tokyo location in the US — addresses, reviews, and maps for all 6 Mensho restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGryudp3FniKEhexl2dkYVHL4mQPk4xZ-3me2aONKgLdwFSDcKuleGg5LrCuPHZzGEzMayM1oP3SxY0xE6AOKtohg9I9tjuKzzhh77dg9iNDITy5cSdx0qrol-zGVRUaQJiuSc=w800-h500-k-no',
+  headerImageAlt: 'Mensho Tokyo ramen bowl',
+  rankingNote: 'All 6 Mensho Tokyo locations listed and ranked by Google review volume — helping you find the busiest and most popular Mensho location near you.',
+  content: `<p>Mensho Tokyo is one of the most decorated ramen brands in America — the San Francisco location on Geary Street has been consistently ranked among the best ramen restaurants in the country since it opened. Chef Tomoharu Shono brought the Mensho concept from Tokyo to San Francisco, and the creative, technically ambitious bowls he produces here are unlike anything else in American ramen. The jidori chicken paitan is ethereal — a milky, light-colored chicken broth that has more depth than most pork tonkotsu I've tried. The Houston Bellaire location serves the Chinatown community with the same level of craft. This is where you go when you want to understand what ramen innovation looks like.</p>`,
+  restaurantCards: all_mensho_tokyo_locations_cards,
+  listHeading: 'All Mensho Tokyo Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Mensho Tokyo locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 6 Mensho Tokyo locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Mensho Tokyo location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Mensho Tokyo location is the one with the highest review count. Location quality can vary — use this page to find the Mensho nearest to you and check its specific ratings."}}]},
+})
+
+const all_ippudo_ramen_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'IPPUDO San Francisco',
+    rating: 4.3,
+    reviewCount: 2401,
+    address: '18 Yerba Buena Ln, San Francisco, CA 94103',
+    phone: '+1 415-348-1202',
+    description: 'The San Francisco location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of San Francisco with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEgfKa3Xhsgyz5f9FaF2OD7ip3uAf_RiAbsjGAIsVfoKN8GnsxvrqfJhcEFPkRGXbOg2qb78ns-jR-IHUzJAX9B_-kCjPa6gMfKpeAzEGv5A5Cyi9qmOrw5CJa5jBaHbpoLW-vH=w800-h500-k-no',
+    slug: 'ippudo-san-francisco',
+    citySlug: 'san-francisco',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 37.7860865,
+    lng: -122.4044835,
+  },
+  {
+    rank: 2,
+    name: 'ippudo V West Hollywood',
+    rating: 4.3,
+    reviewCount: 235,
+    address: '8352 Santa Monica Blvd, West Hollywood, CA 90069',
+    phone: '+1 310-986-2717',
+    description: 'One of the most popular dining spots in West Hollywood, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHNJd9Iw921xfxrQEmlJ6vnx3e_8CDLAam9OKX5gzuAjzhJJ2vsS793j9rLOE49P8_uFZyayjB5P7OeqE7zP4du2AuEefePDpufVwMKAV3loJqKu8LcgIrTAlWUyQlAM1u4CtzZ=w800-h500-k-no',
+    slug: 'ippudo-v-west-hollywood',
+    citySlug: 'west-hollywood',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.090515,
+    lng: -118.3719375,
+  },
+  {
+    rank: 3,
+    name: 'IPPUDO Culver City',
+    rating: 4.6,
+    reviewCount: 76,
+    address: '3847 Main St, Culver City, CA 90232',
+    phone: '+1 424-423-0010',
+    description: 'Serving Culver City\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFkp-FWQJqkvd54Xzbm81qO5B4of4ehHuymBXGI10oXna_B0PiRWGQ_a3gn1TS1-H81ACs29vvuqIfGQt4XW25z5gIIMI4s2kO3U89PPUdr4jzNECdHHbTljRygqWxQwARo8sc7=w800-h500-k-no',
+    slug: 'ippudo-culver-city',
+    citySlug: 'culver-city',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0244591,
+    lng: -118.3945369,
+  },
+]
+blogPosts.push({
+  slug: 'all-ippudo-ramen-locations',
+  title: 'All Ippudo Ramen Locations Worldwide',
+  h1: 'All Ippudo Ramen Locations',
+  description: 'Find every Ippudo Ramen location in the US — addresses, reviews, and maps for all 3 Ippudo restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEgfKa3Xhsgyz5f9FaF2OD7ip3uAf_RiAbsjGAIsVfoKN8GnsxvrqfJhcEFPkRGXbOg2qb78ns-jR-IHUzJAX9B_-kCjPa6gMfKpeAzEGv5A5Cyi9qmOrw5CJa5jBaHbpoLW-vH=w800-h500-k-no',
+  headerImageAlt: 'Ippudo Ramen ramen bowl',
+  rankingNote: 'All 3 Ippudo Ramen locations listed and ranked by Google review volume — helping you find the busiest and most popular Ippudo location near you.',
+  content: `<p>Ippudo is one of the most famous ramen chains in the world — originating in Fukuoka, Japan and bringing Hakata-style tonkotsu to a global audience. The American locations are concentrated in California, and each delivers the signature thin, straight noodles in a deeply developed pork bone broth that's lighter in color than Kumamoto-style tonkotsu but every bit as satisfying. I've eaten at the San Francisco location on Yerba Buena Lane multiple times — it's one of the best bowls in a city with excellent ramen options. The sesame noodle, served cold with a rich sauce, is one of Ippudo's signature innovations that's worth ordering on its own.</p>`,
+  restaurantCards: all_ippudo_ramen_locations_cards,
+  listHeading: 'All Ippudo Ramen Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Ippudo Ramen locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 3 Ippudo Ramen locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Ippudo Ramen location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Ippudo Ramen location is the one with the highest review count. Location quality can vary — use this page to find the Ippudo nearest to you and check its specific ratings."}}]},
+})
+
+const all_daikokuya_locations_cards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Daikokuya Little Tokyo',
+    rating: 4.4,
+    reviewCount: 4414,
+    address: '327 1st St, Los Angeles, CA 90012',
+    phone: '+1 213-626-1680',
+    description: 'The Los Angeles location brings the same meticulously crafted tonkotsu and shoyu ramen that made this chain famous — set in the heart of Los Angeles with a menu that delivers consistently excellent bowls.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFrWpfNBJNlUv7bf_1wAwRxxXQZaTr-pTR7mgbp_d7IHT9_4PK3PzYU2Ei0w6QkLiiB7c01F4krPDt5M30fWvdMKKoaZ53LpC0ROVM5EL-gyv6HOvlbDcKg5FiEkDvhyai9Ph381EH2Zfhk8-PbTIrqgT4bsCbt0qIs0T7eeHRkTpedJdBzHlZdgQ=w800-h500-k-no',
+    slug: 'daikokuya-little-tokyo',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0500023,
+    lng: -118.2400575,
+  },
+  {
+    rank: 2,
+    name: 'Daikokuya Monterey Park',
+    rating: 4.4,
+    reviewCount: 1125,
+    address: '111 N Atlantic Blvd UNIT 241, Monterey Park, CA 91754',
+    phone: '+1 626-570-1930',
+    description: 'One of the most popular dining spots in Monterey Park, this location has built a loyal local following. The kitchen produces reliable broth-forward bowls in a setting that feels both casual and intentional.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGjI-mETC6uhRkjF05EfmleHaKSPtb71cv8UBUiu8uXL1WoBLI9HZL_hafgbhu5nRGKKrZmkKAmMLtOyUHx9Hyoher_OgSOtefNRyflk0KwE6B-sE4FeN6EXOfY5iBQeIxFBfam7BFUJGatmbiRYj2Wl6GM0lHhkOIOCfUrJrKTonOsN8Zb2fUIXA=w800-h500-k-no',
+    slug: 'daikokuya-monterey-park',
+    citySlug: 'monterey-park',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0629716,
+    lng: -118.1348871,
+  },
+  {
+    rank: 3,
+    name: 'Daikokuya Annex',
+    rating: 4.1,
+    reviewCount: 35,
+    address: '321 1/4 1st St, Los Angeles, CA 90012',
+    phone: '+1 213-371-6377',
+    description: 'Serving Los Angeles\'s ramen enthusiasts with the same dedication to craft that defines all locations in the group. The pork belly chashu and seasoned eggs here are worth the visit alone.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFndPtwss6CdArAsf0BLO3wDoU0_B1DxsU95-RXICnflALclZql3IXsiKgz59tYVsHhPg3GzvSSAkg9RxiBKs0Ij4bV2yekfK2P0bqAAeS3-Jc6X5bzdWNgWzL7HUJW3PnsaihSmHHFu712F7e1ZA1HDKJKobk_ZFeI3UE69bgMf6rZcF8GApf4=w800-h500-k-no',
+    slug: 'daikokuya-annex',
+    citySlug: 'los-angeles',
+    stateSlug: 'california',
+    tags: ['Ramen', 'Japanese', 'Noodles'],
+    lat: 34.0500702,
+    lng: -118.2402411,
+  },
+]
+blogPosts.push({
+  slug: 'all-daikokuya-locations',
+  title: 'All Daikokuya Locations Worldwide',
+  h1: 'All Daikokuya Locations',
+  description: 'Find every Daikokuya location in the US — addresses, reviews, and maps for all 3 Daikokuya restaurants.',
+  date: '2025-06-01',
+  readTime: '4 min read',
+  category: 'Chain Locations',
+  imageFirst: true,
+  headerImage: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhFrWpfNBJNlUv7bf_1wAwRxxXQZaTr-pTR7mgbp_d7IHT9_4PK3PzYU2Ei0w6QkLiiB7c01F4krPDt5M30fWvdMKKoaZ53LpC0ROVM5EL-gyv6HOvlbDcKg5FiEkDvhyai9Ph381EH2Zfhk8-PbTIrqgT4bsCbt0qIs0T7eeHRkTpedJdBzHlZdgQ=w800-h500-k-no',
+  headerImageAlt: 'Daikokuya ramen bowl',
+  rankingNote: 'All 3 Daikokuya locations listed and ranked by Google review volume — helping you find the busiest and most popular Daikokuya location near you.',
+  content: `<p>Daikokuya is a Los Angeles ramen legend — the Little Tokyo original on First Street has been at the center of LA's ramen culture since it opened, and the lines that form before opening tell you everything you need to know about the bowl. The tonkotsu here is unmistakably rich — the broth develops for hours and has the deep, creamy quality that defines great Kyushu-style pork bone ramen. The chashu pork is fork-tender and properly seasoned. The marinated egg is one of the best in the city. Daikokuya has expanded to Monterey Park and operates the Annex next door to the original for overflow — a sign that the demand hasn't let up in decades.</p>`,
+  restaurantCards: all_daikokuya_locations_cards,
+  listHeading: 'All Daikokuya Locations',
+  additionalSchema: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many Daikokuya locations are there?","acceptedAnswer":{"@type":"Answer","text":"There are 3 Daikokuya locations across the United States, with concentrations in Texas, California, Georgia, and the DC metro area."}},{"@type":"Question","name":"Where is the best Daikokuya location?","acceptedAnswer":{"@type":"Answer","text":"Based on Google review volume and ratings, the most popular Daikokuya location is the one with the highest review count. Location quality can vary — use this page to find the Daikokuya nearest to you and check its specific ratings."}}]},
+})
+
+blogPosts.push({
+  slug: 'how-to-cook-ramen-in-beef-broth',
+  title: 'How to Cook Ramen in Beef Broth for Better Taste',
+  h1: 'How to Cook Ramen in Beef Broth for Better Taste',
+  description: 'Cooking ramen in beef broth instead of water is one of the easiest upgrades you can make at home. Here is exactly how I do it — step by step, with timing, tips, and what to add for a restaurant-quality bowl.',
+  date: 'June 9, 2026',
+  readTime: '7 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>I stumbled onto this by accident. I was out of water one night (well, I was too lazy to fill the pot from the tap) and reached for a carton of beef broth instead. I expected something fine. What I got was noticeably better than anything I had made before — richer, deeper, and satisfying in a way that plain water simply cannot replicate. I have been cooking ramen this way ever since.</p>
+
+<p>This guide covers everything I have learned: how to choose the right broth, how to season it without over-salting, what add-ins make the biggest difference, and how to build a proper bowl from start to finish. Once you try it this way, going back to plain water will feel like a step backward.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.5rem;color:#1E2026;">⏱ Recipe at a Glance</p>
+  <ul style="margin:0;padding-left:1.25rem;color:#3a3d44;">
+    <li><strong>Prep time:</strong> 5 minutes</li>
+    <li><strong>Cook time:</strong> 10–12 minutes</li>
+    <li><strong>Total time:</strong> 15–17 minutes</li>
+    <li><strong>Serves:</strong> 1 (scale easily)</li>
+  </ul>
+</div>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#why-beef-broth" style="color:#B57F50;text-decoration:none;">Why beef broth makes better ramen</a></li>
+    <li><a href="#choosing-broth" style="color:#B57F50;text-decoration:none;">Choosing the right beef broth</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Ingredients you will need</a></li>
+    <li><a href="#step-by-step" style="color:#B57F50;text-decoration:none;">Step-by-step instructions</a></li>
+    <li><a href="#seasoning" style="color:#B57F50;text-decoration:none;">Seasoning and salt balance</a></li>
+    <li><a href="#best-toppings" style="color:#B57F50;text-decoration:none;">Best toppings for beef broth ramen</a></li>
+    <li><a href="#upgrade-tips" style="color:#B57F50;text-decoration:none;">Upgrade tips and add-ins</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="why-beef-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why Beef Broth Makes Better Ramen</h2>
+
+<p>Plain water does one thing: it hydrates the noodles and dilutes the seasoning packet. Beef broth does all of that <em>and</em> adds a savory, collagen-rich foundation that makes the finished bowl feel complete. The difference is not subtle — it is the same principle as making rice in chicken stock instead of water. You taste it in every bite.</p>
+
+<p>The glutamates in beef broth amplify the umami already in your seasoning packet. The fat content (even in low-sodium broth) coats the noodles and gives the soup that slightly glossy finish you see in restaurant bowls. And the body — especially in bone broth — adds a richness that makes the bowl feel like you spent an hour on it rather than twelve minutes.</p>
+
+<h2 id="choosing-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Choosing the Right Beef Broth</h2>
+
+<p>Not all beef broth is equal. Here is what I look for:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Low-sodium or unsalted</strong> — the seasoning packet that comes with your ramen is already salty. Using full-sodium broth will almost certainly over-season the bowl. I always start with low-sodium and add salt at the end to taste.</li>
+  <li><strong>Bone broth over regular broth</strong> — bone broth has more collagen, more body, and a deeper flavor profile. It is worth the small price difference, especially for a single serving.</li>
+  <li><strong>Carton over can</strong> — carton broth tends to taste fresher and less metallic than canned. I keep a few cartons in the pantry and open one per session.</li>
+  <li><strong>Japanese beef stock as a bonus</strong> — if you can find tonkotsu-style beef stock at a Japanese grocery store, use it. It is significantly better than anything from a standard supermarket.</li>
+</ul>
+
+<p>My go-to for everyday cooking is Swanson Unsalted Beef Broth or Kettle &amp; Fire Beef Bone Broth. Both are easy to find and consistently good.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Ingredients You Will Need</h2>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 pack instant ramen (I prefer Shin Ramyun or Sapporo Ichiban for beef broth cooking)</li>
+  <li>2 cups (480ml) low-sodium beef broth</li>
+  <li>½ cup (120ml) water (optional — use if broth alone feels too intense)</li>
+  <li>1 tsp sesame oil</li>
+  <li>1 tsp soy sauce</li>
+  <li>1 clove garlic, minced (or ½ tsp garlic powder)</li>
+  <li>½ tsp fresh ginger, grated (optional but recommended)</li>
+  <li>Toppings of your choice (see section below)</li>
+</ul>
+
+<h2 id="step-by-step" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Step-by-Step Instructions</h2>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Step 1 — Build the aromatic base (2 minutes)</h3>
+<p>Pour the sesame oil into a small saucepan over medium heat. Add the minced garlic (and ginger if using) and let it sizzle for about 60 seconds. You want it fragrant and slightly golden, not brown. This single step adds more flavor to your bowl than almost anything else you can do. I skip this when I am truly in a rush, and I always notice the difference.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Step 2 — Add the broth and bring to a boil (4–5 minutes)</h3>
+<p>Pour in your beef broth (and water if using). Bring it to a full boil over medium-high heat. While it heats up, add the soy sauce. Do not add the seasoning packet yet — that comes later. Taste the broth at this stage. It should be savory and slightly beefy. If it tastes flat, add a splash more soy sauce or a pinch of MSG (optional — I use it and the difference is real).</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Step 3 — Cook the noodles (3–4 minutes)</h3>
+<p>Add the ramen noodle brick to the boiling broth. Let it cook for 2 minutes until the noodles are just starting to loosen, then use chopsticks or a fork to gently separate them. Cook for another 1–2 minutes. I pull my noodles slightly before the package says they are done — they continue cooking in the hot broth once you bowl up, and I prefer a little chew.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Step 4 — Season with the packet (30 seconds)</h3>
+<p>Here is the critical part: use only half to two-thirds of the seasoning packet. Because the broth already has sodium and flavor, a full packet will be too salty. I usually start with half, stir, taste, and add more from there. You can always add more — you cannot take it out once it is in.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Step 5 — Bowl up and top (1 minute)</h3>
+<p>Transfer the noodles to a bowl first, then ladle the broth over the top. This keeps the noodles from continuing to absorb broth while you get your toppings ready. Add your toppings, drizzle a few drops of sesame oil over the surface, and serve immediately.</p>
+
+<h2 id="seasoning" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Seasoning and Salt Balance</h2>
+
+<p>This is the part most people get wrong the first time. Beef broth + a full seasoning packet = an overly salty bowl. Here is my approach:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>Start with <strong>half the seasoning packet</strong></li>
+  <li>Stir, taste, and assess</li>
+  <li>Add soy sauce or more of the packet in small increments</li>
+  <li>Finish with a few drops of sesame oil and a small pinch of white pepper</li>
+</ul>
+
+<p>I also like to add a teaspoon of miso paste (white or red) directly to the broth for extra depth. Whisk it in before adding the noodles. It dissolves completely and adds a fermented umami layer that feels distinctly Japanese rather than generic beefy.</p>
+
+<h2 id="best-toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Best Toppings for Beef Broth Ramen</h2>
+
+<p>Toppings are where beef broth ramen really earns its keep. The savory, rich base holds up well against bold additions that might overwhelm a lighter chicken or dashi broth. These are my favorites:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Soft-boiled egg (ajitsuke tamago)</strong> — marinate a peeled soft-boiled egg in soy sauce, mirin, and a little sugar for at least an hour. The jammy yolk and slightly sweet-salty coating are essential.</li>
+  <li><strong>Thinly sliced beef</strong> — raw shabu-shabu beef slices cooked directly in the hot broth are spectacular here. Grab them at a Korean or Japanese grocery and swish them in the broth for 30 seconds.</li>
+  <li><strong>Roasted garlic</strong> — roast a whole head of garlic on Sunday and squeeze out a clove or two whenever you make a bowl. The sweetness balances the intensity of the broth.</li>
+  <li><strong>Green onions</strong> — thinly sliced, added at the very end. The fresh bite cuts through the richness.</li>
+  <li><strong>Nori (dried seaweed)</strong> — one or two sheets leaned against the noodles. It softens and soaks up broth as you eat and adds a subtle oceanic note.</li>
+  <li><strong>Chili oil or gochujang</strong> — a drizzle of chili oil or a small spoonful of gochujang adds heat and complexity without overshadowing the beef base.</li>
+  <li><strong>Corn and butter</strong> — a nod to Sapporo-style miso ramen. The sweetness of corn and the richness of a small knob of butter make the broth taste creamy and luxurious.</li>
+</ul>
+
+<h2 id="upgrade-tips" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Upgrade Tips and Add-Ins</h2>
+
+<p>A few extra things I have discovered through trial and error:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Add dried shiitake mushrooms to the cold broth</strong> before heating. Let them steep as the broth warms. They add earthiness and extra umami, then you can eat them as a topping.</li>
+  <li><strong>A splash of sake or dry sherry</strong> added with the aromatics adds complexity. About a tablespoon is all you need — it cooks off in seconds and leaves behind a subtly sweet, fermented note.</li>
+  <li><strong>Use fresh ramen noodles</strong> from an Asian grocery if you can find them. They have better texture and hold up in broth longer than the dried bricks in instant packs. The seasoning packet from an instant pack still works fine with them.</li>
+  <li><strong>Finish with togarashi</strong> — Japanese seven-spice blend. A pinch over the top just before serving adds a floral heat that plays beautifully against beef.</li>
+  <li><strong>Do not boil the broth too hard</strong> once the noodles are in. A gentle simmer is better than a rolling boil — it keeps the noodles from getting waterlogged and the broth from turning cloudy.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use beef broth with any type of ramen?</h3>
+<p>Yes, but results vary. Beef broth works best with shoyu (soy sauce) and spicy ramen packets — the bold, savory flavors complement each other naturally. It also works well with plain salt (shio) packets where the beef flavor can shine. I would avoid pairing beef broth with miso packets — the two compete rather than complement, and the result can taste muddy.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the ratio of beef broth to water?</h3>
+<p>I use 2 cups of beef broth and either no water or up to ½ cup water if the broth is particularly intense. Full broth with no water gives the richest bowl. If you are using a high-sodium broth, diluting it 2:1 broth to water helps with the salt balance.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Does it matter if I use bone broth vs. regular broth?</h3>
+<p>It does. Bone broth has significantly more body, collagen, and depth. The finished bowl is noticeably richer and has a more restaurant-like consistency. Regular beef broth still beats water by a wide margin — but if you are making this for someone you want to impress, use bone broth.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this with beef bouillon cubes or powder instead?</h3>
+<p>You can, but I have found the results are saltier and less nuanced. If bouillon is all you have, dissolve it in 2 cups of hot water, then taste and adjust before adding the noodles. Skip the seasoning packet entirely or use only a quarter of it — bouillon is already heavily seasoned.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Is beef broth ramen healthier than regular instant ramen?</h3>
+<p>It depends on the broth. Regular beef bone broth adds protein, collagen, and often fewer artificial additives than the standard seasoning packet. Using only half the seasoning packet also cuts the sodium substantially. I would not call this a health food exactly, but it is a meaningfully better version nutritionally — especially when you add real toppings like vegetables and a soft-boiled egg.</p>`,
+})
+
+blogPosts.push({
+  slug: 'cooking-ramen-noodles-in-broth',
+  title: 'Cooking Ramen Noodles in Broth: Tips for Better Ramen',
+  h1: 'Cooking Ramen Noodles in Broth: Tips for Better Ramen',
+  description: 'A comprehensive guide to cooking ramen noodles in broth — covering broth types, seasoning layers, noodle selection, toppings, and the exact techniques I use to make every bowl better.',
+  date: 'June 9, 2026',
+  readTime: '11 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>I have made a lot of ramen. Not restaurant-level hundreds-of-bowls-a-day ramen, but the kind of ramen a person makes when they care too much about a simple meal — the kind where you are adjusting the tare at 11pm on a Tuesday because something was slightly off last time. I have cooked it from scratch with 18-hour bone broths. I have hacked instant packets into genuinely great bowls in under 15 minutes. I have failed spectacularly and I have gotten it exactly right.</p>
+
+<p>What I have learned is this: cooking ramen noodles directly in broth, rather than separately in water, is the single biggest technique shift most home cooks can make. The noodles absorb flavor from the moment they hit the liquid. The starch they release thickens the broth slightly, binding the seasoning to every strand. The whole bowl becomes more cohesive, more intentional, and significantly better. This guide covers everything I know about doing it right.</p>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#why-cook-in-broth" style="color:#B57F50;text-decoration:none;">Why cook noodles in broth (not water)?</a></li>
+    <li><a href="#broth-types" style="color:#B57F50;text-decoration:none;">The four main broth types and how to use them</a></li>
+    <li><a href="#tare" style="color:#B57F50;text-decoration:none;">What tare is and why you need it</a></li>
+    <li><a href="#noodle-types" style="color:#B57F50;text-decoration:none;">Choosing the right noodles</a></li>
+    <li><a href="#aromatics" style="color:#B57F50;text-decoration:none;">Building aromatics into the broth</a></li>
+    <li><a href="#technique" style="color:#B57F50;text-decoration:none;">The cooking technique, step by step</a></li>
+    <li><a href="#fat" style="color:#B57F50;text-decoration:none;">Fat — the most underused ingredient</a></li>
+    <li><a href="#toppings" style="color:#B57F50;text-decoration:none;">Toppings that actually make a difference</a></li>
+    <li><a href="#common-mistakes" style="color:#B57F50;text-decoration:none;">Common mistakes and how to avoid them</a></li>
+    <li><a href="#quick-reference" style="color:#B57F50;text-decoration:none;">Quick reference: broth-to-seasoning ratios</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="why-cook-in-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why Cook Noodles in Broth (Not Water)?</h2>
+
+<p>Most ramen recipes — including the instructions on every instant noodle packet I have ever read — tell you to boil the noodles in water, drain them, then add broth separately. I understand the logic: noodles release starch, and starch can cloud a carefully made broth. At a restaurant level, this matters. At home, it is almost never worth the tradeoff.</p>
+
+<p>When you cook noodles directly in broth, several things happen that simply cannot happen in plain water:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>The noodles absorb seasoning from their surface all the way through, not just from the broth ladled on top afterward.</li>
+  <li>The starch they release acts as a natural thickener, giving the finished broth a slightly silkier, more coating consistency.</li>
+  <li>The bowl becomes unified — noodles, broth, and seasoning are all the same thing by the time you eat it, rather than three components that happen to be in the same bowl.</li>
+  <li>You wash one fewer pot.</li>
+</ul>
+
+<p>The cloudiness concern is real but overstated for home cooking. Unless you are serving tonkotsu to someone who has trained their palate on Hakata-style crystal-clear broth, a slightly cloudy but intensely flavored bowl beats a clean but thin one every time.</p>
+
+<h2 id="broth-types" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Four Main Broth Types and How to Use Them</h2>
+
+<p>Before you can cook ramen in broth, you need to understand what you are working with. The base broth (called <em>dashi</em> or <em>soup stock</em> in Japanese ramen terminology) is separate from the seasoning sauce (<em>tare</em>). Most home cooks blur these together — and that is fine — but knowing the distinction helps you make better decisions.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Tonkotsu (Pork Bone)</h3>
+<p>The richest and most labor-intensive broth. Real tonkotsu requires simmering pork bones at a rolling boil for 8–18 hours, which emulsifies the collagen and fat into a creamy, white, intensely rich soup. At home, I shortcut it with store-bought pork bone broth (available at Asian grocery stores) combined with a tablespoon of tahini and a teaspoon of white miso to approximate the texture and depth. It is not the same as the real thing, but it is genuinely good. Pair it with thin, straight ramen noodles — the classic Hakata style — and season with shio (salt) or shoyu tare.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Chicken (Tori Paitan or Chintan)</h3>
+<p>My go-to for weeknight ramen. Chicken broth is versatile, widely available, and forgiving. Tori paitan is a creamy, emulsified chicken broth cooked hard like tonkotsu — white and rich. Chintan is clear and delicate. Store-bought chicken bone broth works beautifully here, especially Kettle &amp; Fire or any brand made from actual bones. Bloomed with aromatics (garlic, ginger, scallion) and seasoned with miso or shoyu tare, it makes a genuinely excellent bowl in under 20 minutes. Pair it with wavy medium-thick noodles.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Dashi (Kombu and Bonito)</h3>
+<p>The lightest base and the most traditionally Japanese. Dashi is made by steeping kombu (dried kelp) in cold water for 30 minutes, then briefly simmering with katsuobushi (bonito flakes) and straining. It is clean, oceanic, and deeply umami without being heavy. I use dashi as a base when I want something that feels more delicate — shoyu ramen built on dashi is one of my favorite meals. It is also the fastest scratch broth you can make: 30 minutes of hands-off steeping, 5 minutes of active cooking, done.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;margin:1.5rem 0 0.75rem;">Beef or Vegetable</h3>
+<p>Less traditional but highly practical. Beef broth produces a bold, hearty bowl that pairs well with shoyu tare and heavier toppings. Vegetable broth works beautifully under miso tare for a vegan bowl with genuine depth — especially if you steep dried shiitake mushrooms in the broth before cooking. Both are available everywhere and take almost no effort to upgrade with aromatics.</p>
+
+<h2 id="tare" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What Tare Is and Why You Need It</h2>
+
+<p>Tare is the concentrated seasoning sauce that defines the flavor of a ramen bowl. It is added to the base broth at serving time — a tablespoon or two at the bottom of the bowl before the soup is poured over. The three classic tare styles are:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Shio tare</strong> (salt-based) — light, clean, and delicate. Made from salt, sake, and mirin. Best with chicken or dashi broths where you want clarity of flavor.</li>
+  <li><strong>Shoyu tare</strong> (soy sauce-based) — savory, umami-rich, and the most versatile. A mix of soy sauce, mirin, sake, and a little sugar. Works with every broth type.</li>
+  <li><strong>Miso tare</strong> — the boldest and most complex. Made from one or more types of miso paste, sake, mirin, and sometimes sesame paste. Best with chicken or vegetable broths. Adds fermented depth and a slight sweetness.</li>
+</ul>
+
+<p>When cooking from instant packets, the seasoning packet is your tare. The key insight is that you should think of it as a concentrated seasoning to be used selectively, not as a full portion to dump in automatically. Start with half, taste, and add more. When cooking with pre-made broth, I always make a quick shoyu tare by mixing 3 tablespoons soy sauce with 1 tablespoon mirin and a teaspoon of sake (or dry sherry). Two tablespoons of this at the bottom of the bowl transforms plain chicken broth into something that tastes intentional.</p>
+
+<h2 id="noodle-types" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Choosing the Right Noodles</h2>
+
+<p>Noodle texture is one of the most important variables in a bowl of ramen, and it is also one of the most commonly overlooked. The noodle should be al dente — firm to the bite, with a slight chew — when it hits the bowl. It will continue cooking in the hot broth, so always undercook by 30 to 60 seconds relative to the package instructions.</p>
+
+<p>Here is how I think about noodle selection:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Fresh ramen noodles</strong> — the best texture and flavor by a significant margin. Find them refrigerated at Asian grocery stores (Sun Noodle brand is excellent and widely distributed). They cook in 1–2 minutes and have a springy, silky quality that dried noodles cannot replicate. Use these whenever possible.</li>
+  <li><strong>Dried instant noodle bricks</strong> — convenient and consistent. Shin Ramyun, Sapporo Ichiban, and Maruchan all produce solid noodle bricks. Use the noodle, customize the seasoning. They cook in 3–4 minutes in broth.</li>
+  <li><strong>Dried ramen noodles (non-instant)</strong> — available in Asian grocery stores as loose dried noodles without seasoning packets. These have better texture than instant bricks and let you control seasoning completely. Cook for 4–5 minutes directly in broth.</li>
+  <li><strong>Soba or udon noodles</strong> — not technically ramen, but excellent cooked in broth. Udon in particular holds up well to rich broths and takes on flavor beautifully. The result is more of a Japanese noodle soup than a ramen, but I love it.</li>
+</ul>
+
+<p>One rule I never break: I do not rinse noodles after cooking. Rinsing removes the surface starch that helps broth cling to every strand. Drain if you must, but never rinse.</p>
+
+<h2 id="aromatics" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Building Aromatics Into the Broth</h2>
+
+<p>This is the technique I wish I had learned years earlier. Before adding any liquid to the pot, bloom your aromatics in a small amount of fat. This extracts fat-soluble flavor compounds that simply do not transfer in a water-based soup. Two minutes of work, enormous returns.</p>
+
+<p>My standard aromatic base:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 tsp sesame oil (or neutral oil)</li>
+  <li>2 cloves garlic, minced or thinly sliced</li>
+  <li>1-inch piece fresh ginger, grated</li>
+  <li>2–3 green onion whites, sliced (save the greens for topping)</li>
+</ul>
+
+<p>Heat the oil over medium heat. Add all aromatics and stir-fry for 60–90 seconds until fragrant and very lightly golden. Do not let the garlic brown — pull it back from the heat if it starts to darken. Then immediately add your broth. The temperature difference will stop the cooking. Simmer for 5 minutes before adding noodles. The broth will smell like a ramen shop. That is the goal.</p>
+
+<p>Variations I use regularly: add a tablespoon of doubanjiang (fermented chili bean paste) for a spicy base; add a tablespoon of white miso stirred in off the heat for an extra umami layer; add half a cinnamon stick and two star anise with the aromatics for a richer, more complex broth reminiscent of Korean galbi tang.</p>
+
+<h2 id="technique" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Cooking Technique, Step by Step</h2>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.5rem;color:#1E2026;">⏱ Time Breakdown</p>
+  <ul style="margin:0;padding-left:1.25rem;color:#3a3d44;">
+    <li><strong>Prep:</strong> 5–8 minutes (slice toppings, prep aromatics)</li>
+    <li><strong>Aromatics:</strong> 2 minutes</li>
+    <li><strong>Broth simmering:</strong> 5–10 minutes</li>
+    <li><strong>Noodles in broth:</strong> 2–5 minutes depending on noodle type</li>
+    <li><strong>Assembly:</strong> 1–2 minutes</li>
+    <li><strong>Total: 15–27 minutes</strong></li>
+  </ul>
+</div>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Prepare all toppings before you start cooking.</strong> Soft-boiled egg, sliced pork, blanched vegetables — all of it goes in at the end, and the noodles move fast once they hit the broth. Have everything ready.</li>
+  <li><strong>Heat oil in a medium saucepan over medium heat.</strong> Add aromatics and cook for 60–90 seconds until fragrant.</li>
+  <li><strong>Add broth.</strong> Bring to a gentle boil — small bubbles around the edges, not a violent rolling boil.</li>
+  <li><strong>Taste and season the broth before adding noodles.</strong> Add tare, soy sauce, or miso at this stage. The broth should taste slightly over-seasoned on its own — the noodles will absorb some of the salt as they cook.</li>
+  <li><strong>Add noodles.</strong> Maintain a gentle simmer. Stir occasionally to prevent sticking.</li>
+  <li><strong>Cook until almost done</strong> — 30 to 60 seconds before the package directions say.</li>
+  <li><strong>Taste the broth again.</strong> Adjust salt, add a splash of soy sauce or sesame oil if needed.</li>
+  <li><strong>Transfer noodles to bowl first</strong>, using tongs or chopsticks. Then ladle broth over the top.</li>
+  <li><strong>Add toppings quickly</strong> and serve immediately. Ramen waits for nobody.</li>
+</ol>
+
+<h2 id="fat" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Fat — The Most Underused Ingredient</h2>
+
+<p>Fat is what makes restaurant ramen taste different from everything you make at home. Not just any fat — the specific animal or flavored fat that gets spooned into the bowl right before serving. It floats on the surface, melts into the broth as you eat, and adds a richness and depth that no amount of seasoning can replicate.</p>
+
+<p>Here is what I keep on hand and how I use it:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Chicken fat (schmaltz)</strong> — the easiest to make (render the fat off chicken skin in a low oven) and the most versatile. Adds richness without heaviness. One teaspoon per bowl is all you need.</li>
+  <li><strong>Pork lard</strong> — richer and more savory than chicken fat. Particularly good in tonkotsu-style bowls. A small amount (½ teaspoon) at the bottom of the bowl before the broth goes in melts into everything.</li>
+  <li><strong>Mayu (black garlic oil)</strong> — made by charring garlic in oil until black, then blending into a paste. It sounds extreme but it tastes extraordinary — sweet, smoky, and intensely savory. A small drizzle transforms any bowl. You can find it premade at Japanese grocery stores.</li>
+  <li><strong>Sesame oil</strong> — the most accessible. A few drops over the finished bowl adds a toasty, nutty richness. Do not cook with toasted sesame oil (it burns) — add it raw at the very end.</li>
+  <li><strong>Chili oil</strong> — for heat and richness simultaneously. Kewpie's chili oil or any good Chinese chili crisp works beautifully. One teaspoon changes the entire character of the bowl.</li>
+</ul>
+
+<h2 id="toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Toppings That Actually Make a Difference</h2>
+
+<p>I have a strong opinion about toppings: they should be prepared in advance, added cold or at room temperature, and allowed to warm in the broth as you eat. The contrast between a slightly cold soft-boiled egg and steaming hot broth is not an accident — it is part of the experience.</p>
+
+<p>The toppings that move the needle most:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Marinated soft-boiled egg (ajitsuke tamago)</strong> — bring water to a boil, lower eggs in carefully, cook for exactly 6 minutes and 30 seconds, transfer to an ice bath for 5 minutes, peel. Marinate in a 1:1:2 mix of soy sauce, mirin, and water for at least 4 hours (overnight is better). These keep for 5 days in the fridge and are worth making every Sunday.</li>
+  <li><strong>Chashu pork</strong> — pork belly rolled, tied, and braised in soy sauce, sake, mirin, and sugar for 2 hours. Refrigerate overnight and slice cold. The chilled slices warm gently in the broth and are one of the great pleasures of ramen eating. Difficult the first time, effortless after that.</li>
+  <li><strong>Bamboo shoots (menma)</strong> — available canned or in vacuum packs at Asian grocery stores. Rinse, dry, and briefly sauté with sesame oil and a dash of soy sauce. The crunch is essential contrast in a soft-textured bowl.</li>
+  <li><strong>Nori (toasted seaweed)</strong> — one or two rectangular sheets leaned against the noodles. They soften as you eat and add an oceanic umami that anchors the bowl.</li>
+  <li><strong>Corn</strong> — canned or frozen sweet corn, warmed and drained. Particularly right in miso ramen. The sweetness cuts through rich broth in a way that feels perfectly calibrated.</li>
+  <li><strong>Bean sprouts</strong> — blanched for 30 seconds in boiling water, then shocked in cold water. They add crunch and freshness. Do not skip the blanching — raw sprouts have a slightly sour flavor that dominates.</li>
+  <li><strong>Scallion greens</strong> — sliced thin on the bias. Always. Non-negotiable. The bright allium flavor is to ramen what fresh herbs are to soup — it lifts everything.</li>
+</ul>
+
+<h2 id="common-mistakes" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Common Mistakes and How to Avoid Them</h2>
+
+<p>These are the errors I made most before I understood what I was doing wrong:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Overcooking the noodles.</strong> The most common mistake. Ramen noodles go from perfect to mushy in about 60 seconds. Pull them early, every time. They keep cooking in the bowl.</li>
+  <li><strong>Adding the full seasoning packet without tasting first.</strong> Every broth is different. Taste before you season. Use half the packet, then adjust from there.</li>
+  <li><strong>Boiling rather than simmering.</strong> A violent boil overcooks noodles unevenly, emulsifies fat you did not want emulsified, and turns a delicate broth cloudy and harsh. Once the broth reaches a boil, reduce heat immediately to a gentle simmer.</li>
+  <li><strong>Not preparing toppings in advance.</strong> If you are scrambling to boil an egg while noodles overcook in the pot, the bowl is already compromised. Toppings first, always.</li>
+  <li><strong>Under-seasoning the broth before the noodles go in.</strong> The broth will taste less salty after the noodles absorb some of it. Season it to taste slightly salty before adding noodles — the finished bowl will be perfectly calibrated.</li>
+  <li><strong>Serving in a cold bowl.</strong> Ramen cools fast. Warm your bowl with hot water from the tap and dry it before ladling in the soup. It stays hot significantly longer and feels noticeably more luxurious.</li>
+  <li><strong>Skipping the fat finish.</strong> Even a few drops of sesame oil over the top costs you nothing and elevates the bowl in a way that is hard to quantify but impossible to miss.</li>
+</ul>
+
+<h2 id="quick-reference" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Quick Reference: Broth-to-Seasoning Ratios</h2>
+
+<div style="overflow-x:auto;margin:1.5rem 0;">
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+  <thead>
+    <tr style="background:#1E2026;color:#ffffff;">
+      <th style="padding:0.75rem 1rem;text-align:left;">Broth Type</th>
+      <th style="padding:0.75rem 1rem;text-align:left;">Best Tare</th>
+      <th style="padding:0.75rem 1rem;text-align:left;">Broth Volume</th>
+      <th style="padding:0.75rem 1rem;text-align:left;">Tare Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;">Chicken bone broth</td>
+      <td style="padding:0.75rem 1rem;">Shoyu or Miso</td>
+      <td style="padding:0.75rem 1rem;">2 cups</td>
+      <td style="padding:0.75rem 1rem;">2 tbsp</td>
+    </tr>
+    <tr>
+      <td style="padding:0.75rem 1rem;">Pork bone broth</td>
+      <td style="padding:0.75rem 1rem;">Shio or Shoyu</td>
+      <td style="padding:0.75rem 1rem;">2 cups</td>
+      <td style="padding:0.75rem 1rem;">1.5 tbsp</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;">Dashi</td>
+      <td style="padding:0.75rem 1rem;">Shoyu or Shio</td>
+      <td style="padding:0.75rem 1rem;">2 cups</td>
+      <td style="padding:0.75rem 1rem;">1.5–2 tbsp</td>
+    </tr>
+    <tr>
+      <td style="padding:0.75rem 1rem;">Beef broth</td>
+      <td style="padding:0.75rem 1rem;">Shoyu</td>
+      <td style="padding:0.75rem 1rem;">2 cups</td>
+      <td style="padding:0.75rem 1rem;">2 tbsp</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;">Vegetable broth</td>
+      <td style="padding:0.75rem 1rem;">Miso</td>
+      <td style="padding:0.75rem 1rem;">2 cups</td>
+      <td style="padding:0.75rem 1rem;">2–2.5 tbsp</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><em>Note: These are starting points. Always taste and adjust. The right amount depends on your specific broth brand, your sodium tolerance, and how reduced the broth gets during cooking.</em></p>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Should I cook ramen noodles separately or directly in the broth?</h3>
+<p>Directly in the broth whenever possible. The noodles absorb flavor as they cook, the starch adds body to the soup, and you get a more unified bowl with one fewer pot to wash. The exception is when you are making a large batch broth you want to reuse — in that case, cook noodles separately to preserve the broth. For single servings, cook in broth every time.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How much broth do I need per serving?</h3>
+<p>I start with about 2 to 2.5 cups (480–600ml) of broth for one serving. Some will be absorbed by the noodles — usually about ¼ to ½ cup depending on the noodle type and cook time. The finished bowl should have noodles mostly submerged in broth, with maybe half an inch of liquid above the noodles. If you end up with too much broth, it is always better to have extra than to have a dry bowl.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make the broth ahead of time?</h3>
+<p>Yes, and I recommend it. A batch of seasoned broth keeps in the fridge for 5 days and in the freezer for 3 months. Make a liter of base broth on Sunday — bloomed aromatics, seasoned to taste — and you have weeknight ramen that takes less than 10 minutes from pot to bowl. Just reheat the broth, drop in noodles, cook, bowl up. Done.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the difference between ramen broth and ramen soup?</h3>
+<p>In Japanese ramen terminology, the <em>soup</em> is the finished product in the bowl — the combination of base broth and tare. The <em>broth</em> (or dashi) is the unseasoned base liquid. At home, most people treat these as one thing, which is fine for practical cooking. Just know that if your broth tastes flat, adding tare (seasoning sauce) separately, rather than more broth, is usually the right fix.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Why does my home ramen never taste like restaurant ramen?</h3>
+<p>A few reasons. First, restaurant broth is often cooked for 8–18 hours, creating depth that is simply impossible to replicate quickly. Second, restaurants use rendered animal fats (pork back fat, chicken fat) at quantities most home cooks never use. Third, portion control: restaurants have perfected their broth-to-noodle-to-tare ratios through thousands of bowls. You can close much of this gap by using good quality broth, blooming aromatics, adding a teaspoon of rendered fat, and using half the seasoning packet while building up with fresh soy sauce and mirin. You will not match the 18-hour tonkotsu, but you will make something genuinely great.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the best broth for beginners?</h3>
+<p>Store-bought chicken bone broth with a shoyu tare. It is forgiving, widely available, and matches almost any noodle type. Bloom some garlic and ginger first, use Kettle &amp; Fire or Swanson bone broth, add two tablespoons of soy sauce and a teaspoon of mirin, finish with sesame oil and green onions. That is a genuinely good bowl of ramen with minimal effort — the perfect starting point for building more ambitious technique over time.</p>`,
+})
+
+blogPosts.push({
+  slug: 'how-to-make-chicken-ramen-shoyu-broth',
+  title: 'How to Make Chicken Ramen in a Shoyu Style Broth',
+  h1: 'How to Make Chicken Ramen in a Shoyu Style Broth',
+  description: 'A fully comprehensive guide to making chicken ramen in a shoyu-style broth at home — from scratch tare and aromatic chicken broth to chashu, marinated eggs, and assembly. Step-by-step, first person.',
+  date: 'June 9, 2026',
+  readTime: '13 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>Shoyu ramen is where I started. Before I ever attempted tonkotsu or built a dashi from scratch, I made shoyu ramen — and I made it badly for a long time. The first version I cooked smelled right, looked passable, and tasted like soy sauce dissolved in hot water. Not complex. Not layered. Just salty brown liquid with noodles.</p>
+
+<p>It took me a while to understand why. Shoyu ramen is not just broth seasoned with soy sauce. It is the combination of a carefully made chicken base, a concentrated shoyu tare built with mirin and sake, aromatics bloomed in fat, and the kind of patient assembly that turns simple ingredients into something that actually tastes like the bowl you are chasing. Once I understood the architecture — base broth separate from tare, aromatics cooked in fat before the liquid goes in, fat added at the end — everything clicked.</p>
+
+<p>This is the full guide. I will walk you through every component: the chicken broth, the shoyu tare, the chashu pork (optional but transformative), the marinated eggs, the noodles, and the assembly. The scratch version takes about three hours — most of it hands-off. A significantly faster weeknight version that still tastes genuinely excellent is possible in about 35 minutes, and I cover that too.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;">⏱ Recipe at a Glance</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem;color:#3a3d44;font-size:0.9rem;">
+    <div><strong>Prep time (full version):</strong> 30 minutes</div>
+    <div><strong>Cook time (full version):</strong> 2.5–3 hours</div>
+    <div><strong>Prep time (weeknight version):</strong> 10 minutes</div>
+    <div><strong>Cook time (weeknight version):</strong> 20–25 minutes</div>
+    <div><strong>Marinated eggs:</strong> 4 hours minimum (overnight ideal)</div>
+    <div><strong>Serves:</strong> 4 bowls (scale as needed)</div>
+  </div>
+</div>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#what-is-shoyu" style="color:#B57F50;text-decoration:none;">What is shoyu ramen?</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Full ingredient list</a></li>
+    <li><a href="#chicken-broth" style="color:#B57F50;text-decoration:none;">Making the chicken broth base</a></li>
+    <li><a href="#shoyu-tare" style="color:#B57F50;text-decoration:none;">Making the shoyu tare</a></li>
+    <li><a href="#chashu" style="color:#B57F50;text-decoration:none;">Chashu chicken or pork belly</a></li>
+    <li><a href="#marinated-eggs" style="color:#B57F50;text-decoration:none;">Marinated soft-boiled eggs (ajitsuke tamago)</a></li>
+    <li><a href="#noodles" style="color:#B57F50;text-decoration:none;">Choosing and cooking the noodles</a></li>
+    <li><a href="#assembly" style="color:#B57F50;text-decoration:none;">Assembling the bowl</a></li>
+    <li><a href="#weeknight-version" style="color:#B57F50;text-decoration:none;">The 35-minute weeknight version</a></li>
+    <li><a href="#toppings" style="color:#B57F50;text-decoration:none;">Toppings guide</a></li>
+    <li><a href="#tips" style="color:#B57F50;text-decoration:none;">Tips, variations, and troubleshooting</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="what-is-shoyu" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What Is Shoyu Ramen?</h2>
+
+<p>Shoyu ramen is one of the four classic ramen styles — alongside tonkotsu, miso, and shio — and it is arguably the most historically significant. The original Tokyo ramen, dating back to the early 20th century, was shoyu-based: a clear, amber-colored soup built on chicken or dashi stock and seasoned with a soy sauce tare. It is the ramen that defined the category before tonkotsu took over in popular imagination.</p>
+
+<p>The defining characteristic of shoyu ramen is the soy sauce tare — a concentrated seasoning that gives the bowl its color, its salty-umami backbone, and its distinctive savory depth. But "soy sauce soup" is an oversimplification. A great shoyu ramen has layers: the sweetness of mirin, the clean alcohol note of sake, the richness of chicken fat, the brightness of green onion, and the deep glutamate hit of the soy itself. All of these work together. Strip any one of them out and you feel the absence.</p>
+
+<p>The chicken broth base I use here is a <em>chintan</em> — a clear, golden broth made without the aggressive boiling that produces the cloudy, emulsified broths of tonkotsu. Chintan is cooked at a gentle simmer, which keeps it relatively clear and allows the clean chicken flavor to come through. It is what makes shoyu ramen feel simultaneously sophisticated and approachable.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Full Ingredient List</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the chicken broth (makes about 6 cups)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 lbs (900g) chicken bones, necks, and/or backs — or 1 whole chicken (3–4 lbs)</li>
+  <li>1 medium onion, halved and charred (see technique below)</li>
+  <li>1 head garlic, halved crosswise</li>
+  <li>2-inch piece fresh ginger, sliced into coins</li>
+  <li>2 green onion stalks, bruised</li>
+  <li>1 small piece kombu (dried kelp), about 4 inches — optional but adds significant umami</li>
+  <li>8 cups (2 liters) cold water</li>
+  <li>1 tsp kosher salt</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the shoyu tare (makes enough for 6–8 bowls)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>½ cup (120ml) soy sauce — I prefer a combination of regular and dark soy sauce (3:1 ratio) for color and depth</li>
+  <li>¼ cup (60ml) mirin</li>
+  <li>3 tbsp sake (or dry sherry as a substitute)</li>
+  <li>1 tbsp sugar</li>
+  <li>2 green onion stalks</li>
+  <li>2 cloves garlic, smashed</li>
+  <li>3 slices fresh ginger</li>
+  <li>1 small piece kombu</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the chashu (serves 4–6)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 lb (450g) pork belly or boneless chicken thighs</li>
+  <li>¼ cup soy sauce</li>
+  <li>¼ cup mirin</li>
+  <li>¼ cup sake</li>
+  <li>2 tbsp sugar</li>
+  <li>½ cup water</li>
+  <li>2 cloves garlic</li>
+  <li>2 slices ginger</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the marinated eggs (makes 4)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 large eggs</li>
+  <li>3 tbsp soy sauce</li>
+  <li>3 tbsp mirin</li>
+  <li>6 tbsp water</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">For the bowls (serves 4)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 portions fresh or dried ramen noodles (about 4 oz / 110g each)</li>
+  <li>4 tsp sesame oil or chicken fat (for finishing)</li>
+  <li>Toppings: sliced chashu, halved marinated egg, nori sheets, bamboo shoots, corn, blanched bean sprouts, thinly sliced green onions, white sesame seeds</li>
+</ul>
+
+<h2 id="chicken-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Chicken Broth Base</h2>
+
+<p>The broth is the foundation of the bowl. Everything else — tare, fat, toppings — layers on top of it. A weak broth produces a weak bowl no matter how good the tare is. A great broth can carry a bowl even if nothing else is particularly inspired. Spend the time here.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Blanch the bones (5 minutes)</h3>
+<p>Place chicken bones in a pot, cover with cold water, and bring to a boil. Boil hard for 2–3 minutes — you will see a grey-brown foam rise to the surface. This is impurities releasing from the bones. Drain, rinse the bones under cold water, and scrub the pot clean. This step is not optional if you want a clean, clear broth. I used to skip it. I stopped skipping it.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Char the onion and ginger (5 minutes)</h3>
+<p>Place the halved onion and ginger slices directly over a gas flame or cut-side down in a dry skillet over high heat. Cook until deeply charred — almost burnt on the cut surfaces. This adds a smoky, sweet complexity to the broth that raw onion cannot replicate. It is the technique used in Vietnamese pho and Japanese ramen shops alike, and it makes a noticeable difference.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Build and simmer the broth (2–2.5 hours)</h3>
+<p>Combine blanched bones, charred onion and ginger, garlic, green onions, kombu (if using), and cold water in a large pot. Add the salt. Bring to a gentle boil over medium heat — this should take about 15 minutes. The moment it boils, reduce heat to the lowest setting that maintains a gentle simmer. Small bubbles breaking the surface, not a rolling boil. Skim any foam that accumulates in the first 30 minutes.</p>
+
+<p>Simmer for 2–2.5 hours, partially covered. The broth should reduce by about a third and turn a rich golden color. If using kombu, remove it after the first 30 minutes of simmering — it can turn the broth bitter if cooked too long. Taste at the 90-minute mark. The broth should taste like clean, concentrated chicken with a faint sweetness from the onion. If it tastes flat, add another pinch of salt and continue simmering.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Strain and cool</h3>
+<p>Strain the broth through a fine-mesh sieve lined with a piece of cheesecloth if you want extra clarity. Let it cool, then refrigerate. The fat will solidify on the surface — save it. That solidified chicken fat is liquid gold for finishing bowls. The broth keeps for 5 days in the fridge or 3 months frozen.</p>
+
+<h2 id="shoyu-tare" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Shoyu Tare</h2>
+
+<p>The tare is what makes this shoyu ramen and not just chicken noodle soup. It is concentrated, deeply savory, and slightly sweet. Made correctly, it keeps in the fridge for a month and makes every subsequent bowl faster and better. I make a batch on Sunday and use it all week.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Combine all tare ingredients in a small saucepan: soy sauce, mirin, sake, sugar, green onions, garlic, ginger, and kombu.</li>
+  <li>Bring to a gentle simmer over medium-low heat, stirring to dissolve the sugar. Do not boil hard — you want to cook off the alcohol and meld the flavors, not reduce the tare aggressively.</li>
+  <li>Simmer gently for 8–10 minutes. The tare should smell sweet and deeply savory, like teriyaki sauce but more complex.</li>
+  <li>Remove the kombu at 5 minutes. Strain out the solids and let cool. Transfer to a sealed jar.</li>
+</ol>
+
+<p><strong>How much tare per bowl:</strong> Start with 2 tablespoons of tare at the bottom of each bowl before ladling in the broth. Adjust to taste — I usually end up between 2 and 3 tablespoons depending on how salty my broth turned out. The tare should season the soup, not overpower it.</p>
+
+<h2 id="chashu" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Chashu Chicken or Pork Belly</h2>
+
+<p>Chashu is the braised meat that sits atop every serious bowl of ramen. Pork belly is traditional and spectacular — fatty, tender, and deeply savory. Chicken thighs are a lighter alternative that works beautifully in a shoyu bowl and takes half the time. I make pork belly chashu when I have time and chicken thigh chashu on weeknights. Both are excellent.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Pork belly chashu (prep: 10 min · cook: 2–2.5 hours)</h3>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Roll the pork belly tightly (skin-side out) and tie with kitchen twine every inch. This is easiest with a partner or by wrapping in plastic wrap first and refrigerating for 30 minutes to set the shape.</li>
+  <li>Sear in a neutral oil in a heavy oven-safe pot over high heat — 2 minutes per side until deep brown all over. This step builds the flavor crust that defines good chashu.</li>
+  <li>Add braising liquid: soy sauce, mirin, sake, sugar, water, garlic, and ginger. The liquid should come about halfway up the pork.</li>
+  <li>Bring to a simmer, cover, and cook in a 275°F (135°C) oven for 2–2.5 hours, turning the pork once at the halfway mark. It is done when a skewer meets no resistance.</li>
+  <li>Let the pork cool in the braising liquid. Refrigerate overnight. Slice cold — thin, even slices that hold together beautifully. The braising liquid becomes chashu tare; add a tablespoon to your ramen broth for extra depth.</li>
+</ol>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Chicken thigh chashu (prep: 5 min · cook: 45 minutes)</h3>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Lay boneless, skin-on chicken thighs flat and roll tightly, skin-side out. Tie with kitchen twine.</li>
+  <li>Sear in oil skin-side down until golden, about 4 minutes. Turn and sear 2 more minutes.</li>
+  <li>Add the same braising liquid as above but reduce quantities by half. Simmer covered for 35–40 minutes until cooked through.</li>
+  <li>Cool in the liquid. Slice when cold. The skin gets slightly sticky and delicious — do not remove it before slicing.</li>
+</ol>
+
+<h2 id="marinated-eggs" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Marinated Soft-Boiled Eggs (Ajitsuke Tamago)</h2>
+
+<p>The marinated egg is not optional in my kitchen. A properly made ajitsuke tamago — soft-boiled to a jammy yolk, marinated until the white turns deep amber and tastes faintly of soy and sweet mirin — is one of the great simple pleasures in food. I make a batch of six every Sunday and keep them in the fridge all week. They go in ramen, on rice, and occasionally eaten standing at the counter at midnight.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Bring a pot of water to a full rolling boil. Lower eggs gently with a spoon — cold from the fridge is fine.</li>
+  <li>Cook for exactly <strong>6 minutes and 30 seconds</strong> for a jammy, flowing yolk. (6 minutes for very runny, 7 minutes for mostly set but still soft. I prefer 6:30.)</li>
+  <li>Transfer immediately to an ice bath — a bowl of water with plenty of ice — and let sit for 5 full minutes. This stops the cooking and makes peeling dramatically easier.</li>
+  <li>Peel carefully. The whites are delicate at this cook time.</li>
+  <li>Combine soy sauce, mirin, and water in a zip-lock bag or small container. Add the peeled eggs. They should be mostly submerged. Refrigerate for at least 4 hours — overnight gives the best flavor penetration and that deep amber color.</li>
+  <li>Slice in half lengthwise just before serving. The cross-section should show a bright orange-gold yolk that is set at the edges and still slightly liquid in the center.</li>
+</ol>
+
+<p>The marinade doubles as extra tare — a tablespoon added to the broth adds another layer of that sweet-salty flavor. I always do this.</p>
+
+<h2 id="noodles" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Choosing and Cooking the Noodles</h2>
+
+<p>Shoyu ramen traditionally uses thin to medium-thickness, slightly wavy noodles — the kind associated with Tokyo-style ramen. They are lighter than the thick, straight Hakata noodles of tonkotsu, and they work in harmony with a clear, delicate broth rather than fighting it for dominance.</p>
+
+<p>My preferences in order:</p>
+
+<ol style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Fresh Sun Noodle brand ramen noodles</strong> — found at Japanese and Korean grocery stores, sometimes at Whole Foods. The texture is noticeably superior to anything dried. Cook in the broth for 1.5–2 minutes.</li>
+  <li><strong>Fresh refrigerated ramen noodles (any brand)</strong> — Asian grocery stores usually stock their own house brand. Good quality and fast to cook.</li>
+  <li><strong>Dried thin ramen noodles (without seasoning packet)</strong> — available in the noodle aisle at Asian grocery stores. Cook in the broth for 3–4 minutes. Better than instant bricks for texture.</li>
+  <li><strong>Instant ramen noodle bricks (packet discarded)</strong> — perfectly serviceable. Use the noodle brick, skip the flavor packet, and season entirely with the homemade tare. Cook 2–3 minutes in broth.</li>
+</ol>
+
+<p>The non-negotiable rule: cook noodles directly in the broth, not in a separate pot of water. And pull them 30–45 seconds before they look done — they continue cooking in the hot bowl. I say this in every cooking guide I write because I have overcooked more noodles than I can count, and every time I do it I wish I had pulled them earlier.</p>
+
+<h2 id="assembly" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Assembling the Bowl</h2>
+
+<p>Assembly is where everything either comes together or falls apart. Order matters. Temperature matters. Speed matters — ramen is not a dish that waits politely while you fumble with toppings.</p>
+
+<p>Here is the exact sequence I follow every time:</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Warm the bowls.</strong> Fill each serving bowl with hot tap water and let it sit while you finish cooking. A warm bowl keeps ramen hot for an extra 5–7 minutes — which matters more than people realize. Dump the water and dry the bowl right before ladling.</li>
+  <li><strong>Add tare to the bowl first.</strong> Two to three tablespoons of shoyu tare at the bottom of the warm bowl. This is the Japanese technique called <em>tare wo shiku</em> (laying down the tare) — the hot broth poured on top emulsifies it instantly and distributes the seasoning evenly throughout the soup.</li>
+  <li><strong>Add a teaspoon of fat.</strong> A teaspoon of the solidified chicken fat you reserved from the broth, or sesame oil if you do not have chicken fat. Add it on top of the tare before the broth.</li>
+  <li><strong>Ladle hot broth over the tare and fat.</strong> About 1.5 to 2 cups per bowl. The broth should be at a full simmer when it hits the bowl — not hot but past its boiling point, but actively bubbling.</li>
+  <li><strong>Add the noodles.</strong> Use tongs or chopsticks to transfer noodles from the pot. Arrange them loosely in the bowl so they sit beneath the broth rather than piled on top.</li>
+  <li><strong>Add toppings in a deliberate arrangement.</strong> Ramen is eaten with the eyes first. Place chashu slices fanned to one side, egg halved and positioned yolk-up, nori leaned against the noodles, corn in a small mound, bamboo shoots opposite the chashu, bean sprouts lightly piled. Scatter green onions over everything.</li>
+  <li><strong>Drizzle with sesame oil and scatter sesame seeds.</strong> A final drizzle of toasted sesame oil over the surface — use a light hand, maybe ½ teaspoon — adds a toasty fragrance that hits you the moment the bowl is set down. A pinch of white sesame seeds is the finishing touch.</li>
+  <li><strong>Serve immediately.</strong> Walk it to the table. Ramen does not hold.</li>
+</ol>
+
+<h2 id="weeknight-version" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The 35-Minute Weeknight Version</h2>
+
+<p>I love the full scratch version. I also work five days a week and do not always have three hours. Here is the version I make on Tuesday nights — it uses store-bought broth and pre-made tare (from a batch I made on Sunday) and produces a bowl that is genuinely excellent, not a compromise.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.5rem;color:#1E2026;">⏱ Weeknight Version</p>
+  <ul style="margin:0;padding-left:1.25rem;color:#3a3d44;">
+    <li><strong>Prep:</strong> 10 minutes</li>
+    <li><strong>Cook time:</strong> 20–25 minutes</li>
+    <li><strong>Total:</strong> 30–35 minutes</li>
+  </ul>
+</div>
+
+<p><strong>What you need:</strong></p>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 cups (480ml) good-quality chicken bone broth (Kettle &amp; Fire or similar)</li>
+  <li>2–3 tbsp shoyu tare (store-bought mentsuyu works as a substitute — use 1.5 tbsp)</li>
+  <li>1 tsp sesame oil</li>
+  <li>2 garlic cloves, minced</li>
+  <li>1-inch piece ginger, grated</li>
+  <li>1 green onion stalk, sliced</li>
+  <li>1 portion ramen noodles</li>
+  <li>Toppings from the fridge (pre-made eggs, any leftover chashu, whatever vegetables you have)</li>
+</ul>
+
+<p><strong>Method:</strong></p>
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>Heat sesame oil in a small saucepan over medium heat. Add garlic and ginger, cook 60 seconds until fragrant.</li>
+  <li>Add chicken broth and bring to a gentle simmer. Add the white parts of the green onion. Simmer 10 minutes.</li>
+  <li>Add noodles directly to the broth. Cook until just underdone — about 2 minutes for fresh, 3–4 for dried.</li>
+  <li>Put tare at the bottom of a warmed bowl. Ladle broth and noodles over the top. Add toppings. Finish with sesame oil and sliced green onion greens.</li>
+</ol>
+
+<p>The secret to making the weeknight version taste less like a shortcut: bloom the aromatics in fat (that 60 seconds of garlic and ginger in sesame oil), use bone broth instead of regular broth, and have the tare made in advance so the seasoning is as layered as the from-scratch version. Three specific things that do 80% of the work.</p>
+
+<h2 id="toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Toppings Guide</h2>
+
+<p>Shoyu chicken ramen has a clean, delicate profile — which means the toppings should complement rather than overwhelm. I keep things relatively restrained compared to a tonkotsu build, focusing on texture contrast and freshness.</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Chashu (required)</strong> — 2–3 slices per bowl, either chicken or pork. The braising liquid from the chashu is excellent added to the broth in small amounts.</li>
+  <li><strong>Ajitsuke tamago (required)</strong> — one egg, halved, per bowl. See recipe above. No substitution is as satisfying.</li>
+  <li><strong>Nori</strong> — one or two sheets. Lean them against the noodles so they partially submerge in the broth. They soften and add oceanic umami as you eat. Essential in shoyu ramen specifically.</li>
+  <li><strong>Menma (bamboo shoots)</strong> — available canned. Rinse, sauté briefly with a splash of soy sauce and sesame oil. Adds crunch and an earthy, slightly fermented note.</li>
+  <li><strong>Bean sprouts</strong> — blanch for 30 seconds, shock in ice water. Adds fresh crunch and a slight sweetness. I often skip these on weeknights but always include them when making for guests.</li>
+  <li><strong>Corn</strong> — canned or frozen sweet corn, warmed. The sweetness plays particularly well against the salty-umami shoyu base.</li>
+  <li><strong>Narutomaki (fish cake)</strong> — the pink-and-white swirled slice you see in classic Tokyo ramen photographs. Available at Japanese grocery stores. More traditional than transformative, but it signals that you know what you are doing.</li>
+  <li><strong>Scallion greens</strong> — always. Sliced thin on the bias. Scattered over everything at the very end.</li>
+  <li><strong>White sesame seeds</strong> — a light scattering. Textural and visual.</li>
+  <li><strong>Togarashi</strong> — Japanese seven-spice blend. A pinch for anyone who wants heat. Offer it at the table rather than adding to the whole pot.</li>
+</ul>
+
+<h2 id="tips" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Tips, Variations, and Troubleshooting</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Tips I always follow</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Make the tare and eggs in advance.</strong> They both improve with time. Sunday batch cooking means weeknight ramen takes 25 minutes start to bowl.</li>
+  <li><strong>Never boil broth with noodles in it.</strong> A gentle simmer only. High heat makes noodles gummy and broths murky.</li>
+  <li><strong>Add tare to the bowl, not the pot.</strong> This lets each person adjust seasoning to their taste, and it preserves the broth for reuse without over-salting it.</li>
+  <li><strong>Reserve and use the chicken fat.</strong> The solid fat layer on top of refrigerated broth is the single ingredient that most improves a shoyu bowl. One teaspoon per bowl. Do not skip it.</li>
+  <li><strong>Taste everything before it goes in the bowl.</strong> Broth, tare, noodles. Adjust constantly. Ramen is a dish where active tasting matters.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Variations worth trying</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Spicy shoyu</strong> — add a tablespoon of doubanjiang (fermented chili bean paste) or gochujang to the tare. The heat integrates beautifully with the soy sauce base.</li>
+  <li><strong>Yuzu shoyu</strong> — add a teaspoon of yuzu juice or yuzu kosho to the finished bowl. The citrus brightens everything and makes the bowl smell extraordinary.</li>
+  <li><strong>Mushroom shoyu</strong> — steep dried shiitake mushrooms in the broth for 30 minutes before simmering. Remove and slice them, then use as a topping. The broth gains deep, earthy umami.</li>
+  <li><strong>Tori paitan style</strong> — cook the chicken broth at a rolling boil for 1 hour instead of a gentle simmer. This emulsifies the fat and collagen into a cloudy, creamy broth similar to tonkotsu but with chicken. Still season with shoyu tare. The result is richer and more luscious.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Troubleshooting common problems</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Broth is too light and thin:</strong> Simmer longer with the lid off. Or add a splash of the chashu braising liquid, which is concentrated and intensely flavored.</li>
+  <li><strong>Bowl is too salty:</strong> Add a splash of plain water or unsalted broth to dilute. Next time, use less tare and build up gradually.</li>
+  <li><strong>Noodles are mushy:</strong> Cooked too long. Pull noodles earlier — they cook faster in hot broth than the packaging suggests, and they continue cooking in the bowl.</li>
+  <li><strong>Broth tastes flat despite good ingredients:</strong> Almost always a fat or umami problem. Add a teaspoon of chicken fat, a few drops of sesame oil, or a small pinch of MSG. Flat broth is often just under-fatted.</li>
+  <li><strong>Egg yolk is fully set:</strong> Cook time was too long. Reduce by 30 seconds next attempt. Egg size also matters — large eggs need 6:30, extra-large need 7 minutes.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What type of soy sauce is best for shoyu tare?</h3>
+<p>I use a combination of regular Japanese soy sauce (like Kikkoman) and a smaller amount of dark soy sauce for color and depth. All regular soy sauce produces a slightly pale, thinner tare. All dark soy sauce is too thick and overwhelming. A 3:1 ratio of regular to dark is my default. Chinese soy sauce works in a pinch but has a slightly different flavor profile — acceptable, not ideal.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use store-bought chicken broth instead of making it from scratch?</h3>
+<p>Yes, and I do this regularly on weeknights. Kettle &amp; Fire Chicken Bone Broth is the best store-bought option I have found — it has real body and flavor. Swanson Unsalted is a reliable backup. Whatever you use, bloom aromatics in fat before adding it (garlic, ginger, scallion for 60 seconds in sesame oil) and your bowl will taste significantly more intentional than if you just heated broth from the carton.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the difference between shoyu tare and just adding soy sauce to broth?</h3>
+<p>The tare is cooked with mirin, sake, aromatics, and kombu — all of which add sweetness, complexity, and umami that raw soy sauce alone cannot provide. A tablespoon of soy sauce added directly to broth tastes flat and sharp. Two tablespoons of properly made shoyu tare tastes layered and complete. The 10 minutes of cooking time transforms the ingredients into something genuinely different.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How long does the shoyu tare keep?</h3>
+<p>The tare keeps in a sealed jar in the refrigerator for up to one month. The salt content acts as a preservative. I make a batch every 3–4 weeks and it is always ready when I need it. It can also be frozen for up to 6 months in ice cube trays — convenient individual portions.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Is shoyu ramen different from tonkotsu shoyu?</h3>
+<p>Yes. Traditional shoyu ramen uses a chicken or dashi base — light, clear, and relatively delicate. Tonkotsu shoyu blends a rich, emulsified pork bone broth with a shoyu tare — richer, creamier, and more intense. The tare may be similar but the base broth is entirely different. What I am describing in this guide is the classic chicken chintan shoyu style.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this vegetarian or vegan?</h3>
+<p>Yes. Replace the chicken broth with a mushroom-kombu dashi: steep 1 oz dried shiitake mushrooms and a 4-inch piece of kombu in 8 cups cold water for 30 minutes, then simmer for 15 minutes and strain. Omit the chashu or substitute with pan-fried tofu (pressed, sliced, and seared until golden) marinated briefly in the same soy-mirin-sake mix. Use the same shoyu tare — it is already vegan. The bowl will be lighter but genuinely delicious.</p>`,
+})
+
+blogPosts.push({
+  slug: 'miso-chashu-ramen-recipe',
+  title: 'Miso Chashu Ramen Recipe: Rich Broth and Tender Pork',
+  h1: 'Miso Chashu Ramen Recipe: Rich Broth and Tender Pork',
+  description: 'A fully comprehensive guide to making Miso Chashu Ramen at home — rich collagen-infused pork broth laced with hatcho miso, tender braised pork belly, marinated soft-boiled eggs, and ramen noodles. Made in 1 hour with a pressure cooker.',
+  date: 'June 9, 2026',
+  readTime: '14 min read',
+  category: 'Cooking Guides',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p>This is one real-deal bowl of ramen, my friends. One of the best things I have ever made — and I have a long list of "best things ever" that mostly involves melted cheese, chocolate, and bacon. But seriously, this Miso Chashu Ramen has become a favourite of all favourites in my kitchen.</p>
+
+<p>The base is rich, collagen-infused, and deeply flavoured pork broth laced with earthy hatcho miso. It is served with the toppings I love most: Chashu Pork (Japanese-style braised pork belly), a soft-boiled and marinated egg, crunchy vegetables, and properly slurpy noodles. This bowl is tied up in some of my best memories — cold winter nights, good company, steam rising from a bowl that took effort but rewarded every bit of it.</p>
+
+<p>Here is the thing: most people hear "ramen from scratch" and immediately picture a 16-hour project. And yes, that version exists and it is extraordinary. But this version uses a pressure cooker — my Instant Pot specifically — and produces a broth with genuine depth and body in just one hour of active cooking. The secret is that pressure cooking extracts collagen from the bones at a rate that would take 8 to 12 hours on the stovetop. The machine does the slaving. You do the enjoying.</p>
+
+<div style="background:#F5F4F0;border-left:4px solid #B57F50;border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;">⏱ Recipe at a Glance</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem;color:#3a3d44;font-size:0.9rem;">
+    <div><strong>Prep time:</strong> 1 hour</div>
+    <div><strong>Cook time:</strong> 3 hours</div>
+    <div><strong>Overnight marinating:</strong> Chashu pork + ramen eggs</div>
+    <div><strong>Active hands-on time:</strong> ~45 minutes</div>
+    <div><strong>Serves:</strong> 4</div>
+    <div><strong>Equipment:</strong> Instant Pot or pressure cooker</div>
+  </div>
+  <p style="margin:0.75rem 0 0;font-size:0.85rem;color:#6B6862;font-style:italic;">Note: Don't be alarmed by the prep time — it is mostly overnight marinating that requires almost no hands-on effort. The actual active cooking is straightforward and well worth it.</p>
+</div>
+
+<nav style="background:#ffffff;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;margin:0 0 0.75rem;color:#1E2026;font-size:0.95rem;">Table of Contents</p>
+  <ol style="margin:0;padding-left:1.25rem;color:#B57F50;line-height:2;">
+    <li><a href="#why-pressure-cooker" style="color:#B57F50;text-decoration:none;">Why the pressure cooker changes everything</a></li>
+    <li><a href="#hatcho-miso" style="color:#B57F50;text-decoration:none;">Why I use hatcho miso</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Full ingredient list</a></li>
+    <li><a href="#chashu-pork" style="color:#B57F50;text-decoration:none;">Making the chashu pork (overnight marinade + braise)</a></li>
+    <li><a href="#ramen-eggs" style="color:#B57F50;text-decoration:none;">Making the ramen eggs (ajitsuke tamago)</a></li>
+    <li><a href="#pork-broth" style="color:#B57F50;text-decoration:none;">Making the pressure cooker pork broth</a></li>
+    <li><a href="#noodles-veg" style="color:#B57F50;text-decoration:none;">Noodles and vegetables</a></li>
+    <li><a href="#assembly" style="color:#B57F50;text-decoration:none;">Assembling the bowl</a></li>
+    <li><a href="#toppings" style="color:#B57F50;text-decoration:none;">Toppings guide</a></li>
+    <li><a href="#make-ahead" style="color:#B57F50;text-decoration:none;">Make-ahead and storage</a></li>
+    <li><a href="#tips" style="color:#B57F50;text-decoration:none;">Tips, substitutions, and troubleshooting</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently asked questions</a></li>
+  </ol>
+</nav>
+
+<h2 id="why-pressure-cooker" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why the Pressure Cooker Changes Everything</h2>
+
+<p>I have made ramen broth the traditional way — low and slow on the stovetop, simmering for 8 to 12 hours until the collagen from the bones dissolves into the liquid and the broth turns rich, silky, and opaque. It is extraordinary. It also requires the better part of a day and a level of commitment that rules it out for most weeknight cooking.</p>
+
+<p>The Instant Pot changed my ramen game more than any other piece of equipment I have bought. Under pressure, the temperature of the boiling liquid rises above the normal 212°F (100°C) ceiling — this higher temperature extracts collagen from bones dramatically faster than stovetop simmering. One hour at high pressure produces a broth with the body and depth of 4 to 6 hours of stovetop cooking. The result is not identical to a traditional long-simmered broth, but it is genuinely excellent and far better than anything you can achieve in one hour on the stove.</p>
+
+<p>My pressure cooker also has a slow cooker function, and yes, I could use that instead. But I cannot think of a single reason to ask the machine to work for 8 to 12 hours when it can produce the same result — or better — in one. The pressure cooker option wins every time.</p>
+
+<h2 id="hatcho-miso" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why I Use Hatcho Miso</h2>
+
+<p>Not all miso is created equal, and for this broth I specifically seek out hatcho miso. Here is why it matters.</p>
+
+<p>Hatcho miso is made purely from soybeans — no rice, no barley, no other grains added to the fermentation process. It is fermented for longer than any other miso type, typically two to three years, which produces a colour so dark it is almost black, a texture that is dense and dry rather than smooth and paste-like, and a flavour that is intensely concentrated, slightly bitter, and deeply savoury. It is a very high-quality ingredient with no additives and a fermented complexity that cheaper miso types simply cannot match.</p>
+
+<p>The key to using hatcho miso is restraint. Because the flavour is so concentrated, a small amount — I use two tablespoons for the entire batch of broth — goes a long way. Add too much and it overwhelms everything. The goal is to lace the broth with earthiness and depth, not to make the bowl taste like miso soup. If you cannot find hatcho miso, a combination of red miso (aka miso) and a smaller amount of white miso is a reasonable substitute. Avoid using only white or yellow miso here — the broth is robust enough that you need the depth of a darker miso to stand up to it.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Full Ingredient List</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Pork stock (pressure cooker)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>2 lbs pig's trotters, pork ribs, and/or chicken backs (a combination works well)</li>
+  <li>3 shallots, roughly chopped</li>
+  <li>3 scallions, roughly sliced</li>
+  <li>7 slices fresh ginger</li>
+  <li>5 cloves garlic</li>
+  <li>2 carrots, roughly chopped</li>
+  <li>2 tbsp hatcho miso paste</li>
+  <li>2 tbsp soy sauce</li>
+  <li>2 tbsp fish sauce</li>
+  <li>Water to just cover the bones (approximately 8–10 cups)</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Chashu pork (overnight marinade + 1-hour braise)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>1 lb (450g) pork belly, skin-on</li>
+  <li>2 cups water</li>
+  <li>⅓ cup soy sauce</li>
+  <li>¼ cup rice vinegar</li>
+  <li>¼ cup sake</li>
+  <li>½ cup brown sugar</li>
+  <li>2 shallots, finely chopped</li>
+  <li>6 cloves garlic, minced</li>
+  <li>2 tbsp fresh ginger, minced</li>
+  <li>1 tbsp sesame oil</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Ramen eggs (overnight marinade)</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>4 large cold eggs (straight from the fridge)</li>
+  <li>4 tbsp soy sauce</li>
+  <li>4 tbsp mirin</li>
+  <li>1 cup water</li>
+  <li>Bowl of ice water (for shocking after boiling)</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">To garnish and serve</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li>Ramen noodles (fresh, dried, udon, or soba — 4 portions)</li>
+  <li>Shiitake mushrooms, sliced</li>
+  <li>Chinese broccoli (gai lan) or bok choy, roughly chopped</li>
+  <li>Bean sprouts</li>
+  <li>Nori (dried seaweed), cut into rectangles</li>
+  <li>Chilli pepper or chilli crisp, to taste</li>
+  <li>Cilantro, roughly torn</li>
+  <li>Sesame seeds</li>
+  <li>Red pepper flakes</li>
+  <li>Salt and freshly ground black pepper to taste</li>
+</ul>
+
+<h2 id="chashu-pork" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Chashu Pork</h2>
+
+<p>Chashu Pork has its origins in Chinese barbecued pork — called Char Siu — traditionally marinated in Chinese spices and then roasted or barbecued over fire. The Japanese adaptation is braised rather than roasted, lower and slower, and the result is something completely its own: a deeply glazed, melt-in-your-mouth pork belly that is the centrepiece of the bowl.</p>
+
+<p>My version starts the night before. The pork belly marinates overnight in a soy-sake-brown sugar mixture, which begins breaking down the proteins and seasoning the meat all the way through. The next day, a hard sear in a cast-iron pot caramelises the surface — this is the step that builds the fond and gives the final slices their mahogany edges — and then it braises low and slow in the same marinade until the liquid reduces to a sticky, intensely flavoured glaze.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Prepare the marinade and marinate overnight</h3>
+<p>In a medium mixing bowl, combine the water, soy sauce, rice vinegar, sake, brown sugar, shallots, garlic, ginger, and sesame oil. Whisk until the sugar is mostly dissolved. Place the pork belly in a glass container or large zip-lock bag and pour the marinade over it. Seal and refrigerate overnight. I always try to flip the pork belly once during the marinating process if I think of it — it ensures even penetration on all sides.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Sear the pork belly (10 minutes)</h3>
+<p>The next day, remove the pork belly from the marinade and pat it dry with paper towels. Reserve every drop of the marinade — it becomes the braising liquid. Heat a dutch oven or heavy cast-iron pot with a neutral oil over medium-high heat. When the oil shimmers, add the pork belly and sear on all sides until deeply browned — about 10 minutes total, turning as each side builds a proper crust. Do not rush this step. The browning creates flavour compounds that transfer into the braising liquid and ultimately into every slice of chashu you serve.</p>
+
+<p>Remove the seared pork belly and set aside.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Sauté aromatics and braise (1 hour)</h3>
+<p>Into the same pot (with all the browned bits still in it), add the shallots, garlic, and ginger from the marinade. Cook over medium heat for about 3 minutes until the shallots soften and start to caramelise. Pour in the reserved marinade, scraping up the fond from the bottom of the pot. Return the pork belly to the pot and bring everything to a boil. Reduce the heat to medium-low, cover, and simmer for about 1 hour. Turn the pork belly from side to side every 15 minutes so it braises evenly and the marinade coats all surfaces.</p>
+
+<p>The braising is done when the liquid has reduced to approximately half a cup — thick, sticky, and deeply flavoured — and a skewer or chopstick meets almost no resistance when pushed through the thickest part of the belly. Turn off the heat and let the pork rest in the liquid.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Rest, refrigerate, and slice</h3>
+<p>Let the pork belly cool in the braising liquid. Once cool, transfer to the refrigerator. Cold chashu slices cleanly and holds together in a way that hot or warm pork belly cannot. I refrigerate it overnight if possible and slice it just before serving. Slice across the grain into rounds about ¼-inch thick. The caramelised edges will be deep amber, the interior soft enough to yield to a spoon.</p>
+
+<p>The reduced braising liquid is precious — it doubles as a finishing sauce. I keep it in the fridge and add a tablespoon to the ramen broth for extra depth, or drizzle it over the chashu slices when serving.</p>
+
+<h2 id="ramen-eggs" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Ramen Eggs (Ajitsuke Tamago)</h2>
+
+<p>My favourite part of this entire recipe is the ramen eggs. They look beautiful, they taste incredible, and — most importantly for a dish with this many components — they are genuinely easy. The technique is the same every time and it works perfectly: cold eggs, exactly 7 minutes in boiling water, ice bath, overnight marinade.</p>
+
+<p>A note on timing: I use 7 minutes for large eggs straight from the fridge. This produces a white that is fully set and an yolk that is jammy — flowing slightly at the centre, set at the edges, bright orange-gold in colour. If you prefer a more liquid yolk, try 6 minutes 30 seconds. If you want it fully set but still creamy, 7 minutes 30 seconds. Write down what works for you and your stove and repeat it every time. Consistency is the goal.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Soft-boil the eggs</h3>
+<p>Bring a medium pot of water to a full rolling boil. Using a spoon, carefully lower the cold eggs into the water one at a time. Reduce heat slightly to a steady medium boil — not a violent rolling boil that batters the eggs against the sides of the pot. Set a timer for exactly 7 minutes and do not leave the kitchen.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Ice bath</h3>
+<p>The moment the timer goes off, transfer the eggs immediately to a bowl of ice water. This stops the cooking instantly and gives you complete control over the final yolk texture. Cold water alone is not sufficient — use plenty of ice. Leave the eggs in the ice bath for at least 5 minutes, longer is fine.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Prepare the marinade</h3>
+<p>While the eggs cool, combine soy sauce, mirin, and water in a small bowl or jar. Stir to combine. Pour the marinade into a large zip-lock bag.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 4 — Peel and marinate overnight</h3>
+<p>Peel the cooled eggs carefully — the whites are delicate at this level of doneness. Place the peeled eggs in the zip-lock bag with the marinade. Seal the bag, then secure it with a bag clip to ensure the eggs are fully submerged in the marinade. Lay flat in the refrigerator and leave overnight. The whites will turn a deep amber-brown and absorb a sweet-salty flavour that is absolutely characteristic of great ramen. Halve them lengthwise just before serving, using a sharp knife or a piece of clean string pulled through the yolk.</p>
+
+<h2 id="pork-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Making the Pressure Cooker Pork Broth</h2>
+
+<p>The broth is where the Instant Pot earns everything. What would take a traditional kitchen 8 to 12 hours of simmering gets done in 1 hour under pressure — and the result is a collagen-rich, deeply flavoured broth that coats the back of a spoon and smells like a serious ramen shop.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 1 — Blanch the bones (30 minutes)</h3>
+<p>Rinse the bones under cold running water. Place them in a large soup pot, cover with cold water, and bring to a boil over high heat. Let it boil hard for a few minutes — grey-brown impurities will rise to the surface as foam. Skim as much as you can, then reduce the heat and simmer for about 30 minutes. Drain, rinse the bones thoroughly under cold water, and scrub the pot. This blanching step is the difference between a clean, clear broth and one that tastes slightly muddy and off. Do not skip it.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 2 — Pressure cook the broth (1 hour)</h3>
+<p>Transfer the blanched bones to the pressure cooker. Add water to just cover the bones — approximately 8 to 10 cups depending on the size of your pot. Add the shallots, ginger, garlic, carrots, and scallions. Do not add the miso, soy sauce, or fish sauce yet — these go in after cooking.</p>
+
+<p>Seal the pressure cooker and cook on high pressure for 1 hour. Let the pressure release naturally for at least 15 minutes before opening. The broth will be golden to amber in colour, cloudy with dissolved collagen, and it will smell extraordinary.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Step 3 — Strain and season</h3>
+<p>Strain the broth through a fine-mesh sieve, discarding all the solids. Pour the strained broth back into a pot. Taste it — it should be rich and savoury but likely not yet fully seasoned.</p>
+
+<p>Add the soy sauce and fish sauce and stir. Then add the hatcho miso paste. Here is the most important technique for adding miso to broth: place the miso in a small ladle or mesh strainer, hold it just below the surface of the broth, and use a spoon to push the miso through the mesh while stirring the broth around it. This dissolves the miso evenly without leaving unmixed clumps. Never boil the broth after adding miso — the heat destroys the live cultures and dulls the flavour. Warm, not boiling, is the rule.</p>
+
+<p>Taste again and adjust. The broth should taste complex, savoury, slightly earthy from the miso, and rich in a way that plain broth never is. If it tastes thin, simmer uncovered for 10 minutes to concentrate. If it is too salty, add a splash of water.</p>
+
+<h2 id="noodles-veg" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Noodles and Vegetables</h2>
+
+<p>For the noodles I love the curly yellow ramen noodles you find at Asian grocery stores — they have the right chew and weight for a broth this robust. Udon works beautifully too, as does soba if you want something a bit more refined and earthy. I have not made homemade ramen noodles yet — that is a project for another day — but store-bought fresh or good dried noodles serve this bowl extremely well.</p>
+
+<p>Cook noodles according to the packaging instructions, but taste them 30 to 60 seconds early. I always pull noodles slightly before the suggested time because they continue cooking in the hot broth. Overcooked noodles in ramen are a genuine tragedy and one of the easiest mistakes to avoid.</p>
+
+<p>For the vegetables, I cook the shiitake mushrooms and Chinese broccoli directly in the pork broth for 3 to 5 minutes just before serving. This seasons the vegetables with the broth and adds a little of their flavour back into the soup. Bean sprouts go in raw — or blanched for 30 seconds if you prefer — directly into the bowl at assembly time.</p>
+
+<h2 id="assembly" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Assembling the Bowl</h2>
+
+<p>This is the part of ramen cooking that is genuinely theatrical and deeply satisfying. Have everything ready before you start — noodles cooked, chashu sliced, eggs halved, vegetables cooked, broth hot. Assembly moves fast and the bowl should go from kitchen to table in under two minutes.</p>
+
+<ol style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Warm the serving bowls.</strong> Fill each bowl with hot water from the tap and let it sit while you finish the last components. A warm bowl keeps ramen hot significantly longer. Drain and dry just before ladling.</li>
+  <li><strong>Divide the noodles between the bowls.</strong> Use tongs or chopsticks. Arrange them loosely so broth can flow through rather than sitting on top of a solid noodle block.</li>
+  <li><strong>Ladle hot broth over the noodles.</strong> The broth should be at a full simmer when it hits the bowl — about 1.5 to 2 cups per serving. The noodles will rise and float slightly; that is what you want.</li>
+  <li><strong>Add the mushrooms and broccoli</strong> from the broth. Place them to one side of the bowl so each topping occupies its own space.</li>
+  <li><strong>Add the chashu slices.</strong> Two to three slices per bowl, fanned slightly so the cross-section of the pork is visible and the caramelised edges show.</li>
+  <li><strong>Place the halved egg yolk-side up.</strong> Position it so the orange yolk faces the diner. This is not vanity — it is information. The yolk colour tells you exactly what you are about to eat.</li>
+  <li><strong>Add bean sprouts</strong> in a small mound for crunch and freshness.</li>
+  <li><strong>Finish with garnishes:</strong> nori pieces leaned against the noodles, chilli pepper or chilli crisp to taste, scattered sesame seeds, cilantro, and a pinch of red pepper flakes. A light drizzle of sesame oil over the surface — no more than half a teaspoon — adds a toasty finish that fills the room the moment the bowl is set down.</li>
+  <li><strong>Season to taste</strong> with salt, freshly ground black pepper, or an extra splash of the chashu braising liquid if you want more depth.</li>
+</ol>
+
+<h2 id="toppings" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Toppings Guide</h2>
+
+<p>Half the joy of this bowl is the toppings, and I encourage you to be as creative as you like. These are the ones I use and why:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Chashu pork</strong> — the centrepiece. Melt-in-your-mouth, juicy, deeply flavoured. Non-negotiable in my kitchen.</li>
+  <li><strong>Ajitsuke tamago (marinated soft-boiled egg)</strong> — the second essential. The jammy yolk and sweet-salty amber white make every bowl feel complete.</li>
+  <li><strong>Shiitake mushrooms</strong> — cooked in the broth. They add earthiness and an extra layer of umami that plays beautifully against the miso.</li>
+  <li><strong>Chinese broccoli (gai lan)</strong> — slightly bitter and vegetal, it cuts through the richness of the broth. Bok choy or broccolini work just as well.</li>
+  <li><strong>Bean sprouts</strong> — crunch and freshness. I sometimes blanch them for 30 seconds, sometimes add raw. Both work.</li>
+  <li><strong>Nori</strong> — pieces of roasted seaweed, leaned against the noodles so they partially submerge. They soften and add an oceanic note that anchors the bowl.</li>
+  <li><strong>Chilli pepper or chilli crisp</strong> — for heat. I use Lao Gan Ma chilli crisp oil most often — the fried shallots and chillies in it add texture as well as heat.</li>
+  <li><strong>Cilantro</strong> — a small handful, roughly torn. The bright, herbal quality lifts the bowl considerably. (Skip if you are in the "cilantro tastes like soap" camp — the bowl is excellent without it.)</li>
+  <li><strong>Sesame seeds</strong> — lightly toasted white sesame seeds, scattered over everything at the very end.</li>
+  <li><strong>Red pepper flakes</strong> — for heat and visual colour.</li>
+</ul>
+
+<h2 id="make-ahead" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Make-Ahead and Storage</h2>
+
+<p>This recipe is designed to be made in stages and everything stores well. Here is how I manage it:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Pork broth</strong> — keeps in the refrigerator for 5 days or in the freezer for 3 months. Make a double batch and freeze in 2-cup portions. Future-you will be extremely grateful.</li>
+  <li><strong>Chashu pork</strong> — keeps refrigerated in the braising liquid for up to 5 days. Freezes well for 2 months, sliced and wrapped tightly. Reheat briefly in the braising liquid or warm in the hot broth just before serving.</li>
+  <li><strong>Ramen eggs</strong> — best within 5 days of marinating. They will continue to firm up and deepen in colour over time. Day 1 is a little light; days 2 and 3 are perfect; day 5 is still very good but slightly saltier.</li>
+  <li><strong>Assembled bowl</strong> — ramen does not store once assembled. Noodles absorb all the broth and become soggy within minutes. Store all components separately and assemble fresh. The good news: with broth, chashu, and eggs all pre-made, assembly takes about 5 minutes.</li>
+</ul>
+
+<h2 id="tips" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Tips, Substitutions, and Troubleshooting</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Tips I always follow</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Blanch the bones.</strong> I mentioned this in the broth section and I will say it again here because it is the single step most often skipped. Unsmoothed impurities from unblanched bones make the broth taste slightly off — a flavour that is hard to describe but very easy to notice when you eat the finished bowl.</li>
+  <li><strong>Add miso off the heat.</strong> Never boil broth after adding miso. It kills the active cultures and flattens the complex flavour you are trying to preserve. Warm the broth to just below boiling, remove from heat, then whisk in the miso.</li>
+  <li><strong>Use cold eggs for the 7-minute timing.</strong> Room-temperature eggs cooked for 7 minutes will be slightly more set than cold eggs cooked for the same time. My timing is calibrated for cold, large eggs straight from the fridge. Adjust accordingly if yours are different.</li>
+  <li><strong>Let the chashu refrigerate overnight before slicing.</strong> Hot pork belly is delicious but does not slice cleanly. Cold chashu holds its shape perfectly and the slices look professional.</li>
+  <li><strong>Keep the braising liquid.</strong> It is essentially a flavoured tare. I add a tablespoon to each bowl of broth and it deepens the flavour noticeably.</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Substitutions</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>No hatcho miso?</strong> Use red miso (aka miso) as the closest substitute. Use slightly more — about 3 tablespoons instead of 2 — to achieve similar depth.</li>
+  <li><strong>No sake?</strong> Dry sherry is a solid substitute in the chashu marinade. Dry white wine works in a pinch.</li>
+  <li><strong>No pig's trotters?</strong> Use all pork ribs and chicken backs, which are easier to find in most supermarkets. The broth will be slightly less gelatinous but still very good.</li>
+  <li><strong>No Instant Pot?</strong> Use a stovetop pressure cooker at the same time and pressure settings. If you have neither, simmer the blanched bones in a large pot over low heat for 4 to 6 hours. The broth will be less body-rich but still deeply flavoured.</li>
+  <li><strong>Vegetarian version?</strong> Replace the pork-based broth with a mushroom-kombu dashi (steep dried shiitake and kombu for 30 minutes, simmer 15 minutes, strain). Substitute the chashu with marinated and pan-fried firm tofu. Keep the miso, soy sauce, and all toppings except fish sauce (replace with extra soy sauce or a dash of rice vinegar).</li>
+</ul>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Troubleshooting</h3>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Broth tastes flat despite pressure cooking:</strong> Add a splash of the chashu braising liquid and a teaspoon of sesame oil. Fat and concentrated flavour are almost always what a flat broth needs.</li>
+  <li><strong>Bowl is too salty:</strong> Dilute the broth with a little water before ladling. Next time, season gradually — add the soy sauce and fish sauce in small amounts, tasting after each addition.</li>
+  <li><strong>Chashu is tough:</strong> It needs more time. Return it to the pot with a splash of water and continue simmering on low until a chopstick pierces it with no resistance.</li>
+  <li><strong>Eggs are overcooked (fully set yolk):</strong> Reduce cooking time by 30 seconds next attempt. Egg size and refrigerator temperature both affect the outcome — use large cold eggs and adjust from there.</li>
+  <li><strong>Noodles are waterlogged:</strong> They were overcooked or assembled too far in advance. Pull noodles earlier and serve the bowl immediately after assembly.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make this without a pressure cooker?</h3>
+<p>Yes. Simmer the blanched bones in a large pot over low heat for 4 to 6 hours, skimming occasionally. The broth will be slightly less gelatinous than the pressure cooker version but still very good. You can also use the slow cooker setting on an Instant Pot for 8 to 12 hours — it works, but I cannot think of a good reason to do it that way when the pressure setting achieves the same result in one hour.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">What is the best cut of pork for chashu?</h3>
+<p>Pork belly is the classic and my strong preference. The fat-to-meat ratio in belly is ideal for braising — it stays moist and becomes tender in a way that leaner cuts cannot. Pork shoulder is a reasonable substitute and is slightly easier to find at non-Asian supermarkets. Avoid pork loin for chashu — it dries out during the long braise and is not worth the effort.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Where can I find hatcho miso?</h3>
+<p>Japanese grocery stores (Mitsuwa, H Mart, Marukai) reliably stock hatcho miso. Some Whole Foods locations carry it in the international section. Online is the most reliable option — Hikari Hatcho Miso and Marusan Hatcho Miso are both excellent and widely available online. If you cannot find it, red miso (aka miso) is the best substitute.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use the broth left over from the chashu braise?</h3>
+<p>Absolutely, and I recommend it. The chashu braising liquid is intensely flavoured — sweet, savoury, and deeply umami. I add one to two tablespoons per bowl of broth. Too much will overpower the miso. Think of it as a finishing seasoning rather than a base, and it elevates the bowl considerably.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">How far in advance can I make all the components?</h3>
+<p>Everything improves with a day in the fridge. The ideal timeline is: start the chashu marinade and egg marinade two days before serving (so both have a full overnight and then another day in the fridge). Make the broth the day before. On the day of serving, all that is left is cooking the noodles and vegetables and assembling the bowls — about 20 minutes of active work. This is how I make it for dinner parties: all the effort happens days earlier, and the final assembly feels effortless.</p>`,
+})
+
+blogPosts.push({
+  slug: 'ramyeon-recipe-upgrade-instant-ramen-korean-way',
+  title: 'Ramyeon Recipe: Upgrade Instant Ramen the Korean Way',
+  h1: 'Ramyeon Recipe: Upgrade Instant Ramen the Korean Way',
+  description: 'Learn how to cook Korean ramyeon the right way — with a poached egg, fresh green onions, and perfect noodle timing. A simple upgrade that makes instant ramen taste like a real meal.',
+  date: '2026-06-09',
+  readTime: '8 min read',
+  category: 'Recipes',
+  headerImage: '/images/blog/ramyeon-pot.jpg',
+  headerImageAlt: 'Korean ramyeon cooking in a pot with green onions and dried vegetables',
+  content: `
+<div style="background:#F5F4F0;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:0.9rem;color:#4a4a4a;display:flex;flex-wrap:wrap;gap:1.5rem;">
+  <div><strong style="color:#1E2026;">Prep Time:</strong> 2 minutes</div>
+  <div><strong style="color:#1E2026;">Cook Time:</strong> 5–6 minutes</div>
+  <div><strong style="color:#1E2026;">Total Time:</strong> 8 minutes</div>
+  <div><strong style="color:#1E2026;">Serves:</strong> 1</div>
+  <div><strong style="color:#1E2026;">Difficulty:</strong> Very Easy</div>
+</div>
+
+<nav style="background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;">
+  <p style="font-weight:700;color:#1E2026;margin:0 0 0.75rem;">Table of Contents</p>
+  <ol style="padding-left:1.25rem;margin:0;line-height:2;color:#B57F50;font-size:0.9rem;">
+    <li><a href="#what-is-ramyeon" style="color:#B57F50;text-decoration:none;">What Is Ramyeon?</a></li>
+    <li><a href="#why-my-way" style="color:#B57F50;text-decoration:none;">Why I Cook It Differently From the Package</a></li>
+    <li><a href="#ingredients" style="color:#B57F50;text-decoration:none;">Ingredients</a></li>
+    <li><a href="#the-noodle-timing-rule" style="color:#B57F50;text-decoration:none;">The Most Important Rule: Noodle Timing</a></li>
+    <li><a href="#step-by-step" style="color:#B57F50;text-decoration:none;">Step-by-Step Instructions</a></li>
+    <li><a href="#the-egg" style="color:#B57F50;text-decoration:none;">The Egg Makes All the Difference</a></li>
+    <li><a href="#the-pot" style="color:#B57F50;text-decoration:none;">Using the Korean Tin Pot</a></li>
+    <li><a href="#customise" style="color:#B57F50;text-decoration:none;">How to Customise Your Ramyeon</a></li>
+    <li><a href="#leftover-broth" style="color:#B57F50;text-decoration:none;">What to Do With Leftover Broth</a></li>
+    <li><a href="#which-brand" style="color:#B57F50;text-decoration:none;">Which Brand of Ramyeon to Use</a></li>
+    <li><a href="#serving" style="color:#B57F50;text-decoration:none;">What to Serve Alongside Ramyeon</a></li>
+    <li><a href="#faq" style="color:#B57F50;text-decoration:none;">Frequently Asked Questions</a></li>
+  </ol>
+</nav>
+
+<p>I still remember the first time I tried Korean ramyeon. I could not believe how tasty it was, how simple it was to make, and how curly the noodles were. Korean noodles were all straight at the time, so the shape of ramyeon noodles alone felt like a revelation. Over time I came to appreciate that ramyeon occupies a unique cultural space in Korea — it is fast food, comfort food, and midnight snack all in one, the rough equivalent of a bag of chips in the West. Everyone eats it; almost no one talks about it seriously. That is exactly why I want to talk about it seriously.</p>
+
+<p>I do not eat ramyeon every day, but when I want something hot, fast, and deeply satisfying, nothing beats a bowl of properly cooked Korean ramyeon with a poached egg, fresh green onions, and perfect noodle timing. The package instructions will get you to edible. My method gets you to genuinely delicious — and it takes the same amount of time.</p>
+
+<h2 id="what-is-ramyeon" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What Is Ramyeon?</h2>
+
+<p>Ramyeon (라면) is the Korean version of instant ramen. In Japan, ramen can be fresh or instant, but in Korea, ramyeon is by definition instant — it comes in a packet with dried noodles, a powdered soup base, and a small packet of dried vegetables. The most famous brand is Shin Ramyun by Nongshim, but there are dozens of varieties on the market, from mild and creamy to face-numbingly spicy.</p>
+
+<p>What makes Korean ramyeon different from Japanese instant ramen is the flavour profile. Korean ramyeon skews spicier, more savoury, and more aggressively seasoned. The broth is typically built on a gochugaru (Korean chilli flake) base with garlic, onion, and a deep, anchovy-forward umami kick. Even mild varieties have more heat than most Japanese instant options.</p>
+
+<p>The noodles themselves are also distinctive. They are round, tightly curled, and have a satisfying chew when properly cooked — springy and firm, not mushy. Getting that texture right is the central skill in making a great bowl of ramyeon, and I am going to teach you exactly how to do it.</p>
+
+<h2 id="why-my-way" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Why I Cook It Differently From the Package</h2>
+
+<p>Every packet of Korean ramyeon comes with printed instructions. They work. But they are designed for the broadest possible audience, not for the best possible bowl. The package usually tells you to boil everything together for three to four minutes, which tends to produce noodles on the softer side by the time you are halfway through eating.</p>
+
+<p>My approach uses the same ingredients but adds a few small techniques that make a significant difference: I add the soup powder and noodles at the same time rather than staggering them (it lets the noodles absorb the seasoned broth as they cook), I crack a whole egg directly into the boiling broth to poach gently, and most importantly, I pull the pot off the heat a minute earlier than you might think. Those curly noodles keep cooking in the residual heat of the broth even after the flame is off — accounting for that carryover is what separates a great bowl from a soggy one.</p>
+
+<h2 id="ingredients" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Ingredients</h2>
+
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>1 package Korean ramyeon</strong> (Shin Ramyun, Buldak, Samyang, or your preferred brand) — includes noodle block, soup powder packet, and dried vegetable packet</li>
+  <li><strong>2½ cups (600ml) water</strong></li>
+  <li><strong>1 large egg</strong></li>
+  <li><strong>2 green onions</strong>, roughly chopped — both the white and green parts</li>
+</ul>
+
+<p><strong>Optional upgrades:</strong></p>
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li>A slice of American cheese or a torn piece of mozzarella — melts into the broth and makes it creamy and rich (a popular Korean hack)</li>
+  <li>Half a cup of kimchi, chopped — adds fermented depth and extra heat</li>
+  <li>A handful of bean sprouts, raw or blanched for 30 seconds</li>
+  <li>Two or three slices of spam or canned tuna, drained</li>
+  <li>A teaspoon of butter — stirs into the broth at the end for extra body</li>
+  <li>A drizzle of sesame oil — finish the bowl with just a few drops for toasted aroma</li>
+  <li>Toasted sesame seeds, for garnish</li>
+</ul>
+
+<h2 id="the-noodle-timing-rule" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Most Important Rule: Noodle Timing</h2>
+
+<p>I want to address this before we get to the steps because it is the single biggest mistake people make with ramyeon. Do not overcook the noodles.</p>
+
+<p>Korean ramyeon noodles are flash-fried and dried, which means they rehydrate very quickly. They reach peak texture — springy, firm, curly — in about two and a half to three minutes of boiling. After that, they begin to soften rapidly. If you cook them for four or five minutes, they become limp and waterlogged, and by the time you finish the bowl they are practically mush.</p>
+
+<p>Here is the key insight: when you start eating, the noodles will be slightly firmer than you expect. That is intentional. The hot broth in the bowl continues to cook them gently as you eat. Three or four bites in, the texture is perfect. By the time you reach the bottom of the bowl, they have softened to exactly the right consistency. If you start with noodles that are already fully soft, you will be eating mush before you finish.</p>
+
+<p>Pull the noodles early. Always.</p>
+
+<h2 id="step-by-step" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Step-by-Step Instructions</h2>
+
+<p><strong>Step 1: Bring the water to a full rolling boil.</strong><br>
+Use 2½ cups (600ml) of water. I use a Korean tin pot when I have it — it heats up faster than a heavy pot and is exactly the right size for one packet — but any small pot works perfectly. High heat the whole way.</p>
+
+<p><strong>Step 2: Add the noodle block and soup powder together.</strong><br>
+Once the water is at a full boil, add the dried noodle block and tear open the soup powder packet directly into the water. Stir briefly so the powder dissolves into the water rather than clumping on the noodle block. Cover with the lid and let it come back to a boil — this takes about 30 to 45 seconds.</p>
+
+<p><strong>Step 3: Flip the noodle block and crack in the egg.</strong><br>
+Open the lid and use a spoon or chopsticks to flip the noodle block over. By now the bottom half will have softened enough that you can break the block apart with a few gentle prods. Crack one egg directly into the centre of the pot. Do not stir. Replace the lid and cook for 1 to 2 minutes. The goal is a gently poached egg — the white should be just set while the yolk remains runny. If you prefer a fully set yolk, give it the full 2 minutes; for a runny yolk, pull it at 1 minute and 15 seconds.</p>
+
+<img
+  src="/images/blog/ramyeon-pot.jpg"
+  alt="Korean ramyeon cooking in a pot with green onions and dried vegetables on top"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+/>
+
+<p><strong>Step 4: Add the garnishes and serve immediately.</strong><br>
+Remove the pot from the heat. Open the lid and scatter the chopped green onions over the surface. Tear open the dried vegetable packet (if included) and sprinkle it over the top. Do not stir these in — letting them sit on the surface keeps the green onions fresh and bright rather than wilting into the broth.</p>
+
+<p>Serve directly in the pot if you are using a Korean tin pot, or ladle into a bowl. Serve immediately. Ramyeon waits for no one.</p>
+
+<img
+  src="/images/blog/ramyeon-noodles.jpg"
+  alt="Curly Korean ramyeon noodles lifted with chopsticks from a Korean tin pot"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+/>
+
+<h2 id="the-egg" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">The Egg Makes All the Difference</h2>
+
+<p>I want to spend a moment on the egg because I think it is the single most important upgrade you can make to a packet of ramyeon. The egg does several things at once: the white adds protein and body, the yolk — if you keep it runny — breaks and swirls into the broth as you eat, enriching it and making it feel more substantial. The texture contrast between the firm noodles, the silky white, and the molten yolk is genuinely satisfying in a way that plain ramyeon without an egg just is not.</p>
+
+<p>Cracking the egg directly into the boiling broth and covering the pot produces a poached egg rather than a scrambled or stirred one. The trick is not to stir. Let the heat from the broth and the steam from the covered pot cook the egg from below and above simultaneously. The result is a perfectly contained poached egg sitting right in the centre of your bowl.</p>
+
+<p>If you prefer a different egg preparation, here are your options:</p>
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Poached (my default)</strong> — crack in whole, cover, cook 1–2 minutes. Yolk runny to jammy depending on time.</li>
+  <li><strong>Beaten and stirred in</strong> — beat the egg separately, pour in while stirring vigorously. Creates silky egg ribbons throughout the broth, similar to egg drop soup.</li>
+  <li><strong>Soft-boiled and halved</strong> — cook a separate soft-boiled egg (7 minutes from boiling, ice bath, peel), halve it, and place on top of the finished bowl. More work but the most visually impressive result.</li>
+  <li><strong>Fried</strong> — fry an egg separately and slide it on top of the finished bowl, yolk-up. The fried egg white adds a crispy edge that is texturally very different from the broth-poached version.</li>
+</ul>
+
+<h2 id="the-pot" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Using the Korean Tin Pot</h2>
+
+<p>Koreans have a dedicated vessel for ramyeon: a lightweight, shiny aluminium or stainless steel pot with two handles, sized perfectly for one package of noodles. It is called a ramyeon pot (라면 냄비) and it is genuinely useful. The thin walls heat up almost instantaneously over high heat, the size prevents the broth from reducing too fast, and — this is the detail I love most — the lid doubles as a bowl. You slide a bundle of noodles onto the lid to cool them down for a few seconds before eating, the way you might blow on a spoonful of hot soup.</p>
+
+<p>That said, any pot works. A small saucepan, a medium pot, even a deep frying pan — the technique is identical. I have made ramyeon in a hotel room coffee maker before (I do not recommend it, but it was technically successful). The pot matters less than the timing.</p>
+
+<h2 id="customise" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">How to Customise Your Ramyeon</h2>
+
+<p>One of the great pleasures of ramyeon is how easy it is to personalise with whatever you have in the fridge. Here are the upgrades I use most often:</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">The Cheese Hack</h3>
+<p>This sounds strange and it is completely delicious. Tear one slice of American cheese into pieces and stir it into the finished broth just before eating. It melts almost instantly and transforms the spicy, salty broth into something creamy and round. Processed cheese works better than fresh mozzarella here because of how it melts — smooth and emulsified rather than stringy.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Kimchi</h3>
+<p>Chop half a cup of kimchi and add it with the noodles. The fermented kimchi breaks down slightly in the hot broth and adds complex sourness and deeper heat. This is sometimes called kimchi ramyeon and it is arguably even better than plain ramyeon. Use older, more fermented kimchi if you have it — the tangier and more sour, the better it works.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Spam or Tuna</h3>
+<p>A few slices of spam, canned tuna, or even sliced hot dogs add protein and substance. Add these with the noodles so they heat through. Spam in particular works beautifully with the salty, spicy broth — the two flavour profiles are designed for each other.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Butter</h3>
+<p>Half a teaspoon of unsalted butter stirred into the finished broth adds richness and rounds out the heat. It is a small change with a surprisingly big effect — the broth goes from sharp and spicy to smooth and complex.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Sesame Oil and Seeds</h3>
+<p>A few drops of sesame oil over the finished bowl and a pinch of toasted sesame seeds. This is the simplest possible upgrade and it makes the bowl feel finished and intentional rather than thrown together. The toasted aroma of sesame oil is one of those scents that immediately makes everything smell more appetising.</p>
+
+<h2 id="leftover-broth" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What to Do With Leftover Broth</h2>
+
+<p>If you are still hungry after finishing the noodles — or if you just want to stretch the meal — scoop half a cup of cooked rice into the leftover broth at the bottom of the pot. This is called gukbap (국밥), literally soup-and-rice, and it is a standard Korean technique for finishing a bowl. The rice soaks up the rich, spicy broth and becomes deeply flavoured in a way that is hard to describe but very easy to want more of. You can eat it directly from the pot, which is the authentic way.</p>
+
+<p>I have also added a beaten egg to leftover ramyeon broth and cooked it into a quick egg-drop soup-style finish, which sounds weird and tastes excellent. The broth is good enough to eat on its own — do not waste it.</p>
+
+<h2 id="which-brand" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Which Brand of Ramyeon to Use</h2>
+
+<p>There are dozens of Korean ramyeon brands and flavours, and the differences between them are real and worth understanding:</p>
+
+<ul style="padding-left:1.5rem;line-height:2.2;color:#3a3d44;">
+  <li><strong>Shin Ramyun (Nongshim)</strong> — the benchmark. Moderately spicy, deeply savoury, with a complex mushroom-beef-chilli broth. This is the brand I recommend to anyone making Korean ramyeon for the first time. The red packet is the original; the black packet (Shin Ramyun Black) is a premium version with a richer, more complex broth.</li>
+  <li><strong>Buldak (Samyang, Fire Chicken)</strong> — famous for being extremely spicy. The broth is thick, dark, and aggressively hot. Not for the faint of heart, but genuinely delicious if you have a tolerance for heat. The carbonara version is spicy but creamier and more approachable.</li>
+  <li><strong>Neoguri (Nongshim)</strong> — slightly thicker, creamier broth with a seafood-forward flavour. Excellent udon-style noodles, slightly wider and more chewy than standard ramyeon noodles. My favourite for the cheese upgrade because the creamier base works exceptionally well with the melted cheese.</li>
+  <li><strong>Chapagetti (Nongshim)</strong> — dry jjajangmyeon style, cooked and drained rather than served in broth. Completely different technique from what I describe here, but worth knowing about as a variation.</li>
+  <li><strong>Budae Jjigae Style (various brands)</strong> — Army stew flavour, with a sweeter, tomato-tinged broth. Less intensely spicy, more complex. Works very well with the spam and cheese additions.</li>
+</ul>
+
+<h2 id="serving" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">What to Serve Alongside Ramyeon</h2>
+
+<p>Ramyeon is a meal on its own, but it is even better with the right accompaniments:</p>
+
+<ul style="padding-left:1.5rem;line-height:2;color:#3a3d44;">
+  <li><strong>Kimchi</strong> — non-negotiable in my opinion. The fermented, spicy crunch of kimchi alongside the hot bowl is one of those flavour pairings that feels inevitable once you try it. Set it on the side and take bites between spoonfuls of noodle.</li>
+  <li><strong>Steamed rice</strong> — either eaten alongside or saved for the gukbap finish described above.</li>
+  <li><strong>Kkakdugi (radish kimchi)</strong> — cubed, fermented daikon radish. Crunchier and more refreshing than napa cabbage kimchi, and excellent with spicy ramyeon.</li>
+  <li><strong>Cold water or barley tea (boricha)</strong> — Koreans typically drink barley tea with ramyeon rather than anything cold and carbonated, though a cold Korean beer (Hite or Cass) is also extremely compatible.</li>
+</ul>
+
+<h2 id="faq" style="font-size:1.5rem;font-weight:700;margin:2rem 0 1rem;">Frequently Asked Questions</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I use less soup powder to make the broth less salty?</h3>
+<p>Yes, and I do this regularly. Start with two-thirds of the soup powder packet, taste the broth before you add the noodles, and add more if you want. The full packet produces an intensely seasoned broth — delicious, but not for everyone. Using partial powder also lets you taste the actual flavour components rather than just salt and heat.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I add vegetables directly to the broth?</h3>
+<p>Absolutely. I add mushrooms (shiitake or enoki), bok choy, or cabbage directly to the boiling broth with the noodles. They cook in the same 2–3 minutes and absorb the seasoned broth as they soften. Bean sprouts are better added raw at the end or blanched separately — they turn mushy if boiled for the full noodle-cooking time.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Is ramyeon the same as Japanese ramen?</h3>
+<p>They share a common ancestor but are quite different in practice. Japanese instant ramen tends to be milder and more subtly seasoned; Korean ramyeon is generally spicier and more aggressively flavoured. Fresh Japanese ramen — the restaurant kind — is an entirely different animal from both, requiring hours of broth preparation. Korean ramyeon is always instant; there is no fresh, restaurant-style Korean ramyeon in the same tradition.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Where can I buy Korean ramyeon?</h3>
+<p>Most Asian grocery stores carry a wide selection. H Mart, Mitsuwa, and 99 Ranch all stock multiple brands and flavours. Korean brands like Shin Ramyun are also widely available at Walmart, Target, and Costco in the US. Online is the most reliable option if you want a specific brand or flavour.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Can I make ramyeon in a microwave?</h3>
+<p>Yes, though the texture suffers. If you must, use a microwave-safe bowl, add 2 cups of water and the noodle block, microwave on high for 3 minutes, add the soup powder and any toppings, microwave for another 30 seconds. The noodles will be slightly softer and the broth less concentrated than stovetop, but it is still very good in a pinch. I have done this in hotel rooms when no other option existed.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;margin:1.25rem 0 0.5rem;">Why are ramyeon noodles curly?</h3>
+<p>The curl comes from how they are dried after processing. Ramyeon noodles are flash-fried in oil and then shaped in a round brick while still malleable. As they cool and set, the curl is locked in. The curled shape actually serves a functional purpose: it creates more surface area for the broth to cling to compared to straight noodles, which is why properly cooked ramyeon noodles taste more intensely seasoned than you might expect from a simple soup.</p>
+`,
+})

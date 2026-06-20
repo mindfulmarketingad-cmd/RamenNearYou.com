@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { Star, MapPin, Utensils, ChevronRight } from 'lucide-react'
+import { MapPin, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import BrothRestaurantGrid from '@/components/broth-restaurant-grid'
 import type { Restaurant } from '@/lib/restaurants'
+import { getServiceCityLinks, SERVICE_PAGES } from '@/lib/city-filter-pages'
 
 interface BrothInfo {
   type: string
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
+  const cityLinks = getServiceCityLinks(broth.type)
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -70,62 +72,52 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
           </div>
         </section>
 
-        {/* Restaurant grid */}
+        {/* Restaurant grid + ZIP filter */}
         <section className="py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-[#6B6862] text-sm mb-6">{restaurants.length} ramen restaurants found</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {restaurants.map((r) => (
-                <Link
-                  key={r.slug}
-                  href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="group flex flex-col bg-[#ffffff] rounded-xl border border-black/5 hover:border-[#B57F50]/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 overflow-hidden"
-                >
-                  <div className="relative w-full h-44 bg-[#F5F4F0] overflow-hidden">
-                    {r.photo ? (
-                      <Image
-                        src={r.photo}
-                        alt={r.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[#B57F50]/30">
-                        <Utensils className="w-12 h-12" />
-                      </div>
-                    )}
-                    {r.priceRange && (
-                      <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 text-[#1E2026] text-xs font-medium backdrop-blur-sm">
-                        {r.priceRange}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex flex-col flex-1 p-5 gap-2">
-                    <h2 className="font-semibold text-[#1E2026] text-base leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
-                      {r.name}
-                    </h2>
-                    {(r.rating || r.reviewCount > 0) && (
-                      <div className="flex items-center gap-1.5">
-                        <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                        <span className="text-[#1E2026] text-sm font-medium">{r.rating?.toFixed(1)}</span>
-                        <span className="text-[#6B6862]/60 text-xs">({(r.reviewCount ?? 0).toLocaleString()} reviews)</span>
-                      </div>
-                    )}
-                    <div className="flex items-start gap-1.5 text-[#6B6862] text-xs">
-                      <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#B57F50]" />
-                      <span className="line-clamp-1">{r.address}</span>
-                    </div>
-                    <div className="mt-auto pt-2 border-t border-black/5 flex justify-between items-center">
-                      <span className="text-xs text-[#6B6862]/60">{r.city}, {r.stateCode}</span>
-                      <span className="text-[#B57F50] text-xs font-medium group-hover:underline">View →</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <BrothRestaurantGrid
+            brothType={broth.type}
+            restaurants={restaurants.map((r) => ({
+              slug: r.slug,
+              citySlug: r.citySlug,
+              stateSlug: r.stateSlug,
+              name: r.name,
+              city: r.city,
+              stateCode: r.stateCode,
+              address: r.address,
+              rating: r.rating,
+              reviewCount: r.reviewCount,
+              photo: r.photo,
+              priceRange: r.priceRange,
+              latitude: r.latitude,
+              longitude: r.longitude,
+            }))}
+          />
         </section>
+
+        {/* Browse this broth by city (service > service+city links) */}
+        {cityLinks.length > 0 && (
+          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
+            <div className="max-w-7xl mx-auto">
+              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
+                {broth.type} Ramen by City
+              </h2>
+              <div className="flex flex-wrap gap-2.5">
+                {cityLinks.map((c) => (
+                  <Link
+                    key={c.href}
+                    href={c.href}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    {broth.type} Ramen in {c.city}, {c.stateCode}
+                    <span className="text-[#6B6862]/60 text-xs">{c.count}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* What is this broth type */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
@@ -150,6 +142,24 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
               <Link href="/cities" className="px-4 py-2.5 rounded-lg bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
                 Browse All Cities
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Cross-links to sibling ramen style pages */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">Explore More Ramen Styles Near You</h2>
+            <div className="flex flex-wrap gap-2.5">
+              {SERVICE_PAGES.filter((s) => s.broth !== broth.type).map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-[#ffffff] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                >
+                  {s.label} Near Me
+                </Link>
+              ))}
             </div>
           </div>
         </section>

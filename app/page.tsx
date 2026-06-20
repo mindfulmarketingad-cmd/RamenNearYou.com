@@ -3,8 +3,11 @@ import Hero from '@/components/hero'
 import FeaturedListings from '@/components/featured-listings'
 import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
 import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
+import ProductsCarousel from '@/components/products-carousel'
+import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
+import HomepageReviews from '@/components/homepage-reviews'
 import Footer from '@/components/footer'
 import { getSiteStats } from '@/lib/restaurants'
 
@@ -41,7 +44,26 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
         <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
-        <NearbyRestaurantsCarousel />
+
+        {/* Everything below scrolls up over the fixed parallax hero */}
+        <div className="relative z-10 bg-white shadow-[0_-24px_48px_rgba(0,0,0,0.18)]">
+          {/* Wave transition at the top edge of the scrolling content */}
+          <div className="absolute left-0 right-0 -top-10 sm:-top-14 z-10 leading-none pointer-events-none">
+            <svg
+              viewBox="0 0 1440 60"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              className="w-full h-10 sm:h-14 block"
+            >
+              <path
+                d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
+                fill="#ffffff"
+              />
+            </svg>
+          </div>
+
+          <NearbyRestaurantsCarousel />
+        <ProductsCarousel />
         <FeaturedListings />
 
         <div className="broth-stack">
@@ -87,9 +109,12 @@ export default function HomePage() {
           />
         </div>
 
-        <CommunityCarousel />
-        <CityStateDirectory />
-        <Footer />
+          <CommunityCarousel />
+          <HomepageReviews />
+          <ServiceDirectory />
+          <CityStateDirectory />
+          <Footer />
+        </div>
       </main>
     </>
   )

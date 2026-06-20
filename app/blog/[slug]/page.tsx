@@ -138,8 +138,8 @@ export default async function BlogPostPage({ params }: Props) {
           description: card.description,
           photo: card.photo,
           tags: card.tags,
-          lat: r?.latitude ?? null,
-          lng: r?.longitude ?? null,
+          lat: r?.latitude ?? card.lat ?? null,
+          lng: r?.longitude ?? card.lng ?? null,
           perfectFor: r ? getPerfectFor(r) : undefined,
         }
       })
@@ -207,6 +207,19 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs text-[#6B6862]/60">·</span>
                 <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
               </div>
+
+              {post.imageFirst && post.headerImage && (
+                <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-6">
+                  <Image
+                    src={post.headerImage}
+                    alt={post.headerImageAlt ?? post.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              )}
+
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
@@ -232,7 +245,7 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </header>
 
-            {post.headerImage && (
+            {!post.imageFirst && post.headerImage && (
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
                   src={post.headerImage}
@@ -255,12 +268,7 @@ export default async function BlogPostPage({ params }: Props) {
                   How we ranked these restaurants
                 </h2>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
-                  We ranked these {enrichedCards.length} spots by analyzing the sentiment of their
-                  Google reviews — reading what real diners said about the broth, noodles, service,
-                  and overall experience, not just star averages. Restaurants that consistently drew
-                  praise for ramen quality across hundreds of reviews ranked highest. Review count,
-                  recency, and recurring criticism (long waits, watery broth, inconsistent service)
-                  were all factored in to surface the spots locals actually keep coming back to.
+                  {post.rankingNote ?? `We ranked these ${enrichedCards.length} spots by analyzing the sentiment of their Google reviews — reading what real diners said about the broth, noodles, service, and overall experience, not just star averages. Restaurants that consistently drew praise for ramen quality across hundreds of reviews ranked highest. Review count, recency, and recurring criticism (long waits, watery broth, inconsistent service) were all factored in to surface the spots locals actually keep coming back to.`}
                 </p>
               </section>
             )}

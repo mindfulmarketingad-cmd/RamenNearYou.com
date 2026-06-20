@@ -31,7 +31,7 @@ const brothInfo = {
   jsonLdName: 'Best Tonkotsu Ramen Restaurants Near Me',
 }
 
-const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 500)
+const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 300)
 
 export default function TonkotsuRamenNearMePage() {
   return <BrothTypeNearMePage broth={brothInfo} restaurants={sorted} />

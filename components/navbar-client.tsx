@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Search, Utensils } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -57,19 +57,53 @@ export default function NavbarClient() {
           </Link>
 
           <div className="flex items-center gap-2">
-            <a
-              href="tel:+13412034429"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 border border-[#B57F50]/20 transition-colors group"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#B57F50]" />
-              <div className="text-right">
-                <p className="text-[10px] text-[#6B6862]/70 leading-none mb-0.5">Catering Hotline</p>
-                <p className="text-xs font-semibold text-[#1E2026] group-hover:text-[#B57F50] transition-colors leading-none">(341) 203-4429</p>
-              </div>
-            </a>
+            {/* Desktop nav links */}
+            <nav className="hidden sm:flex items-center gap-1">
+              <Link href="/searchmap" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                <Search className="w-3.5 h-3.5" />
+                Search
+              </Link>
+              <Link href="/products" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Products
+              </Link>
+              <Link href="/reviews" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Reviews
+              </Link>
+              <Link href="/catering" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Catering
+              </Link>
+              <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Blog
+              </Link>
+              {user ? (
+                <>
+                  <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                    <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
+                      {userInitial}
+                    </span>
+                  </Link>
+                  <button onClick={handleSignOut} className="px-3 py-2 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors rounded-lg hover:bg-black/5">
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link href="/auth/login" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  Sign In
+                </Link>
+              )}
+            </nav>
 
+            <Link
+              href="/searchmap"
+              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+            >
+              <Utensils className="w-3.5 h-3.5" />
+              Order Ramen
+            </Link>
+
+            {/* Mobile hamburger only */}
             <button
-              className="p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
+              className="sm:hidden p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -81,18 +115,26 @@ export default function NavbarClient() {
 
       {menuOpen && (
         <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
-          <a
-            href="tel:+13412034429"
-            className="sm:hidden flex items-center gap-2 mt-3 mb-1 px-3 py-2.5 rounded-lg bg-[#B57F50]/10 border border-[#B57F50]/20"
+          <Link
+            href="/searchmap"
+            className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold"
+            onClick={() => setMenuOpen(false)}
           >
-            <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
-            <div>
-              <p className="text-[10px] text-[#6B6862]/70 leading-none mb-0.5">Catering Hotline</p>
-              <p className="text-sm font-semibold text-[#1E2026] leading-none">(341) 203-4429</p>
-            </div>
-          </a>
+            <Utensils className="w-4 h-4" />
+            Order Ramen
+          </Link>
 
           <nav className="flex flex-col gap-1 pt-3">
+            <Link href="/searchmap" className="flex items-center gap-2 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+              <Search className="w-4 h-4 text-[#B57F50]" />
+              Search
+            </Link>
+            <Link href="/products" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+              Products
+            </Link>
+            <Link href="/reviews" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+              Reviews
+            </Link>
             <Link href="/catering" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               Catering
             </Link>

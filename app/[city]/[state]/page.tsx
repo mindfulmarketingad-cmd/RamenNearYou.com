@@ -9,6 +9,7 @@ import CityRestaurantGrid from '@/components/city-restaurant-grid'
 import CityFollowButton from '@/components/city-follow-button'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
+import { getCityFilterLinks } from '@/lib/city-filter-pages'
 import { createClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
@@ -45,6 +46,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const { city: cityName, stateCode, state: stateName } = restaurants[0]
   const nearbyCities = getNearbyCities(city, state)
+  const filterLinks = getCityFilterLinks(city, state)
+  const brothLinks = filterLinks.filter((l) => l.group === 'broth')
+  const dietLinks = filterLinks.filter((l) => l.group === 'diet')
 
   // Build scroll-map cards from top-rated restaurants in this city (cap at 30)
   const topRestaurants = [...restaurants]
@@ -266,6 +270,52 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Browse by broth type & diet (internal links to filter pages) */}
+      {filterLinks.length > 0 && (
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5 bg-[#F5F4F0]">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse by Type</p>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
+              Ramen styles &amp; diets in {cityName}
+            </h2>
+
+            {brothLinks.length > 0 && (
+              <div className="mb-6">
+                <p className="text-[#1E2026] font-semibold text-sm mb-3">By broth</p>
+                <div className="flex flex-wrap gap-2.5">
+                  {brothLinks.map((l) => (
+                    <Link
+                      key={l.slug}
+                      href={l.href}
+                      className="px-4 py-2 rounded-full bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                    >
+                      {l.label} in {cityName}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {dietLinks.length > 0 && (
+              <div>
+                <p className="text-[#1E2026] font-semibold text-sm mb-3">By diet &amp; lifestyle</p>
+                <div className="flex flex-wrap gap-2.5">
+                  {dietLinks.map((l) => (
+                    <Link
+                      key={l.slug}
+                      href={l.href}
+                      className="px-4 py-2 rounded-full bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                    >
+                      {l.label} in {cityName}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       )}

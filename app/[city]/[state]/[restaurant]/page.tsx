@@ -20,13 +20,23 @@ import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import OutboundLink from '@/components/outbound-link'
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
+import ProductsCarousel from '@/components/products-carousel'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import CityFilterPage from '@/components/city-filter-page'
+import {
+  parseFilterSlug,
+  getMajorCity,
+  getFilterRestaurants,
+  getCityFilterStaticParams,
+  filterTitle,
+  filterDescription,
+} from '@/lib/city-filter-pages'
 
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  return [...restaurants]
+  const restaurantParams = [...restaurants]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 5000)
     .map((r) => ({
@@ -34,10 +44,31 @@ export async function generateStaticParams() {
       state: r.stateSlug,
       restaurant: r.slug,
     }))
+  // City × filter pages share this route's third segment.
+  return [...restaurantParams, ...getCityFilterStaticParams()]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
+
+  // City × filter page metadata (e.g. /atlanta/georgia/tonkotsu-ramen)
+  const spec = parseFilterSlug(restaurant)
+  const cityInfo = spec ? getMajorCity(city, state) : null
+  if (spec && cityInfo) {
+    const matches = getFilterRestaurants(city, state, spec)
+    if (matches.length > 0) {
+      const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+      const title = filterTitle(spec, cityInfo.city, cityInfo.stateCode)
+      const description = filterDescription(spec, cityInfo.city, cityInfo.stateCode, matches.length)
+      return {
+        title,
+        description,
+        alternates: { canonical: url },
+        openGraph: { title, description, url },
+      }
+    }
+  }
+
   const r = getRestaurant(city, state, restaurant)
   if (!r) return {}
   const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
@@ -145,8 +176,66 @@ function getTodayHours(hours: Record<string, string[]> | null): string | null {
   return slots.join(' · ')
 }
 
+const SCHEMA_DAY: Record<string, string> = {
+  Monday: 'Monday', Tuesday: 'Tuesday', Wednesday: 'Wednesday',
+  Thursday: 'Thursday', Friday: 'Friday', Saturday: 'Saturday', Sunday: 'Sunday',
+}
+
+function parseSlotTime(raw: string): string | null {
+  const m = raw.trim().match(/^(\d+)(?::(\d+))?\s*(AM|PM)$/i)
+  if (!m) return null
+  let h = parseInt(m[1])
+  const min = parseInt(m[2] ?? '0')
+  const mer = m[3].toUpperCase()
+  if (mer === 'PM' && h !== 12) h += 12
+  if (mer === 'AM' && h === 12) h = 0
+  return `${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+}
+
+function parseHourSlot(slot: string): { opens: string; closes: string } | null {
+  // Handles "11:30AM-3PM", "5PM-9PM", "5-9PM"
+  const m = slot.match(/^(\d+(?::\d+)?\s*(?:AM|PM)?)\s*-\s*(\d+(?::\d+)?\s*(?:AM|PM))$/i)
+  if (!m) return null
+  const [, startRaw, endRaw] = m
+  const closes = parseSlotTime(endRaw)
+  if (!closes) return null
+  // If start has no AM/PM, inherit from end
+  const startWithMer = /AM|PM/i.test(startRaw) ? startRaw : startRaw + endRaw.match(/(AM|PM)/i)?.[1]
+  const opens = parseSlotTime(startWithMer ?? startRaw)
+  if (!opens) return null
+  return { opens, closes }
+}
+
+function buildOpeningHours(hours: Record<string, string[]>) {
+  const specs: Record<string, unknown>[] = []
+  for (const [day, slots] of Object.entries(hours)) {
+    const dayName = SCHEMA_DAY[day]
+    if (!dayName || !slots || slots[0] === 'Closed') continue
+    for (const slot of slots) {
+      const parsed = parseHourSlot(slot)
+      if (parsed) {
+        specs.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${dayName}`, opens: parsed.opens, closes: parsed.closes })
+      }
+    }
+  }
+  return specs.length > 0 ? specs : undefined
+}
+
 export default async function RestaurantPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
+
+  // City × filter page (e.g. /atlanta/georgia/tonkotsu-ramen). Only major
+  // cities get these; anything else falls through to restaurant lookup.
+  const spec = parseFilterSlug(restaurant)
+  const cityInfo = spec ? getMajorCity(city, state) : null
+  if (spec && cityInfo) {
+    const matches = getFilterRestaurants(city, state, spec)
+    if (matches.length > 0) {
+      return <CityFilterPage spec={spec} cityInfo={cityInfo} restaurants={matches} />
+    }
+    notFound()
+  }
+
   const original = getRestaurant(city, state, restaurant)
   if (!original) notFound()
   const r = { ...original } as Restaurant
@@ -235,13 +324,26 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     name: r.name,
     servesCuisine: 'Ramen',
     url: `https://www.ramennearyou.com/${city}/${state}/${restaurant}`,
-    address: { '@type': 'PostalAddress', streetAddress: r.address, addressLocality: r.city, addressRegion: r.stateCode, addressCountry: 'US' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: r.street || r.address,
+      addressLocality: r.city,
+      addressRegion: r.stateCode,
+      postalCode: r.postalCode,
+      addressCountry: 'US',
+    },
+    ...(r.latitude != null && r.longitude != null && {
+      geo: { '@type': 'GeoCoordinates', latitude: r.latitude, longitude: r.longitude },
+    }),
     ...(r.phone && { telephone: r.phone }),
     ...(r.website && { sameAs: r.website }),
     ...(r.photo && { image: r.photo }),
+    ...(r.priceRange && { priceRange: r.priceRange }),
     ...(aggregateRating && { aggregateRating }),
     ...(reviewSchemaItems.length > 0 && { review: reviewSchemaItems }),
-    ...(r.priceRange && { priceRange: r.priceRange }),
+    ...(r.hours && Object.keys(r.hours).length > 0 && {
+      openingHoursSpecification: buildOpeningHours(r.hours),
+    }),
   }
 
   const breadcrumbSchema = {
@@ -348,6 +450,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
 
           {/* Primary action buttons */}
           <div className="flex flex-wrap gap-3">
+            {['chef-mak-noodle-house', 'the-bento-bowl', 'kumo-sushi-ramen', 'crave-noodles'].includes(r.slug) && (
+              <a
+                href="https://ubereats.com/feed?promoCode=eats-davidf17016ue"
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl bg-[#1a1f2e] hover:bg-[#252b3b] text-white shadow-sm transition-colors"
+              >
+                <div className="flex flex-col leading-tight">
+                  <span className="text-white text-[11px] font-normal">Uber</span>
+                  <span className="text-[#06C167] text-[11px] font-bold">Eats</span>
+                </div>
+                <span className="text-white text-sm font-bold">Order Food</span>
+              </a>
+            )}
             {orderUrl && (
               <OutboundLink
                 url={orderUrl}
@@ -714,6 +830,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
         </section>
       )}
 
+      <ProductsCarousel />
       <Footer />
     </main>
   )
