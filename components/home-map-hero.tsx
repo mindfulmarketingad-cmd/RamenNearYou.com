@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Flame, Leaf, Droplets, Soup, Wind, Moon, Tag, Gem,
@@ -11,6 +10,7 @@ import {
 } from 'lucide-react'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import type { MapBounds } from '@/components/ramen-map'
+import RestaurantImage from '@/components/restaurant-image'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -380,13 +380,7 @@ export default function HomeMapHero() {
                       className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
                     >
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                        {r.photo ? (
-                          <Image src={r.photo} alt={r.name} fill className="object-cover" unoptimized />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Utensils className="w-5 h-5 text-[#B57F50]/30" />
-                          </div>
-                        )}
+                        <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
