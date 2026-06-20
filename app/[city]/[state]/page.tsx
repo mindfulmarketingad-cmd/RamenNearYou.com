@@ -52,7 +52,6 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const dietLinks = filterLinks.filter((l) => l.group === 'diet')
 
   const featuredSlugs = getFeaturedSlugsForCity(city, state)
-
   // Build scroll-map cards: featured restaurants pinned first, then by rating
   const topRestaurants = [...restaurants]
     .sort((a, b) => {
@@ -108,6 +107,61 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     ambassador = ambassadorResult.data ?? null
   }
 
+  // Top restaurant for FAQ answer 1
+  const topRated = [...restaurants]
+    .filter(r => r.rating && r.reviewCount)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))[0]
+
+  // Broth types present in this city for FAQ answer 3
+  const allText = restaurants.map(r => `${r.name} ${r.description ?? ''} ${r.subtypes ?? ''}`).join(' ').toLowerCase()
+  const brothTypes = [
+    allText.match(/tonkotsu/) && 'tonkotsu',
+    allText.match(/shoyu|soy sauce/) && 'shoyu',
+    allText.match(/miso/) && 'miso',
+    allText.match(/shio|salt broth/) && 'shio',
+    allText.match(/spicy/) && 'spicy',
+    allText.match(/tsukemen/) && 'tsukemen',
+    allText.match(/vegan/) && 'vegan',
+  ].filter(Boolean) as string[]
+  const brothSummary = brothTypes.length
+    ? brothTypes.slice(0, 4).join(', ') + (brothTypes.length > 4 ? ', and more' : '')
+    : 'tonkotsu, shoyu, and miso'
+
+  const faqs = [
+    {
+      question: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
+      answer: topRated
+        ? `${topRated.name} is one of the highest-rated ramen restaurants in ${cityName}, ${stateCode}, with a ${topRated.rating?.toFixed(1)} star rating from ${(topRated.reviewCount ?? 0).toLocaleString()} reviews. You can view their full menu, hours, and directions on RamenNearYou. Browse all ${restaurants.length} ramen spots in ${cityName} to find your personal favorite.`
+        : `RamenNearYou lists ${restaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Browse ratings, reviews, menus, and hours to find the best bowl for you.`,
+    },
+    {
+      question: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
+      answer: `There are ${restaurants.length} ramen restaurants listed in ${cityName}, ${stateCode} on RamenNearYou. Our directory is updated regularly and covers the full city, from quick lunch spots to sit-down ramen bars. Use the map on this page to see every location and plan your visit.`,
+    },
+    {
+      question: `What types of ramen are available in ${cityName}?`,
+      answer: `Ramen restaurants in ${cityName} serve a variety of broth styles including ${brothSummary}. Whether you prefer a rich, creamy tonkotsu or a lighter shoyu broth, you can filter listings by broth type on RamenNearYou to find exactly what you're craving in ${cityName}, ${stateName}.`,
+    },
+    {
+      question: `Is there vegan or vegetarian ramen in ${cityName}, ${stateCode}?`,
+      answer: `Yes — several ramen restaurants in ${cityName}, ${stateCode} offer vegan and vegetarian ramen options. These typically feature vegetable-based broths and plant-based toppings. Check individual restaurant pages on RamenNearYou for detailed menu information and dietary accommodations before you visit.`,
+    },
+    {
+      question: `What are the hours for ramen restaurants in ${cityName}?`,
+      answer: `Hours vary by restaurant in ${cityName}, ${stateCode}. Many ramen spots are open for both lunch and dinner, typically from 11 AM to 9 or 10 PM. Some offer late-night service past 10 PM. Check each restaurant's listing on RamenNearYou for up-to-date hours, and use the "Open Now" filter on our map to find spots available right now.`,
+    },
+  ]
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  }
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -136,6 +190,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     <main className="min-h-screen bg-[#ffffff]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
 
       {/* Hero banner */}
@@ -375,6 +430,31 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 Apply Now →
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ section — drives FAQ rich results and targets "near me" long-tail queries */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 border-t border-black/5 bg-[#F5F4F0]">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Common Questions</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-8">
+            Ramen in {cityName}, {stateCode} — FAQ
+          </h2>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <details key={i} className="group bg-white border border-black/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none select-none">
+                  <h3 className="font-semibold text-[#1E2026] text-sm sm:text-base leading-snug">{faq.question}</h3>
+                  <span className="shrink-0 w-5 h-5 rounded-full border border-black/15 flex items-center justify-center text-[#6B6862] group-open:rotate-45 transition-transform duration-200">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </span>
+                </summary>
+                <div className="px-6 pb-5 pt-1">
+                  <p className="text-[#6B6862] text-sm leading-relaxed">{faq.answer}</p>
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
