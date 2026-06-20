@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
@@ -10,7 +10,6 @@ import {
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
-import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import SigninGateModal from '@/components/signin-gate-modal'
 import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
@@ -104,24 +103,16 @@ export default function HomeMapHero() {
   const [searchingArea, setSearchingArea] = useState(false)
   const [bestBowlSlug, setBestBowlSlug] = useState<string | null>(null)
 
-  // Access gating: signed-out → sign-in modal; signed-in non-subscribers get
-  // 3 free uses/month then the subscribe modal; subscribers are unlimited.
-  const { evaluate, consume } = useGate()
-  const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
-  // The map only spends one free use per visit, no matter how many filters /
-  // chips the user toggles in that session.
-  const mapConsumedRef = useRef(false)
+  // Access gating: signed-out → sign-in modal; signed-in → full access.
+  const { evaluate } = useGate()
+  const [gateMode, setGateMode] = useState<null | 'signin'>(null)
 
   useEffect(() => { setVisited(loadPassport()) }, [])
 
-  // Returns true if the action may proceed; otherwise opens the right gate.
+  // Returns true if the action may proceed; otherwise opens the sign-in gate.
   function requireAccess(): boolean {
-    const result = evaluate()
-    if (result === 'ok') {
-      if (!mapConsumedRef.current) { consume(); mapConsumedRef.current = true }
-      return true
-    }
-    setGateMode(result)
+    if (evaluate() === 'ok') return true
+    setGateMode('signin')
     return false
   }
   const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
@@ -727,9 +718,8 @@ export default function HomeMapHero() {
         </button>
       </div>
 
-      {/* Access gates — sign-in for guests, subscribe once free uses run out */}
+      {/* Sign-in gate for guests */}
       {gateMode === 'signin' && <SigninGateModal onClose={() => setGateMode(null)} redirectTo="/" />}
-      {gateMode === 'subscribe' && <SubscribeGateModal onClose={() => setGateMode(null)} />}
     </section>
   )
 }

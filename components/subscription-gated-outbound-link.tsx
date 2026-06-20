@@ -2,7 +2,6 @@
 
 import { ComponentPropsWithoutRef, useState } from 'react'
 import { useGate } from '@/lib/use-gate'
-import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import SigninGateModal from '@/components/signin-gate-modal'
 
 interface Props extends ComponentPropsWithoutRef<'a'> {
@@ -12,9 +11,8 @@ interface Props extends ComponentPropsWithoutRef<'a'> {
   destination: string
 }
 
-// Members-only outbound link (Order Now, View Full Menu). Routes signed-out
-// users to a free sign-in, meters signed-in non-subscribers (3/month), and
-// lets subscribers through unlimited. Each successful click spends one use.
+// Members-only outbound link (Order Now, View Full Menu).
+// Routes signed-out users to a free sign-in prompt; signed-in users pass through.
 export default function SubscriptionGatedOutboundLink({
   url,
   restaurantSlug,
@@ -23,8 +21,8 @@ export default function SubscriptionGatedOutboundLink({
   children,
   ...props
 }: Props) {
-  const { evaluate, consume } = useGate()
-  const [gate, setGate] = useState<null | 'signin' | 'subscribe'>(null)
+  const { evaluate } = useGate()
+  const [showSignin, setShowSignin] = useState(false)
 
   function track() {
     if (typeof window !== 'undefined' && 'gtag' in window) {
@@ -43,14 +41,12 @@ export default function SubscriptionGatedOutboundLink({
   }
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    const result = evaluate()
-    if (result === 'ok') {
-      consume()
+    if (evaluate() === 'ok') {
       track()
       return // let the anchor open the destination
     }
     e.preventDefault()
-    setGate(result)
+    setShowSignin(true)
   }
 
   return (
@@ -64,13 +60,12 @@ export default function SubscriptionGatedOutboundLink({
       >
         {children}
       </a>
-      {gate === 'signin' && (
+      {showSignin && (
         <SigninGateModal
-          onClose={() => setGate(null)}
+          onClose={() => setShowSignin(false)}
           redirectTo={typeof window !== 'undefined' ? window.location.pathname : '/'}
         />
       )}
-      {gate === 'subscribe' && <SubscribeGateModal onClose={() => setGate(null)} />}
     </>
   )
 }
