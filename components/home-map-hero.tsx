@@ -69,7 +69,17 @@ function Chip({
   )
 }
 
-export default function HomeMapHero() {
+interface HomeMapHeroProps {
+  initialFlags?: string[]
+  pageTitle?: string
+  pageDescription?: string
+}
+
+export default function HomeMapHero({
+  initialFlags = [],
+  pageTitle = 'Find Ramen Near You',
+  pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
+}: HomeMapHeroProps) {
   // Slim dataset — fetched after mount so the 25 MB source never ships in the bundle.
   const [data, setData] = useState<MapPoint[]>([])
   const [dataLoading, setDataLoading] = useState(true)
@@ -87,7 +97,7 @@ export default function HomeMapHero() {
   const [localQuery, setLocalQuery] = useState('')
 
   // Filter state
-  const [flags, setFlags] = useState<Set<string>>(new Set())
+  const [flags, setFlags] = useState<Set<string>>(new Set(initialFlags))
   const [bowls, setBowls] = useState<Set<string>>(new Set())
   const [moods, setMoods] = useState<Set<string>>(new Set())
   const [prices, setPrices] = useState<Set<string>>(new Set())
@@ -331,10 +341,10 @@ export default function HomeMapHero() {
       {/* SEO heading + intro — kept visible for crawlers and users */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-3">
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
-          Find Ramen Near You
+          {pageTitle}
         </h1>
         <p className="text-[#6B6862] text-sm mt-1">
-          Search the map by bowl, mood, price, and hours — then find your best bowl right now.
+          {pageDescription}
         </p>
       </div>
 
