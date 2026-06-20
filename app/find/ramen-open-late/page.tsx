@@ -3,12 +3,12 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import FindCrossLinks from '@/components/find-cross-links'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Ramen Open Late Near Me | Late Night Ramen Restaurants',
-  description:
-    'Find ramen restaurants open late near you. Browse spots open until 10 PM or later — filter by location, broth type, and price.',
+  description: 'Find ramen restaurants open late near you. Browse spots open until 10 PM or later — filter by location, broth type, and price.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/ramen-open-late' },
   openGraph: {
     title: 'Ramen Open Late Near Me',
@@ -17,20 +17,6 @@ export const metadata: Metadata = {
     siteName: 'RamenNearYou',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Ramen Open Late Near Me',
-    description: 'Find ramen restaurants open late near you — open until 10 PM or later.',
-  },
-}
-
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Ramen Open Late Near Me',
-  description: 'Find ramen restaurants open late near you. Browse spots open until 10 PM or later.',
-  url: 'https://www.ramennearyou.com/find/ramen-open-late',
-  isPartOf: { '@type': 'WebSite', url: 'https://www.ramennearyou.com', name: 'RamenNearYou' },
 }
 
 const faqSchema = {
@@ -75,9 +61,8 @@ const faqSchema = {
 export default function RamenOpenLatePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-[#ffffff]">
+      <main className="min-h-screen bg-white">
         <Navbar />
         <ErrorBoundary
           fallback={
@@ -96,20 +81,19 @@ export default function RamenOpenLatePage() {
         </ErrorBoundary>
 
         <div className="relative z-10 bg-white">
-          {/* SEO content block */}
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
               Finding Ramen Open Late Near You
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Late-night ramen cravings are real. The map above shows every ramen restaurant in our directory
-              that stays open until 10 PM or later — pre-filtered so you don&apos;t have to dig. Enter your
-              ZIP code or hit &quot;Use my location&quot; and the list will sort by distance.
+              Late-night ramen cravings are real. The map above shows every ramen restaurant in our
+              directory that stays open until 10 PM or later — pre-filtered so you don&apos;t have
+              to dig. Enter your ZIP code or hit &quot;Use my location&quot; and the list will sort
+              by distance.
             </p>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              You can stack additional filters — broth type, price range, open past midnight — using the
-              Filters button in the bar above the map. The &quot;Open Now&quot; chip will narrow it further
-              to spots currently serving.
+              Stack additional filters — broth type, price range, open past midnight — using the
+              Filters button in the bar above the map.
             </p>
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
@@ -119,7 +103,7 @@ export default function RamenOpenLatePage() {
               {[
                 {
                   q: 'What ramen restaurants are open late near me?',
-                  a: 'Use the map above. Click "Use my location" or type your ZIP code — the list will sort by distance and show only spots open until 10 PM or later.',
+                  a: 'Use the map above. Click "Use my location" or type your ZIP — the list will sort by distance and show only spots open until 10 PM or later.',
                 },
                 {
                   q: 'What time do most ramen restaurants close?',
@@ -145,6 +129,7 @@ export default function RamenOpenLatePage() {
             </div>
           </section>
 
+          <FindCrossLinks currentHref="/find/ramen-open-late" />
           <Footer />
         </div>
       </main>

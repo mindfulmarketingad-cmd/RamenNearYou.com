@@ -2,24 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { Clock, ChevronRight } from 'lucide-react'
+import { FIND_PAGES } from '@/components/find-cross-links'
 
 export const metadata: Metadata = {
   title: 'Find Ramen Near Me | Browse by Filter | RamenNearYou',
-  description:
-    'Find ramen restaurants near you filtered by what matters — open late, open now, vegan, cheap, and more.',
+  description: 'Find ramen restaurants near you filtered by what matters — open late, open now, tonkotsu, vegan, spicy, and more.',
   alternates: { canonical: 'https://www.ramennearyou.com/find' },
 }
-
-const FILTERS = [
-  {
-    href: '/find/ramen-open-late',
-    icon: <Clock className="w-5 h-5 text-[#B57F50]" />,
-    label: 'Ramen Open Late Near Me',
-    description: 'Restaurants open until 10 PM or later',
-    emoji: '🌙',
-  },
-]
 
 export default function FindHubPage() {
   return (
@@ -27,10 +16,12 @@ export default function FindHubPage() {
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Find Ramen Near Me</h1>
-        <p className="text-[#6B6862] text-sm mb-8">Browse ramen restaurants filtered by what you need right now.</p>
+        <p className="text-[#6B6862] text-sm mb-8">
+          Browse ramen restaurants filtered by what you need right now.
+        </p>
 
         <div className="space-y-3">
-          {FILTERS.map(f => (
+          {FIND_PAGES.map(f => (
             <Link
               key={f.href}
               href={f.href}
@@ -38,10 +29,13 @@ export default function FindHubPage() {
             >
               <span className="text-2xl shrink-0">{f.emoji}</span>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#c8934f] transition-colors">{f.label}</p>
-                <p className="text-xs text-[#6B6862]">{f.description}</p>
+                <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#c8934f] transition-colors">
+                  {f.label}
+                </p>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0" />
+              <svg className="w-4 h-4 text-[#1E2026]/20 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           ))}
         </div>

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Flame, Clock, SlidersHorizontal,
-  PlusCircle, List as ListIcon, Map as MapIcon, Check, Trophy,
+  List as ListIcon, Map as MapIcon, Check, Trophy,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -17,7 +17,7 @@ import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
-  matchesPrice, bestBowlScore, type MapPoint,
+  matchesPrice, type MapPoint,
 } from '@/lib/ramen-taxonomy'
 import { loadPassport, savePassport, earnedBadges, nextBadge } from '@/lib/passport'
 
@@ -71,12 +71,14 @@ function Chip({
 
 interface HomeMapHeroProps {
   initialFlags?: string[]
+  initialBowls?: string[]
   pageTitle?: string
   pageDescription?: string
 }
 
 export default function HomeMapHero({
   initialFlags = [],
+  initialBowls = [],
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
 }: HomeMapHeroProps) {
@@ -98,7 +100,7 @@ export default function HomeMapHero({
 
   // Filter state
   const [flags, setFlags] = useState<Set<string>>(new Set(initialFlags))
-  const [bowls, setBowls] = useState<Set<string>>(new Set())
+  const [bowls, setBowls] = useState<Set<string>>(new Set(initialBowls))
   const [moods, setMoods] = useState<Set<string>>(new Set())
   const [prices, setPrices] = useState<Set<string>>(new Set())
   const [showFilters, setShowFilters] = useState(false)
@@ -115,7 +117,6 @@ export default function HomeMapHero({
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
   const [searchingArea, setSearchingArea] = useState(false)
-  const [bestBowlSlug, setBestBowlSlug] = useState<string | null>(null)
 
   // Access gating
   const { evaluate, evaluatePremium } = useGate()
@@ -297,19 +298,6 @@ export default function HomeMapHero({
     }
   }
 
-  function handleBestBowl() {
-    if (!requirePremium()) return
-    if (!displayList.length) return
-    const best = [...displayList].sort(
-      (a, b) => bestBowlScore(b, hasLocation) - bestBowlScore(a, hasLocation)
-    )[0]
-    setBestBowlSlug(best.slug)
-    setSelectedSlug(best.slug)
-    setMobileView('list')
-    setTimeout(() => {
-      document.getElementById(`home-card-${best.slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }, 60)
-  }
 
   function toggleVisited(slug: string) {
     setVisited(prev => {
@@ -327,10 +315,8 @@ export default function HomeMapHero({
     setMoods(new Set())
     setPrices(new Set())
     setLocalQuery('')
-    setBestBowlSlug(null)
   }
 
-  const bestBowl = bestBowlSlug ? displayList.find(r => r.slug === bestBowlSlug) : null
   const visitedHere = displayList.filter(r => visited.has(r.slug)).length
   const totalVisited = visited.size
   const next = nextBadge(totalVisited)
@@ -378,17 +364,10 @@ export default function HomeMapHero({
             <div className="h-5 w-px bg-black/10 shrink-0" />
 
             <button
-              onClick={handleBestBowl}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#B57F50] to-[#c8934f] hover:from-[#c8934f] hover:to-[#d6a25e] shadow-sm transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5" /> Best Bowl Near Me
-            </button>
-
-            <button
               onClick={() => { if (requirePremium()) setShowAiPanel(true) }}
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#7c3aed] hover:to-[#6366f1] shadow-sm transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5" /> Ramen Near Me AI
+              <Sparkles className="w-3.5 h-3.5" /> Ramen AI
             </button>
 
             <Chip active={flags.has('closest')} label="Closest" emoji="🧭"
@@ -427,7 +406,7 @@ export default function HomeMapHero({
               <Trophy className="w-3.5 h-3.5" /> Passport
             </button>
 
-            {(activeCount > 0 || bestBowlSlug) && (
+            {activeCount > 0 && (
               <button
                 onClick={clearAll}
                 className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] whitespace-nowrap shrink-0"
@@ -527,26 +506,6 @@ export default function HomeMapHero({
         </div>
       )}
 
-      {/* Best bowl banner */}
-      {bestBowl && (
-        <div className="border-t border-black/8 bg-[#1E2026]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-3">
-            <Sparkles className="w-4 h-4 text-[#d6a25e] shrink-0" />
-            <p className="text-white text-sm">
-              <span className="text-[#9B9490]">Your best bowl right now:</span>{' '}
-              <Link href={`/${bestBowl.citySlug}/${bestBowl.stateSlug}/${bestBowl.slug}`} className="font-semibold text-[#d6a25e] hover:underline">
-                {bestBowl.name}
-              </Link>
-              {bestBowl.rating && <span className="text-[#9B9490]"> · ★ {bestBowl.rating.toFixed(1)}</span>}
-              {isOpenNow(bestBowl.hours) && <span className="text-emerald-400"> · Open now</span>}
-              {hasLocation && bestBowl.distKm > 0 && <span className="text-[#9B9490]"> · {kmToMiles(bestBowl.distKm).toFixed(1)} mi</span>}
-            </p>
-            <button onClick={() => setBestBowlSlug(null)} className="ml-auto text-[#9B9490] hover:text-white shrink-0">
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Map + list */}
       <div className="relative h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
@@ -607,7 +566,6 @@ export default function HomeMapHero({
                   const active = r.slug === selectedSlug
                   const showDist = closestActive || hasLocation
                   const isVisited = visited.has(r.slug)
-                  const isBest = r.slug === bestBowlSlug
                   return (
                     <Link
                       key={uid}
@@ -615,7 +573,7 @@ export default function HomeMapHero({
                       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''} ${isBest ? 'bg-[#d6a25e]/10' : ''}`}
+                      className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
                     >
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                         <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
@@ -627,7 +585,6 @@ export default function HomeMapHero({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          {isBest && <Sparkles className="w-3 h-3 text-[#c8934f] shrink-0" />}
                           <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
                         </div>
                         <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
@@ -665,15 +622,6 @@ export default function HomeMapHero({
             )}
           </div>
 
-          <div className="p-3 border-t border-black/8">
-            <Link
-              href="/list"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-[#B57F50]/30 bg-[#B57F50]/10 hover:bg-[#B57F50]/20 text-[#c8934f] text-xs font-semibold transition-colors"
-            >
-              <PlusCircle className="w-3.5 h-3.5" />
-              Submit a Listing
-            </Link>
-          </div>
         </div>
 
         {/* Map */}

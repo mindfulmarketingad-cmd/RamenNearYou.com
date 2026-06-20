@@ -8,6 +8,8 @@ import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
 import HomepageReviews from '@/components/homepage-reviews'
+import HomepageFAQ from '@/components/homepage-faq'
+import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
 
 const organizationSchema = {
@@ -62,6 +64,8 @@ export default function HomePage() {
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />
+          <HomepageFAQ />
+          <FindCrossLinks />
           <Footer />
         </div>
       </main>

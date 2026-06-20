@@ -13,6 +13,14 @@ const footerLinks = {
     { label: 'Korean Ramen Near Me', href: '/korean-ramen-near-me' },
     { label: 'Japanese Ramen Near Me', href: '/japanese-ramen-near-me' },
   ],
+  'Find Near Me': [
+    { label: 'Ramen Open Late Near Me', href: '/find/ramen-open-late' },
+    { label: 'Ramen Open Now Near Me', href: '/find/ramen-open-now' },
+    { label: 'Tonkotsu Ramen Near Me', href: '/find/tonkotsu-ramen' },
+    { label: 'Vegan Ramen Near Me', href: '/find/vegan-ramen' },
+    { label: 'Spicy Ramen Near Me', href: '/find/spicy-ramen' },
+    { label: 'All Ramen Searches', href: '/find' },
+  ],
   Browse: [
     { label: 'Search the Ramen Map', href: '/' },
     { label: 'Ramen Broth Types', href: '/broth' },
@@ -42,7 +50,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-4">

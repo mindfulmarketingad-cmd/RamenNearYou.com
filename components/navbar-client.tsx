@@ -63,6 +63,9 @@ export default function NavbarClient() {
                 <Search className="w-3.5 h-3.5" />
                 Search
               </Link>
+              <Link href="/find" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                Find
+              </Link>
               <Link href="/products" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                 Products
               </Link>
@@ -128,6 +131,9 @@ export default function NavbarClient() {
             <Link href="/" className="flex items-center gap-2 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               <Search className="w-4 h-4 text-[#B57F50]" />
               Search
+            </Link>
+            <Link href="/find" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+              Find
             </Link>
             <Link href="/products" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               Products
