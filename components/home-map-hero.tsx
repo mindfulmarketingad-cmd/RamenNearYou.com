@@ -72,6 +72,7 @@ function Chip({
 interface HomeMapHeroProps {
   initialFlags?: string[]
   initialBowls?: string[]
+  initialPrices?: string[]
   pageTitle?: string
   pageDescription?: string
 }
@@ -79,6 +80,7 @@ interface HomeMapHeroProps {
 export default function HomeMapHero({
   initialFlags = [],
   initialBowls = [],
+  initialPrices = [],
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
 }: HomeMapHeroProps) {
@@ -102,7 +104,7 @@ export default function HomeMapHero({
   const [flags, setFlags] = useState<Set<string>>(new Set(initialFlags))
   const [bowls, setBowls] = useState<Set<string>>(new Set(initialBowls))
   const [moods, setMoods] = useState<Set<string>>(new Set())
-  const [prices, setPrices] = useState<Set<string>>(new Set())
+  const [prices, setPrices] = useState<Set<string>>(new Set(initialPrices))
   const [showFilters, setShowFilters] = useState(false)
 
   const [showAiPanel, setShowAiPanel] = useState(false)

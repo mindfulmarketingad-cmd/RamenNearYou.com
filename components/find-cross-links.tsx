@@ -1,11 +1,17 @@
 import Link from 'next/link'
 
 export const FIND_PAGES = [
-  { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me', emoji: '🌙' },
   { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me', emoji: '🟢' },
+  { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me', emoji: '🌙' },
   { href: '/find/tonkotsu-ramen', label: 'Tonkotsu Ramen Near Me', emoji: '🍜' },
-  { href: '/find/vegan-ramen', label: 'Vegan Ramen Near Me', emoji: '🌱' },
   { href: '/find/spicy-ramen', label: 'Spicy Ramen Near Me', emoji: '🌶️' },
+  { href: '/find/miso-ramen', label: 'Miso Ramen Near Me', emoji: '🥣' },
+  { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me', emoji: '🍶' },
+  { href: '/find/shio-ramen', label: 'Shio Ramen Near Me', emoji: '🧂' },
+  { href: '/find/vegan-ramen', label: 'Vegan Ramen Near Me', emoji: '🌱' },
+  { href: '/find/cheap-ramen', label: 'Ramen Under $15 Near Me', emoji: '💰' },
+  { href: '/find/ramen-bars', label: 'Ramen Bars Near Me', emoji: '🍺' },
+  { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me', emoji: '🗺️' },
 ]
 
 interface Props {
