@@ -44,6 +44,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
   const [userId, setUserId] = useState<string | null>(null)
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [showAll, setShowAll] = useState(false)
+  const [alreadyReviewedId, setAlreadyReviewedId] = useState<string | null>(null)
 
   const fetchReviews = useCallback(() => {
     fetch(`/api/reviews?slug=${restaurantSlug}`)
@@ -67,12 +68,22 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
   async function handleDelete(id: string) {
     if (!confirm('Delete your review?')) return
     await fetch(`/api/reviews?id=${id}`, { method: 'DELETE' })
+    if (alreadyReviewedId === id) setAlreadyReviewedId(null)
     fetchReviews()
   }
 
   function handleWriteReview() {
     if (!userId) {
       router.push(`/auth/login?redirectTo=${encodeURIComponent(window.location.pathname)}`)
+      return
+    }
+    const existing = reviews.find(r => r.user_id === userId)
+    if (existing) {
+      setShowAll(true)
+      setAlreadyReviewedId(existing.id)
+      setTimeout(() => {
+        document.getElementById(`review-${existing.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 50)
       return
     }
     setShowModal(true)
@@ -130,8 +141,19 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
         <div className="space-y-4">
           {visible.map(review => {
             const initial = review.user_display_name?.[0]?.toUpperCase() ?? '?'
+            const isHighlighted = alreadyReviewedId === review.id
             return (
-            <article key={review.id} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5">
+            <article
+              key={review.id}
+              id={`review-${review.id}`}
+              className={`rounded-xl border p-5 transition-colors ${isHighlighted ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-300/50' : 'bg-[#F5F4F0] border-black/5'}`}
+            >
+              {isHighlighted && (
+                <p className="text-amber-700 text-xs font-medium mb-3 flex items-center gap-1.5">
+                  <span>You already reviewed this restaurant.</span>
+                  <span className="text-amber-500">Delete your review below to write a new one.</span>
+                </p>
+              )}
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-start gap-3">
                   {/* Avatar */}
