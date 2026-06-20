@@ -129,16 +129,26 @@ export default function HomeMapHero() {
   }
   const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
 
-  // Fetch the slim map dataset once.
+  // Fetch the slim map dataset once, with one retry to ride out transient blips.
   useEffect(() => {
     let cancelled = false
-    fetch('/api/ramen-map')
-      .then(r => r.json())
-      .then((d: MapPoint[]) => { if (!cancelled) { setData(d); setDataLoading(false) } })
-      .catch(() => { if (!cancelled) { setDataError(true); setDataLoading(false) } })
+    async function load(attempt = 0): Promise<void> {
+      try {
+        const res = await fetch('/api/ramen-map', { cache: 'force-cache' })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const d: MapPoint[] = await res.json()
+        if (!cancelled) { setData(d); setDataError(false); setDataLoading(false) }
+      } catch {
+        if (cancelled) return
+        if (attempt < 2) { setTimeout(() => load(attempt + 1), 800 * (attempt + 1)); return }
+        setDataError(true); setDataLoading(false)
+      }
+    }
+    load()
     return () => { cancelled = true }
   }, [])
 
+  // Geolocation is requested only on explicit user action (never on load).
   function requestLocation() {
     if (!('geolocation' in navigator)) { setGeoState('denied'); return }
     setGeoState('loading')
@@ -151,8 +161,6 @@ export default function HomeMapHero() {
       { timeout: 10000 }
     )
   }
-
-  useEffect(() => { requestLocation() }, [])
 
   async function geocodeLocation(query: string) {
     const clean = query.trim()

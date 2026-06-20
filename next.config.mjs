@@ -51,6 +51,7 @@ const nextConfig = {
       { source: '/ramen-pass', destination: '/', permanent: true },
       { source: '/pass', destination: '/', permanent: true },
       { source: '/join', destination: '/', permanent: true },
+      { source: '/dashboard', destination: '/profile', permanent: true },
       // Specific slug fixes
       {
         source: '/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9',

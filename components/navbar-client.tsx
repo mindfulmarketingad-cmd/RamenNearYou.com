@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X, Search, Utensils, LayoutDashboard } from 'lucide-react'
+import { Menu, X, Search, Utensils } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -77,10 +77,6 @@ export default function NavbarClient() {
               </Link>
               {user ? (
                 <>
-                  <Link href="/dashboard" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                    <LayoutDashboard className="w-3.5 h-3.5" />
-                    Dashboard
-                  </Link>
                   <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                     <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
                       {userInitial}
@@ -148,10 +144,6 @@ export default function NavbarClient() {
 
             {user ? (
               <div className="mt-2 flex flex-col gap-1">
-                <Link href="/dashboard" className="flex items-center gap-2 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                  <LayoutDashboard className="w-4 h-4 text-[#B57F50]" />
-                  Dashboard
-                </Link>
                 <Link href="/saved" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                   Saved Restaurants
                 </Link>
