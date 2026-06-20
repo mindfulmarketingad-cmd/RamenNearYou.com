@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
-import CookieConsent from '@/components/cookie-consent'
 import LocationPrompt from '@/components/location-prompt'
 import './globals.css'
 
@@ -67,11 +66,10 @@ export default function RootLayout({
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('consent', 'default', {
-            analytics_storage: 'denied',
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            wait_for_update: 500,
+            analytics_storage: 'granted',
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
           });
         `}</Script>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
@@ -82,7 +80,6 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white text-[#1E2026]">
         {children}
-        <CookieConsent />
         <LocationPrompt />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

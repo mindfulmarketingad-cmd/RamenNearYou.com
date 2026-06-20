@@ -15,6 +15,7 @@ const CATEGORIES = [
     pages: [
       { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me' },
       { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me' },
+      { href: '/find/ramen-lunch', label: 'Ramen for Lunch Near Me' },
     ],
   },
   {
@@ -24,7 +25,25 @@ const CATEGORIES = [
       { href: '/find/miso-ramen', label: 'Miso Ramen Near Me' },
       { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me' },
       { href: '/find/shio-ramen', label: 'Shio Ramen Near Me' },
+      { href: '/find/chicken-ramen', label: 'Chicken Ramen Near Me' },
+      { href: '/find/black-garlic-ramen', label: 'Black Garlic Ramen Near Me' },
+    ],
+  },
+  {
+    heading: 'By Style',
+    pages: [
+      { href: '/find/tsukemen', label: 'Tsukemen Near Me' },
+      { href: '/find/mazemen', label: 'Mazemen Near Me' },
+      { href: '/find/tantanmen', label: 'Tantanmen Near Me' },
+      { href: '/find/rich-ramen', label: 'Rich & Creamy Ramen Near Me' },
+      { href: '/find/light-ramen', label: 'Light & Clean Ramen Near Me' },
+    ],
+  },
+  {
+    heading: 'By Spice',
+    pages: [
       { href: '/find/spicy-ramen', label: 'Spicy Ramen Near Me' },
+      { href: '/find/extra-spicy-ramen', label: 'Extra Spicy Ramen Near Me' },
     ],
   },
   {
@@ -35,8 +54,9 @@ const CATEGORIES = [
     ],
   },
   {
-    heading: 'By Venue',
+    heading: 'By Occasion',
     pages: [
+      { href: '/find/ramen-date-night', label: 'Date Night Ramen Near Me' },
       { href: '/find/ramen-bars', label: 'Ramen Bars Near Me' },
       { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me' },
     ],
