@@ -1,16 +1,10 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Check, SlidersHorizontal, MapPin, Star, Clock, Bookmark } from 'lucide-react'
+import { Check, SlidersHorizontal, MapPin, Star, Clock, Bookmark, Loader2 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-
-export const metadata: Metadata = {
-  title: 'RamenNearYou+ — Unlock Filters for $2.99/month',
-  description: 'Subscribe to RamenNearYou+ for $2.99/month and unlock advanced filters — search by bowl type, mood, price, and hours to find your perfect ramen.',
-  alternates: { canonical: 'https://www.ramennearyou.com/plus' },
-}
-
-const STRIPE_URL = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
 
 const features = [
   { icon: SlidersHorizontal, label: 'Bowl Filters', desc: 'Tonkotsu, Spicy Miso, Shoyu, Shio, Tsukemen & more' },
@@ -21,11 +15,61 @@ const features = [
 ]
 
 export default function PlusPage() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [successBanner, setSuccessBanner] = useState(false)
+  const [cancelledBanner, setCancelledBanner] = useState(false)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('success') === '1') setSuccessBanner(true)
+    if (params.get('cancelled') === '1') setCancelledBanner(true)
+  }, [])
+
+  async function handleSubscribe() {
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/ramen-pass/checkout', { method: 'POST' })
+      if (res.status === 401) {
+        window.location.href = '/auth/login?redirect=/plus'
+        return
+      }
+      if (res.status === 409) {
+        // Already subscribed — send them to the app
+        window.location.href = '/?subscribed=1'
+        return
+      }
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
 
       <section className="pt-32 pb-24 px-4 sm:px-6 flex flex-col items-center text-center">
+        {/* Success / cancelled banners */}
+        {successBanner && (
+          <div className="w-full max-w-sm mb-6 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium text-center">
+            Payment successful — your filters are now unlocked! <Link href="/" className="underline font-bold">Start searching →</Link>
+          </div>
+        )}
+        {cancelledBanner && (
+          <div className="w-full max-w-sm mb-6 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-sm text-center">
+            No worries — your subscription wasn&apos;t charged.
+          </div>
+        )}
+
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/30 text-[#B57F50] text-xs font-bold uppercase tracking-widest mb-6">
           RamenNearYou+
@@ -68,16 +112,20 @@ export default function PlusPage() {
           </div>
 
           <div className="px-6 pb-6">
-            <a
-              href={STRIPE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-3.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold text-center transition-colors shadow-md shadow-[#B57F50]/25"
+            {error && (
+              <p className="text-red-500 text-xs text-center mb-3">{error}</p>
+            )}
+            <button
+              onClick={handleSubscribe}
+              disabled={loading}
+              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-60 text-white text-sm font-bold text-center transition-colors shadow-md shadow-[#B57F50]/25"
             >
-              Get RamenNearYou+ — $2.99/mo
-            </a>
+              {loading
+                ? <><Loader2 className="w-4 h-4 animate-spin" /> Setting up checkout…</>
+                : 'Get RamenNearYou+ — $2.99/mo'}
+            </button>
             <p className="text-center text-[#9B9490] text-xs mt-3">
-              Secure checkout via Stripe
+              Secure checkout via Stripe · Filters unlock instantly after payment
             </p>
           </div>
         </div>

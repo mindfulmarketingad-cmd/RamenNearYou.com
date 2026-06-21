@@ -1,8 +1,7 @@
 'use client'
 
-import { X, SlidersHorizontal, Check } from 'lucide-react'
-
-const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
+import { useState } from 'react'
+import { X, SlidersHorizontal, Check, Loader2 } from 'lucide-react'
 
 interface Props {
   onClose: () => void
@@ -10,6 +9,31 @@ interface Props {
 }
 
 export default function SubscribeGateModal({ onClose, featureName = 'Filters' }: Props) {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  async function handleSubscribe() {
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/ramen-pass/checkout', { method: 'POST' })
+      if (res.status === 409) {
+        onClose()
+        return
+      }
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
@@ -26,7 +50,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold mb-3">
-          Ramen Pass — $2.99/month
+          RamenNearYou+ — $2.99/month
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
@@ -52,15 +76,18 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
           ))}
         </ul>
 
+        {error && <p className="text-red-500 text-xs mb-3">{error}</p>}
+
         <div className="flex flex-col gap-2.5">
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+          <button
+            onClick={handleSubscribe}
+            disabled={loading}
+            className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-60 text-white text-sm font-bold transition-colors"
           >
-            Subscribe — $2.99/month
-          </a>
+            {loading
+              ? <><Loader2 className="w-4 h-4 animate-spin" /> Setting up checkout&hellip;</>
+              : 'Subscribe — $2.99/month'}
+          </button>
           <button
             onClick={onClose}
             className="w-full px-5 py-3 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
@@ -70,8 +97,8 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
         </div>
 
         <p className="text-[#9B9490] text-[11px] mt-3">
-          Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a> to activate.
-          {' '}<a href="/plus" className="underline hover:text-[#1E2026]">Learn more →</a>
+          Filters unlock instantly after payment.{' '}
+          Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a>.
         </p>
       </div>
     </div>
