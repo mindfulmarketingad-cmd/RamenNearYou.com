@@ -58,6 +58,7 @@ export type MapPoint = {
   hours: Record<string, string[]> | null
   bowls: string[]
   moods: string[]
+  googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
 }
 
 export function matchesPrice(p: MapPoint, key: string): boolean {

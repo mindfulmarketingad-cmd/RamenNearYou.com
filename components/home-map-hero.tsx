@@ -595,6 +595,37 @@ export default function HomeMapHero({
                       onMouseLeave={() => setHoveredSlug(null)}
                       className="relative"
                     >
+                      {r.googleMapsUrl ? (
+                        <a
+                          href={r.googleMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex gap-3 p-3 pr-10 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                        >
+                          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            </div>
+                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                              {r.rating && (
+                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                                  {r.rating.toFixed(1)}
+                                </span>
+                              )}
+                              {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
+                              {showDist && r.distKm > 0 && (
+                                <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
+                              )}
+                            </div>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
+                        </a>
+                      ) : (
                       <Link
                         href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                         className={`flex gap-3 p-3 pr-10 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
@@ -623,13 +654,16 @@ export default function HomeMapHero({
                         </div>
                         <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
                       </Link>
-                      <button
-                        onClick={(e) => handleToggleSave(e, r.slug)}
-                        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
-                        aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
-                      >
-                        <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#B57F50]' : 'text-[#9B9490]'}`} />
-                      </button>
+                      )}
+                      {!r.googleMapsUrl && (
+                        <button
+                          onClick={(e) => handleToggleSave(e, r.slug)}
+                          className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
+                          aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
+                        >
+                          <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#B57F50]' : 'text-[#9B9490]'}`} />
+                        </button>
+                      )}
                     </div>
                   )
                 })}

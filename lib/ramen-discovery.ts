@@ -4,6 +4,68 @@
 import { restaurants, getBrothTypes, type Restaurant } from './restaurants'
 import { isOpenLate } from './hours'
 import { BOWL_META, MOOD_META, type MapPoint } from './ramen-taxonomy'
+import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
+import capitalsRaw from './places-capital-supplements.json'
+import majorCitiesRaw from './places-major-cities.json'
+
+const allSupplements = {
+  ...(capitalsRaw as Record<string, Array<{ placeId: string; name: string; latitude: number | null; longitude: number | null; rating: number | null; reviewCount: number; priceLevel: number | null; photo: string | null; googleMapsUrl: string }>>),
+  ...(majorCitiesRaw as Record<string, Array<{ placeId: string; name: string; latitude: number | null; longitude: number | null; rating: number | null; reviewCount: number; priceLevel: number | null; photo: string | null; googleMapsUrl: string }>>),
+}
+
+function priceLevelToRange(level: number | null): string {
+  if (level === 1) return '$'
+  if (level === 2) return '$$'
+  if (level === 3) return '$$$'
+  if (level === 4) return '$$$$'
+  return ''
+}
+
+function titleCase(slug: string): string {
+  return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+}
+
+function supplementMapPoints(): MapPoint[] {
+  const dbSlugs = new Set(restaurants.map(r => r.slug))
+  const points: MapPoint[] = []
+
+  for (const [key, places] of Object.entries(allSupplements)) {
+    const parts = key.split('-')
+    if (parts.length < 2) continue
+    const stateCode = parts[parts.length - 1].toUpperCase()
+    const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+    if (!stateSlug) continue
+    const citySlug = parts.slice(0, -1).join('-')
+    const city = titleCase(citySlug)
+    const stateCodeUpper = stateCode
+
+    for (const p of places) {
+      if (!p.latitude || !p.longitude) continue
+      const slug = `ext-${p.placeId.slice(0, 20).toLowerCase().replace(/[^a-z0-9]/g, '')}`
+      if (dbSlugs.has(slug)) continue
+      points.push({
+        name: p.name,
+        slug,
+        citySlug,
+        stateSlug,
+        city,
+        stateCode: stateCodeUpper,
+        zip: '',
+        latitude: p.latitude,
+        longitude: p.longitude,
+        rating: p.rating,
+        reviewCount: p.reviewCount ?? 0,
+        priceRange: priceLevelToRange(p.priceLevel),
+        photo: p.photo ?? '',
+        hours: null,
+        bowls: [],
+        moods: [],
+        googleMapsUrl: p.googleMapsUrl,
+      })
+    }
+  }
+  return points
+}
 
 function txt(r: Restaurant): string {
   return `${r.name} ${r.description ?? ''} ${r.subtypes ?? ''}`.toLowerCase()
@@ -40,7 +102,7 @@ const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
 }
 
 export function computeMapData(): MapPoint[] {
-  return restaurants
+  const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
     .map(r => ({
       name: r.name,
@@ -60,4 +122,6 @@ export function computeMapData(): MapPoint[] {
       bowls: BOWL_META.filter(b => BOWL_MATCH[b.key]?.(r)).map(b => b.key),
       moods: MOOD_META.filter(m => MOOD_MATCH[m.key]?.(r)).map(m => m.key),
     }))
+
+  return [...dbPoints, ...supplementMapPoints()]
 }
