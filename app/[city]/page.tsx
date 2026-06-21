@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
+import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
@@ -40,6 +41,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   if (!allRestaurants.length) notFound()
 
   const { state, stateCode } = allRestaurants[0]
+  const stateCodeLower = (STATE_SLUG_TO_CODE[stateSlug] ?? stateCode).toLowerCase()
 
   // Build city index sorted alphabetically
   const cityGroups = new Map<string, { city: string; citySlug: string; count: number }>()
@@ -109,7 +111,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             {cities.map((c) => (
               <Link
                 key={c.citySlug}
-                href={`/${c.citySlug}/${stateSlug}`}
+                href={`/find/${c.citySlug}-${stateCodeLower}`}
                 className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
               >
                 <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
