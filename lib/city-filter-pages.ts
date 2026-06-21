@@ -266,14 +266,14 @@ export function getCityFilterLinks(citySlug: string, stateSlug: string): CityFil
 
 // The eight top-level service pages, in homepage display order.
 export const SERVICE_PAGES: Array<{ broth: string; href: string; label: string }> = [
-  { broth: 'Tonkotsu', href: '/tonkotsu-ramen-near-me', label: 'Tonkotsu Ramen' },
-  { broth: 'Spicy', href: '/spicy-ramen-near-me', label: 'Spicy Ramen' },
-  { broth: 'Miso', href: '/miso-ramen-near-me', label: 'Miso Ramen' },
-  { broth: 'Shoyu', href: '/shoyu-ramen-near-me', label: 'Shoyu Ramen' },
-  { broth: 'Vegan', href: '/vegan-ramen-near-me', label: 'Vegan Ramen' },
-  { broth: 'Vegetarian', href: '/vegetarian-ramen-near-me', label: 'Vegetarian Ramen' },
-  { broth: 'Korean', href: '/korean-ramen-near-me', label: 'Korean Ramen' },
-  { broth: 'Japanese', href: '/japanese-ramen-near-me', label: 'Japanese Ramen' },
+  { broth: 'Tonkotsu', href: '/find/tonkotsu-ramen', label: 'Tonkotsu Ramen' },
+  { broth: 'Spicy', href: '/find/spicy-ramen', label: 'Spicy Ramen' },
+  { broth: 'Miso', href: '/find/miso-ramen', label: 'Miso Ramen' },
+  { broth: 'Shoyu', href: '/find/shoyu-ramen', label: 'Shoyu Ramen' },
+  { broth: 'Vegan', href: '/find/vegan-ramen', label: 'Vegan Ramen' },
+  { broth: 'Vegetarian', href: '/find/vegetarian-ramen', label: 'Vegetarian Ramen' },
+  { broth: 'Korean', href: '/find/korean-ramen', label: 'Korean Ramen' },
+  { broth: 'Japanese', href: '/find/japanese-ramen', label: 'Japanese Ramen' },
 ]
 
 export interface ServiceCityLink {

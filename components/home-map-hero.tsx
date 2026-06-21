@@ -431,7 +431,6 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
                   <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
                   <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
                 </div>

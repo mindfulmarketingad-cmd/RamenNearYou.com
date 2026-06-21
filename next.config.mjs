@@ -46,6 +46,15 @@ const nextConfig = {
     ])
 
     return [
+      // Broth-type service pages → /find searchmap equivalents
+      { source: '/tonkotsu-ramen-near-me', destination: '/find/tonkotsu-ramen', permanent: true },
+      { source: '/spicy-ramen-near-me', destination: '/find/spicy-ramen', permanent: true },
+      { source: '/miso-ramen-near-me', destination: '/find/miso-ramen', permanent: true },
+      { source: '/shoyu-ramen-near-me', destination: '/find/shoyu-ramen', permanent: true },
+      { source: '/vegan-ramen-near-me', destination: '/find/vegan-ramen', permanent: true },
+      { source: '/vegetarian-ramen-near-me', destination: '/find/vegetarian-ramen', permanent: true },
+      { source: '/korean-ramen-near-me', destination: '/find/korean-ramen', permanent: true },
+      { source: '/japanese-ramen-near-me', destination: '/find/japanese-ramen', permanent: true },
       // Removed sections — fold back into the homepage map
       { source: '/searchmap', destination: '/', permanent: true },
       { source: '/ramen-pass', destination: '/', permanent: true },

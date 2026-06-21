@@ -23,6 +23,9 @@ export const FIND_PAGES = [
   { href: '/find/beef-ramen', label: 'Beef Ramen Near Me', emoji: '🥩' },
   { href: '/find/thick-noodle-ramen', label: 'Thick Noodle Ramen Near Me', emoji: '🍜' },
   { href: '/find/thin-noodle-ramen', label: 'Thin Noodle Ramen Near Me', emoji: '🍝' },
+  { href: '/find/vegetarian-ramen', label: 'Vegetarian Ramen Near Me', emoji: '🥬' },
+  { href: '/find/korean-ramen', label: 'Korean Ramen Near Me', emoji: '🇰🇷' },
+  { href: '/find/japanese-ramen', label: 'Japanese Ramen Near Me', emoji: '🇯🇵' },
   { href: '/find/ramen-bars', label: 'Ramen Bars Near Me', emoji: '🍺' },
   { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me', emoji: '🗺️' },
 ]
