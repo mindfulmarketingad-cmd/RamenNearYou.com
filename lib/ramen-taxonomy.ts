@@ -48,6 +48,7 @@ export type MapPoint = {
   stateSlug: string
   city: string
   stateCode: string
+  zip: string
   latitude: number | null
   longitude: number | null
   rating: number | null

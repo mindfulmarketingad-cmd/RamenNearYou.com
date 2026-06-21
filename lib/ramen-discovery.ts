@@ -49,6 +49,7 @@ export function computeMapData(): MapPoint[] {
       stateSlug: r.stateSlug,
       city: r.city,
       stateCode: r.stateCode,
+      zip: r.postalCode ?? '',
       latitude: r.latitude,
       longitude: r.longitude,
       rating: r.rating,

@@ -108,6 +108,7 @@ export default function HomeMapHero({
   const [moods, setMoods] = useState<Set<string>>(new Set(initialMoods))
   const [prices, setPrices] = useState<Set<string>>(new Set(initialPrices))
   const [showFilters, setShowFilters] = useState(false)
+  const [zipFilter, setZipFilter] = useState('')
 
   const [showAiPanel, setShowAiPanel] = useState(false)
 
@@ -215,17 +216,17 @@ export default function HomeMapHero({
     }
     setGeocoding(true)
     setGeocodeError('')
+    setZipFilter(clean)
     try {
       const url = `https://nominatim.openstreetmap.org/search?format=json&postalcode=${encodeURIComponent(clean)}&countrycodes=us&limit=1`
       const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
       const result = await res.json()
       if (result.length > 0) {
         setGeocodedCenter({ lat: parseFloat(result[0].lat), lng: parseFloat(result[0].lon) })
-      } else {
-        setGeocodeError('ZIP code not found')
       }
+      // No error if geocode fails — we still filter by zip in the list
     } catch {
-      setGeocodeError('Search failed — check your connection')
+      // Geocode failure is non-fatal; list is already filtered by zip
     } finally {
       setGeocoding(false)
     }
@@ -273,6 +274,7 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
+        if (zipFilter && r.zip !== zipFilter) return false
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
@@ -297,7 +299,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -367,7 +369,7 @@ export default function HomeMapHero({
                 inputMode="numeric"
                 maxLength={5}
                 value={locationSearch}
-                onChange={e => { setLocationSearch(e.target.value.replace(/\D/g, '')); setGeocodeError('') }}
+                onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
                 placeholder="ZIP code"
                 className="w-28 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
               />
