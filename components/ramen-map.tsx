@@ -105,6 +105,7 @@ interface Props {
   restaurants: MapRestaurant[]
   userLat: number
   userLng: number
+  initialZoom?: number
   selectedSlug: string | null
   hoveredSlug?: string | null
   onSelect: (slug: string) => void
@@ -117,7 +118,7 @@ interface Props {
   visitedSlugs?: Set<string>
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -139,7 +140,7 @@ export default function RamenMap({ restaurants, userLat, userLng, selectedSlug, 
     if (!containerRef.current || mapRef.current) return
     const map = L.map(containerRef.current, {
       center: [userLat, userLng],
-      zoom: 11,
+      zoom: initialZoom,
       zoomControl: true,
     })
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

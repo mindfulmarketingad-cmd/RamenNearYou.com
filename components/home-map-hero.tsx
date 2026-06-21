@@ -42,7 +42,7 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number) {
 
 type GeoState = 'idle' | 'loading' | 'granted' | 'denied'
 
-const DEFAULT_CENTER = { lat: 40.7128, lng: -74.006 } // NYC until data/geo resolves
+const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
 
 // ── Reusable colored chip ─────────────────────────────────────────────────────
 function Chip({
@@ -244,14 +244,18 @@ export default function HomeMapHero({
 
   // Fallback center: most-reviewed spot in the dataset, until geo/ZIP resolves.
   const fallbackCenter = useMemo(() => {
-    if (!data.length) return DEFAULT_CENTER
+    if (!data.length) return USA_CENTER
     const top = data.reduce((a, b) => (b.reviewCount > a.reviewCount ? b : a))
-    return top.latitude && top.longitude ? { lat: top.latitude, lng: top.longitude } : DEFAULT_CENTER
+    return top.latitude && top.longitude ? { lat: top.latitude, lng: top.longitude } : USA_CENTER
   }, [data])
 
   const distanceOrigin = geocodedCenter ?? userPos ?? fallbackCenter
-  const effectiveCenter = distanceOrigin
   const hasLocation = !!userPos || !!geocodedCenter
+
+  // Map visual center and zoom — USA overview until the user sets a location.
+  const mapCenter = geocodedCenter ?? userPos ?? (initialCenter ?? null)
+  const mapZoom = mapCenter ? 11 : 4
+  const mapInitCenter = mapCenter ?? USA_CENTER
 
   // Accent color drives the map pins — matches the first active bowl/mood chip.
   const accentColor = useMemo(() => {
@@ -592,8 +596,9 @@ export default function HomeMapHero({
           ) : (
             <RamenMap
               restaurants={mapRestaurants}
-              userLat={effectiveCenter.lat}
-              userLng={effectiveCenter.lng}
+              userLat={mapInitCenter.lat}
+              userLng={mapInitCenter.lng}
+              initialZoom={mapZoom}
               selectedSlug={selectedSlug}
               hoveredSlug={hoveredSlug}
               onSelect={handleSelect}
