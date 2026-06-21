@@ -58864,6 +58864,19 @@
       "longitude": -105.4957125,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJW3UqBTqVNFMR4AEho3_f0bk"
+    },
+    {
+      "placeId": "ChIJjYMrTjSVNFMRg674fyteXEQ",
+      "name": "1892 Restaurant & lounge",
+      "address": "206 S Gillette Ave, Gillette, WY 82716, USA",
+      "rating": 5,
+      "reviewCount": 116,
+      "priceLevel": null,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3kw3JTGS2_S7awz9k8X9ajaBCR6v9A8RHImpBx6r8Msgds95hvAotrAscxDK8AQ8SkA28qvRGbrTEZIAMgmypG79v8SqLTo_puKSECRgOfKjBz5xMr0bd0EwDDLnYTNuYD95Aogww0IpofPbbMKPWlyxFhUtUbMpfFz5fBBx6ig3qLbcVURyJMFZ_SvFBAIZZU_EU1lVDKUGlFXNb48bP6_RRL8wHUBHCu1lpuSa8zcLNCm7uFA9KLEL7aDu7ZfowmIGeVhSzRZNkjWks0OXwosC2HqEcLkXVOBmo7J2x71VmK18dgKy2-wfaxvxFmT0E8PK2rVIk2Fj2IwMjFDblCwrSAW_MVRVlpkojiqKRiwD3SfPdb3CxAGyHbr01g7tuOs_O_HPD8QDI6nEIonO-38k2cbyB0dLKsiH3sT5L1egeWRlrzjbetRU-QyGxsv&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 44.29274059999999,
+      "longitude": -105.5043995,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJjYMrTjSVNFMRg674fyteXEQ"
     }
   ],
   "rock-springs-wy": [
@@ -59100,6 +59113,19 @@
       "longitude": -109.2462157,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ40rCS15hWocRSA4gskeJrxQ"
+    },
+    {
+      "placeId": "ChIJuZUDTub9wokR5zD21n4FZYQ",
+      "name": "KOKORO House Of Ramen",
+      "address": "235 Rock Rd, Glen Rock, NJ 07452, USA",
+      "rating": 4.9,
+      "reviewCount": 115,
+      "priceLevel": null,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3l7z4wZIXJdcd0G3fAh8TtoWmSVNJN7FaeSTwws0l9wvvejKFKT5yNUmzh7eH_ec-IjJkfrkPDHuYPVI0Umipwt1aWA4fSeiS6lwUgkyxK40AInr-A5Mj_DE99oSsSpMXeSSRElhpDNOEIVq4Lz80TB2JUTHPTYrWYZswAMoR3ZLbeNUq6gMeg6umNz6E6lmAmcnERPeLwJTEuPIl7O2mY4R0yuOY4cC8WMwkVrT9_iyTEjpvEd--8LiI_Bl1zpYCj9SE0z0cwnSyiCe6u7y9vRVPoHtJ0_9H2xtG0iJOVe5S_n6ez8MtZnX7FRqr8bmPW5mqp6YifNMvOz2TLUrbUPNb2lxnjTisBtRoQjrJv2PzHsD9hO2AfIuutwZn6k_0FmEoh7v4Xoe4bzFqw3Qgczr0Gpv2EWmlXqzWDzOUkzfaK3KJZPEgtJhYz30A&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 40.9625496,
+      "longitude": -74.1303715,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJuZUDTub9wokR5zD21n4FZYQ"
     }
   ],
   "sheridan-wy": [
@@ -59624,6 +59650,99 @@
       "longitude": -105.5934592,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJP4RoDx6QaIcRdbaGfRc-2R4"
+    },
+    {
+      "placeId": "ChIJPf719Zj6SIcR3b5h6lpg_4A",
+      "name": "Tamarisk Restaurant",
+      "address": "1710 E Main St, Green River, UT 84525, USA",
+      "rating": 4.5,
+      "reviewCount": 4667,
+      "priceLevel": 2,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3lVTy6BsCI6EcaEUviWteLbbrORbCbnkvupBxvS6_P2-tNx5uyUJdyXyczdCX5hGNeG_B6G4MWzCrLcTyxxI1Lwyt7b5lxi-dXCab6RlUsJppNzshJcMOddGJWfFcw4ggbdxptm0Tzx29A5o9X5ur0YWqE0CIVTDBxZFP2NU2P6JP0epjTFHuXxuEz_luL_ZeRKcyB9iWMLw0f50xH3-OOh4BF-phXZW64lc2U-Y_A0lc7TkQonMztHxn777ZhQzitNzqnAhRHGMsAzlppxGuCyPFuf2A28JZDxVtn0ytRlJgyH6kXWqpKLisymLjzSN-E7D6qEHUwOxewr5bPn1S9lAHzRklXaV6jE5oiaQ2KlhK8QHq1ES0gPmAUm0MrciDmM-6QCNu6u-dCeVzY-yx93IanBwolTg6RB963cHtc&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 38.9930466,
+      "longitude": -110.1421073,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJPf719Zj6SIcR3b5h6lpg_4A"
+    },
+    {
+      "placeId": "ChIJPz68BNB9WocReKbUNxmlWIE",
+      "name": "Arctic Circle",
+      "address": "445 E Flaming Gorge Way, Green River, WY 82935, USA",
+      "rating": 4.3,
+      "reviewCount": 869,
+      "priceLevel": 1,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3nZXpyid6lUHuu25eqy94_VIwsvbop75WWDi8ElZpKMBAWysZCmdd-KF5C3tUqtKgfLa6rtqi-M9OIvUrsXddZiaOFyLPT8k31Yd5c78W1KmSHiLee7J9mQxQN7WGYYOWCbBxuGwEYZqH0OuZaD9bhy5UKfB2ET2oekOu8RCPd3_DG4CGFrKE3dhlJRU5t30VM6Q3nyYnLI_wiQ_fTHTsOOvtw7Yw5uaq-JwRnD3TDtsofoZudrGQBHUMouwGa9AfwJ9Cf09AShtx1UCMsLRDtxbP22Q4raYAIr_moaTYollXit1S3rzgJsWR939BQfyzHUNdRDGRXjMhdBz8JDDE8P2_EKjXXm_bOL6oOslaQam_xUOfeNERZvlonPrbsDkAqDtoUdRXcnXUu3x4weHqMmUUAhKAGUpju2bgr9-pU&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 41.5263557,
+      "longitude": -109.4621048,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJPz68BNB9WocReKbUNxmlWIE"
+    },
+    {
+      "placeId": "ChIJ_z4lIsrOj4ARtLKNqwyxmwk",
+      "name": "Taco Time",
+      "address": "375 Uinta Dr, Green River, WY 82935, USA",
+      "rating": 3.9,
+      "reviewCount": 397,
+      "priceLevel": 1,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3kAxXt545G9CjMHI3I-z8nNC2K5JX0mGv2y_Dpts6wEU_KTKSnDklySf-yrqgBSo5_FdEh4L9VZzU_mrHCV-aNdyS4W70nXdpf95ldbK5rYkNh_ygvuUq57KifNVSZ1eCPQ4HBbdrkc_pg8z2f2QLup6XkJmm451BQtWhBlIwBAq--L9hTmR6LvT7U_wfnjXB8Ueqn5gUST3RcqqvKwbsR7M3kW5mrK8TncaNnc_64lofJkwAcikaOVgZL-iyffHx5MTZrsg52QacBlFyDwTgfek3b0TumP8TmRFMLUn4OKgYNlRPDECLEGB8rW3EhGiGaZXiq_8RMrtG9NCj6P0E8IK-hBHfV_rn8cNmWBfG_eC1CN6p8T9gVtHJbrtDV5AMWkefDzS2D1x_PQRkI5lUaGzZcQAsTSjy7Ih36icURi9jk&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 41.51553800000001,
+      "longitude": -109.4703329,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_z4lIsrOj4ARtLKNqwyxmwk"
+    },
+    {
+      "placeId": "ChIJC2_0Pdh5WocRzz0az2CpTu4",
+      "name": "Carl's Jr.",
+      "address": "8901 WY-374, Green River, WY 82935, USA",
+      "rating": 3.6,
+      "reviewCount": 437,
+      "priceLevel": 1,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3kTphDW-lngjVIQzhm0Wgvw6X11NWwD-gHMUD7FlGa8S-hyxmhbaCRS9juEwPBktQVAAarBtrEidUBv-SlDnImZuNyGXdVg1pzuwiA01k1koqTOKuKxbAwI9PGSOhdDhQyDQ3WGRcpfb384geQdBurLaon5QFu7kq5kMEsmFDWmU0y9-34G24KZsbXsuFIYASu9RP99iL36WDC5NbiNAXf_baAsBL42MGPG9b_y8ZcBnV62NAe8MSRqlyu0npnGGiPushknLc6YLfPIuh0FzBq-IEUABGef3k76k7zc0nB5lqqZ4c8mg8E8x6pWGuTZiCiVXXJmFSXate1_HFOwU1GDMwHmGRxgYsBXTwgtSg5_N1DTFv0ZgLc5JWj2i0X6dNKW0ZSgkBR62a3jHlN7w1rYuq70Dv8fuuUifgsKoRH-wMXQ&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 41.560198,
+      "longitude": -109.5397636,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJC2_0Pdh5WocRzz0az2CpTu4"
+    },
+    {
+      "placeId": "ChIJa5wZg9x9WocRumn8i4yqepM",
+      "name": "Taco Bell",
+      "address": "82 Uinta Dr, Green River, WY 82935, USA",
+      "rating": 3.8,
+      "reviewCount": 261,
+      "priceLevel": 1,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3kvBb9KtYCuTqpToQLmNTy26LFV5Xi7iuCFeZ3UsDFiw6FESL7kAuHImIA6SVYmcBC7pxFbhGM_-yT-SbtT2j8ejeKCP5plVq3ATx327w57Dlq90Pe_BuCC2tvIo8IJEfDmLLnhSrWYBszz-taCXLKBIcNwF-eiyXmaKeitiQM4gofMf4mkw-L3i1dBRiTnBZvTKT7381FLD_eMFKo_CgV6wccvNXC2ydwq9Uw3zgddZJ_skFBLDudDSi4lCKvDEcOCB22vJqLI9NxEPoDob2eNBcsLEk1mTRH4S_KDkqDp6un4_-xEdM7fBTIycgn544YGlrlxfHv1uiHEXawEEog2tOKCBPhn4Yk65N88_I_GvLcvq_TKFAZV0YkisMdRLepXe27tvdenyruPPF6QPvLHDKWBftw0AwTdir0Ar5LJ-w&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 41.5203798,
+      "longitude": -109.4652225,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJa5wZg9x9WocRumn8i4yqepM"
+    }
+  ],
+  "cheyenne-wy": [
+    {
+      "placeId": "ChIJh2KopFyzbocRiLtn59kqLsc",
+      "name": "Kujira Ramen",
+      "address": "2909 E Harmony Rd #200, Fort Collins, CO 80528, USA",
+      "rating": 4.6,
+      "reviewCount": 1044,
+      "priceLevel": 2,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3n6P60TTsVoN94RyKx6ZXpY8UJhazSGnePsRrGvQIPpiWQyn_ZbRO54maZUOS1pT5OaYF_1BefCOfwg8ZzJcGkDpwRHTHmSxtRNUSn7J7ljlHb35tdT18uU1xKRuSobU_7lygm5ri8CsP4WktY-Nln-oHMIdi1hFWfNx0QKbgZOAiLIjUApBYuJ8Car-Yt5Dug0ydBMUvCSz1k8FfbIkCkz60DWXsGfqlKkbqTGYh56vfv4bi6S0vZmkLaHUc2LyX3E29UHt7SJJSqWCmK7Owj19l-eeAMRIV716J_tXULM1IC7_cYK1Y6UJkwAfF159L9_BP9270Y8U_G4Q1GsH_miQ1VG8T9FLOhbfkQdPXWJL9CHUMCRvVlVhVfyVhwlptNnqBRcd5fgmhKcKuGfeeYOAphfL8tEeiB8atJorqDrGWW4&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 40.5226624,
+      "longitude": -105.023278,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJh2KopFyzbocRiLtn59kqLsc"
+    },
+    {
+      "placeId": "ChIJAQCQpAo7b4cRLMxVJarbUvk",
+      "name": "Destination Taiwan",
+      "address": "2634 Dell Range Blvd Unit A, Cheyenne, WY 82009, USA",
+      "rating": 4.9,
+      "reviewCount": 565,
+      "priceLevel": null,
+      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3m_h8_5Bw-Eu8CMadt4vTwvtMNs7cmjXCp8ho3VMqOvtqC4P_LOHgj3xr5lNjZjLnXy5f_Hi5bpy9hD7ClKTLmE5Dtc8Indy4BGfLti6e4ZmgX4Gzu1l2j63GmOpjFAksTUomdefXxAIxS3Jz-ndloKyu66ln_eNz-XWuPsA-kg6mUC5dqnSq-n0PlvB7EM4cOnY1tnag2Abx6YV2NvSxSVgjShA7XHGCv14XvSXVSqhRSFnxEGpeFEfEP4Ga3loYH19vCBQ4Ogn2EpmTlGEdhABSlb7G9ZdY6WW8InFylc-NxV1L7wzXW3WlSjRFZQczNIfVEbx9qdFk0bY4M8aeZmclqavVGIm2dU6aXS7s-CvnOsSOnx1vkKawPIr0rJAr35ZjrEpiNmYtc7SigRRZo129-z3YojtRCwnmPFj_jYQlJ_uZ26spBYUp4s4Q&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
+      "latitude": 41.16033669999999,
+      "longitude": -104.7757845,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJAQCQpAo7b4cRLMxVJarbUvk"
     }
   ]
 }
