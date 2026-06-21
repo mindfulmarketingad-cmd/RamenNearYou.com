@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
@@ -110,6 +111,7 @@ export default function HomeMapHero({
 
   const [showAiPanel, setShowAiPanel] = useState(false)
 
+  const router = useRouter()
   const [saves, setSaves] = useState<Set<string>>(new Set())
 
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
@@ -526,13 +528,16 @@ export default function HomeMapHero({
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
                   return (
-                    <Link
+                    <div
                       key={uid}
                       id={`home-card-${r.slug}`}
-                      href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className={`relative w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                      onClick={() => router.push(`/${r.citySlug}/${r.stateSlug}/${r.slug}`)}
+                      role="link"
+                      tabIndex={0}
+                      onKeyDown={e => e.key === 'Enter' && router.push(`/${r.citySlug}/${r.stateSlug}/${r.slug}`)}
+                      className={`relative w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 cursor-pointer ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
                     >
                       <button
                         onClick={(e) => handleToggleSave(e, r.slug)}
@@ -564,7 +569,7 @@ export default function HomeMapHero({
                         </div>
                       </div>
                       <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
-                    </Link>
+                    </div>
                   )
                 })}
               </div>
