@@ -1,16 +1,15 @@
 'use client'
 
-import { X, Sparkles, Check } from 'lucide-react'
+import { X, SlidersHorizontal, Check } from 'lucide-react'
 
-const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/4gM7sMdmycBa9UGfO6frW07'
+const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
 
 interface Props {
   onClose: () => void
   featureName?: string
 }
 
-// Shown to signed-in but unsubscribed users who try to access Ramen Pass features.
-export default function SubscribeGateModal({ onClose, featureName = 'this feature' }: Props) {
+export default function SubscribeGateModal({ onClose, featureName = 'Filters' }: Props) {
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
@@ -23,11 +22,11 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
         </button>
 
         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#B57F50]/20 to-[#B57F50]/5 flex items-center justify-center mx-auto mb-4">
-          <Sparkles className="w-6 h-6 text-[#B57F50]" />
+          <SlidersHorizontal className="w-6 h-6 text-[#B57F50]" />
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold mb-3">
-          Ramen Pass — $4.99/month
+          Ramen Pass — $2.99/month
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
@@ -35,16 +34,16 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-          Get unlimited access to AI-powered ramen search,
-          Best Bowl picks, and more — cancel anytime.
+          Filter by bowl type, mood, price, and hours to find exactly the ramen you&apos;re craving — just $2.99/month, cancel anytime.
         </p>
 
         <ul className="text-left space-y-2 mb-6">
           {[
-            'Ramen Near Me AI — natural language search',
-            'Best Bowl Near Me — instant ranked picks',
-            'Priority listings & exclusive perks',
-            'Just $4.99/month, cancel anytime',
+            'Filter by bowl — Tonkotsu, Spicy Miso, Shoyu & more',
+            'Filter by mood — Late-night, Date Night, Quick Lunch',
+            'Filter by price — Budget, Premium, Best Value',
+            'Filter by hours — Open Now, Open Late, Past Midnight',
+            'Just $2.99/month, cancel anytime',
           ].map(item => (
             <li key={item} className="flex items-start gap-2 text-sm text-[#1E2026]">
               <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -58,13 +57,13 @@ export default function SubscribeGateModal({ onClose, featureName = 'this featur
             href={STRIPE_CHECKOUT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full px-5 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            Subscribe — $4.99/month
+            Subscribe — $2.99/month
           </a>
           <button
             onClick={onClose}
-            className="w-full px-5 py-3 rounded-none bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
           >
             Maybe later
           </button>

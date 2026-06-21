@@ -124,11 +124,17 @@ export default function HomeMapHero({
   const [searchingArea, setSearchingArea] = useState(false)
 
   // Access gating
-  const { evaluate } = useGate()
+  const { evaluate, evaluatePremium } = useGate()
   const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
 
   function requireAccess(): boolean {
     const result = evaluate()
+    if (result === 'ok') return true
+    setGateMode(result)
+    return false
+  }
+  function requirePremium(): boolean {
+    const result = evaluatePremium()
     if (result === 'ok') return true
     setGateMode(result)
     return false
@@ -416,7 +422,7 @@ export default function HomeMapHero({
               <div className="h-5 w-px bg-black/10 shrink-0" />
 
               <button
-                onClick={withGate(() => setShowFilters(v => !v))}
+                onClick={() => { if (!requirePremium()) return; setShowFilters(v => !v) }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                   showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
                 }`}
@@ -466,7 +472,7 @@ export default function HomeMapHero({
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {BOWL_META.map(b => (
-                  <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => toggleBowl(b.key)} />
+                  <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requirePremium()) return; toggleBowl(b.key) }} />
                 ))}
               </div>
             </div>
@@ -478,7 +484,7 @@ export default function HomeMapHero({
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {MOOD_META.map(m => (
-                  <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => toggleMood(m.key)} />
+                  <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requirePremium()) return; toggleMood(m.key) }} />
                 ))}
               </div>
             </div>
@@ -491,7 +497,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {PRICE_META.map(p => (
-                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => togglePrice(p.key)} />
+                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requirePremium()) return; togglePrice(p.key) }} />
                   ))}
                 </div>
               </div>
@@ -502,10 +508,10 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
-                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
-                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
-                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
+                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => { if (!requirePremium()) return; toggleFlag('open-now') }} />
+                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => { if (!requirePremium()) return; toggleFlag('open-late') }} />
+                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => { if (!requirePremium()) return; toggleFlag('open-midnight') }} />
+                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requirePremium()) return; toggleFlag('top-rated') }} />
                 </div>
               </div>
             </div>
