@@ -70,7 +70,8 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
         </div>
 
         <p className="text-[#9B9490] text-[11px] mt-3">
-          Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a> to activate your access.
+          Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a> to activate.
+          {' '}<a href="/plus" className="underline hover:text-[#1E2026]">Learn more →</a>
         </p>
       </div>
     </div>

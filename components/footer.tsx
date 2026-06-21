@@ -39,6 +39,7 @@ const footerLinks = {
     { label: 'Apply to Be Featured', href: '/featured/apply' },
   ],
   Company: [
+    { label: 'RamenNearYou+', href: '/plus' },
     { label: 'About RamenNearYou', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Privacy Policy', href: '/privacy-policy' },

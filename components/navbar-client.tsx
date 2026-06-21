@@ -74,6 +74,9 @@ export default function NavbarClient() {
               <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                 Blog
               </Link>
+              <Link href="/plus" className="px-3 py-2 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors rounded-lg hover:bg-[#B57F50]/5">
+                Plus+
+              </Link>
               {user && (
                 <>
                   <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
@@ -138,6 +141,9 @@ export default function NavbarClient() {
             </Link>
             <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
               Blog
+            </Link>
+            <Link href="/plus" className="py-2 text-sm font-semibold text-[#B57F50]" onClick={() => setMenuOpen(false)}>
+              Plus+
             </Link>
 
             {user && (
