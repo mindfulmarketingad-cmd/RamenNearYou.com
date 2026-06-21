@@ -356,9 +356,6 @@ export default function HomeMapHero({
               <Sparkles className="w-3.5 h-3.5" /> Ramen AI
             </button>
 
-            <Chip active={flags.has('open-now')} label="Open Now" emoji="🟢"
-              onClick={withGate(() => toggleFlag('open-now'))} />
-
             <button
               onClick={withGate(() => setShowFilters(v => !v))}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
@@ -431,6 +428,7 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
+                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
                   <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
                   <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
                 </div>

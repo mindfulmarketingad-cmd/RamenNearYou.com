@@ -8,6 +8,7 @@ import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import { Loader2 } from 'lucide-react'
+import SafeImg from '@/components/safe-img'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getPlacesSupplements } from '@/lib/places-supplements'
@@ -173,9 +174,7 @@ export default async function CityFindPage(
                         href={`/${citySlug}/${stateSlug}/${r.slug}`}
                         className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
                       >
-                        {r.photo && (
-                          <img src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0 bg-[#F0EDE8]" />
-                        )}
+                        <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
                           {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
@@ -214,9 +213,7 @@ export default async function CityFindPage(
                       rel="noopener noreferrer"
                       className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
                     >
-                      {r.photo && (
-                        <img src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0 bg-[#F0EDE8]" />
-                      )}
+                      <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
                           <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
