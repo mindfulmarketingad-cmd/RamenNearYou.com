@@ -617,7 +617,7 @@
     },
     {
       "placeId": "ChIJwYObdTy9yFYRziWn7UvkTFE",
-      "name": "Anchorage Pel’meni",
+      "name": "Anchorage Pel\u2019meni",
       "address": "434 K St, Anchorage, AK 99501, USA",
       "rating": 4.6,
       "reviewCount": 455,
@@ -866,7 +866,7 @@
     },
     {
       "placeId": "ChIJY4W3_LtFMlERzmjSSkhfxQE",
-      "name": "KC’s Kitchen",
+      "name": "KC\u2019s Kitchen",
       "address": "1707 S Cushman St, Fairbanks, AK 99701, USA",
       "rating": 4.6,
       "reviewCount": 211,
@@ -985,7 +985,7 @@
     },
     {
       "placeId": "ChIJK3BW2x1nBFQRToWK64vJ6eo",
-      "name": "Sitka’s Burger & Crab Shack",
+      "name": "Sitka\u2019s Burger & Crab Shack",
       "address": "327 Seward St, Sitka, AK 99835, USA",
       "rating": 4.6,
       "reviewCount": 263,
@@ -1377,7 +1377,7 @@
     },
     {
       "placeId": "ChIJgWR5RaQlDFQRdNo6c8eC0gs",
-      "name": "Ketch me if you Kan Café",
+      "name": "Ketch me if you Kan Caf\u00e9",
       "address": "625 Mission St, Ketchikan, AK 99901, USA",
       "rating": 4.4,
       "reviewCount": 100,
@@ -1600,7 +1600,7 @@
     },
     {
       "placeId": "ChIJjRnxtZPbyFYREOp6-AXeVLY",
-      "name": "Phở Lucky",
+      "name": "Ph\u1edf Lucky",
       "address": "7362 W Parks Hwy 19 & 20, Wasilla, AK 99654, USA",
       "rating": 4.5,
       "reviewCount": 190,
@@ -1613,7 +1613,7 @@
     },
     {
       "placeId": "ChIJ_RnJF2vfyFYR3EbGK8S_01c",
-      "name": "Nonna’s Osteria | Italian",
+      "name": "Nonna\u2019s Osteria | Italian",
       "address": "201 W Herning Ave, Wasilla, AK 99654, USA",
       "rating": 4.7,
       "reviewCount": 320,
@@ -2098,7 +2098,7 @@
     },
     {
       "placeId": "ChIJq9laDHHF6lYRh8C5nZsVLGw",
-      "name": "Lani’s Filipino Barbecue and Catering",
+      "name": "Lani\u2019s Filipino Barbecue and Catering",
       "address": "210 Rezanof Dr W, Kodiak, AK 99615, USA",
       "rating": 4.8,
       "reviewCount": 12,
@@ -2492,7 +2492,7 @@
     },
     {
       "placeId": "ChIJDTK84I0JK4cRWb1nBGpwREQ",
-      "name": "Ten Seconds Noodle 十秒到米线",
+      "name": "Ten Seconds Noodle \u5341\u79d2\u5230\u7c73\u7ebf",
       "address": "1832 W Broadway Rd #104, Mesa, AZ 85202, USA",
       "rating": 4.7,
       "reviewCount": 90,
@@ -3893,7 +3893,7 @@
     },
     {
       "placeId": "ChIJ4zMk1-4IK4cReN3nM6hiMrA",
-      "name": "Dragon Flame Chinese Grill 龙焱烧烤",
+      "name": "Dragon Flame Chinese Grill \u9f99\u7131\u70e7\u70e4",
       "address": "909 E Lemon St, Tempe, AZ 85281, USA",
       "rating": 4.6,
       "reviewCount": 3713,
@@ -4484,7 +4484,7 @@
     },
     {
       "placeId": "ChIJT9WsHgA5K4cRfN6AAM1VT1I",
-      "name": "Mom’s Kitchen & Boba",
+      "name": "Mom\u2019s Kitchen & Boba",
       "address": "13824 W McDowell Rd #107, Goodyear, AZ 85395, USA",
       "rating": 5,
       "reviewCount": 307,
@@ -4811,7 +4811,7 @@
     },
     {
       "placeId": "ChIJ54k9svX31oARnfUlfvB6F1s",
-      "name": "Tomo Sushi | Japanese • Ramen",
+      "name": "Tomo Sushi | Japanese \u2022 Ramen",
       "address": "1701 S Avenue B, Yuma, AZ 85364, USA",
       "rating": 4.4,
       "reviewCount": 314,
@@ -4891,7 +4891,7 @@
     },
     {
       "placeId": "ChIJT9WsHgA5K4cRfN6AAM1VT1I",
-      "name": "Mom’s Kitchen & Boba",
+      "name": "Mom\u2019s Kitchen & Boba",
       "address": "13824 W McDowell Rd #107, Goodyear, AZ 85395, USA",
       "rating": 5,
       "reviewCount": 307,
@@ -5558,7 +5558,7 @@
     },
     {
       "placeId": "ChIJZ9SJ_XQ7LYYRMAcnMe3uu4Q",
-      "name": "Mexico Lindo Taquería",
+      "name": "Mexico Lindo Taquer\u00eda",
       "address": "4605 Dollarway Rd, Pine Bluff, AR 71602, USA",
       "rating": 4.5,
       "reviewCount": 110,
@@ -6318,7 +6318,7 @@
     },
     {
       "placeId": "ChIJT_zeR3VblIAR5Kh1pBTeWUc",
-      "name": "Ramen Hayashi （Clovis）",
+      "name": "Ramen Hayashi \uff08Clovis\uff09",
       "address": "1755 Herndon Ave, Clovis, CA 93611, USA",
       "rating": 4.5,
       "reviewCount": 673,
@@ -6738,7 +6738,7 @@
     },
     {
       "placeId": "ChIJTS1jD4CBj4ARB2KtQH8rbmw",
-      "name": "NōKA Ramen & Bar",
+      "name": "N\u014dKA Ramen & Bar",
       "address": "90 Franklin St, Oakland, CA 94607, USA",
       "rating": 4.7,
       "reviewCount": 729,
@@ -6976,7 +6976,7 @@
     },
     {
       "placeId": "ChIJvcqszv7X3IAR98NYTaaD8Zs",
-      "name": "Slurpin’ Ramen To-Go - Anaheim",
+      "name": "Slurpin\u2019 Ramen To-Go - Anaheim",
       "address": "1560 S Lewis St K-8, Anaheim, CA 92805, USA",
       "rating": 3,
       "reviewCount": 10,
@@ -7539,7 +7539,7 @@
     },
     {
       "placeId": "ChIJaXkthtXc3IAR9Q38Uurqqxo",
-      "name": "Shin-Sen-Gumi – Irvine",
+      "name": "Shin-Sen-Gumi \u2013 Irvine",
       "address": "6404 Irvine Blvd, Irvine, CA 92620, USA",
       "rating": 4.3,
       "reviewCount": 854,
@@ -7656,7 +7656,7 @@
     },
     {
       "placeId": "ChIJYTMquOff3IAR1zMWgaOC_JA",
-      "name": "Noodle Nest 和悦",
+      "name": "Noodle Nest \u548c\u60a6",
       "address": "2710 Alton Pkwy #117, Irvine, CA 92606, USA",
       "rating": 4.5,
       "reviewCount": 530,
@@ -7944,7 +7944,7 @@
     },
     {
       "placeId": "ChIJrfPilYtNw4ARBlHFap7czak",
-      "name": "Birrieria y Taqueria Los Güeros #6",
+      "name": "Birrieria y Taqueria Los G\u00fceros #6",
       "address": "320 S Riverside Ave, Rialto, CA 92376, USA",
       "rating": 5,
       "reviewCount": 20,
@@ -8011,7 +8011,7 @@
     },
     {
       "placeId": "ChIJRzSEnhUQ6IkRJJDJH2rE9-g",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "1215 Post Rd, Fairfield, CT 06824, USA",
       "rating": 4.6,
       "reviewCount": 1367,
@@ -8089,7 +8089,7 @@
     },
     {
       "placeId": "ChIJYX7hUU0P6IkRE2Nsalg06SM",
-      "name": "Marla’s Mix Kitchen",
+      "name": "Marla\u2019s Mix Kitchen",
       "address": "Veterans memorial Park, 4856 Park Ave, Bridgeport, CT 06606, USA",
       "rating": 5,
       "reviewCount": 29,
@@ -8102,7 +8102,7 @@
     },
     {
       "placeId": "ChIJcwJdnYce6IkRrinJJdXe65U",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "116 Washington St, Norwalk, CT 06854, USA",
       "rating": 4.6,
       "reviewCount": 1350,
@@ -8234,7 +8234,7 @@
   "new-haven-ct": [
     {
       "placeId": "ChIJveeWoUzY54kRYPT2ITl1YOU",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "201 Crown St, New Haven, CT 06511, USA",
       "rating": 4.5,
       "reviewCount": 1945,
@@ -8613,7 +8613,7 @@
     },
     {
       "placeId": "ChIJcwJdnYce6IkRrinJJdXe65U",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "116 Washington St, Norwalk, CT 06854, USA",
       "rating": 4.6,
       "reviewCount": 1350,
@@ -8979,7 +8979,7 @@
     },
     {
       "placeId": "ChIJr9e1eSut54kRvaMh8ATPo4k",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "975 Farmington Ave, West Hartford, CT 06107, USA",
       "rating": 4.5,
       "reviewCount": 786,
@@ -8992,7 +8992,7 @@
     },
     {
       "placeId": "ChIJveeWoUzY54kRYPT2ITl1YOU",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "201 Crown St, New Haven, CT 06511, USA",
       "rating": 4.5,
       "reviewCount": 1945,
@@ -9046,7 +9046,7 @@
     },
     {
       "placeId": "ChIJcwJdnYce6IkRrinJJdXe65U",
-      "name": "Mẹcha Noodle Bar",
+      "name": "M\u1eb9cha Noodle Bar",
       "address": "116 Washington St, Norwalk, CT 06854, USA",
       "rating": 4.6,
       "reviewCount": 1350,
@@ -9650,7 +9650,7 @@
     },
     {
       "placeId": "ChIJU_aAvy6ZwokR2ZY0iqjyzaU",
-      "name": "MŌLÌ",
+      "name": "M\u014cL\u00cc",
       "address": "253 Greenwich Ave, Greenwich, CT 06830, USA",
       "rating": 4.4,
       "reviewCount": 421,
@@ -9873,7 +9873,7 @@
     },
     {
       "placeId": "ChIJAQ_iwzcBx4kR-jRBFgCwKO8",
-      "name": "Asian Noodle House-亚洲面条",
+      "name": "Asian Noodle House-\u4e9a\u6d32\u9762\u6761",
       "address": "4138 Ogletown Stanton Rd, Newark, DE 19713, USA",
       "rating": 4.7,
       "reviewCount": 212,
@@ -9990,7 +9990,7 @@
     },
     {
       "placeId": "ChIJ8eAPt7L1xokRLqEBPh6CeyE",
-      "name": "Kumamon Ramen （Exton)",
+      "name": "Kumamon Ramen \uff08Exton)",
       "address": "348 N Pottstown Pike, Exton, PA 19341, USA",
       "rating": 4.6,
       "reviewCount": 516,
@@ -10096,7 +10096,7 @@
     },
     {
       "placeId": "ChIJ1cHIqmepx4kRWfSfg7V2LQs",
-      "name": "Katanas • Sushi & Mex Grill",
+      "name": "Katanas \u2022 Sushi & Mex Grill",
       "address": "620 Plaza Dr, Newark, DE 19702, USA",
       "rating": 4.3,
       "reviewCount": 79,
@@ -10490,7 +10490,7 @@
     },
     {
       "placeId": "ChIJAQ_iwzcBx4kR-jRBFgCwKO8",
-      "name": "Asian Noodle House-亚洲面条",
+      "name": "Asian Noodle House-\u4e9a\u6d32\u9762\u6761",
       "address": "4138 Ogletown Stanton Rd, Newark, DE 19713, USA",
       "rating": 4.7,
       "reviewCount": 212,
@@ -10897,7 +10897,7 @@
     },
     {
       "placeId": "ChIJURiGHG9J5IgRowrDOO5p4WY",
-      "name": "Tokyo Ramen & Poké",
+      "name": "Tokyo Ramen & Pok\u00e9",
       "address": "630 Atlantic Blvd Suite13, Neptune Beach, FL 32266, USA",
       "rating": 4.7,
       "reviewCount": 574,
@@ -10910,7 +10910,7 @@
     },
     {
       "placeId": "ChIJF2fr9LpO5IgRHUaitDRgWOU",
-      "name": "The Hangar Bay Café and Gallery",
+      "name": "The Hangar Bay Caf\u00e9 and Gallery",
       "address": "2294 Mayport Rd #22, Atlantic Beach, FL 32233, USA",
       "rating": 4.7,
       "reviewCount": 1388,
@@ -10988,7 +10988,7 @@
     },
     {
       "placeId": "ChIJ66vdn1tJ5IgRimALpAuodIA",
-      "name": "Talkin’ Tacos Jacksonville Beach",
+      "name": "Talkin\u2019 Tacos Jacksonville Beach",
       "address": "1300 Beach Blvd, Jacksonville Beach, FL 32250, USA",
       "rating": 4.8,
       "reviewCount": 3313,
@@ -11789,7 +11789,7 @@
   "hialeah-fl": [
     {
       "placeId": "ChIJA6do94Cx2YgRcehFvipkG3I",
-      "name": "Talkin’ Tacos Miami Springs",
+      "name": "Talkin\u2019 Tacos Miami Springs",
       "address": "3700 NW 42nd Ave, Miami Springs, FL 33166, USA",
       "rating": 4.8,
       "reviewCount": 1136,
@@ -11984,7 +11984,7 @@
     },
     {
       "placeId": "ChIJxRWsh5gb2YgRc3W9fi21rGY",
-      "name": "Sakura Ramen （Coral Springs）",
+      "name": "Sakura Ramen \uff08Coral Springs\uff09",
       "address": "6192 W Sample Rd, Coral Springs, FL 33067, USA",
       "rating": 4.7,
       "reviewCount": 550,
@@ -12142,7 +12142,7 @@
     },
     {
       "placeId": "ChIJxRWsh5gb2YgRc3W9fi21rGY",
-      "name": "Sakura Ramen （Coral Springs）",
+      "name": "Sakura Ramen \uff08Coral Springs\uff09",
       "address": "6192 W Sample Rd, Coral Springs, FL 33067, USA",
       "rating": 4.7,
       "reviewCount": 550,
@@ -12469,7 +12469,7 @@
     },
     {
       "placeId": "ChIJ6S2sCgDD3ogR-r0zx8H9U1U",
-      "name": "Maggie McFly's® | Port St. Lucie",
+      "name": "Maggie McFly's\u00ae | Port St. Lucie",
       "address": "662 S Becker Rd, Port St. Lucie, FL 34984, USA",
       "rating": 4.5,
       "reviewCount": 859,
@@ -12640,7 +12640,7 @@
     },
     {
       "placeId": "ChIJqXGREKun2YgRr7ubN9joJJo",
-      "name": "A‐ONE Noodle & Dumpling",
+      "name": "A\u2010ONE Noodle & Dumpling",
       "address": "15973 Pines Blvd, Pembroke Pines, FL 33028, USA",
       "rating": 4.4,
       "reviewCount": 142,
@@ -12705,7 +12705,7 @@
     },
     {
       "placeId": "ChIJr0Q9e3Kl2YgRniT_qSWQ_-g",
-      "name": "DOMOISHI Poké Bowl - Ramen - Wings - Boba Tea",
+      "name": "DOMOISHI Pok\u00e9 Bowl - Ramen - Wings - Boba Tea",
       "address": "2941 SW 160th Ave, Miramar, FL 33027, USA",
       "rating": 4.6,
       "reviewCount": 203,
@@ -12863,7 +12863,7 @@
     },
     {
       "placeId": "ChIJzcGA4hSl6IgRor9UXC73VzU",
-      "name": "MATTARI – Japanese dining house &Sushi and Brunch",
+      "name": "MATTARI \u2013 Japanese dining house &Sushi and Brunch",
       "address": "2001 NW 13th St ste10, Gainesville, FL 32609, USA",
       "rating": 4.7,
       "reviewCount": 220,
@@ -13255,7 +13255,7 @@
     },
     {
       "placeId": "ChIJE17MTQrywogRr6pEqkBKMF4",
-      "name": "Kobé Japanese Steakhouse - Clearwater",
+      "name": "Kob\u00e9 Japanese Steakhouse - Clearwater",
       "address": "28775 US Hwy 19 N, Clearwater, FL 33761, USA",
       "rating": 4.7,
       "reviewCount": 6887,
@@ -13584,7 +13584,7 @@
     },
     {
       "placeId": "ChIJe0nUd1Th84gR1G1PP0LV0So",
-      "name": "Elena’s Noodle Bar",
+      "name": "Elena\u2019s Noodle Bar",
       "address": "1806 Russell Pkwy #600, Warner Robins, GA 31088, USA",
       "rating": 4.5,
       "reviewCount": 181,
@@ -14121,7 +14121,7 @@
     },
     {
       "placeId": "ChIJMd_4Ly919YgRv1I25IBxMAk",
-      "name": "Lanzhou Ramen N Sushi (兰州拉面)",
+      "name": "Lanzhou Ramen N Sushi (\u5170\u5dde\u62c9\u9762)",
       "address": "1055 Mansell Rd #200, Roswell, GA 30076, USA",
       "rating": 4.6,
       "reviewCount": 262,
@@ -14238,7 +14238,7 @@
     },
     {
       "placeId": "ChIJScYGy2OZ9YgRkRHFrFxoAzw",
-      "name": "DanMooJi Johns Creek 단무지 존스크릭",
+      "name": "DanMooJi Johns Creek \ub2e8\ubb34\uc9c0 \uc874\uc2a4\ud06c\ub9ad",
       "address": "8020 McGinnis Ferry Rd Suite#103, Suwanee, GA 30024, USA",
       "rating": 4.9,
       "reviewCount": 362,
@@ -14318,7 +14318,7 @@
     },
     {
       "placeId": "ChIJe0nUd1Th84gR1G1PP0LV0So",
-      "name": "Elena’s Noodle Bar",
+      "name": "Elena\u2019s Noodle Bar",
       "address": "1806 Russell Pkwy #600, Warner Robins, GA 31088, USA",
       "rating": 4.5,
       "reviewCount": 181,
@@ -15214,7 +15214,7 @@
     },
     {
       "placeId": "ChIJYemMP0PHYVMRbdT8wm0Pt8g",
-      "name": "Rokko’s Teriyaki and BBQ",
+      "name": "Rokko\u2019s Teriyaki and BBQ",
       "address": "322 Sherman Ave, Coeur d'Alene, ID 83814, USA",
       "rating": 4.3,
       "reviewCount": 379,
@@ -16134,7 +16134,7 @@
     },
     {
       "placeId": "ChIJrUTSjh434ocRxSvoZVu5TSg",
-      "name": "Ting’s Asian Fusion Restaurant",
+      "name": "Ting\u2019s Asian Fusion Restaurant",
       "address": "2561 53rd Ave, Bettendorf, IA 52722, USA",
       "rating": 4.5,
       "reviewCount": 115,
@@ -16423,7 +16423,7 @@
     {
       "placeId": "ChIJuad6Cpb_jYcRUqL4U-XWq9k",
       "name": "New York Noodle soup",
-      "address": "Sergeant Road #202 Sioux City IA 邮政编码:, Sioux City, IA 51106, USA",
+      "address": "Sergeant Road #202 Sioux City IA \u90ae\u653f\u7f16\u7801:, Sioux City, IA 51106, USA",
       "rating": 4.2,
       "reviewCount": 27,
       "priceLevel": null,
@@ -16684,7 +16684,7 @@
     },
     {
       "placeId": "ChIJZzPk_u5B5IcR17zTZHVCpBw",
-      "name": "Soseki Café",
+      "name": "Soseki Caf\u00e9",
       "address": "227 S Dubuque St, Iowa City, IA 52240, USA",
       "rating": 4.6,
       "reviewCount": 486,
@@ -16723,7 +16723,7 @@
     },
     {
       "placeId": "ChIJgxgpNW5q5IcRujUJ_l-7b4k",
-      "name": "Oyama | Japanese • Sushi • Teriyaki",
+      "name": "Oyama | Japanese \u2022 Sushi \u2022 Teriyaki",
       "address": "1853 Lower Muscatine Rd, Iowa City, IA 52240, USA",
       "rating": 4.5,
       "reviewCount": 320,
@@ -16946,7 +16946,7 @@
     },
     {
       "placeId": "ChIJf8ZrY1xT5YcRb-dnnO3WwGw",
-      "name": "D’Leon’s Taco Rico",
+      "name": "D\u2019Leon\u2019s Taco Rico",
       "address": "109 Jefferson St, Waterloo, IA 50701, USA",
       "rating": 4.1,
       "reviewCount": 145,
@@ -17552,7 +17552,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -19825,7 +19825,7 @@
     },
     {
       "placeId": "ChIJxyLb1eilIIYRyFRye6wDo50",
-      "name": "Tsaōcaa (NOLA)",
+      "name": "Tsa\u014dcaa (NOLA)",
       "address": "714 S Carrollton Ave, New Orleans, LA 70118, USA",
       "rating": 4.5,
       "reviewCount": 111,
@@ -20312,7 +20312,7 @@
     },
     {
       "placeId": "ChIJ4_24egCHO4YRUfvk50LH570",
-      "name": "Wick’s Hibachi Food Truck",
+      "name": "Wick\u2019s Hibachi Food Truck",
       "address": "4260 Louisiana Ave, Lake Charles, LA 70607, USA",
       "rating": 5,
       "reviewCount": 5,
@@ -20420,7 +20420,7 @@
     },
     {
       "placeId": "ChIJT_wsD84yMYYRYdQWJ8AyJ00",
-      "name": "Jasmine’s Noodle Bar",
+      "name": "Jasmine\u2019s Noodle Bar",
       "address": "711 Horseshoe Boulevard Horseshoe, Bossier City, LA 71111, USA",
       "rating": 3.9,
       "reviewCount": 84,
@@ -20472,7 +20472,7 @@
     },
     {
       "placeId": "ChIJIbznLBkzMYYRQFxHGHblTVM",
-      "name": "Phở Bowl",
+      "name": "Ph\u1edf Bowl",
       "address": "1605 Benton Rd, Bossier City, LA 71111, USA",
       "rating": 3.9,
       "reviewCount": 225,
@@ -20632,7 +20632,7 @@
     },
     {
       "placeId": "ChIJ98gaCsxKJYYRlKZQMkhtNZM",
-      "name": "Hana Alexandria | Japanese • Sushi",
+      "name": "Hana Alexandria | Japanese \u2022 Sushi",
       "address": "2915 S MacArthur Dr, Alexandria, LA 71301, USA",
       "rating": 4.2,
       "reviewCount": 978,
@@ -20920,7 +20920,7 @@
     },
     {
       "placeId": "ChIJZe6vMBuwIIYRCifxF01jK0w",
-      "name": "Little Tokyo Restaurant | Sushi • Bento • Japanese",
+      "name": "Little Tokyo Restaurant | Sushi \u2022 Bento \u2022 Japanese",
       "address": "2300 N Causeway Blvd, Metairie, LA 70001, USA",
       "rating": 4.4,
       "reviewCount": 1350,
@@ -21117,7 +21117,7 @@
     },
     {
       "placeId": "ChIJJaCpMu-dskwRpYbgxT0ax8w",
-      "name": "CRUNCHY POKÉ",
+      "name": "CRUNCHY POK\u00c9",
       "address": "426 Fore St, Portland, ME 04101, USA",
       "rating": 4.8,
       "reviewCount": 598,
@@ -21275,7 +21275,7 @@
     },
     {
       "placeId": "ChIJR2KhYMh5skwRCardodQ4HLI",
-      "name": "Kume | Japanese • Sushi",
+      "name": "Kume | Japanese \u2022 Sushi",
       "address": "86 Topsham Fair Mall Rd, Topsham, ME 04086, USA",
       "rating": 4.4,
       "reviewCount": 700,
@@ -21340,7 +21340,7 @@
     },
     {
       "placeId": "ChIJRcbPZMRrskwRS-2a4aP6RDc",
-      "name": "Orchid | Lewiston | Thai • Vietnamese",
+      "name": "Orchid | Lewiston | Thai \u2022 Vietnamese",
       "address": "29 Lisbon St, Lewiston, ME 04240, USA",
       "rating": 4.6,
       "reviewCount": 387,
@@ -21418,7 +21418,7 @@
     },
     {
       "placeId": "ChIJ4aXkXHZsskwRFjjCLai4VXQ",
-      "name": "New Lewiston Mandarin | Buffet • Chinese",
+      "name": "New Lewiston Mandarin | Buffet \u2022 Chinese",
       "address": "750 Sabattus St, Lewiston, ME 04240, USA",
       "rating": 4.2,
       "reviewCount": 884,
@@ -21615,7 +21615,7 @@
     },
     {
       "placeId": "ChIJm8R8_Zexr0wRsQr8VyJ1Bc0",
-      "name": "KANÙ",
+      "name": "KAN\u00d9",
       "address": "283 Main St, Old Town, ME 04468, USA",
       "rating": 4.5,
       "reviewCount": 610,
@@ -21890,7 +21890,7 @@
     },
     {
       "placeId": "ChIJJaCpMu-dskwRpYbgxT0ax8w",
-      "name": "CRUNCHY POKÉ",
+      "name": "CRUNCHY POK\u00c9",
       "address": "426 Fore St, Portland, ME 04101, USA",
       "rating": 4.8,
       "reviewCount": 598,
@@ -22546,7 +22546,7 @@
     },
     {
       "placeId": "ChIJR2KhYMh5skwRCardodQ4HLI",
-      "name": "Kume | Japanese • Sushi",
+      "name": "Kume | Japanese \u2022 Sushi",
       "address": "86 Topsham Fair Mall Rd, Topsham, ME 04086, USA",
       "rating": 4.4,
       "reviewCount": 700,
@@ -23319,7 +23319,7 @@
     },
     {
       "placeId": "ChIJx_Isp2QttokRZMvpZT4wspw",
-      "name": "Palace 궁전",
+      "name": "Palace \uad81\uc804",
       "address": "221 Muddy Branch Rd, Gaithersburg, MD 20878, USA",
       "rating": 4.8,
       "reviewCount": 39,
@@ -23358,7 +23358,7 @@
     },
     {
       "placeId": "ChIJe9vManIttokR9BwRKdO2UQw",
-      "name": "Chopin Noodle House肖邦拉面馆(Gaithersburg)",
+      "name": "Chopin Noodle House\u8096\u90a6\u62c9\u9762\u9986(Gaithersburg)",
       "address": "12123 Darnestown Rd, Gaithersburg, MD 20878, USA",
       "rating": 4.6,
       "reviewCount": 213,
@@ -24133,7 +24133,7 @@
     },
     {
       "placeId": "ChIJe9vManIttokR9BwRKdO2UQw",
-      "name": "Chopin Noodle House肖邦拉面馆(Gaithersburg)",
+      "name": "Chopin Noodle House\u8096\u90a6\u62c9\u9762\u9986(Gaithersburg)",
       "address": "12123 Darnestown Rd, Gaithersburg, MD 20878, USA",
       "rating": 4.6,
       "reviewCount": 213,
@@ -24211,7 +24211,7 @@
     },
     {
       "placeId": "ChIJERmgrZwttokR3IlY798MHlw",
-      "name": "JiBeiChuan Noodle House 季北川花胶鸡米粉",
+      "name": "JiBeiChuan Noodle House \u5b63\u5317\u5ddd\u82b1\u80f6\u9e21\u7c73\u7c89",
       "address": "19520 Waters Rd Unit 5, Germantown, MD 20874, USA",
       "rating": 4.6,
       "reviewCount": 198,
@@ -24276,7 +24276,7 @@
     },
     {
       "placeId": "ChIJDaZwpk0ttokRvDFXQNByZ-M",
-      "name": "Tous les Jours Bakery Café - Germantown",
+      "name": "Tous les Jours Bakery Caf\u00e9 - Germantown",
       "address": "13069 Wisteria Dr, Germantown, MD 20874, USA",
       "rating": 4.8,
       "reviewCount": 411,
@@ -24302,7 +24302,7 @@
     },
     {
       "placeId": "ChIJfQWUP2wstokR0hf-aq2yO5Y",
-      "name": "Señor Tequila's",
+      "name": "Se\u00f1or Tequila's",
       "address": "20021 Century Blvd, Germantown, MD 20874, USA",
       "rating": 4.5,
       "reviewCount": 5178,
@@ -24525,7 +24525,7 @@
     },
     {
       "placeId": "ChIJx-XtLxkEuYkRROXg_KI9cyc",
-      "name": "Hunan Palace Restaurant | Chinese • Japanese",
+      "name": "Hunan Palace Restaurant | Chinese \u2022 Japanese",
       "address": "418 N Fruitland Blvd, Salisbury, MD 21801, USA",
       "rating": 4.2,
       "reviewCount": 435,
@@ -25194,7 +25194,7 @@
     },
     {
       "placeId": "ChIJQQZ4Rc_N5okR88BBvHwG0Vs",
-      "name": "zhu’s Kitchen Asian Bistro & Ramen",
+      "name": "zhu\u2019s Kitchen Asian Bistro & Ramen",
       "address": "25 S Pleasant St, Amherst, MA 01002, USA",
       "rating": 4.3,
       "reviewCount": 59,
@@ -25365,7 +25365,7 @@
     },
     {
       "placeId": "ChIJ8W_HDX5344kRI99dY9VZD7E",
-      "name": "Shōjō Cambridge",
+      "name": "Sh\u014dj\u014d Cambridge",
       "address": "425 Massachusetts Ave Unit 4B, Cambridge, MA 02139, USA",
       "rating": 4.3,
       "reviewCount": 119,
@@ -26391,7 +26391,7 @@
     },
     {
       "placeId": "ChIJ9_ur2LX45IkRzAke2eOk9iA",
-      "name": "Asia One Bistro | Sushi • Bar",
+      "name": "Asia One Bistro | Sushi \u2022 Bar",
       "address": "1355 S Main St, Fall River, MA 02724, USA",
       "rating": 3.5,
       "reviewCount": 504,
@@ -26653,7 +26653,7 @@
     },
     {
       "placeId": "ChIJOzhVcFR344kRSXJ5gaZ2Eo4",
-      "name": "YōKi Japanese Restaurant & Bar - Ramen & Sushi Place",
+      "name": "Y\u014dKi Japanese Restaurant & Bar - Ramen & Sushi Place",
       "address": "62 Station Landing, Medford, MA 02155, USA",
       "rating": 4.4,
       "reviewCount": 938,
@@ -26824,7 +26824,7 @@
   "medford-ma": [
     {
       "placeId": "ChIJOzhVcFR344kRSXJ5gaZ2Eo4",
-      "name": "YōKi Japanese Restaurant & Bar - Ramen & Sushi Place",
+      "name": "Y\u014dKi Japanese Restaurant & Bar - Ramen & Sushi Place",
       "address": "62 Station Landing, Medford, MA 02155, USA",
       "rating": 4.4,
       "reviewCount": 938,
@@ -27164,7 +27164,7 @@
     },
     {
       "placeId": "ChIJ_5vJ_3NNrlIRCHz_H4OI_D0",
-      "name": "PhởHolic Taste of Vietnam",
+      "name": "Ph\u1edfHolic Taste of Vietnam",
       "address": "309 E Central Entrance, Duluth, MN 55811, USA",
       "rating": 4.6,
       "reviewCount": 1679,
@@ -27694,7 +27694,7 @@
   "gulfport-ms": [
     {
       "placeId": "ChIJJxmmBwUVnIgRElteE4CYblk",
-      "name": "Miss Thai & Ramen Noodles Café",
+      "name": "Miss Thai & Ramen Noodles Caf\u00e9",
       "address": "14451 Dedeaux Rd suit i, Gulfport, MS 39503, USA",
       "rating": 4.7,
       "reviewCount": 329,
@@ -28311,7 +28311,7 @@
   "biloxi-ms": [
     {
       "placeId": "ChIJJxmmBwUVnIgRElteE4CYblk",
-      "name": "Miss Thai & Ramen Noodles Café",
+      "name": "Miss Thai & Ramen Noodles Caf\u00e9",
       "address": "14451 Dedeaux Rd suit i, Gulfport, MS 39503, USA",
       "rating": 4.7,
       "reviewCount": 329,
@@ -29426,7 +29426,7 @@
     },
     {
       "placeId": "ChIJsZFMDwBxgIgREIu5wTD8APg",
-      "name": "Bếp Haus Viet Kitchen",
+      "name": "B\u1ebfp Haus Viet Kitchen",
       "address": "1502 Jackson Ave W, Oxford, MS 38655, USA",
       "rating": 4.8,
       "reviewCount": 57,
@@ -29491,7 +29491,7 @@
     },
     {
       "placeId": "ChIJndcU5XhxgIgRwmIUuZRkwc4",
-      "name": "Pokémoto",
+      "name": "Pok\u00e9moto",
       "address": "101 Merchants Dr, Oxford, MS 38655, USA",
       "rating": 4.5,
       "reviewCount": 62,
@@ -29569,7 +29569,7 @@
     },
     {
       "placeId": "ChIJw7MXMft6gIgRvuM_CaagvuE",
-      "name": "H2O Oxford Oriental Café",
+      "name": "H2O Oxford Oriental Caf\u00e9",
       "address": "1304 University Ave, Oxford, MS 38655, USA",
       "rating": 4,
       "reviewCount": 95,
@@ -29846,7 +29846,7 @@
   "st-louis-mo": [
     {
       "placeId": "ChIJ2aH9dgA134cRNRffR_4DPjc",
-      "name": "Kishimoto Mendō",
+      "name": "Kishimoto Mend\u014d",
       "address": "6394 Delmar Blvd, University City, MO 63130, USA",
       "rating": 4.6,
       "reviewCount": 67,
@@ -30015,7 +30015,7 @@
     },
     {
       "placeId": "ChIJMZhSs7c134cR0QcS_JuXKB0",
-      "name": "Noodle Story小面故事",
+      "name": "Noodle Story\u5c0f\u9762\u6545\u4e8b",
       "address": "6315 Delmar Blvd, University City, MO 63130, USA",
       "rating": 4.6,
       "reviewCount": 223,
@@ -30383,7 +30383,7 @@
     },
     {
       "placeId": "ChIJNw-heMS33IcRDrM4QWZjHN4",
-      "name": "Kampai | Sushi • Japanese",
+      "name": "Kampai | Sushi \u2022 Japanese",
       "address": "907 Alley A, Columbia, MO 65201, USA",
       "rating": 4.5,
       "reviewCount": 549,
@@ -31130,7 +31130,7 @@
     },
     {
       "placeId": "ChIJ2aH9dgA134cRNRffR_4DPjc",
-      "name": "Kishimoto Mendō",
+      "name": "Kishimoto Mend\u014d",
       "address": "6394 Delmar Blvd, University City, MO 63130, USA",
       "rating": 4.6,
       "reviewCount": 67,
@@ -31407,7 +31407,7 @@
     },
     {
       "placeId": "ChIJ2aH9dgA134cRNRffR_4DPjc",
-      "name": "Kishimoto Mendō",
+      "name": "Kishimoto Mend\u014d",
       "address": "6394 Delmar Blvd, University City, MO 63130, USA",
       "rating": 4.6,
       "reviewCount": 67,
@@ -31550,7 +31550,7 @@
     },
     {
       "placeId": "ChIJm-lk1_Ul34cRy7fao1ZXKVo",
-      "name": "Việt Phở Vietnamese Restaurant",
+      "name": "Vi\u1ec7t Ph\u1edf Vietnamese Restaurant",
       "address": "3132 Elm Point Industrial Dr, St Charles, MO 63301, USA",
       "rating": 4.5,
       "reviewCount": 157,
@@ -31734,7 +31734,7 @@
     },
     {
       "placeId": "ChIJg4A8AgV7yIcRMXpWRbAVoos",
-      "name": "Sum’na Eat Soul Food Truck",
+      "name": "Sum\u2019na Eat Soul Food Truck",
       "address": "1303 W 7th St, Joplin, MO 64801, USA",
       "rating": 4.8,
       "reviewCount": 417,
@@ -31747,7 +31747,7 @@
     },
     {
       "placeId": "ChIJ0X2mNQB7yIcRufpdYSs_674",
-      "name": "Queen Of Phở",
+      "name": "Queen Of Ph\u1edf",
       "address": "2914 E 32nd St Ste 110, Joplin, MO 64804, USA",
       "rating": 4.9,
       "reviewCount": 321,
@@ -31996,7 +31996,7 @@
     },
     {
       "placeId": "ChIJ2Q3YikxVQ1MRRFxmWfbNjcM",
-      "name": "Hokkaido | Ramen & Sushi Bar • Helena",
+      "name": "Hokkaido | Ramen & Sushi Bar \u2022 Helena",
       "address": "825 Great Northern Blvd Ste 101, Helena, MT 59601, USA",
       "rating": 4.4,
       "reviewCount": 1003,
@@ -32167,7 +32167,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -32338,7 +32338,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -32416,7 +32416,7 @@
     },
     {
       "placeId": "ChIJuUA3NI5tkFQRTx_4QUqxey4",
-      "name": "Ramen Nori • Ramen & Sushi",
+      "name": "Ramen Nori \u2022 Ramen & Sushi",
       "address": "13112 NE 20th St #200, Bellevue, WA 98005, USA",
       "rating": 4.6,
       "reviewCount": 691,
@@ -32522,7 +32522,7 @@
     },
     {
       "placeId": "ChIJW8ftUiWHmYcRjOvW6p02X-8",
-      "name": "WASABI BISTRO | Japanese • Chinese",
+      "name": "WASABI BISTRO | Japanese \u2022 Chinese",
       "address": "2435 Diers Ave, Grand Island, NE 68803, USA",
       "rating": 4.5,
       "reviewCount": 1046,
@@ -32717,7 +32717,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -33046,7 +33046,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -33282,7 +33282,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -33453,7 +33453,7 @@
     },
     {
       "placeId": "ChIJ01_q6TI_kIcRdq9XOiPNzEA",
-      "name": "Asian Cuisine Express | Chinese • Hibachi",
+      "name": "Asian Cuisine Express | Chinese \u2022 Hibachi",
       "address": "500 S 13th St Ste 100, Norfolk, NE 68701, USA",
       "rating": 4.4,
       "reviewCount": 265,
@@ -33622,7 +33622,7 @@
     },
     {
       "placeId": "ChIJuUSQGUPzk4cR08erYQs9cr8",
-      "name": "Rizin Japanese Ramen (来迅 ライジン)",
+      "name": "Rizin Japanese Ramen (\u6765\u8fc5 \u30e9\u30a4\u30b8\u30f3)",
       "address": "2814 S 108th St, Omaha, NE 68144, USA",
       "rating": 4.7,
       "reviewCount": 656,
@@ -33663,7 +33663,7 @@
     },
     {
       "placeId": "ChIJ5ZST9ZXrkIcRjitKc0psrA4",
-      "name": "Tokyo Japanese Cuisine | Steak • Sushi",
+      "name": "Tokyo Japanese Cuisine | Steak \u2022 Sushi",
       "address": "2610 23rd St, Columbus, NE 68601, USA",
       "rating": 4.8,
       "reviewCount": 117,
@@ -33871,7 +33871,7 @@
     },
     {
       "placeId": "ChIJlc2RIOfrkIcR7dQPynOoG5I",
-      "name": "Micek’s Shangri-la Bar",
+      "name": "Micek\u2019s Shangri-la Bar",
       "address": "2506 12th St, Columbus, NE 68601, USA",
       "rating": 4.6,
       "reviewCount": 313,
@@ -34395,7 +34395,7 @@
     },
     {
       "placeId": "ChIJqVzy6SLByIARA3y-A2g_39g",
-      "name": "Mala Town 自选麻辣烫",
+      "name": "Mala Town \u81ea\u9009\u9ebb\u8fa3\u70eb",
       "address": "3655 S Durango Dr Ste 18, Las Vegas, NV 89147, USA",
       "rating": 5,
       "reviewCount": 1060,
@@ -34776,7 +34776,7 @@
     },
     {
       "placeId": "ChIJ-Uc53jO_yIARltG67Acvo7k",
-      "name": "Soru | Ramen • Sushi • Boba Milk Tea",
+      "name": "Soru | Ramen \u2022 Sushi \u2022 Boba Milk Tea",
       "address": "10217 W Charleston Blvd Ste d, Las Vegas, NV 89135, USA",
       "rating": 4.3,
       "reviewCount": 524,
@@ -35168,7 +35168,7 @@
     },
     {
       "placeId": "ChIJxR9TLhVP4okR-g3YDdaHhi8",
-      "name": "Poké BonBon",
+      "name": "Pok\u00e9 BonBon",
       "address": "Inside Brady Sullivan Plaza, 1000 Elm St, Manchester, NH 03101, USA",
       "rating": 4.6,
       "reviewCount": 59,
@@ -36755,7 +36755,7 @@
     },
     {
       "placeId": "ChIJJXd5S_PB4okRQu8WfKg0rD8",
-      "name": "Eight Square 八方 - Chinese, Sushi & Bar",
+      "name": "Eight Square \u516b\u65b9 - Chinese, Sushi & Bar",
       "address": "2454 Lafayette Rd #6, Portsmouth, NH 03801, USA",
       "rating": 4.6,
       "reviewCount": 160,
@@ -36833,7 +36833,7 @@
     },
     {
       "placeId": "ChIJsYvYsWzB4okRlajY_o9f2aA",
-      "name": "FIVE81°NE - Thai Restaurant",
+      "name": "FIVE81\u00b0NE - Thai Restaurant",
       "address": "581 Lafayetter road, 3 US-1 BYP unit, Portsmouth, NH 03801, USA",
       "rating": 4.6,
       "reviewCount": 152,
@@ -36952,7 +36952,7 @@
     },
     {
       "placeId": "ChIJywNGuLKrw4kRclY3_HLFFZ4",
-      "name": "Kinya Ramen • Sushi • Bar",
+      "name": "Kinya Ramen \u2022 Sushi \u2022 Bar",
       "address": "495 Prospect Ave Ste #20, West Orange, NJ 07052, USA",
       "rating": 4.7,
       "reviewCount": 1909,
@@ -37017,7 +37017,7 @@
     },
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -37305,7 +37305,7 @@
     },
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -37331,7 +37331,7 @@
     },
     {
       "placeId": "ChIJkYhAyqj7wokRsFvVUT6BbLE",
-      "name": "Tojo’s Kitchen",
+      "name": "Tojo\u2019s Kitchen",
       "address": "1 Garden State Plaza Boulevard Between Tiffany & Gucci on the lower level, Paramus, NJ 07652, USA",
       "rating": 4.5,
       "reviewCount": 941,
@@ -37424,7 +37424,7 @@
   "elizabeth-nj": [
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -37489,7 +37489,7 @@
     },
     {
       "placeId": "ChIJ_yPhpRi5w4kRz2ccvx9pB_Q",
-      "name": "Tenichi Ramen • Bubble Tea (BYOB)",
+      "name": "Tenichi Ramen \u2022 Bubble Tea (BYOB)",
       "address": "1326 Centennial Ave, Piscataway, NJ 08854, USA",
       "rating": 4.9,
       "reviewCount": 2485,
@@ -37738,7 +37738,7 @@
     },
     {
       "placeId": "ChIJD3baI4DHw4kRL_42i_dSzJo",
-      "name": "Mala Town Edison自选麻辣烫",
+      "name": "Mala Town Edison\u81ea\u9009\u9ebb\u8fa3\u70eb",
       "address": "1639 NJ-27, Edison, NJ 08817, USA",
       "rating": 4.8,
       "reviewCount": 1607,
@@ -37751,7 +37751,7 @@
     },
     {
       "placeId": "ChIJ1ZRNGOjJw4kREk595rhd7a4",
-      "name": "NewDa Noodles 牛大（兰州牛肉面）",
+      "name": "NewDa Noodles \u725b\u5927\uff08\u5170\u5dde\u725b\u8089\u9762\uff09",
       "address": "1876 NJ-27 #103, Edison, NJ 08817, USA",
       "rating": 4.5,
       "reviewCount": 184,
@@ -37779,7 +37779,7 @@
   "woodbridge-nj": [
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -37922,7 +37922,7 @@
     },
     {
       "placeId": "ChIJ_yPhpRi5w4kRz2ccvx9pB_Q",
-      "name": "Tenichi Ramen • Bubble Tea (BYOB)",
+      "name": "Tenichi Ramen \u2022 Bubble Tea (BYOB)",
       "address": "1326 Centennial Ave, Piscataway, NJ 08854, USA",
       "rating": 4.9,
       "reviewCount": 2485,
@@ -38184,7 +38184,7 @@
     },
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -38931,7 +38931,7 @@
     },
     {
       "placeId": "ChIJywNGuLKrw4kRclY3_HLFFZ4",
-      "name": "Kinya Ramen • Sushi • Bar",
+      "name": "Kinya Ramen \u2022 Sushi \u2022 Bar",
       "address": "495 Prospect Ave Ste #20, West Orange, NJ 07052, USA",
       "rating": 4.7,
       "reviewCount": 1909,
@@ -39246,7 +39246,7 @@
     {
       "placeId": "ChIJaZ9HQJPJxokRRb9EIqdwmJE",
       "name": "Umami Steak and Sushi Bar",
-      "address": "United States, Pennsylvania, Philadelphia, Walnut St, US邮政编码: 19106",
+      "address": "United States, Pennsylvania, Philadelphia, Walnut St, US\u90ae\u653f\u7f16\u7801: 19106",
       "rating": 4.7,
       "reviewCount": 337,
       "priceLevel": 2,
@@ -39336,7 +39336,7 @@
     },
     {
       "placeId": "ChIJu5bQagCzw4kRlsDyXKTuJjE",
-      "name": "Kinya Ramen · Sushi · Bubble Tea",
+      "name": "Kinya Ramen \u00b7 Sushi \u00b7 Bubble Tea",
       "address": "1701 W Edgar Rd Unit H, Linden, NJ 07036, USA",
       "rating": 4.9,
       "reviewCount": 4503,
@@ -39652,7 +39652,7 @@
     },
     {
       "placeId": "ChIJKQYGbgU93oYR1fjOS-o71NY",
-      "name": "Mama Silvia’s Taqueria",
+      "name": "Mama Silvia\u2019s Taqueria",
       "address": "1855 E Lohman Ave Suite D, Las Cruces, NM 88001, USA",
       "rating": 4.9,
       "reviewCount": 30,
@@ -39740,19 +39740,6 @@
       "longitude": -106.5146855,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJcaX2WNNX54YR8QA0jR0c3Cw"
-    },
-    {
-      "placeId": "ChIJAfdfr-ZZ54YRZ6rOUSl-Qgw",
-      "name": "Yamaguchi Ramen Bar",
-      "address": "1700 N Zaragoza Rd Ste 151, El Paso, TX 79936, USA",
-      "rating": 4.5,
-      "reviewCount": 909,
-      "priceLevel": 2,
-      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3n6NDyUdE3lW8Xf2KjVA6eAxV0XFeVLWQGEhXybkKisqw70byWqara8K0GV9sjBO6cp8Yj5lwA9w4_MjIj2x8kZqSXfqkrNn94uNFMLs1rDotoSTMcyhjJel0qiheO7HYhZeZcwG0BKXZ5xErtJpawl3b9XsMDF15MhunmKknEpFPrb5LZTjtiD_m-bb4JDLQOo1rKV3AAOB8oorLMtVbavBKL3aDzbpl3QBt8nsjqKsFCyFgcxu49SfCJxrCKgSz8YAvuhlzSU-BkB_tTAd_TQciRm90oD6RRZX8ktSujCOGjFK7OzWWv6HQIaVi2KrHUqbaesYcks5Kx5ZmGXvMtU6RSFyPpOJawF4w3Tei4fEIANK7cXzA0D0xm-ElYMbdgRm297x7NtlpYjqb9Qf1meCkOYcIkgXDEcmgFaxNN-Mg&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
-      "latitude": 31.749782,
-      "longitude": -106.2790487,
-      "openNow": true,
-      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJAfdfr-ZZ54YRZ6rOUSl-Qgw"
     }
   ],
   "rio-rancho-nm": [
@@ -39875,7 +39862,7 @@
     },
     {
       "placeId": "ChIJMe_hVkd5IocR6ee94srH9po",
-      "name": "Tio’s Kitchen & Patio",
+      "name": "Tio\u2019s Kitchen & Patio",
       "address": "960 US-550 Suite C, Bernalillo, NM 87004, USA",
       "rating": 4.9,
       "reviewCount": 85,
@@ -39950,19 +39937,6 @@
       "longitude": -106.6514203,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ2YQ6Y2JxIocR_byTgJ7T69A"
-    },
-    {
-      "placeId": "ChIJNSdQLGcLIocR2wVFxAXBbCk",
-      "name": "O Ramen",
-      "address": "2114 Central Ave SE, Albuquerque, NM 87106, USA",
-      "rating": 4.3,
-      "reviewCount": 1632,
-      "priceLevel": 1,
-      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3kJw9O3tZauI9Md2a-ziy2x8Wl6uc_nxO7sdoIvaoDSe51g9rPZGXPvm97ERAyC9yezYA02N5PM90Wq__iC6CKEuChWMlTSS_chfhdTtmKNyxPaQit3nX8uPJ6_05MQo0y4XXEhlIJM-g6KnBAyjY_ErcsZkL_u5h2_hroV1aOeutBcSxnaqbM-sXgQhSzdSTjfVAyFDRRrai1GvKAn5GuNyKByXA3gstnb_CdWb2RUPnKooZC9VmDN6GYkqp2mBvPzDT1OjZMUVW42gpwd3ehfyvgF_k9KqYe5jjbg4lvppLWaJViOflqnDvqmCe8xljn6Qb7uVou7RNIv6HDo7uTxxJx7RP8fYl9Misop4r3L2zYccre5qXnnrcntXxZ2SGIta7ib51ac3JudqdwJFDCGDQIkFr0r7EEHGNlryW4b9u9Z&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
-      "latitude": 35.0807937,
-      "longitude": -106.6232093,
-      "openNow": false,
-      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJNSdQLGcLIocR2wVFxAXBbCk"
     }
   ],
   "roswell-nm": [
@@ -40160,19 +40134,6 @@
       "longitude": -104.5363464,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJNXIqKjFp4oYRVdSlJKYDGC8"
-    },
-    {
-      "placeId": "ChIJxYGK_GRz3IAR3oz9I3HwekA",
-      "name": "GONZO!",
-      "address": "300 Carlsbad Village Dr #201A, Carlsbad, CA 92008, USA",
-      "rating": 4.7,
-      "reviewCount": 1033,
-      "priceLevel": 2,
-      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3nmKH3A2g8-pevznTLlDdz-6bpvvHAgfgmPX-s91meA78B67nroptQXq-CLlZeA2X8pzlMjfE7uaR8sr-0eL0WV-3ONTYziTWYYyL-fQ3oYjxLzixE81oe4Z3u1-idPDd5XVThNk5m3ZOZxpS1NQpNu_N5XYBBYnAo3FWW6Wawqz2FCL3DdXe2DNjfho4SeuylFJA1S4N0B57il389B7pP7npMcwstzy34YeruW5TKRQVtMCjROKveMbWj3-IJ5xK82IDqiDvQQwZ4hOj-CQm_oPiUB8bB67_Yewqnc77dLxhMpytPnFlQ5WilhALUQcGZmXTgeRVA1aVC5-W_PG6CanKKKNjjmvzKtoT3MeNHYZwF_UmMs7o07FSj3B3jksf4uy1AUaaEfNiiMpQPHpxHPTunS0maeMVKhmIBzUpa_f9ASJV50WXvloxS5C-b2&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
-      "latitude": 33.1591509,
-      "longitude": -117.3510415,
-      "openNow": true,
-      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJxYGK_GRz3IAR3oz9I3HwekA"
     }
   ],
   "farmington-nm": [
@@ -40370,19 +40331,6 @@
       "longitude": -108.1515283,
       "openNow": false,
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJHzyVNzGPO4cRZPnskLE7dPc"
-    },
-    {
-      "placeId": "ChIJuRjkXLCFO4cR3VxOCkhIdJs",
-      "name": "64 CAFE",
-      "address": "1101 E Murray Dr, Farmington, NM 87401, USA",
-      "rating": 4.7,
-      "reviewCount": 99,
-      "priceLevel": null,
-      "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=AaVGc3msoqa4m_h2t5oOIgLBUte8Ed23J1zTIs5LpT371TXPcabKeUIV9TNngQdfCKpuwCb5PXqHV5zzpCq21ZapcMPLW7-G32gCJgCKUJjtzlIJ1NWr5dxGMZvp6Tnw0yap-64ar5q9AkuCH4EJHnow_jMQPsnOPCy1ANtsDKSAysqvDMlan-JVmNSaYQgtQC8g_J2sXnZ_AGSHfpx01rBVtJJj1ZB8yM4OZgYIc-APoztMBi4QUj0lGiv63AK-OFU_7Izmu_YjIxfXc6cSrUQ3ZgBKVhrWMFMFYXj6G_SR8gQiZjaQLaI9IjaWJUMr7T28A4m3KIz-FttfC_axZiML4h4AUtFmELQMAY_OumidVTLT4zXlLRZ0F8GNkD0NG8awl_cnQX9eYPt5HsSE0E0m844PrxLilkAQi3fgPLXkFV3kwA&key=AIzaSyC90bJG2pK_0YzN3f_aqPnvGVXAbQA8Zrg",
-      "latitude": 36.7192582,
-      "longitude": -108.1919776,
-      "openNow": false,
-      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJuRjkXLCFO4cR3VxOCkhIdJs"
     }
   ],
   "clovis-nm": [
@@ -40401,7 +40349,7 @@
     },
     {
       "placeId": "ChIJheH_AevdAocRCudfqCfoHi4",
-      "name": "Blaz’n Asian",
+      "name": "Blaz\u2019n Asian",
       "address": "720 N Prince St, Clovis, NM 88101, USA",
       "rating": 4.6,
       "reviewCount": 185,
@@ -40427,7 +40375,7 @@
     },
     {
       "placeId": "ChIJT_zeR3VblIAR5Kh1pBTeWUc",
-      "name": "Ramen Hayashi （Clovis）",
+      "name": "Ramen Hayashi \uff08Clovis\uff09",
       "address": "1755 Herndon Ave, Clovis, CA 93611, USA",
       "rating": 4.5,
       "reviewCount": 673,
@@ -40531,7 +40479,7 @@
     },
     {
       "placeId": "ChIJTw0eKiDfAocRdv07lZ0qFDQ",
-      "name": "Phở Lê Vietnamese Restaurant",
+      "name": "Ph\u1edf L\u00ea Vietnamese Restaurant",
       "address": "1010 W 21st St, Clovis, NM 88101, USA",
       "rating": 4.5,
       "reviewCount": 186,
@@ -40663,7 +40611,7 @@
     },
     {
       "placeId": "ChIJTVysCwCV_IYRDrnHQVQ6tBI",
-      "name": "Hacienda Doña Mary Restaurant",
+      "name": "Hacienda Do\u00f1a Mary Restaurant",
       "address": "205 W Sanger St, Hobbs, NM 88240, USA",
       "rating": 4.6,
       "reviewCount": 44,
@@ -40689,7 +40637,7 @@
     },
     {
       "placeId": "ChIJP0dbrfmV_IYRGwHgDqD3bDE",
-      "name": "Mei’s Foodie Hub",
+      "name": "Mei\u2019s Foodie Hub",
       "address": "1401 N Turner St Ste d11, Hobbs, NM 88240, USA",
       "rating": 4.1,
       "reviewCount": 178,
@@ -41120,7 +41068,7 @@
     },
     {
       "placeId": "ChIJT2n1nXpQ4IYR42Dv711mesM",
-      "name": "CJ's Si Señor Restaurant",
+      "name": "CJ's Si Se\u00f1or Restaurant",
       "address": "2300 N White Sands Blvd, Alamogordo, NM 88310, USA",
       "rating": 4.4,
       "reviewCount": 2066,
@@ -41750,7 +41698,7 @@
     },
     {
       "placeId": "ChIJVb-ag9qJwokR7cfpSYTb0K0",
-      "name": "cha menya ramen(茶麵屋）",
+      "name": "cha menya ramen(\u8336\u9eb5\u5c4b\uff09",
       "address": "251-20 Northern Blvd, Douglaston, NY 11362, USA",
       "rating": 4.7,
       "reviewCount": 205,
@@ -41763,7 +41711,7 @@
     },
     {
       "placeId": "ChIJD6tMUbaJwokRsiMicaAoUpQ",
-      "name": "AP Ramen 拉麵次元",
+      "name": "AP Ramen \u62c9\u9eb5\u6b21\u5143",
       "address": "57 Main St, Port Washington, NY 11050, USA",
       "rating": 4.8,
       "reviewCount": 525,
@@ -42627,7 +42575,7 @@
     },
     {
       "placeId": "ChIJFcLYq32R_ocRUhsmhVcNWu8",
-      "name": "Matsumoto Ramen House マツモトラーメンハウス",
+      "name": "Matsumoto Ramen House \u30de\u30c4\u30e2\u30c8\u30e9\u30fc\u30e1\u30f3\u30cf\u30a6\u30b9",
       "address": "106 N Water St, Sparta, WI 54656, USA",
       "rating": 4.9,
       "reviewCount": 720,
@@ -44270,7 +44218,7 @@
     },
     {
       "placeId": "ChIJ8bi6YgCFQIgRQrhHUtJZe7g",
-      "name": "FIVE GRAINS NOODLE HOUSE(五谷鱼粉）",
+      "name": "FIVE GRAINS NOODLE HOUSE(\u4e94\u8c37\u9c7c\u7c89\uff09",
       "address": "1465 E Dorothy Ln, Dayton, OH 45429, USA",
       "rating": 4.6,
       "reviewCount": 185,
@@ -44679,7 +44627,7 @@
     },
     {
       "placeId": "ChIJswZr_gZhMYgRU4vkstKWg6g",
-      "name": "An’s House",
+      "name": "An\u2019s House",
       "address": "176 N Park Ave, Warren, OH 44481, USA",
       "rating": 4.9,
       "reviewCount": 303,
@@ -44705,7 +44653,7 @@
     },
     {
       "placeId": "ChIJV7aO1urgM4gRhG1SIt9EHOQ",
-      "name": "Mizu Sushi Bar & Grill | Japanese • Hibachi",
+      "name": "Mizu Sushi Bar & Grill | Japanese \u2022 Hibachi",
       "address": "5555 Youngstown Warren Rd #715, Niles, OH 44446, USA",
       "rating": 4.5,
       "reviewCount": 2127,
@@ -44954,7 +44902,7 @@
     },
     {
       "placeId": "ChIJq1EGHRqTMIgREkxdkHCQpno",
-      "name": "Ohashi | Sushi • Japanese",
+      "name": "Ohashi | Sushi \u2022 Japanese",
       "address": "24539 Lorain Rd, North Olmsted, OH 44070, USA",
       "rating": 4.7,
       "reviewCount": 725,
@@ -45203,7 +45151,7 @@
     },
     {
       "placeId": "ChIJ8bi6YgCFQIgRQrhHUtJZe7g",
-      "name": "FIVE GRAINS NOODLE HOUSE(五谷鱼粉）",
+      "name": "FIVE GRAINS NOODLE HOUSE(\u4e94\u8c37\u9c7c\u7c89\uff09",
       "address": "1465 E Dorothy Ln, Dayton, OH 45429, USA",
       "rating": 4.6,
       "reviewCount": 185,
@@ -46147,7 +46095,7 @@
     },
     {
       "placeId": "ChIJyddpAbR_MogR2ruAuCq6zws",
-      "name": "BAR RŌNIN",
+      "name": "BAR R\u014cNIN",
       "address": "948 W Erie Plaza Dr, Erie, PA 16505, USA",
       "rating": 4.5,
       "reviewCount": 328,
@@ -46487,7 +46435,7 @@
     },
     {
       "placeId": "ChIJK0E5AMh3xokRkeDS5ubmi98",
-      "name": "Quesabirrias La Perla Tapatía",
+      "name": "Quesabirrias La Perla Tapat\u00eda",
       "address": "948 N 6th St, Reading, PA 19601, USA",
       "rating": 4.7,
       "reviewCount": 46,
@@ -46500,7 +46448,7 @@
     },
     {
       "placeId": "ChIJN4lIi1h3xokRvkZZ0aNc5Lo",
-      "name": "Takkii Ramen Farmer’s Market",
+      "name": "Takkii Ramen Farmer\u2019s Market",
       "address": "2934 N 5th Street Hwy, Reading, PA 19605, USA",
       "rating": 4,
       "reviewCount": 6,
@@ -46604,7 +46552,7 @@
     },
     {
       "placeId": "ChIJ8eAPt7L1xokRLqEBPh6CeyE",
-      "name": "Kumamon Ramen （Exton)",
+      "name": "Kumamon Ramen \uff08Exton)",
       "address": "348 N Pottstown Pike, Exton, PA 19341, USA",
       "rating": 4.6,
       "reviewCount": 516,
@@ -46985,7 +46933,7 @@
     },
     {
       "placeId": "ChIJ4XmSF1g_xIkRFDK8b_55R7g",
-      "name": "HOCAA BUBBLE TEA（Bethlehem）",
+      "name": "HOCAA BUBBLE TEA\uff08Bethlehem\uff09",
       "address": "220 E 3rd St, Bethlehem, PA 18015, USA",
       "rating": 4.6,
       "reviewCount": 463,
@@ -47314,7 +47262,7 @@
     },
     {
       "placeId": "ChIJmWtlw4epzokRaoGti1MzJbU",
-      "name": "Dagu Rice Noodle 大鼓米线",
+      "name": "Dagu Rice Noodle \u5927\u9f13\u7c73\u7ebf",
       "address": "134 E College Ave, State College, PA 16801, USA",
       "rating": 4.6,
       "reviewCount": 30,
@@ -47721,7 +47669,7 @@
   "cranston-ri": [
     {
       "placeId": "ChIJuZm5LNpP5IkRGJzIAtpXJ_4",
-      "name": "Lovin’ Table",
+      "name": "Lovin\u2019 Table",
       "address": "734 Park Ave, Cranston, RI 02910, USA",
       "rating": 5,
       "reviewCount": 33,
@@ -48139,7 +48087,7 @@
     },
     {
       "placeId": "ChIJ7zTTnqFd5IkRmfrHTcSNDiA",
-      "name": "Chick’n Boba",
+      "name": "Chick\u2019n Boba",
       "address": "856 Newport Ave, Pawtucket, RI 02861, USA",
       "rating": 4.9,
       "reviewCount": 192,
@@ -48166,7 +48114,7 @@
     {
       "placeId": "ChIJEeNHFcFE5IkR3dXFvrtRpzk",
       "name": "Yama Fuji",
-      "address": "United States, Rhode Island, Providence, N Main St, USRhode Island Providence North Main Street US 邮政编码邮政编码: 02904",
+      "address": "United States, Rhode Island, Providence, N Main St, USRhode Island Providence North Main Street US \u90ae\u653f\u7f16\u7801\u90ae\u653f\u7f16\u7801: 02904",
       "rating": 4.2,
       "reviewCount": 679,
       "priceLevel": 2,
@@ -48520,7 +48468,7 @@
     },
     {
       "placeId": "ChIJMTWHOFRl_ogRfc9Npjg4vOc",
-      "name": "Katsubō",
+      "name": "Katsub\u014d",
       "address": "4628 Spruill Ave Ste 101, North Charleston, SC 29405, USA",
       "rating": 4.5,
       "reviewCount": 197,
@@ -48912,7 +48860,7 @@
     },
     {
       "placeId": "ChIJMTWHOFRl_ogRfc9Npjg4vOc",
-      "name": "Katsubō",
+      "name": "Katsub\u014d",
       "address": "4628 Spruill Ave Ste 101, North Charleston, SC 29405, USA",
       "rating": 4.5,
       "reviewCount": 197,
@@ -49293,7 +49241,7 @@
   "fort-worth-tx": [
     {
       "placeId": "ChIJ3UUwj0VtToYR3dZH1RcwS8Y",
-      "name": "（City View）Hokkaido ramen & sushi Fort Worth",
+      "name": "\uff08City View\uff09Hokkaido ramen & sushi Fort Worth",
       "address": "5900 Overton Ridge Blvd Ste 130, Fort Worth, TX 76132, USA",
       "rating": 4.9,
       "reviewCount": 1723,
@@ -49802,7 +49750,7 @@
     },
     {
       "placeId": "ChIJ0WLBVCn53YYRu6X2XxXhpIE",
-      "name": "Tommy’s Korean Express",
+      "name": "Tommy\u2019s Korean Express",
       "address": "7722 Paseo del Norte suite A2, El Paso, TX 79912, USA",
       "rating": 4.8,
       "reviewCount": 139,
@@ -49871,7 +49819,7 @@
     },
     {
       "placeId": "ChIJye0ENxs9TIYRk8RIqZ9ymJo",
-      "name": "Kizuki Ramen & Izakaya｜Legacy | A true taste of Japanese Ramen and Izakaya",
+      "name": "Kizuki Ramen & Izakaya\uff5cLegacy | A true taste of Japanese Ramen and Izakaya",
       "address": "5760 Legacy Dr B4, Plano, TX 75024, USA",
       "rating": 4.5,
       "reviewCount": 760,
@@ -49975,7 +49923,7 @@
     },
     {
       "placeId": "ChIJte2O4uc9TIYRfT6JZqpJ5VI",
-      "name": "KYURAMEN DALLAS x TBAAR 九湯屋拉麵",
+      "name": "KYURAMEN DALLAS x TBAAR \u4e5d\u6e6f\u5c4b\u62c9\u9eb5",
       "address": "9351 Warren Pkwy #111, Frisco, TX 75035, USA",
       "rating": 4.1,
       "reviewCount": 1065,
@@ -51103,7 +51051,7 @@
     },
     {
       "placeId": "ChIJte2O4uc9TIYRfT6JZqpJ5VI",
-      "name": "KYURAMEN DALLAS x TBAAR 九湯屋拉麵",
+      "name": "KYURAMEN DALLAS x TBAAR \u4e5d\u6e6f\u5c4b\u62c9\u9eb5",
       "address": "9351 Warren Pkwy #111, Frisco, TX 75035, USA",
       "rating": 4.1,
       "reviewCount": 1065,
@@ -51181,7 +51129,7 @@
     },
     {
       "placeId": "ChIJye0ENxs9TIYRk8RIqZ9ymJo",
-      "name": "Kizuki Ramen & Izakaya｜Legacy | A true taste of Japanese Ramen and Izakaya",
+      "name": "Kizuki Ramen & Izakaya\uff5cLegacy | A true taste of Japanese Ramen and Izakaya",
       "address": "5760 Legacy Dr B4, Plano, TX 75024, USA",
       "rating": 4.5,
       "reviewCount": 760,
@@ -51207,7 +51155,7 @@
     },
     {
       "placeId": "ChIJCb5FM1Y9TIYRf7H0GNHH8fA",
-      "name": "Gao’s BBQ & Crab Frisco 老高烧烤 Frisco",
+      "name": "Gao\u2019s BBQ & Crab Frisco \u8001\u9ad8\u70e7\u70e4 Frisco",
       "address": "9144 Prestmont Pl #250, Frisco, TX 75035, USA",
       "rating": 4.6,
       "reviewCount": 258,
@@ -51246,7 +51194,7 @@
     },
     {
       "placeId": "ChIJJaAgP9s9TIYRt4KerXtfTPk",
-      "name": "Musume at The Star • A Japanese Steakhouse",
+      "name": "Musume at The Star \u2022 A Japanese Steakhouse",
       "address": "3625 The Star Blvd Ste 315, Frisco, TX 75034, USA",
       "rating": 4.8,
       "reviewCount": 512,
@@ -51285,7 +51233,7 @@
     },
     {
       "placeId": "ChIJf6-uZCY9TIYRgedvuZsc_wI",
-      "name": "Highland Noodles 兰粤荟",
+      "name": "Highland Noodles \u5170\u7ca4\u835f",
       "address": "9188 Prestmont Pl Ste 110, Frisco, TX 75035, USA",
       "rating": 4.3,
       "reviewCount": 1018,
@@ -51298,7 +51246,7 @@
     },
     {
       "placeId": "ChIJFbeuQgA9TIYRGkQIhx3m_Ds",
-      "name": "Too Thai Street Eats—Frisco",
+      "name": "Too Thai Street Eats\u2014Frisco",
       "address": "9180 Warren Pkwy Ste 100, Frisco, TX 75035, USA",
       "rating": 4.4,
       "reviewCount": 164,
@@ -51705,7 +51653,7 @@
     },
     {
       "placeId": "ChIJfQiivrKXTYcR82gyI9t4I1A",
-      "name": "K’s Kitchen",
+      "name": "K\u2019s Kitchen",
       "address": "322 W Center St, Provo, UT 84601, USA",
       "rating": 4.8,
       "reviewCount": 966,
@@ -51718,7 +51666,7 @@
     },
     {
       "placeId": "ChIJJysWB7WbTYcRpE0NTJ9H8pk",
-      "name": "Tai Lai Shun 泰来顺 | Chinese",
+      "name": "Tai Lai Shun \u6cf0\u6765\u987a | Chinese",
       "address": "Midtown 360, 360 S State St Ste 151, Orem, UT 84058, USA",
       "rating": 4.9,
       "reviewCount": 251,
@@ -52781,7 +52729,7 @@
     },
     {
       "placeId": "ChIJv3TFYY8DU4cRN5-Ikdmigbg",
-      "name": "Wu’s Crab",
+      "name": "Wu\u2019s Crab",
       "address": "1120 N Main St, Layton, UT 84041, USA",
       "rating": 4.9,
       "reviewCount": 272,
@@ -52835,7 +52783,7 @@
     },
     {
       "placeId": "ChIJY5fNZgCLUocRGaaqIYSLXrI",
-      "name": "Noodle & Dumpling 李小籠",
+      "name": "Noodle & Dumpling \u674e\u5c0f\u7c60",
       "address": "867 E 4500 S, Millcreek, UT 84107, USA",
       "rating": 4.4,
       "reviewCount": 429,
@@ -52926,7 +52874,7 @@
     },
     {
       "placeId": "ChIJ6e_AMAKLUocRbcsjKqzbLMM",
-      "name": "Zhu Ting Ji 竹亭记",
+      "name": "Zhu Ting Ji \u7af9\u4ead\u8bb0",
       "address": "5486 S 1900 W, Taylorsville, UT 84129, USA",
       "rating": 4.6,
       "reviewCount": 981,
@@ -52965,7 +52913,7 @@
     },
     {
       "placeId": "ChIJayCDF-b1UocREhVHgX0GVwA",
-      "name": "Tosh’s Ramen Express",
+      "name": "Tosh\u2019s Ramen Express",
       "address": "545 West 700 S, Salt Lake City, UT 84101, USA",
       "rating": 4.1,
       "reviewCount": 82,
@@ -53110,7 +53058,7 @@
     },
     {
       "placeId": "ChIJXeiqOiTBuokRBKzn1bsJJIc",
-      "name": "Molly Ramen•Poke•Tea",
+      "name": "Molly Ramen\u2022Poke\u2022Tea",
       "address": "2217 Upton Dr #808, Virginia Beach, VA 23454, USA",
       "rating": 4.2,
       "reviewCount": 110,
@@ -53201,7 +53149,7 @@
     },
     {
       "placeId": "ChIJ6yFKcG7ruokRowaxr1CM8w4",
-      "name": "DOMOISHI Ramen, Poké, Wings and Tea",
+      "name": "DOMOISHI Ramen, Pok\u00e9, Wings and Tea",
       "address": "729 First Colonial Rd #102, Virginia Beach, VA 23451, USA",
       "rating": 4.3,
       "reviewCount": 299,
@@ -53214,7 +53162,7 @@
     },
     {
       "placeId": "ChIJnb9et7PBuokRi-AWpNKcnUg",
-      "name": "Molly Ramen•Poke•Tea",
+      "name": "Molly Ramen\u2022Poke\u2022Tea",
       "address": "869 Lynnhaven Pkwy #109, Virginia Beach, VA 23452, USA",
       "rating": 4.2,
       "reviewCount": 351,
@@ -53738,7 +53686,7 @@
     },
     {
       "placeId": "ChIJyYdckBe9uokRwWdzKu5WzaE",
-      "name": "Molly Ramen•Poke•Tea",
+      "name": "Molly Ramen\u2022Poke\u2022Tea",
       "address": "801 Volvo Pkwy Ste 103, Chesapeake, VA 23320, USA",
       "rating": 3.9,
       "reviewCount": 103,
@@ -53870,7 +53818,7 @@
     },
     {
       "placeId": "ChIJSyrGHKh5sIkRidoz_KcWUyI",
-      "name": "Ooki Poke（Poke,Ramen,Tea）",
+      "name": "Ooki Poke\uff08Poke,Ramen,Tea\uff09",
       "address": "17 Hidenwood Shopping Center, Newport News, VA 23606, USA",
       "rating": 5,
       "reviewCount": 212,
@@ -54630,7 +54578,7 @@
   "suffolk-va": [
     {
       "placeId": "ChIJ7WfoVxsPsIkRHpK_t5JOHZc",
-      "name": "DOMOISHI Poké Bowl - Ramen - Wings - Boba Tea",
+      "name": "DOMOISHI Pok\u00e9 Bowl - Ramen - Wings - Boba Tea",
       "address": "882 N Main St Unit 27, Suffolk, VA 23434, USA",
       "rating": 4.7,
       "reviewCount": 190,
@@ -54734,7 +54682,7 @@
     },
     {
       "placeId": "ChIJVVWl97yfuokR5IAhmQbTNAA",
-      "name": "DOMOISHI Poké Bowl - Ramen - Wings - Boba Tea",
+      "name": "DOMOISHI Pok\u00e9 Bowl - Ramen - Wings - Boba Tea",
       "address": "6216 College Dr #102, Suffolk, VA 23435, USA",
       "rating": 3.9,
       "reviewCount": 85,
@@ -55559,7 +55507,7 @@
     },
     {
       "placeId": "ChIJJay-acAJRogRqJ5n_nQ-vGk",
-      "name": "Taquería 84",
+      "name": "Taquer\u00eda 84",
       "address": "809 3rd Ave, Huntington, WV 25701, USA",
       "rating": 4.7,
       "reviewCount": 156,
@@ -55639,7 +55587,7 @@
     },
     {
       "placeId": "ChIJySX4gPNLSIgRu3C7sLUatMQ",
-      "name": "King’s Buffet & Grill",
+      "name": "King\u2019s Buffet & Grill",
       "address": "1302 Garfield Ave, Parkersburg, WV 26101, USA",
       "rating": 4,
       "reviewCount": 1009,
@@ -56360,7 +56308,7 @@
     },
     {
       "placeId": "ChIJv6NGHt0YBYgR6uFHR-9L0zc",
-      "name": "Kawa Ramen and Sushi 川ラーメンと寿司 | East Side",
+      "name": "Kawa Ramen and Sushi \u5ddd\u30e9\u30fc\u30e1\u30f3\u3068\u5bff\u53f8 | East Side",
       "address": "2321 N Murray Ave, Milwaukee, WI 53211, USA",
       "rating": 4.5,
       "reviewCount": 1309,
@@ -56425,7 +56373,7 @@
     },
     {
       "placeId": "ChIJDSTsvFwZBYgRTxAtAe2UrtY",
-      "name": "Kawa Ramen and Sushi 川ラーメンと寿司 | 3rd St. Market Hall",
+      "name": "Kawa Ramen and Sushi \u5ddd\u30e9\u30fc\u30e1\u30f3\u3068\u5bff\u53f8 | 3rd St. Market Hall",
       "address": "275 W Wisconsin Ave Ste 100, Milwaukee, WI 53203, USA",
       "rating": 4.2,
       "reviewCount": 91,
@@ -56596,7 +56544,7 @@
     },
     {
       "placeId": "ChIJ1RwAAQm3A4gRZaiCWXG8r8s",
-      "name": "Otōto",
+      "name": "Ot\u014dto",
       "address": "205 N Richmond St, Appleton, WI 54911, USA",
       "rating": 4.7,
       "reviewCount": 205,
@@ -56728,7 +56676,7 @@
     },
     {
       "placeId": "ChIJx01iVuxjBYgRHNp0EtScReo",
-      "name": "Madame Phở",
+      "name": "Madame Ph\u1edf",
       "address": "7410 118th Ave, Kenosha, WI 53142, USA",
       "rating": 4.3,
       "reviewCount": 852,
@@ -56767,7 +56715,7 @@
     },
     {
       "placeId": "ChIJn7-n8kohAIgR66NYHwmlvwo",
-      "name": "Oishii Ramen オイシイラーメン",
+      "name": "Oishii Ramen \u30aa\u30a4\u30b7\u30a4\u30e9\u30fc\u30e1\u30f3",
       "address": "2105 N 2nd St, Wausau, WI 54403, USA",
       "rating": 4.6,
       "reviewCount": 255,
@@ -56990,7 +56938,7 @@
     },
     {
       "placeId": "ChIJYeCsxIJDBYgRTENXjFeMlcE",
-      "name": "Shogun Steakhouse 将軍",
+      "name": "Shogun Steakhouse \u5c06\u8ecd",
       "address": "518 College Ave, Racine, WI 53403, USA",
       "rating": 4.3,
       "reviewCount": 632,
@@ -57226,7 +57174,7 @@
   "appleton-wi": [
     {
       "placeId": "ChIJ1RwAAQm3A4gRZaiCWXG8r8s",
-      "name": "Otōto",
+      "name": "Ot\u014dto",
       "address": "205 N Richmond St, Appleton, WI 54911, USA",
       "rating": 4.7,
       "reviewCount": 205,
@@ -57421,7 +57369,7 @@
     },
     {
       "placeId": "ChIJEaBYq9i2A4gRatTMTHEUBu8",
-      "name": "Basil Café",
+      "name": "Basil Caf\u00e9",
       "address": "1513 N Richmond St, Appleton, WI 54911, USA",
       "rating": 4.7,
       "reviewCount": 926,
@@ -57501,7 +57449,7 @@
     },
     {
       "placeId": "ChIJtYj_wdOpBYgRswA8dkp2rAU",
-      "name": "明治 Meiji Cuisine",
+      "name": "\u660e\u6cbb Meiji Cuisine",
       "address": "2503 Plaza Ct, Waukesha, WI 53186, USA",
       "rating": 4.5,
       "reviewCount": 2098,
@@ -57553,7 +57501,7 @@
     },
     {
       "placeId": "ChIJpfl0qWarBYgRe10rsh2JYjQ",
-      "name": "Ichiban 一番 | Japanese Sushi & Steakhouse",
+      "name": "Ichiban \u4e00\u756a | Japanese Sushi & Steakhouse",
       "address": "N65W24838 Main St, Sussex, WI 53089, USA",
       "rating": 4.6,
       "reviewCount": 296,
@@ -57631,7 +57579,7 @@
     },
     {
       "placeId": "ChIJn7-n8kohAIgR66NYHwmlvwo",
-      "name": "Oishii Ramen オイシイラーメン",
+      "name": "Oishii Ramen \u30aa\u30a4\u30b7\u30a4\u30e9\u30fc\u30e1\u30f3",
       "address": "2105 N 2nd St, Wausau, WI 54403, USA",
       "rating": 4.6,
       "reviewCount": 255,
@@ -57670,7 +57618,7 @@
     },
     {
       "placeId": "ChIJMQctdZ0ZBYgRfRqrNMFm-As",
-      "name": "Cute Robot Japanese Kitchen 可愛いロボット",
+      "name": "Cute Robot Japanese Kitchen \u53ef\u611b\u3044\u30ed\u30dc\u30c3\u30c8",
       "address": "704 S 2nd St, Milwaukee, WI 53204, USA",
       "rating": 4.8,
       "reviewCount": 245,
@@ -57696,7 +57644,7 @@
     },
     {
       "placeId": "ChIJv6NGHt0YBYgR6uFHR-9L0zc",
-      "name": "Kawa Ramen and Sushi 川ラーメンと寿司 | East Side",
+      "name": "Kawa Ramen and Sushi \u5ddd\u30e9\u30fc\u30e1\u30f3\u3068\u5bff\u53f8 | East Side",
       "address": "2321 N Murray Ave, Milwaukee, WI 53211, USA",
       "rating": 4.5,
       "reviewCount": 1309,
@@ -57867,7 +57815,7 @@
     },
     {
       "placeId": "ChIJFcLYq32R_ocRUhsmhVcNWu8",
-      "name": "Matsumoto Ramen House マツモトラーメンハウス",
+      "name": "Matsumoto Ramen House \u30de\u30c4\u30e2\u30c8\u30e9\u30fc\u30e1\u30f3\u30cf\u30a6\u30b9",
       "address": "106 N Water St, Sparta, WI 54656, USA",
       "rating": 4.9,
       "reviewCount": 720,
@@ -58092,7 +58040,7 @@
     },
     {
       "placeId": "ChIJFcLYq32R_ocRUhsmhVcNWu8",
-      "name": "Matsumoto Ramen House マツモトラーメンハウス",
+      "name": "Matsumoto Ramen House \u30de\u30c4\u30e2\u30c8\u30e9\u30fc\u30e1\u30f3\u30cf\u30a6\u30b9",
       "address": "106 N Water St, Sparta, WI 54656, USA",
       "rating": 4.9,
       "reviewCount": 720,
@@ -58144,7 +58092,7 @@
     },
     {
       "placeId": "ChIJi1OuYIsZBogRQ6CGFxj-RZA",
-      "name": "Sandee’s Thai Fusion",
+      "name": "Sandee\u2019s Thai Fusion",
       "address": "12 S Main St, Janesville, WI 53545, USA",
       "rating": 4.4,
       "reviewCount": 667,
@@ -58289,7 +58237,7 @@
     },
     {
       "placeId": "ChIJFcLYq32R_ocRUhsmhVcNWu8",
-      "name": "Matsumoto Ramen House マツモトラーメンハウス",
+      "name": "Matsumoto Ramen House \u30de\u30c4\u30e2\u30c8\u30e9\u30fc\u30e1\u30f3\u30cf\u30a6\u30b9",
       "address": "106 N Water St, Sparta, WI 54656, USA",
       "rating": 4.9,
       "reviewCount": 720,
@@ -58356,7 +58304,7 @@
   "casper-wy": [
     {
       "placeId": "ChIJCSjO2oi9YIcRaGQJl-uYtU0",
-      "name": "Hokkaido Ramen | Japanese • Sushi",
+      "name": "Hokkaido Ramen | Japanese \u2022 Sushi",
       "address": "581 N Poplar St, Casper, WY 82601, USA",
       "rating": 4.5,
       "reviewCount": 383,
@@ -58369,7 +58317,7 @@
     },
     {
       "placeId": "ChIJIX61KKK8YIcRFBT7WOhaSos",
-      "name": "House of Sushi | Japanese • Teriyaki",
+      "name": "House of Sushi | Japanese \u2022 Teriyaki",
       "address": "260 S Center St, Casper, WY 82601, USA",
       "rating": 4.3,
       "reviewCount": 297,
@@ -58395,7 +58343,7 @@
     },
     {
       "placeId": "ChIJ68ZA0sakYIcRS5Vz_Z5yKT8",
-      "name": "Shogun Restaurant | Japanese • Hibachi • Sushi",
+      "name": "Shogun Restaurant | Japanese \u2022 Hibachi \u2022 Sushi",
       "address": "3095 Talon Dr #400, Casper, WY 82604, USA",
       "rating": 4.4,
       "reviewCount": 510,
@@ -58581,7 +58529,7 @@
     },
     {
       "placeId": "ChIJCSjO2oi9YIcRaGQJl-uYtU0",
-      "name": "Hokkaido Ramen | Japanese • Sushi",
+      "name": "Hokkaido Ramen | Japanese \u2022 Sushi",
       "address": "581 N Poplar St, Casper, WY 82601, USA",
       "rating": 4.5,
       "reviewCount": 383,
@@ -58778,7 +58726,7 @@
     },
     {
       "placeId": "ChIJp1bjUPJhWocR1jc_AUYQxiw",
-      "name": "Taqueria Ariela´s Ara",
+      "name": "Taqueria Ariela\u00b4s Ara",
       "address": "117 K St, Rock Springs, WY 82901, USA",
       "rating": 4.6,
       "reviewCount": 41,
@@ -58791,7 +58739,7 @@
     },
     {
       "placeId": "ChIJCSjO2oi9YIcRaGQJl-uYtU0",
-      "name": "Hokkaido Ramen | Japanese • Sushi",
+      "name": "Hokkaido Ramen | Japanese \u2022 Sushi",
       "address": "581 N Poplar St, Casper, WY 82601, USA",
       "rating": 4.5,
       "reviewCount": 383,
@@ -58936,7 +58884,7 @@
     },
     {
       "placeId": "ChIJAzJdaJb7NVMRtiGvVfg8ep0",
-      "name": "Le Rêve Restaurant & Raw Bar",
+      "name": "Le R\u00eave Restaurant & Raw Bar",
       "address": "1 E Alger St, Sheridan, WY 82801, USA",
       "rating": 4.9,
       "reviewCount": 115,
@@ -59053,7 +59001,7 @@
     },
     {
       "placeId": "ChIJCSjO2oi9YIcRaGQJl-uYtU0",
-      "name": "Hokkaido Ramen | Japanese • Sushi",
+      "name": "Hokkaido Ramen | Japanese \u2022 Sushi",
       "address": "581 N Poplar St, Casper, WY 82601, USA",
       "rating": 4.5,
       "reviewCount": 383,
@@ -59211,7 +59159,7 @@
     },
     {
       "placeId": "ChIJCSjO2oi9YIcRaGQJl-uYtU0",
-      "name": "Hokkaido Ramen | Japanese • Sushi",
+      "name": "Hokkaido Ramen | Japanese \u2022 Sushi",
       "address": "581 N Poplar St, Casper, WY 82601, USA",
       "rating": 4.5,
       "reviewCount": 383,
@@ -60289,7 +60237,7 @@
     },
     {
       "placeId": "ChIJndhsIgA5mYARrvgK0xVadkE",
-      "name": "Nam Van Noodle Café",
+      "name": "Nam Van Noodle Caf\u00e9",
       "address": "113 Los Altos Pkwy #109, Sparks, NV 89436, USA",
       "rating": 4.1,
       "reviewCount": 399,
@@ -60395,7 +60343,7 @@
     },
     {
       "placeId": "ChIJO-1TqLChmYAR-35_8cnfNfE",
-      "name": "Bowls'N Go | Japanese • Korean",
+      "name": "Bowls'N Go | Japanese \u2022 Korean",
       "address": "963 Topsy Ln Ste 318, Carson City, NV 89705, USA",
       "rating": 4.3,
       "reviewCount": 146,
