@@ -1,4 +1,5 @@
-import supplementsRaw from './places-capital-supplements.json'
+import capitalsRaw from './places-capital-supplements.json'
+import majorCitiesRaw from './places-major-cities.json'
 
 export interface PlacesRestaurant {
   placeId: string
@@ -14,7 +15,10 @@ export interface PlacesRestaurant {
   googleMapsUrl: string
 }
 
-const supplements = supplementsRaw as Record<string, PlacesRestaurant[]>
+const supplements: Record<string, PlacesRestaurant[]> = {
+  ...(capitalsRaw as Record<string, PlacesRestaurant[]>),
+  ...(majorCitiesRaw as Record<string, PlacesRestaurant[]>),
+}
 
 export function getPlacesSupplements(param: string): PlacesRestaurant[] {
   return supplements[param] ?? []

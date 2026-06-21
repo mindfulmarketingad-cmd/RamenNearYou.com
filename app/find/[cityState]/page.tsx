@@ -13,6 +13,7 @@ import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getPlacesSupplements } from '@/lib/places-supplements'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -29,14 +30,20 @@ export async function generateStaticParams() {
     .filter(c => c.count >= 2)
     .map(c => ({ cityState: `${c.citySlug}-${c.stateCode.toLowerCase()}` }))
 
-  // Capital cities not already in DB params (26 with Places data only)
   const dbSet = new Set(dbParams.map(p => p.cityState))
+
+  // Capital cities not already in DB params
   const { CAPITAL_CITIES } = await import('@/lib/capital-cities')
   const capitalParams = CAPITAL_CITIES
     .filter(c => !dbSet.has(c.param))
     .map(c => ({ cityState: c.param }))
 
-  return [...dbParams, ...capitalParams]
+  // Major cities across all 50 states not already covered
+  const majorParams = MAJOR_CITIES_PARAMS
+    .filter(p => !dbSet.has(p))
+    .map(p => ({ cityState: p }))
+
+  return [...dbParams, ...capitalParams, ...majorParams]
 }
 
 export async function generateMetadata(
