@@ -303,6 +303,7 @@ export default function HomeMapHero({
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
+        if (flags.has('top-rated') && ((r.rating ?? 0) < 4.3 || r.reviewCount < 20)) return false
         if (bowls.size > 0 && !(r.bowls ?? []).some(k => bowls.has(k))) return false
         if (moods.size > 0 && !(r.moods ?? []).some(k => moods.has(k))) return false
         if (prices.size > 0 && ![...prices].some(k => matchesPrice(r, k))) return false
@@ -327,7 +328,9 @@ export default function HomeMapHero({
         list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
       }
 
-      if (hasLocation || zipFilter) {
+      if (flags.has('top-rated') && !hasLocation && !zipFilter) {
+        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+      } else if (hasLocation || zipFilter) {
         list.sort((a, b) => a.distKm - b.distKm)
       } else {
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
@@ -514,12 +517,13 @@ export default function HomeMapHero({
               <div className="flex-1">
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Clock className="w-3.5 h-3.5 text-[#B57F50]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
                   <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
                   <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
+                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
                 </div>
               </div>
             </div>
@@ -646,15 +650,12 @@ export default function HomeMapHero({
 
                       {/* Action buttons */}
                       <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
-                        <a
-                          href={menuUrl}
-                          target={isSupp ? '_blank' : undefined}
-                          rel={isSupp ? 'noopener noreferrer' : undefined}
-                          onClick={e => e.stopPropagation()}
+                        <button
+                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; if (isSupp) window.open(menuUrl, '_blank', 'noopener,noreferrer'); else window.location.href = menuUrl }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           View Menu
-                        </a>
+                        </button>
                         <a
                           href={directionsUrl}
                           target="_blank"
@@ -664,15 +665,12 @@ export default function HomeMapHero({
                         >
                           Get Directions
                         </a>
-                        <a
-                          href={orderUrl}
-                          target={isSupp ? '_blank' : undefined}
-                          rel={isSupp ? 'noopener noreferrer' : undefined}
-                          onClick={e => e.stopPropagation()}
+                        <button
+                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; if (isSupp) window.open(orderUrl, '_blank', 'noopener,noreferrer'); else window.location.href = orderUrl }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
                         >
                           Order Now
-                        </a>
+                        </button>
                       </div>
 
                       {/* Save button */}
