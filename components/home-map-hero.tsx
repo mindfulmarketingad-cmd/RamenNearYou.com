@@ -276,7 +276,6 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
-        if (zipFilter && r.zip !== zipFilter) return false
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
@@ -286,12 +285,25 @@ export default function HomeMapHero({
         return true
       })
 
+      // ZIP search: show exact-ZIP matches when present; otherwise fall back to
+      // the geocoded center and show nearby spots sorted by distance (below).
+      // Never returns an empty list just because the slim dataset lacks zips.
+      if (zipFilter) {
+        const exact = list.filter(r => r.zip === zipFilter)
+        if (exact.length > 0) {
+          list = exact
+        } else if (geocodedCenter) {
+          // No exact-ZIP rows (e.g. slim data lacks zips) — show spots within ~25mi.
+          list = list.filter(r => r.distKm <= 40)
+        }
+      }
+
       if (localQuery.trim()) {
         const q = localQuery.toLowerCase()
         list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
       }
 
-      if (hasLocation) {
+      if (hasLocation || zipFilter) {
         list.sort((a, b) => a.distKm - b.distKm)
       } else {
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
@@ -301,7 +313,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
