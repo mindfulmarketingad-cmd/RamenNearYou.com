@@ -8,24 +8,22 @@ interface Props {
 }
 interface State {
   hasError: boolean
+  resetCount: number
 }
 
-/**
- * Catches render/runtime errors in a subtree so a failure in one widget (e.g.
- * the interactive map) can never take down the whole page. Renders `fallback`
- * instead of letting the error bubble to the route.
- */
 export default class ErrorBoundary extends Component<Props, State> {
-  state: State = { hasError: false }
+  state: State = { hasError: false, resetCount: 0 }
 
-  static getDerivedStateFromError(): State {
+  static getDerivedStateFromError(): Partial<State> {
     return { hasError: true }
   }
 
   componentDidCatch(error: unknown) {
-    if (process.env.NODE_ENV !== 'production') console.error('ErrorBoundary caught:', error)
-    // Auto-reset after a short delay so transient errors don't permanently hide content.
-    setTimeout(() => this.setState({ hasError: false }), 1500)
+    console.error('ErrorBoundary caught:', error)
+    // Auto-reset up to 3 times for transient errors; stop looping after that.
+    if (this.state.resetCount < 3) {
+      setTimeout(() => this.setState(s => ({ hasError: false, resetCount: s.resetCount + 1 })), 1500)
+    }
   }
 
   render() {

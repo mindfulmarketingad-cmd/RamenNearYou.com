@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
@@ -112,7 +111,6 @@ export default function HomeMapHero({
 
   const [showAiPanel, setShowAiPanel] = useState(false)
 
-  const router = useRouter()
   const [saves, setSaves] = useState<Set<string>>(new Set())
 
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
@@ -539,12 +537,36 @@ export default function HomeMapHero({
                       id={`home-card-${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      onClick={() => router.push(`/${r.citySlug}/${r.stateSlug}/${r.slug}`)}
-                      role="link"
-                      tabIndex={0}
-                      onKeyDown={e => e.key === 'Enter' && router.push(`/${r.citySlug}/${r.stateSlug}/${r.slug}`)}
-                      className={`relative w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 cursor-pointer ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                      className="relative"
                     >
+                      <Link
+                        href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                        className={`flex gap-3 p-3 pr-10 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                      >
+                        <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                          </div>
+                          <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+                          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                            {r.rating && (
+                              <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                                {r.rating.toFixed(1)}
+                              </span>
+                            )}
+                            {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
+                            {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
+                            {showDist && r.distKm > 0 && (
+                              <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
+                            )}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
+                      </Link>
                       <button
                         onClick={(e) => handleToggleSave(e, r.slug)}
                         className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
@@ -552,29 +574,6 @@ export default function HomeMapHero({
                       >
                         <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#B57F50]' : 'text-[#9B9490]'}`} />
                       </button>
-                      <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                        <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
-                        </div>
-                        <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                        <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                          {r.rating && (
-                            <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                              {r.rating.toFixed(1)}
-                            </span>
-                          )}
-                          {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                          {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
-                          {showDist && r.distKm > 0 && (
-                            <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
-                          )}
-                        </div>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
                     </div>
                   )
                 })}
