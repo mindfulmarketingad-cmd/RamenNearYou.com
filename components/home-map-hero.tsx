@@ -113,6 +113,12 @@ export default function HomeMapHero({
 
   const [saves, setSaves] = useState<Set<string>>(new Set())
 
+  // Only mount the Leaflet map on sm+ viewports — initialising Leaflet in a
+  // CSS-hidden (display:none) zero-height container on mobile throws and sends
+  // the whole component into the ErrorBoundary crash loop.
+  const [showMap, setShowMap] = useState(false)
+  useEffect(() => { setShowMap(window.innerWidth >= 640) }, [])
+
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
@@ -144,7 +150,7 @@ export default function HomeMapHero({
     let cancelled = false
     async function load(attempt = 0): Promise<void> {
       const controller = new AbortController()
-      const timer = setTimeout(() => controller.abort(), 12000)
+      const timer = setTimeout(() => controller.abort(), 6000)
       try {
         const res = await fetch('/api/ramen-map', { cache: 'force-cache', signal: controller.signal })
         clearTimeout(timer)
@@ -599,9 +605,10 @@ export default function HomeMapHero({
 
         </div>
 
-        {/* Map */}
+        {/* Map — only mounted after JS confirms a sm+ viewport to avoid
+            Leaflet throwing in a CSS-hidden zero-height container on mobile */}
         <div className="flex-1 relative hidden sm:block">
-          {dataLoading ? (
+          {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>

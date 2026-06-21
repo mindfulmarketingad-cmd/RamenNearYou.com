@@ -7,7 +7,6 @@ import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
-import { Loader2 } from 'lucide-react'
 import SafeImg from '@/components/safe-img'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
@@ -142,15 +141,7 @@ export default async function CityFindPage(
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="min-h-screen bg-white">
         <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
+        <ErrorBoundary fallback={null}>
           <HomeMapHero
             initialCenter={{ lat, lng }}
             pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
