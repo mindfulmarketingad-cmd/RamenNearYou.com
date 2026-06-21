@@ -596,7 +596,7 @@ export default function HomeMapHero({
                     >
                       {/* Main clickable row */}
                       {isSupp ? (
-                        <a href={r.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 p-3 pb-1.5 pr-10">
+                        <a href={r.googleMapsUrl} target="_blank" rel="noopener noreferrer" onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
                           <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
                           </div>
@@ -615,7 +615,7 @@ export default function HomeMapHero({
                           </div>
                         </a>
                       ) : (
-                        <Link href={internalUrl} className="flex gap-3 p-3 pb-1.5 pr-10">
+                        <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
                           <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
                           </div>
