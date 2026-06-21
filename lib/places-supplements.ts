@@ -84,3 +84,22 @@ export function getSupplementStateName(stateSlug: string): string {
   const stateCode = STATE_SLUG_TO_CODE[stateSlug]
   return stateCode ? (STATE_CODE_TO_NAME[stateCode] ?? stateSlug) : stateSlug
 }
+
+// Returns one entry per state that has supplement data, with city count.
+// Used by the cities page to fill in supplement-only states.
+export function getSupplementStateStats(): Array<{ state: string; stateSlug: string; cityCount: number }> {
+  const map = new Map<string, Set<string>>() // stateSlug → unique city slugs
+  for (const key of Object.keys(supplements)) {
+    const parsed = parseSupplementKey(key)
+    if (!parsed) continue
+    const stateSlug = STATE_CODE_TO_SLUG[parsed.stateCode]
+    if (!stateSlug) continue
+    if (!map.has(stateSlug)) map.set(stateSlug, new Set())
+    map.get(stateSlug)!.add(parsed.citySlug)
+  }
+  return Array.from(map.entries()).map(([stateSlug, cities]) => ({
+    state: getSupplementStateName(stateSlug),
+    stateSlug,
+    cityCount: cities.size,
+  }))
+}
