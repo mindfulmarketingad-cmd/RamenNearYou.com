@@ -74,7 +74,7 @@ export default function NavbarClient() {
               <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                 Blog
               </Link>
-              {user ? (
+              {user && (
                 <>
                   <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                     <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
@@ -85,20 +85,18 @@ export default function NavbarClient() {
                     Sign Out
                   </button>
                 </>
-              ) : (
-                <Link href="/auth/login" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Sign In
-                </Link>
               )}
             </nav>
 
-            <Link
-              href="/"
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
-            >
-              <Utensils className="w-3.5 h-3.5" />
-              Order Ramen
-            </Link>
+            {!user && (
+              <Link
+                href="/auth/login"
+                className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+              >
+                <Utensils className="w-3.5 h-3.5" />
+                Sign In
+              </Link>
+            )}
 
             {/* Mobile hamburger only */}
             <button
@@ -114,14 +112,16 @@ export default function NavbarClient() {
 
       {menuOpen && (
         <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
-          <Link
-            href="/"
-            className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
-            onClick={() => setMenuOpen(false)}
-          >
-            <Utensils className="w-4 h-4" />
-            Order Ramen
-          </Link>
+          {!user && (
+            <Link
+              href="/auth/login"
+              className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Utensils className="w-4 h-4" />
+              Sign In
+            </Link>
+          )}
 
           <nav className="flex flex-col gap-1 pt-3">
             <Link href="/find" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
@@ -140,7 +140,7 @@ export default function NavbarClient() {
               Blog
             </Link>
 
-            {user ? (
+            {user && (
               <div className="mt-2 flex flex-col gap-1">
                 <Link href="/saved" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                   Saved Restaurants
@@ -159,14 +159,6 @@ export default function NavbarClient() {
                   </button>
                 </div>
               </div>
-            ) : (
-              <Link
-                href="/auth/login"
-                className="mt-1 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                Sign In
-              </Link>
             )}
           </nav>
         </div>
