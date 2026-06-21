@@ -121,6 +121,7 @@ export function computeMapData(): MapPoint[] {
       hours: r.hours,
       bowls: BOWL_META.filter(b => BOWL_MATCH[b.key]?.(r)).map(b => b.key),
       moods: MOOD_META.filter(m => MOOD_MATCH[m.key]?.(r)).map(m => m.key),
+      googleMapsLink: r.googleMapsLink || undefined,
     }))
 
   return [...dbPoints, ...supplementMapPoints()]

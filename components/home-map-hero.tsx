@@ -587,75 +587,96 @@ export default function HomeMapHero({
                   const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}`
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
+                  const isSupp = !!r.googleMapsUrl
+                  const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+                  const directionsUrl = r.googleMapsLink
+                    ?? r.googleMapsUrl
+                    ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + ' ' + r.city + ' ' + r.stateCode)}`
+                  const menuUrl = isSupp ? r.googleMapsUrl! : internalUrl
+                  const orderUrl = isSupp ? r.googleMapsUrl! : internalUrl
                   return (
                     <div
                       key={uid}
                       id={`home-card-${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className="relative"
+                      className={`relative transition-colors ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'}`}
                     >
-                      {r.googleMapsUrl ? (
-                        <a
-                          href={r.googleMapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex gap-3 p-3 pr-10 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
-                        >
-                          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
+                      {/* Main clickable row */}
+                      {isSupp ? (
+                        <a href={r.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 p-3 pb-1.5 pr-10">
+                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
-                            </div>
+                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
                                 <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                                  {r.rating.toFixed(1)}
+                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
                                 </span>
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                              {showDist && r.distKm > 0 && (
-                                <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
-                              )}
+                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
                           </div>
-                          <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
                         </a>
                       ) : (
-                      <Link
-                        href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                        className={`flex gap-3 p-3 pr-10 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
-                      >
-                        <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1.5">
+                        <Link href={internalUrl} className="flex gap-3 p-3 pb-1.5 pr-10">
+                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
+                          </div>
+                          <div className="flex-1 min-w-0">
                             <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                              {r.rating && (
+                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+                                </span>
+                              )}
+                              {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
+                              {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
+                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
+                            </div>
                           </div>
-                          <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                            {r.rating && (
-                              <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                                <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                                {r.rating.toFixed(1)}
-                              </span>
-                            )}
-                            {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                            {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
-                            {showDist && r.distKm > 0 && (
-                              <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>
-                            )}
-                          </div>
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
-                      </Link>
+                        </Link>
                       )}
-                      {!r.googleMapsUrl && (
+
+                      {/* Action buttons */}
+                      <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
+                        <a
+                          href={menuUrl}
+                          target={isSupp ? '_blank' : undefined}
+                          rel={isSupp ? 'noopener noreferrer' : undefined}
+                          onClick={e => e.stopPropagation()}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                        >
+                          View Menu
+                        </a>
+                        <a
+                          href={directionsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                        >
+                          Get Directions
+                        </a>
+                        <a
+                          href={orderUrl}
+                          target={isSupp ? '_blank' : undefined}
+                          rel={isSupp ? 'noopener noreferrer' : undefined}
+                          onClick={e => e.stopPropagation()}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+                        >
+                          Order Now
+                        </a>
+                      </div>
+
+                      {/* Save button */}
+                      {!isSupp && (
                         <button
                           onClick={(e) => handleToggleSave(e, r.slug)}
                           className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"

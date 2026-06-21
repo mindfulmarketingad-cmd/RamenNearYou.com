@@ -93,11 +93,14 @@ export default async function CityFindPage(
   const placesResults = dbRestaurants.length === 0 ? getPlacesSupplements(cityState) : []
 
   const capital = CAPITAL_BY_PARAM[cityState]
-  const cityName = dbRestaurants[0]?.city ?? capital?.city ?? citySlug
 
-  // Map center: capital coords if known, otherwise first restaurant with coords
-  const lat = capital?.lat ?? dbRestaurants.find(r => r.latitude)?.latitude ?? 39.5
-  const lng = capital?.lng ?? dbRestaurants.find(r => r.longitude)?.longitude ?? -98.35
+  // Title-case the citySlug as a fallback name ("green-river" → "Green River")
+  const citySlugTitle = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  const cityName = dbRestaurants[0]?.city ?? capital?.city ?? citySlugTitle
+
+  // Map center: capital → DB restaurant → first supplement result → USA center
+  const lat = capital?.lat ?? dbRestaurants.find(r => r.latitude)?.latitude ?? placesResults.find(r => r.latitude)?.latitude ?? 39.5
+  const lng = capital?.lng ?? dbRestaurants.find(r => r.longitude)?.longitude ?? placesResults.find(r => r.longitude)?.longitude ?? -98.35
 
   const count = dbRestaurants.length + placesResults.length
 
