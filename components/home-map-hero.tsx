@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
-  X, Search, Sparkles, Clock, SlidersHorizontal, Heart,
+  X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -110,6 +110,7 @@ export default function HomeMapHero({
   const [zipFilter, setZipFilter] = useState('')
 
   const [showAiPanel, setShowAiPanel] = useState(false)
+  const [searchSaved, setSearchSaved] = useState(false)
 
   const [saves, setSaves] = useState<Set<string>>(new Set())
 
@@ -144,6 +145,23 @@ export default function HomeMapHero({
     return false
   }
   const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
+
+  function handleSaveSearch() {
+    if (!requireAccess()) return
+    const state = {
+      locationSearch,
+      flags: [...flags],
+      bowls: [...bowls],
+      moods: [...moods],
+      prices: [...prices],
+      localQuery,
+    }
+    const saved = JSON.parse(localStorage.getItem('savedSearches') || '[]')
+    saved.unshift({ ...state, savedAt: Date.now() })
+    localStorage.setItem('savedSearches', JSON.stringify(saved.slice(0, 10)))
+    setSearchSaved(true)
+    setTimeout(() => setSearchSaved(false), 2000)
+  }
 
   // Fetch the slim map dataset once, with one retry to ride out transient blips.
   useEffect(() => {
@@ -378,59 +396,75 @@ export default function HomeMapHero({
       {/* Top filter bar */}
       <div className="border-t border-black/8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
-            <form
-              onSubmit={e => { e.preventDefault(); if (!requireAccess()) return; geocodeLocation(locationSearch) }}
-              className="relative shrink-0"
-            >
-              <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
-              <input
-                type="text"
-                inputMode="numeric"
-                maxLength={5}
-                value={locationSearch}
-                onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
-                placeholder="ZIP code"
-                className="w-28 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
-              />
-              <button
-                type="submit"
-                disabled={geocoding}
-                className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-full transition-colors disabled:opacity-60"
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+              <form
+                onSubmit={e => { e.preventDefault(); if (!requireAccess()) return; geocodeLocation(locationSearch) }}
+                className="relative shrink-0"
               >
-                {geocoding ? '…' : 'Go'}
+                <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={5}
+                  value={locationSearch}
+                  onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
+                  placeholder="ZIP code"
+                  className="w-28 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={geocoding}
+                  className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-full transition-colors disabled:opacity-60"
+                >
+                  {geocoding ? '…' : 'Go'}
+                </button>
+              </form>
+
+              <div className="h-5 w-px bg-black/10 shrink-0" />
+
+              <button
+                onClick={() => { if (requirePremium()) setShowAiPanel(true) }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#7c3aed] hover:to-[#6366f1] shadow-sm transition-all"
+              >
+                <Sparkles className="w-3.5 h-3.5" /> Ramen AI
               </button>
-            </form>
 
-            <div className="h-5 w-px bg-black/10 shrink-0" />
+              <button
+                onClick={withGate(() => setShowFilters(v => !v))}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
+                  showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+                }`}
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+                {activeCount > 0 && (
+                  <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+                )}
+              </button>
 
-            <button
-              onClick={() => { if (requirePremium()) setShowAiPanel(true) }}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#7c3aed] hover:to-[#6366f1] shadow-sm transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5" /> Ramen AI
-            </button>
-
-            <button
-              onClick={withGate(() => setShowFilters(v => !v))}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
-                showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
-              }`}
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
               {activeCount > 0 && (
-                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+                <button
+                  onClick={clearAll}
+                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] whitespace-nowrap shrink-0"
+                >
+                  <X className="w-3.5 h-3.5" /> Clear
+                </button>
               )}
-            </button>
+            </div>
 
-            {activeCount > 0 && (
-              <button
-                onClick={clearAll}
-                className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] whitespace-nowrap shrink-0"
-              >
-                <X className="w-3.5 h-3.5" /> Clear
-              </button>
-            )}
+            {/* Save Search — pinned to the right outside the scrollable area */}
+            <button
+              onClick={handleSaveSearch}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-all shrink-0 ${
+                searchSaved
+                  ? 'bg-emerald-600 text-white border-emerald-600'
+                  : 'bg-white text-[#1E2026] border-black/12 hover:border-[#B57F50] hover:text-[#B57F50]'
+              }`}
+              aria-label="Save this search"
+            >
+              <Bookmark className={`w-3.5 h-3.5 transition-all ${searchSaved ? 'fill-white' : ''}`} />
+              <span className="hidden sm:inline">{searchSaved ? 'Saved ✓' : 'Save Search'}</span>
+            </button>
           </div>
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
         </div>
