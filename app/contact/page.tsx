@@ -59,6 +59,19 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
               <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
+                <Mail className="w-4 h-4 text-[#B57F50]" />
+              </div>
+              <h3 className="font-semibold text-[#1E2026] text-sm mb-1">Email Us Directly</h3>
+              <p className="text-[#6B6862] text-xs leading-relaxed">
+                Reach our team directly for any inquiries.
+              </p>
+              <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+                hello@ramennearyououtreach.com
+              </a>
+            </div>
+
+            <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
+              <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
                 <Building2 className="w-4 h-4 text-[#B57F50]" />
               </div>
               <h3 className="font-semibold text-[#1E2026] text-sm mb-1">List Your Restaurant</h3>
