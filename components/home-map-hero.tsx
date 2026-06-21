@@ -144,12 +144,16 @@ export default function HomeMapHero({
   useEffect(() => {
     let cancelled = false
     async function load(attempt = 0): Promise<void> {
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 12000)
       try {
-        const res = await fetch('/api/ramen-map', { cache: 'force-cache' })
+        const res = await fetch('/api/ramen-map', { cache: 'force-cache', signal: controller.signal })
+        clearTimeout(timer)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const d: MapPoint[] = await res.json()
         if (!cancelled) { setData(d); setDataError(false); setDataLoading(false) }
       } catch {
+        clearTimeout(timer)
         if (cancelled) return
         if (attempt < 2) { setTimeout(() => load(attempt + 1), 800 * (attempt + 1)); return }
         setDataError(true); setDataLoading(false)
