@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
-  X, Search, Sparkles, Flame, Clock, SlidersHorizontal,
-  List as ListIcon, Map as MapIcon, Check, Trophy,
+  X, Search, Sparkles, Clock, SlidersHorizontal,
+  List as ListIcon, Map as MapIcon,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -19,7 +19,6 @@ import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   matchesPrice, type MapPoint,
 } from '@/lib/ramen-taxonomy'
-import { loadPassport, savePassport, earnedBadges, nextBadge } from '@/lib/passport'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -114,9 +113,6 @@ export default function HomeMapHero({
   const [showAiPanel, setShowAiPanel] = useState(false)
 
   // Map modes
-  const [heatmap, setHeatmap] = useState(false)
-  const [passportMode, setPassportMode] = useState(false)
-  const [visited, setVisited] = useState<Set<string>>(new Set())
 
   const [mobileView, setMobileView] = useState<MobileView>('map')
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
@@ -128,7 +124,6 @@ export default function HomeMapHero({
   const { evaluate, evaluatePremium } = useGate()
   const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
 
-  useEffect(() => { setVisited(loadPassport()) }, [])
 
   // Returns true if the action may proceed; otherwise opens the appropriate gate.
   function requireAccess(): boolean {
@@ -224,7 +219,6 @@ export default function HomeMapHero({
 
   const distanceOrigin = geocodedCenter ?? userPos ?? fallbackCenter
   const effectiveCenter = distanceOrigin
-  const closestActive = flags.has('closest')
   const hasLocation = !!userPos || !!geocodedCenter
 
   // Accent color drives the map pins — matches the first active bowl/mood chip.
@@ -260,7 +254,7 @@ export default function HomeMapHero({
         list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
       }
 
-      if (closestActive || hasLocation) {
+      if (hasLocation) {
         list.sort((a, b) => a.distKm - b.distKm)
       } else {
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
@@ -270,7 +264,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, closestActive, hasLocation])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -305,15 +299,6 @@ export default function HomeMapHero({
   }
 
 
-  function toggleVisited(slug: string) {
-    setVisited(prev => {
-      const next = new Set(prev)
-      next.has(slug) ? next.delete(slug) : next.add(slug)
-      savePassport(next)
-      return next
-    })
-  }
-
   const activeCount = flags.size + bowls.size + moods.size + prices.size
   function clearAll() {
     setFlags(new Set())
@@ -322,11 +307,6 @@ export default function HomeMapHero({
     setPrices(new Set())
     setLocalQuery('')
   }
-
-  const visitedHere = displayList.filter(r => visited.has(r.slug)).length
-  const totalVisited = visited.size
-  const next = nextBadge(totalVisited)
-  const badges = earnedBadges(totalVisited)
 
   return (
     <section className="pt-16 bg-[#F5F4F0]">
@@ -376,8 +356,6 @@ export default function HomeMapHero({
               <Sparkles className="w-3.5 h-3.5" /> Ramen AI
             </button>
 
-            <Chip active={flags.has('closest')} label="Closest" emoji="🧭"
-              onClick={() => { if (!requireAccess()) return; if (!hasLocation) { requestLocation(); return } toggleFlag('closest') }} />
             <Chip active={flags.has('open-now')} label="Open Now" emoji="🟢"
               onClick={withGate(() => toggleFlag('open-now'))} />
 
@@ -391,25 +369,6 @@ export default function HomeMapHero({
               {activeCount > 0 && (
                 <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
               )}
-            </button>
-
-            <div className="h-5 w-px bg-black/10 shrink-0" />
-
-            <button
-              onClick={withGate(() => setHeatmap(v => !v))}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
-                heatmap ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
-              }`}
-            >
-              <Flame className="w-3.5 h-3.5" /> Heatmap
-            </button>
-            <button
-              onClick={withGate(() => setPassportMode(v => !v))}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
-                passportMode ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
-              }`}
-            >
-              <Trophy className="w-3.5 h-3.5" /> Passport
             </button>
 
             {activeCount > 0 && (
@@ -482,35 +441,6 @@ export default function HomeMapHero({
         </div>
       )}
 
-      {/* Passport progress banner */}
-      {passportMode && (
-        <div className="border-t border-black/8 bg-emerald-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-semibold text-emerald-800">
-                Ramen Passport — {totalVisited} visited
-                {displayList.length > 0 && <span className="font-normal text-emerald-700"> · {visitedHere}/{displayList.length} in this area</span>}
-              </span>
-            </div>
-            {badges.length > 0 && (
-              <div className="flex items-center gap-1.5">
-                {badges.map(b => (
-                  <span key={b.key} title={b.label} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white border border-emerald-200 text-xs font-medium text-emerald-700">
-                    <span>{b.emoji}</span>{b.label}
-                  </span>
-                ))}
-              </div>
-            )}
-            {next && (
-              <span className="text-xs text-emerald-700">
-                {next.threshold - totalVisited} more to unlock {next.emoji} {next.label}
-              </span>
-            )}
-            <span className="text-xs text-emerald-600/80 ml-auto hidden sm:inline">Tap ✓ on a card to mark it visited</span>
-          </div>
-        </div>
-      )}
 
 
       {/* Map + list */}
@@ -570,8 +500,7 @@ export default function HomeMapHero({
                 {displayList.map(r => {
                   const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}`
                   const active = r.slug === selectedSlug
-                  const showDist = closestActive || hasLocation
-                  const isVisited = visited.has(r.slug)
+                  const showDist = hasLocation
                   return (
                     <Link
                       key={uid}
@@ -583,11 +512,6 @@ export default function HomeMapHero({
                     >
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                         <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
-                        {isVisited && (
-                          <span className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-emerald-600 border border-white flex items-center justify-center">
-                            <Check className="w-2.5 h-2.5 text-white" />
-                          </span>
-                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
@@ -608,19 +532,7 @@ export default function HomeMapHero({
                           )}
                         </div>
                       </div>
-                      {passportMode ? (
-                        <button
-                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleVisited(r.slug) }}
-                          title={isVisited ? 'Visited — tap to remove' : 'Mark as visited'}
-                          className={`self-center shrink-0 w-7 h-7 rounded-full flex items-center justify-center border transition-colors ${
-                            isVisited ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-white border-black/15 text-[#9B9490] hover:border-emerald-500 hover:text-emerald-600'
-                          }`}
-                        >
-                          <Check className="w-4 h-4" />
-                        </button>
-                      ) : (
-                        <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
-                      )}
+                      <ChevronRight className="w-4 h-4 text-[#1E2026]/20 shrink-0 self-center" />
                     </Link>
                   )
                 })}
@@ -649,8 +561,6 @@ export default function HomeMapHero({
               centerLatLng={geocodedCenter}
               userLocation={userPos}
               accentColor={accentColor}
-              heatmap={heatmap}
-              visitedSlugs={visited}
             />
           )}
 
@@ -679,16 +589,6 @@ export default function HomeMapHero({
             </div>
           )}
 
-          {heatmap && !dataLoading && (
-            <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-lg border border-black/10 px-3 py-2">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-[#6B6862] mb-1">Ramen density</p>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] text-[#6B6862]">Low</span>
-                <div className="h-2 w-20 rounded-full bg-gradient-to-r from-[#fcd34d] via-[#f97316] to-[#dc2626]" />
-                <span className="text-[10px] text-[#6B6862]">High</span>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Mobile map/list toggle */}
