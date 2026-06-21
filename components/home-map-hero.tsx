@@ -5,8 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
-  X, Search, Sparkles, Clock, SlidersHorizontal,
-  List as ListIcon, Map as MapIcon,
+  X, Search, Sparkles, Clock, SlidersHorizontal, Heart,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -42,7 +41,6 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number) {
 }
 
 type GeoState = 'idle' | 'loading' | 'granted' | 'denied'
-type MobileView = 'map' | 'list'
 
 const DEFAULT_CENTER = { lat: 40.7128, lng: -74.006 } // NYC until data/geo resolves
 
@@ -112,9 +110,8 @@ export default function HomeMapHero({
 
   const [showAiPanel, setShowAiPanel] = useState(false)
 
-  // Map modes
+  const [saves, setSaves] = useState<Set<string>>(new Set())
 
-  const [mobileView, setMobileView] = useState<MobileView>('map')
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
@@ -159,6 +156,36 @@ export default function HomeMapHero({
     load()
     return () => { cancelled = true }
   }, [])
+
+  // Load saved restaurants for the current user (empty set if not signed in).
+  useEffect(() => {
+    fetch('/api/saves').then(r => r.json()).then(({ saves: slugs }) => {
+      if (Array.isArray(slugs)) setSaves(new Set(slugs))
+    }).catch(() => {})
+  }, [])
+
+  async function handleToggleSave(e: React.MouseEvent, slug: string) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!requireAccess()) return
+    const isSaved = saves.has(slug)
+    setSaves(prev => {
+      const next = new Set(prev)
+      isSaved ? next.delete(slug) : next.add(slug)
+      return next
+    })
+    await fetch('/api/saves', {
+      method: isSaved ? 'DELETE' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    }).catch(() => {
+      setSaves(prev => {
+        const next = new Set(prev)
+        isSaved ? next.add(slug) : next.delete(slug)
+        return next
+      })
+    })
+  }
 
   // Geolocation is requested only on explicit user action (never on load).
   function requestLocation() {
@@ -443,7 +470,7 @@ export default function HomeMapHero({
       {/* Map + list */}
       <div className="relative h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
         {/* Left list panel */}
-        <div className={`w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0 ${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex`}>
+        <div className="w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0 flex">
           <div className="px-3 py-2.5 border-b border-black/8">
             <div className="relative mb-2">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
@@ -505,8 +532,15 @@ export default function HomeMapHero({
                       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className={`w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
+                      className={`relative w-full text-left flex gap-3 p-3 transition-colors hover:bg-black/5 ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : ''}`}
                     >
+                      <button
+                        onClick={(e) => handleToggleSave(e, r.slug)}
+                        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
+                        aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
+                      >
+                        <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#B57F50]' : 'text-[#9B9490]'}`} />
+                      </button>
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                         <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="64px" />
                       </div>
@@ -540,7 +574,7 @@ export default function HomeMapHero({
         </div>
 
         {/* Map */}
-        <div className={`flex-1 relative ${mobileView === 'list' ? 'hidden' : 'block'} sm:block`}>
+        <div className="flex-1 relative hidden sm:block">
           {dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
@@ -588,17 +622,7 @@ export default function HomeMapHero({
 
         </div>
 
-        {/* Mobile map/list toggle */}
-        <button
-          onClick={() => setMobileView(v => (v === 'map' ? 'list' : 'map'))}
-          className="sm:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#1E2026] text-white text-sm font-semibold shadow-lg"
-        >
-          {mobileView === 'map'
-            ? <><ListIcon className="w-4 h-4" /> Show list</>
-            : <><MapIcon className="w-4 h-4" /> Show map</>}
-        </button>
-
-        {/* AI ramen search panel — slides in over the map */}
+{/* AI ramen search panel — slides in over the map */}
         {showAiPanel && (
           <AiRamenSearchPanel
             onClose={() => setShowAiPanel(false)}
