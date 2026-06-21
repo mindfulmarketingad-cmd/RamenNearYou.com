@@ -1,35 +1,69 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Star, MapPin, ExternalLink } from 'lucide-react'
+import { Star, ExternalLink } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import { Loader2 } from 'lucide-react'
-import { CAPITAL_CITIES, CAPITAL_BY_PARAM } from '@/lib/capital-cities'
-import { getRestaurantsByCity } from '@/lib/restaurants'
+import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
+import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getPlacesSupplements } from '@/lib/places-supplements'
+import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+
+function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
+  const lastHyphen = cityState.lastIndexOf('-')
+  if (lastHyphen < 1) return null
+  const stateCode = cityState.slice(lastHyphen + 1).toUpperCase()
+  const citySlug = cityState.slice(0, lastHyphen)
+  if (!STATE_CODE_TO_SLUG[stateCode]) return null
+  return { citySlug, stateCode }
+}
 
 export async function generateStaticParams() {
-  return CAPITAL_CITIES.map(c => ({ cityState: c.param }))
+  // All DB cities with 2+ restaurants
+  const dbParams = getCities()
+    .filter(c => c.count >= 2)
+    .map(c => ({ cityState: `${c.citySlug}-${c.stateCode.toLowerCase()}` }))
+
+  // Capital cities not already in DB params (26 with Places data only)
+  const dbSet = new Set(dbParams.map(p => p.cityState))
+  const { CAPITAL_CITIES } = await import('@/lib/capital-cities')
+  const capitalParams = CAPITAL_CITIES
+    .filter(c => !dbSet.has(c.param))
+    .map(c => ({ cityState: c.param }))
+
+  return [...dbParams, ...capitalParams]
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cityState: string }> }
 ): Promise<Metadata> {
   const { cityState } = await params
-  const capital = CAPITAL_BY_PARAM[cityState]
-  if (!capital) return {}
-  const { city, stateCode } = capital
+  const parsed = parseParam(cityState)
+  if (!parsed) return {}
+
+  const { citySlug, stateCode } = parsed
+  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+  const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
+  const restaurants = getRestaurantsByCity(citySlug, stateSlug)
+  const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? citySlug
+
+  const count = restaurants.length
+  const title = `Best Ramen Restaurants In ${cityName}, ${stateName}`
+  const description = count > 0
+    ? `Find the best ramen restaurants in ${cityName}, ${stateName}. Browse ${count} top-rated spots with ratings, hours, menus, and directions.`
+    : `Find ramen restaurants in ${cityName}, ${stateName}. Browse top-rated spots with ratings, hours, and directions.`
+
   return {
-    title: `Ramen in ${city}, ${stateCode} | Find Ramen Restaurants Near You`,
-    description: `Find the best ramen restaurants in ${city}, ${stateCode}. Browse top-rated ramen spots near the ${stateCode} state capital — filter by broth type, price, and hours.`,
+    title,
+    description,
     alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
     openGraph: {
-      title: `Ramen in ${city}, ${stateCode}`,
-      description: `Find ramen restaurants in ${city}, ${stateCode} — browse by broth type, price, and hours.`,
+      title,
+      description,
       url: `https://www.ramennearyou.com/find/${cityState}`,
       siteName: 'RamenNearYou',
       type: 'website',
@@ -37,16 +71,28 @@ export async function generateMetadata(
   }
 }
 
-export default async function CapitalCityPage(
+export default async function CityFindPage(
   { params }: { params: Promise<{ cityState: string }> }
 ) {
   const { cityState } = await params
-  const capital = CAPITAL_BY_PARAM[cityState]
-  if (!capital) notFound()
+  const parsed = parseParam(cityState)
+  if (!parsed) notFound()
 
-  const { city, stateCode, citySlug, stateSlug, lat, lng } = capital
+  const { citySlug, stateCode } = parsed!
+  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+  const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
+
   const dbRestaurants = getRestaurantsByCity(citySlug, stateSlug)
   const placesResults = dbRestaurants.length === 0 ? getPlacesSupplements(cityState) : []
+
+  const capital = CAPITAL_BY_PARAM[cityState]
+  const cityName = dbRestaurants[0]?.city ?? capital?.city ?? citySlug
+
+  // Map center: capital coords if known, otherwise first restaurant with coords
+  const lat = capital?.lat ?? dbRestaurants.find(r => r.latitude)?.latitude ?? 39.5
+  const lng = capital?.lng ?? dbRestaurants.find(r => r.longitude)?.longitude ?? -98.35
+
+  const count = dbRestaurants.length + placesResults.length
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -54,26 +100,30 @@ export default async function CapitalCityPage(
     mainEntity: [
       {
         '@type': 'Question',
-        name: `Where can I find ramen in ${city}, ${stateCode}?`,
+        name: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Use the map above to find ramen restaurants in ${city}, ${stateCode}. Enter your ZIP code or click "Use my location" to sort by distance. You can filter by broth type, price, and hours.`,
+          text: dbRestaurants.length > 0
+            ? `RamenNearYou lists ${dbRestaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Use the map above to find the highest-rated spot near you — filter by broth type, price, and hours.`
+            : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}. Filter by broth type, price, and hours to find your ideal bowl.`,
         },
       },
       {
         '@type': 'Question',
-        name: `What is the best ramen in ${city}, ${stateCode}?`,
+        name: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `The best ramen in ${city}, ${stateCode} depends on what you are craving. Use our filters to find tonkotsu, miso, shoyu, or spicy ramen near you, sorted by rating and distance.`,
+          text: count > 0
+            ? `There are ${count} ramen restaurants listed in ${cityName}, ${stateCode} on RamenNearYou. Our directory covers the full city, from quick lunch spots to sit-down ramen bars.`
+            : `Use the map above to find ramen restaurants in and around ${cityName}, ${stateCode}.`,
         },
       },
       {
         '@type': 'Question',
-        name: `Are there ramen restaurants open late in ${city}?`,
+        name: `What types of ramen are available in ${cityName}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Use the "Open Late" filter on the map to find ramen restaurants in ${city} that are open past 10pm. Many ramen bars and casual spots stay open until midnight or later.`,
+          text: `Ramen restaurants in ${cityName} serve a variety of broth styles including tonkotsu, miso, shoyu, and shio. Use the filter bar above the map to narrow by broth type, price, and dietary preference.`,
         },
       },
     ],
@@ -95,8 +145,8 @@ export default async function CapitalCityPage(
         >
           <HomeMapHero
             initialCenter={{ lat, lng }}
-            pageTitle={`Ramen in ${city}, ${stateCode}`}
-            pageDescription={`Find ramen restaurants in ${city}, ${stateCode}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+            pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
+            pageDescription={`Find ramen restaurants in ${cityName}, ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
           />
         </ErrorBoundary>
 
@@ -107,55 +157,56 @@ export default async function CapitalCityPage(
             {dbRestaurants.length > 0 && (
               <>
                 <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-                  Ramen Restaurants in {city}, {stateCode}
+                  Ramen Restaurants in {cityName}, {stateCode}
                 </h2>
                 <p className="text-[#6B6862] text-sm mb-6">
-                  {dbRestaurants.length} ramen {dbRestaurants.length === 1 ? 'restaurant' : 'restaurants'} in our directory for {city}.
-                  {' '}<Link href={`/${citySlug}/${stateSlug}`} className="text-[#B57F50] underline hover:text-[#9a6c42]">
-                    View full {city} directory →
-                  </Link>
+                  {dbRestaurants.length} ramen {dbRestaurants.length === 1 ? 'restaurant' : 'restaurants'} in our directory.
                 </p>
                 <div className="space-y-3 mb-10">
-                  {dbRestaurants.slice(0, 12).sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).map(r => (
-                    <Link
-                      key={r.slug}
-                      href={`/${citySlug}/${stateSlug}/${r.slug}`}
-                      className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                    >
-                      {r.photo && (
-                        <img src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0 bg-[#F0EDE8]" />
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
-                        {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
-                        <div className="flex items-center gap-2 mt-1">
-                          {r.rating && (
-                            <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                              <Star className="w-3 h-3 fill-[#B57F50] text-[#B57F50]" />
-                              {r.rating.toFixed(1)}
-                              {r.reviewCount > 0 && <span className="text-[#9B9490]">({r.reviewCount.toLocaleString()})</span>}
-                            </span>
-                          )}
-                          {r.priceRange && <span className="text-xs text-[#9B9490]">{r.priceRange}</span>}
+                  {dbRestaurants
+                    .slice()
+                    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+                    .slice(0, 20)
+                    .map(r => (
+                      <Link
+                        key={r.slug}
+                        href={`/${citySlug}/${stateSlug}/${r.slug}`}
+                        className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
+                      >
+                        {r.photo && (
+                          <img src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0 bg-[#F0EDE8]" />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
+                          {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
+                          <div className="flex items-center gap-2 mt-1">
+                            {r.rating && (
+                              <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
+                                <Star className="w-3 h-3 fill-[#B57F50] text-[#B57F50]" />
+                                {r.rating.toFixed(1)}
+                                {r.reviewCount > 0 && <span className="text-[#9B9490]"> ({r.reviewCount.toLocaleString()})</span>}
+                              </span>
+                            )}
+                            {r.priceRange && <span className="text-xs text-[#9B9490]">{r.priceRange}</span>}
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    ))}
                 </div>
               </>
             )}
 
-            {/* Google Places listings (for capitals with no DB data) */}
+            {/* Google Places listings (capitals with no DB data) */}
             {placesResults.length > 0 && (
               <>
                 <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-                  Ramen Restaurants in {city}, {stateCode}
+                  Ramen Restaurants in {cityName}, {stateCode}
                 </h2>
                 <p className="text-[#6B6862] text-sm mb-6">
-                  {placesResults.length} ramen spots near {city} via Google Places.
+                  {placesResults.length} ramen spots near {cityName}.
                 </p>
                 <div className="space-y-3 mb-10">
-                  {placesResults.slice(0, 12).map(r => (
+                  {placesResults.slice(0, 20).map(r => (
                     <a
                       key={r.placeId}
                       href={r.googleMapsUrl}
@@ -177,12 +228,10 @@ export default async function CapitalCityPage(
                             <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
                               <Star className="w-3 h-3 fill-[#B57F50] text-[#B57F50]" />
                               {r.rating.toFixed(1)}
-                              {r.reviewCount > 0 && <span className="text-[#9B9490]">({r.reviewCount.toLocaleString()})</span>}
+                              {r.reviewCount > 0 && <span className="text-[#9B9490]"> ({r.reviewCount.toLocaleString()})</span>}
                             </span>
                           )}
-                          {r.priceLevel && (
-                            <span className="text-xs text-[#9B9490]">{'$'.repeat(r.priceLevel)}</span>
-                          )}
+                          {r.priceLevel && <span className="text-xs text-[#9B9490]">{'$'.repeat(r.priceLevel)}</span>}
                         </div>
                       </div>
                     </a>
@@ -191,27 +240,26 @@ export default async function CapitalCityPage(
               </>
             )}
 
-            {/* No results at all */}
-            {dbRestaurants.length === 0 && placesResults.length === 0 && (
+            {count === 0 && (
               <div className="mb-10">
                 <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-3">
-                  Ramen in {city}, {stateCode}
+                  Ramen in {cityName}, {stateCode}
                 </h2>
                 <p className="text-[#6B6862] text-sm">
-                  We don&apos;t have ramen listings for {city} yet. Use the map above to find the nearest ramen restaurants — or check nearby cities.
+                  We don&apos;t have ramen listings for {cityName} yet. Use the map above to find the nearest ramen restaurants.
                 </p>
               </div>
             )}
 
             {/* SEO content */}
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
-              Finding Ramen in {city}, {stateCode}
+              Finding Ramen in {cityName}, {stateName}
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              RamenNearYou is the largest ramen restaurant directory in the United States. Use the map above to find every ramen restaurant near {city} — filter by broth type (tonkotsu, miso, shoyu, shio), price, dietary preference, and hours.
+              RamenNearYou is the largest ramen restaurant directory in the United States. Use the map above to find every ramen restaurant near {cityName} — filter by broth type (tonkotsu, miso, shoyu, shio), price, dietary preference, and hours.
             </p>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Enter your ZIP code or tap &quot;Use my location&quot; to sort results by distance from you. The &quot;Open Now&quot; and &quot;Open Late&quot; filters show which {city} ramen spots are currently serving.
+              Enter your ZIP code or tap &quot;Use my location&quot; to sort results by distance from you. The &quot;Open Now&quot; and &quot;Open Late&quot; filters show which {cityName} ramen spots are currently serving.
             </p>
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
@@ -220,16 +268,20 @@ export default async function CapitalCityPage(
             <div className="space-y-4">
               {[
                 {
-                  q: `Where can I find ramen in ${city}, ${stateCode}?`,
-                  a: `Use the map above to find ramen restaurants in ${city}, ${stateCode}. Enter your ZIP code or click "Use my location" to sort by distance. Filter by broth type, price, and hours.`,
+                  q: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
+                  a: dbRestaurants.length > 0
+                    ? `RamenNearYou lists ${dbRestaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Use the map above — sort by rating or distance to find the best bowl near you.`
+                    : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}, sorted by rating and distance.`,
                 },
                 {
-                  q: `What is the best ramen in ${city}?`,
-                  a: `The best ramen in ${city} depends on what you're craving. Use the filters to find tonkotsu, miso, shoyu, or spicy ramen near you, sorted by rating and distance.`,
+                  q: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
+                  a: count > 0
+                    ? `There are ${count} ramen restaurants listed in ${cityName}, ${stateCode} on RamenNearYou — from quick lunch spots to sit-down ramen bars.`
+                    : `Use the map above to find ramen spots in and around ${cityName}, ${stateCode}.`,
                 },
                 {
-                  q: `Are there ramen restaurants open late in ${city}?`,
-                  a: `Use the "Open Late" filter on the map to find ramen in ${city} open past 10pm. Many ramen bars and casual spots stay open until midnight or later.`,
+                  q: `What types of ramen are available in ${cityName}?`,
+                  a: `Ramen restaurants in ${cityName} serve a variety of broth styles including tonkotsu, miso, shoyu, and shio. Use the filter bar above to narrow by broth type, price, and dietary preference.`,
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
