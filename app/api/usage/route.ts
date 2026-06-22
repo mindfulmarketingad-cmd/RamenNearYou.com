@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { isAdminEmail } from '@/lib/is-admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,7 +29,7 @@ export async function GET() {
     subscribed = sub?.status === 'active' || sub?.status === 'trialing'
   }
 
-  const isAdmin = user.email === 'mindfulmarketingad@gmail.com'
+  const isAdmin = isAdminEmail(user.email)
 
   return NextResponse.json({ signedIn: true, subscribed, isAdmin })
 }
