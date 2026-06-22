@@ -1,5 +1,5 @@
 // Maps "citySlug:stateSlug" to an ordered list of featured restaurant slugs.
-// Featured restaurants appear first on the city page with a brown Verified badge.
+// Featured restaurants appear first on the city find page with a gold pin and badge.
 const featuredCityListings: Record<string, string[]> = {
   'port-washington:new-york': ['ikedo-ramen'],
 }
