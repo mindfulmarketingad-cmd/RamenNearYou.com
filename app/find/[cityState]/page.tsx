@@ -10,7 +10,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import SafeImg from '@/components/safe-img'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
-import { getPlacesSupplements } from '@/lib/places-supplements'
+import { getPlacesSupplements, getSupplementCitiesByState } from '@/lib/places-supplements'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 
@@ -104,6 +104,16 @@ export default async function CityFindPage(
 
   const count = dbRestaurants.length + placesResults.length
 
+  // Nearby ramen cities in the same state — used for keyword-rich internal links.
+  const nearbyCitiesMap = new Map<string, { city: string; citySlug: string; stateCode: string }>()
+  for (const c of getCities().filter(c => c.stateSlug === stateSlug && c.citySlug !== citySlug)) {
+    nearbyCitiesMap.set(c.citySlug, { city: c.city, citySlug: c.citySlug, stateCode: c.stateCode })
+  }
+  for (const c of getSupplementCitiesByState(stateSlug).filter(c => c.citySlug !== citySlug)) {
+    if (!nearbyCitiesMap.has(c.citySlug)) nearbyCitiesMap.set(c.citySlug, { city: c.city, citySlug: c.citySlug, stateCode: c.stateCode })
+  }
+  const nearbyCities = Array.from(nearbyCitiesMap.values()).slice(0, 12)
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -154,6 +164,17 @@ export default async function CityFindPage(
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+
+            {/* Breadcrumb anchor text */}
+            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#9B9490] mb-6">
+              <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
+              <span>/</span>
+              <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+              <span>/</span>
+              <Link href={`/${stateSlug}`} className="hover:text-[#B57F50] transition-colors">Ramen in {stateName}</Link>
+              <span>/</span>
+              <span className="text-[#6B6862]">{cityName}</span>
+            </nav>
 
             {/* DB listings */}
             {dbRestaurants.length > 0 && (
@@ -254,11 +275,48 @@ export default async function CityFindPage(
               Finding Ramen in {cityName}, {stateName}
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              RamenNearYou is the largest ramen restaurant directory in the United States. Use the map above to find every ramen restaurant near {cityName} — filter by broth type (tonkotsu, miso, shoyu, shio), price, dietary preference, and hours.
+              RamenNearYou is the largest <Link href="/" className="text-[#B57F50] hover:underline">ramen restaurant directory</Link> in the United States. Use the map above to find every ramen restaurant near {cityName} — or browse by broth style:{' '}
+              <Link href="/find/tonkotsu-ramen" className="text-[#B57F50] hover:underline">tonkotsu ramen</Link>,{' '}
+              <Link href="/find/miso-ramen" className="text-[#B57F50] hover:underline">miso ramen</Link>,{' '}
+              <Link href="/find/shoyu-ramen" className="text-[#B57F50] hover:underline">shoyu ramen</Link>, and{' '}
+              <Link href="/find/shio-ramen" className="text-[#B57F50] hover:underline">shio ramen</Link>.
+            </p>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              Looking for something specific in {cityName}? Find{' '}
+              <Link href="/find/ramen-open-now" className="text-[#B57F50] hover:underline">ramen open now</Link>,{' '}
+              <Link href="/find/ramen-open-late" className="text-[#B57F50] hover:underline">ramen open late</Link>,{' '}
+              <Link href="/find/spicy-ramen" className="text-[#B57F50] hover:underline">spicy ramen</Link>,{' '}
+              <Link href="/find/vegan-ramen" className="text-[#B57F50] hover:underline">vegan ramen</Link>, or the{' '}
+              <Link href="/find/top-rated-ramen" className="text-[#B57F50] hover:underline">top rated ramen restaurants near you</Link>.
             </p>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Enter your ZIP code or tap &quot;Use my location&quot; to sort results by distance from you. The &quot;Open Now&quot; and &quot;Open Late&quot; filters show which {cityName} ramen spots are currently serving.
+              Enter your ZIP code or tap &quot;Use my location&quot; to sort results by distance. You can also explore{' '}
+              <Link href={`/${stateSlug}`} className="text-[#B57F50] hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
+              <Link href="/cities" className="text-[#B57F50] hover:underline">browse every city and state</Link> in our directory.
             </p>
+
+            {/* Nearby cities — keyword-rich internal links */}
+            {nearbyCities.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                  More Ramen Near {cityName} in {stateName}
+                </h2>
+                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                  Browse ramen restaurants in other {stateName} cities near {cityName}:
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  {nearbyCities.map(c => (
+                    <Link
+                      key={c.citySlug}
+                      href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
+                      className="text-sm text-[#B57F50] hover:underline"
+                    >
+                      Ramen in {c.city}, {c.stateCode}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
               Frequently Asked Questions

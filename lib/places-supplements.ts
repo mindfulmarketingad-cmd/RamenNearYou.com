@@ -5,14 +5,14 @@ import { STATE_CODE_TO_SLUG, STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from './st
 export interface PlacesRestaurant {
   placeId: string
   name: string
-  address: string
+  address?: string
   rating: number | null
   reviewCount: number
   priceLevel: number | null
   photo: string | null
   latitude: number | null
   longitude: number | null
-  openNow: boolean | null
+  openNow?: boolean | null
   googleMapsUrl: string
 }
 
