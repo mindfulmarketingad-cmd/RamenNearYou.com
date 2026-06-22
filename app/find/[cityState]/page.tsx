@@ -14,7 +14,7 @@ import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
-import { FIND_MODIFIERS, matchModifier } from '@/lib/find-modifiers'
+import { matchModifier } from '@/lib/find-modifiers'
 import ModifierCityFindPage from '@/components/modifier-city-find-page'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
@@ -29,16 +29,10 @@ function parseParam(cityState: string): { citySlug: string; stateCode: string } 
 const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
 
 export async function generateStaticParams() {
-  const cityParams = getFindCityParams()
-
-  // Modifier pages ({broth}/{open-late|now}/{beef}-in-{city}-{state}) over the
-  // same city set — these live here because Next can't do partial dynamic
-  // segments like /find/tonkotsu-ramen-in-[cityState].
-  const modifierParams = FIND_MODIFIERS.flatMap(m =>
-    cityParams.map(p => ({ cityState: `${m.prefix}-${p.cityState}` }))
-  )
-
-  return [...cityParams, ...modifierParams]
+  // Pre-render only the base city pages. The {broth}-in-{city}-{state} modifier
+  // variants (8 per city, ~11k pages) render on demand and cache via ISR
+  // (dynamicParams defaults to true) — keeping the build from ballooning.
+  return getFindCityParams()
 }
 
 export async function generateMetadata(

@@ -46,9 +46,12 @@ import {
 export const dynamicParams = true
 
 export async function generateStaticParams() {
+  // Pre-render only the top-rated restaurants; the long tail renders on demand
+  // and caches via ISR (dynamicParams = true). Supplement listings are likewise
+  // capped to a small set — both bounds keep the build fast.
   const restaurantParams = [...restaurants]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-    .slice(0, 5000)
+    .slice(0, 1000)
     .map((r) => ({
       city: r.citySlug,
       state: r.stateSlug,
@@ -56,7 +59,7 @@ export async function generateStaticParams() {
     }))
   // City × filter pages share this route's third segment.
   // Supplement (Google Places) listings get internal pages too.
-  return [...restaurantParams, ...getCityFilterStaticParams(), ...getSupplementListingParams()]
+  return [...restaurantParams, ...getCityFilterStaticParams(), ...getSupplementListingParams(500)]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
