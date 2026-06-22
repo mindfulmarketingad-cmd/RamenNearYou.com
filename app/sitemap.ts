@@ -4,6 +4,7 @@ import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
 import { FIND_PAGES } from '@/components/find-cross-links'
 import { generateStaticParams as findCityParams } from '@/app/find/[cityState]/page'
+import { CAPITAL_CITIES } from '@/lib/capital-cities'
 
 const BASE_URL = 'https://www.ramennearyou.com'
 
@@ -93,6 +94,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly' as const,
     priority: 0.6,
+  }))
+
+  // /find/ramen-open-late-in-{city}-{stateSlug} capital city pages
+  const openLateCapitalPages = CAPITAL_CITIES.map((c) => ({
+    url: `${BASE_URL}/find/ramen-open-late-in-${c.citySlug}-${c.stateSlug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.65,
   }))
 
   return [
@@ -242,6 +251,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...findFilterPages,
     ...findCityPages,
+    ...openLateCapitalPages,
     ...blogPostPages,
     ...statePages,
     ...cityPages,
