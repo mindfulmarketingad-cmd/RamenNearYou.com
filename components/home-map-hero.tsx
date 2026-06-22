@@ -654,6 +654,12 @@ export default function HomeMapHero({
                         >
                           Order Now
                         </button>
+                        <button
+                          onClick={e => { e.stopPropagation(); window.location.href = '/featured/apply' }}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                        >
+                          Claim Listing
+                        </button>
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}

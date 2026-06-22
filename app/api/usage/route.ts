@@ -28,5 +28,7 @@ export async function GET() {
     subscribed = sub?.status === 'active' || sub?.status === 'trialing'
   }
 
-  return NextResponse.json({ signedIn: true, subscribed })
+  const isAdmin = user.email === 'mindfulmarketingad@gmail.com'
+
+  return NextResponse.json({ signedIn: true, subscribed, isAdmin })
 }

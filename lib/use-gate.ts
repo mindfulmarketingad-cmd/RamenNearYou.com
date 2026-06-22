@@ -11,6 +11,7 @@ export type GateResult = 'ok' | 'signin' | 'subscribe'
 export function useGate() {
   const [signedIn, setSignedIn] = useState<boolean | null>(null)
   const [subscribed, setSubscribed] = useState<boolean | null>(null)
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
   const refresh = useCallback(async () => {
     try {
@@ -19,6 +20,7 @@ export function useGate() {
       const d = await res.json()
       setSignedIn(!!d.signedIn)
       setSubscribed(!!d.subscribed)
+      setIsAdmin(!!d.isAdmin)
     } catch {
       setSignedIn(false)
       setSubscribed(false)
@@ -35,12 +37,14 @@ export function useGate() {
   }, [signedIn])
 
   // Premium gate: requires sign-in AND active Ramen Pass subscription.
+  // Admin users bypass the subscription requirement.
   const evaluatePremium = useCallback((): GateResult => {
     if (signedIn === null || subscribed === null) return 'ok' // still resolving
     if (signedIn === false) return 'signin'
+    if (isAdmin) return 'ok'
     if (subscribed === false) return 'subscribe'
     return 'ok'
-  }, [signedIn, subscribed])
+  }, [signedIn, subscribed, isAdmin])
 
-  return { signedIn, subscribed, evaluate, evaluatePremium, refresh }
+  return { signedIn, subscribed, isAdmin, evaluate, evaluatePremium, refresh }
 }
