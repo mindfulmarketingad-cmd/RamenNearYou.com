@@ -655,7 +655,7 @@ export default function HomeMapHero({
                           Order Now
                         </button>
                         <button
-                          onClick={e => { e.stopPropagation(); window.location.href = '/featured/apply' }}
+                          onClick={e => { e.stopPropagation(); window.location.href = `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}` }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           Claim Listing
