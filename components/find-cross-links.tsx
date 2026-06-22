@@ -37,6 +37,15 @@ export const FIND_PAGES = [
   { href: '/find/hokkaido-ramen', label: 'Hokkaido Ramen Near Me', emoji: '🌨️' },
   { href: '/find/ramen-bars', label: 'Ramen Bars Near Me', emoji: '🍺' },
   { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me', emoji: '🗺️' },
+  { href: '/find/ramen-outdoor-seating', label: 'Ramen With Outdoor Seating Near Me', emoji: '☀️' },
+  { href: '/find/ramen-reservations', label: 'Ramen With Reservations Near Me', emoji: '📅' },
+  { href: '/find/ramen-full-bar', label: 'Ramen With a Full Bar Near Me', emoji: '🍺' },
+  { href: '/find/ramen-family-friendly', label: 'Family-Friendly Ramen Near Me', emoji: '👨‍👩‍👧' },
+  { href: '/find/ramen-wheelchair-accessible', label: 'Wheelchair Accessible Ramen Near Me', emoji: '♿' },
+  { href: '/find/ramen-free-parking', label: 'Ramen With Free Parking Near Me', emoji: '🅿️' },
+  { href: '/find/ramen-hidden-gems', label: 'Hidden Gem Ramen Near Me', emoji: '💎' },
+  { href: '/find/ramen-open-early', label: 'Ramen Open Early Near Me', emoji: '☕' },
+  { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me', emoji: '📆' },
 ]
 
 interface Props {

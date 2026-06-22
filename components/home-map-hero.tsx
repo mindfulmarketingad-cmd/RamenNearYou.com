@@ -12,10 +12,10 @@ import RestaurantImage from '@/components/restaurant-image'
 import SigninGateModal from '@/components/signin-gate-modal'
 import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import { useGate } from '@/lib/use-gate'
-import { isOpenNow, isOpenLate, isOpenPastMidnight } from '@/lib/hours'
+import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
-  matchesPrice, type MapPoint,
+  FEATURE_META, FEATURE_KEYS, matchesPrice, type MapPoint,
 } from '@/lib/ramen-taxonomy'
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
@@ -301,6 +301,14 @@ export default function HomeMapHero({
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
         if (flags.has('top-rated') && ((r.rating ?? 0) < 4.3 || r.reviewCount < 20)) return false
+        if (flags.has('hidden-gems') && !((r.rating ?? 0) >= 4.5 && r.reviewCount < 100)) return false
+        if (flags.has('open-early') && !opensEarly(r.hours)) return false
+        if (flags.has('open-weekends') && !isOpenOnWeekend(r.hours)) return false
+        // Feature/amenity flags — DB listings carry an amenities array; Places
+        // supplements don't, so they're excluded when an amenity filter is on.
+        for (const f of FEATURE_KEYS) {
+          if (flags.has(f) && !(r.amenities ?? []).includes(f)) return false
+        }
         if (bowls.size > 0 && !(r.bowls ?? []).some(k => bowls.has(k))) return false
         if (moods.size > 0 && !(r.moods ?? []).some(k => moods.has(k))) return false
         if (prices.size > 0 && ![...prices].some(k => matchesPrice(r, k))) return false
@@ -516,8 +524,23 @@ export default function HomeMapHero({
                   <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => { if (!requirePremium()) return; toggleFlag('open-now') }} />
                   <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => { if (!requirePremium()) return; toggleFlag('open-late') }} />
                   <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => { if (!requirePremium()) return; toggleFlag('open-midnight') }} />
+                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => { if (!requirePremium()) return; toggleFlag('open-early') }} />
+                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => { if (!requirePremium()) return; toggleFlag('open-weekends') }} />
                   <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requirePremium()) return; toggleFlag('top-rated') }} />
+                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requirePremium()) return; toggleFlag('hidden-gems') }} />
                 </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#B57F50]" />
+                <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Features &amp; Amenities</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {FEATURE_META.map(f => (
+                  <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requirePremium()) return; toggleFlag(f.key) }} />
+                ))}
               </div>
             </div>
           </div>

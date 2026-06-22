@@ -66,6 +66,7 @@ export default function VegetarianRamenPage() {
           }
         >
           <HomeMapHero
+            initialFlags={['vegetarian']}
             pageTitle="Vegetarian Ramen Near Me"
             pageDescription="Find ramen restaurants with vegetarian options near you — meat-free broths and toppings packed with umami. Enter your ZIP or use your location to sort by distance."
           />

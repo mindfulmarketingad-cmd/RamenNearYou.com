@@ -34,6 +34,36 @@ export const MOOD_META: ChipMeta[] = [
 export const BOWL_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(BOWL_META.map(b => [b.key, b]))
 export const MOOD_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(MOOD_META.map(m => [m.key, m]))
 
+// Features & Amenities — derived from each restaurant's Google amenity flags.
+// The keys are stored (only when true) in MapPoint.amenities so the client can
+// filter without shipping the raw amenities object.
+export const FEATURE_META: ChipMeta[] = [
+  { key: 'delivers', label: 'Delivers', emoji: '🛵', hex: '#16a34a' },
+  { key: 'outdoor-seating', label: 'Outdoor Seating', emoji: '☀️', hex: '#0ea5e9' },
+  { key: 'reservations', label: 'Takes Reservations', emoji: '📅', hex: '#9333ea' },
+  { key: 'full-bar', label: 'Full Bar', emoji: '🍺', hex: '#d97706' },
+  { key: 'family-friendly', label: 'Family-Friendly', emoji: '👨‍👩‍👧', hex: '#f59e0b' },
+  { key: 'vegetarian', label: 'Vegetarian Options', emoji: '🥗', hex: '#059669' },
+  { key: 'wheelchair', label: 'Wheelchair Accessible', emoji: '♿', hex: '#0284c7' },
+  { key: 'free-parking', label: 'Free Parking', emoji: '🅿️', hex: '#64748b' },
+]
+
+// Feature key → the raw amenity field on a Restaurant. Used server-side when
+// building MapPoint.amenities (kept here so the keys stay in one place).
+export const FEATURE_AMENITY_FIELD: Record<string, string> = {
+  'delivers': 'delivery',
+  'outdoor-seating': 'outdoorSeating',
+  'reservations': 'acceptsReservations',
+  'full-bar': 'alcohol',
+  'family-friendly': 'familyFriendly',
+  'vegetarian': 'vegetarianOptions',
+  'wheelchair': 'wheelchairAccessible',
+  'free-parking': 'parking',
+}
+
+export const FEATURE_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(FEATURE_META.map(f => [f.key, f]))
+export const FEATURE_KEYS = new Set(FEATURE_META.map(f => f.key))
+
 export const PRICE_META: { key: string; label: string }[] = [
   { key: 'budget', label: 'Under ~$15' },
   { key: 'premium', label: 'Premium' },
@@ -58,6 +88,7 @@ export type MapPoint = {
   hours: Record<string, string[]> | null
   bowls: string[]
   moods: string[]
+  amenities?: string[]    // active FEATURE_META keys (delivers, outdoor-seating, …)
   googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
   googleMapsLink?: string // set for DB entries (links to the verified listing)
   featured?: boolean      // promoted listing — pinned first with a Featured badge

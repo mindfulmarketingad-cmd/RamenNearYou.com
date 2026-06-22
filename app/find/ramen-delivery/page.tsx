@@ -66,6 +66,7 @@ export default function RamenDeliveryPage() {
           }
         >
           <HomeMapHero
+            initialFlags={['delivers']}
             pageTitle="Ramen Delivery Near Me"
             pageDescription="Find ramen restaurants that offer delivery near you. Enter your ZIP code to browse spots in your area — many offer pickup too."
           />

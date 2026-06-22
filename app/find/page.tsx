@@ -60,6 +60,21 @@ const CATEGORIES = [
       { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me' },
       { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me' },
       { href: '/find/ramen-lunch', label: 'Ramen for Lunch Near Me' },
+      { href: '/find/ramen-open-early', label: 'Ramen Open Early Near Me' },
+      { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me' },
+    ],
+  },
+  {
+    heading: 'By Amenities & Features',
+    pages: [
+      { href: '/find/ramen-delivery', label: 'Ramen Delivery Near Me' },
+      { href: '/find/ramen-outdoor-seating', label: 'Ramen With Outdoor Seating Near Me' },
+      { href: '/find/ramen-reservations', label: 'Ramen With Reservations Near Me' },
+      { href: '/find/ramen-full-bar', label: 'Ramen With a Full Bar Near Me' },
+      { href: '/find/ramen-family-friendly', label: 'Family-Friendly Ramen Near Me' },
+      { href: '/find/ramen-wheelchair-accessible', label: 'Wheelchair Accessible Ramen Near Me' },
+      { href: '/find/ramen-free-parking', label: 'Ramen With Free Parking Near Me' },
+      { href: '/find/ramen-hidden-gems', label: 'Hidden Gem Ramen Near Me' },
     ],
   },
   {
@@ -97,6 +112,7 @@ const CATEGORIES = [
     heading: 'By Diet & Price',
     pages: [
       { href: '/find/vegan-ramen', label: 'Vegan Ramen Near Me' },
+      { href: '/find/vegetarian-ramen', label: 'Vegetarian Ramen Near Me' },
       { href: '/find/cheap-ramen', label: 'Ramen Under $15 Near Me' },
     ],
   },

@@ -80,6 +80,39 @@ export function isOpenPastMidnight(hours: Record<string, string[]> | null): bool
   return c != null && c > 1440
 }
 
+/** Earliest opening time on a given day in minutes, or null if closed/unknown. */
+function firstOpenMinute(slots: string[] | undefined): number | null {
+  if (!slots || slots.length === 0) return null
+  let min: number | null = null
+  for (const slot of slots) {
+    if (slot === 'Closed') continue
+    const p = parseSlot(slot)
+    if (!p) continue
+    if (min === null || p.start < min) min = p.start
+  }
+  return min
+}
+
+/** Opens at or before `byMin` (default 10:30 AM) on at least one day. */
+export function opensEarly(hours: Record<string, string[]> | null, byMin = 10 * 60 + 30): boolean {
+  if (!hours || Object.keys(hours).length === 0) return false
+  for (const day of DAYS) {
+    const fo = firstOpenMinute(hours[day])
+    if (fo != null && fo <= byMin) return true
+  }
+  return false
+}
+
+/** Open on both Saturday and Sunday. */
+export function isOpenOnWeekend(hours: Record<string, string[]> | null): boolean {
+  if (!hours || Object.keys(hours).length === 0) return false
+  const open = (day: string) => {
+    const slots = hours[day]
+    return !!slots && slots.length > 0 && slots[0] !== 'Closed'
+  }
+  return open('Saturday') && open('Sunday')
+}
+
 function minutesToLabel(minutes: number): string {
   if (minutes >= 1440) minutes = minutes % 1440
   const h = Math.floor(minutes / 60)
