@@ -7,7 +7,7 @@ function slugify(str: string): string {
   return str.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
-const MAJOR_CITIES = [
+export const MAJOR_CITIES = [
   // Alabama
   { city: 'Birmingham',    stateCode: 'AL' },
   { city: 'Huntsville',    stateCode: 'AL' },
