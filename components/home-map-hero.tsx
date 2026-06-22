@@ -331,6 +331,9 @@ export default function HomeMapHero({
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
       }
 
+      // Featured listings are pinned to the top (stable — keeps prior ordering).
+      list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+
       return list.slice(0, 300)
     } catch {
       return []
@@ -591,14 +594,26 @@ export default function HomeMapHero({
                       id={`home-card-${r.slug}`}
                       onMouseEnter={() => setHoveredSlug(r.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className={`relative transition-colors ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'}`}
+                      className={`relative transition-colors ${
+                        r.featured
+                          ? 'bg-amber-50/60 border-l-[3px] border-[#f5b301]'
+                          : active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'
+                      }`}
                     >
                       {/* Main clickable row — internal listing page */}
                       <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
                         <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
                           <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
+                          {r.featured && (
+                            <span className="absolute top-0 left-0 bg-gradient-to-br from-[#f5b301] to-[#d4880b] text-white text-[8px] leading-none px-1 py-0.5 rounded-br-md font-bold">★</span>
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
+                          {r.featured && (
+                            <span className="inline-flex items-center gap-1 mb-0.5 px-1.5 py-0.5 rounded bg-amber-100 text-[#9a6b0b] text-[9px] font-bold uppercase tracking-wide border border-[#f5b301]/40">
+                              👑 Featured
+                            </span>
+                          )}
                           <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
                           <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                           <div className="flex items-center gap-2 mt-0.5 flex-wrap">

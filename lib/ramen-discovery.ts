@@ -6,6 +6,7 @@ import { isOpenLate } from './hours'
 import { BOWL_META, MOOD_META, type MapPoint } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
 import { getSupplementListings } from './places-supplements'
+import { getAllFeaturedSlugs } from './featured-city'
 import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
 
@@ -96,6 +97,7 @@ const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
 }
 
 export function computeMapData(): MapPoint[] {
+  const featuredSlugs = getAllFeaturedSlugs()
   const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
     .map(r => ({
@@ -116,6 +118,7 @@ export function computeMapData(): MapPoint[] {
       bowls: BOWL_META.filter(b => BOWL_MATCH[b.key]?.(r)).map(b => b.key),
       moods: MOOD_META.filter(m => MOOD_MATCH[m.key]?.(r)).map(m => m.key),
       googleMapsLink: r.googleMapsLink || undefined,
+      featured: featuredSlugs.has(r.slug),
     }))
 
   return [...dbPoints, ...supplementMapPoints()]

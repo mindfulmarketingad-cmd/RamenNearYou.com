@@ -18,6 +18,7 @@ export type MapRestaurant = {
   rating: number | null
   reviewCount: number
   googleMapsUrl?: string  // Places-supplement entries link out to Google Maps
+  featured?: boolean      // promoted listing — gold pin, shown above the rest
 }
 
 // Fix Leaflet default marker icons in Next.js
@@ -36,17 +37,26 @@ const BOUNCE_CSS = `
 .marker-bounce { animation: ramenBounce 0.55s ease-in-out infinite; }
 `
 
-function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false) {
+function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false, featured = false) {
   const label = rating ? rating.toFixed(1) : '?'
-  const bg = state === 'active' ? shade(accent, -18) : accent
-  const border = state === 'active' ? '2.5px solid white' : '2px solid white'
-  const shadow = state === 'active'
-    ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
-    : '0 2px 6px rgba(0,0,0,0.35)'
-  const scale = state === 'active' ? 1.15 : 1
+  // Featured listings get a gold gradient pin that stands out from the rest.
+  const bg = featured
+    ? 'linear-gradient(135deg,#f5b301,#d4880b)'
+    : state === 'active' ? shade(accent, -18) : accent
+  const border = featured ? '2.5px solid #fff7e0' : state === 'active' ? '2.5px solid white' : '2px solid white'
+  const shadow = featured
+    ? '0 3px 14px rgba(212,136,11,0.75)'
+    : state === 'active'
+      ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
+      : '0 2px 6px rgba(0,0,0,0.35)'
+  const scale = featured ? 1.2 : state === 'active' ? 1.15 : 1
   const bounce = state === 'hover' ? 'marker-bounce' : ''
   const check = visited
     ? `<span style="position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:#16a34a;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;line-height:1;color:white">✓</span>`
+    : ''
+  // Crown badge marks the featured pin.
+  const crown = featured
+    ? `<span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:11px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3))">👑</span>`
     : ''
   return L.divIcon({
     className: bounce,
@@ -59,7 +69,8 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
       white-space:nowrap;
       transform:scale(${scale});transform-origin:bottom center;
       transition:transform 0.15s;
-    "><span style="font-size:10px;line-height:1">★</span>${label}${check}</div>`,
+      z-index:${featured ? 1000 : 'auto'};
+    ">${crown}<span style="font-size:10px;line-height:1">★</span>${label}${check}</div>`,
     iconSize: [44, 24],
     iconAnchor: [22, 24],
     popupAnchor: [0, -28],
@@ -194,12 +205,13 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     restaurants.forEach((r) => {
       if (!r.latitude || !r.longitude) return
       const state = r.slug === selectedSlug ? 'active' : 'default'
-      const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug))
+      const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured)
       ratingsRef.current[r.slug] = r.rating
       const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
         .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
+            ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
             <a href="/${r.citySlug}/${r.stateSlug}/${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
             ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}

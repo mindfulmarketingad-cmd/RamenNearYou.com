@@ -60,6 +60,7 @@ export type MapPoint = {
   moods: string[]
   googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
   googleMapsLink?: string // set for DB entries (links to the verified listing)
+  featured?: boolean      // promoted listing — pinned first with a Featured badge
 }
 
 export function matchesPrice(p: MapPoint, key: string): boolean {
