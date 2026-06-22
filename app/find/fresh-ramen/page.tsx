@@ -9,11 +9,11 @@ import { Loader2 } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Fresh Ramen Noodles Near Me | House-Made Noodle Ramen | RamenNearYou',
   description: 'Find ramen restaurants that make fresh noodles in-house near you. House-made noodles are the mark of a serious ramen shop — discover them near you.',
-  alternates: { canonical: 'https://www.ramennearyou.com/find/fresh-ramen-noodles' },
+  alternates: { canonical: 'https://www.ramennearyou.com/find/fresh-ramen' },
   openGraph: {
     title: 'Fresh Ramen Noodles Near Me',
     description: 'Find ramen shops with house-made fresh noodles near you — the mark of a serious ramen kitchen.',
-    url: 'https://www.ramennearyou.com/find/fresh-ramen-noodles',
+    url: 'https://www.ramennearyou.com/find/fresh-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
@@ -120,7 +120,7 @@ export default function FreshRamenNoodlesPage() {
             </div>
           </section>
 
-          <FindCrossLinks currentHref="/find/fresh-ramen-noodles" />
+          <FindCrossLinks currentHref="/find/fresh-ramen" />
           <Footer />
         </div>
       </main>

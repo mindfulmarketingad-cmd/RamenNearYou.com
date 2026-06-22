@@ -13,6 +13,9 @@ import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
+import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
+import { FIND_MODIFIERS, matchModifier } from '@/lib/find-modifiers'
+import ModifierCityFindPage from '@/components/modifier-city-find-page'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -23,32 +26,41 @@ function parseParam(cityState: string): { citySlug: string; stateCode: string } 
   return { citySlug, stateCode }
 }
 
+const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
+
 export async function generateStaticParams() {
-  // All DB cities with 2+ restaurants
-  const dbParams = getCities()
-    .filter(c => c.count >= 2)
-    .map(c => ({ cityState: `${c.citySlug}-${c.stateCode.toLowerCase()}` }))
+  const cityParams = getFindCityParams()
 
-  const dbSet = new Set(dbParams.map(p => p.cityState))
+  // Modifier pages ({broth}/{open-late|now}/{beef}-in-{city}-{state}) over the
+  // same city set — these live here because Next can't do partial dynamic
+  // segments like /find/tonkotsu-ramen-in-[cityState].
+  const modifierParams = FIND_MODIFIERS.flatMap(m =>
+    cityParams.map(p => ({ cityState: `${m.prefix}-${p.cityState}` }))
+  )
 
-  // Capital cities not already in DB params
-  const { CAPITAL_CITIES } = await import('@/lib/capital-cities')
-  const capitalParams = CAPITAL_CITIES
-    .filter(c => !dbSet.has(c.param))
-    .map(c => ({ cityState: c.param }))
-
-  // Major cities across all 50 states not already covered
-  const majorParams = MAJOR_CITIES_PARAMS
-    .filter(p => !dbSet.has(p))
-    .map(p => ({ cityState: p }))
-
-  return [...dbParams, ...capitalParams, ...majorParams]
+  return [...cityParams, ...modifierParams]
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cityState: string }> }
 ): Promise<Metadata> {
   const { cityState } = await params
+
+  // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx)
+  const mod = matchModifier(cityState)
+  if (mod) {
+    const city = resolveFindCity(mod.rest)
+    if (!city || !city.known) return {}
+    const title = mod.modifier.title(city.cityName, city.stateName)
+    const description = `Find ${mod.modifier.metaNoun} in ${city.cityName}, ${city.stateName}. Browse spots near ${city.cityName} — filter by location, price, and hours.`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
+
   const parsed = parseParam(cityState)
   if (!parsed) return {}
 
@@ -56,6 +68,9 @@ export async function generateMetadata(
   const stateSlug = STATE_CODE_TO_SLUG[stateCode]
   const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
   const restaurants = getRestaurantsByCity(citySlug, stateSlug)
+  // Skip metadata for unrecognized cities (junk URLs 404 in the page body).
+  const isKnown = restaurants.length > 0 || getSupplementListings(citySlug, stateCode).length > 0 || !!CAPITAL_BY_PARAM[cityState] || MAJOR_SET.has(cityState)
+  if (!isKnown) return {}
   const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? citySlug
 
   const count = restaurants.length
@@ -82,6 +97,17 @@ export default async function CityFindPage(
   { params }: { params: Promise<{ cityState: string }> }
 ) {
   const { cityState } = await params
+
+  // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx) — rendered by the shared
+  // ModifierCityFindPage. Lives in this catch-all because Next does not support
+  // partial dynamic route segments.
+  const mod = matchModifier(cityState)
+  if (mod) {
+    const city = resolveFindCity(mod.rest)
+    if (!city || !city.known) notFound()
+    return <ModifierCityFindPage modifier={mod.modifier} city={city} cityState={cityState} />
+  }
+
   const parsed = parseParam(cityState)
   if (!parsed) notFound()
 
@@ -92,7 +118,13 @@ export default async function CityFindPage(
   const dbRestaurants = getRestaurantsByCity(citySlug, stateSlug)
   const placesResults = dbRestaurants.length === 0 ? getSupplementListings(citySlug, stateCode) : []
 
+  // Guard: 404 unrecognized "{junk}-{state}" URLs (e.g. japanese-ramen-near-va)
+  // instead of rendering an empty city page. A city is real if it has DB or
+  // supplement listings, or is a known capital or major city.
   const capital = CAPITAL_BY_PARAM[cityState]
+  if (dbRestaurants.length === 0 && placesResults.length === 0 && !capital && !MAJOR_SET.has(cityState)) {
+    notFound()
+  }
 
   // Title-case the citySlug as a fallback name ("green-river" → "Green River")
   const citySlugTitle = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')

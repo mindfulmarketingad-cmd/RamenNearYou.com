@@ -3,8 +3,8 @@ import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitie
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
 import { FIND_PAGES } from '@/components/find-cross-links'
-import { generateStaticParams as findCityParams } from '@/app/find/[cityState]/page'
-import { CAPITAL_CITIES } from '@/lib/capital-cities'
+import { getFindCityParams } from '@/lib/find-city'
+import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 
 const BASE_URL = 'https://www.ramennearyou.com'
 
@@ -89,44 +89,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   // /find/{city}-{state} city searchmap pages
-  const findCityPages = (await findCityParams()).map((p) => ({
+  const findCityParamList = getFindCityParams()
+  const findCityPages = findCityParamList.map((p) => ({
     url: `${BASE_URL}/find/${p.cityState}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly' as const,
     priority: 0.6,
   }))
 
-  // /find/ramen-open-late-in-{city}-{stateSlug} capital city pages
-  const openLateCapitalPages = CAPITAL_CITIES.map((c) => ({
-    url: `${BASE_URL}/find/ramen-open-late-in-${c.citySlug}-${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.65,
-  }))
-
-  // /find/ramen-open-now-in-{city}-{stateSlug} capital city pages
-  const openNowCapitalPages = CAPITAL_CITIES.map((c) => ({
-    url: `${BASE_URL}/find/ramen-open-now-in-${c.citySlug}-${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.65,
-  }))
-
-  // /find/miso-ramen-in-{city}-{stateSlug} capital city pages
-  const misoCapitalPages = CAPITAL_CITIES.map((c) => ({
-    url: `${BASE_URL}/find/miso-ramen-in-${c.citySlug}-${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.65,
-  }))
-
-  // /find/beef-ramen-in-{city}-{stateSlug} capital city pages
-  const beefCapitalPages = CAPITAL_CITIES.map((c) => ({
-    url: `${BASE_URL}/find/beef-ramen-in-${c.citySlug}-${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly' as const,
-    priority: 0.65,
-  }))
+  // /find/{modifier}-in-{city}-{state} pages (broth, open-late/now, beef) over
+  // the same city set — generated from the modifier registry.
+  const modifierFindPages = FIND_MODIFIERS.flatMap((m) =>
+    findCityParamList.map((p) => ({
+      url: `${BASE_URL}/find/${m.prefix}-${p.cityState}`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
+  )
 
   return [
     {
@@ -275,10 +255,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...findFilterPages,
     ...findCityPages,
-    ...openLateCapitalPages,
-    ...openNowCapitalPages,
-    ...misoCapitalPages,
-    ...beefCapitalPages,
+    ...modifierFindPages,
     ...blogPostPages,
     ...statePages,
     ...cityPages,

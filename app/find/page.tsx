@@ -115,7 +115,7 @@ const CATEGORIES = [
       { href: '/find/japanese-ramen', label: 'Japanese Ramen Near Me' },
       { href: '/find/authentic-ramen', label: 'Authentic Ramen Near Me' },
       { href: '/find/hokkaido-ramen', label: 'Hokkaido Ramen Near Me' },
-      { href: '/find/fresh-ramen-noodles', label: 'Fresh Ramen Noodles Near Me' },
+      { href: '/find/fresh-ramen', label: 'Fresh Ramen Noodles Near Me' },
     ],
   },
   {

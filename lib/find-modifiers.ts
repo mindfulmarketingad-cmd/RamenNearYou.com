@@ -1,0 +1,152 @@
+// Registry of /find "{modifier}-in-{city}-{state}" page types. Each modifier is
+// matched as a URL prefix inside the /find/[cityState] catch-all route, so we
+// never rely on (unsupported) partial dynamic route segments.
+
+export interface ModifierFilter {
+  initialBowls?: string[]
+  initialFlags?: string[]
+  initialQuery?: string
+}
+
+export interface FindModifier {
+  /** URL prefix, e.g. "tonkotsu-ramen-in" → /find/tonkotsu-ramen-in-dallas-tx */
+  prefix: string
+  /** Map filter applied on load */
+  filter: ModifierFilter
+  /** H1 + <title> base, e.g. "Tonkotsu Ramen In Dallas, Texas" */
+  title: (city: string, stateName: string) => string
+  /** Lowercase noun used in meta descriptions, e.g. "tonkotsu ramen" */
+  metaNoun: string
+  /** Breadcrumb hub link */
+  hubHref: string
+  hubLabel: string
+  /** Intro paragraph */
+  about: string
+  /** FAQ entries (cityName, stateCode interpolated) */
+  faqs: (cityName: string, stateCode: string) => Array<{ q: string; a: string }>
+}
+
+export const FIND_MODIFIERS: FindModifier[] = [
+  {
+    prefix: 'tonkotsu-ramen-in',
+    filter: { initialBowls: ['tonkotsu'] },
+    title: (c, s) => `Tonkotsu Ramen In ${c}, ${s}`,
+    metaNoun: 'tonkotsu ramen',
+    hubHref: '/find/tonkotsu-ramen',
+    hubLabel: 'Tonkotsu Ramen',
+    about:
+      'Tonkotsu is the rich, creamy pork-bone broth from Fukuoka (Hakata) on the island of Kyushu, simmered for 12 to 18 hours until the collagen melts into a milky, opaque stock. It is typically served with thin, firm noodles and chashu pork.',
+    faqs: (city, st) => [
+      { q: `Where can I find tonkotsu ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving tonkotsu ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is tonkotsu ramen?', a: 'Tonkotsu ramen is built on a rich, creamy broth made by simmering pork bones for 12 to 18 hours until the collagen breaks down into a milky stock. Originating in Fukuoka (Hakata), it is served with thin, firm noodles and chashu pork.' },
+      { q: 'Is tonkotsu ramen pork?', a: 'Yes — tonkotsu literally means "pork bone." The broth is made entirely from pork bones and the bowl is usually topped with chashu pork, so it is not vegetarian unless a shop offers a plant-based version.' },
+    ],
+  },
+  {
+    prefix: 'miso-ramen-in',
+    filter: { initialBowls: ['miso'] },
+    title: (c, s) => `Miso Ramen In ${c}, ${s}`,
+    metaNoun: 'miso ramen',
+    hubHref: '/find/miso-ramen',
+    hubLabel: 'Miso Ramen',
+    about:
+      'Miso ramen is built on a broth seasoned with fermented soybean paste (miso). Originating in Sapporo, Hokkaido, it is rich, savory, and slightly sweet — often topped with corn, butter, bean sprouts, and ground pork.',
+    faqs: (city, st) => [
+      { q: `Where can I find miso ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving miso ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is miso ramen?', a: 'Miso ramen is built on a broth seasoned with fermented soybean paste (miso). Originating in Sapporo, Hokkaido, it is rich, savory, and slightly sweet — often topped with corn, butter, bean sprouts, and ground pork.' },
+      { q: 'Is miso ramen spicy?', a: 'Classic miso ramen is savory rather than spicy, but spicy miso (kara miso) adds chili paste or oil for heat. Many shops offer both versions.' },
+    ],
+  },
+  {
+    prefix: 'shoyu-ramen-in',
+    filter: { initialBowls: ['shoyu'] },
+    title: (c, s) => `Shoyu Ramen In ${c}, ${s}`,
+    metaNoun: 'shoyu ramen',
+    hubHref: '/find/shoyu-ramen',
+    hubLabel: 'Shoyu Ramen',
+    about:
+      'Shoyu ramen is the original Tokyo style — a clear, brown broth seasoned with soy sauce (shoyu). It is light yet deeply savory, balancing a chicken or pork-and-dashi base with the umami of soy, usually served with curly noodles.',
+    faqs: (city, st) => [
+      { q: `Where can I find shoyu ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving shoyu ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is shoyu ramen?', a: 'Shoyu ramen is a Japanese ramen style with a clear, soy-sauce-seasoned broth. Originating in Tokyo, it is light, clean, and savory — typically built on a chicken or pork-and-dashi base and served with curly noodles.' },
+      { q: 'What is the difference between shoyu and shio ramen?', a: 'Both are clear, light broths. Shoyu is seasoned with soy sauce, giving it a brown color and deeper umami, while shio is seasoned with salt, producing a paler, more delicate broth.' },
+    ],
+  },
+  {
+    prefix: 'shio-ramen-in',
+    filter: { initialBowls: ['shio'] },
+    title: (c, s) => `Shio Ramen In ${c}, ${s}`,
+    metaNoun: 'shio ramen',
+    hubHref: '/find/shio-ramen',
+    hubLabel: 'Shio Ramen',
+    about:
+      'Shio ramen is the lightest, most delicate of the classic styles — a clear, pale broth seasoned simply with salt (shio). Associated with Hakodate in Hokkaido, it lets the quality of the chicken, seafood, or dashi base shine through.',
+    faqs: (city, st) => [
+      { q: `Where can I find shio ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving shio ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is shio ramen?', a: 'Shio ramen is a Japanese ramen style with a clear, salt-seasoned broth. It is the lightest and most delicate of the classic styles, associated with Hakodate, and lets the chicken, seafood, or dashi base shine.' },
+      { q: 'Is shio ramen healthy?', a: 'Shio ramen tends to be lighter and lower in fat than rich styles like tonkotsu, since the broth is clear and salt-seasoned. That said, it can still be high in sodium, so it is moderate rather than strictly "healthy."' },
+    ],
+  },
+  {
+    prefix: 'beef-ramen-in',
+    filter: { initialQuery: 'beef' },
+    title: (c, s) => `Beef Ramen In ${c}, ${s}`,
+    metaNoun: 'beef ramen',
+    hubHref: '/find/beef-ramen',
+    hubLabel: 'Beef Ramen',
+    about:
+      'Beef ramen features a beef-based broth or beef toppings such as braised short rib, brisket, or thin-sliced steak. It offers a deep, hearty, savory flavor and has grown in popularity alongside traditional pork ramen.',
+    faqs: (city, st) => [
+      { q: `Where can I find beef ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving beef ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is beef ramen?', a: 'Beef ramen features a beef-based broth or beef toppings such as braised short rib, brisket, or thin-sliced steak. It offers a deep, hearty, savory flavor and has grown in popularity alongside traditional pork ramen.' },
+      { q: 'Is beef ramen the same as Lanzhou beef noodle soup?', a: 'Related but distinct. Lanzhou beef noodle soup is a Chinese hand-pulled dish with a clear beef broth, while beef ramen usually means Japanese-style ramen with a beef broth or beef toppings.' },
+    ],
+  },
+  {
+    prefix: 'ramen-open-late-in',
+    filter: { initialFlags: ['open-late'] },
+    title: (c, s) => `Ramen Open Late In ${c}, ${s}`,
+    metaNoun: 'ramen open late',
+    hubHref: '/find/ramen-open-late',
+    hubLabel: 'Ramen Open Late',
+    about:
+      'Late-night ramen cravings are real. These restaurants stay open until 10 PM or later, so you can get a hot bowl when most kitchens have already closed for the night.',
+    faqs: (city, st) => [
+      { q: `What ramen restaurants are open late in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots open until 10 PM or later. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: `Does ${city} have late-night ramen?`, a: `Yes — the map is pre-filtered to show ${city} ramen restaurants that stay open late. Availability varies by neighborhood, so use the location search to find the closest one.` },
+      { q: 'What time do ramen restaurants usually close?', a: 'Most ramen restaurants close between 9 PM and 10 PM. Late-night spots typically stay open until 11 PM, midnight, or beyond — especially in larger cities.' },
+    ],
+  },
+  {
+    prefix: 'ramen-open-now-in',
+    filter: { initialFlags: ['open-now'] },
+    title: (c, s) => `Ramen Open Now In ${c}, ${s}`,
+    metaNoun: 'ramen open now',
+    hubHref: '/find/ramen-open-now',
+    hubLabel: 'Ramen Open Now',
+    about:
+      'No more showing up to a closed door. These restaurants are open right now, pre-filtered so you can find a hot bowl of ramen and head straight there.',
+    faqs: (city, st) => [
+      { q: `What ramen restaurants are open now in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots that are open right now. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: `How do I find ramen open right now in ${city}?`, a: `The map is pre-filtered to show only currently-open ramen restaurants in ${city}. Enter your ZIP or use your location and the list sorts by distance so you can get to a bowl fast.` },
+      { q: 'Are the open hours accurate?', a: 'Open-now status is based on each restaurant\'s posted hours. Hours can change for holidays or special events, so it\'s always smart to call ahead before a long trip.' },
+    ],
+  },
+]
+
+export interface ModifierMatch {
+  modifier: FindModifier
+  /** Remaining "{city}-{state}" portion after the prefix */
+  rest: string
+}
+
+export function matchModifier(cityState: string | undefined): ModifierMatch | null {
+  if (!cityState) return null
+  for (const m of FIND_MODIFIERS) {
+    const p = `${m.prefix}-`
+    if (cityState.startsWith(p) && cityState.length > p.length) {
+      return { modifier: m, rest: cityState.slice(p.length) }
+    }
+  }
+  return null
+}

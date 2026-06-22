@@ -28,7 +28,7 @@ export const FIND_PAGES = [
   { href: '/find/korean-ramen', label: 'Korean Ramen Near Me', emoji: '🇰🇷' },
   { href: '/find/japanese-ramen', label: 'Japanese Ramen Near Me', emoji: '🇯🇵' },
   { href: '/find/ramen-delivery', label: 'Ramen Delivery Near Me', emoji: '🛵' },
-  { href: '/find/fresh-ramen-noodles', label: 'Fresh Ramen Noodles Near Me', emoji: '🍝' },
+  { href: '/find/fresh-ramen', label: 'Fresh Ramen Noodles Near Me', emoji: '🍝' },
   { href: '/find/authentic-ramen', label: 'Authentic Ramen Near Me', emoji: '🎌' },
   { href: '/find/jinya-ramen', label: 'Jinya Ramen Near Me', emoji: '🏮' },
   { href: '/find/ippudo-ramen', label: 'Ippudo Ramen Near Me', emoji: '🍥' },
