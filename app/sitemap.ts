@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitiesForBroth } from '@/lib/restaurants'
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
+import { FIND_PAGES } from '@/components/find-cross-links'
+import { generateStaticParams as findCityParams } from '@/app/find/[cityState]/page'
 
 const BASE_URL = 'https://www.ramennearyou.com'
 
@@ -9,7 +11,7 @@ const BASE_URL = 'https://www.ramennearyou.com'
 const SITE_LAUNCH   = new Date('2025-01-01')
 const LAST_CONTENT  = new Date('2026-05-22')
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cities = getCities()
   const states = getStates()
 
@@ -77,6 +79,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
+  // /find filter, broth, brand & "near me" searchmap pages
+  const findFilterPages = FIND_PAGES.map((p) => ({
+    url: `${BASE_URL}${p.href}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
+  // /find/{city}-{state} city searchmap pages
+  const findCityPages = (await findCityParams()).map((p) => ({
+    url: `${BASE_URL}/find/${p.cityState}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
   return [
     {
       url: BASE_URL,
@@ -86,6 +104,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE_URL}/cities`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/find`,
       lastModified: LAST_CONTENT,
       changeFrequency: 'weekly' as const,
       priority: 0.9,
@@ -216,6 +240,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
+    ...findFilterPages,
+    ...findCityPages,
     ...blogPostPages,
     ...statePages,
     ...cityPages,
