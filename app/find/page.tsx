@@ -122,6 +122,9 @@ const CATEGORIES = [
     heading: 'By Brand',
     pages: [
       { href: '/find/jinya-ramen', label: 'Jinya Ramen Near Me' },
+      { href: '/find/ippudo-ramen', label: 'Ippudo Ramen Near Me' },
+      { href: '/find/ichiran-ramen', label: 'Ichiran Ramen Near Me' },
+      { href: '/find/lanzhou-ramen', label: 'Lanzhou Ramen Near Me' },
     ],
   },
 ]
