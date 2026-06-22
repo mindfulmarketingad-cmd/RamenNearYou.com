@@ -25,6 +25,71 @@ export function getPlacesSupplements(param: string): PlacesRestaurant[] {
   return supplements[param] ?? []
 }
 
+// Name-based slug for a supplement listing, e.g.
+// "Itton Ramen & Japanese Street Food" → "itton-ramen-japanese-street-food".
+// Used as the third URL segment for the internal listing page.
+export function supplementSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80) || 'ramen'
+}
+
+export interface SupplementListing extends PlacesRestaurant {
+  slug: string
+  citySlug: string
+  stateCode: string
+  stateSlug: string
+  city: string
+}
+
+// Returns the supplement listings for a city with a stable, de-duplicated slug
+// per listing. Order is deterministic (matches the JSON), so the same slug is
+// produced everywhere (map, city find page, and the detail-page lookup).
+export function getSupplementListings(citySlug: string, stateCode: string): SupplementListing[] {
+  const sc = stateCode.toUpperCase()
+  const key = `${citySlug}-${sc.toLowerCase()}`
+  const places = supplements[key] ?? []
+  const stateSlug = STATE_CODE_TO_SLUG[sc] ?? ''
+  const city = titleCase(citySlug)
+  const seen = new Set<string>()
+  return places.map(p => {
+    let slug = supplementSlug(p.name)
+    while (seen.has(slug)) slug = `${slug}-2`
+    seen.add(slug)
+    return { ...p, slug, citySlug, stateCode: sc, stateSlug, city }
+  })
+}
+
+// Find a single supplement listing by its city/state/slug — used by the
+// restaurant detail page to render an internal page for a Places listing.
+export function findSupplementListing(citySlug: string, stateSlug: string, slug: string): SupplementListing | null {
+  const stateCode = STATE_SLUG_TO_CODE[stateSlug]
+  if (!stateCode) return null
+  return getSupplementListings(citySlug, stateCode).find(l => l.slug === slug) ?? null
+}
+
+// All supplement listing params (city/state/restaurant) for static generation.
+// Capped by review count to bound build time; the rest render on demand
+// because the detail route sets `dynamicParams = true`.
+export function getSupplementListingParams(limit = 6000): Array<{ city: string; state: string; restaurant: string }> {
+  const all: Array<{ city: string; state: string; restaurant: string; reviews: number }> = []
+  for (const key of Object.keys(supplements)) {
+    const parsed = parseSupplementKey(key)
+    if (!parsed) continue
+    const stateSlug = STATE_CODE_TO_SLUG[parsed.stateCode]
+    if (!stateSlug) continue
+    for (const l of getSupplementListings(parsed.citySlug, parsed.stateCode)) {
+      all.push({ city: l.citySlug, state: stateSlug, restaurant: l.slug, reviews: l.reviewCount ?? 0 })
+    }
+  }
+  return all
+    .sort((a, b) => b.reviews - a.reviews)
+    .slice(0, limit)
+    .map(({ city, state, restaurant }) => ({ city, state, restaurant }))
+}
+
 // Parse supplement key format: "{citySlug}-{stateCode}" e.g. "cheyenne-wy", "las-vegas-nv"
 function parseSupplementKey(key: string): { citySlug: string; stateCode: string } | null {
   const parts = key.split('-')

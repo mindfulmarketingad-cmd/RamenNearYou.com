@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Star, ExternalLink } from 'lucide-react'
+import { Star } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
@@ -10,7 +10,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import SafeImg from '@/components/safe-img'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
-import { getPlacesSupplements, getSupplementCitiesByState } from '@/lib/places-supplements'
+import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 
@@ -90,7 +90,7 @@ export default async function CityFindPage(
   const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
 
   const dbRestaurants = getRestaurantsByCity(citySlug, stateSlug)
-  const placesResults = dbRestaurants.length === 0 ? getPlacesSupplements(cityState) : []
+  const placesResults = dbRestaurants.length === 0 ? getSupplementListings(citySlug, stateCode) : []
 
   const capital = CAPITAL_BY_PARAM[cityState]
 
@@ -228,19 +228,14 @@ export default async function CityFindPage(
                 </p>
                 <div className="space-y-3 mb-10">
                   {placesResults.slice(0, 20).map(r => (
-                    <a
+                    <Link
                       key={r.placeId}
-                      href={r.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                       className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
                     >
                       <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
-                          <ExternalLink className="w-3 h-3 text-[#9B9490] shrink-0" />
-                        </div>
+                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
                         {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
                         <div className="flex items-center gap-2 mt-1">
                           {r.rating && (
@@ -253,7 +248,7 @@ export default async function CityFindPage(
                           {r.priceLevel && <span className="text-xs text-[#9B9490]">{'$'.repeat(r.priceLevel)}</span>}
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </>

@@ -5,6 +5,7 @@ import { restaurants, getBrothTypes, type Restaurant } from './restaurants'
 import { isOpenLate } from './hours'
 import { BOWL_META, MOOD_META, type MapPoint } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
+import { getSupplementListings } from './places-supplements'
 import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
 
@@ -21,46 +22,39 @@ function priceLevelToRange(level: number | null): string {
   return ''
 }
 
-function titleCase(slug: string): string {
-  return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-}
-
 function supplementMapPoints(): MapPoint[] {
-  const dbSlugs = new Set(restaurants.map(r => r.slug))
   const points: MapPoint[] = []
 
-  for (const [key, places] of Object.entries(allSupplements)) {
+  for (const key of Object.keys(allSupplements)) {
     const parts = key.split('-')
     if (parts.length < 2) continue
     const stateCode = parts[parts.length - 1].toUpperCase()
     const stateSlug = STATE_CODE_TO_SLUG[stateCode]
     if (!stateSlug) continue
     const citySlug = parts.slice(0, -1).join('-')
-    const city = titleCase(citySlug)
-    const stateCodeUpper = stateCode
 
-    for (const p of places) {
-      if (!p.latitude || !p.longitude) continue
-      const slug = `ext-${p.placeId.slice(0, 20).toLowerCase().replace(/[^a-z0-9]/g, '')}`
-      if (dbSlugs.has(slug)) continue
+    // Use the shared listing builder so the slug matches the internal
+    // detail-page URL (/{city}/{state}/{slug}) exactly.
+    for (const l of getSupplementListings(citySlug, stateCode)) {
+      if (!l.latitude || !l.longitude) continue
       points.push({
-        name: p.name,
-        slug,
-        citySlug,
-        stateSlug,
-        city,
-        stateCode: stateCodeUpper,
+        name: l.name,
+        slug: l.slug,
+        citySlug: l.citySlug,
+        stateSlug: l.stateSlug,
+        city: l.city,
+        stateCode: l.stateCode,
         zip: '',
-        latitude: p.latitude,
-        longitude: p.longitude,
-        rating: p.rating,
-        reviewCount: p.reviewCount ?? 0,
-        priceRange: priceLevelToRange(p.priceLevel),
-        photo: p.photo ?? '',
+        latitude: l.latitude,
+        longitude: l.longitude,
+        rating: l.rating,
+        reviewCount: l.reviewCount ?? 0,
+        priceRange: priceLevelToRange(l.priceLevel),
+        photo: l.photo ?? '',
         hours: null,
         bowls: [],
         moods: [],
-        googleMapsUrl: p.googleMapsUrl,
+        googleMapsUrl: l.googleMapsUrl,
       })
     }
   }

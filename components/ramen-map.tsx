@@ -200,7 +200,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
-            <a href="${r.googleMapsUrl ?? `/${r.citySlug}/${r.stateSlug}/${r.slug}`}" ${r.googleMapsUrl ? 'target="_blank" rel="noopener"' : ''} style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}${r.googleMapsUrl ? ' ↗' : ''}</a><br/>
+            <a href="/${r.citySlug}/${r.stateSlug}/${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
             ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
           </div>

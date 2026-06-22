@@ -6,6 +6,14 @@ import {
   BookOpen, Navigation2, AlertTriangle, Store,
 } from 'lucide-react'
 import { restaurants, getRestaurant, getRestaurantsByCity, type Restaurant } from '@/lib/restaurants'
+import {
+  findSupplementListing,
+  getSupplementListings,
+  getSupplementListingParams,
+  getSupplementStateName,
+} from '@/lib/places-supplements'
+import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
+import SupplementRestaurantPage from '@/components/supplement-restaurant-page'
 import { expandDescription } from '@/lib/expand-description'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -47,7 +55,8 @@ export async function generateStaticParams() {
       restaurant: r.slug,
     }))
   // City × filter pages share this route's third segment.
-  return [...restaurantParams, ...getCityFilterStaticParams()]
+  // Supplement (Google Places) listings get internal pages too.
+  return [...restaurantParams, ...getCityFilterStaticParams(), ...getSupplementListingParams()]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
@@ -72,7 +81,33 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   }
 
   const r = getRestaurant(city, state, restaurant)
-  if (!r) return {}
+  if (!r) {
+    // Supplement (Google Places) listing metadata
+    const sup = findSupplementListing(city, state, restaurant)
+    if (sup) {
+      const stateName = getSupplementStateName(state)
+      const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+      const parts: string[] = [`${sup.name} in ${sup.city}, ${stateName}.`]
+      if (sup.rating && sup.reviewCount > 0) {
+        parts.push(`Rated ${sup.rating.toFixed(1)}/5 from ${sup.reviewCount.toLocaleString()} reviews.`)
+      }
+      parts.push('Hours, directions, menu, and reviews.')
+      const metaDesc = parts.join(' ').slice(0, 160)
+      const title = `${sup.name} - ${sup.city}, ${sup.stateCode}`
+      return {
+        title,
+        description: metaDesc,
+        alternates: { canonical: url },
+        openGraph: {
+          title,
+          description: metaDesc,
+          url,
+          images: sup.photo ? [{ url: sup.photo, alt: sup.name }] : [],
+        },
+      }
+    }
+    return {}
+  }
   const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
 
   const parts: string[] = [`${r.name}.`]
@@ -239,7 +274,20 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   }
 
   const original = getRestaurant(city, state, restaurant)
-  if (!original) notFound()
+  if (!original) {
+    // Supplement (Google Places) listing — render the internal listing page.
+    const sup = findSupplementListing(city, state, restaurant)
+    if (sup) {
+      const stateName = getSupplementStateName(state)
+      const stateCode = STATE_SLUG_TO_CODE[state] ?? ''
+      const nearby = getSupplementListings(city, stateCode)
+        .filter(n => n.slug !== sup.slug)
+        .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+        .slice(0, 4)
+      return <SupplementRestaurantPage listing={sup} stateName={stateName} nearby={nearby} />
+    }
+    notFound()
+  }
   const r = { ...original } as Restaurant
 
   const nearbyRestaurants = getRestaurantsByCity(city, state)

@@ -580,12 +580,11 @@ export default function HomeMapHero({
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
                   const isSupp = !!r.googleMapsUrl
+                  // Every listing (DB and Google Places) now has an internal page.
                   const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
                   const directionsUrl = r.googleMapsLink
                     ?? r.googleMapsUrl
                     ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + ' ' + r.city + ' ' + r.stateCode)}`
-                  const menuUrl = isSupp ? r.googleMapsUrl! : internalUrl
-                  const orderUrl = isSupp ? r.googleMapsUrl! : internalUrl
                   return (
                     <div
                       key={uid}
@@ -594,52 +593,31 @@ export default function HomeMapHero({
                       onMouseLeave={() => setHoveredSlug(null)}
                       className={`relative transition-colors ${active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'}`}
                     >
-                      {/* Main clickable row */}
-                      {isSupp ? (
-                        <a href={r.googleMapsUrl} target="_blank" rel="noopener noreferrer" onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
-                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
+                      {/* Main clickable row — internal listing page */}
+                      <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
+                        <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                          <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+                          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                            {r.rating && (
+                              <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+                              </span>
+                            )}
+                            {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
+                            {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
+                            {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
-                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                              {r.rating && (
-                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
-                                </span>
-                              )}
-                              {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
-                            </div>
-                          </div>
-                        </a>
-                      ) : (
-                        <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
-                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
-                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                              {r.rating && (
-                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
-                                </span>
-                              )}
-                              {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                              {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
-                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
-                            </div>
-                          </div>
-                        </Link>
-                      )}
+                        </div>
+                      </Link>
 
                       {/* Action buttons */}
                       <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
                         <button
-                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; if (isSupp) window.open(menuUrl, '_blank', 'noopener,noreferrer'); else window.location.href = menuUrl }}
+                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; window.location.href = internalUrl }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           View Menu
@@ -654,14 +632,14 @@ export default function HomeMapHero({
                           Get Directions
                         </a>
                         <button
-                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; if (isSupp) window.open(orderUrl, '_blank', 'noopener,noreferrer'); else window.location.href = orderUrl }}
+                          onClick={e => { e.stopPropagation(); if (!requireAccess()) return; window.location.href = internalUrl }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
                         >
                           Order Now
                         </button>
                       </div>
 
-                      {/* Save button */}
+                      {/* Save button — DB listings only (saves are keyed to DB slugs) */}
                       {!isSupp && (
                         <button
                           onClick={(e) => handleToggleSave(e, r.slug)}
