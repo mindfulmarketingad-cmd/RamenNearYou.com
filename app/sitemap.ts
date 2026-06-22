@@ -104,6 +104,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }))
 
+  // /find/ramen-open-now-in-{city}-{stateSlug} capital city pages
+  const openNowCapitalPages = CAPITAL_CITIES.map((c) => ({
+    url: `${BASE_URL}/find/ramen-open-now-in-${c.citySlug}-${c.stateSlug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.65,
+  }))
+
+  // /find/miso-ramen-in-{city}-{stateSlug} capital city pages
+  const misoCapitalPages = CAPITAL_CITIES.map((c) => ({
+    url: `${BASE_URL}/find/miso-ramen-in-${c.citySlug}-${c.stateSlug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.65,
+  }))
+
+  // /find/beef-ramen-in-{city}-{stateSlug} capital city pages
+  const beefCapitalPages = CAPITAL_CITIES.map((c) => ({
+    url: `${BASE_URL}/find/beef-ramen-in-${c.citySlug}-${c.stateSlug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly' as const,
+    priority: 0.65,
+  }))
+
   return [
     {
       url: BASE_URL,
@@ -252,6 +276,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...findFilterPages,
     ...findCityPages,
     ...openLateCapitalPages,
+    ...openNowCapitalPages,
+    ...misoCapitalPages,
+    ...beefCapitalPages,
     ...blogPostPages,
     ...statePages,
     ...cityPages,
