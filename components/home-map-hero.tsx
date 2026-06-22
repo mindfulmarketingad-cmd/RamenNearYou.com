@@ -71,6 +71,7 @@ interface HomeMapHeroProps {
   initialMoods?: string[]
   initialPrices?: string[]
   initialCenter?: { lat: number; lng: number }
+  initialQuery?: string
   pageTitle?: string
   pageDescription?: string
 }
@@ -81,6 +82,7 @@ export default function HomeMapHero({
   initialMoods = [],
   initialPrices = [],
   initialCenter,
+  initialQuery = '',
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
 }: HomeMapHeroProps) {
@@ -98,7 +100,7 @@ export default function HomeMapHero({
 
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null)
-  const [localQuery, setLocalQuery] = useState('')
+  const [localQuery, setLocalQuery] = useState(initialQuery)
 
   // Filter state
   const [flags, setFlags] = useState<Set<string>>(new Set(initialFlags))

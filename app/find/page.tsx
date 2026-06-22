@@ -106,6 +106,22 @@ const CATEGORIES = [
       { href: '/find/ramen-date-night', label: 'Date Night Ramen Near Me' },
       { href: '/find/ramen-bars', label: 'Ramen Bars Near Me' },
       { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me' },
+      { href: '/find/ramen-delivery', label: 'Ramen Delivery Near Me' },
+    ],
+  },
+  {
+    heading: 'By Origin & Authenticity',
+    pages: [
+      { href: '/find/japanese-ramen', label: 'Japanese Ramen Near Me' },
+      { href: '/find/authentic-ramen', label: 'Authentic Ramen Near Me' },
+      { href: '/find/hokkaido-ramen', label: 'Hokkaido Ramen Near Me' },
+      { href: '/find/fresh-ramen-noodles', label: 'Fresh Ramen Noodles Near Me' },
+    ],
+  },
+  {
+    heading: 'By Brand',
+    pages: [
+      { href: '/find/jinya-ramen', label: 'Jinya Ramen Near Me' },
     ],
   },
 ]
