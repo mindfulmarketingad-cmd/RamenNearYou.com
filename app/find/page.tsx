@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import FindHubSearch from './find-hub-search'
 import { CAPITAL_CITIES } from '@/lib/capital-cities'
 import { MAJOR_CITIES } from '@/lib/major-cities-list'
 import { getCities } from '@/lib/restaurants'
@@ -157,64 +157,15 @@ export default function FindHubPage() {
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Find Ramen Near Me</h1>
-        <p className="text-[#6B6862] text-sm mb-10">
+        <p className="text-[#6B6862] text-sm mb-6">
           Browse ramen restaurants filtered by what you need right now.
         </p>
 
-        <div className="space-y-8">
-          {CATEGORIES.map(cat => (
-            <div key={cat.heading}>
-              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
-                {cat.heading}
-              </h2>
-              <ul className="space-y-1">
-                {cat.pages.map(p => (
-                  <li key={p.href}>
-                    <Link
-                      href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
-                    >
-                      {p.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-        </div>
-
-        {/* All city pages, grouped by state */}
-        <div className="mt-14 pt-10 border-t border-black/10">
-          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-1">Ramen by City</h2>
-          <p className="text-[#6B6862] text-sm mb-8">
-            Browse all {totalCityPages.toLocaleString()} city pages across {cityPagesByState.length} states.
-          </p>
-
-          <div className="space-y-8">
-            {cityPagesByState.map(state => (
-              <div key={state.stateCode}>
-                <h3 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
-                  <Link href={`/${(STATE_CODE_TO_NAME[state.stateCode] ?? state.stateCode).toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-[#B57F50] transition-colors">
-                    {state.stateName}
-                  </Link>
-                </h3>
-                <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
-                  {state.cities.map(c => (
-                    <li key={c.param} className="break-inside-avoid">
-                      <Link
-                        href={`/find/${c.param}`}
-                        className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
-                      >
-                        {c.city}, {state.stateCode}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+        <FindHubSearch
+          categories={CATEGORIES}
+          cityPagesByState={cityPagesByState}
+          totalCityPages={totalCityPages}
+        />
       </div>
       <Footer />
     </main>
