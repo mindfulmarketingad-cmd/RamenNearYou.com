@@ -2,127 +2,103 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Japanese Ramen Near Me | Find Authentic Japanese Ramen',
-  description: 'Find authentic Japanese ramen restaurants near you. Tonkotsu, shoyu, miso, shio — the four classic regional styles. Browse by location, rating, and hours.',
+  title: 'Japanese Ramen Near Me | Authentic Japanese Ramen Shops | RamenNearYou',
+  description: 'Find Japanese ramen near you — authentic shops serving tonkotsu, shoyu, miso, and shio. The regional styles to know and how to find a traditional bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/japanese-ramen' },
   openGraph: {
     title: 'Japanese Ramen Near Me',
-    description: 'Find authentic Japanese ramen near you — all four classic regional styles and beyond.',
+    description: 'Find authentic Japanese ramen shops near you.',
     url: 'https://www.ramennearyou.com/find/japanese-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What are the main types of Japanese ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'The four classic Japanese ramen styles are tonkotsu (rich pork-bone broth from Kyushu), shoyu (clear soy-seasoned broth from Tokyo), miso (fermented soybean paste broth from Hokkaido), and shio (light, salt-seasoned broth). Each region of Japan developed its own distinct style.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What makes Japanese ramen different from other ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Authentic Japanese ramen emphasizes the broth above all — hours or days of simmering produce complex, layered flavor. The noodles are made fresh or sourced from specialist noodle makers, and toppings like chashu pork, ajitsuke tamago, nori, and menma are carefully prepared. It is a serious culinary tradition.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What region of Japan is ramen from?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Ramen originated in Japan in the early 20th century with Chinese noodle influences, but each region developed its own style: tonkotsu from Fukuoka (Kyushu), shoyu from Tokyo, miso from Sapporo (Hokkaido), and shio associated with Hakodate. Today ramen is a national obsession across all of Japan.',
-      },
-    },
-  ],
-}
-
 export default function JapaneseRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            pageTitle="Japanese Ramen Near Me"
-            pageDescription="Find authentic Japanese ramen restaurants near you — tonkotsu, shoyu, miso, shio, and all the regional styles. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Japanese Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Japanese ramen is a culinary tradition built on one obsession: the broth. From the
-              rich, creamy tonkotsu of Fukuoka — simmered for 12 to 18 hours until the collagen
-              melts into a milky, unctuous stock — to the delicate, clear shio of Hakodate,
-              each regional style reflects a distinct philosophy of flavor. Tokyo&apos;s shoyu
-              broth is clean and complex; Sapporo&apos;s miso is bold and warming.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Beyond the broth, Japanese ramen elevates every component: hand-pulled or machine-cut
-              noodles calibrated to the broth viscosity, chashu braised for hours, and marinated
-              soft-boiled eggs (ajitsuke tamago) with jammy, seasoned yolks. Use the map above to
-              find Japanese ramen restaurants near you — filter by distance, broth type, and hours.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What are the main types of Japanese ramen?',
-                  a: 'The four classic styles: tonkotsu (rich pork-bone broth, Kyushu), shoyu (clear soy broth, Tokyo), miso (fermented soybean broth, Hokkaido), and shio (light salt broth). Each region developed its own distinct character.',
-                },
-                {
-                  q: 'What makes Japanese ramen different?',
-                  a: 'Authentic Japanese ramen emphasizes the broth above all — hours or days of simmering produce complex, layered flavor. Noodles are made fresh or sourced from specialist makers, and every topping is carefully prepared.',
-                },
-                {
-                  q: 'What region of Japan is ramen from?',
-                  a: 'Ramen developed across Japan with each region claiming its own style: tonkotsu from Fukuoka, shoyu from Tokyo, miso from Sapporo, shio from Hakodate. Today it is a national obsession with thousands of regional variations.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          pageTitle="Japanese Ramen Near Me"
+          pageDescription="Find authentic Japanese ramen near you. Enter your ZIP or use your location, then filter by broth, price, and hours."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/japanese-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/japanese-ramen"
+        heading="My Guide to Authentic Japanese Ramen Near Me"
+        intro={[
+          'Ramen is one of Japan’s great culinary gifts, and a proper Japanese ramen shop is a thing of beauty — focused, precise, and obsessed with broth. The map above helps you find Japanese ramen near you; enter your ZIP or use your location to see the closest shops, then filter by the broth or style you are craving.',
+          'Japanese ramen is not one dish but a family of regional styles, each with its own broth, noodle, and personality. Here is a quick tour of the classics and how I find a genuinely authentic bowl.',
+        ]}
+        sections={[
+          {
+            h2: 'The four classic broths',
+            body: (
+              <p>
+                Most Japanese ramen comes back to four foundational broths. Knowing them makes ordering anywhere
+                easy, because nearly every bowl is a variation on one of these.
+              </p>
+            ),
+            points: [
+              { h3: 'Tonkotsu', text: 'Rich, creamy pork-bone broth from Hakata (Fukuoka), served with thin, firm noodles. The bold, indulgent classic.' },
+              { h3: 'Shoyu', text: 'The original Tokyo style — a clear, soy-seasoned broth that is light yet deeply savory.' },
+              { h3: 'Miso', text: 'Hearty, fermented-soybean broth from Sapporo, rich and slightly sweet with thicker noodles.' },
+              { h3: 'Shio', text: 'The lightest style — a clear, salt-seasoned broth that highlights a clean, refined stock.' },
+            ],
+          },
+          {
+            h2: 'Regional styles worth knowing',
+            body: (
+              <p>
+                Beyond the four broths, Japan’s regions each put their stamp on ramen: Hakata’s thin-noodle
+                tonkotsu, Sapporo’s corn-and-butter miso, Kitakata’s flat-noodle shoyu, Tokyo’s classic chicken-
+                and-dashi shoyu, and specialties like tsukemen (dipping noodles) and mazemen (brothless). Part of
+                the fun is recognizing which tradition a shop is drawing from.
+              </p>
+            ),
+          },
+          {
+            h2: 'How to find an authentic bowl',
+            body: (
+              <p>
+                I look for shops that focus on a small number of broths and make them well, fresh noodles with
+                real bite, and the classic toppings done right (proper chashu, a marinated egg, menma). A
+                focused menu is usually a good sign — it means the kitchen is committed to its craft rather than
+                trying to do everything. Stack the broth filters above to jump straight to the style you want.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My Japanese ramen tips"
+        tips={[
+          'Learn the four broths — tonkotsu, shoyu, miso, shio — and ordering anywhere gets easy.',
+          'Favor shops with a focused menu; specialists usually make more authentic bowls.',
+          'Use the broth filters above to jump straight to the style you are craving.',
+          'Look for the classic toppings done well: proper chashu, a marinated egg, and menma.',
+          'Stack “Top Rated” to find the most beloved authentic shops near you.',
+        ]}
+        faqs={[
+          { q: 'What are the main types of Japanese ramen?', a: 'The four classic broths are tonkotsu (creamy pork bone), shoyu (soy sauce), miso (fermented soybean), and shio (salt). Most Japanese ramen is a regional variation on one of these.' },
+          { q: 'What makes ramen authentically Japanese?', a: 'A focus on carefully made broth, fresh noodles with real bite, and classic toppings like proper chashu, a marinated egg, and menma. Shops that specialize in a few broths tend to be the most authentic.' },
+          { q: 'What is the most popular Japanese ramen?', a: 'Tonkotsu and shoyu are the most widely loved. Tonkotsu is the rich, creamy crowd-pleaser; shoyu is the original, balanced Tokyo style that suits almost everyone.' },
+          { q: 'How is Japanese ramen different from instant ramen?', a: 'Shop ramen is built on broth simmered for hours, fresh noodles, and fresh toppings — a world apart from the dried, packaged instant version, which was inspired by it but is a different food entirely.' },
+          { q: 'How do I find Japanese ramen near me?', a: 'Use the map above — enter your ZIP or tap “Use my location” to see authentic shops nearby, then filter by broth (tonkotsu, shoyu, miso, shio) to find your bowl.' },
+        ]}
+      />
+    </main>
   )
 }

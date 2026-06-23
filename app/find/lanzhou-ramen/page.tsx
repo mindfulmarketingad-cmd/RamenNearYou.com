@@ -2,130 +2,106 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Lanzhou Ramen Near Me | Find Lanzhou Hand-Pulled Noodles | RamenNearYou',
-  description: 'Find Lanzhou ramen near you — hand-pulled Chinese beef noodle soup with clear broth. Browse the map to discover Lanzhou lamian spots in your area.',
+  title: 'Lanzhou Ramen Near Me | Hand-Pulled Beef Noodle Soup | RamenNearYou',
+  description: 'Find Lanzhou ramen near you — hand-pulled beef noodle soup with a clear, aromatic broth. What Lanzhou lamian is, the noodle widths, and how to order it.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/lanzhou-ramen' },
   openGraph: {
     title: 'Lanzhou Ramen Near Me',
-    description: 'Find Lanzhou hand-pulled beef noodle soup near you and explore other top ramen spots nearby.',
+    description: 'Find hand-pulled Lanzhou beef noodle soup near you.',
     url: 'https://www.ramennearyou.com/find/lanzhou-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is Lanzhou ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Lanzhou ramen (Lanzhou lamian or Lanzhou beef noodle soup) is a famous Chinese dish from the city of Lanzhou in Gansu province. It features hand-pulled wheat noodles in a clear, aromatic beef broth, topped with thin slices of beef, white radish, chili oil, and fresh cilantro and green onion. The noodles are pulled to order in varying thicknesses.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How is Lanzhou ramen different from Japanese ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Lanzhou ramen is Chinese, not Japanese. Its broth is a clear, light beef broth seasoned with spices, while Japanese ramen broths are typically richer (tonkotsu, miso). Lanzhou noodles are hand-pulled (lamian) to order, and the dish is defined by the "one clear, two white, three red, four green, five yellow" rule — clear broth, white radish, red chili oil, green cilantro, and yellow noodles.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How do I find Lanzhou ramen near me?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Enter your ZIP code in the search bar above. The map is pre-filtered to show Lanzhou and hand-pulled noodle spots near you. You can also browse other top-rated ramen and noodle restaurants in your area.',
-      },
-    },
-  ],
-}
-
 export default function LanzhouRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialQuery="lanzhou"
-            pageTitle="Lanzhou Ramen Near Me"
-            pageDescription="Find Lanzhou hand-pulled beef noodle soup near you. Enter your ZIP code to see the nearest Lanzhou lamian spots and other top noodle shops in your area."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Lanzhou Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Lanzhou ramen — properly Lanzhou lamian, or Lanzhou beef noodle soup — hails from
-              the city of Lanzhou in China&apos;s Gansu province, where it has been served for
-              over a century. Unlike the rich, opaque broths of Japanese ramen, Lanzhou&apos;s
-              hallmark is a crystal-clear beef broth, simmered with a blend of warming spices and
-              served with hand-pulled noodles that are stretched to order right before your eyes.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The dish follows a famous five-part rule: yi qing (one clear broth), er bai (two
-              white radish), san hong (three red chili oil), si lü (four green cilantro and
-              scallion), and wu huang (five yellow, bright noodles). Diners can request their
-              noodles in different widths — from delicate angel-hair to thick, flat belt noodles —
-              all pulled by hand from a single piece of dough. Use the map above to find
-              hand-pulled Lanzhou noodles near you.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is Lanzhou ramen?',
-                  a: 'Lanzhou ramen (Lanzhou lamian) is a Chinese dish from Lanzhou, Gansu province. It features hand-pulled wheat noodles in a clear, aromatic beef broth, topped with sliced beef, white radish, chili oil, cilantro, and green onion.',
-                },
-                {
-                  q: 'How is Lanzhou ramen different from Japanese ramen?',
-                  a: 'Lanzhou ramen is Chinese, with a light, clear beef broth and hand-pulled noodles made to order. Japanese ramen broths are usually richer (tonkotsu, miso). Lanzhou follows the "clear, white, red, green, yellow" rule for its components.',
-                },
-                {
-                  q: 'How do I find Lanzhou ramen near me?',
-                  a: 'Enter your ZIP code in the search bar above — the map is pre-filtered to show Lanzhou and hand-pulled noodle spots near you. Other top-rated noodle restaurants are also shown nearby.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialQuery="lanzhou"
+          pageTitle="Lanzhou Ramen Near Me"
+          pageDescription="Find Lanzhou hand-pulled beef noodle soup near you. Enter your ZIP or use your location to sort by distance."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/lanzhou-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/lanzhou-ramen"
+        heading="My Guide to Lanzhou Beef Noodle Soup Near Me"
+        intro={[
+          'Lanzhou ramen is a showstopper — watching a cook stretch a single piece of dough into a bowl of perfectly even noodles never gets old, and the clear, aromatic beef broth that follows is world-class. The map above helps you find Lanzhou-style hand-pulled noodles near you; enter your ZIP or use your location to find the closest shop.',
+          'Technically it is Chinese lamian rather than Japanese ramen, but it is one of the great noodle soups on earth and absolutely worth seeking out. Here is what it is and how to order it.',
+        ]}
+        sections={[
+          {
+            h2: 'What Lanzhou beef noodle soup is',
+            body: (
+              <p>
+                Lanzhou lamian comes from Lanzhou, the capital of China’s Gansu province, and is famous for the
+                “one clear, two white, three red, four green, five yellow” ideal: clear broth, white radish,
+                red chili oil, green cilantro and scallion, and yellow noodles. The broth is a clear, deeply
+                aromatic beef soup spiced with warm seasonings, and the noodles are hand-pulled to order — a
+                world apart from the rich, cloudy broths of Japanese ramen.
+              </p>
+            ),
+            points: [
+              { h3: 'Clear beef broth', text: 'A clean, aromatic beef soup spiced with warming seasonings — light-bodied but profoundly flavorful.' },
+              { h3: 'Hand-pulled noodles', text: 'Stretched to order from a single piece of dough, so they are impossibly fresh and springy.' },
+              { h3: 'Classic garnish', text: 'White radish, red chili oil, green cilantro and scallion over those yellow noodles — the signature look.' },
+            ],
+          },
+          {
+            h2: 'Choosing your noodle width',
+            body: (
+              <p>
+                The best part of ordering Lanzhou noodles is picking your width. Shops typically offer a range —
+                from ultra-thin “capellini-like” strands to wide, belt-like noodles, with several in between.
+                Thin noodles soak up more broth and cook delicately; wide noodles bring serious chew. I love
+                trying a different width each visit to find my favorite.
+              </p>
+            ),
+          },
+          {
+            h2: 'How I order Lanzhou ramen',
+            body: (
+              <p>
+                I get the classic beef noodle soup, pick a medium noodle width my first time, and add extra
+                chili oil for warmth and color. A side of the thin-sliced beef or some braised sides rounds it
+                out. Look for shops with “Lanzhou,” “lamian,” or “hand-pulled” in the name — they are the real
+                deal and usually pull the noodles right in front of you.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My Lanzhou ramen tips"
+        tips={[
+          'Look for “Lanzhou,” “lamian,” or “hand-pulled” shops — they pull noodles to order.',
+          'Choose your noodle width — try a medium gauge first, then explore thin and wide.',
+          'Add extra chili oil for the classic warmth and red color.',
+          'The broth is clear and aromatic, not cloudy — judge it on clean, deep beef flavor.',
+          'Add sliced beef or braised sides to round out the bowl.',
+        ]}
+        faqs={[
+          { q: 'What is Lanzhou ramen?', a: 'Lanzhou ramen (lamian) is a Chinese hand-pulled beef noodle soup from Lanzhou, Gansu province. It features a clear, aromatic, spiced beef broth, noodles pulled to order, and garnishes of radish, chili oil, cilantro, and scallion.' },
+          { q: 'Is Lanzhou ramen the same as Japanese ramen?', a: 'No — it is Chinese lamian, with a clear beef broth and hand-pulled noodles, distinct from the rich, cloudy broths and machine-cut noodles of Japanese ramen. Both are exceptional noodle soups.' },
+          { q: 'What noodle widths can I get?', a: 'Most Lanzhou shops offer a range, from ultra-thin strands to wide, belt-like noodles, with several gauges in between. Thin noodles cook delicately; wide ones bring more chew.' },
+          { q: 'What does Lanzhou beef noodle soup taste like?', a: 'A clear, light-bodied but deeply aromatic beef broth spiced with warm seasonings, brightened by chili oil and cilantro — clean and savory rather than rich and creamy.' },
+          { q: 'How do I find Lanzhou ramen near me?', a: 'Use the map above and look for shops with “Lanzhou,” “lamian,” or “hand-pulled” in the name. Enter your ZIP or tap “Use my location” to find the closest one.' },
+        ]}
+      />
+    </main>
   )
 }

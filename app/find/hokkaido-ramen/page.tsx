@@ -2,132 +2,103 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Hokkaido Ramen Near Me | Find Hokkaido-Style Miso Ramen | RamenNearYou',
-  description: 'Find Hokkaido-style ramen near you. The birthplace of miso ramen — rich, warming, and built for cold weather. Browse the map for Hokkaido ramen restaurants nearby.',
+  title: 'Hokkaido Ramen Near Me | Sapporo Miso & Northern Styles | RamenNearYou',
+  description: 'Find Hokkaido ramen near you — Sapporo miso, Hakodate shio, and Asahikawa shoyu. The northern Japanese styles to know and how to find a great bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/hokkaido-ramen' },
   openGraph: {
     title: 'Hokkaido Ramen Near Me',
-    description: 'Find Hokkaido-style miso ramen near you — rich, warming bowls from the birthplace of miso ramen.',
+    description: 'Find Hokkaido-style ramen — Sapporo miso and more — near you.',
     url: 'https://www.ramennearyou.com/find/hokkaido-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is Hokkaido ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Hokkaido ramen refers to ramen styles from Japan\'s northernmost island of Hokkaido. The most famous is Sapporo-style miso ramen — a rich, deeply savory broth made with fermented soybean paste (miso), often topped with corn, butter, bean sprouts, and ground pork. The style was designed to warm up in Hokkaido\'s notoriously cold winters.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is Hokkaido ramen the same as miso ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Hokkaido (Sapporo) is the birthplace of miso ramen, so the two are closely associated. Sapporo-style miso ramen is the most well-known Hokkaido style, but the region also has shio ramen from Hakodate (one of Japan\'s oldest ramen cities) and shoyu variations. Miso ramen, however, is the Hokkaido signature.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What toppings does Hokkaido miso ramen have?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Classic Hokkaido miso ramen toppings include corn, a pat of butter (which melts into the hot broth), bean sprouts, ground pork, green onions, and sometimes bamboo shoots. The corn and butter combination is iconic to the Sapporo style and reflects Hokkaido\'s agricultural character.',
-      },
-    },
-  ],
-}
-
 export default function HokkaidoRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialQuery="hokkaido"
-            pageTitle="Hokkaido Ramen Near Me"
-            pageDescription="Find Hokkaido-style ramen near you — rich miso broth from Japan's northernmost island, topped with corn, butter, and ground pork. Enter your ZIP to browse nearby."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              The Ramen of Hokkaido
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Hokkaido, Japan&apos;s northernmost island, is home to one of the most beloved
-              regional ramen styles in the world: Sapporo miso ramen. Developed in the 1950s
-              in Sapporo&apos;s Susukino district, miso ramen was born out of necessity —
-              a rich, warming broth capable of fortifying diners against Hokkaido&apos;s
-              brutal winters. The broth starts with a meat or chicken base, then a generous
-              ladle of miso tare is stirred in just before serving, creating a bold, savory,
-              deeply layered bowl.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The classic toppings are corn, butter (a pat dropped directly into the hot broth),
-              bean sprouts, and ground pork — reflecting Hokkaido&apos;s agricultural identity
-              as Japan&apos;s dairy and corn country. Hakodate, another Hokkaido city, is
-              famous for a completely different style: a crystal-clear shio (salt) broth, one
-              of Japan&apos;s oldest ramen traditions. Use the map above to find Hokkaido-style
-              ramen near you.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is Hokkaido ramen?',
-                  a: 'Hokkaido ramen refers to styles from Japan\'s northernmost island. The most famous is Sapporo miso ramen — a rich, savory broth made with fermented soybean paste, topped with corn, butter, bean sprouts, and ground pork. Built for cold winters.',
-                },
-                {
-                  q: 'Is Hokkaido ramen the same as miso ramen?',
-                  a: 'They are closely linked — Hokkaido (Sapporo) is the birthplace of miso ramen. But Hokkaido also has Hakodate shio ramen, one of Japan\'s oldest styles. Miso ramen is the Hokkaido signature most people know.',
-                },
-                {
-                  q: 'What toppings does Hokkaido miso ramen have?',
-                  a: 'Classic toppings: corn, butter (melted into the hot broth), bean sprouts, ground pork, and green onions. The corn and butter combination is iconic to the Sapporo style and reflects Hokkaido\'s dairy and agricultural character.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialQuery="hokkaido"
+          pageTitle="Hokkaido Ramen Near Me"
+          pageDescription="Find Hokkaido-style ramen near you — Sapporo miso and more. Enter your ZIP or use your location to sort by distance."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/hokkaido-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/hokkaido-ramen"
+        heading="My Guide to Hokkaido Ramen Near Me"
+        intro={[
+          'Hokkaido, Japan’s cold northern island, is one of ramen’s most important homelands — and its bowls are built for winter: hearty, warming, and deeply satisfying. The map above helps you find Hokkaido-style ramen near you; enter your ZIP or use your location to find the closest bowl.',
+          'When people say “Hokkaido ramen,” they usually mean one of three city styles. Here is what each one is and how I find a great version.',
+        ]}
+        sections={[
+          {
+            h2: 'The three great Hokkaido styles',
+            body: (
+              <p>
+                Hokkaido’s ramen reputation rests on three cities, each with a signature broth. Together they
+                cover rich, light, and balanced, so there is a Hokkaido bowl for every mood.
+              </p>
+            ),
+            points: [
+              { h3: 'Sapporo miso', text: 'The most famous — a hearty, fermented-soybean broth, often with corn, butter, bean sprouts, and ground pork over thick, curly noodles. Pure cold-weather comfort.' },
+              { h3: 'Hakodate shio', text: 'A clear, delicate salt-based broth from the port city of Hakodate — light, clean, and refined.' },
+              { h3: 'Asahikawa shoyu', text: 'A soy-based broth with a layer of lard on top to keep it piping hot in the cold, paired with wavy noodles.' },
+            ],
+          },
+          {
+            h2: 'Why Hokkaido ramen is built for cold',
+            body: (
+              <p>
+                Hokkaido winters are brutal, and the ramen evolved to match. Sapporo’s miso broth is thick and
+                warming, and Asahikawa shoyu famously floats a layer of fat on top specifically to trap heat so
+                the bowl stays hot to the last sip. Even the toppings — corn, butter, plenty of pork — lean
+                hearty. It is ramen as fuel against the cold, and it is wonderful any time you want comfort.
+              </p>
+            ),
+          },
+          {
+            h2: 'How to find Hokkaido-style bowls',
+            body: (
+              <p>
+                Sapporo miso is the most common Hokkaido style you will find, so the “Miso” filter is a great
+                starting point. For the others, I check listings and menus for Sapporo, Hakodate, or Asahikawa
+                references, and look for the corn-and-butter miso signature in photos. Shops that name a
+                Hokkaido city are usually proud of the tradition and do it justice.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My Hokkaido ramen tips"
+        tips={[
+          'For the classic Sapporo style, stack the “Miso” filter — it is the most common Hokkaido bowl.',
+          'Look for the corn-and-butter miso signature in listing photos.',
+          'Want something lighter? Seek out Hakodate-style shio instead.',
+          'Asahikawa shoyu floats fat on top to stay hot — great on a cold day.',
+          'Shops that name a Hokkaido city usually take the tradition seriously.',
+        ]}
+        faqs={[
+          { q: 'What is Hokkaido ramen?', a: 'Hokkaido ramen refers to the hearty, warming styles from Japan’s northern island, centered on three cities: Sapporo (miso), Hakodate (shio), and Asahikawa (shoyu).' },
+          { q: 'What is Sapporo ramen?', a: 'Sapporo ramen is the famous Hokkaido miso style — a rich, fermented-soybean broth often topped with corn, butter, bean sprouts, and ground pork over thick, curly noodles.' },
+          { q: 'What are the three Hokkaido ramen styles?', a: 'Sapporo miso (hearty fermented-soybean broth), Hakodate shio (clear, delicate salt broth), and Asahikawa shoyu (soy broth with a layer of fat on top to keep it hot).' },
+          { q: 'Why is Hokkaido ramen so rich?', a: 'It evolved for harsh northern winters. Thick miso broth, a fat layer on Asahikawa shoyu, and hearty toppings like corn and butter all help the bowl stay warming and filling against the cold.' },
+          { q: 'How do I find Hokkaido ramen near me?', a: 'Use the map above and stack the “Miso” filter for the classic Sapporo style, or check listings and photos for Sapporo, Hakodate, or Asahikawa references.' },
+        ]}
+      />
+    </main>
   )
 }
