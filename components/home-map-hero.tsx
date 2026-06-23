@@ -120,6 +120,18 @@ export default function HomeMapHero({
   // City boundary outline (Zillow-style) — fetched once for city pages.
   const [boundary, setBoundary] = useState<unknown | null>(null)
 
+  // Directions panel
+  const [showDirections, setShowDirections] = useState(false)
+  const [dirFromText, setDirFromText] = useState('')
+  const [dirToText, setDirToText] = useState('')
+  const [dirFromCoords, setDirFromCoords] = useState<{ lat: number; lng: number } | null>(null)
+  const [dirToCoords, setDirToCoords] = useState<{ lat: number; lng: number } | null>(null)
+  const [dirFromGeocoding, setDirFromGeocoding] = useState(false)
+  const [dirToSuggestions, setDirToSuggestions] = useState<Array<{ slug: string; name: string; city: string; stateCode: string; lat: number; lng: number }>>([])
+  const [dirRoute, setDirRoute] = useState<{ coords: [number, number][]; distMi: number; etaMin: number } | null>(null)
+  const [dirLoading, setDirLoading] = useState(false)
+  const [dirError, setDirError] = useState('')
+
   // Live "members searching now" count — slowly drifts between 20 and 24.
   // Starts at a fixed value so SSR and first client render match (no hydration
   // mismatch); the random walk only begins after mount.
@@ -428,6 +440,107 @@ export default function HomeMapHero({
     setLocalQuery('')
   }
 
+  // ── Directions helpers ────────────────────────────────────────────────────────
+  async function geocodeFromText(text: string) {
+    const clean = text.trim()
+    if (!clean) return
+    setDirFromGeocoding(true)
+    setDirError('')
+    try {
+      const isZip = /^\d{5}$/.test(clean)
+      const url = isZip
+        ? `https://nominatim.openstreetmap.org/search?format=json&postalcode=${encodeURIComponent(clean)}&countrycodes=us&limit=1`
+        : `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(clean)}&countrycodes=us&limit=1`
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
+      const result = await res.json()
+      if (result.length > 0) {
+        setDirFromCoords({ lat: parseFloat(result[0].lat), lng: parseFloat(result[0].lon) })
+        setDirFromText(result[0].display_name.split(',').slice(0, 2).join(', '))
+      } else {
+        setDirError('Starting address not found. Try a full street address or ZIP.')
+      }
+    } catch {
+      setDirError('Could not look up address. Check your connection and try again.')
+    } finally {
+      setDirFromGeocoding(false)
+    }
+  }
+
+  function handleDirGps() {
+    if (!requireAccess()) return
+    if (userPos) {
+      setDirFromCoords(userPos)
+      setDirFromText('My Location')
+      return
+    }
+    setDirFromGeocoding(true)
+    setDirError('')
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        setUserPos(coords)
+        setGeoState('granted')
+        setDirFromCoords(coords)
+        setDirFromText('My Location')
+        setDirFromGeocoding(false)
+      },
+      () => { setDirError('Location access denied'); setDirFromGeocoding(false) },
+      { timeout: 10000 },
+    )
+  }
+
+  function handleDirToChange(text: string) {
+    setDirToText(text)
+    setDirToCoords(null)
+    const q = text.toLowerCase().trim()
+    if (!q || q.length < 2) { setDirToSuggestions([]); return }
+    const matches = data
+      .filter(r => r.latitude && r.longitude && r.name.toLowerCase().includes(q))
+      .slice(0, 5)
+      .map(r => ({ slug: r.slug, name: r.name, city: r.city, stateCode: r.stateCode, lat: r.latitude!, lng: r.longitude! }))
+    setDirToSuggestions(matches)
+  }
+
+  function selectDirTo(r: { slug: string; name: string; city: string; stateCode: string; lat: number; lng: number }) {
+    setDirToText(`${r.name} — ${r.city}, ${r.stateCode}`)
+    setDirToCoords({ lat: r.lat, lng: r.lng })
+    setDirToSuggestions([])
+  }
+
+  async function getDirections() {
+    if (!dirFromCoords || !dirToCoords) {
+      setDirError('Enter a starting point and choose a destination restaurant.')
+      return
+    }
+    setDirLoading(true)
+    setDirError('')
+    setDirRoute(null)
+    try {
+      const url = `https://router.project-osrm.org/route/v1/driving/${dirFromCoords.lng},${dirFromCoords.lat};${dirToCoords.lng},${dirToCoords.lat}?overview=full&geometries=geojson`
+      const res = await fetch(url)
+      const json = await res.json()
+      if (!json.routes || json.routes.length === 0) throw new Error('No route')
+      const route = json.routes[0]
+      const coords: [number, number][] = route.geometry.coordinates.map(([lng, lat]: [number, number]) => [lat, lng] as [number, number])
+      setDirRoute({ coords, distMi: kmToMiles(route.distance / 1000), etaMin: Math.round(route.duration / 60) })
+    } catch {
+      setDirError('No route found. Double-check your addresses and try again.')
+    } finally {
+      setDirLoading(false)
+    }
+  }
+
+  function clearDirections() {
+    setDirRoute(null)
+    setDirFromText('')
+    setDirToText('')
+    setDirFromCoords(null)
+    setDirToCoords(null)
+    setDirError('')
+    setDirToSuggestions([])
+  }
+  // ─────────────────────────────────────────────────────────────────────────────
+
   return (
     <section className="pt-16 bg-[#F5F4F0]">
       {/* SEO heading + intro — kept visible for crawlers and users */}
@@ -620,6 +733,111 @@ export default function HomeMapHero({
                 </button>
               )}
             </div>
+
+            {/* Directions panel ── collapsible, lives right under the search bar */}
+            <div className="mb-2">
+              <button
+                onClick={() => { if (!requireAccess()) return; setShowDirections(v => !v); if (showDirections) clearDirections() }}
+                className={`flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full border transition-colors ${
+                  showDirections
+                    ? 'bg-[#B57F50] text-white border-[#B57F50]'
+                    : 'text-[#6B6862] border-black/12 hover:border-[#B57F50] hover:text-[#B57F50]'
+                }`}
+              >
+                <Navigation className="w-3 h-3" />
+                {showDirections ? 'Close Directions' : 'Get Directions'}
+              </button>
+
+              {showDirections && (
+                <div className="mt-2 space-y-2">
+                  {/* From */}
+                  <div className="relative">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                    <input
+                      type="text"
+                      value={dirFromText}
+                      onChange={e => { setDirFromText(e.target.value); setDirFromCoords(null) }}
+                      onKeyDown={e => { if (e.key === 'Enter') geocodeFromText(dirFromText) }}
+                      onBlur={() => { if (dirFromText && !dirFromCoords) geocodeFromText(dirFromText) }}
+                      placeholder="Starting address or ZIP…"
+                      className="w-full pl-7 pr-8 py-2 text-sm bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                    />
+                    <button
+                      onClick={handleDirGps}
+                      title="Use my current location"
+                      className={`absolute right-2 top-1/2 -translate-y-1/2 transition-colors ${dirFromGeocoding ? 'text-[#B57F50] animate-pulse' : 'text-[#9B9490] hover:text-[#B57F50]'}`}
+                    >
+                      {dirFromGeocoding
+                        ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        : <Navigation className="w-3.5 h-3.5" />}
+                    </button>
+                    {dirFromCoords && (
+                      <span className="absolute right-7 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    )}
+                  </div>
+
+                  {/* To — restaurant typeahead */}
+                  <div className="relative">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#B57F50] shrink-0" />
+                    <input
+                      type="text"
+                      value={dirToText}
+                      onChange={e => handleDirToChange(e.target.value)}
+                      placeholder="Destination ramen spot…"
+                      className="w-full pl-7 pr-3 py-2 text-sm bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                    />
+                    {dirToSuggestions.length > 0 && (
+                      <div className="absolute top-full left-0 right-0 mt-0.5 bg-white border border-black/12 rounded-lg shadow-lg z-[500] max-h-44 overflow-y-auto">
+                        {dirToSuggestions.map(r => (
+                          <button
+                            key={r.slug}
+                            onMouseDown={e => { e.preventDefault(); selectDirTo(r) }}
+                            className="w-full text-left px-3 py-2 text-sm hover:bg-[#F5F4F0] transition-colors"
+                          >
+                            <span className="font-medium text-[#1E2026]">{r.name}</span>
+                            <span className="text-[#9B9490] text-xs ml-1">{r.city}, {r.stateCode}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Get Directions / Clear */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={getDirections}
+                      disabled={!dirFromCoords || !dirToCoords || dirLoading}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-[#B57F50] text-white text-xs font-semibold rounded-lg disabled:opacity-50 hover:bg-[#c8934f] transition-colors"
+                    >
+                      {dirLoading ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Finding…</> : <><Navigation className="w-3.5 h-3.5" /> Get Directions</>}
+                    </button>
+                    {(dirRoute || dirFromText || dirToText) && (
+                      <button
+                        onClick={clearDirections}
+                        title="Clear route"
+                        className="px-2.5 py-2 rounded-lg border border-black/12 text-[#6B6862] hover:text-[#1E2026] hover:border-black/30 transition-colors"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Route result */}
+                  {dirRoute && (
+                    <div className="bg-[#F5F4F0] rounded-lg px-3 py-2 flex items-center gap-3">
+                      <Navigation className="w-4 h-4 text-[#B57F50] shrink-0" />
+                      <div className="text-xs leading-tight">
+                        <span className="font-semibold text-[#1E2026]">{dirRoute.distMi.toFixed(1)} mi</span>
+                        <span className="text-[#6B6862] ml-2">~{dirRoute.etaMin} min driving</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {dirError && <p className="text-red-500 text-xs">{dirError}</p>}
+                </div>
+              )}
+            </div>
+
             <p className="text-[#1E2026] font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
@@ -727,12 +945,14 @@ export default function HomeMapHero({
                         >
                           Order Now
                         </button>
-                        <button
-                          onClick={e => { e.stopPropagation(); window.location.href = `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}` }}
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
-                        >
-                          Claim Listing
-                        </button>
+                        {!isSupp && (
+                          <button
+                            onClick={e => { e.stopPropagation(); window.location.href = `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}` }}
+                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                          >
+                            Claim Listing
+                          </button>
+                        )}
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}
@@ -776,6 +996,7 @@ export default function HomeMapHero({
               userLocation={userPos}
               accentColor={accentColor}
               boundary={boundary}
+              routeCoords={dirRoute?.coords ?? null}
             />
           )}
 
