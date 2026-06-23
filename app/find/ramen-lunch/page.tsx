@@ -2,127 +2,105 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Ramen for Lunch Near Me | Find Lunch Ramen Restaurants',
-  description: 'Find ramen restaurants open for lunch near you. Quick bowls that fit a lunch break — without sacrificing quality. Browse by location, hours, and rating.',
+  title: 'Ramen for Lunch Near Me | Quick Lunch Ramen Spots | RamenNearYou',
+  description: 'Find ramen for lunch near you — quick, satisfying bowls that fit a lunch break. My picks for fast service, lunch deals, and bowls that won’t put you to sleep at your desk.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/ramen-lunch' },
   openGraph: {
     title: 'Ramen for Lunch Near Me',
-    description: 'Find ramen open for lunch near you — quick bowls without sacrificing quality.',
+    description: 'Find quick, satisfying ramen for lunch near you.',
     url: 'https://www.ramennearyou.com/find/ramen-lunch',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Are ramen restaurants open for lunch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Many ramen restaurants open at 11am or noon and serve through the afternoon. Some close between lunch and dinner service (around 3–5pm). Check the hours on the restaurant page before heading over.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Do ramen shops have lunch specials?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Many do — a smaller bowl bundled with gyoza, rice, or karaage at a lower price than the dinner menu. Ask the server or check the menu board for lunch set options.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the best ramen for lunch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Shoyu and shio are popular at lunch — lighter broths that do not feel too heavy midday. Tonkotsu and miso are great if you want something more filling. Quick shops with counter seating are ideal for a lunch break.',
-      },
-    },
-  ],
-}
-
 export default function RamenLunchPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialMoods={['quick-lunch']}
-            pageTitle="Ramen for Lunch Near Me"
-            pageDescription="Showing ramen spots great for a quick lunch near you. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Finding Ramen for Lunch
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Ramen is one of the best lunch options in any city — a complete, satisfying meal that
-              arrives fast, costs less than dinner, and keeps you going for hours. Many ramen
-              restaurants offer lunch specials with a smaller bowl and a side (gyoza, rice, or
-              karaage) at a reduced price.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The best lunch ramen spots are efficient without being rushed — you can be in and out
-              in 30 minutes or take your time. Shoyu and shio are popular lunch choices because they
-              feel lighter than miso or tonkotsu midday. Use the &ldquo;Open Now&rdquo; filter
-              alongside this one to see what is serving right now.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'Are ramen restaurants open for lunch?',
-                  a: 'Many ramen restaurants open at 11am or noon and serve through the afternoon. Some close between lunch and dinner service (around 3–5pm). Check the hours on the restaurant page before heading over.',
-                },
-                {
-                  q: 'Do ramen shops have lunch specials?',
-                  a: 'Many do — a smaller bowl bundled with gyoza, rice, or karaage at a lower price than the dinner menu. Ask the server or check the menu board for lunch set options.',
-                },
-                {
-                  q: 'What is the best ramen for lunch?',
-                  a: 'Shoyu and shio are popular at lunch — lighter broths that do not feel too heavy midday. Tonkotsu and miso are great if you want something more filling. Quick shops with counter seating are ideal for a lunch break.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialMoods={['quick-lunch']}
+          pageTitle="Ramen for Lunch Near Me"
+          pageDescription="Showing quick, satisfying ramen spots for lunch. Enter your ZIP or use your location to find a fast bowl near you."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/ramen-lunch" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/ramen-lunch"
+        heading="How I Squeeze Great Ramen Into a Lunch Break"
+        intro={[
+          'Ramen is one of the best lunches going — hot, filling, and fast when you pick the right spot. The map above is filtered toward quick, satisfying lunch bowls near you. Enter your ZIP or use your location to find a spot close to the office so you spend your break eating, not commuting.',
+          'The trick to ramen at lunch is choosing a place and a bowl that work with the clock. Here is how I get in and out in under an hour, plus how to avoid the bowl that leaves you ready for a nap at 2 PM.',
+        ]}
+        sections={[
+          {
+            h2: 'What makes ramen a great lunch',
+            body: (
+              <p>
+                Ramen comes out fast — often within minutes of ordering — which makes it ideal for a lunch
+                break in a way that a sit-down restaurant rarely is. Counter seating moves quickly, takeout is
+                easy, and a single bowl is a complete, satisfying meal. For the fastest turnaround I look for
+                walk-in counters and spots that offer takeout, both flagged in the listings.
+              </p>
+            ),
+            points: [
+              { h3: 'Fast service', text: 'Counter-style shops are built for speed — you can be eating within five minutes of sitting down.' },
+              { h3: 'Takeout option', text: 'Ordering ahead for pickup turns ramen into a grab-and-go lunch you can eat back at your desk.' },
+              { h3: 'Lunch specials', text: 'Many shops run weekday lunch sets — a smaller bowl plus gyoza or rice at a better price.' },
+            ],
+          },
+          {
+            h2: 'Bowls that won’t make you sleepy',
+            body: (
+              <p>
+                A giant, ultra-rich tonkotsu is glorious, but at noon it can send you straight into an
+                afternoon slump. For a midday bowl I lean lighter — a clean shoyu or shio, or a regular-size
+                portion rather than the heaviest option. You still get the full ramen hit without the food coma
+                derailing your afternoon.
+              </p>
+            ),
+          },
+          {
+            h2: 'Beating the lunch rush',
+            body: (
+              <p>
+                Popular spots get slammed from about noon to 1 PM. If your schedule is flexible, going a little
+                before noon or after 1 means a shorter wait and faster food. Stacking the “Open Now” filter
+                confirms a spot is serving, and adding a price filter helps you find a quick bowl that fits the
+                budget too.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My lunch-ramen tips"
+        tips={[
+          'Sort by distance to find a spot close enough to fit your break.',
+          'Choose counter-style shops or takeout for the fastest turnaround.',
+          'Go lighter — shoyu, shio, or a regular size — to avoid the afternoon slump.',
+          'Look for weekday lunch sets for a better price on a smaller bowl plus a side.',
+          'Beat the noon–1 PM rush by going a little earlier or later if you can.',
+        ]}
+        faqs={[
+          { q: 'Where can I get ramen for lunch near me?', a: 'The map above is filtered toward quick lunch spots. Enter your ZIP or tap “Use my location” to find a fast, satisfying bowl close to you.' },
+          { q: 'Is ramen a good quick lunch?', a: 'Yes — it comes out fast, counter seating moves quickly, and takeout is easy, so a complete bowl fits neatly into a lunch break.' },
+          { q: 'What ramen should I order for lunch?', a: 'Go a little lighter — a clean shoyu or shio, or a regular-size portion — so you get the full ramen hit without an afternoon food coma.' },
+          { q: 'Do ramen restaurants have lunch specials?', a: 'Many run weekday lunch sets — a smaller bowl plus gyoza or rice at a better price. Check the listing or ask when you order.' },
+          { q: 'How do I beat the ramen lunch rush?', a: 'Go just before noon or after 1 PM, choose a counter or takeout spot for speed, and stack the “Open Now” filter to confirm they are serving.' },
+        ]}
+      />
+    </main>
   )
 }

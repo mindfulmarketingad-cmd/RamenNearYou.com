@@ -2,127 +2,105 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Date Night Ramen Near Me | Find Romantic Ramen Restaurants',
-  description: 'Find date night ramen restaurants near you. Elevated ramen spots with great ambiance, sake lists, and bowls worth sharing. Browse by location, rating, and hours.',
+  title: 'Date Night Ramen Near Me | Romantic Ramen Spots | RamenNearYou',
+  description: 'Find date night ramen near you — cozy, atmospheric spots with sake, cocktails, and a great bowl. How I pick the perfect ramen restaurant for a date.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/ramen-date-night' },
   openGraph: {
     title: 'Date Night Ramen Near Me',
-    description: 'Find date night ramen near you — elevated spots with great ambiance and sake.',
+    description: 'Find cozy, romantic ramen spots for date night near you.',
     url: 'https://www.ramennearyou.com/find/ramen-date-night',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Is ramen good for a date?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Absolutely — the right ramen spot has great atmosphere, sake, small plates, and bowls worth talking about. Ramen bars and elevated ramen restaurants can be excellent date night choices.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What should I order on a ramen date?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Start with small plates — gyoza, karaage, or edamame — and a sake or Japanese beer. Order different ramen styles to try each other's bowls. End with extra broth (soup wari) if the shop offers it.",
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Do ramen restaurants take reservations?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Many elevated ramen spots and ramen bars accept reservations, especially on weekends. Check the restaurant page for a reservation link or call ahead. Counter-style spots are usually first-come, first-served.',
-      },
-    },
-  ],
-}
-
 export default function RamenDateNightPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialMoods={['date-night']}
-            pageTitle="Date Night Ramen Near Me"
-            pageDescription="Showing elevated ramen spots great for a date — ambiance, sake lists, and special bowls. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Ramen for Date Night
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              The best date night ramen spots combine a serious bowl with an environment that makes
-              the experience feel special — warm lighting, a good sake and cocktail list, and a menu
-              deep enough to explore together. These are not counter seats and a five-minute wait;
-              they are places to linger.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Look for spots with izakaya-style small plates alongside the ramen — gyoza, karaage,
-              edamame, and Japanese whisky cocktails all make the dinner feel like an event rather
-              than just a meal. The best ramen date nights end with extra broth and a second round
-              of drinks.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'Is ramen good for a date?',
-                  a: 'Absolutely — the right ramen spot has great atmosphere, sake, small plates, and bowls worth talking about. Ramen bars and elevated ramen restaurants can be excellent date night choices.',
-                },
-                {
-                  q: 'What should I order on a ramen date?',
-                  a: "Start with small plates — gyoza, karaage, or edamame — and a sake or Japanese beer. Order different ramen styles to try each other's bowls. End with extra broth (soup wari) if the shop offers it.",
-                },
-                {
-                  q: 'Do ramen restaurants take reservations?',
-                  a: 'Many elevated ramen spots and ramen bars accept reservations, especially on weekends. Check the restaurant page for a reservation link or call ahead. Counter-style spots are usually first-come, first-served.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialMoods={['date-night']}
+          pageTitle="Date Night Ramen Near Me"
+          pageDescription="Showing cozy, date-worthy ramen spots. Enter your ZIP or use your location to find a romantic bowl near you."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/ramen-date-night" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/ramen-date-night"
+        heading="How I Plan the Perfect Ramen Date Night"
+        intro={[
+          'Ramen might not be the first thing people picture for a date, but a great bowl at the right spot is one of my favorite low-pressure, high-payoff dates. It is warm, it is interactive, and it is unpretentious in the best way. The map above leans toward cozy, date-worthy ramen spots near you — enter your ZIP or use your location to find a romantic bowl close by.',
+          'Not every ramen shop is date material, though. A fluorescent-lit counter with a 40-minute line is not the move. Here is how I separate the date spots from the quick-lunch joints and build a night that actually impresses.',
+        ]}
+        sections={[
+          {
+            h2: 'What makes a ramen spot date-worthy',
+            body: (
+              <p>
+                For a date I want atmosphere as much as a great bowl: dimmer lighting, comfortable seating
+                (ideally tables or a relaxed counter, not elbow-to-elbow stools), and a drink list so you can
+                linger over sake or a cocktail. The bowls themselves should feel a little special too — this is
+                a night for the chef’s signature, not the cheapest option.
+              </p>
+            ),
+            points: [
+              { h3: 'Cozy atmosphere', text: 'Warm lighting and comfortable seating turn a quick meal into a lingering evening.' },
+              { h3: 'Drinks on offer', text: 'Stack the “Full Bar” filter so there is sake, a highball, or a cocktail to share and slow the night down.' },
+              { h3: 'A table you can keep', text: 'Stack “Takes Reservations” to lock in seating so you are not waiting on the sidewalk on date night.' },
+            ],
+          },
+          {
+            h2: 'What to order on a ramen date',
+            body: (
+              <p>
+                I like to make it a little event. Start with something to share — gyoza, karaage, or edamame —
+                then each get a bowl you are excited about. Ordering different broths and trading a few bites is
+                a fun, low-key way to make the meal feel shared. A couple of drinks and a soft egg on top, and
+                it is a genuinely lovely night that does not cost a fortune.
+              </p>
+            ),
+          },
+          {
+            h2: 'Setting up the evening',
+            body: (
+              <p>
+                A little planning removes the friction. Book a table if the spot takes reservations, aim for a
+                slightly later, calmer seating rather than the dinner-rush peak, and pick somewhere central so
+                you can take a walk after. Stack “Date Night” with “Full Bar” and “Open Late” and you have the
+                makings of a relaxed, memorable evening.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My ramen date-night tips"
+        tips={[
+          'Stack “Date Night” with “Full Bar” for sake or cocktails to linger over.',
+          'Add “Takes Reservations” so you are seated, not waiting outside.',
+          'Start with shared gyoza or karaage, then order different bowls and trade bites.',
+          'Aim for a slightly later, calmer seating instead of the dinner-rush peak.',
+          'Pick a central spot so you can take a walk together afterward.',
+        ]}
+        faqs={[
+          { q: 'Is ramen a good date night idea?', a: 'Absolutely. The right spot — cozy, with drinks and comfortable seating — makes ramen a warm, low-pressure, interactive date that feels special without being stuffy.' },
+          { q: 'How do I find a romantic ramen spot near me?', a: 'The map above leans toward date-worthy spots. Enter your ZIP or tap “Use my location,” and stack “Full Bar” and “Takes Reservations” for atmosphere and a guaranteed table.' },
+          { q: 'What should we order on a ramen date?', a: 'Share a starter like gyoza or karaage, then each get a different bowl and trade bites. Add a couple of drinks and a soft egg to make it feel like an event.' },
+          { q: 'Should I make a reservation for a ramen date?', a: 'If the spot takes them, yes — it saves you from waiting on the sidewalk. Stack the “Takes Reservations” filter to find those restaurants.' },
+          { q: 'When is the best time for a ramen date?', a: 'A slightly later, calmer seating beats the dinner-rush peak. Add “Open Late” so you can take your time without feeling rushed out.' },
+        ]}
+      />
+    </main>
   )
 }

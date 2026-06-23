@@ -2,126 +2,106 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Ramen Under $15 Near Me | Cheap Ramen Restaurants',
-  description: 'Find cheap ramen restaurants near you under $15. Great bowls without the premium price tag — browse by location, rating, and hours.',
+  title: 'Cheap Ramen Near Me | Ramen Under $15 | RamenNearYou',
+  description: 'Find cheap ramen near you — great bowls under about $15. How to eat well on a budget, where the value is, and the order tweaks that keep the check down.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/cheap-ramen' },
   openGraph: {
-    title: 'Ramen Under $15 Near Me',
-    description: 'Find cheap ramen restaurants near you — great bowls under $15.',
+    title: 'Cheap Ramen Near Me',
+    description: 'Find great, budget-friendly ramen under about $15 near you.',
     url: 'https://www.ramennearyou.com/find/cheap-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Can you get good ramen for under $15?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. Many excellent ramen restaurants offer bowls in the $10–$14 range. Budget ramen does not mean low quality — some of the most popular spots in the US serve outstanding bowls at affordable prices.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Why is some ramen more expensive than others?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Premium ramen often uses higher-quality ingredients, longer-simmered broths, and premium toppings like wagyu chashu or truffle. Budget ramen still delivers great flavor — just with more straightforward ingredients.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the cheapest type of ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Shio (salt) and shoyu (soy sauce) ramen tend to be less expensive than tonkotsu, since the broth requires less time and fewer ingredients. Many great shio and shoyu bowls come in well under $15.',
-      },
-    },
-  ],
-}
-
 export default function CheapRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialPrices={['budget']}
-            pageTitle="Ramen Under $15 Near Me"
-            pageDescription="Showing budget-friendly ramen restaurants under ~$15. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Finding Affordable Ramen Near You
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              A great bowl of ramen does not have to break the bank. The map above is pre-filtered
-              to show budget-friendly ramen spots — restaurants where you can expect to pay around
-              $15 or less for a solid bowl. Enter your ZIP or tap &quot;Use my location&quot; to
-              sort by distance.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Price alone does not tell the whole story. Many of the most beloved ramen spots in
-              the country — with lines out the door and glowing reviews — keep their prices
-              refreshingly low.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'Can you get good ramen for under $15?',
-                  a: 'Yes. Many excellent ramen restaurants serve outstanding bowls in the $10–$14 range. Budget ramen does not mean low quality.',
-                },
-                {
-                  q: 'Why is some ramen more expensive than others?',
-                  a: 'Premium spots use higher-quality ingredients, longer-simmered broths, and premium toppings. Budget ramen still delivers great flavor with straightforward, well-executed ingredients.',
-                },
-                {
-                  q: 'What is the cheapest type of ramen?',
-                  a: 'Shio and shoyu ramen tend to be less expensive than tonkotsu since the broth requires fewer hours and ingredients. Many great shio and shoyu bowls come in well under $15.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialPrices={['budget']}
+          pageTitle="Cheap Ramen Near Me"
+          pageDescription="Showing budget-friendly ramen spots. Enter your ZIP or use your location to find a great bowl under about $15 near you."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/cheap-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/cheap-ramen"
+        heading="How I Eat Great Ramen on a Budget"
+        intro={[
+          'Ramen started as humble, affordable food, and the good news is plenty of shops still keep it that way. The map above is filtered to budget-friendly ramen near you — solid bowls in the under-about-$15 range. Enter your ZIP or use your location to find cheap eats close by.',
+          'Cheap does not have to mean worse. Some of the most satisfying bowls I have had cost less than a fast-food combo. Here is where the value tends to hide, and the small ordering tweaks that keep your check down without killing the experience.',
+        ]}
+        sections={[
+          {
+            h2: 'Where the cheap, great bowls hide',
+            body: (
+              <p>
+                Value ramen tends to cluster in a few places: no-frills counter shops focused on a single broth,
+                spots near colleges feeding hungry students, and strip-mall restaurants with low overhead. These
+                kitchens put the money in the bowl, not the décor — which is exactly what you want when you are
+                eating on a budget.
+              </p>
+            ),
+            points: [
+              { h3: 'Counter-style shops', text: 'Low overhead and fast turnover keep prices down while the noodles stay serious.' },
+              { h3: 'College-area spots', text: 'Places that feed students compete hard on price, so portions and value are usually strong.' },
+              { h3: 'Lunch specials', text: 'Weekday lunch sets are often the cheapest way to eat at an otherwise pricier shop.' },
+            ],
+          },
+          {
+            h2: 'Ordering tweaks that keep the check down',
+            body: (
+              <p>
+                The base bowl is almost always the best value — the price climbs fast once you stack premium
+                toppings and extra chashu. I order the standard bowl, skip the add-ons I do not need, and lean
+                on free or cheap extras like the bean sprouts, garlic, or pickled ginger many shops leave on the
+                counter. Water instead of a soda saves a few dollars too, and a single hearty bowl is genuinely
+                filling on its own.
+              </p>
+            ),
+          },
+          {
+            h2: 'Cheap ramen that still tastes great',
+            body: (
+              <p>
+                Budget bowls actually shine in certain styles. A simple shoyu or a classic tonkotsu does not need
+                expensive toppings to be delicious — the broth does the work. To make sure cheap also means good,
+                I stack the “Top Rated” filter with this one, which surfaces the spots that deliver real quality
+                at a low price rather than just being inexpensive.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My budget ramen tips"
+        tips={[
+          'Filter to budget pricing, then stack “Top Rated” to find cheap bowls that are actually great.',
+          'Order the base bowl — premium toppings and extra chashu are where the price climbs.',
+          'Look for weekday lunch specials, often the cheapest way into a pricier shop.',
+          'Use the free counter extras (sprouts, garlic, pickled ginger) and drink water to save a few dollars.',
+          'College-area and counter-style spots tend to offer the best value.',
+        ]}
+        faqs={[
+          { q: 'Where can I find cheap ramen near me?', a: 'The map above is filtered to budget-friendly spots, generally under about $15 a bowl. Enter your ZIP or tap “Use my location” to find cheap ramen close by.' },
+          { q: 'Is cheap ramen any good?', a: 'It can be excellent. Ramen began as affordable food, and many counter shops still serve serious bowls at low prices. Stack “Top Rated” to find cheap spots that are genuinely great.' },
+          { q: 'How do I keep a ramen bill low?', a: 'Order the base bowl, skip premium add-ons, use free counter extras like sprouts and garlic, and drink water. A single hearty bowl is filling on its own.' },
+          { q: 'What is the cheapest way to eat at a nicer ramen shop?', a: 'Look for weekday lunch sets — they are often the most affordable way into an otherwise pricier restaurant.' },
+          { q: 'Which ramen styles are best on a budget?', a: 'Simple shoyu and classic tonkotsu deliver big flavor without expensive toppings, since the broth does the heavy lifting.' },
+        ]}
+      />
+    </main>
   )
 }

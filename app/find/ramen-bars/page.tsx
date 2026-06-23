@@ -2,125 +2,105 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Ramen Bars Near Me | Find Ramen Bars & Late Night Spots',
-  description: 'Find ramen bars near you — spots that serve ramen alongside sake, beer, and cocktails. Browse by location, hours, and rating.',
+  title: 'Ramen Bars Near Me | Ramen & Sake Bars | RamenNearYou',
+  description: 'Find ramen bars near you — counter-seat shops and izakaya-style spots with noodles, sake, and small plates. What a ramen bar is and how to enjoy one.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/ramen-bars' },
   openGraph: {
     title: 'Ramen Bars Near Me',
-    description: 'Find ramen bars near you — ramen, sake, beer, and cocktails under one roof.',
+    description: 'Find ramen bars and izakaya-style spots near you.',
     url: 'https://www.ramennearyou.com/find/ramen-bars',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is a ramen bar?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'A ramen bar is a casual spot that serves ramen as its main dish alongside drinks — typically sake, Japanese beer, or cocktails. Many ramen bars are open late and have a lively, social atmosphere compared to traditional ramen restaurants.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Do ramen bars serve alcohol?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Most ramen bars serve alcohol — sake, Japanese whisky, beer, and sometimes craft cocktails. Pairing a cold Sapporo or a sake with a hot bowl of tonkotsu is a beloved combination.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Are ramen bars open late?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Many ramen bars stay open until midnight or later, making them a popular late-night dining option. Use the "Open Late" filter on the map to find ramen bars currently open near you.',
-      },
-    },
-  ],
-}
-
 export default function RamenBarsPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialFlags={['open-late']}
-            pageTitle="Ramen Bars Near Me"
-            pageDescription="Find ramen bars near you — spots serving ramen alongside sake, beer, and cocktails. Showing late-night ramen spots by default."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Finding Ramen Bars Near You
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Ramen bars blend the comfort of a great bowl with the atmosphere of a neighborhood
-              bar. You can expect sake on tap, Japanese whisky, cold beer, and a menu built around
-              ramen — often with izakaya-style small plates. The vibe is casual, loud, and fun.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Many ramen bars are open late — past midnight on weekends — making them a go-to for
-              after-work bowls or a late-night finish to a big night out. The map is pre-filtered
-              to show late-night spots. Remove the filter to see all ramen restaurants near you.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is a ramen bar?',
-                  a: 'A ramen bar serves ramen alongside drinks — sake, Japanese beer, or cocktails. More casual and social than traditional ramen restaurants, often open late.',
-                },
-                {
-                  q: 'Do ramen bars serve alcohol?',
-                  a: 'Most do — sake, Japanese whisky, beer, and sometimes cocktails. Pairing a cold Sapporo or a sake with a hot tonkotsu is a beloved combination.',
-                },
-                {
-                  q: 'Are ramen bars open late?',
-                  a: 'Many stay open until midnight or later. Use the Open Late filter on the map to find ramen bars currently open near you.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialFlags={['open-late']}
+          pageTitle="Ramen Bars Near Me"
+          pageDescription="Showing ramen bars and late-serving spots. Enter your ZIP or use your location to find a ramen bar near you."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/ramen-bars" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/ramen-bars"
+        heading="What I Look for in a Great Ramen Bar Near Me"
+        intro={[
+          'A ramen bar is more than a place that sells noodles — it is an experience. Counter seating where you watch the cooks work, a sake or beer list, small plates between bowls, and a buzz that turns dinner into a night out. The map above is filtered toward ramen bars and later-serving spots near you. Enter your ZIP or use your location to find one close by.',
+          'I love a good ramen bar because it captures the spirit of how ramen is eaten in Japan. Here is what sets a ramen bar apart from a quick noodle counter, and how I get the most out of one.',
+        ]}
+        sections={[
+          {
+            h2: 'What exactly is a ramen bar?',
+            body: (
+              <p>
+                The term covers a spectrum. At one end is the classic ramen-ya — a tight counter focused purely
+                on bowls. At the other is the izakaya-leaning ramen bar with a full drink program, gyoza,
+                karaage, and small plates designed for grazing while you drink. Most great ramen bars sit
+                somewhere in the middle: serious noodles plus a real bar you can settle into.
+              </p>
+            ),
+            points: [
+              { h3: 'Counter seating', text: 'The heart of a ramen bar — a front-row seat to the cooks assembling bowls and torching chashu.' },
+              { h3: 'Drinks and small plates', text: 'Sake, beer, highballs, and shareable starters turn a quick bowl into a lingering meal.' },
+              { h3: 'Late-night energy', text: 'Many ramen bars serve late, which is exactly when their atmosphere is at its best.' },
+            ],
+          },
+          {
+            h2: 'How to order at a ramen bar',
+            body: (
+              <p>
+                Treat it like a bar crawl in one seat: start with a drink and a small plate — gyoza or
+                edamame — then move to your bowl. If you are with friends, order a few different broths and
+                share. A ramen bar rewards taking your time, so I rarely rush; the second drink and a side of
+                karaage are part of the fun.
+              </p>
+            ),
+          },
+          {
+            h2: 'Finding the right ramen bar for the night',
+            body: (
+              <p>
+                Stack filters to match your plan. Add “Full Bar” to guarantee a real drink list, “Open Late”
+                for after-hours energy (already applied here), “Date Night” for a cozier room, or
+                “Takes Reservations” when you are bringing a group. That combination gets you from “a ramen bar”
+                to “the right ramen bar for tonight.”
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My ramen bar tips"
+        tips={[
+          'Grab counter seating when you can — watching the cooks is half the experience.',
+          'Start with a drink and gyoza, then move to your bowl; ramen bars reward taking your time.',
+          'Stack “Full Bar” to ensure a real sake and cocktail list.',
+          'Order different broths with friends and share to taste more of the menu.',
+          'Add “Takes Reservations” for groups and “Open Late” for the best after-hours atmosphere.',
+        ]}
+        faqs={[
+          { q: 'What is a ramen bar?', a: 'A ramen bar centers on counter seating and noodles, usually with a drink program and small plates. It ranges from a focused ramen-ya to an izakaya-style spot with a full bar.' },
+          { q: 'How are ramen bars different from regular ramen restaurants?', a: 'Ramen bars emphasize the bar experience — counter seating, sake and cocktails, shareable plates, and often late hours — turning a quick bowl into a night out.' },
+          { q: 'How do I find a ramen bar near me?', a: 'The map above is filtered toward ramen bars and later-serving spots. Enter your ZIP or tap “Use my location,” and add “Full Bar” for a guaranteed drink list.' },
+          { q: 'What should I order at a ramen bar?', a: 'Start with a drink and a small plate like gyoza or edamame, then move to your bowl. With friends, order different broths and share.' },
+          { q: 'Are ramen bars good for groups?', a: 'Yes, especially ones that take reservations. Stack “Takes Reservations” to lock in seating, and “Full Bar” for drinks to go around.' },
+        ]}
+      />
+    </main>
   )
 }
