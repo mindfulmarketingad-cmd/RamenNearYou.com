@@ -69,11 +69,53 @@ export default function ModifierCityFindPage({
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
               {title}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">{modifier.about}</p>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              When I am after {modifier.metaNoun} in {city.cityName}, the map above is where I start. It is
+              already filtered toward {modifier.metaNoun}, so the moment you drop in your ZIP code or tap
+              &quot;Use my location,&quot; the closest options around {city.cityName}, {city.stateCode} sort
+              straight to the top. From there it is easy to compare ratings, hours, and photos and pick the
+              bowl you actually want.
+            </p>
+
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
+              What makes great {modifier.metaNoun}
+            </h2>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">{modifier.about}</p>
+
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
+              How I find the best {modifier.metaNoun} in {city.cityName}
+            </h2>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              My approach is simple: I favor shops that specialize rather than do a little of everything, and I
+              trust a strong rating that holds up across plenty of reviews over a perfect score from just a
+              few. In {city.cityName}, I open a couple of listings, skim the most recent reviews and the
+              photos, and go with the bowl that looks carefully made. The map keeps everything sorted by
+              distance, so you are never trading quality for a long drive.
+            </p>
+            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">
+              Tips for ordering {modifier.metaNoun}
+            </h3>
+            <ul className="space-y-2.5 mb-6">
+              {[
+                `Sort by distance once you set your location so the nearest ${modifier.metaNoun} in ${city.cityName} is on top.`,
+                'Open a few listings and read the most recent reviews — fresh, specific praise is the best signal.',
+                'Use the Filters button to stack on what matters: open now, price, or dietary needs.',
+                'Ask the shop for noodle firmness and spice level so the bowl arrives exactly how you like it.',
+              ].map((t) => (
+                <li key={t} className="flex gap-2.5 text-[#6B6862] text-sm leading-relaxed">
+                  <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The map above is centered on {city.cityName}, {city.stateCode} — just enter your ZIP
-              code or hit &quot;Use my location&quot; to sort by distance. Use the Filters button to
-              narrow further by broth, price, or hours.
+              Prefer to widen the search? You can browse all{' '}
+              <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="text-[#B57F50] hover:underline">
+                ramen in {city.cityName}, {city.stateCode}
+              </Link>{' '}
+              or jump to{' '}
+              <Link href={modifier.hubHref} className="text-[#B57F50] hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
+              nationwide.
             </p>
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">

@@ -130,6 +130,15 @@ export default async function CityFindPage(
 
   const count = dbRestaurants.length + placesResults.length
 
+  // Per-city facts so the editorial copy below is unique to each city rather
+  // than boilerplate: the top-rated spot by name, and a price/known-for hint.
+  const ranked = [...(dbRestaurants.length > 0 ? dbRestaurants : placesResults)]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || ((b.reviewCount ?? 0) - (a.reviewCount ?? 0)))
+  const topSpot = ranked[0] as (typeof ranked[number] & { rating?: number | null; reviewCount?: number }) | undefined
+  const topName = topSpot?.name ?? ''
+  const topRating = topSpot?.rating ?? null
+  const runnerUp = ranked[1]?.name ?? ''
+
   // Nearby ramen cities in the same state — used for keyword-rich internal links.
   const nearbyCitiesMap = new Map<string, { city: string; citySlug: string; stateCode: string }>()
   for (const c of getCities().filter(c => c.stateSlug === stateSlug && c.citySlug !== citySlug)) {
@@ -140,39 +149,43 @@ export default async function CityFindPage(
   }
   const nearbyCities = Array.from(nearbyCitiesMap.values()).slice(0, 12)
 
+  // Single source of truth for the FAQ — rendered on the page and emitted as
+  // FAQPage schema, so the structured data always matches the visible content.
+  const faqs: { q: string; a: string }[] = [
+    {
+      q: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
+      a: topName
+        ? `By rating, ${topName} is currently the top ramen spot in ${cityName}${topRating ? ` at ${topRating.toFixed(1)} stars` : ''}. I still recommend opening a couple of listings to skim recent reviews and photos, then sorting the map by rating or distance to pick your bowl.`
+        : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}, sorted by rating and distance, then check recent reviews and photos to choose.`,
+    },
+    {
+      q: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
+      a: count > 0
+        ? `There ${count === 1 ? 'is' : 'are'} ${count} ramen ${count === 1 ? 'spot' : 'spots'} listed in ${cityName}, ${stateCode} on RamenNearYou — from quick counter shops to sit-down ramen bars. The map keeps the closest ones at the top once you set your location.`
+        : `We are still building out ${cityName}, ${stateCode}, so the map pulls in the nearest ramen spots around it. Enter your ZIP to sort them by distance.`,
+    },
+    {
+      q: `What types of ramen are available in ${cityName}?`,
+      a: `You will typically find the classic broths in ${cityName} — tonkotsu, miso, shoyu, and shio — plus styles like tsukemen and spicy bowls at some shops. Use the filter bar above the map to narrow by broth type, price, and dietary preference like vegan or vegetarian.`,
+    },
+    {
+      q: `Is there ramen open late or open now in ${cityName}?`,
+      a: `Often, yes. Add the "Open Now" filter to see what is serving this minute in ${cityName}, or "Open Late" for spots going past 10 PM. Hours are checked against each restaurant's posted schedule, and a green "Open" badge confirms it.`,
+    },
+    {
+      q: `How do I find ramen delivery near ${cityName}?`,
+      a: `Add the "Delivers" filter above the map to show ${cityName} spots that offer delivery, then open a listing to order. For the freshest bowl, choose a place close to you or one that packs broth and noodles separately.`,
+    },
+  ]
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: dbRestaurants.length > 0
-            ? `RamenNearYou lists ${dbRestaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Use the map above to find the highest-rated spot near you — filter by broth type, price, and hours.`
-            : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}. Filter by broth type, price, and hours to find your ideal bowl.`,
-        },
-      },
-      {
-        '@type': 'Question',
-        name: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: count > 0
-            ? `There are ${count} ramen restaurants listed in ${cityName}, ${stateCode} on RamenNearYou. Our directory covers the full city, from quick lunch spots to sit-down ramen bars.`
-            : `Use the map above to find ramen restaurants in and around ${cityName}, ${stateCode}.`,
-        },
-      },
-      {
-        '@type': 'Question',
-        name: `What types of ramen are available in ${cityName}?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: `Ramen restaurants in ${cityName} serve a variety of broth styles including tonkotsu, miso, shoyu, and shio. Use the filter bar above the map to narrow by broth type, price, and dietary preference.`,
-        },
-      },
-    ],
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
   }
 
   return (
@@ -292,29 +305,55 @@ export default async function CityFindPage(
               </div>
             )}
 
-            {/* SEO content */}
+            {/* SEO content — first-person, data-driven so each city reads uniquely */}
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
-              Finding Ramen in {cityName}, {stateName}
+              Finding Great Ramen in {cityName}, {stateName}
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              RamenNearYou is the largest <Link href="/" className="text-[#B57F50] hover:underline">ramen restaurant directory</Link> in the United States. Use the map above to find every ramen restaurant near {cityName} — or browse by broth style:{' '}
-              <Link href="/find/tonkotsu-ramen" className="text-[#B57F50] hover:underline">tonkotsu ramen</Link>,{' '}
-              <Link href="/find/miso-ramen" className="text-[#B57F50] hover:underline">miso ramen</Link>,{' '}
-              <Link href="/find/shoyu-ramen" className="text-[#B57F50] hover:underline">shoyu ramen</Link>, and{' '}
-              <Link href="/find/shio-ramen" className="text-[#B57F50] hover:underline">shio ramen</Link>.
+              Whenever I am hunting for a bowl in {cityName}, I start with the map above — it shows every
+              ramen spot I can find near {cityName}, {stateCode}, and once you drop in your ZIP or tap
+              &quot;Use my location,&quot; it sorts them by distance so the closest bowl is right at the top.
+              {count > 0
+                ? ` Right now I am tracking ${count} ramen ${count === 1 ? 'spot' : 'spots'} in and around ${cityName}, so there is plenty to work with.`
+                : ` ${cityName} is still filling in, so I have the map pull in the nearest ramen spots around it too.`}
             </p>
+            {topName && (
+              <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                If you just want my quick steer, {topName}
+                {topRating ? ` is the highest-rated ramen in ${cityName} right now at ${topRating.toFixed(1)} stars` : ` is one of the best-reviewed spots in ${cityName}`}
+                {runnerUp ? `, with ${runnerUp} close behind` : ''}. That said, I always check a couple of
+                listings myself — skim the recent reviews and the photos, since the bowl that looks carefully
+                made usually is.
+              </p>
+            )}
+            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">How I pick a ramen spot in {cityName}</h3>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Looking for something specific in {cityName}? Find{' '}
+              My rule of thumb is to favor shops that focus on one or two broths and do them obsessively well,
+              and to trust a strong rating that holds up across a lot of reviews over a perfect score from only
+              a handful. Then I match the bowl to the moment — something rich and creamy when it is cold out,
+              something light and clean for lunch. You can do the same right on the map: filter by broth style
+              like{' '}
+              <Link href="/find/tonkotsu-ramen" className="text-[#B57F50] hover:underline">tonkotsu</Link>,{' '}
+              <Link href="/find/miso-ramen" className="text-[#B57F50] hover:underline">miso</Link>,{' '}
+              <Link href="/find/shoyu-ramen" className="text-[#B57F50] hover:underline">shoyu</Link>, or{' '}
+              <Link href="/find/shio-ramen" className="text-[#B57F50] hover:underline">shio</Link>, then layer on
+              what matters that day.
+            </p>
+            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">Narrowing down what you are craving</h3>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              Some nights I just need a bowl that is open this minute; other times I am planning ahead. The
+              filters handle both. In {cityName} you can jump straight to{' '}
               <Link href="/find/ramen-open-now" className="text-[#B57F50] hover:underline">ramen open now</Link>,{' '}
               <Link href="/find/ramen-open-late" className="text-[#B57F50] hover:underline">ramen open late</Link>,{' '}
               <Link href="/find/spicy-ramen" className="text-[#B57F50] hover:underline">spicy ramen</Link>,{' '}
               <Link href="/find/vegan-ramen" className="text-[#B57F50] hover:underline">vegan ramen</Link>, or the{' '}
-              <Link href="/find/top-rated-ramen" className="text-[#B57F50] hover:underline">top rated ramen restaurants near you</Link>.
+              <Link href="/find/top-rated-ramen" className="text-[#B57F50] hover:underline">top-rated ramen near you</Link>.
+              If you are driving in, the &quot;Free Parking&quot; and &quot;Delivers&quot; filters save a lot of hassle too.
             </p>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Enter your ZIP code or tap &quot;Use my location&quot; to sort results by distance. You can also explore{' '}
+              When you have exhausted {cityName}, it is easy to keep going — explore{' '}
               <Link href={`/${stateSlug}`} className="text-[#B57F50] hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
-              <Link href="/cities" className="text-[#B57F50] hover:underline">browse every city and state</Link> in our directory.
+              <Link href="/cities" className="text-[#B57F50] hover:underline">browse every city and state</Link> in the directory.
             </p>
 
             {/* Nearby cities — keyword-rich internal links */}
@@ -344,24 +383,7 @@ export default async function CityFindPage(
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
-              {[
-                {
-                  q: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
-                  a: dbRestaurants.length > 0
-                    ? `RamenNearYou lists ${dbRestaurants.length} ramen restaurants in ${cityName}, ${stateCode}. Use the map above — sort by rating or distance to find the best bowl near you.`
-                    : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}, sorted by rating and distance.`,
-                },
-                {
-                  q: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
-                  a: count > 0
-                    ? `There are ${count} ramen restaurants listed in ${cityName}, ${stateCode} on RamenNearYou — from quick lunch spots to sit-down ramen bars.`
-                    : `Use the map above to find ramen spots in and around ${cityName}, ${stateCode}.`,
-                },
-                {
-                  q: `What types of ramen are available in ${cityName}?`,
-                  a: `Ramen restaurants in ${cityName} serve a variety of broth styles including tonkotsu, miso, shoyu, and shio. Use the filter bar above to narrow by broth type, price, and dietary preference.`,
-                },
-              ].map(({ q, a }) => (
+              {faqs.map(({ q, a }) => (
                 <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                     {q}

@@ -135,6 +135,40 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                 ))}
               </ul>
             </div>
+
+            {/* First-person guidance — finding and ordering this broth */}
+            <h3 className="font-serif text-2xl font-bold text-[#1E2026] mt-12 mb-3">
+              How I find the best {broth.type} ramen near me
+            </h3>
+            <p className="text-[#6B6862] leading-relaxed mb-4">
+              When I am chasing a great bowl of {broth.type.toLowerCase()} ramen, I lean on a couple of habits.
+              First, I favor shops that specialize — a kitchen that builds its name on {broth.type.toLowerCase()}
+              broth almost always makes it better than a place trying to do every style at once. Second, I trust
+              a strong rating that holds up across a lot of reviews more than a perfect score from only a handful.
+              The list above is sorted by rating and distance, so you can spot the standouts fast — then I open a
+              few listings and skim the most recent reviews and photos before committing.
+            </p>
+            <h3 className="font-serif text-2xl font-bold text-[#1E2026] mt-8 mb-3">
+              How I order {broth.type} ramen
+            </h3>
+            <p className="text-[#6B6862] leading-relaxed mb-4">
+              Half the bowl is in how you order it. Here is what I do to get the most out of a
+              {' '}{broth.type.toLowerCase()} bowl every time:
+            </p>
+            <ul className="space-y-2.5 mb-2">
+              {[
+                `Ask for the noodle firmness you like — firmer noodles hold up better in ${broth.type.toLowerCase()} broth.`,
+                'Add a soft, marinated egg; it is the single best upgrade on almost any bowl.',
+                'Skim the most recent reviews and photos before you go — fresh, specific praise is the best signal.',
+                'Use your ZIP code or location above to sort by distance so you never trade quality for a long drive.',
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
+                  <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
                 Browse All Broth Types
