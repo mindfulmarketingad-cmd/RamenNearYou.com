@@ -12,8 +12,10 @@ export async function POST(request: Request) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const admin = createAdminClient()
-  if (!admin) return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  // Prefer the service-role client (bypasses RLS), but fall back to the user's
+  // authenticated client — the restaurant-photos bucket allows authenticated
+  // uploads, so photos still work when SUPABASE_SERVICE_ROLE_KEY isn't set.
+  const storageClient = createAdminClient() ?? supabase
 
   const form = await request.formData()
   const files = form.getAll('files') as File[]
@@ -28,13 +30,16 @@ export async function POST(request: Request) {
     const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
     const bytes = await file.arrayBuffer()
-    const { error } = await admin.storage
+    const { error } = await storageClient.storage
       .from('restaurant-photos')
       .upload(path, bytes, { contentType: file.type, upsert: false })
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    if (error) {
+      console.error('[upload] storage upload failed:', error.message)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
 
-    const { data: { publicUrl } } = admin.storage
+    const { data: { publicUrl } } = storageClient.storage
       .from('restaurant-photos')
       .getPublicUrl(path)
 
