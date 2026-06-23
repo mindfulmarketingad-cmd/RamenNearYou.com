@@ -129,17 +129,15 @@ interface Props {
   heatmap?: boolean
   visitedSlugs?: Set<string>
   boundary?: unknown | null   // GeoJSON Polygon/MultiPolygon — city outline (Zillow-style)
-  routeCoords?: [number, number][] | null  // [lat, lng] pairs — drawn as a driving route polyline
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, routeCoords }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
   const ratingsRef = useRef<Record<string, number | null>>({})
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
-  const routeLayerRef = useRef<L.Polyline | null>(null)
   const userCircleRef = useRef<L.Circle | null>(null)
   const baseLayerRef = useRef<L.TileLayer | null>(null)
   const overlayLayersRef = useRef<L.TileLayer[]>([])
@@ -324,22 +322,6 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       // Malformed geometry — fail silently and keep the default view.
     }
   }, [ready, boundary])
-
-  // Route polyline — drawn when the directions feature supplies coords.
-  useEffect(() => {
-    if (!ready || !mapRef.current) return
-    if (routeLayerRef.current) { routeLayerRef.current.remove(); routeLayerRef.current = null }
-    if (!routeCoords || routeCoords.length === 0) return
-    routeLayerRef.current = L.polyline(routeCoords, {
-      color: '#2563eb',
-      weight: 5,
-      opacity: 0.85,
-      lineCap: 'round',
-      lineJoin: 'round',
-    }).addTo(mapRef.current)
-    const bounds = routeLayerRef.current.getBounds()
-    if (bounds.isValid()) mapRef.current.fitBounds(bounds, { padding: [48, 48] })
-  }, [ready, routeCoords])
 
   // Bounds emit + center callback on user drag
   useEffect(() => {
