@@ -2,127 +2,106 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Rich & Creamy Ramen Near Me | Find Rich Ramen Restaurants',
-  description: 'Find rich, creamy ramen restaurants near you. Heavy, indulgent broths that coat every noodle — tonkotsu, chicken paitan, and beyond. Browse by location, rating, and hours.',
+  title: 'Rich & Creamy Ramen Near Me | Thick, Decadent Bowls | RamenNearYou',
+  description: 'Find rich and creamy ramen near you — the thickest, most decadent bowls, from tonkotsu to chicken paitan. What makes broth creamy and how to find the richest bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/rich-ramen' },
   openGraph: {
     title: 'Rich & Creamy Ramen Near Me',
-    description: 'Find rich, creamy ramen near you — heavy, indulgent broths.',
+    description: 'Find the richest, creamiest ramen bowls near you.',
     url: 'https://www.ramennearyou.com/find/rich-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What makes ramen rich and creamy?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Rich, creamy ramen gets its texture from high-heat boiling of pork bones (tonkotsu) or chicken bones (chicken paitan). The fat and collagen emulsify into the water, creating a thick, white, silky broth.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Which ramen styles are the richest?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Tonkotsu and chicken paitan are the richest styles — both are opaque and creamy from emulsified bone fat. Spicy miso can also be rich, especially versions made with a pork base and heavy sesame paste.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is rich ramen heavier than regular ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes — rich ramen is significantly more filling than shoyu or shio. The high fat content and thick broth make it a full meal. Many shops offer a lighter version (assari) alongside the heavier version (kotteri).',
-      },
-    },
-  ],
-}
-
 export default function RichRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialMoods={['rich-creamy']}
-            pageTitle="Rich & Creamy Ramen Near Me"
-            pageDescription="Showing the richest, creamiest ramen near you — tonkotsu, chicken paitan, and more. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Finding Rich &amp; Creamy Ramen Near You
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Rich ramen is defined by its broth — opaque, silky, and heavily emulsified from hours
-              of high-heat boiling. The fat and collagen from pork or chicken bones bind with water
-              to create a creamy texture that coats every strand of noodle. It is the most indulgent
-              tier of ramen eating.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The defining styles are tonkotsu (pork bone) and chicken paitan. Both are white or
-              off-white in color, thick in texture, and deeply satisfying. If you want the most
-              filling, comforting bowl on the menu, filter for rich and creamy — then decide which
-              broth to chase.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What makes ramen rich and creamy?',
-                  a: 'Rich, creamy ramen gets its texture from high-heat boiling of pork bones (tonkotsu) or chicken bones (chicken paitan). The fat and collagen emulsify into the water, creating a thick, white, silky broth.',
-                },
-                {
-                  q: 'Which ramen styles are the richest?',
-                  a: 'Tonkotsu and chicken paitan are the richest styles — both are opaque and creamy from emulsified bone fat. Spicy miso can also be rich, especially versions made with a pork base and heavy sesame paste.',
-                },
-                {
-                  q: 'Is rich ramen heavier than regular ramen?',
-                  a: 'Yes — rich ramen is significantly more filling than shoyu or shio. The high fat content and thick broth make it a full meal. Many shops offer a lighter version (assari) alongside the heavier version (kotteri).',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialMoods={['rich-creamy']}
+          pageTitle="Rich & Creamy Ramen Near Me"
+          pageDescription="Showing rich, creamy ramen near you. Enter your ZIP or use your location to find a decadent bowl nearby."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/rich-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/rich-ramen"
+        heading="Where I Find the Richest, Creamiest Ramen Near Me"
+        intro={[
+          'Some days only a thick, decadent, lip-coating bowl will do — the kind of ramen so rich it feels indulgent. The map above is filtered toward rich and creamy ramen near you, the most luxurious bowls in your area. Enter your ZIP or use your location to find the closest one.',
+          'Richness in ramen comes from specific techniques and styles, not just from being heavy. Here is what makes a broth creamy, which bowls deliver it best, and how I order for maximum decadence.',
+        ]}
+        sections={[
+          {
+            h2: 'What makes a broth rich and creamy',
+            body: (
+              <p>
+                That creamy, opaque texture comes from emulsification — boiling bones hard and long until
+                collagen, fat, and marrow break down and blend into the liquid. The result is a broth with body
+                that clings to every noodle. Tonkotsu (pork) and tori paitan (chicken) are the classic creamy
+                broths, while rich miso and certain sesame bowls get their body from paste and fat rather than
+                bones.
+              </p>
+            ),
+            points: [
+              { h3: 'Tonkotsu', text: 'The benchmark for rich — pork bones simmered into a milky, collagen-heavy broth that coats the bowl.' },
+              { h3: 'Chicken paitan', text: 'Creamy and luxurious from hard-simmered chicken bones, a touch lighter and sweeter than pork.' },
+              { h3: 'Rich miso & sesame', text: 'Body from fermented soybean paste, ground sesame, and fat rather than bones — hearty and full.' },
+            ],
+          },
+          {
+            h2: 'The richest bowls to order',
+            body: (
+              <p>
+                For maximum decadence, I look for tonkotsu (especially with a swirl of black garlic oil), tori
+                paitan, and rich/spicy miso. Adding extra chashu and a soft, jammy egg pushes a bowl further
+                into indulgent territory. If a shop is known for a thick, “double soup” or extra-rich house
+                broth, that is exactly what this craving calls for.
+              </p>
+            ),
+          },
+          {
+            h2: 'Balancing the richness',
+            body: (
+              <p>
+                A truly rich bowl is glorious but intense, so I balance it. Firm noodles cut through the
+                heaviness, a squeeze of acidity or some pickled ginger resets the palate, and a crisp drink on
+                the side keeps every bite feeling fresh. Order the rich bowl, but give yourself a little contrast
+                and you will enjoy it all the way to the bottom.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My rich-ramen tips"
+        tips={[
+          'Filter to “Rich & Creamy,” then sort by distance for the nearest decadent bowl.',
+          'Tonkotsu, chicken paitan, and rich miso are the most reliably creamy styles.',
+          'Add black garlic oil, extra chashu, and a soft egg for maximum indulgence.',
+          'Order firm noodles and use pickled ginger to cut through the richness.',
+          'A crisp drink on the side keeps a heavy bowl feeling fresh to the last bite.',
+        ]}
+        faqs={[
+          { q: 'What is rich and creamy ramen?', a: 'It is ramen with a thick, opaque, lip-coating broth, usually from long-simmered bones (tonkotsu or chicken paitan) or rich miso and sesame bowls. The texture clings to every noodle.' },
+          { q: 'What makes ramen broth creamy?', a: 'Emulsification — boiling bones hard until collagen, fat, and marrow break down and blend into the liquid, giving the broth its milky body. Miso and sesame bowls get richness from paste and fat instead.' },
+          { q: 'Which ramen is the richest?', a: 'Tonkotsu is the benchmark, especially with black garlic oil; tori paitan (chicken) and rich or spicy miso are also very creamy. Add extra chashu and a soft egg to push the indulgence further.' },
+          { q: 'How do I balance a very rich bowl?', a: 'Order firm noodles, use pickled ginger or a touch of acidity to reset your palate, and keep a crisp drink on the side. A little contrast keeps a heavy bowl enjoyable to the end.' },
+          { q: 'How do I find rich ramen near me?', a: 'The map above is filtered toward rich, creamy bowls. Enter your ZIP or tap “Use my location” to sort the closest decadent ramen by distance.' },
+        ]}
+      />
+    </main>
   )
 }

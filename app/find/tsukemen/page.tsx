@@ -2,127 +2,107 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Tsukemen Near Me | Find Tsukemen Ramen Restaurants',
-  description: 'Find tsukemen restaurants near you. Dipping ramen with rich concentrated broth — noodles served separately for dipping. Browse by location, rating, and hours.',
+  title: 'Tsukemen Near Me | Dipping Ramen Noodles | RamenNearYou',
+  description: 'Find tsukemen near you — ramen dipping noodles served alongside a thick, intense broth. What tsukemen is, how to eat it the right way, and how to order it.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/tsukemen' },
   openGraph: {
     title: 'Tsukemen Near Me',
-    description: 'Find tsukemen near you — dipping ramen with rich concentrated broth.',
+    description: 'Find tsukemen (dipping ramen) near you.',
     url: 'https://www.ramennearyou.com/find/tsukemen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is tsukemen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Tsukemen is dipping ramen — thick noodles served separately from a small bowl of concentrated broth. You dip the noodles into the broth rather than eating them together. Invented in Tokyo in the 1960s.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How is tsukemen different from regular ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'In tsukemen, the noodles and broth are served separately. The broth is much more concentrated and the noodles are thicker and chewier. You dip rather than slurp from a bowl.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What toppings come with tsukemen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Common tsukemen toppings include chashu pork, menma, nori, a soft-boiled egg, and green onions. Many shops also offer a "soup wari" — hot dashi added to the remaining broth so you can drink it at the end.',
-      },
-    },
-  ],
-}
-
 export default function TsukemenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialBowls={['tsukemen']}
-            pageTitle="Tsukemen Near Me"
-            pageDescription="Showing restaurants with tsukemen — dipping ramen where noodles are served separately. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Tsukemen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Tsukemen is dipping ramen — noodles served cold or at room temperature alongside a
-              small bowl of intensely concentrated hot broth. You dip the noodles in the broth
-              rather than mixing them together. The format was invented in Tokyo in the 1960s and
-              has grown into one of the most beloved ramen styles in Japan.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The broth in tsukemen is far more concentrated than regular ramen — thick, rich, and
-              often fish-forward or pork-forward, designed to coat each dip of noodles. The noodles
-              are typically thicker and chewier than regular ramen noodles, built to hold up to
-              repeated dipping.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is tsukemen?',
-                  a: 'Tsukemen is dipping ramen — thick noodles served separately from a small bowl of concentrated broth. You dip the noodles into the broth rather than eating them together. Invented in Tokyo in the 1960s.',
-                },
-                {
-                  q: 'How is tsukemen different from regular ramen?',
-                  a: 'In tsukemen, the noodles and broth are served separately. The broth is much more concentrated and the noodles are thicker and chewier. You dip rather than slurp from a bowl.',
-                },
-                {
-                  q: 'What toppings come with tsukemen?',
-                  a: 'Common tsukemen toppings include chashu pork, menma, nori, a soft-boiled egg, and green onions. Many shops also offer a "soup wari" — hot dashi added to the remaining broth so you can drink it at the end.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialBowls={['tsukemen']}
+          pageTitle="Tsukemen Near Me"
+          pageDescription="Showing tsukemen (dipping ramen) near you. Enter your ZIP or use your location to find a bowl nearby."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/tsukemen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/tsukemen"
+        heading="How I Find Great Tsukemen Near Me"
+        intro={[
+          'Tsukemen is the bowl I send people to when they think they have tried everything ramen has to offer. The noodles come separate from a thick, ultra-concentrated dipping broth, and you dunk each bite — it is interactive, intense, and addictive. The map above is filtered to tsukemen near you; enter your ZIP or use your location to find the closest spot.',
+          'Tsukemen has its own logic and its own etiquette, and getting them right makes the whole experience click. Here is what it is, how to eat it, and how I order it.',
+        ]}
+        sections={[
+          {
+            h2: 'What tsukemen actually is',
+            body: (
+              <p>
+                Tsukemen means “dipping noodles.” Instead of sitting in soup, the noodles are served on their
+                own — often chilled or at room temperature — next to a small bowl of broth that is much thicker,
+                richer, and more concentrated than regular ramen soup. You dip a few noodles at a time, coating
+                them before each bite. Because the noodles are not soaking, they are usually thicker and chewier,
+                with a satisfying bite that holds up beautifully.
+              </p>
+            ),
+            points: [
+              { h3: 'Separate noodles', text: 'Served apart from the broth, usually chilled, so they stay firm and chewy from first bite to last.' },
+              { h3: 'Concentrated broth', text: 'Thicker and far more intense than soup ramen — it has to cling to the noodles in a single dip.' },
+              { h3: 'Thick noodles', text: 'Because they are not soaking in soup, tsukemen noodles are typically thick and extra chewy.' },
+            ],
+          },
+          {
+            h2: 'How to eat tsukemen the right way',
+            body: (
+              <p>
+                Dip a small bundle of noodles into the broth, coat them, and eat — do not pour the broth over
+                the noodles. The broth is meant to be strong because it is only clinging to each bite, not
+                surrounding it. When you finish the noodles, many shops offer “soup wari”: they will dilute your
+                remaining dipping broth with hot dashi so you can drink it down as a light soup at the end. Do
+                not skip it — it is the perfect finish.
+              </p>
+            ),
+          },
+          {
+            h2: 'How I order tsukemen',
+            body: (
+              <p>
+                I go for a rich pork or fish-and-pork (gyokai) dipping broth, ask for the noodles cold for
+                maximum chew, and always take the soup wari at the end. A soft egg and extra chashu on the side
+                round it out. If it is your first time, tell the shop — they will often walk you through the dip
+                and the soup-wari finish.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My tsukemen tips"
+        tips={[
+          'Filter to “Tsukemen,” then sort by distance for the nearest dipping bowl.',
+          'Dip the noodles into the broth a few at a time — never pour the broth over them.',
+          'Ask for the noodles cold for the chewiest texture.',
+          'Always take the soup wari (broth dilution) to finish — it is the best part.',
+          'New to it? Tell the shop; they will happily explain how to eat it.',
+        ]}
+        faqs={[
+          { q: 'What is tsukemen?', a: 'Tsukemen is dipping ramen: the noodles are served separately from a thick, concentrated broth. You dip a few noodles at a time into the broth before each bite, rather than eating them in soup.' },
+          { q: 'How do you eat tsukemen?', a: 'Dip a small bundle of noodles into the broth to coat them, then eat — do not pour the broth over the noodles. At the end, ask for soup wari to dilute the remaining broth into a drinkable soup.' },
+          { q: 'Why is tsukemen broth so strong?', a: 'Because it only needs to cling to each bite, not surround the noodles, the broth is made thicker and far more concentrated than regular ramen soup.' },
+          { q: 'What is soup wari?', a: 'Soup wari is when the shop dilutes your leftover dipping broth with hot dashi so you can drink it as a light soup to finish the meal. It is a classic, satisfying ending to tsukemen.' },
+          { q: 'How do I find tsukemen near me?', a: 'The map above is filtered to tsukemen. Enter your ZIP or tap “Use my location” to sort the closest bowls by distance, then open a listing for hours and directions.' },
+        ]}
+      />
+    </main>
   )
 }

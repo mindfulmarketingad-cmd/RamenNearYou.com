@@ -2,127 +2,106 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Mazemen Near Me | Find Mazemen Ramen Restaurants',
-  description: 'Find mazemen restaurants near you. Brothless ramen — rich sauced noodles tossed to order. Browse by location, rating, and hours.',
+  title: 'Mazemen Near Me | Brothless Ramen (Mazesoba) | RamenNearYou',
+  description: 'Find mazemen near you — brothless ramen (mazesoba) you toss with a rich tare and toppings. What mazemen is, how to eat it, and how to find a great bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/mazemen' },
   openGraph: {
     title: 'Mazemen Near Me',
-    description: 'Find mazemen near you — rich brothless sauced ramen noodles.',
+    description: 'Find brothless ramen (mazemen / mazesoba) near you.',
     url: 'https://www.ramennearyou.com/find/mazemen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is mazemen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Mazemen is brothless ramen — noodles tossed in a rich sauce rather than served in soup. Also called abura soba. Intensely flavored and mixed before eating.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is mazemen the same as tsukemen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'No. Tsukemen has broth for dipping; mazemen has no broth at all. Mazemen noodles are coated in sauce and mixed with toppings. Tsukemen noodles are dipped into a separate broth bowl.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What toppings come with mazemen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Common mazemen toppings include a raw or soft-boiled egg yolk, chashu pork, menma, green onions, nori, and a drizzle of chili oil. The egg yolk is mixed in to enrich the sauce.',
-      },
-    },
-  ],
-}
-
 export default function MazemenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialBowls={['mazemen']}
-            pageTitle="Mazemen Near Me"
-            pageDescription="Showing restaurants with mazemen — brothless ramen with rich sauced noodles. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Mazemen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Mazemen — also called abura soba or maze soba — is ramen without broth. Instead of a
-              soup base, the noodles are tossed in a rich sauce made from soy, sesame, pork fat,
-              and other aromatics. It is intensely flavored, with every strand coated in
-              concentrated umami.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Mazemen is the format for ramen chefs who want maximum flavor without dilution. The
-              dish is mixed vigorously before eating — the egg yolk, sauce, and toppings bind
-              together into something between pasta and ramen. If you have never tried brothless
-              ramen, it is a revelation.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is mazemen?',
-                  a: 'Mazemen is brothless ramen — noodles tossed in a rich sauce rather than served in soup. Also called abura soba. Intensely flavored and mixed before eating.',
-                },
-                {
-                  q: 'Is mazemen the same as tsukemen?',
-                  a: 'No. Tsukemen has broth for dipping; mazemen has no broth at all. Mazemen noodles are coated in sauce and mixed with toppings. Tsukemen noodles are dipped into a separate broth bowl.',
-                },
-                {
-                  q: 'What toppings come with mazemen?',
-                  a: 'Common mazemen toppings include a raw or soft-boiled egg yolk, chashu pork, menma, green onions, nori, and a drizzle of chili oil. The egg yolk is mixed in to enrich the sauce.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialBowls={['mazemen']}
+          pageTitle="Mazemen Near Me"
+          pageDescription="Showing mazemen (brothless ramen) near you. Enter your ZIP or use your location to find a bowl nearby."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/mazemen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/mazemen"
+        heading="My Guide to Mazemen (Brothless Ramen) Near Me"
+        intro={[
+          'Mazemen flips ramen on its head: there is no soup. Instead, thick noodles are tossed with a concentrated tare, a glossy bit of oil, and a pile of bold toppings, so every strand is coated in intense flavor. The map above is filtered to mazemen near you; enter your ZIP or use your location to find the closest bowl.',
+          'If you love the noodles and toppings more than the soup, mazemen might become your favorite. Here is what it is, how to eat it, and what to look for.',
+        ]}
+        sections={[
+          {
+            h2: 'What mazemen is',
+            body: (
+              <p>
+                Mazemen (also called mazesoba, made famous in Nagoya as Taiwan mazesoba) means “mixed noodles.”
+                Thick, chewy noodles are served with a small amount of intensely flavored tare and oil at the
+                bottom of the bowl, topped with things like spicy ground pork, a raw or soft egg yolk, garlic,
+                chives, nori, and scallion. You mix everything together vigorously so the noodles get fully
+                coated — no broth required.
+              </p>
+            ),
+            points: [
+              { h3: 'No broth', text: 'A concentrated tare and oil coat the noodles instead of soup — bold, direct flavor in every bite.' },
+              { h3: 'Thick, chewy noodles', text: 'Without soup to soak in, the noodles stay firm and toothsome, which is the whole point.' },
+              { h3: 'Loaded toppings', text: 'Spicy minced pork, egg yolk, garlic, chives, and nori are classic; the toppings are the dish as much as the noodles.' },
+            ],
+          },
+          {
+            h2: 'How to eat mazemen',
+            body: (
+              <p>
+                Mix it hard before you eat — really get in there and toss the noodles, tare, egg, and toppings
+                until everything is coated and glossy. The flavor lives at the bottom of the bowl, so a gentle
+                stir leaves you with bland noodles on top and a salty puddle below. Many shops also offer
+                “oimeshi,” a scoop of rice you add to the leftover tare at the end to soak up every last bit.
+              </p>
+            ),
+          },
+          {
+            h2: 'Why mazemen is great (and travels well)',
+            body: (
+              <p>
+                Because there is no broth, mazemen is bold, fast, and surprisingly great for takeout and
+                delivery — there is no soup to make the noodles soggy in transit. It is also a fun
+                change-of-pace when you want maximum flavor and texture. I order it spicy with extra egg yolk,
+                mix thoroughly, and finish with the rice add-on whenever it is offered.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My mazemen tips"
+        tips={[
+          'Filter to “Mazemen,” then sort by distance for the nearest brothless bowl.',
+          'Mix it vigorously — the concentrated flavor sits at the bottom and needs tossing through.',
+          'Add the egg yolk and let it coat the noodles for richness.',
+          'Finish with the rice add-on (oimeshi) to soak up the leftover tare.',
+          'Great for takeout — no broth means the noodles stay perfect in transit.',
+        ]}
+        faqs={[
+          { q: 'What is mazemen?', a: 'Mazemen (or mazesoba) is brothless ramen — thick noodles tossed with a concentrated tare, oil, and bold toppings like spicy pork, egg yolk, garlic, and chives. You mix everything so each strand is coated, no soup required.' },
+          { q: 'How do you eat mazemen?', a: 'Mix it thoroughly before eating so the tare and toppings coat the noodles evenly. At the end, many shops offer a scoop of rice (oimeshi) to mix into the leftover tare.' },
+          { q: 'Is mazemen the same as mazesoba?', a: 'They refer to the same brothless style. Mazesoba — especially Taiwan mazesoba from Nagoya — is a popular, spicy, garlicky version of mazemen.' },
+          { q: 'Is mazemen good for takeout?', a: 'Yes — with no broth, the noodles will not get soggy in transit, making mazemen one of the best ramen styles to order for takeout or delivery.' },
+          { q: 'How do I find mazemen near me?', a: 'The map above is filtered to mazemen. Enter your ZIP or tap “Use my location” to sort the closest bowls by distance, then open a listing for hours and directions.' },
+        ]}
+      />
+    </main>
   )
 }

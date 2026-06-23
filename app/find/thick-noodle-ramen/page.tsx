@@ -2,126 +2,104 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Thick Noodle Ramen Near Me | Find Thick Noodle Ramen Restaurants',
-  description: 'Find thick noodle ramen restaurants near you. Wavy, chewy noodles built to hold rich broth — tonkotsu, miso, and tsukemen styles. Browse by location, rating, and hours.',
+  title: 'Thick Noodle Ramen Near Me | Chewy, Wavy Noodles | RamenNearYou',
+  description: 'Find thick noodle ramen near you — chewy, wavy noodles with serious bite. Which broths suit thick noodles, why they matter, and how to find a great bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/thick-noodle-ramen' },
   openGraph: {
     title: 'Thick Noodle Ramen Near Me',
-    description: 'Find thick noodle ramen near you — chewy, wavy noodles built for rich broth.',
+    description: 'Find chewy, thick-noodle ramen near you.',
     url: 'https://www.ramennearyou.com/find/thick-noodle-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What ramen uses thick noodles?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Tonkotsu, miso, and tsukemen are the styles most commonly paired with thick, wavy noodles. The rich broths can stand up to the extra body. Tsukemen almost always uses thick noodles to hold up during dipping.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the difference between thick and thin ramen noodles?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Thick noodles are chewier and more filling, pairing best with heavy broths like tonkotsu and miso. Thin noodles are more delicate, pairing better with lighter broths like shoyu or shio. Noodle thickness dramatically changes the bowl's texture.",
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Can I choose my noodle thickness at a ramen restaurant?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Some ramen restaurants — particularly in Japan and at high-end US spots — let you choose noodle firmness (soft, medium, firm, extra firm) but not always the thickness itself. Ask the server what options are available.',
-      },
-    },
-  ],
-}
-
 export default function ThickNoodleRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            pageTitle="Thick Noodle Ramen Near Me"
-            pageDescription="Find ramen restaurants serving thick, chewy noodles near you. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Thick Noodle Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Thick ramen noodles — typically wavy and chewier than straight noodles — are designed
-              to stand up to rich, heavy broths. They hold more broth per strand and create a more
-              substantial, filling bite. Tonkotsu, miso, and tsukemen are the styles most likely to
-              pair with thick noodles, since the robust broth can support the extra body.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Noodle thickness in Japan is standardized by number — lower numbers mean thicker
-              noodles. Thick noodles (often #16 or below) have a distinct chew that ramen lovers
-              seek out specifically. Tsukemen (dipping ramen) almost always uses thick noodles,
-              since they need to hold up during the dipping process without becoming soggy.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What ramen uses thick noodles?',
-                  a: 'Tonkotsu, miso, and tsukemen are the styles most commonly paired with thick, wavy noodles. The rich broths can stand up to the extra body. Tsukemen almost always uses thick noodles to hold up during dipping.',
-                },
-                {
-                  q: 'What is the difference between thick and thin ramen noodles?',
-                  a: "Thick noodles are chewier and more filling, pairing best with heavy broths like tonkotsu and miso. Thin noodles are more delicate, pairing better with lighter broths like shoyu or shio. Noodle thickness dramatically changes the bowl's texture.",
-                },
-                {
-                  q: 'Can I choose my noodle thickness at a ramen restaurant?',
-                  a: 'Some ramen restaurants — particularly in Japan and at high-end US spots — let you choose noodle firmness (soft, medium, firm, extra firm) but not always the thickness itself. Ask the server what options are available.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          pageTitle="Thick Noodle Ramen Near Me"
+          pageDescription="Find ramen restaurants serving thick, chewy noodles near you. Enter your ZIP or use your location to sort by distance."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/thick-noodle-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/thick-noodle-ramen"
+        heading="Why I Seek Out Thick Noodle Ramen Near Me"
+        intro={[
+          'For me, the noodle is half the bowl, and thick noodles bring a chew and presence that thin strands just cannot match. That springy, toothsome bite holding onto a hearty broth is one of ramen’s great pleasures. The map above helps you find ramen near you — enter your ZIP or use your location and look for the shops doing thick, chewy noodles.',
+          'Noodle thickness is not a detail; it changes the whole experience and pairs with different broths. Here is why thick noodles matter and where to find them.',
+        ]}
+        sections={[
+          {
+            h2: 'Why noodle thickness matters',
+            body: (
+              <p>
+                Thicker noodles have more chew and hold their texture longer in the bowl, so they stand up to
+                heavy, robust broths without going soft. They also carry more sauce or broth per bite, which is
+                why styles built on intensity — like tsukemen and mazemen — almost always use thick noodles. If
+                you have ever wished a bowl had more substance, the noodle gauge was probably the missing piece.
+              </p>
+            ),
+            points: [
+              { h3: 'More chew', text: 'Thick, often wavy noodles deliver a satisfying, springy bite that holds up from first slurp to last.' },
+              { h3: 'Stands up to rich broth', text: 'They resist going mushy in heavy broths, so the texture stays right even as you take your time.' },
+              { h3: 'Carries more flavor', text: 'A thicker strand grabs more broth or tare per bite — ideal for bold, concentrated bowls.' },
+            ],
+          },
+          {
+            h2: 'Which styles use thick noodles',
+            body: (
+              <p>
+                Thick noodles are the default for tsukemen (dipping ramen) and mazemen (brothless ramen), where
+                texture is everything and there is no thin broth to soak into. Hearty miso ramen, especially the
+                Sapporo style, also favors thicker, curlier noodles to match its body. If you want guaranteed
+                chew, those styles are the most reliable bet.
+              </p>
+            ),
+          },
+          {
+            h2: 'How to find thick-noodle bowls',
+            body: (
+              <p>
+                Noodle gauge is not always labeled, so I open listings and check menus and photos — and I lean
+                on the styles that reliably use thick noodles. Stack the “Tsukemen” or “Mazemen” filters for a
+                near-guarantee of thick, chewy strands, or look for Sapporo-style miso. When in doubt, the shop
+                will happily tell you what noodles they use.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My thick-noodle tips"
+        tips={[
+          'For guaranteed chew, stack the “Tsukemen” or “Mazemen” filters — both use thick noodles.',
+          'Sapporo-style miso ramen is another reliable home for thick, curly noodles.',
+          'Thick noodles hold up in rich broths, so take your time without them going soft.',
+          'Open listings and skim photos when noodle gauge is not labeled.',
+          'Ask the shop — they will happily tell you what noodles they make.',
+        ]}
+        faqs={[
+          { q: 'What is thick noodle ramen?', a: 'It is ramen made with thicker, often wavy noodles that have more chew and hold their texture longer. They suit hearty, intense bowls and styles like tsukemen, mazemen, and Sapporo-style miso.' },
+          { q: 'Why do some ramen use thick noodles?', a: 'Thick noodles stand up to rich, robust broths without going mushy and carry more broth or tare per bite, which is why intense styles like tsukemen and mazemen rely on them.' },
+          { q: 'Which ramen styles have the thickest noodles?', a: 'Tsukemen and mazemen almost always use thick, chewy noodles, and Sapporo-style miso favors thicker, curlier ones. Filter to those styles for a reliable chew.' },
+          { q: 'Are thick or thin noodles better?', a: 'Neither — it is about matching the broth. Thick noodles suit heavy, concentrated bowls; thin noodles suit light, clear or creamy ones like Hakata tonkotsu. It comes down to preference.' },
+          { q: 'How do I find thick noodle ramen near me?', a: 'Use the map above to find ramen nearby, then favor tsukemen, mazemen, or Sapporo miso, and check menus and photos on each listing for noodle style.' },
+        ]}
+      />
+    </main>
   )
 }
