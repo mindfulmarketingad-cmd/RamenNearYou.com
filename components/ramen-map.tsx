@@ -139,7 +139,10 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
   const userCircleRef = useRef<L.Circle | null>(null)
+  const baseLayerRef = useRef<L.TileLayer | null>(null)
+  const overlayLayersRef = useRef<L.TileLayer[]>([])
   const [ready, setReady] = useState(false)
+  const [view, setView] = useState<'standard' | 'satellite'>('standard')
 
   // Inject bounce CSS once
   useEffect(() => {
@@ -158,10 +161,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       zoom: initialZoom,
       zoomControl: true,
     })
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
-    }).addTo(map)
+    // Base tile layer (standard vs. satellite) is managed by a separate effect.
 
     L.marker([userLat, userLng], { icon: userIcon })
       .addTo(map)
@@ -181,6 +181,38 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     return () => { map.remove(); mapRef.current = null }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Base map style — standard (OpenStreetMap) or satellite (Esri World Imagery
+  // with a street/place-name label overlay so the hybrid view stays readable).
+  // All sources are free and need no API key.
+  useEffect(() => {
+    if (!ready || !mapRef.current) return
+    const map = mapRef.current
+
+    if (baseLayerRef.current) { baseLayerRef.current.remove(); baseLayerRef.current = null }
+    overlayLayersRef.current.forEach(l => l.remove())
+    overlayLayersRef.current = []
+
+    if (view === 'satellite') {
+      baseLayerRef.current = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        { maxZoom: 19, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics' },
+      ).addTo(map)
+      // Hybrid labels: place names + roads, designed to overlay imagery.
+      overlayLayersRef.current = [
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map),
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map),
+      ]
+    } else {
+      baseLayerRef.current = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }).addTo(map)
+    }
+    // Keep the base/overlays beneath markers and the boundary.
+    baseLayerRef.current.setZIndex(0)
+    overlayLayersRef.current.forEach(l => l.setZIndex(1))
+  }, [ready, view])
 
   // Fly to geocoded location when centerLatLng changes
   useEffect(() => {
@@ -333,5 +365,19 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     })
   }, [hoveredSlug, selectedSlug, ready, accentColor, visitedSlugs])
 
-  return <div ref={containerRef} className="w-full h-full" />
+  return (
+    <div className="relative w-full h-full">
+      <div ref={containerRef} className="w-full h-full" />
+      {ready && (
+        <button
+          type="button"
+          onClick={() => setView(v => (v === 'standard' ? 'satellite' : 'standard'))}
+          aria-pressed={view === 'satellite'}
+          className="absolute bottom-5 left-3 z-[1000] flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/95 hover:bg-white text-[#1E2026] text-xs font-semibold shadow-md border border-black/10 transition-colors"
+        >
+          {view === 'standard' ? '🛰️ Satellite' : '🗺️ Standard'}
+        </button>
+      )}
+    </div>
+  )
 }
