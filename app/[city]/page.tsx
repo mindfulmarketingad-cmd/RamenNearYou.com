@@ -155,8 +155,19 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     if (entry) entry.count++
     else cityGroups.set(r.citySlug, { city: r.city, citySlug: r.citySlug, count: 1 })
   }
+  // Merge in Google Places supplement cities for this state — cities that have
+  // fetched listings but few/no DB rows. Without this, a state with even one DB
+  // restaurant would hide all of its supplement cities (e.g. Utah).
+  for (const sc of getSupplementCitiesByState(stateSlug)) {
+    if (!cityGroups.has(sc.citySlug)) {
+      cityGroups.set(sc.citySlug, { city: sc.city, citySlug: sc.citySlug, count: sc.count })
+    }
+  }
   // Exclude single-restaurant cities — those don't have their own city page.
   const cities = Array.from(cityGroups.values()).filter((c) => c.count >= 2).sort((a, b) => a.city.localeCompare(b.city))
+  // Total across the cities shown (DB + supplement), so the header counts match
+  // the grid rather than only counting DB rows.
+  const totalListings = cities.reduce((s, c) => s + c.count, 0)
 
   const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
 
@@ -188,18 +199,18 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             Best Ramen Restaurants in {state}
           </h1>
           <p className="text-[#6B6862] text-lg mb-5">
-            Browse ramen restaurants in {state} ({stateCode}) by city — {allRestaurants.length} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
+            Browse ramen restaurants in {state} ({stateCode}) by city — {totalListings} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-              {allRestaurants.length} restaurants
+              {totalListings} restaurants
             </span>
             <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
               {cities.length} {cities.length === 1 ? 'city' : 'cities'}
             </span>
             <ShareButton
               url={pageUrl}
-              title={`Best Ramen Restaurants in ${state} — ${allRestaurants.length} listings on RamenNearYou`}
+              title={`Best Ramen Restaurants in ${state} — ${totalListings} listings on RamenNearYou`}
             />
           </div>
         </div>
@@ -209,7 +220,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-            {state}, {stateCode} ({allRestaurants.length} listings)
+            {state}, {stateCode} ({totalListings} listings)
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
