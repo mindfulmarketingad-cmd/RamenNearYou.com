@@ -62,6 +62,7 @@ const CATEGORIES = [
       { href: '/find/ramen-lunch', label: 'Ramen for Lunch Near Me' },
       { href: '/find/ramen-open-early', label: 'Ramen Open Early Near Me' },
       { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me' },
+      { href: '/find/ramen-open-july-4th', label: 'Ramen Open on Independence Day' },
     ],
   },
   {
