@@ -77,6 +77,12 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'G-S6L1KWFRC8');
         `}</Script>
+        {/* Google Ads (gtag.js) */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-18266125976" strategy="afterInteractive" />
+        <Script id="gtag-aw-init" strategy="afterInteractive">{`
+          gtag('js', new Date());
+          gtag('config', 'AW-18266125976');
+        `}</Script>
       </head>
       <body className="font-sans antialiased bg-white text-[#1E2026]">
         {children}
