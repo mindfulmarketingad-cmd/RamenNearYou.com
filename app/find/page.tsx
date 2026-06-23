@@ -76,6 +76,7 @@ const CATEGORIES = [
       { href: '/find/ramen-wheelchair-accessible', label: 'Wheelchair Accessible Ramen Near Me' },
       { href: '/find/ramen-free-parking', label: 'Ramen With Free Parking Near Me' },
       { href: '/find/ramen-hidden-gems', label: 'Hidden Gem Ramen Near Me' },
+      { href: '/find/5-star-ramen', label: '5 Star Ramen Restaurants Near Me' },
     ],
   },
   {
