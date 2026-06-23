@@ -2,13 +2,12 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Vegetarian Ramen Near Me | Find Meat-Free Ramen',
-  description: 'Find vegetarian ramen restaurants near you. Meat-free broths and toppings — full flavor without the meat. Browse by location, rating, and hours.',
+  title: 'Vegetarian Ramen Near Me | Find Meat-Free Ramen | RamenNearYou',
+  description: 'Find vegetarian ramen near you — meat-free broths and toppings full of umami. How vegetarian differs from vegan ramen, what to order, and what to ask.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/vegetarian-ramen' },
   openGraph: {
     title: 'Vegetarian Ramen Near Me',
@@ -19,110 +18,90 @@ export const metadata: Metadata = {
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is vegetarian ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Vegetarian ramen uses a broth made without meat — typically from kombu, shiitake mushrooms, or vegetable stock — and is topped with plant-based or egg-based toppings. It can range from light and clear to rich and deeply savory.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is vegetarian ramen the same as vegan ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Not always. Vegetarian ramen may include eggs, dairy (like butter), or fish-based tare. Vegan ramen excludes all animal products. Always check with the restaurant if you need fully vegan options.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What makes a good vegetarian ramen broth?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Great vegetarian ramen broth builds umami from kombu (dried kelp), dried shiitake mushrooms, and roasted vegetables. Miso, soy tare, or sesame paste add depth. The best versions rival meat-based broths in richness and complexity.',
-      },
-    },
-  ],
-}
-
 export default function VegetarianRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialFlags={['vegetarian']}
-            pageTitle="Vegetarian Ramen Near Me"
-            pageDescription="Find ramen restaurants with vegetarian options near you — meat-free broths and toppings packed with umami. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Vegetarian Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Vegetarian ramen has evolved from a niche request to a menu staple at serious ramen shops.
-              The best versions build umami from kombu, dried shiitake mushrooms, and roasted vegetables —
-              producing broths that rival their meat-based counterparts in depth and complexity. Miso and
-              shoyu are the most common bases for vegetarian ramen.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Toppings vary widely — soft-boiled eggs, roasted corn, nori, bean sprouts, and seasonal
-              vegetables are all common. Some spots offer rich, creamy vegetarian tonkotsu-style bowls
-              using plant-based milks or blended vegetables. Use the map above to find vegetarian ramen
-              near you and filter by distance and hours.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is vegetarian ramen?',
-                  a: 'Vegetarian ramen uses a broth made without meat — typically from kombu, shiitake mushrooms, or vegetable stock — topped with plant-based or egg-based toppings. It ranges from light and clear to rich and deeply savory.',
-                },
-                {
-                  q: 'Is vegetarian ramen the same as vegan ramen?',
-                  a: 'Not always. Vegetarian ramen may include eggs, dairy, or fish-based tare. Vegan ramen excludes all animal products. Always check with the restaurant if you need fully vegan.',
-                },
-                {
-                  q: 'What makes a good vegetarian ramen broth?',
-                  a: 'Great vegetarian broth builds umami from kombu, dried shiitake, and roasted vegetables. Miso, soy tare, or sesame paste add depth. The best versions rival meat-based broths in richness.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialFlags={['vegetarian']}
+          pageTitle="Vegetarian Ramen Near Me"
+          pageDescription="Find ramen restaurants with vegetarian options near you — meat-free broths and toppings packed with umami. Enter your ZIP or use your location to sort by distance."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/vegetarian-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/vegetarian-ramen"
+        heading="How I Find Vegetarian Ramen That Actually Delivers"
+        intro={[
+          'Vegetarian ramen has come a long way from the sad “just hold the pork” days. Done right, a meat-free bowl is every bit as deep, rich, and satisfying as a traditional one. The map above is filtered to ramen restaurants near you that offer vegetarian options — enter your ZIP or use your location to sort the closest spots to the top.',
+          'I eat a lot of vegetarian ramen, and the single most important thing I have learned is to ask the right questions, because “vegetarian” can be a moving target in a ramen kitchen. Here is what makes a great meat-free bowl, how it differs from vegan, and exactly what to check before you order.',
+        ]}
+        sections={[
+          {
+            h2: 'What makes a great vegetarian ramen broth',
+            body: (
+              <p>
+                The magic is umami without meat. The best vegetarian broths build serious depth from kombu
+                (dried kelp), dried shiitake mushrooms, roasted vegetables, and miso or soy tare. When a kitchen
+                takes it seriously, the result rivals a meat-based bowl — savory, layered, and full-bodied
+                rather than thin or watery.
+              </p>
+            ),
+            points: [
+              { h3: 'Kombu and shiitake dashi', text: 'This kelp-and-mushroom base is the backbone of great vegetarian broth, delivering the savory depth meat usually provides.' },
+              { h3: 'Miso and sesame', text: 'Miso ramen and creamy sesame (tantanmen-style) bowls are naturally suited to going meat-free and tend to be the most satisfying options.' },
+              { h3: 'Toppings that carry weight', text: 'Marinated mushrooms, corn, bamboo shoots, tofu, nori, and a soft egg (if you eat eggs) make the bowl feel complete.' },
+            ],
+          },
+          {
+            h2: 'Vegetarian vs. vegan ramen — the key difference',
+            body: (
+              <p>
+                This trips people up constantly. Vegetarian ramen may still include eggs, dairy like butter, or
+                a fish-based tare or dashi (bonito and niboshi are common). Vegan ramen excludes all animal
+                products, full stop. So a vegetarian bowl is not automatically vegan, and a bowl that looks
+                plant-based may still use a fish-derived seasoning. If you are strictly vegan, use the dedicated
+                vegan filter and still confirm.
+              </p>
+            ),
+          },
+          {
+            h2: 'What to ask before you order',
+            body: (
+              <p>
+                Two questions clear up almost everything: “Is the broth made with a vegetable base, or does it
+                use fish or chicken stock?” and “Is the tare or seasoning fish-based?” Many shops make a
+                genuinely vegetarian broth but finish it with a fish tare out of habit, and most kitchens are
+                happy to swap or clarify if you ask. A quick check means you get exactly the bowl you want.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My vegetarian ramen tips"
+        tips={[
+          'Filter to “Vegetarian Options,” then sort by distance for the nearest meat-free bowls.',
+          'Lean toward miso and sesame (tantanmen-style) bowls — they shine without meat.',
+          'Ask whether the broth and the tare are both vegetable-based; fish stock and fish tare are easy to miss.',
+          'Strictly vegan? Use the vegan filter instead and still confirm there are no eggs, dairy, or fish.',
+          'Load up on mushrooms, corn, tofu, and nori to make the bowl hearty and complete.',
+        ]}
+        faqs={[
+          { q: 'What is vegetarian ramen?', a: 'Vegetarian ramen uses a broth made without meat — typically from kombu, shiitake mushrooms, and roasted vegetables — topped with plant-based or egg-based toppings. It can range from light and clear to rich and deeply savory.' },
+          { q: 'Is vegetarian ramen the same as vegan ramen?', a: 'No. Vegetarian ramen may include eggs, dairy, or fish-based tare or dashi. Vegan ramen excludes all animal products. If you need fully vegan, use the vegan filter and confirm with the restaurant.' },
+          { q: 'What makes a good vegetarian ramen broth?', a: 'Deep umami from kombu (kelp), dried shiitake mushrooms, and roasted vegetables, seasoned with miso or soy tare. The best versions rival meat-based broths in richness.' },
+          { q: 'What should I ask before ordering vegetarian ramen?', a: 'Ask whether the broth uses a vegetable base or fish/chicken stock, and whether the tare is fish-based. Many shops use a fish tare by default but will swap or clarify if you ask.' },
+          { q: 'Which ramen styles are best for vegetarians?', a: 'Miso and creamy sesame (tantanmen-style) bowls adapt best to going meat-free, and loaded toppings like mushrooms, corn, tofu, and nori make them hearty and satisfying.' },
+        ]}
+      />
+    </main>
   )
 }
