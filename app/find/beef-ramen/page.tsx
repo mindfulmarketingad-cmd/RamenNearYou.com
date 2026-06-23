@@ -2,127 +2,105 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Beef Ramen Near Me | Find Beef Ramen Restaurants',
-  description: 'Find beef ramen restaurants near you. Rich beef bone broth and wagyu toppings — a hearty, umami-packed bowl. Browse by location, rating, and hours.',
+  title: 'Beef Ramen Near Me | Beef Broth & Gyu Ramen | RamenNearYou',
+  description: 'Find beef ramen near you — rich beef-bone broths, beef chashu, and Lanzhou-style beef noodle soup. What beef ramen is and how to find a great bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/beef-ramen' },
   openGraph: {
     title: 'Beef Ramen Near Me',
-    description: 'Find beef ramen near you — rich beef broth bowls and wagyu toppings.',
+    description: 'Find rich beef-broth ramen and beef noodle soup near you.',
     url: 'https://www.ramennearyou.com/find/beef-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is beef ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Beef ramen uses a beef-based broth — made from beef bones, oxtail, or marrow — seasoned with soy or salt. Richer and darker than chicken-based ramen, with deep umami flavor similar to a high-end pho.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is beef ramen the same as pho?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'No — pho uses rice noodles and Vietnamese spices; beef ramen uses wheat noodles and Japanese seasoning. Both use long-simmered beef broth. Beef ramen tends to have a richer, more fatty broth than most pho.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What toppings come with beef ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Common beef ramen toppings include thinly sliced beef, wagyu, braised short rib, sukiyaki beef, soft-boiled egg, menma, and nori. Some shops add a drizzle of black garlic oil for depth.',
-      },
-    },
-  ],
-}
-
 export default function BeefRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            pageTitle="Beef Ramen Near Me"
-            pageDescription="Find ramen restaurants serving beef broth and beef toppings near you. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Beef Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Beef ramen is less common than pork or chicken-based styles but delivers some of the
-              deepest, most complex broth flavors available. The richest versions use beef bones —
-              knuckles, marrow bones, or oxtail — simmered for 12 hours or more to extract their
-              full collagen and fat content. The result is a dark, unctuous broth with a beefy depth
-              that rivals the best pho broths.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Toppings vary widely: thinly sliced chashu-style beef, wagyu, braised short rib, or
-              sukiyaki-style beef are all common. Some shops blend beef into a tonkotsu base for
-              richness without the full beefy flavor. If you love pho but want ramen noodles, beef
-              ramen is the crossover bowl you have been looking for.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is beef ramen?',
-                  a: 'Beef ramen uses a beef-based broth — made from beef bones, oxtail, or marrow — seasoned with soy or salt. Richer and darker than chicken-based ramen, with deep umami flavor similar to a high-end pho.',
-                },
-                {
-                  q: 'Is beef ramen the same as pho?',
-                  a: 'No — pho uses rice noodles and Vietnamese spices; beef ramen uses wheat noodles and Japanese seasoning. Both use long-simmered beef broth. Beef ramen tends to have a richer, more fatty broth than most pho.',
-                },
-                {
-                  q: 'What toppings come with beef ramen?',
-                  a: 'Common beef ramen toppings include thinly sliced beef, wagyu, braised short rib, sukiyaki beef, soft-boiled egg, menma, and nori. Some shops add a drizzle of black garlic oil for depth.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          pageTitle="Beef Ramen Near Me"
+          pageDescription="Find ramen restaurants serving beef broth and beef toppings near you. Enter your ZIP or use your location to sort by distance."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/beef-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/beef-ramen"
+        heading="How I Track Down Great Beef Ramen Near Me"
+        intro={[
+          'Beef ramen is a little less common than pork or chicken, which makes finding a great one all the more satisfying. From rich beef-bone broths to thinly sliced beef chashu to the legendary Lanzhou beef noodle soup, there is a whole world of beefy bowls out there. The map above helps you find ramen near you — enter your ZIP or use your location and look for the beef-forward spots.',
+          'Because “beef ramen” spans a few different traditions, it helps to know what you are looking for. Here is how I think about the styles and how to spot the good ones.',
+        ]}
+        sections={[
+          {
+            h2: 'The different kinds of beef ramen',
+            body: (
+              <p>
+                Beef shows up in ramen in a few ways. Some Japanese shops build a beef-bone broth (gyukotsu)
+                that is rich and deeply savory, a cousin to pork tonkotsu. Others keep a lighter broth but pile
+                on thin-sliced beef or beef chashu as the star topping. And then there is Lanzhou beef noodle
+                soup — a Chinese hand-pulled-noodle tradition with a clear, aromatic, spiced beef broth that is
+                a world-class bowl in its own right.
+              </p>
+            ),
+            points: [
+              { h3: 'Beef-bone broth (gyukotsu)', text: 'Rich and savory like tonkotsu but made from beef bones — less common and worth seeking out.' },
+              { h3: 'Beef-topped bowls', text: 'A lighter base broth with thin-sliced beef or beef chashu as the showpiece topping.' },
+              { h3: 'Lanzhou beef noodle soup', text: 'Hand-pulled noodles in a clear, spiced beef broth — a distinct Chinese tradition many noodle shops serve.' },
+            ],
+          },
+          {
+            h2: 'How to find the beefy bowls',
+            body: (
+              <p>
+                Since beef is a less standardized category, I open listings and skim the menu and photos to spot
+                beef broths and beef toppings. Shops with “Lanzhou” or hand-pulled noodles in the name are a
+                reliable bet for beef noodle soup. If you want a specific beef bowl, the restaurant’s own menu
+                link on each listing is the fastest way to confirm before you go.
+              </p>
+            ),
+          },
+          {
+            h2: 'How I order beef ramen',
+            body: (
+              <p>
+                For a rich bowl I go for a beef-bone broth with extra beef chashu and a soft egg. For something
+                cleaner and aromatic, Lanzhou beef noodle soup is hard to beat — ask for your preferred noodle
+                thickness, since hand-pulled shops often let you choose. Either way, a squeeze of chili oil and
+                some fresh scallion finishes it perfectly.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My beef ramen tips"
+        tips={[
+          'Open listings and skim menus and photos to spot beef broths and beef toppings.',
+          'Shops with “Lanzhou” or hand-pulled noodles are a reliable bet for beef noodle soup.',
+          'For richness, look for a beef-bone (gyukotsu) broth and add extra beef chashu.',
+          'At hand-pulled shops, choose your noodle thickness — many let you customize.',
+          'Finish with chili oil and fresh scallion to round out the bowl.',
+        ]}
+        faqs={[
+          { q: 'What is beef ramen?', a: 'Beef ramen covers bowls built on beef-bone broth (gyukotsu), lighter broths topped with sliced beef or beef chashu, and Chinese-style Lanzhou beef noodle soup with hand-pulled noodles in a spiced beef broth.' },
+          { q: 'Is beef ramen common?', a: 'It is less common than pork or chicken in Japanese ramen, but beef-topped bowls and Lanzhou beef noodle soup are widely available, especially at hand-pulled-noodle shops.' },
+          { q: 'What is Lanzhou beef noodle soup?', a: 'A famous Chinese dish of hand-pulled noodles in a clear, aromatic, spiced beef broth, often topped with sliced beef, radish, chili oil, and cilantro. Many noodle shops serve it.' },
+          { q: 'How do I find beef ramen near me?', a: 'Use the map above to find ramen nearby, then open listings to check menus and photos for beef broths and toppings. Shops with hand-pulled or Lanzhou noodles are a good starting point.' },
+          { q: 'What should I order at a beef noodle shop?', a: 'Try the beef-bone broth with extra beef chashu for richness, or Lanzhou beef noodle soup for something cleaner and aromatic. Choose your noodle thickness where offered, and add chili oil.' },
+        ]}
+      />
+    </main>
   )
 }

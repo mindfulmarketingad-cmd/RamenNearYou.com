@@ -2,125 +2,106 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Tonkotsu Ramen Near Me | Find Tonkotsu Ramen Restaurants',
-  description: 'Find tonkotsu ramen restaurants near you. Rich, creamy pork bone broth — browse spots by location, rating, and hours.',
+  title: 'Tonkotsu Ramen Near Me | Rich Pork-Bone Ramen | RamenNearYou',
+  description: 'Find tonkotsu ramen near you — the rich, creamy pork-bone broth from Hakata. What real tonkotsu tastes like, how to order it, and how to spot the good stuff.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/tonkotsu-ramen' },
   openGraph: {
     title: 'Tonkotsu Ramen Near Me',
-    description: 'Find tonkotsu ramen restaurants near you — rich, creamy pork bone broth.',
+    description: 'Find rich, creamy tonkotsu (pork-bone) ramen near you.',
     url: 'https://www.ramennearyou.com/find/tonkotsu-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is tonkotsu ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Tonkotsu ramen has a thick, milky broth made from pork bones simmered for 12 hours or more. It is rich, creamy, and deeply savory — typically topped with chashu pork, soft-boiled egg, nori, and bamboo shoots.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the difference between tonkotsu and other ramen broths?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Tonkotsu is pork-bone based and very rich. Shoyu is soy-sauce based and lighter. Miso uses fermented soybean paste for an earthy, slightly sweet flavor. Shio (salt) is the lightest and most delicate.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is tonkotsu ramen spicy?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Traditional tonkotsu is not spicy — it is rich and savory. Many restaurants offer a spicy tonkotsu option with chili paste or oil added. Ask your server about heat level options.',
-      },
-    },
-  ],
-}
-
 export default function TonkotsuRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialBowls={['tonkotsu']}
-            pageTitle="Tonkotsu Ramen Near Me"
-            pageDescription="Showing restaurants with tonkotsu ramen — rich, creamy pork bone broth. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              About Tonkotsu Ramen
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Tonkotsu is the king of ramen broths. Made from pork bones simmered for 12 or more
-              hours, the broth turns thick, milky, and intensely savory. Originating in Fukuoka,
-              Japan, tonkotsu has become the most popular ramen style in the United States.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              Classic toppings include chashu pork belly, a soft-boiled marinated egg (ajitama),
-              nori seaweed, green onions, bamboo shoots, and black garlic oil. The noodles are
-              typically thin and straight to hold up against the rich broth.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is tonkotsu ramen?',
-                  a: 'Tonkotsu has a thick, milky broth made from pork bones simmered for 12+ hours. Rich, creamy, and deeply savory — typically topped with chashu pork, soft-boiled egg, nori, and bamboo shoots.',
-                },
-                {
-                  q: 'What is the difference between tonkotsu and other ramen broths?',
-                  a: 'Tonkotsu is pork-bone based and very rich. Shoyu is soy-sauce based and lighter. Miso uses fermented soybean paste. Shio (salt) is the lightest and most delicate.',
-                },
-                {
-                  q: 'Is tonkotsu ramen spicy?',
-                  a: 'Traditional tonkotsu is not spicy — it is rich and savory. Many restaurants offer a spicy tonkotsu variation with chili paste or oil. Ask your server.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialBowls={['tonkotsu']}
+          pageTitle="Tonkotsu Ramen Near Me"
+          pageDescription="Showing tonkotsu (pork-bone) ramen near you. Enter your ZIP or use your location to find a rich, creamy bowl nearby."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/tonkotsu-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/tonkotsu-ramen"
+        heading="My Guide to Finding Real Tonkotsu Ramen Near Me"
+        intro={[
+          'Tonkotsu is the bowl that made me fall in love with ramen — that rich, creamy, milky-white pork broth that coats every noodle and stays with you. The map above is filtered to tonkotsu ramen near you, so you can skip straight to the good stuff. Enter your ZIP or use your location and the closest spots sort to the top.',
+          'Great tonkotsu is a labor of love, and not every bowl labeled “tonkotsu” lives up to it. Here is what the style actually is, how to recognize a serious version, and exactly how I order it.',
+        ]}
+        sections={[
+          {
+            h2: 'What tonkotsu actually is',
+            body: (
+              <p>
+                Tonkotsu means “pork bone,” and that is the whole secret. The bones are boiled hard for 12 to 18
+                hours until the collagen and marrow break down into a thick, opaque, almost creamy broth. It
+                originated in Fukuoka (Hakata) on the island of Kyushu and is traditionally served with thin,
+                firm, straight noodles and slices of chashu pork. Done right, it is rich without being greasy —
+                deeply porky, savory, and a little sweet.
+              </p>
+            ),
+            points: [
+              { h3: 'The broth', text: 'Milky-white and full-bodied from long-simmered pork bones — the texture should coat the noodles, not sit thin and watery.' },
+              { h3: 'The noodles', text: 'Classic Hakata style uses thin, firm, straight noodles, often cooked to order at your chosen firmness (“katame” for extra firm).' },
+              { h3: 'The toppings', text: 'Chashu pork, wood-ear mushroom, scallion, and often a soft marinated egg. Many shops let you add extra noodles (kaedama) to finish the broth.' },
+            ],
+          },
+          {
+            h2: 'How to spot great tonkotsu',
+            body: (
+              <p>
+                The tell is the broth’s body. A serious tonkotsu has real weight and cling — you can see it
+                coating the side of the bowl — because it was simmered for the better part of a day. Thin,
+                pale, or oily-on-top broth usually means a shortcut. I also look for shops that specialize in
+                tonkotsu rather than offering ten broths; the focused kitchens almost always nail it.
+              </p>
+            ),
+          },
+          {
+            h2: 'How I order my tonkotsu',
+            body: (
+              <p>
+                If the shop cooks noodles to order, I ask for them firm (katame) so they hold up in the rich
+                broth. I add a soft egg and extra chashu, and if there is a kaedama option, I order a second
+                round of noodles to finish the broth at the end. A little extra garlic or the chili oil on the
+                counter takes it over the top.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My tonkotsu ordering tips"
+        tips={[
+          'Filter to “Tonkotsu,” then sort by distance for the nearest creamy bowl.',
+          'Favor shops that specialize in tonkotsu — focused kitchens nail the long-simmered broth.',
+          'Ask for firm noodles (katame) so they hold up in the rich broth.',
+          'Add a soft egg and extra chashu, and order kaedama (extra noodles) to finish the broth.',
+          'Stack “Top Rated” to find the best-reviewed tonkotsu near you.',
+        ]}
+        faqs={[
+          { q: 'What is tonkotsu ramen?', a: 'Tonkotsu is ramen built on a rich, creamy broth made by simmering pork bones for 12 to 18 hours until the collagen breaks down into a milky stock. It originated in Fukuoka (Hakata) and is served with thin, firm noodles and chashu pork.' },
+          { q: 'Is tonkotsu ramen pork?', a: 'Yes — “tonkotsu” literally means pork bone. The broth is made entirely from pork bones and the bowl is usually topped with chashu pork, so it is not vegetarian unless a shop offers a plant-based version.' },
+          { q: 'How do I find tonkotsu ramen near me?', a: 'The map above is filtered to tonkotsu. Enter your ZIP or tap “Use my location” to sort the closest bowls by distance, then open a listing for hours, photos, and directions.' },
+          { q: 'How can I tell if tonkotsu is good?', a: 'Look for a broth with real body that coats the bowl — the result of a long simmer. Thin, pale, or oily-topped broth signals a shortcut. Shops that specialize in tonkotsu usually do it best.' },
+          { q: 'What does “katame” and “kaedama” mean?', a: 'Katame means firm noodles, ideal for holding up in rich tonkotsu. Kaedama is an extra portion of noodles you can order to finish your remaining broth — a Hakata tradition.' },
+        ]}
+      />
+    </main>
   )
 }

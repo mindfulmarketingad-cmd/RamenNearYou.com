@@ -2,125 +2,105 @@ import type { Metadata } from 'next'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import FindCrossLinks from '@/components/find-cross-links'
+import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Vegan Ramen Near Me | Find Vegan Ramen Restaurants',
-  description: 'Find vegan ramen restaurants near you. Plant-based broths, rich umami flavor — browse by location, rating, and hours.',
+  title: 'Vegan Ramen Near Me | Plant-Based Ramen | RamenNearYou',
+  description: 'Find vegan ramen near you — fully plant-based broths and toppings with serious umami. What makes great vegan ramen, what to ask, and how it differs from vegetarian.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/vegan-ramen' },
   openGraph: {
     title: 'Vegan Ramen Near Me',
-    description: 'Find vegan ramen restaurants near you — plant-based broths with rich umami flavor.',
+    description: 'Find fully plant-based vegan ramen near you.',
     url: 'https://www.ramennearyou.com/find/vegan-ramen',
     siteName: 'RamenNearYou',
     type: 'website',
   },
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is vegan ramen made of?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Vegan ramen uses a plant-based broth — often made from kombu (kelp), shiitake mushrooms, miso, or vegetables — instead of pork or chicken. Toppings typically include roasted tofu, bamboo shoots, corn, nori, and green onions.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is vegan ramen as flavorful as traditional ramen?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. The best vegan ramen spots build deep umami flavor through mushrooms, kombu, soy, and miso. Many people find vegan ramen just as satisfying as pork-based broths.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Are the noodles in ramen vegan?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Traditional ramen noodles are made from wheat flour, water, and kansui (alkaline salts) — typically vegan. However, some restaurants add egg to their noodles, so always confirm with your server.',
-      },
-    },
-  ],
-}
-
 export default function VeganRamenPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
-        <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialBowls={['vegan']}
-            pageTitle="Vegan Ramen Near Me"
-            pageDescription="Showing restaurants with vegan ramen options. Enter your ZIP or use your location to sort by distance."
-          />
-        </ErrorBoundary>
-
-        <div className="relative z-10 bg-white">
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
-              Finding Vegan Ramen Near You
-            </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Great vegan ramen is easier to find than ever. The best plant-based bowls build
-              deep umami from kombu, dried shiitake mushrooms, miso paste, and roasted vegetables.
-              The result is a broth that is every bit as satisfying as a traditional pork-based tonkotsu.
-            </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
-              The map above is pre-filtered to show restaurants that offer vegan ramen options.
-              Always confirm with the restaurant that toppings — and the noodles themselves — meet
-              your dietary requirements.
-            </p>
-
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'What is vegan ramen made of?',
-                  a: 'Vegan ramen uses plant-based broth — often kombu, shiitake mushrooms, miso, or vegetables. Toppings typically include roasted tofu, bamboo shoots, corn, nori, and green onions.',
-                },
-                {
-                  q: 'Is vegan ramen as flavorful as traditional ramen?',
-                  a: 'Yes. The best vegan spots build deep umami through mushrooms, kombu, soy, and miso. Many people find it just as satisfying as pork-based broths.',
-                },
-                {
-                  q: 'Are ramen noodles vegan?',
-                  a: 'Traditional noodles are made from wheat, water, and kansui — typically vegan. Some restaurants add egg to their noodles, so always confirm with your server.',
-                },
-              ].map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
-                    {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
-                  </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
-                </details>
-              ))}
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <ErrorBoundary
+        fallback={
+          <section className="pt-16 bg-[#F5F4F0]">
+            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
             </div>
           </section>
+        }
+      >
+        <HomeMapHero
+          initialBowls={['vegan']}
+          pageTitle="Vegan Ramen Near Me"
+          pageDescription="Showing vegan ramen near you. Enter your ZIP or use your location to find a fully plant-based bowl nearby."
+        />
+      </ErrorBoundary>
 
-          <FindCrossLinks currentHref="/find/vegan-ramen" />
-          <Footer />
-        </div>
-      </main>
-    </>
+      <FindPageContent
+        currentHref="/find/vegan-ramen"
+        heading="How I Find Genuinely Great Vegan Ramen Near Me"
+        intro={[
+          'Vegan ramen has gone from an afterthought to some of the most exciting bowls being made — kitchens are coaxing incredible depth out of mushrooms, kombu, and miso with no animal products at all. The map above is filtered to vegan ramen near you; enter your ZIP or use your location to find the closest plant-based bowl.',
+          'The catch is that “vegan” needs to be verified in a ramen kitchen, where fish and pork sneak into broths and seasonings by default. Here is what makes a great vegan bowl and exactly what to confirm before you order.',
+        ]}
+        sections={[
+          {
+            h2: 'What makes great vegan ramen',
+            body: (
+              <p>
+                The whole game is building umami without animal products, and the best vegan kitchens do it
+                brilliantly. A deep broth comes from kombu (kelp), dried shiitake mushrooms, roasted vegetables,
+                soy, and miso, layered until it is every bit as savory and satisfying as a traditional bowl.
+                Creamy styles use sesame or soy milk for body, and the result can genuinely rival a meat-based ramen.
+              </p>
+            ),
+            points: [
+              { h3: 'Mushroom and kombu broth', text: 'Shiitake and kelp deliver the deep, savory backbone that meat usually provides — the foundation of great vegan ramen.' },
+              { h3: 'Miso and sesame', text: 'Vegan miso and creamy sesame (tantanmen-style) bowls are naturally suited to plant-based cooking and tend to be the most satisfying.' },
+              { h3: 'Toppings with substance', text: 'Marinated mushrooms, tofu, corn, bamboo shoots, greens, and nori make the bowl hearty and complete.' },
+            ],
+          },
+          {
+            h2: 'Vegan vs. vegetarian — verify it',
+            body: (
+              <p>
+                Vegan means zero animal products, full stop — and that is stricter than it sounds in a ramen
+                shop. A broth that looks plant-based may be finished with a fish tare (bonito or niboshi), and
+                toppings like a soft egg or a pat of butter make a bowl vegetarian but not vegan. So even on a
+                vegan-filtered list, I confirm the specific bowl is fully plant-based before ordering.
+              </p>
+            ),
+          },
+          {
+            h2: 'What to ask before ordering',
+            body: (
+              <p>
+                Two questions cover it: “Is the broth and the tare entirely plant-based, with no fish or chicken
+                stock?” and “Are all the toppings vegan — no egg, no butter, no mayo?” Most shops that offer a
+                vegan bowl have thought this through and will answer confidently. A quick check means you get a
+                bowl you can fully enjoy.
+              </p>
+            ),
+          },
+        ]}
+        tipsHeading="My vegan ramen tips"
+        tips={[
+          'Filter to “Vegan,” then sort by distance for the nearest plant-based bowl.',
+          'Lean toward vegan miso and sesame (tantanmen-style) bowls — they shine without animal products.',
+          'Confirm both the broth and the tare are plant-based; a fish tare is the most common hidden catch.',
+          'Check toppings too — egg and butter make a bowl vegetarian but not vegan.',
+          'Load up on mushrooms, tofu, corn, and greens to make the bowl hearty and complete.',
+        ]}
+        faqs={[
+          { q: 'What is vegan ramen?', a: 'Vegan ramen is a fully plant-based bowl — no meat, fish, egg, or dairy. The broth builds umami from kombu, shiitake mushrooms, roasted vegetables, soy, and miso, and can be every bit as savory as a traditional bowl.' },
+          { q: 'Is vegan ramen the same as vegetarian ramen?', a: 'No. Vegetarian ramen may include egg, dairy, or a fish-based tare. Vegan excludes all animal products. Always confirm the specific bowl is fully plant-based, even on a vegan-filtered list.' },
+          { q: 'What makes a good vegan ramen broth?', a: 'Deep umami from kombu (kelp), dried shiitake mushrooms, and roasted vegetables, seasoned with soy and miso. Creamy versions use sesame or soy milk for body.' },
+          { q: 'What should I ask to confirm ramen is vegan?', a: 'Ask whether the broth and tare are entirely plant-based with no fish or chicken stock, and whether all toppings are vegan — no egg, butter, or mayo. A fish tare is the most common hidden ingredient.' },
+          { q: 'How do I find vegan ramen near me?', a: 'The map above is filtered to vegan. Enter your ZIP or tap “Use my location” to sort the closest plant-based bowls by distance, then confirm the details with the shop.' },
+        ]}
+      />
+    </main>
   )
 }
