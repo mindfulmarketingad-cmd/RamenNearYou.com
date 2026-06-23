@@ -46,6 +46,7 @@ export const FIND_PAGES = [
   { href: '/find/ramen-hidden-gems', label: 'Hidden Gem Ramen Near Me', emoji: '💎' },
   { href: '/find/ramen-open-early', label: 'Ramen Open Early Near Me', emoji: '☕' },
   { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me', emoji: '📆' },
+  { href: '/find/hand-pulled-ramen', label: 'Hand Pulled Ramen Near Me', emoji: '🍜' },
 ]
 
 interface Props {

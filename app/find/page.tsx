@@ -97,6 +97,7 @@ const CATEGORIES = [
       { href: '/find/tantanmen', label: 'Tantanmen Near Me' },
       { href: '/find/thick-noodle-ramen', label: 'Thick Noodle Ramen Near Me' },
       { href: '/find/thin-noodle-ramen', label: 'Thin Noodle Ramen Near Me' },
+      { href: '/find/hand-pulled-ramen', label: 'Hand Pulled Ramen Near Me' },
       { href: '/find/rich-ramen', label: 'Rich & Creamy Ramen Near Me' },
       { href: '/find/light-ramen', label: 'Light & Clean Ramen Near Me' },
     ],
