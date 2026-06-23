@@ -35,6 +35,39 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
     return (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
   })
 
+  // Per-page facts so the editorial copy is unique to this broth + city.
+  const topSpot = sorted[0]
+  const brothLower = config.broth.toLowerCase()
+
+  const faqs: { q: string; a: string }[] = [
+    {
+      q: `Where is the best ${brothLower} ramen in ${cityName}, ${stateCode}?`,
+      a: topSpot
+        ? `${topSpot.name} is one of the top-rated spots for ${brothLower} ramen in ${cityName}${topSpot.rating ? ` at ${topSpot.rating.toFixed(1)} stars` : ''}. Use the map above to compare it with nearby options by rating and distance, then check recent reviews and photos before you go.`
+        : `Use the map above to find ${brothLower} ramen in ${cityName}, ${stateCode}, sorted by rating and distance.`,
+    },
+    {
+      q: `How many ${brothLower} ramen spots are in ${cityName}?`,
+      a: restaurants.length > 0
+        ? `We list ${restaurants.length} ${brothLower} ramen ${restaurants.length === 1 ? 'spot' : 'spots'} in ${cityName}, ${stateCode}. Set your location to sort them by distance.`
+        : `We are still adding ${brothLower} ramen spots in ${cityName} — use the map to find the nearest options.`,
+    },
+    {
+      q: `What should I look for in good ${brothLower} ramen?`,
+      a: `Favor shops that specialize in ${brothLower} ramen, look for a broth with real depth and noodles with genuine bite, and trust a strong rating that holds up across many reviews. Skim the most recent reviews and photos to confirm.`,
+    },
+  ]
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
   const scrollMapCards: MapCard[] = sorted.slice(0, 30).map((r, i) => ({
     rank: i + 1,
     slug: r.slug,
@@ -161,6 +194,51 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
             Explore {config.broth.toLowerCase()} ramen nationwide
             <ChevronRight className="w-4 h-4" />
           </Link>
+        </div>
+      </section>
+
+      {/* First-person guidance + FAQ (unique per broth + city) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">
+            How I find the best {brothLower} ramen in {cityName}
+          </h2>
+          <p className="text-[#6B6862] leading-relaxed mb-4">
+            When I want {brothLower} ramen in {cityName}, I start with the map above — it is focused on{' '}
+            {brothLower} bowls and sorts the closest ones to the top once you drop in your ZIP or use your
+            location.{' '}
+            {topSpot
+              ? `Right now ${topSpot.name} is one of the highest-rated picks${topSpot.rating ? ` at ${topSpot.rating.toFixed(1)} stars` : ''}, but I still open a couple of listings and read the latest reviews before deciding.`
+              : `I open a couple of listings and read the latest reviews and photos before deciding.`}
+          </p>
+          <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">My quick checklist</h3>
+          <ul className="space-y-2.5 mb-4">
+            {[
+              `Favor shops that specialize in ${brothLower} ramen — focus usually means a better bowl.`,
+              'Trust a strong rating that holds up across many reviews over a perfect score from a few.',
+              'Skim the most recent reviews and photos; the bowl that looks carefully made usually is.',
+              'Set your location to sort by distance so you never trade quality for a long drive.',
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
+                <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="font-serif text-xl font-bold text-[#1E2026] mb-4 mt-8">Frequently asked questions</h3>
+          <div className="space-y-4">
+            {faqs.map(({ q, a }) => (
+              <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                  {q}
+                  <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
