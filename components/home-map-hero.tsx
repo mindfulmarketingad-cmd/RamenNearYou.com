@@ -74,6 +74,8 @@ interface HomeMapHeroProps {
   initialQuery?: string
   pageTitle?: string
   pageDescription?: string
+  // When set, the map fetches and draws this city's boundary outline (Zillow-style).
+  regionBoundary?: { cityName: string; stateName: string; citySlug: string; stateSlug: string }
 }
 
 export default function HomeMapHero({
@@ -85,6 +87,7 @@ export default function HomeMapHero({
   initialQuery = '',
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
+  regionBoundary,
 }: HomeMapHeroProps) {
   // Slim dataset — fetched after mount so the 25 MB source never ships in the bundle.
   const [data, setData] = useState<MapPoint[]>([])
@@ -113,6 +116,26 @@ export default function HomeMapHero({
   const [searchSaved, setSearchSaved] = useState(false)
 
   const [saves, setSaves] = useState<Set<string>>(new Set())
+
+  // City boundary outline (Zillow-style) — fetched once for city pages.
+  const [boundary, setBoundary] = useState<unknown | null>(null)
+
+  // Live "members searching now" count — slowly drifts between 20 and 24.
+  // Starts at a fixed value so SSR and first client render match (no hydration
+  // mismatch); the random walk only begins after mount.
+  const [searchingNow, setSearchingNow] = useState(22)
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>
+    const tick = () => {
+      setSearchingNow(prev => {
+        const step = Math.random() < 0.5 ? -1 : 1
+        return Math.min(24, Math.max(20, prev + step))
+      })
+      timer = setTimeout(tick, 4000 + Math.random() * 4000) // every ~4–8s
+    }
+    timer = setTimeout(tick, 4000 + Math.random() * 4000)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Only mount the Leaflet map on sm+ viewports — initialising Leaflet in a
   // CSS-hidden (display:none) zero-height container on mobile throws and sends
@@ -189,6 +212,19 @@ export default function HomeMapHero({
       if (Array.isArray(slugs)) setSaves(new Set(slugs))
     }).catch(() => {})
   }, [])
+
+  // Fetch the city boundary outline once (city pages only). Cached server-side.
+  useEffect(() => {
+    if (!regionBoundary) { setBoundary(null); return }
+    const { cityName, stateName, citySlug, stateSlug } = regionBoundary
+    const key = `${citySlug}:${stateSlug}`
+    let cancelled = false
+    fetch(`/api/city-boundary?city=${encodeURIComponent(cityName)}&state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(key)}`)
+      .then(r => r.json())
+      .then(d => { if (!cancelled && d?.geojson) setBoundary(d.geojson) })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [regionBoundary])
 
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
@@ -454,6 +490,20 @@ export default function HomeMapHero({
                   <X className="w-3.5 h-3.5" /> Clear
                 </button>
               )}
+            </div>
+
+            {/* Live activity — "members searching now" (social proof) */}
+            <div
+              className="hidden md:flex items-center gap-1.5 shrink-0 mr-1 text-xs font-medium text-[#6B6862]"
+              aria-live="polite"
+              title="Members browsing the ramen map right now"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="tabular-nums text-[#1E2026] font-semibold">{searchingNow}</span>
+              <span>members searching now</span>
             </div>
 
             {/* Save Search — pinned to the right outside the scrollable area */}
@@ -725,6 +775,7 @@ export default function HomeMapHero({
               centerLatLng={geocodedCenter}
               userLocation={userPos}
               accentColor={accentColor}
+              boundary={boundary}
             />
           )}
 

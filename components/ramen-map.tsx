@@ -128,14 +128,17 @@ interface Props {
   accentColor?: string
   heatmap?: boolean
   visitedSlugs?: Set<string>
+  boundary?: unknown | null   // GeoJSON Polygon/MultiPolygon — city outline (Zillow-style)
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
   const ratingsRef = useRef<Record<string, number | null>>({})
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
+  const boundaryRef = useRef<L.GeoJSON | null>(null)
+  const userCircleRef = useRef<L.Circle | null>(null)
   const [ready, setReady] = useState(false)
 
   // Inject bounce CSS once
@@ -164,7 +167,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       .addTo(map)
       .bindPopup('<b>Your location</b>')
 
-    L.circle([userLat, userLng], {
+    userCircleRef.current = L.circle([userLat, userLng], {
       radius: 32187,
       color: '#B57F50',
       fillColor: '#B57F50',
@@ -252,6 +255,41 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     group.addTo(map)
     heatLayerRef.current = group
   }, [ready, heatmap, restaurants, onSelect])
+
+  // City boundary outline (Zillow-style). Draws a blue polygon and fits the map
+  // to it; hides the default radius circle so the view stays clean.
+  useEffect(() => {
+    if (!ready || !mapRef.current) return
+    const map = mapRef.current
+
+    if (boundaryRef.current) { boundaryRef.current.remove(); boundaryRef.current = null }
+    if (!boundary) {
+      // No boundary → restore the radius circle if it was hidden.
+      if (userCircleRef.current && !map.hasLayer(userCircleRef.current)) userCircleRef.current.addTo(map)
+      return
+    }
+
+    try {
+      const layer = L.geoJSON(boundary as Parameters<typeof L.geoJSON>[0], {
+        style: {
+          color: '#2563eb',
+          weight: 2.5,
+          opacity: 0.9,
+          fillColor: '#2563eb',
+          fillOpacity: 0.05,
+        },
+        interactive: false,
+      })
+      layer.addTo(map)
+      boundaryRef.current = layer
+      // The city outline replaces the generic radius circle.
+      if (userCircleRef.current) userCircleRef.current.remove()
+      const b = layer.getBounds()
+      if (b.isValid()) map.fitBounds(b, { padding: [24, 24] })
+    } catch {
+      // Malformed geometry — fail silently and keep the default view.
+    }
+  }, [ready, boundary])
 
   // Bounds emit + center callback on user drag
   useEffect(() => {

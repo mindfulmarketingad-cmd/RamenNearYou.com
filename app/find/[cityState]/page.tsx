@@ -183,6 +183,7 @@ export default async function CityFindPage(
         <ErrorBoundary fallback={null}>
           <HomeMapHero
             initialCenter={{ lat, lng }}
+            regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
             pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
             pageDescription={`Find ramen restaurants in ${cityName}, ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
           />
