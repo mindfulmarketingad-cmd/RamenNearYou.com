@@ -527,46 +527,56 @@ export default function HomeMapHero({
       {/* Expandable full filter panel */}
       {showFilters && (
         <div className="border-t border-black/8 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 space-y-3">
-            <div>
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
-                <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Instant Bowl Finder</span>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+            {/* Panel header */}
+            <div className="flex items-center justify-between pb-3 mb-1 border-b border-black/8">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-[#B57F50]" />
+                <h3 className="text-sm font-bold text-[#1E2026]">Filters</h3>
+                {activeCount > 0 && (
+                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+                )}
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {BOWL_META.map(b => (
-                  <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requireAccess()) return; toggleBowl(b.key) }} />
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#B57F50]" />
-                <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Mood</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {MOOD_META.map(m => (
-                  <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requireAccess()) return; toggleMood(m.key) }} />
-                ))}
+              <div className="flex items-center gap-1">
+                {activeCount > 0 && (
+                  <button onClick={clearAll} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] transition-colors">
+                    <X className="w-3.5 h-3.5" /> Clear all
+                  </button>
+                )}
+                <button onClick={() => setShowFilters(false)} className="px-3 py-1.5 rounded-full bg-[#1E2026] text-white text-xs font-semibold hover:bg-black transition-colors">
+                  Done
+                </button>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-1">
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <span className="text-[#B57F50] text-xs font-bold">$</span>
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Price</span>
+            {/* Grouped filter sections */}
+            <div className="divide-y divide-black/8">
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Instant Bowl Finder</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {PRICE_META.map(p => (
-                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requireAccess()) return; togglePrice(p.key) }} />
+                  {BOWL_META.map(b => (
+                    <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requireAccess()) return; toggleBowl(b.key) }} />
                   ))}
                 </div>
-              </div>
+              </section>
 
-              <div className="flex-1">
-                <div className="flex items-center gap-1.5 mb-1.5">
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Sparkles className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Mood</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {MOOD_META.map(m => (
+                    <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requireAccess()) return; toggleMood(m.key) }} />
+                  ))}
+                </div>
+              </section>
+
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
                   <Clock className="w-3.5 h-3.5 text-[#B57F50]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
@@ -579,19 +589,31 @@ export default function HomeMapHero({
                   <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requireAccess()) return; toggleFlag('top-rated') }} />
                   <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requireAccess()) return; toggleFlag('hidden-gems') }} />
                 </div>
-              </div>
-            </div>
+              </section>
 
-            <div>
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#B57F50]" />
-                <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Features &amp; Amenities</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {FEATURE_META.map(f => (
-                  <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requireAccess()) return; toggleFlag(f.key) }} />
-                ))}
-              </div>
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <span className="text-[#B57F50] text-xs font-bold w-3.5 text-center">$</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Price</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {PRICE_META.map(p => (
+                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requireAccess()) return; togglePrice(p.key) }} />
+                  ))}
+                </div>
+              </section>
+
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Heart className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Features &amp; Amenities</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {FEATURE_META.map(f => (
+                    <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requireAccess()) return; toggleFlag(f.key) }} />
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -727,14 +749,12 @@ export default function HomeMapHero({
                         >
                           Order Now
                         </button>
-                        {!isSupp && (
-                          <button
-                            onClick={e => { e.stopPropagation(); window.location.href = `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}` }}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
-                          >
-                            Claim Listing
-                          </button>
-                        )}
+                        <button
+                          onClick={e => { e.stopPropagation(); window.location.href = '/claim-your-listing' }}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                        >
+                          Claim Listing
+                        </button>
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}

@@ -725,7 +725,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   ))}
                 </ul>
                 <Link
-                  href={`/claim/${city}/${state}/${restaurant}`}
+                  href="/claim-your-listing"
                   className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-white text-[#9a6b42] font-bold text-sm hover:bg-white/90 transition-colors"
                 >
                   Claim This Listing →

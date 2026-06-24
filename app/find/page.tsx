@@ -161,6 +161,14 @@ export default function FindHubPage() {
           Browse ramen restaurants filtered by what you need right now.
         </p>
 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://www.downtoearth.org/sites/default/files/styles/max_800x800/public/images/blog/Ramen.jpg?itok=dmLVfPas"
+          alt="A bowl of ramen topped with chashu, soft-boiled egg, nori, and scallions"
+          className="w-full h-48 sm:h-64 object-cover rounded-2xl mb-8"
+          loading="lazy"
+        />
+
         <FindHubSearch
           categories={CATEGORIES}
           cityPagesByState={cityPagesByState}

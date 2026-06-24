@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
@@ -59,6 +60,38 @@ export default function HomePage() {
         <div className="relative z-10 bg-white">
           <StatsBar />
           <FilterShowcase />
+
+          {/* Editorial image band */}
+          <section className="bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+              <div className="relative rounded-3xl overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.savvytokyo.com/app/uploads/2021/05/iStock-1007793982.jpg"
+                  alt="A steaming bowl of authentic Japanese ramen with chashu, egg, and scallions"
+                  className="w-full h-[280px] sm:h-[400px] object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent flex items-center">
+                  <div className="px-6 sm:px-12 max-w-lg">
+                    <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+                      Slurp your way to the perfect bowl
+                    </h2>
+                    <p className="text-white/85 text-sm sm:text-base mb-6 leading-relaxed">
+                      From rich, porky tonkotsu to delicate shio, discover top-rated ramen near you — open now, close by, and exactly your style.
+                    </p>
+                    <Link
+                      href="/find"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                    >
+                      Explore ramen near you →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <NearbyRestaurantsCarousel />
           <FeaturedListings />
 
