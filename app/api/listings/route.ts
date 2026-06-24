@@ -10,46 +10,49 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Name, address, city, and state are required.' }, { status: 400 })
   }
 
-  // Prefer admin client (bypasses RLS), fall back to user session client
-  const adminClient = createAdminClient()
-  const supabase = adminClient ?? await createClient()
+  let dbOk = false
+  let emailOk = false
 
-  if (supabase) {
-    let userId: string | null = null
-    if (!adminClient) {
-      const { data: { user } } = await (supabase as Awaited<ReturnType<typeof createClient>>).auth.getUser()
-      userId = user?.id ?? null
-    } else {
-      const sessionClient = await createClient()
-      if (sessionClient) {
-        const { data: { user } } = await sessionClient.auth.getUser()
-        userId = user?.id ?? null
-      }
+  // 1) Best-effort DB insert. Prefer the admin client (bypasses RLS); fall back
+  //    to the session client. A DB failure here is non-fatal — the email below
+  //    still captures the lead so the submission is never silently lost.
+  try {
+    const adminClient = createAdminClient()
+    const supabase = adminClient ?? await createClient()
+    if (supabase) {
+      let userId: string | null = null
+      try {
+        const sessionClient = adminClient ? await createClient() : supabase
+        if (sessionClient) {
+          const { data: { user } } = await (sessionClient as Awaited<ReturnType<typeof createClient>>).auth.getUser()
+          userId = user?.id ?? null
+        }
+      } catch { /* anonymous submission — no user */ }
+
+      const { error: dbError } = await supabase.from('listings').insert({
+        user_id: userId,
+        name: name.trim(),
+        address: address.trim(),
+        city: city.trim(),
+        state: state.trim(),
+        zip: zip?.trim() || null,
+        phone: phone?.trim() || null,
+        website: website?.trim() || null,
+        description: description?.trim() || null,
+        broth_types: brothTypes?.length ? brothTypes : null,
+        hours: hours?.trim() || null,
+        owner_name: ownerName?.trim() || null,
+        owner_email: ownerEmail?.trim() || null,
+        status: 'pending',
+      })
+      if (dbError) console.error('Listing insert error:', dbError.message)
+      else dbOk = true
     }
-
-    const { error: dbError } = await supabase.from('listings').insert({
-      user_id: userId,
-      name: name.trim(),
-      address: address.trim(),
-      city: city.trim(),
-      state: state.trim(),
-      zip: zip?.trim() || null,
-      phone: phone?.trim() || null,
-      website: website?.trim() || null,
-      description: description?.trim() || null,
-      broth_types: brothTypes?.length ? brothTypes : null,
-      hours: hours?.trim() || null,
-      owner_name: ownerName?.trim() || null,
-      owner_email: ownerEmail?.trim() || null,
-      status: 'pending',
-    })
-
-    if (dbError) {
-      console.error('Listing insert error:', dbError.message)
-      return NextResponse.json({ error: 'Failed to save your submission. Please try again.' }, { status: 500 })
-    }
+  } catch (err) {
+    console.error('Listing insert threw:', err)
   }
 
+  // 2) Email notification — the reliable capture channel.
   if (process.env.RESEND_API_KEY && process.env.ADMIN_EMAIL) {
     try {
       const { Resend } = await import('resend')
@@ -73,12 +76,21 @@ export async function POST(request: Request) {
           </table>
           ${description ? `<h3>Description</h3><p>${description}</p>` : ''}
           <hr />
-          <p style="color:#888;font-size:12px">Review and approve in your Supabase dashboard under the <code>listings</code> table.</p>
+          <p style="color:#888;font-size:12px">Saved to the <code>listings</code> table: ${dbOk ? 'yes' : 'NO (DB insert failed — see logs)'}.</p>
         `,
       })
+      emailOk = true
     } catch (emailErr) {
       console.error('Listing notification email error:', emailErr)
     }
+  }
+
+  // Only fail if the lead was captured nowhere.
+  if (!dbOk && !emailOk) {
+    return NextResponse.json(
+      { error: 'We could not save your submission right now. Please email us directly so we can add your restaurant.' },
+      { status: 500 },
+    )
   }
 
   return NextResponse.json({ ok: true })
