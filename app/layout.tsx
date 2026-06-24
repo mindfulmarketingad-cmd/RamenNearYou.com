@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
-import LocationPrompt from '@/components/location-prompt'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -86,7 +85,6 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white text-[#1E2026]">
         {children}
-        <LocationPrompt />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
