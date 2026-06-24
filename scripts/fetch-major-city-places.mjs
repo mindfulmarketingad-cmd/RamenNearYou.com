@@ -749,6 +749,26 @@ async function main() {
     }
   }
 
+  // ── Global de-duplication ──────────────────────────────────────────────────
+  // Guarantee no listing appears twice: drop any place already in the DB, in the
+  // capital supplements, or already kept under an earlier city param.
+  const seen = new Set()
+  for (const r of restaurants) if (r.placeId) seen.add(r.placeId)
+  for (const arr of Object.values(capitalsData)) {
+    if (Array.isArray(arr)) for (const p of arr) if (p.placeId) seen.add(p.placeId)
+  }
+  let removed = 0
+  for (const param of Object.keys(results)) {
+    const kept = []
+    for (const p of results[param]) {
+      if (!p.placeId || seen.has(p.placeId)) { if (p.placeId) removed++; continue }
+      seen.add(p.placeId)
+      kept.push(p)
+    }
+    results[param] = kept
+  }
+  console.log(`  De-dupe: removed ${removed} duplicate listings`)
+
   writeFileSync(OUT_FILE, JSON.stringify(results, null, 2))
   console.log(`\nDone.`)
   console.log(`  Fetched: ${fetched}`)
