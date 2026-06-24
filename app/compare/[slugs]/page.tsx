@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import { Star, MapPin, Check, X, ExternalLink, ArrowLeftRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -371,10 +372,10 @@ export default async function CompareSlugPage({
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_72px_1fr] gap-4 sm:gap-3 items-stretch mb-6">
             {/* Card A */}
             <div className="bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm flex flex-col">
-              {a.photo && (
+              {safePhotoSrc(a.photo) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <div className="h-44 overflow-hidden">
-                  <img src={a.photo} alt={a.name} className="w-full h-full object-cover" />
+                  <img src={safePhotoSrc(a.photo)!} alt={a.name} className="w-full h-full object-cover" />
                 </div>
               )}
               <div className="p-5 flex flex-col gap-1.5">
@@ -411,10 +412,10 @@ export default async function CompareSlugPage({
 
             {/* Card B */}
             <div className="bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm flex flex-col">
-              {b.photo && (
+              {safePhotoSrc(b.photo) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <div className="h-44 overflow-hidden">
-                  <img src={b.photo} alt={b.name} className="w-full h-full object-cover" />
+                  <img src={safePhotoSrc(b.photo)!} alt={b.name} className="w-full h-full object-cover" />
                 </div>
               )}
               <div className="p-5 flex flex-col gap-1.5">

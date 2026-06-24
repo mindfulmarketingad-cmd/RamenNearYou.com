@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { safePhotoSrc } from '@/lib/photo-guard'
 
 const DEFAULT = '/images/hero-ramen.jpg'
 
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export default function RestaurantImage({ src, alt, fill, sizes, className, priority }: Props) {
-  const [imgSrc, setImgSrc] = useState(src || DEFAULT)
+  const [imgSrc, setImgSrc] = useState(safePhotoSrc(src) || DEFAULT)
 
   return (
     <Image

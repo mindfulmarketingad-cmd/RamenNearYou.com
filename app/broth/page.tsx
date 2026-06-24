@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import { MapPin, Star, Utensils } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -169,9 +170,9 @@ export default async function BrothPage({
                     className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
                   >
                     <div className="relative h-40 bg-[#ffffff] overflow-hidden flex-shrink-0">
-                      {r.photo ? (
+                      {safePhotoSrc(r.photo) ? (
                         <Image
-                          src={r.photo}
+                          src={safePhotoSrc(r.photo)!}
                           alt={r.name}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"

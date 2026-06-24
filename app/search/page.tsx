@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import { MapPin, Phone, Star, ChevronRight, Search, Map } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 import Navbar from '@/components/navbar'
@@ -161,9 +162,9 @@ export default async function SearchPage({
                   className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 hover:border-[#B57F50] transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 overflow-hidden"
                 >
                   <div className="relative w-full h-44 bg-[#ffffff] overflow-hidden">
-                    {r.photo ? (
+                    {safePhotoSrc(r.photo) ? (
                       <Image
-                        src={r.photo}
+                        src={safePhotoSrc(r.photo)!}
                         alt={r.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"

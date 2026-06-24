@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import { Search, Star, ArrowLeftRight, X } from 'lucide-react'
 
 type SearchResult = {
@@ -44,10 +45,10 @@ function RestaurantChip({
   if (!r) return null
   return (
     <div className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#B57F50]/30 shadow-sm">
-      {r.photo && (
+      {safePhotoSrc(r.photo) && (
         <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={r.photo} alt={r.name} className="w-full h-full object-cover" />
+          <img src={safePhotoSrc(r.photo)!} alt={r.name} className="w-full h-full object-cover" />
         </div>
       )}
       <div className="min-w-0 flex-1">
@@ -151,10 +152,10 @@ function SearchBox({
             className="w-full text-left px-4 py-3 hover:bg-[#F5F4F0] transition-colors flex items-center justify-between gap-4 group"
           >
             <div className="min-w-0 flex items-center gap-2.5">
-              {r.photo && (
+              {safePhotoSrc(r.photo) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={r.photo}
+                  src={safePhotoSrc(r.photo)!}
                   alt=""
                   className="w-9 h-9 rounded-lg object-cover shrink-0"
                 />

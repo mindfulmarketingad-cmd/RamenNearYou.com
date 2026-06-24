@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import {
   X, ChevronLeft, Star, MapPin, Loader2, Navigation,
   Search, RotateCcw, Utensils, ExternalLink,
@@ -433,9 +434,9 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
     <div className="flex flex-col bg-white rounded-2xl border border-black/8 overflow-hidden">
       {/* Photo */}
       <div className="relative h-40 bg-[#F5F4F0] shrink-0">
-        {r.photo ? (
+        {safePhotoSrc(r.photo) ? (
           <Image
-            src={r.photo}
+            src={safePhotoSrc(r.photo)!}
             alt={r.name}
             fill
             className="object-cover"
