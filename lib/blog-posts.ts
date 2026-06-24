@@ -20662,3 +20662,217 @@ blogPosts.push({
 <p>The restaurants on this list represent the top picks based on rating and review volume, but Vancouver's ramen scene has more to offer than any single ranked list can capture. New shops open regularly, seasonal specials change the best-bowl calculation, and neighborhood gems that haven't yet accumulated hundreds of reviews deserve discovery too.</p>
 <p>For the most current view of ramen in Vancouver, <a href="/blog" style="color:#B57F50;text-decoration:underline;font-weight:600;">check our blog</a> for updated guides, or use the <a href="/broth" style="color:#B57F50;text-decoration:underline;font-weight:600;">broth type filter</a> to find specific styles across the metro. If you want to compare Vancouver's scene to other cities, we cover ramen in dozens of US cities — the directory is the fastest way to find your next bowl wherever you are.</p>`,
 })
+
+blogPosts.push({
+  slug: 'ramen-beast-vs-ramen-near-you',
+  title: 'Ramen Beast vs. Ramen Near You: Which Ramen Finder Wins?',
+  h1: 'Ramen Beast vs. Ramen Near You',
+  description: 'I compared the Ramen Beast app to Ramen Near You side by side — coverage, curation, features, and price. Here is which ramen finder you should actually use, and when.',
+  date: 'June 24, 2026',
+  readTime: '9 min read',
+  category: 'Comparisons',
+  headerImage: '/images/hero-ramen-bowl.jpg',
+  headerImageAlt: 'A steaming bowl of tonkotsu ramen — comparing the Ramen Beast app and Ramen Near You',
+  imageFirst: true,
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is Ramen Beast better than Ramen Near You?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It depends where you are. Ramen Beast is the better tool if you are eating ramen in Japan — it is an expert-curated guide to over 2,000 of the best shops nationwide, with bilingual what-to-order advice. Ramen Near You is the better tool if you are eating ramen in the United States, with nearly 8,000 restaurants across all 50 states, a filterable web map, and no app download required.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does Ramen Beast cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The Ramen Beast app is completely free, but it is only available on iOS through the Apple App Store. There is no Android version and no web version.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does Ramen Near You have an app?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ramen Near You is a free website that works on any device — iPhone, Android, tablet, or desktop. There is nothing to download. You open the map in your browser, filter by broth, mood, hours, or amenities, and find ramen near you instantly.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Which ramen app should I use for a trip to Japan?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'For a trip to Japan, use the Ramen Beast app. It was built by Tokyo-based critics specifically to help you skip tourist traps and find authentic, high-quality bowls, with menu recommendations in both English and Japanese.',
+        },
+      },
+    ],
+  },
+  content: `<p>I review ramen finders for a living, so when people ask me whether they should use <strong>Ramen Beast</strong> or <strong>Ramen Near You</strong>, I never give a one-word answer. These two tools look similar on the surface — both put ramen shops on a map and help you find a great bowl nearby — but they were built for completely different jobs. One is a hand-curated guide to the best ramen in Japan. The other (full disclosure: it's this site) is a comprehensive directory of ramen across the United States.</p>
+<p>I've spent real time in both. Below is the honest, side-by-side breakdown I wish I'd had before my last trip — coverage, curation, features, price, and exactly when I reach for each one.</p>
+
+<h2>Ramen Beast vs. Ramen Near You: The Quick Verdict</h2>
+<p>If you're short on time, here's the whole comparison in one table. The rest of the article explains the why behind each row.</p>
+<div style="overflow-x:auto;margin:1.5rem 0;">
+<table style="width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;">
+  <thead>
+    <tr style="background:#1E2026;color:#fff;text-align:left;">
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">&nbsp;</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Beast</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Near You</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Best for</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Eating ramen in Japan</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Finding ramen in the USA</td>
+    </tr>
+    <tr>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Coverage</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">2,000+ shops (Japan)</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">~8,000 shops (all 50 states)</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Approach</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Expert hand-curation</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Comprehensive + smart filters</td>
+    </tr>
+    <tr>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Platform</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">iOS app only</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Any browser, no download</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Price</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Free</td>
+      <td style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.08);">Free</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>What Is Ramen Beast?</h2>
+<p><a href="https://www.ramenbeast.com/" target="_blank" rel="noopener" style="color:#B57F50;text-decoration:underline;font-weight:600;">Ramen Beast</a> is an expert-curated digital guide to the best ramen shops across Japan. It was built by Tokyo-based ramen fanatic and critic <strong>Abram Plaut</strong>, and the whole premise is curation: instead of dumping every noodle shop in the country onto a map, it hand-picks over <strong>2,000 of the finest ramen shops</strong> and deliberately excludes generic chains and tourist traps.</p>
+<p>What sets it apart is the depth of its advice. For each shop it doesn't just say "this is good" — it tells you <em>exactly which bowl to order</em>, down to the toppings. Everything is bilingual (English and Japanese), which is genuinely clutch when you're standing in front of a ticket machine in Shinjuku trying to decode a menu. It also has location-based tracking so you can find the best vetted shops near your exact coordinates in Japan. You can <a href="https://apps.apple.com/app/ramen-beast/id1133997461" target="_blank" rel="noopener" style="color:#B57F50;text-decoration:underline;font-weight:600;">download Ramen Beast on the Apple App Store</a> — it's free, but iOS only.</p>
+
+<h2>What Is Ramen Near You?</h2>
+<p>Ramen Near You is a free web directory of ramen restaurants across the <strong>United States</strong> — nearly <strong>8,000 shops spanning all 50 states</strong>. Where Ramen Beast is a curated little black book for Japan, this site is built to answer a different question: "I'm in <em>this</em> American city right now — where's the best bowl near me?"</p>
+<p>Instead of a single editor's picks, it leans on a filterable <a href="/" style="color:#B57F50;text-decoration:underline;font-weight:600;">interactive map</a> plus real Google ratings and review counts, so you can sort by what actually matters to you in the moment. Want tonkotsu, open past midnight, with a full bar and outdoor seating? That's three taps. It runs entirely in your browser, so there's nothing to install and it works the same on an iPhone, an Android, or a laptop.</p>
+
+<h2>Coverage: Japan vs. The United States</h2>
+<p>This is the single most important difference, and it's not really a "who's bigger" contest — it's about <em>where</em> you are. The two tools barely overlap geographically.</p>
+<div style="margin:1.5rem 0;">
+  <div style="margin-bottom:1rem;">
+    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#1E2026;font-weight:600;margin-bottom:0.35rem;"><span>Ramen Beast (Japan)</span><span>2,000+ shops</span></div>
+    <div style="background:#E8E6E2;border-radius:999px;height:22px;overflow:hidden;"><div style="width:25%;background:#dc2626;height:100%;border-radius:999px;"></div></div>
+  </div>
+  <div>
+    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#1E2026;font-weight:600;margin-bottom:0.35rem;"><span>Ramen Near You (USA)</span><span>~8,000 shops</span></div>
+    <div style="background:#E8E6E2;border-radius:999px;height:22px;overflow:hidden;"><div style="width:100%;background:#B57F50;height:100%;border-radius:999px;"></div></div>
+  </div>
+  <p style="font-size:0.75rem;color:#9B9490;margin-top:0.5rem;">Approximate shop counts. The two databases cover different countries, so coverage is about geography, not just volume.</p>
+</div>
+<p>If you're in Osaka, Ramen Near You's 8,000 American listings do you no good — and Ramen Beast's 2,000 Japanese shops are exactly what you want. Flip it around in Frederick, Maryland, and the opposite is true. Coverage is king, but only the coverage that's under your feet.</p>
+
+<h2>Curation vs. Comprehensive Coverage</h2>
+<p>Beyond geography, these tools have opposite philosophies, and it's worth understanding which one matches how you actually decide where to eat.</p>
+<p><strong>Ramen Beast is curation-first.</strong> A single expert has already done the filtering for you. If a shop is in the app, it's there because Abram and his team think it's worth your time. The upside is trust — you're far less likely to get a mediocre bowl. The tradeoff is that a great new spot that hasn't been reviewed yet simply won't appear.</p>
+<p><strong>Ramen Near You is coverage-first with smart filtering.</strong> Nearly every ramen shop in the country is in here, and instead of one editor deciding for you, you get tools to decide for yourself: Google ratings, review volume, "Top Rated" and "Hidden Gems" filters, hours, broth type, and amenities. The upside is you'll never miss a spot. The tradeoff is that you do a little more of the judging yourself — which is exactly why the filters exist.</p>
+
+<h2>Features Compared Side by Side</h2>
+<p>Here's how the day-to-day features stack up.</p>
+<div style="overflow-x:auto;margin:1.5rem 0;">
+<table style="width:100%;border-collapse:collapse;font-size:0.9rem;min-width:560px;">
+  <thead>
+    <tr style="background:#1E2026;color:#fff;text-align:left;">
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Feature</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Beast</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Near You</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Interactive map</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Yes</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Yes</td>
+    </tr>
+    <tr>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">What-to-order advice</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Detailed, per shop</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">⚠️ Recommended bowls + reviews</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Bilingual (EN/JP)</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Yes</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">❌ English</td>
+    </tr>
+    <tr>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Filter by broth / mood / hours</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">⚠️ Limited</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Extensive filters</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Google ratings &amp; reviews</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">⚠️ Editorial ratings</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Live ratings + counts</td>
+    </tr>
+    <tr>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Works without an app</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">❌ iOS app required</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Any browser</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>The pattern is clear: Ramen Beast wins on editorial depth and Japanese-language support, while Ramen Near You wins on filtering, live data, and accessibility.</p>
+
+<h2>Pricing &amp; Availability</h2>
+<p>Good news on the wallet front — both are free. The real difference is <em>access</em>.</p>
+<div style="overflow-x:auto;margin:1.5rem 0;">
+<table style="width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;">
+  <thead>
+    <tr style="background:#1E2026;color:#fff;text-align:left;">
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">&nbsp;</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Beast</th>
+      <th style="padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.1);">Ramen Near You</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Cost</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">Free</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">Free</td>
+    </tr>
+    <tr>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">iOS</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ App Store</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ In browser</td>
+    </tr>
+    <tr style="background:#F5F4F0;">
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Android</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">❌ Not available</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ In browser</td>
+    </tr>
+    <tr>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);font-weight:600;color:#1E2026;">Desktop / web</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">❌ Not available</td>
+      <td style="padding:0.7rem 1rem;border:1px solid rgba(0,0,0,0.08);">✅ Full site</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>If you carry an Android phone, that table basically makes the decision for you: Ramen Beast isn't an option, and Ramen Near You works fine.</p>
+
+<h2>Which One Should You Use?</h2>
+<p>After all the tables, my recommendation is genuinely simple, and it comes down to one question: <strong>where are you eating?</strong></p>
+<p><strong>Use Ramen Beast if you're traveling in Japan.</strong> Nothing beats an expert who has already eaten everywhere and is telling you which bowl to order in your own language. For a trip to Tokyo, Osaka, or anywhere in Japan, it's the tool I'd put on my home screen.</p>
+<p><strong>Use Ramen Near You if you're in the United States.</strong> Whether you're in a major city or somewhere smaller like Frederick, you'll find nearly every ramen shop around you, filter it down to exactly the kind of bowl you're craving, and check live ratings before you go — all without downloading anything.</p>
+<p>Honestly? The best ramen lovers I know keep both bookmarked. They're not really competitors; they're two halves of the same craving on two sides of the Pacific.</p>`,
+  outroContent: `<p style="color:#6B6862;">Ready to find your next bowl in the States? <a href="/" style="color:#B57F50;text-decoration:underline;font-weight:600;">Open the Ramen Near You map</a> and filter by broth, hours, and what's open right now — or <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">browse every ramen search</a> we've built.</p>`,
+})
