@@ -62,15 +62,18 @@ export async function generateMetadata(
   const stateSlug = STATE_CODE_TO_SLUG[stateCode]
   const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
   const restaurants = getRestaurantsByCity(citySlug, stateSlug)
+  const supplements = restaurants.length === 0 ? getSupplementListings(citySlug, stateCode) : []
   // Skip metadata for unrecognized cities (junk URLs 404 in the page body).
-  const isKnown = restaurants.length > 0 || getSupplementListings(citySlug, stateCode).length > 0 || !!CAPITAL_BY_PARAM[cityState] || MAJOR_SET.has(cityState)
+  const isKnown = restaurants.length > 0 || supplements.length > 0 || !!CAPITAL_BY_PARAM[cityState] || MAJOR_SET.has(cityState)
   if (!isKnown) return {}
   const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? citySlug
 
-  const count = restaurants.length
-  const title = `Best Ramen Restaurants In ${cityName}, ${stateName}`
+  // Listing count drives the Zillow-style title/description ("… - 12 Spots").
+  const count = restaurants.length + supplements.length
+  const baseTitle = `Best Ramen Restaurants In ${cityName}, ${stateName}`
+  const title = count > 0 ? `${baseTitle} - ${count} ${count === 1 ? 'Spot' : 'Spots'}` : baseTitle
   const description = count > 0
-    ? `Find the best ramen restaurants in ${cityName}, ${stateName}. Browse ${count} top-rated spots with ratings, hours, menus, and directions.`
+    ? `Find the best ramen restaurants in ${cityName}, ${stateName} — ${count} ${count === 1 ? 'spot' : 'spots'} with ratings, hours, menus, and directions. Use our filters to find the perfect bowl near you.`
     : `Find ramen restaurants in ${cityName}, ${stateName}. Browse top-rated spots with ratings, hours, and directions.`
 
   return {
