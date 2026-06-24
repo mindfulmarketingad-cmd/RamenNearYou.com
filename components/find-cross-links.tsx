@@ -49,6 +49,11 @@ export const FIND_PAGES = [
   { href: '/find/hand-pulled-ramen', label: 'Hand Pulled Ramen Near Me', emoji: '🍜' },
   { href: '/find/ramen-open-july-4th', label: 'Ramen Open on Independence Day', emoji: '🎆' },
   { href: '/find/5-star-ramen', label: '5 Star Ramen Restaurants Near Me', emoji: '🌟' },
+  { href: '/find/traditional-ramen', label: 'Traditional Ramen Near Me', emoji: '🎌' },
+  { href: '/find/chicken-katsu-ramen', label: 'Chicken Katsu Ramen Near Me', emoji: '🍗' },
+  { href: '/find/ramen-open-24-hours', label: 'Ramen Open 24 Hours Near Me', emoji: '🕛' },
+  { href: '/find/ramen-shop', label: 'Ramen Shop Near Me', emoji: '🏮' },
+  { href: '/find/ramen-karaoke-bar', label: 'Ramen Karaoke Bar Near Me', emoji: '🎤' },
 ]
 
 interface Props {

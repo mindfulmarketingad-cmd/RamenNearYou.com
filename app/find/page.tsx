@@ -63,6 +63,7 @@ const CATEGORIES = [
       { href: '/find/ramen-open-early', label: 'Ramen Open Early Near Me' },
       { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me' },
       { href: '/find/ramen-open-july-4th', label: 'Ramen Open on Independence Day' },
+      { href: '/find/ramen-open-24-hours', label: 'Ramen Open 24 Hours Near Me' },
     ],
   },
   {
@@ -87,6 +88,7 @@ const CATEGORIES = [
       { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me' },
       { href: '/find/shio-ramen', label: 'Shio Ramen Near Me' },
       { href: '/find/chicken-ramen', label: 'Chicken Ramen Near Me' },
+      { href: '/find/chicken-katsu-ramen', label: 'Chicken Katsu Ramen Near Me' },
       { href: '/find/beef-ramen', label: 'Beef Ramen Near Me' },
       { href: '/find/black-garlic-ramen', label: 'Black Garlic Ramen Near Me' },
     ],
@@ -125,6 +127,8 @@ const CATEGORIES = [
       { href: '/find/ramen-date-night', label: 'Date Night Ramen Near Me' },
       { href: '/find/ramen-bars', label: 'Ramen Bars Near Me' },
       { href: '/find/ramen-restaurants', label: 'Ramen Restaurants Near Me' },
+      { href: '/find/ramen-shop', label: 'Ramen Shop Near Me' },
+      { href: '/find/ramen-karaoke-bar', label: 'Ramen Karaoke Bar Near Me' },
       { href: '/find/ramen-delivery', label: 'Ramen Delivery Near Me' },
     ],
   },
@@ -133,6 +137,7 @@ const CATEGORIES = [
     pages: [
       { href: '/find/japanese-ramen', label: 'Japanese Ramen Near Me' },
       { href: '/find/authentic-ramen', label: 'Authentic Ramen Near Me' },
+      { href: '/find/traditional-ramen', label: 'Traditional Ramen Near Me' },
       { href: '/find/hokkaido-ramen', label: 'Hokkaido Ramen Near Me' },
       { href: '/find/fresh-ramen', label: 'Fresh Ramen Noodles Near Me' },
     ],

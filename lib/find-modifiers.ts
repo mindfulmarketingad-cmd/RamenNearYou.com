@@ -132,6 +132,81 @@ export const FIND_MODIFIERS: FindModifier[] = [
       { q: 'Are the open hours accurate?', a: 'Open-now status is based on each restaurant\'s posted hours. Hours can change for holidays or special events, so it\'s always smart to call ahead before a long trip.' },
     ],
   },
+  {
+    prefix: 'traditional-ramen-in',
+    filter: {},
+    title: (c, s) => `Traditional Ramen In ${c}, ${s}`,
+    metaNoun: 'traditional ramen',
+    hubHref: '/find/traditional-ramen',
+    hubLabel: 'Traditional Ramen',
+    about:
+      'Traditional ramen is made the classic Japanese way — a broth simmered in-house for hours (tonkotsu, shoyu, shio, or miso), fresh noodles, and a few balanced toppings rather than a pile of gimmicks. Filter by a classic broth to find the most authentic bowls.',
+    faqs: (city, st) => [
+      { q: `Where can I find traditional ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants. Enter your ZIP or click "Use my location," then filter by a classic broth like tonkotsu or shoyu to surface the most traditional bowls.` },
+      { q: 'What is traditional ramen?', a: 'Traditional ramen is a bowl made the classic Japanese way — a house-simmered broth (tonkotsu, shoyu, shio, or miso), fresh noodles, and balanced toppings like chashu, egg, and scallion.' },
+      { q: 'How can I tell if a ramen shop is authentic?', a: 'Look for house-made broth, a focused menu, and classic toppings. Reviews that praise the broth and noodles specifically are a strong sign of a traditional kitchen.' },
+    ],
+  },
+  {
+    prefix: 'chicken-katsu-ramen-in',
+    filter: {},
+    title: (c, s) => `Chicken Katsu Ramen In ${c}, ${s}`,
+    metaNoun: 'chicken katsu ramen',
+    hubHref: '/find/chicken-katsu-ramen',
+    hubLabel: 'Chicken Katsu Ramen',
+    about:
+      'Chicken katsu ramen tops a hot bowl of ramen with a crispy, panko-breaded fried chicken cutlet. It is a hearty, modern, crowd-pleasing twist on classic ramen that pairs especially well with a rich tonkotsu or chicken paitan broth.',
+    faqs: (city, st) => [
+      { q: `Where can I find chicken katsu ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants. Enter your ZIP or click "Use my location," then open nearby listings to find spots serving chicken katsu ramen.` },
+      { q: 'What is chicken katsu ramen?', a: 'Chicken katsu ramen is a ramen bowl topped with a crispy, panko-breaded fried chicken cutlet over noodles and broth — a hearty, modern twist on classic ramen.' },
+      { q: 'What broth pairs best with chicken katsu?', a: 'A rich broth like tonkotsu or creamy chicken paitan pairs best, giving the fried cutlet something substantial to sit in.' },
+    ],
+  },
+  {
+    prefix: 'ramen-open-24-hours-in',
+    filter: { initialFlags: ['open-midnight'] },
+    title: (c, s) => `Ramen Open 24 Hours In ${c}, ${s}`,
+    metaNoun: 'late-night ramen',
+    hubHref: '/find/ramen-open-24-hours',
+    hubLabel: 'Ramen Open 24 Hours',
+    about:
+      'True 24-hour ramen is rare in the US, so this map is filtered to spots that serve past midnight — the closest thing to all-night ramen in most cities. It surfaces the latest-serving bowls when a late-night craving hits.',
+    faqs: (city, st) => [
+      { q: `Is there ramen open 24 hours in ${city}?`, a: `In most cities, "24 hours" really means open very late. The map above shows ${city}, ${st} ramen spots serving past midnight — the most realistic late-night options. Add "Open Now" to confirm a spot is serving.` },
+      { q: `How do I find late-night ramen in ${city}?`, a: `The map is pre-filtered to ramen open past midnight in ${city}. Enter your ZIP or use your location to sort by distance, and call ahead late at night since hours can change.` },
+      { q: 'What time do most ramen shops close?', a: 'Most close between 9 and 10 PM, while late-night spots run to 11 PM, midnight, or beyond — especially in larger cities.' },
+    ],
+  },
+  {
+    prefix: 'ramen-shop-in',
+    filter: {},
+    title: (c, s) => `Ramen Shops In ${c}, ${s}`,
+    metaNoun: 'ramen shops',
+    hubHref: '/find/ramen-shop',
+    hubLabel: 'Ramen Shops',
+    about:
+      'A great ramen shop (ramen-ya) does a few things obsessively well — a house-simmered broth, noodles with real bite, and consistency every visit. Browse the local shops near you by rating, broth, hours, and distance.',
+    faqs: (city, st) => [
+      { q: `How do I find a ramen shop in ${city}?`, a: `The map above shows ${city}, ${st} ramen shops. Enter your ZIP or click "Use my location," and the closest, best-rated shops sort to the top.` },
+      { q: 'What makes a great ramen shop?', a: 'House-made broth and noodles, a focused menu, consistent quality every visit, and a loyal local following are the clearest signs of a great ramen shop.' },
+      { q: 'What is a ramen-ya?', a: 'Ramen-ya is the Japanese term for a ramen shop — typically a focused spot, often with counter seating, that specializes in noodles and broth.' },
+    ],
+  },
+  {
+    prefix: 'ramen-karaoke-bar-in',
+    filter: { initialFlags: ['full-bar'] },
+    title: (c, s) => `Ramen Karaoke Bars In ${c}, ${s}`,
+    metaNoun: 'ramen karaoke bars',
+    hubHref: '/find/ramen-karaoke-bar',
+    hubLabel: 'Ramen Karaoke Bars',
+    about:
+      'A ramen karaoke bar pairs hot bowls and small plates with drinks and karaoke — usually an izakaya or Japanese pub. This map is filtered to ramen spots with a bar, your best candidates for a ramen-and-karaoke night.',
+    faqs: (city, st) => [
+      { q: `Where can I find a ramen karaoke bar in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots with a full bar — your best candidates for karaoke. Open listings and check reviews for karaoke or izakaya mentions.` },
+      { q: 'What is a ramen karaoke bar?', a: 'A ramen karaoke bar serves ramen and small plates alongside drinks and karaoke — often an izakaya or Japanese pub with private rooms or a stage.' },
+      { q: 'Are ramen karaoke bars good for groups?', a: 'Yes — they are built for groups. Look for spots with private karaoke rooms, bring friends, and share plates and songs.' },
+    ],
+  },
 ]
 
 export interface ModifierMatch {
