@@ -102,10 +102,6 @@ def parse_hours(opening_hours: dict) -> dict:
     return result
 
 
-def get_photo_url(photo_ref: str, max_width: int = 800) -> str:
-    return f"https://maps.googleapis.com/maps/api/place/photo?maxwidth={max_width}&photo_reference={photo_ref}&key={API_KEY}"
-
-
 def search_ramen(city: str, state: str) -> list:
     query = f"ramen restaurant {city} {state}"
     results = []
@@ -142,8 +138,9 @@ def build_record(detail: dict, city_name: str, state_name: str = "Kansas", state
     # Try to extract street address only
     street = address.split(",")[0].strip() if address else ""
 
-    photos = detail.get("photos", [])
-    photo_url = get_photo_url(photos[0]["photo_reference"]) if photos else ""
+    # Photo intentionally omitted — the Place Photo endpoint is billed per
+    # fetch, so we serve a local placeholder instead of live Google photos.
+    photo_url = ""
 
     hours_raw = detail.get("opening_hours", {})
     hours_parsed = parse_hours(hours_raw)

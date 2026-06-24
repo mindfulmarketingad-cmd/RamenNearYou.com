@@ -667,9 +667,9 @@ async function fetchPlaces(city) {
     rating: r.rating ?? null,
     reviewCount: r.user_ratings_total ?? 0,
     priceLevel: r.price_level ?? null,
-    photo: r.photos?.[0]
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${r.photos[0].photo_reference}&key=${API_KEY}`
-      : null,
+    // Photo intentionally omitted — the Place Photo endpoint is billed per
+    // fetch, so we serve a local placeholder instead of live Google photos.
+    photo: null,
     latitude: r.geometry?.location?.lat ?? null,
     longitude: r.geometry?.location?.lng ?? null,
     openNow: r.opening_hours?.open_now ?? null,
