@@ -20951,3 +20951,79 @@ blogPosts.push({
 <p>Do not over-think it. Get discoverable first — a niche ramen directory and a dialed-in Google profile — then layer reviews, social, delivery, and loyalty on top. Each one feeds the others. And if you only have ten minutes today, spend them <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claiming your listing</a> so the next person searching for ramen in your city finds <em>you</em>.</p>`,
   outroContent: `<p style="color:#6B6862;">Ready to get found by more ramen lovers? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — it takes a few minutes, starts with a 14-day free trial, and puts your restaurant in front of people searching for ramen in your city right now.</p>`,
 })
+
+blogPosts.push({
+  slug: 'best-ways-to-market-a-ramen-shop-online',
+  title: 'Best Ways to Market a Ramen Shop Online',
+  h1: 'Best Ways to Market a Ramen Shop Online',
+  description: 'The best ways to market a ramen shop online are to show up where people already search for ramen — Google Business Profile, a niche ramen directory, and local SEO — then amplify with short-form video, reviews, and email. Here is my full playbook.',
+  date: 'June 24, 2026',
+  readTime: '8 min read',
+  category: 'For Owners',
+  headerImage: '/images/hero-ramen.jpg',
+  headerImageAlt: 'A bowl of ramen photographed for social media marketing',
+  imageFirst: true,
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What are the best ways to market a ramen shop online?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The best ways are to be discoverable where people already search for ramen — an optimized Google Business Profile, a niche ramen directory, and local SEO on your own site — then amplify with crave-worthy short-form video on Instagram and TikTok, steady recent reviews, a simple email or SMS list, presence on delivery apps, and a small amount of targeted local advertising.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much should a ramen shop spend on online marketing?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You can do the highest-impact work — Google Business Profile, a directory listing, reviews, and organic social — for little to no money beyond your time. Once those are solid, a modest local ad budget (even $5 to $15 a day on Google or Meta, geo-targeted to a few miles around your shop) is usually enough to test paid acquisition without overspending.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does social media actually bring ramen customers in?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, when it is visual and consistent. Ramen is one of the most video-friendly foods there is — broth pours, noodle pulls, and steaming bowls perform well on TikTok and Instagram Reels. The goal is not virality; it is being the bowl someone sees right before they decide where to eat.',
+        },
+      },
+    ],
+  },
+  content: `<p>The best ways to market a ramen shop online are to show up where people are already searching for ramen — your Google Business Profile, a niche ramen directory, and local SEO — and then amplify all of that with crave-worthy short-form video, steady reviews, and a simple email or SMS list. I have watched a lot of shops pour money into the wrong channels, so here is how I would actually spend my time and budget, in order of impact.</p>
+
+<h2>Lock down your Google Business Profile first</h2>
+<p>This is the highest-impact, lowest-cost thing you can do, full stop. Your Google Business Profile is what appears on Google Maps and in the local pack when someone searches &ldquo;ramen near me.&rdquo; Claim it, then keep it alive: accurate hours, your real phone number, a menu link, and a steady stream of fresh photos. Restaurants that update weekly and reply to reviews consistently outrank the ones that set it once and walk away.</p>
+
+<h2>Get listed on a niche ramen directory</h2>
+<p>General exposure is fine, but niche beats broad every time. A ramen-specific directory puts you in front of people who have already decided they want ramen — the highest-intent customer there is. It also tends to rank for the searches you care about (&ldquo;best ramen in [city],&rdquo; &ldquo;tonkotsu near me&rdquo;), so your listing borrows that visibility instead of fighting for it alone. You can <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claim your listing here</a> in a few minutes — and if your shop is not in the directory yet, you can add it manually on the same page.</p>
+
+<h2>Make your own website work for local SEO</h2>
+<p>Your site does not need to be fancy; it needs to be clear. Put your city and &ldquo;ramen&rdquo; in your page titles and headings, keep your name, address, and phone number identical everywhere online, and make sure the site loads fast on a phone. A clean, mobile-first page with your menu, hours, and an easy way to order or get directions will quietly convert searchers for years.</p>
+
+<h2>Lean into short-form video</h2>
+<p>Ramen is built for video — a broth pour, a noodle pull, the steam rising off a fresh bowl. That is exactly what performs on TikTok and Instagram Reels. Post consistently, tag your city, and use the hashtags people actually search. You are not chasing a viral moment; you are trying to be the last thing someone sees before they get hungry and pick a place.</p>
+
+<h2>Turn customers into your content team</h2>
+<p>User-generated content is marketing you do not have to make. Encourage guests to tag you, repost the best shots to your story, and consider a small perk for a tagged post. A local food creator or two with a few thousand engaged followers in your city is often worth more than a celebrity with a million scattered ones.</p>
+
+<h2>Build a review engine</h2>
+<p>Reviews are the closest thing to compounding free advertising. The rating gets you considered; the recency and volume close the deal. Make it effortless — a QR code on the table or receipt — ask happy regulars directly, and reply to every review like a real person. A steady drip of recent five-star reviews is what tips a first-timer your way.</p>
+
+<h2>Capture diners with email and SMS</h2>
+<p>The cheapest customer is the one who already loves you. Collect emails or phone numbers with a small incentive, then use them sparingly — a new seasonal bowl, a slow-Tuesday offer, a holiday note. Filling seats is often just reminding people you exist at the right moment.</p>
+
+<h2>Be on the apps people order from</h2>
+<p>Even diners who plan to eat in often discover a shop by scrolling a delivery app first. Keep your menu, photos, and hours on those platforms as sharp as everywhere else. Each one is another front door into your shop.</p>
+
+<h2>Add a little paid fuel</h2>
+<p>Once the free channels are dialed in, a small local ad budget can stretch surprisingly far. Geo-target a few miles around your shop on Google or Meta, start with $5–$15 a day, and point the ad at the action you want — directions, a call, or an order. Layer in retargeting so people who visited your site or profile see you again. Paid works best as fuel on a fire you have already lit, not as the spark.</p>
+
+<h2>My bottom line</h2>
+<p>Get discoverable first — Google Business Profile, a niche directory, and a clean local-SEO site — then amplify with video, reviews, email, and a little smart ad spend. Every channel feeds the others. If you only have a few minutes today, <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claim your listing</a> so the next person searching for ramen in your city finds you.</p>`,
+  outroContent: `<p style="color:#6B6862;">Want the single highest-leverage step done first? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — start a 14-day free trial and get in front of people searching for ramen in your city right now.</p>`,
+})
