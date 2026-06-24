@@ -5,6 +5,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import StatsBar from '@/components/stats-bar'
 import FeaturedListings from '@/components/featured-listings'
 import FilterShowcase from '@/components/filter-showcase'
+import SearchMapShowcase from '@/components/searchmap-showcase'
 import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
@@ -59,6 +60,7 @@ export default function HomePage() {
         <div className="relative z-10 bg-white">
           <StatsBar />
           <FilterShowcase />
+          <SearchMapShowcase />
 
           {/* Editorial image band */}
           <section className="bg-white">
