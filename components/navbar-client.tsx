@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Menu, X, Utensils, ArrowRight } from 'lucide-react'
+import { Menu, X, Utensils, ArrowRight, Store } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -121,6 +121,14 @@ export default function NavbarClient() {
                 )}
               </nav>
 
+              <Link
+                href="/claim-your-listing"
+                className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#1E2026] hover:bg-black text-white text-base font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+              >
+                <Store className="w-4 h-4" />
+                List Your Restaurant
+              </Link>
+
               {!user && (
                 <Link
                   href="/auth/login"
@@ -145,10 +153,18 @@ export default function NavbarClient() {
 
         {menuOpen && (
           <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
+            <Link
+              href="/claim-your-listing"
+              className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#1E2026] text-white text-sm font-semibold"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Store className="w-4 h-4" />
+              List Your Restaurant
+            </Link>
             {!user && (
               <Link
                 href="/auth/login"
-                className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
+                className="sm:hidden flex items-center justify-center gap-2 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
                 onClick={() => setMenuOpen(false)}
               >
                 <Utensils className="w-4 h-4" />
