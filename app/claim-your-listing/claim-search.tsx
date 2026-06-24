@@ -23,6 +23,9 @@ const US_STATES = [
 const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
 
+// Stripe claim/free-trial checkout (same link used by the per-restaurant claim flow).
+const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+
 export default function ClaimSearch() {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
@@ -66,20 +69,39 @@ export default function ClaimSearch() {
   }
 
   if (status === 'success') {
+    const trialLink = form.ownerEmail.trim()
+      ? `${STRIPE_CLAIM_LINK}?prefilled_email=${encodeURIComponent(form.ownerEmail.trim())}`
+      : STRIPE_CLAIM_LINK
     return (
-      <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-10 text-center">
+      <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8 sm:p-10 text-center">
         <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
           <CheckCircle2 className="w-7 h-7 text-emerald-500" />
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Submission Received!</h2>
-        <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto">
-          Thanks — we&apos;ll add your restaurant to the directory and email you so you can finish claiming it. This usually takes 2–3 business days.
+        <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
+          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Start your free trial now to lock in your claim, then you can update your hours, photos, and menu the moment it&apos;s live.
         </p>
-        <Link
-          href="/"
-          className="inline-block mt-6 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
-        >
-          Back to Home
+
+        {/* Free-trial prompt */}
+        <div className="bg-[#F5F4F0] rounded-2xl border border-black/8 p-6 max-w-sm mx-auto mb-5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
+            14-Day Free Trial
+          </div>
+          <div className="flex items-end justify-center gap-1.5 mb-1">
+            <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
+            <span className="text-[#6B6862] text-sm mb-1.5">today</span>
+          </div>
+          <p className="text-[#9B9490] text-xs mb-5">Then $19.99/month after your trial. Cancel anytime.</p>
+          <a
+            href={trialLink}
+            className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+          >
+            Start Free Trial — $0 Today
+          </a>
+        </div>
+
+        <Link href="/" className="inline-block text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
+          Maybe later — back to home
         </Link>
       </div>
     )
