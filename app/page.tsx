@@ -95,6 +95,60 @@ export default function HomePage() {
           <NearbyRestaurantsCarousel />
           <FeaturedListings />
 
+          {/* Photo grid — every bowl tells a story */}
+          <section className="bg-[#F5F4F0] py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">Every bowl tells a story</h2>
+              <p className="text-[#6B6862] text-sm mb-8">Discover the ramen style that speaks to you.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/find/vegetarian-ramen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://assets.bonappetit.com/photos/5e3c7a3c866b940008106763/1:1/w_1920,c_limit/HLY-Veggie-Ramen-16x9.jpg"
+                    alt="Vibrant vegetarian ramen with soft-boiled egg, corn, and fresh vegetables"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Plant-Based</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Vegetarian Ramen Near Me</p>
+                  </div>
+                </Link>
+
+                <Link href="/find/tantanmen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://56d3203e.delivery.rocketcdn.me/wp-content/uploads/2025/10/Tan-Tan-Tantanmen-Ramen-Recipe-6-scaled.jpg.webp"
+                    alt="Creamy tantanmen ramen with sesame broth, ground pork, and chili oil"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Spicy & Nutty</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Tantanmen Near Me</p>
+                  </div>
+                </Link>
+
+                <Link href="/find/tonkotsu-ramen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://thewoodenskillet.com/wp-content/uploads/2021/04/pork-belly-ramen-recipe-8-640x640.jpg"
+                    alt="Rich tonkotsu ramen topped with tender pork belly chashu and a soft-boiled egg"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Rich & Porky</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Tonkotsu Ramen Near Me</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+
           <CommunityCarousel />
           <HomepageReviews />
           <ServiceDirectory />
