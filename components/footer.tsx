@@ -9,17 +9,6 @@ const SOCIAL_LINKS = [
 ]
 
 const footerLinks = {
-  'Ramen Near Me': [
-    { label: 'Tonkotsu Ramen Near Me', href: '/tonkotsu-ramen-near-me' },
-    { label: 'Spicy Ramen Near Me', href: '/spicy-ramen-near-me' },
-    { label: 'Miso Ramen Near Me', href: '/miso-ramen-near-me' },
-    { label: 'Shoyu Ramen Near Me', href: '/shoyu-ramen-near-me' },
-    { label: 'Shio Ramen Near Me', href: '/shio-ramen-near-me' },
-    { label: 'Vegan Ramen Near Me', href: '/vegan-ramen-near-me' },
-    { label: 'Vegetarian Ramen Near Me', href: '/vegetarian-ramen-near-me' },
-    { label: 'Korean Ramen Near Me', href: '/korean-ramen-near-me' },
-    { label: 'Japanese Ramen Near Me', href: '/japanese-ramen-near-me' },
-  ],
   'Find Near Me': [
     { label: 'Ramen Open Late Near Me', href: '/find/ramen-open-late' },
     { label: 'Ramen Open Now Near Me', href: '/find/ramen-open-now' },
@@ -28,25 +17,11 @@ const footerLinks = {
     { label: 'Spicy Ramen Near Me', href: '/find/spicy-ramen' },
     { label: 'All Ramen Searches', href: '/find' },
   ],
-  Browse: [
-    { label: 'Search the Ramen Map', href: '/' },
-    { label: 'Ramen Broth Types', href: '/broth' },
-    { label: 'Browse Cities & States', href: '/cities' },
-    { label: 'Compare Ramen Restaurants', href: '/compare' },
-    { label: 'Ramen Products & Kits', href: '/products' },
-    { label: 'Restaurant Reviews', href: '/reviews' },
-    { label: 'Ramen Blog & Guides', href: '/blog' },
-    { label: 'Ramen FAQ', href: '/faq' },
-  ],
   Restaurants: [
-    { label: 'List Your Restaurant', href: '/list' },
     { label: 'Claim Your Listing', href: '/claim-your-listing' },
-    { label: 'Get Catering Leads', href: '/catering' },
     { label: 'Become an Ambassador', href: '/ambassador' },
-    { label: 'Apply to Be Featured', href: '/featured/apply' },
   ],
   Company: [
-    { label: 'RamenNearYou+', href: '/plus' },
     { label: 'About RamenNearYou', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Privacy Policy', href: '/privacy-policy' },
@@ -58,7 +33,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-4">
