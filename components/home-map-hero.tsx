@@ -626,22 +626,6 @@ export default function HomeMapHero({
         {/* Left list panel */}
         <div className="w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0 flex">
           <div className="px-3 py-2.5 border-b border-black/8">
-            <div className="relative mb-2">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
-              <input
-                type="text"
-                value={localQuery}
-                onFocus={() => requireAccess()}
-                onChange={e => { if (!requireAccess()) return; setLocalQuery(e.target.value) }}
-                placeholder="Search restaurants…"
-                className="w-full pl-8 pr-8 py-2 text-sm bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
-              />
-              {localQuery && (
-                <button onClick={() => setLocalQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#9B9490] hover:text-[#1E2026]">
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
             <p className="text-[#1E2026] font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
