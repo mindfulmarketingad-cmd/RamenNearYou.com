@@ -354,7 +354,11 @@ export default function HomeMapHero({
         for (const f of FEATURE_KEYS) {
           if (flags.has(f) && !(r.amenities ?? []).includes(f)) return false
         }
-        if (bowls.size > 0 && !(r.bowls ?? []).some(k => bowls.has(k))) return false
+        if (bowls.size > 0) {
+          const matchesBowl = (r.bowls ?? []).some(k => bowls.has(k))
+          const nameMatchesMiso = bowls.has('miso') && /miso/i.test(r.name)
+          if (!matchesBowl && !nameMatchesMiso) return false
+        }
         if (moods.size > 0 && !(r.moods ?? []).some(k => moods.has(k))) return false
         if (prices.size > 0 && ![...prices].some(k => matchesPrice(r, k))) return false
         return true
