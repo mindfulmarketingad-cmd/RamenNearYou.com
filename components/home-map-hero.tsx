@@ -6,6 +6,7 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
+  List, Map as MapIcon,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -137,11 +138,16 @@ export default function HomeMapHero({
     return () => clearTimeout(timer)
   }, [])
 
-  // Only mount the Leaflet map on sm+ viewports — initialising Leaflet in a
-  // CSS-hidden (display:none) zero-height container on mobile throws and sends
-  // the whole component into the ErrorBoundary crash loop.
+  // Mount the Leaflet map after hydration. On mobile the map renders full-screen
+  // (the list is an absolute overlay on top of it, so the map container always
+  // has height) — this avoids the old crash from initialising Leaflet in a
+  // zero-height container while still giving mobile users the map by default.
   const [showMap, setShowMap] = useState(false)
-  useEffect(() => { setShowMap(window.innerWidth >= 640) }, [])
+  useEffect(() => { setShowMap(true) }, [])
+
+  // Mobile-only view toggle: full-screen map (default) ⇄ list overlay. Ignored
+  // on sm+ where the list sidebar and map are shown side by side.
+  const [mobileView, setMobileView] = useState<'map' | 'list'>('map')
 
   const [, setVisibleBounds] = useState<MapBounds | null>(null)
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
@@ -647,10 +653,10 @@ export default function HomeMapHero({
 
 
       {/* Map + list */}
-      <div className="relative h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
-        {/* Left list panel */}
-        <div className="w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0 flex">
-          <div className="px-3 py-2.5 border-b border-black/8">
+      <div className="relative h-[80vh] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
+        {/* Left list panel — static sidebar on sm+, full-screen overlay on mobile */}
+        <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
+          <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
             <p className="text-[#1E2026] font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
@@ -659,6 +665,13 @@ export default function HomeMapHero({
                 </>
               )}
             </p>
+            {/* Back to full-screen map (mobile only) */}
+            <button
+              onClick={() => setMobileView('map')}
+              className="sm:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1E2026] text-white text-xs font-semibold"
+            >
+              <MapIcon className="w-3.5 h-3.5" /> Map
+            </button>
           </div>
 
           <div className="flex-1 overflow-y-auto">
@@ -785,9 +798,8 @@ export default function HomeMapHero({
 
         </div>
 
-        {/* Map — only mounted after JS confirms a sm+ viewport to avoid
-            Leaflet throwing in a CSS-hidden zero-height container on mobile */}
-        <div className="flex-1 relative hidden sm:block">
+        {/* Map — full-screen on mobile (list overlays it), side-by-side on sm+ */}
+        <div className="flex-1 relative block">
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
@@ -834,6 +846,20 @@ export default function HomeMapHero({
               </button>
             </div>
           )}
+
+          {/* Floating list-view toggle (mobile only) — opens the list overlay */}
+          <button
+            onClick={() => setMobileView('list')}
+            className="sm:hidden absolute bottom-4 right-4 z-[1000] flex items-center justify-center w-14 h-14 rounded-full bg-white shadow-lg shadow-black/25 border border-black/10 text-[#1E2026] active:scale-95 transition-transform"
+            aria-label={`Show list of ${displayList.length} ramen spots`}
+          >
+            <List className="w-6 h-6" />
+            {displayList.length > 0 && (
+              <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">
+                {displayList.length > 99 ? '99+' : displayList.length}
+              </span>
+            )}
+          </button>
 
         </div>
 
