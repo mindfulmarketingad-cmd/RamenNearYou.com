@@ -79,14 +79,31 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-black/5 flex flex-col items-center gap-5 text-[#6B6862] text-xs">
           <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
             <Link href="/about" className="hover:text-[#1E2026] transition-colors">About</Link>
             <Link href="/blog" className="hover:text-[#1E2026] transition-colors">Blog</Link>
             <Link href="/cities" className="hover:text-[#1E2026] transition-colors">Cities</Link>
             <Link href="/contact" className="hover:text-[#1E2026] transition-colors">Contact</Link>
+            <Link href="/disclaimer" className="hover:text-[#1E2026] transition-colors">Disclaimer</Link>
             <Link href="/privacy-policy" className="hover:text-[#1E2026] transition-colors">Privacy</Link>
             <Link href="/terms-of-service" className="hover:text-[#1E2026] transition-colors">Terms</Link>
+            <a href="/sitemap.xml" className="hover:text-[#1E2026] transition-colors">Sitemap</a>
           </div>
           <p className="text-center">&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
+          <div className="flex items-center justify-center gap-3">
+            {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-black/10 text-[#6B6862] hover:text-white hover:bg-[#B57F50] hover:border-[#B57F50] transition-colors"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
