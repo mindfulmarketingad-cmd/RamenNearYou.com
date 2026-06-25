@@ -208,6 +208,21 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'fish-ramen-near-me-in',
+    filter: { initialFlags: ['fish-ramen'] },
+    title: (c, s) => `Fish Ramen In ${c}, ${s}`,
+    metaNoun: 'fish ramen',
+    hubHref: '/find/fish-ramen-near-me',
+    hubLabel: 'Fish Ramen',
+    about:
+      'Fish ramen leans on seafood for its flavor — a savory gyokai (seafood) broth built on dried fish like niboshi, or a bowl topped with fresh fish and shellfish. This map surfaces the seafood-forward ramen spots near you.',
+    faqs: (city, st) => [
+      { q: `Where can I find fish ramen in ${city}?`, a: `The map above shows ${city}, ${st} seafood-forward ramen spots. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews for gyokai or niboshi to confirm a true seafood bowl.` },
+      { q: 'What is fish ramen?', a: 'Fish ramen gets its flavor from seafood — usually a gyokai broth built on dried fish like niboshi (sardines), bonito, and kombu, or a bowl topped with fresh fish and shellfish.' },
+      { q: 'What is gyokai ramen?', a: 'Gyokai means "seafood" in Japanese. Gyokai ramen uses a broth made from dried fish and seaweed for a deep, savory, umami-rich flavor.' },
+    ],
+  },
+  {
     prefix: 'ramen-sushi-in',
     filter: { initialFlags: ['ramen-sushi'] },
     title: (c, s) => `Ramen and Sushi In ${c}, ${s}`,

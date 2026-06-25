@@ -56,6 +56,7 @@ export const FIND_PAGES = [
   { href: '/find/ramen-karaoke-bar', label: 'Ramen Karaoke Bar Near Me', emoji: '🎤' },
   { href: '/find/ramen-sushi-near-me', label: 'Ramen and Sushi Near Me', emoji: '🍣' },
   { href: '/find/new-ramen-near-me', label: 'New Ramen Places Near Me', emoji: '🆕' },
+  { href: '/find/fish-ramen-near-me', label: 'Fish Ramen Near Me', emoji: '🐟' },
 ]
 
 interface Props {

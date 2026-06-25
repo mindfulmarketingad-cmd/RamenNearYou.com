@@ -91,6 +91,7 @@ const CATEGORIES = [
       { href: '/find/chicken-ramen', label: 'Chicken Ramen Near Me' },
       { href: '/find/chicken-katsu-ramen', label: 'Chicken Katsu Ramen Near Me' },
       { href: '/find/beef-ramen', label: 'Beef Ramen Near Me' },
+      { href: '/find/fish-ramen-near-me', label: 'Fish Ramen Near Me' },
       { href: '/find/black-garlic-ramen', label: 'Black Garlic Ramen Near Me' },
     ],
   },

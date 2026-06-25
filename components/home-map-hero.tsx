@@ -346,6 +346,9 @@ export default function HomeMapHero({
         // "New Spots" — recently opened shops haven't accumulated many reviews
         // yet, so we surface rated spots with a low review count.
         if (flags.has('new-ramen') && !((r.reviewCount ?? 0) > 0 && (r.reviewCount ?? 0) <= 75)) return false
+        // "Fish Ramen" — seafood-broth bowls (gyokai/niboshi) and seafood-forward
+        // shops. The slim payload only carries the name, so match on the name.
+        if (flags.has('fish-ramen') && !/fish|seafood|gyokai|niboshi|shellfish|crab|shrimp|clam|oyster|sushi/i.test(r.name)) return false
         // Feature/amenity flags — DB listings carry an amenities array; Places
         // supplements don't, so they're excluded when an amenity filter is on.
         for (const f of FEATURE_KEYS) {
@@ -588,6 +591,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requireAccess()) return; toggleFlag('ramen-sushi') }} />
+                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => { if (!requireAccess()) return; toggleFlag('fish-ramen') }} />
                 </div>
               </section>
 
