@@ -21,21 +21,13 @@ const footerLinks = {
     { label: 'Claim Your Listing', href: '/claim-your-listing' },
     { label: 'Become an Ambassador', href: '/ambassador' },
   ],
-  Legal: [
-    { label: 'Home', href: '/' },
-    { label: 'About RamenNearYou', href: '/about' },
-    { label: 'Contact Us', href: '/contact' },
-    { label: 'Disclaimer', href: '/disclaimer' },
-    { label: 'Privacy Policy', href: '/privacy-policy' },
-    { label: 'Terms of Service', href: '/terms-of-service' },
-  ],
 }
 
 export default function Footer() {
   return (
     <footer className="bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-4">
