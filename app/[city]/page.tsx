@@ -11,6 +11,7 @@ import {
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
+import BrothStyleLinks from '@/components/broth-style-links'
 
 export async function generateStaticParams() {
   const dbStates = getStates()
@@ -140,6 +141,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             </div>
           </div>
         </section>
+        <BrothStyleLinks place={stateName} />
         <Footer />
       </main>
     )
@@ -242,6 +244,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         </div>
       </section>
 
+      <BrothStyleLinks place={state} />
       <Footer />
     </main>
   )

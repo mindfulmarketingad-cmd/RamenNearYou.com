@@ -8,6 +8,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import ShareButton from '@/components/share-button'
 import ProductsCarousel from '@/components/products-carousel'
+import BrothStyleLinks from '@/components/broth-style-links'
 import type { SupplementListing } from '@/lib/places-supplements'
 
 interface Props {
@@ -276,6 +277,7 @@ export default function SupplementRestaurantPage({ listing: r, stateName, nearby
         </section>
       )}
 
+      <BrothStyleLinks place={r.city} />
       <ProductsCarousel />
       <Footer />
     </main>

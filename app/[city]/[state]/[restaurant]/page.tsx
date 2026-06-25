@@ -30,6 +30,7 @@ import SubscriptionGatedOutboundLink from '@/components/subscription-gated-outbo
 import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
+import BrothStyleLinks from '@/components/broth-style-links'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getFeaturedSlugsForCity } from '@/lib/featured-city'
@@ -884,6 +885,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
         </section>
       )}
 
+      <BrothStyleLinks place={r.city} />
       <ProductsCarousel />
       <Footer />
     </main>
