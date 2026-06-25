@@ -193,6 +193,21 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'ramen-sushi-in',
+    filter: { initialFlags: ['ramen-sushi'] },
+    title: (c, s) => `Ramen and Sushi In ${c}, ${s}`,
+    metaNoun: 'ramen and sushi',
+    hubHref: '/find/ramen-sushi-near-me',
+    hubLabel: 'Ramen and Sushi',
+    about:
+      'When you want both ramen and sushi in one sitting, full-service Japanese restaurants and izakaya are the move — they serve hot bowls alongside fresh sushi and sashimi. This map is filtered to the spots near you most likely to do both.',
+    faqs: (city, st) => [
+      { q: `Where can I find ramen and sushi in ${city}?`, a: `The map above shows ${city}, ${st} Japanese restaurants and izakaya likely to serve both ramen and sushi. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'Do restaurants serve both ramen and sushi?', a: 'Yes — full-service Japanese restaurants and izakaya commonly serve both ramen and sushi, plus sashimi and small plates. Dedicated ramen shops and sushi bars usually specialize in one.' },
+      { q: 'What should I order at a ramen and sushi spot?', a: 'Start with a few pieces of nigiri or a roll while the kitchen fires your ramen, then eat the bowl while it is hot. It is the best way to sample the kitchen’s range.' },
+    ],
+  },
+  {
     prefix: 'ramen-karaoke-bar-in',
     filter: { initialFlags: ['full-bar'] },
     title: (c, s) => `Ramen Karaoke Bars In ${c}, ${s}`,

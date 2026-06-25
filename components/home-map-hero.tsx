@@ -340,6 +340,9 @@ export default function HomeMapHero({
         if (flags.has('hidden-gems') && !((r.rating ?? 0) >= 4.5 && r.reviewCount < 100)) return false
         if (flags.has('open-early') && !opensEarly(r.hours)) return false
         if (flags.has('open-weekends') && !isOpenOnWeekend(r.hours)) return false
+        // "Ramen + Sushi" — spots that also do sushi. The slim payload only
+        // carries the name, so we match shops whose name signals sushi.
+        if (flags.has('ramen-sushi') && !/sushi|sashimi|izakaya|japanese/i.test(r.name)) return false
         // Feature/amenity flags — DB listings carry an amenities array; Places
         // supplements don't, so they're excluded when an amenity filter is on.
         for (const f of FEATURE_KEYS) {
@@ -572,6 +575,16 @@ export default function HomeMapHero({
                   {MOOD_META.map(m => (
                     <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requireAccess()) return; toggleMood(m.key) }} />
                   ))}
+                </div>
+              </section>
+
+              <section className="py-3.5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requireAccess()) return; toggleFlag('ramen-sushi') }} />
                 </div>
               </section>
 
