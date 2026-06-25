@@ -1,5 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Instagram, Facebook, Twitter } from 'lucide-react'
+
+const SOCIAL_LINKS = [
+  { label: 'Instagram', href: 'https://instagram.com/ramennearyou', Icon: Instagram },
+  { label: 'Facebook', href: 'https://facebook.com/ramennearyou', Icon: Facebook },
+  { label: 'Twitter', href: 'https://twitter.com/ramennearyou', Icon: Twitter },
+]
 
 const footerLinks = {
   'Ramen Near Me': [
@@ -64,6 +71,20 @@ export default function Footer() {
             <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
               hello@ramennearyououtreach.com
             </a>
+            <div className="flex items-center gap-3 mt-4">
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-black/10 text-[#6B6862] hover:text-white hover:bg-[#B57F50] hover:border-[#B57F50] transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Link columns */}
@@ -86,30 +107,9 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Newsletter */}
-        <div className="mt-12 pt-12 border-t border-black/5">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <h4 className="text-[#1E2026] font-semibold mb-1">Get new ramen spots in your inbox</h4>
-              <p className="text-[#6B6862] text-sm">We&apos;ll notify you when new restaurants are added near you.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-0 rounded-lg overflow-hidden border border-black/8 w-full sm:w-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-3 bg-[#ffffff] text-[#1E2026] placeholder-[#9B9490]/50 text-sm outline-none min-w-0 sm:min-w-[220px]"
-              />
-              <button className="px-5 py-3 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[#6B6862] text-xs">
-          <p>&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+        <div className="mt-10 pt-6 border-t border-black/5 flex flex-col items-center gap-5 text-[#6B6862] text-xs">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/about" className="hover:text-[#1E2026] transition-colors">About</Link>
             <Link href="/blog" className="hover:text-[#1E2026] transition-colors">Blog</Link>
             <Link href="/cities" className="hover:text-[#1E2026] transition-colors">Cities</Link>
@@ -117,6 +117,7 @@ export default function Footer() {
             <Link href="/privacy-policy" className="hover:text-[#1E2026] transition-colors">Privacy</Link>
             <Link href="/terms-of-service" className="hover:text-[#1E2026] transition-colors">Terms</Link>
           </div>
+          <p className="text-center">&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
         </div>
       </div>
     </footer>
