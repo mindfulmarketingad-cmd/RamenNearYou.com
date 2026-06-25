@@ -252,6 +252,81 @@ export const FIND_MODIFIERS: FindModifier[] = [
       { q: 'Are ramen karaoke bars good for groups?', a: 'Yes — they are built for groups. Look for spots with private karaoke rooms, bring friends, and share plates and songs.' },
     ],
   },
+  {
+    prefix: 'ramen-spots-near-me-in',
+    filter: {},
+    title: (c, s) => `Ramen Spots In ${c}, ${s}`,
+    metaNoun: 'ramen spots',
+    hubHref: '/find/ramen-spots-near-me',
+    hubLabel: 'Ramen Spots',
+    about:
+      'The best ramen spots focus on a few things and do them obsessively well — a house-simmered broth, noodles with real bite, and consistency every visit. Browse the ramen places near you by rating, broth, hours, and distance.',
+    faqs: (city, st) => [
+      { q: `What are the best ramen spots in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots sorted by rating and distance. Enter your ZIP or click "Use my location," then open a couple of listings to skim recent reviews and photos before you go.` },
+      { q: `How do I find a ramen spot near me in ${city}?`, a: `Use the map above — set your location and the closest, best-rated ramen places in ${city} sort to the top. Add filters like "Open Now" to narrow it down.` },
+      { q: 'What makes a great ramen spot?', a: 'House-made broth and noodles, a focused menu, consistent quality across many reviews, and a loyal local following are the clearest signs of a great ramen spot.' },
+    ],
+  },
+  {
+    prefix: 'ramen-noodles-in',
+    filter: {},
+    title: (c, s) => `Ramen Noodles In ${c}, ${s}`,
+    metaNoun: 'ramen noodles',
+    hubHref: '/find/ramen-noodles',
+    hubLabel: 'Ramen Noodles',
+    about:
+      'Real ramen noodles are wheat noodles made with kansui, giving them a springy, chewy bite — a world away from instant. This map shows ramen noodle restaurants near you serving fresh noodles in house-made broth.',
+    faqs: (city, st) => [
+      { q: `Where can I find ramen noodles in ${city}?`, a: `The map above shows ${city}, ${st} ramen noodle restaurants. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews for fresh or house-made noodles.` },
+      { q: 'What are ramen noodles made of?', a: 'Authentic ramen noodles are wheat noodles made with kansui, an alkaline mineral water that gives them their signature springy, chewy texture and pale yellow color.' },
+      { q: 'Are restaurant ramen noodles different from instant?', a: 'Very — restaurant ramen noodles are cooked to order and served firm in a long-simmered broth, while instant noodles are pre-fried and dried. The texture and flavor are in a different league.' },
+    ],
+  },
+  {
+    prefix: 'gluten-free-ramen-in',
+    filter: {},
+    title: (c, s) => `Gluten-Free Ramen In ${c}, ${s}`,
+    metaNoun: 'gluten-free ramen',
+    hubHref: '/find/gluten-free-ramen',
+    hubLabel: 'Gluten-Free Ramen',
+    about:
+      'Traditional ramen is wheat-based, but gluten-free ramen — rice or buckwheat noodles in a tamari-based broth — is increasingly available. This map shows ramen restaurants near you; check menus and reviews for gluten-free options.',
+    faqs: (city, st) => [
+      { q: `Where can I find gluten-free ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants. Enter your ZIP or click "Use my location," then check each menu and recent reviews for gluten-free noodle and broth options — and call ahead to confirm.` },
+      { q: 'Is ramen gluten-free?', a: 'Traditional ramen is not — the noodles are wheat-based and most broths use soy sauce containing wheat. Gluten-free ramen swaps in rice or buckwheat noodles and uses tamari or certified gluten-free soy sauce.' },
+      { q: 'Can celiacs eat ramen?', a: 'Only if the bowl is prepared gluten-free with certified GF noodles, a tamari-based broth, and no cross-contamination. Always confirm with the restaurant directly before ordering.' },
+    ],
+  },
+  {
+    prefix: 'halal-ramen-in',
+    filter: {},
+    title: (c, s) => `Halal Ramen In ${c}, ${s}`,
+    metaNoun: 'halal ramen',
+    hubHref: '/find/halal-ramen',
+    hubLabel: 'Halal Ramen',
+    about:
+      'Classic ramen is usually pork-based, but halal ramen — built on chicken, beef, or vegetable broth with no pork or alcohol — is growing fast. This map shows ramen restaurants near you; check menus and reviews for halal options.',
+    faqs: (city, st) => [
+      { q: `Where can I find halal ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants. Enter your ZIP or click "Use my location," then check menus and reviews for halal chicken, beef, or vegetarian bowls — and call ahead to confirm.` },
+      { q: 'Is ramen halal?', a: 'Traditional ramen usually is not — it is often built on pork broth and chashu pork, sometimes with sake in the seasoning. Halal ramen replaces these with chicken, beef, or vegetable broths and avoids alcohol.' },
+      { q: 'What ramen broth is halal?', a: 'Chicken paitan, beef, and vegetable broths can all be halal when made without pork or alcohol. Pork-based tonkotsu is not halal.' },
+    ],
+  },
+  {
+    prefix: 'tonkatsu-ramen-in',
+    filter: {},
+    title: (c, s) => `Tonkatsu Ramen In ${c}, ${s}`,
+    metaNoun: 'tonkatsu ramen',
+    hubHref: '/find/tonkatsu-ramen',
+    hubLabel: 'Tonkatsu Ramen',
+    about:
+      'Tonkatsu ramen tops a hot bowl with a crispy, panko-breaded pork cutlet — a hearty twist that pairs especially well with a rich tonkotsu or chicken paitan broth. Note: tonkatsu is the fried cutlet, not tonkotsu the pork-bone broth.',
+    faqs: (city, st) => [
+      { q: `Where can I find tonkatsu ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants. Enter your ZIP or click "Use my location," then check menus and reviews for katsu or pork cutlet ramen.` },
+      { q: 'What is tonkatsu ramen?', a: 'Tonkatsu ramen is a bowl of ramen topped with a crispy, panko-breaded and deep-fried pork cutlet, usually served over a rich tonkotsu or chicken paitan broth.' },
+      { q: 'Is tonkatsu the same as tonkotsu?', a: 'No. Tonkatsu is a breaded, fried pork cutlet, while tonkotsu is a rich pork-bone broth. Tonkatsu ramen often uses a tonkotsu broth, so one bowl can feature both.' },
+    ],
+  },
 ]
 
 export interface ModifierMatch {
