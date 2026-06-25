@@ -95,6 +95,9 @@ export default function NavbarClient() {
             <div className="flex items-center gap-2">
               {/* Desktop nav links */}
               <nav className="hidden sm:flex items-center gap-1">
+                <Link href="/" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  Home
+                </Link>
                 <Link href="/find" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   Find
                 </Link>
@@ -103,6 +106,9 @@ export default function NavbarClient() {
                 </Link>
                 <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   Blog
+                </Link>
+                <Link href="/about" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  About
                 </Link>
                 {user && (
                   <>
@@ -170,6 +176,9 @@ export default function NavbarClient() {
             )}
 
             <nav className="flex flex-col gap-1 pt-3">
+              <Link href="/" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                Home
+              </Link>
               <Link href="/find" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 Find
               </Link>
@@ -178,6 +187,9 @@ export default function NavbarClient() {
               </Link>
               <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 Blog
+              </Link>
+              <Link href="/about" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                About
               </Link>
 
               {user && (
