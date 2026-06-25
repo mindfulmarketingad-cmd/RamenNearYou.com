@@ -21,9 +21,11 @@ const footerLinks = {
     { label: 'Claim Your Listing', href: '/claim-your-listing' },
     { label: 'Become an Ambassador', href: '/ambassador' },
   ],
-  Company: [
+  Legal: [
+    { label: 'Home', href: '/' },
     { label: 'About RamenNearYou', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
+    { label: 'Disclaimer', href: '/disclaimer' },
     { label: 'Privacy Policy', href: '/privacy-policy' },
     { label: 'Terms of Service', href: '/terms-of-service' },
   ],

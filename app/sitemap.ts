@@ -253,6 +253,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
+    {
+      url: `${BASE_URL}/disclaimer`,
+      lastModified: SITE_LAUNCH,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
     ...findFilterPages,
     ...findCityPages,
     ...modifierFindPages,
