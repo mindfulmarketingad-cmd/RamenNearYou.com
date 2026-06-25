@@ -193,6 +193,21 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'new-ramen-near-me-in',
+    filter: { initialFlags: ['new-ramen'] },
+    title: (c, s) => `New Ramen Places In ${c}, ${s}`,
+    metaNoun: 'new ramen places',
+    hubHref: '/find/new-ramen-near-me',
+    hubLabel: 'New Ramen Places',
+    about:
+      'Newly opened ramen shops have not racked up many reviews yet, so this map surfaces the rated-but-early spots near you — the latest places to try before the crowds find them.',
+    faqs: (city, st) => [
+      { q: `What new ramen places are in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots that are still early in their run — fewer reviews usually means a newer opening. Enter your ZIP or click "Use my location" to sort by distance, then check the earliest review dates to confirm how new each one is.` },
+      { q: 'How do you know which ramen spots are new?', a: 'Newly opened shops have far fewer reviews than long-established ones, so this page surfaces rated spots with a low review count. Checking the dates on the earliest reviews confirms how new a place really is.' },
+      { q: 'Is it worth trying a brand-new ramen shop?', a: 'Often yes — new spots bring fresh ideas and shorter waits. Order the signature bowl, go at an off-peak time while the kitchen settles in, and call ahead since hours can be incomplete early on.' },
+    ],
+  },
+  {
     prefix: 'ramen-sushi-in',
     filter: { initialFlags: ['ramen-sushi'] },
     title: (c, s) => `Ramen and Sushi In ${c}, ${s}`,

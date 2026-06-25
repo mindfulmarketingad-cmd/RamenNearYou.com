@@ -343,6 +343,9 @@ export default function HomeMapHero({
         // "Ramen + Sushi" — spots that also do sushi. The slim payload only
         // carries the name, so we match shops whose name signals sushi.
         if (flags.has('ramen-sushi') && !/sushi|sashimi|izakaya|japanese/i.test(r.name)) return false
+        // "New Spots" — recently opened shops haven't accumulated many reviews
+        // yet, so we surface rated spots with a low review count.
+        if (flags.has('new-ramen') && !((r.reviewCount ?? 0) > 0 && (r.reviewCount ?? 0) <= 75)) return false
         // Feature/amenity flags — DB listings carry an amenities array; Places
         // supplements don't, so they're excluded when an amenity filter is on.
         for (const f of FEATURE_KEYS) {
@@ -601,6 +604,7 @@ export default function HomeMapHero({
                   <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => { if (!requireAccess()) return; toggleFlag('open-weekends') }} />
                   <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requireAccess()) return; toggleFlag('top-rated') }} />
                   <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requireAccess()) return; toggleFlag('hidden-gems') }} />
+                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => { if (!requireAccess()) return; toggleFlag('new-ramen') }} />
                 </div>
               </section>
 
