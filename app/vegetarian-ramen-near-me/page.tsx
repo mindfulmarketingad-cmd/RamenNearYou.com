@@ -5,11 +5,11 @@ import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 export const metadata: Metadata = {
   title: 'Best Vegetarian Ramen Near Me — Top-Rated Spots Near You',
   description: 'Find the best vegetarian ramen near you. Browse top-rated ramen restaurants serving hearty vegetable broths, miso bowls, and meat-free options.',
-  alternates: { canonical: 'https://www.ramennearyou.com/vegetarian-ramen-near-me' },
+  alternates: { canonical: 'https://www.ramennearyou.com/find/vegetarian-ramen' },
   openGraph: {
     title: 'Best Vegetarian Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best vegetarian ramen near you. Hearty meat-free bowls with rich vegetable broths.',
-    url: 'https://www.ramennearyou.com/vegetarian-ramen-near-me',
+    url: 'https://www.ramennearyou.com/find/vegetarian-ramen',
   },
 }
 

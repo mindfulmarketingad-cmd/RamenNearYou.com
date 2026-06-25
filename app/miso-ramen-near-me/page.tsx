@@ -5,11 +5,11 @@ import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 export const metadata: Metadata = {
   title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
   description: 'Craving miso ramen near you? Browse the best miso ramen restaurants near me — rich Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
-  alternates: { canonical: 'https://www.ramennearyou.com/miso-ramen-near-me' },
+  alternates: { canonical: 'https://www.ramennearyou.com/find/miso-ramen' },
   openGraph: {
     title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best miso ramen near you — rich, fermented Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
-    url: 'https://www.ramennearyou.com/miso-ramen-near-me',
+    url: 'https://www.ramennearyou.com/find/miso-ramen',
   },
 }
 

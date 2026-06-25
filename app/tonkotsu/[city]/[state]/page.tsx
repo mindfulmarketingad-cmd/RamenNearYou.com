@@ -25,15 +25,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!tonkotsuRestaurants.length) return {}
   const { city: cityName, state: stateName, stateCode } = tonkotsuRestaurants[0]
   const title = `Ramen Tonkotsu in ${cityName} ${stateName} | Find and Order Ramen Now`
-  const url = `https://www.ramennearyou.com/tonkotsu/${city}/${state}`
+  // Canonical points to the /find modifier page, the chosen canonical for the
+  // "{broth} ramen in {city}" intent (this broth-city hub duplicates it).
+  const canonicalUrl = `https://www.ramennearyou.com/find/tonkotsu-ramen-in-${city}-${stateCode.toLowerCase()}`
   return {
     title,
     description: `Find the best tonkotsu ramen in ${cityName}, ${stateCode}. Browse ${tonkotsuRestaurants.length} top-rated restaurants serving rich, creamy pork bone broth. Ratings, menus, and directions.`,
-    alternates: { canonical: url },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description: `Find the best tonkotsu ramen in ${cityName}, ${stateCode}. ${tonkotsuRestaurants.length} top-rated restaurants with rich, creamy pork bone broth.`,
-      url,
+      url: canonicalUrl,
     },
   }
 }

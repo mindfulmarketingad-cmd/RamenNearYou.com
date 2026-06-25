@@ -5,11 +5,11 @@ import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 export const metadata: Metadata = {
   title: 'Best Shio Ramen Near Me — Top-Rated Spots Near You',
   description: 'Craving shio ramen near you? Browse the best shio ramen restaurants near me — light, clear salt-based broth, ranked by rating with maps, hours & reviews.',
-  alternates: { canonical: 'https://www.ramennearyou.com/shio-ramen-near-me' },
+  alternates: { canonical: 'https://www.ramennearyou.com/find/shio-ramen' },
   openGraph: {
     title: 'Best Shio Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best shio ramen near you — light, clear salt-based broth, delicate and savory, ranked by rating with maps, hours & reviews.',
-    url: 'https://www.ramennearyou.com/shio-ramen-near-me',
+    url: 'https://www.ramennearyou.com/find/shio-ramen',
   },
 }
 

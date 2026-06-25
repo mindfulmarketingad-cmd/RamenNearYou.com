@@ -5,11 +5,11 @@ import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 export const metadata: Metadata = {
   title: 'Best Shoyu Ramen Near Me — Top-Rated Spots Near You',
   description: 'Craving shoyu ramen near you? Browse the best shoyu ramen restaurants near me — classic Tokyo-style soy sauce broth, ranked by rating with maps, hours & reviews.',
-  alternates: { canonical: 'https://www.ramennearyou.com/shoyu-ramen-near-me' },
+  alternates: { canonical: 'https://www.ramennearyou.com/find/shoyu-ramen' },
   openGraph: {
     title: 'Best Shoyu Ramen Near Me — Top-Rated Spots Near You',
     description: 'Find the best shoyu ramen near you — classic Tokyo-style soy sauce broth, clear and savory, ranked by rating with maps, hours & reviews.',
-    url: 'https://www.ramennearyou.com/shoyu-ramen-near-me',
+    url: 'https://www.ramennearyou.com/find/shoyu-ramen',
   },
 }
 

@@ -2,18 +2,20 @@ import Link from 'next/link'
 
 // Canonical "ramen by broth/style near you" landing pages. Surfaced on
 // high-impression state and city pages to funnel internal-link authority to
-// the dedicated near-me pages — which (per Search Console) earn big impressions
-// for "{broth} ramen near me" queries but were barely internally linked.
+// the canonical /find broth hubs — which (per Search Console) earn big
+// impressions for "{broth} ramen near me" queries but were barely linked.
+// Links point at the /find hubs (the chosen canonical for this intent), not
+// the /{broth}-ramen-near-me pages that now canonicalize into them.
 const BROTH_STYLE_LINKS = [
-  { href: '/tonkotsu-ramen-near-me', label: 'Tonkotsu Ramen', emoji: '🍜' },
-  { href: '/shoyu-ramen-near-me', label: 'Shoyu Ramen', emoji: '🍶' },
-  { href: '/miso-ramen-near-me', label: 'Miso Ramen', emoji: '🥣' },
-  { href: '/shio-ramen-near-me', label: 'Shio Ramen', emoji: '🧂' },
-  { href: '/spicy-ramen-near-me', label: 'Spicy Ramen', emoji: '🌶️' },
-  { href: '/vegan-ramen-near-me', label: 'Vegan Ramen', emoji: '🌱' },
-  { href: '/vegetarian-ramen-near-me', label: 'Vegetarian Ramen', emoji: '🥬' },
-  { href: '/japanese-ramen-near-me', label: 'Japanese Ramen', emoji: '🇯🇵' },
-  { href: '/korean-ramen-near-me', label: 'Korean Ramen', emoji: '🇰🇷' },
+  { href: '/find/tonkotsu-ramen', label: 'Tonkotsu Ramen', emoji: '🍜' },
+  { href: '/find/shoyu-ramen', label: 'Shoyu Ramen', emoji: '🍶' },
+  { href: '/find/miso-ramen', label: 'Miso Ramen', emoji: '🥣' },
+  { href: '/find/shio-ramen', label: 'Shio Ramen', emoji: '🧂' },
+  { href: '/find/spicy-ramen', label: 'Spicy Ramen', emoji: '🌶️' },
+  { href: '/find/vegan-ramen', label: 'Vegan Ramen', emoji: '🌱' },
+  { href: '/find/vegetarian-ramen', label: 'Vegetarian Ramen', emoji: '🥬' },
+  { href: '/find/japanese-ramen', label: 'Japanese Ramen', emoji: '🇯🇵' },
+  { href: '/find/korean-ramen', label: 'Korean Ramen', emoji: '🇰🇷' },
 ]
 
 interface Props {

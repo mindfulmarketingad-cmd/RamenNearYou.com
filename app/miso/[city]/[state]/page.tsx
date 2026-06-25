@@ -25,12 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!list.length) return {}
   const { city: cityName, state: stateName, stateCode } = list[0]
   const title = `Best Miso Ramen in ${cityName}, ${stateCode} — Top-Rated Spots`
-  const url = `https://www.ramennearyou.com/miso/${city}/${state}`
+  // Canonical points to the /find modifier page, the chosen canonical for the
+  // "{broth} ramen in {city}" intent (this broth-city hub duplicates it).
+  const canonicalUrl = `https://www.ramennearyou.com/find/miso-ramen-in-${city}-${stateCode.toLowerCase()}`
   return {
     title,
     description: `Find the best miso ramen in ${cityName}, ${stateCode}. Browse ${list.length} top-rated restaurants serving rich, fermented miso broth. Ratings, menus, and directions.`,
-    alternates: { canonical: url },
-    openGraph: { title, description: `${list.length} top-rated miso ramen restaurants in ${cityName}, ${stateCode}.`, url },
+    alternates: { canonical: canonicalUrl },
+    openGraph: { title, description: `${list.length} top-rated miso ramen restaurants in ${cityName}, ${stateCode}.`, url: canonicalUrl },
   }
 }
 
