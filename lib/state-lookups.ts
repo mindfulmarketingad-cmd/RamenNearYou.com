@@ -50,6 +50,7 @@ export const STATE_CODE_TO_SLUG: Record<string, string> = {
   WI: 'wisconsin',
   WY: 'wyoming',
   DC: 'district-of-columbia',
+  QC: 'quebec',
 }
 
 export const STATE_SLUG_TO_CODE: Record<string, string> = Object.fromEntries(
@@ -70,6 +71,7 @@ export const STATE_CODE_TO_NAME: Record<string, string> = {
   SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah',
   VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia',
   WI: 'Wisconsin', WY: 'Wyoming', DC: 'District of Columbia',
+  QC: 'Quebec',
 }
 
 /** Set of all full state slugs — used by middleware to identify city pages */

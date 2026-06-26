@@ -66,7 +66,10 @@ export async function generateMetadata(
   // Skip metadata for unrecognized cities (junk URLs 404 in the page body).
   const isKnown = restaurants.length > 0 || supplements.length > 0 || !!CAPITAL_BY_PARAM[cityState] || MAJOR_SET.has(cityState)
   if (!isKnown) return {}
-  const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? citySlug
+  // Title-case the slug as a last resort so the title never shows a raw slug
+  // (e.g. "quebec" → "Quebec", "maple-grove" → "Maple Grove").
+  const citySlugTitle = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? supplements[0]?.city ?? citySlugTitle
 
   // Listing count drives the Zillow-style title/description ("… - 12 Spots").
   const count = restaurants.length + supplements.length

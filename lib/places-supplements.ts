@@ -1,5 +1,6 @@
 import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
+import quebecRaw from './places-quebec.json'
 import { STATE_CODE_TO_SLUG, STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from './state-lookups'
 
 export interface PlacesRestaurant {
@@ -19,6 +20,7 @@ export interface PlacesRestaurant {
 const supplements: Record<string, PlacesRestaurant[]> = {
   ...(capitalsRaw as Record<string, PlacesRestaurant[]>),
   ...(majorCitiesRaw as Record<string, PlacesRestaurant[]>),
+  ...(quebecRaw as Record<string, PlacesRestaurant[]>),
 }
 
 export function getPlacesSupplements(param: string): PlacesRestaurant[] {

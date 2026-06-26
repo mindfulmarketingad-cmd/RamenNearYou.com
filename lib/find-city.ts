@@ -29,7 +29,10 @@ export function getFindCityParams(): Array<{ cityState: string }> {
   const dbSet = new Set(dbParams)
   const capitalParams = CAPITAL_CITIES.filter(c => !dbSet.has(c.param)).map(c => c.param)
   const majorParams = MAJOR_CITIES_PARAMS.filter(p => !dbSet.has(p))
-  const all = new Set([...dbParams, ...capitalParams, ...majorParams])
+  // Supplement-only cities outside the US registries (e.g. Quebec, Canada) that
+  // still get a dedicated /find/{city}-{state} page.
+  const extraParams = ['quebec-qc']
+  const all = new Set([...dbParams, ...capitalParams, ...majorParams, ...extraParams])
   return Array.from(all).map(cityState => ({ cityState }))
 }
 

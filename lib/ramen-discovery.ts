@@ -9,10 +9,14 @@ import { getSupplementListings } from './places-supplements'
 import { getAllFeaturedSlugs } from './featured-city'
 import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
+import quebecRaw from './places-quebec.json'
+
+type RawSupplement = Record<string, Array<{ placeId: string; name: string; latitude: number | null; longitude: number | null; rating: number | null; reviewCount: number; priceLevel: number | null; photo: string | null; googleMapsUrl: string }>>
 
 const allSupplements = {
-  ...(capitalsRaw as Record<string, Array<{ placeId: string; name: string; latitude: number | null; longitude: number | null; rating: number | null; reviewCount: number; priceLevel: number | null; photo: string | null; googleMapsUrl: string }>>),
-  ...(majorCitiesRaw as Record<string, Array<{ placeId: string; name: string; latitude: number | null; longitude: number | null; rating: number | null; reviewCount: number; priceLevel: number | null; photo: string | null; googleMapsUrl: string }>>),
+  ...(capitalsRaw as RawSupplement),
+  ...(majorCitiesRaw as RawSupplement),
+  ...(quebecRaw as RawSupplement),
 }
 
 function priceLevelToRange(level: number | null): string {

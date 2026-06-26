@@ -25,10 +25,6 @@ export interface MapCard {
   lng: number | null
   perfectFor?: string[]
   featured?: boolean
-  // When set, the card's CTA links out to this URL (opens a new tab) instead of
-  // an internal /{city}/{state}/{slug} listing page. Used for places (e.g. in
-  // Canada) that have no internal detail page.
-  externalUrl?: string
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -281,23 +277,12 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 </div>
 
                 <div className="mt-auto pt-1">
-                  {card.externalUrl ? (
-                    <a
-                      href={card.externalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-semibold transition-colors border border-[#B57F50]/20"
-                    >
-                      View on Google Maps <ChevronRight className="w-3.5 h-3.5" />
-                    </a>
-                  ) : (
-                    <Link
-                      href={`/${card.citySlug}/${card.stateSlug}/${card.slug}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-semibold transition-colors border border-[#B57F50]/20"
-                    >
-                      View Listing <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
-                  )}
+                  <Link
+                    href={`/${card.citySlug}/${card.stateSlug}/${card.slug}`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-semibold transition-colors border border-[#B57F50]/20"
+                  >
+                    View Listing <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
             </article>
