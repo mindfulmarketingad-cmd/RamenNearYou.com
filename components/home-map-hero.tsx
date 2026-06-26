@@ -395,9 +395,12 @@ export default function HomeMapHero({
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
   const handleSelect = useCallback((slug: string) => {
+    const result = evaluate()
+    if (result !== 'ok') { setGateMode(result); return }
     setSelectedSlug(slug)
     document.getElementById(`home-card-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [evaluate])
 
   const handleMapCenter = useCallback((center: { lat: number; lng: number }) => {
     setMapDragCenter(center)
