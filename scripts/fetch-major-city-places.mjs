@@ -651,29 +651,53 @@ const MAJOR_CITIES = [
   { city: 'Green River',   stateCode: 'WY', state: 'Wyoming' },
 ]
 
+// Uses Places API (New) — v1 Text Search.
+// No photo fields in the field mask; photos are never fetched.
+const FIELD_MASK = [
+  'places.id',
+  'places.displayName',
+  'places.formattedAddress',
+  'places.rating',
+  'places.userRatingCount',
+  'places.priceLevel',
+  'places.location',
+  'places.regularOpeningHours',
+].join(',')
+
+const PRICE_MAP = {
+  PRICE_LEVEL_FREE: 0,
+  PRICE_LEVEL_INEXPENSIVE: 1,
+  PRICE_LEVEL_MODERATE: 2,
+  PRICE_LEVEL_EXPENSIVE: 3,
+  PRICE_LEVEL_VERY_EXPENSIVE: 4,
+}
+
 async function fetchPlaces(city) {
-  const query = encodeURIComponent(`ramen restaurants in ${city.city}, ${city.state}`)
-  const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&type=restaurant&key=${API_KEY}`
-  const res = await fetch(url)
+  const body = { textQuery: `ramen restaurant in ${city.city}, ${city.state}`, maxResultCount: 20 }
+  const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': API_KEY,
+      'X-Goog-FieldMask': FIELD_MASK,
+    },
+    body: JSON.stringify(body),
+  })
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${city.city}`)
   const json = await res.json()
-  if (json.status !== 'OK' && json.status !== 'ZERO_RESULTS') {
-    throw new Error(`Places API error for ${city.city}: ${json.status} — ${json.error_message ?? ''}`)
-  }
-  return (json.results ?? []).slice(0, 20).map(r => ({
-    placeId: r.place_id,
-    name: r.name,
-    address: r.formatted_address,
-    rating: r.rating ?? null,
-    reviewCount: r.user_ratings_total ?? 0,
-    priceLevel: r.price_level ?? null,
-    // Photo intentionally omitted — the Place Photo endpoint is billed per
-    // fetch, so we serve a local placeholder instead of live Google photos.
+  if (json.error) throw new Error(`Places API error for ${city.city}: ${json.error.message}`)
+  return (json.places ?? []).map(p => ({
+    placeId: p.id,
+    name: p.displayName?.text ?? '',
+    address: p.formattedAddress ?? '',
+    rating: p.rating ?? null,
+    reviewCount: p.userRatingCount ?? 0,
+    priceLevel: p.priceLevel ? (PRICE_MAP[p.priceLevel] ?? null) : null,
     photo: null,
-    latitude: r.geometry?.location?.lat ?? null,
-    longitude: r.geometry?.location?.lng ?? null,
-    openNow: r.opening_hours?.open_now ?? null,
-    googleMapsUrl: `https://www.google.com/maps/place/?q=place_id:${r.place_id}`,
+    latitude: p.location?.latitude ?? null,
+    longitude: p.location?.longitude ?? null,
+    openNow: p.regularOpeningHours?.openNow ?? null,
+    googleMapsUrl: `https://www.google.com/maps/place/?q=place_id:${p.id}`,
   }))
 }
 

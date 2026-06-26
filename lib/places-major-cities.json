@@ -7175,7 +7175,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ2SUvQwlV3YkR7ocrB3R72jU"
     }
   ],
-  "new-britain-ct": [],
+  "new-britain-ct": [
+    {
+      "placeId": "ChIJi5M5pQuz54kRxSFwqYD1w78",
+      "name": "So.Ramen",
+      "address": "1460 East St, New Britain, CT 06053, USA",
+      "rating": 4.3,
+      "reviewCount": 82,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.6922388,
+      "longitude": -72.7603383,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJi5M5pQuz54kRxSFwqYD1w78"
+    }
+  ],
   "greenwich-ct": [
     {
       "placeId": "ChIJ07425UOYwokRAj3n1eK_22A",
@@ -11035,7 +11049,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJgSs-eGpFVVMRXQjjCcrcBLs"
     }
   ],
-  "caldwell-id": [],
+  "caldwell-id": [
+    {
+      "placeId": "ChIJF2ySj7y1r1QRB-pykf0ioJ4",
+      "name": "Nara Ramen & Sushi Bar -Caldwell",
+      "address": "702 Main St, Caldwell, ID 83605, USA",
+      "rating": 4.1,
+      "reviewCount": 285,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 43.6668163,
+      "longitude": -116.68822800000001,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJF2ySj7y1r1QRB-pykf0ioJ4"
+    }
+  ],
   "coeur-dalene-id": [
     {
       "placeId": "ChIJb7CNYEbHYVMRdo_4-bqHzG0",
@@ -19167,7 +19195,268 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJp_X2aorz44kRV0OwWmOIzBs"
     }
   ],
-  "quincy-ma": [],
+  "quincy-ma": [
+    {
+      "placeId": "ChIJIzLRGAB944kR7_jiSTBhFNI",
+      "name": "Waku Waku Ramen Quincy",
+      "address": "657 Hancock St, Quincy, MA 02170, USA",
+      "rating": 4.8,
+      "reviewCount": 375,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.267786,
+      "longitude": -71.016643,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJIzLRGAB944kR7_jiSTBhFNI"
+    },
+    {
+      "placeId": "ChIJWTukvqd844kRktx-FseT7t0",
+      "name": "Hakata Ramen",
+      "address": "673 Hancock St, Quincy, MA 02170, USA",
+      "rating": 4.5,
+      "reviewCount": 578,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2674958,
+      "longitude": -71.016081,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJWTukvqd844kRktx-FseT7t0"
+    },
+    {
+      "placeId": "ChIJJZvtDAB944kR8Y-9ASkhuaI",
+      "name": "Somenya Quincy",
+      "address": "15 Beale St, Quincy, MA 02170, USA",
+      "rating": 4.5,
+      "reviewCount": 67,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 42.2675183,
+      "longitude": -71.0168042,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJJZvtDAB944kR8Y-9ASkhuaI"
+    },
+    {
+      "placeId": "ChIJx7eZAbdj44kRA_7-H6DrQXY",
+      "name": "Ganko Ittetsu Ramen",
+      "address": "224 Quincy Ave, Braintree, MA 02184, USA",
+      "rating": 4.5,
+      "reviewCount": 178,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 42.2284927,
+      "longitude": -70.9709014,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJx7eZAbdj44kRA_7-H6DrQXY"
+    },
+    {
+      "placeId": "ChIJA_X--Npj44kRFaggQA_VmH8",
+      "name": "Ōmori Izakaya and Sushi ( Quincy )",
+      "address": "11 Foster St, Quincy, MA 02169, USA",
+      "rating": 4.7,
+      "reviewCount": 226,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2499281,
+      "longitude": -71.0006504,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJA_X--Npj44kRFaggQA_VmH8"
+    },
+    {
+      "placeId": "ChIJ1a5bPAB944kR6GcKWw6p5z8",
+      "name": "Toppu",
+      "address": "95 Franklin St, Quincy, MA 02169, USA",
+      "rating": 4.1,
+      "reviewCount": 118,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2404983,
+      "longitude": -71.0035225,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ1a5bPAB944kR6GcKWw6p5z8"
+    },
+    {
+      "placeId": "ChIJSX967Opj44kR6CV2JO9eZEI",
+      "name": "Quickway Japanese Hibachi",
+      "address": "479 Washington St Ste 1, Quincy, MA 02169, USA",
+      "rating": 3.9,
+      "reviewCount": 38,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 42.247824699999995,
+      "longitude": -70.9819368,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJSX967Opj44kR6CV2JO9eZEI"
+    },
+    {
+      "placeId": "ChIJ0QBDokpj44kRRgzfgvJyWa4",
+      "name": "Fuji at WoC",
+      "address": "1420 Hancock St, Quincy, MA 02169, USA",
+      "rating": 4.6,
+      "reviewCount": 1297,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.249296,
+      "longitude": -71.0022699,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ0QBDokpj44kRRgzfgvJyWa4"
+    },
+    {
+      "placeId": "ChIJTaUlKzVj44kRsq_R3hv7PTQ",
+      "name": "Cloud Asian Fusion & Bar",
+      "address": "217 Quincy Ave, Quincy, MA 02169, USA",
+      "rating": 4.7,
+      "reviewCount": 677,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2406133,
+      "longitude": -70.99211559999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJTaUlKzVj44kRsq_R3hv7PTQ"
+    },
+    {
+      "placeId": "ChIJF-nlxad844kR5k9QAXc3jAw",
+      "name": "Fuji",
+      "address": "698 Hancock St, Quincy, MA 02170, USA",
+      "rating": 4.3,
+      "reviewCount": 629,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.267344,
+      "longitude": -71.01522299999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJF-nlxad844kR5k9QAXc3jAw"
+    },
+    {
+      "placeId": "ChIJEXTuVpZ744kR2gYz5dRsOSM",
+      "name": "Waku Waku Ramen Chinatown",
+      "address": "2 Tyler St, Boston, MA 02111, USA",
+      "rating": 4.3,
+      "reviewCount": 974,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.3512225,
+      "longitude": -71.0603856,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEXTuVpZ744kR2gYz5dRsOSM"
+    },
+    {
+      "placeId": "ChIJ-QERJrJ944kRIHRSyxsFm0Y",
+      "name": "ROYAL HOTPOT KOREAN BBQ SUSHI & BAR",
+      "address": "227 Parkingway, Quincy, MA 02169, USA",
+      "rating": 4.4,
+      "reviewCount": 1396,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 42.2442832,
+      "longitude": -71.0034831,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ-QERJrJ944kRIHRSyxsFm0Y"
+    },
+    {
+      "placeId": "ChIJZXowJl5744kRDddMtVIR9Gk",
+      "name": "Shabu",
+      "address": "397 Hancock St, Quincy, MA 02171, USA",
+      "rating": 4.6,
+      "reviewCount": 454,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2735821,
+      "longitude": -71.02592039999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJZXowJl5744kRDddMtVIR9Gk"
+    },
+    {
+      "placeId": "ChIJR9NyDwBj44kRQJttWfBoAp4",
+      "name": "Paik's Noodle Quincy",
+      "address": "101 Falls Blvd Unit 1, Quincy, MA 02169, USA",
+      "rating": 4.2,
+      "reviewCount": 112,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2380786,
+      "longitude": -70.98384279999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJR9NyDwBj44kRQJttWfBoAp4"
+    },
+    {
+      "placeId": "ChIJeVweLwBj44kRIlfC66Q7KbQ",
+      "name": "UMAI KATSU",
+      "address": "101 Falls Blvd Unit 1, Quincy, MA 02169, USA",
+      "rating": 3.6,
+      "reviewCount": 23,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2380786,
+      "longitude": -70.98384279999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJeVweLwBj44kRIlfC66Q7KbQ"
+    },
+    {
+      "placeId": "ChIJlZzvUCB744kRwGvAiw5SZXQ",
+      "name": "Tora Ramen",
+      "address": "99 Harrison Ave, Boston, MA 02111, USA",
+      "rating": 4.5,
+      "reviewCount": 803,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.3508213,
+      "longitude": -71.0617019,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJlZzvUCB744kRwGvAiw5SZXQ"
+    },
+    {
+      "placeId": "ChIJoQbCs1h744kRjC8yF4Szffw",
+      "name": "Mochinut & OneZo",
+      "address": "19 Billings Rd, Quincy, MA 02171, USA",
+      "rating": 4.5,
+      "reviewCount": 428,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 42.2729709,
+      "longitude": -71.02593499999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJoQbCs1h744kRjC8yF4Szffw"
+    },
+    {
+      "placeId": "ChIJDRrE6_p944kRyd0XkAj_H_A",
+      "name": "Shi Miao Dao",
+      "address": "5 Brook St, Quincy, MA 02170, USA",
+      "rating": 4.5,
+      "reviewCount": 111,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.2663179,
+      "longitude": -71.0208754,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDRrE6_p944kRyd0XkAj_H_A"
+    },
+    {
+      "placeId": "ChIJWd-Ior9544kRFGsj8rUhkac",
+      "name": "Ganko Ittetsu Ramen",
+      "address": "318 Harvard St #3, Brookline, MA 02446, USA",
+      "rating": 4.5,
+      "reviewCount": 1995,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 42.3432045,
+      "longitude": -71.1234802,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJWd-Ior9544kRFGsj8rUhkac"
+    },
+    {
+      "placeId": "ChIJGY6GPXN944kRfnGYC7LIcSA",
+      "name": "Dagu Rice Noodle",
+      "address": "663 Hancock St, Quincy, MA 02170, USA",
+      "rating": 4.2,
+      "reviewCount": 306,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 42.2676942,
+      "longitude": -71.0163333,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJGY6GPXN944kRfnGYC7LIcSA"
+    }
+  ],
   "lynn-ma": [
     {
       "placeId": "ChIJHzaKf5ht44kR0Utg_7yBTN4",
@@ -19815,7 +20104,73 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJdbL9LutSrlIRSvRHjVB-vPI"
     }
   ],
-  "bloomington-mn": [],
+  "bloomington-mn": [
+    {
+      "placeId": "ChIJm-CzFiUl9ocRffIDlAbfeLA",
+      "name": "Itton Ramen",
+      "address": "2137 W 80th 1/2 St d, Bloomington, MN 55431, USA",
+      "rating": 4.9,
+      "reviewCount": 2909,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 44.8576236,
+      "longitude": -93.3072394,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJm-CzFiUl9ocRffIDlAbfeLA"
+    },
+    {
+      "placeId": "ChIJaWQ_CwA79ocRb574JSpbsPA",
+      "name": "Itton Ramen & Japanese Street Food",
+      "address": "1000 County Rd 42 E, Burnsville, MN 55337, USA",
+      "rating": 5,
+      "reviewCount": 2140,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 44.7386032,
+      "longitude": -93.2606804,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJaWQ_CwA79ocRb574JSpbsPA"
+    },
+    {
+      "placeId": "ChIJ_w8fyVRnbIgRl1wBgBIIRxA",
+      "name": "Yatagarasu - Bloomington",
+      "address": "430 E Kirkwood Ave Unit 6, Bloomington, IN 47408, USA",
+      "rating": 4.5,
+      "reviewCount": 335,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 39.166235,
+      "longitude": -86.52850740000001,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_w8fyVRnbIgRl1wBgBIIRxA"
+    },
+    {
+      "placeId": "ChIJ9ax9GgAn9ocR5Q4Dl63-tFU",
+      "name": "Kajiken Ramen",
+      "address": "9 E 66th St, Minneapolis, MN 55423, USA",
+      "rating": 4.5,
+      "reviewCount": 118,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 44.8830327,
+      "longitude": -93.2776001,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ9ax9GgAn9ocR5Q4Dl63-tFU"
+    },
+    {
+      "placeId": "ChIJmZBZ76Qv9ocR48SQ0Hd_FgI",
+      "name": "Ichiddo ramen",
+      "address": "60 E Broadway Spc C322, Bloomington, MN 55425, USA",
+      "rating": 3.3,
+      "reviewCount": 213,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 44.8559786,
+      "longitude": -93.24239779999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJmZBZ76Qv9ocR48SQ0Hd_FgI"
+    }
+  ],
   "plymouth-mn": [
     {
       "placeId": "ChIJKXjlzdlLs1IRSQoSI0i8ICc",
@@ -19883,7 +20238,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJaecQZvtJs1IRPPd7vIcfDl8"
     }
   ],
-  "maple-grove-mn": [],
+  "maple-grove-mn": [
+    {
+      "placeId": "ChIJD_DW52Y3s1IRNUuJIhe5Hnk",
+      "name": "Ichiddo Ramen",
+      "address": "11716 Elm Creek Blvd N, Maple Grove, MN 55369, USA",
+      "rating": 4.3,
+      "reviewCount": 517,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 45.0952862,
+      "longitude": -93.42926039999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJD_DW52Y3s1IRNUuJIhe5Hnk"
+    }
+  ],
   "burnsville-mn": [
     {
       "placeId": "ChIJVWQ--y479ocRZ8z36zogOBg",
@@ -23692,7 +24061,268 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJq9jzBe_HyIARcQaxlkbVQws"
     }
   ],
-  "summerlin-nv": [],
+  "summerlin-nv": [
+    {
+      "placeId": "ChIJLw6JJry_yIARKTXZZc1Nn1k",
+      "name": "Marufuku Ramen",
+      "address": "2010 Festival Plaza Dr, Las Vegas, NV 89135, USA",
+      "rating": 4.3,
+      "reviewCount": 74,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 36.1492448,
+      "longitude": -115.3330015,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJLw6JJry_yIARKTXZZc1Nn1k"
+    },
+    {
+      "placeId": "ChIJ5wkQMou_yIARbUQTLRVA9Lw",
+      "name": "Dragon Tiger Noodle Co.",
+      "address": "750 S Rampart Blvd Ste 11, Las Vegas, NV 89145, USA",
+      "rating": 4.4,
+      "reviewCount": 552,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.1643413,
+      "longitude": -115.2897778,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ5wkQMou_yIARbUQTLRVA9Lw"
+    },
+    {
+      "placeId": "ChIJIbPapwrByIARA06qCML6ANs",
+      "name": "Eki Ramen - Durango",
+      "address": "8610 Spring Mountain Rd, Las Vegas, NV 89117, USA",
+      "rating": 4.6,
+      "reviewCount": 13,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 36.1263905,
+      "longitude": -115.2796853,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJIbPapwrByIARA06qCML6ANs"
+    },
+    {
+      "placeId": "ChIJQ4ctBwu5yIARt1zX3VwF44A",
+      "name": "Sakura Ramen",
+      "address": "4555 S Fort Apache Rd #110, Las Vegas, NV 89147, USA",
+      "rating": 4.7,
+      "reviewCount": 306,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.1061846,
+      "longitude": -115.29797579999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJQ4ctBwu5yIARt1zX3VwF44A"
+    },
+    {
+      "placeId": "ChIJ-Uc53jO_yIARltG67Acvo7k",
+      "name": "Soru | Ramen • Sushi • Boba Milk Tea",
+      "address": "10217 W Charleston Blvd Ste d, Las Vegas, NV 89135, USA",
+      "rating": 4.3,
+      "reviewCount": 526,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.158555799999995,
+      "longitude": -115.3170283,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ-Uc53jO_yIARltG67Acvo7k"
+    },
+    {
+      "placeId": "ChIJEc5RAdnByIAR4A8jdhdT_ts",
+      "name": "Moko Ramen Bar",
+      "address": "6350 W Charleston Blvd #120, Las Vegas, NV 89146, USA",
+      "rating": 4.6,
+      "reviewCount": 588,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.1595811,
+      "longitude": -115.23307679999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEc5RAdnByIAR4A8jdhdT_ts"
+    },
+    {
+      "placeId": "ChIJBxV89s3GyIARdRSRkZuiRDI",
+      "name": "Ramen Tatsu",
+      "address": "3400 S Jones Blvd #6, Las Vegas, NV 89146, USA",
+      "rating": 4.6,
+      "reviewCount": 991,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.127668199999995,
+      "longitude": -115.2241507,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJBxV89s3GyIARdRSRkZuiRDI"
+    },
+    {
+      "placeId": "ChIJD4fVN_3FyIARrXyxvGmQGO4",
+      "name": "Ramen Aku",
+      "address": "4031 S Maryland Pkwy, Las Vegas, NV 89119, USA",
+      "rating": 4.8,
+      "reviewCount": 2549,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.1161102,
+      "longitude": -115.13997999999998,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJD4fVN_3FyIARrXyxvGmQGO4"
+    },
+    {
+      "placeId": "ChIJ4VTTXgDByIARLw2Z9UFTPik",
+      "name": "Tomoya Japanese Cuisine",
+      "address": "8540 W Lake Mead Blvd #120, Las Vegas, NV 89128, USA",
+      "rating": 4.8,
+      "reviewCount": 89,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 36.1997753,
+      "longitude": -115.2792921,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ4VTTXgDByIARLw2Z9UFTPik"
+    },
+    {
+      "placeId": "ChIJFR0XfmrHyIARZEb1EVr2cc0",
+      "name": "Marufuku Ramen",
+      "address": "8670 W Sunset Rd Ste H-120, Las Vegas, NV 89148, USA",
+      "rating": 4.5,
+      "reviewCount": 306,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.070707899999995,
+      "longitude": -115.28102009999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJFR0XfmrHyIARZEb1EVr2cc0"
+    },
+    {
+      "placeId": "ChIJ29voaIvHyIARdpvYrB2YD20",
+      "name": "Ramen KoBo",
+      "address": "7040 S Durango Dr #104, Las Vegas, NV 89113, USA",
+      "rating": 4.5,
+      "reviewCount": 931,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.0600518,
+      "longitude": -115.27877509999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ29voaIvHyIARdpvYrB2YD20"
+    },
+    {
+      "placeId": "ChIJeasFer24yIARtO4IBXnk-hA",
+      "name": "The Magic Noodle",
+      "address": "5165 S Fort Apache Rd #165, Las Vegas, NV 89148, USA",
+      "rating": 4.6,
+      "reviewCount": 2143,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.095715,
+      "longitude": -115.2982684,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJeasFer24yIARtO4IBXnk-hA"
+    },
+    {
+      "placeId": "ChIJgZSkprrGyIARb44_7rgbT7Q",
+      "name": "Ramen Sora",
+      "address": "4490 Spring Mountain Rd, Las Vegas, NV 89102, USA",
+      "rating": 4.5,
+      "reviewCount": 2706,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.1265423,
+      "longitude": -115.201793,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJgZSkprrGyIARb44_7rgbT7Q"
+    },
+    {
+      "placeId": "ChIJ8Tw15lK-yIARn9y0vXnrFG4",
+      "name": "8 Noodle Bar",
+      "address": "11011 W Charleston Blvd, Las Vegas, NV 89135, USA",
+      "rating": 4.2,
+      "reviewCount": 349,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.1562072,
+      "longitude": -115.3332291,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ8Tw15lK-yIARn9y0vXnrFG4"
+    },
+    {
+      "placeId": "ChIJ3bwqk7nGyIARJAIn1hXJfEU",
+      "name": "Ramen Boys",
+      "address": "3650 S Decatur Blvd Ste 3, Las Vegas, NV 89103, USA",
+      "rating": 4.5,
+      "reviewCount": 544,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.1242249,
+      "longitude": -115.20770440000001,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ3bwqk7nGyIARJAIn1hXJfEU"
+    },
+    {
+      "placeId": "ChIJ6xV8VgDByIAR9FgtSfljbxc",
+      "name": "Enza",
+      "address": "Parking lot, 2205 S Rainbow Blvd, Las Vegas, NV 89146, USA",
+      "rating": 4.3,
+      "reviewCount": 192,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.147052099999996,
+      "longitude": -115.24348889999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ6xV8VgDByIAR9FgtSfljbxc"
+    },
+    {
+      "placeId": "ChIJF_5lfuC_yIARUPUjktsSSK8",
+      "name": "Kungfu Dumplings",
+      "address": "9101 W Sahara Ave Ste 109, Las Vegas, NV 89117, USA",
+      "rating": 4.6,
+      "reviewCount": 214,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 36.1439155,
+      "longitude": -115.29608290000002,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJF_5lfuC_yIARUPUjktsSSK8"
+    },
+    {
+      "placeId": "ChIJraFO_9qVyIARFT0BIv_efaU",
+      "name": "Niku Bomb AYCE Japanese BBq",
+      "address": "3350 Novat St Ste 130, Las Vegas, NV 89129, USA",
+      "rating": 4.7,
+      "reviewCount": 224,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.2211867,
+      "longitude": -115.3286016,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJraFO_9qVyIARFT0BIv_efaU"
+    },
+    {
+      "placeId": "ChIJ39idaxjFyIAR96rKp3PE6D4",
+      "name": "Ramen Fukumimi",
+      "address": "4860 S Eastern Ave #2, Las Vegas, NV 89119, USA",
+      "rating": 4.6,
+      "reviewCount": 1120,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 36.100591699999995,
+      "longitude": -115.11729609999998,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ39idaxjFyIAR96rKp3PE6D4"
+    },
+    {
+      "placeId": "ChIJH5wLGnfHyIAR5MgU_yfxNhM",
+      "name": "Shokku Ramen",
+      "address": "3889 Spring Mountain Rd, Las Vegas, NV 89102, USA",
+      "rating": 4.3,
+      "reviewCount": 1664,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 36.126053999999996,
+      "longitude": -115.19174129999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJH5wLGnfHyIAR5MgU_yfxNhM"
+    }
+  ],
   "manchester-nh": [
     {
       "placeId": "ChIJLzHCfNhO4okRaZDccfvRAJ8",
@@ -45899,7 +46529,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDd65lG9hUocRe42umk23SNA"
     }
   ],
-  "murray-ut": [],
+  "murray-ut": [
+    {
+      "placeId": "ChIJYRWOM5GJUocR8aMs-PeHPMQ",
+      "name": "JINYA Ramen Bar - Murray",
+      "address": "5905 S State St, Murray, UT 84107, USA",
+      "rating": 4.5,
+      "reviewCount": 3393,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.6425434,
+      "longitude": -111.8885841,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJYRWOM5GJUocR8aMs-PeHPMQ"
+    }
+  ],
   "draper-ut": [
     {
       "placeId": "ChIJD43R97N9UocR6wzNnXktG1o",
@@ -45980,7 +46624,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ7wsvqRuHUocRxXIt2mjWxRo"
     }
   ],
-  "bountiful-ut": [],
+  "bountiful-ut": [
+    {
+      "placeId": "ChIJhdJRdDn5UocRPdgHWYpDu8g",
+      "name": "Ichiro Ramen House",
+      "address": "135 N 500 W B, West Bountiful, UT 84010, USA",
+      "rating": 4.6,
+      "reviewCount": 295,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.8907676,
+      "longitude": -111.89259829999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJhdJRdDn5UocRPdgHWYpDu8g"
+    }
+  ],
   "riverton-ut": [
     {
       "placeId": "ChIJm_7v2lGFUocRm88G_xhWpPE",
@@ -46610,7 +47268,21 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ-xDXacdjUocRADuMOuc1wog"
     }
   ],
-  "holladay-ut": [],
+  "holladay-ut": [
+    {
+      "placeId": "ChIJ1fVozh9iUocR84-Wvtu2FfA",
+      "name": "Tosh’s Ramen-Holladay",
+      "address": "1963 E Murray Holladay Rd, Holladay, UT 84117, USA",
+      "rating": 4.6,
+      "reviewCount": 513,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.666633,
+      "longitude": -111.83554199999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ1fVozh9iUocR84-Wvtu2FfA"
+    }
+  ],
   "midvale-ut": [
     {
       "placeId": "ChIJGxttgHqJUocRV-g7j9oXyPk",
@@ -46626,8 +47298,114 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJGxttgHqJUocRV-g7j9oXyPk"
     }
   ],
-  "kaysville-ut": [],
-  "clearfield-ut": [],
+  "kaysville-ut": [
+    {
+      "placeId": "ChIJ_X2VVJUbU4cRc6z06H-bUlw",
+      "name": "Ramen Garden Syracuse",
+      "address": "2058 W 1700 S #106, Syracuse, UT 84075, USA",
+      "rating": 4.7,
+      "reviewCount": 358,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.0894957,
+      "longitude": -112.0661274,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_X2VVJUbU4cRc6z06H-bUlw"
+    },
+    {
+      "placeId": "ChIJH4MiIg0FU4cRr_5trpRu2Oc",
+      "name": "Ramen Garden Clearfield",
+      "address": "810 E 700 S, Clearfield, UT 84015, USA",
+      "rating": 4.9,
+      "reviewCount": 536,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.1032559,
+      "longitude": -112.0102341,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJH4MiIg0FU4cRr_5trpRu2Oc"
+    },
+    {
+      "placeId": "ChIJCfuwSpcBU4cR-8PVTDAMbbY",
+      "name": "Kitchen Eighty Eight - Kaysville",
+      "address": "260 W 200 N, Kaysville, UT 84037, USA",
+      "rating": 4.6,
+      "reviewCount": 284,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 41.0385087,
+      "longitude": -111.9431915,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJCfuwSpcBU4cR-8PVTDAMbbY"
+    },
+    {
+      "placeId": "ChIJNSRPHLYBU4cRrz3IqYJ6bnM",
+      "name": "Nikko Sushi and Ramen",
+      "address": "242 N 300 W, Kaysville, UT 84037, USA",
+      "rating": 4.6,
+      "reviewCount": 630,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.0388565,
+      "longitude": -111.94382669999999,
+      "openNow": false,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJNSRPHLYBU4cRrz3IqYJ6bnM"
+    },
+    {
+      "placeId": "ChIJbQcp8RH_UocRV74H_Y2C5qI",
+      "name": "Ramen Haus",
+      "address": "1060 Park Ln #112, Farmington, UT 84025, USA",
+      "rating": 4.4,
+      "reviewCount": 595,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.9848462,
+      "longitude": -111.9117149,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJbQcp8RH_UocRV74H_Y2C5qI"
+    }
+  ],
+  "clearfield-ut": [
+    {
+      "placeId": "ChIJH4MiIg0FU4cRr_5trpRu2Oc",
+      "name": "Ramen Garden Clearfield",
+      "address": "810 E 700 S, Clearfield, UT 84015, USA",
+      "rating": 4.9,
+      "reviewCount": 536,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.1032559,
+      "longitude": -112.0102341,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJH4MiIg0FU4cRr_5trpRu2Oc"
+    },
+    {
+      "placeId": "ChIJ_X2VVJUbU4cRc6z06H-bUlw",
+      "name": "Ramen Garden Syracuse",
+      "address": "2058 W 1700 S #106, Syracuse, UT 84075, USA",
+      "rating": 4.7,
+      "reviewCount": 358,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.0894957,
+      "longitude": -112.0661274,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_X2VVJUbU4cRc6z06H-bUlw"
+    },
+    {
+      "placeId": "ChIJfxAK2YADU4cRyaaaqGNq_0w",
+      "name": "Haru Ramen",
+      "address": "1266 Legend Hills Dr # B-1, Clearfield, UT 84015, USA",
+      "rating": 4.4,
+      "reviewCount": 968,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.0961974,
+      "longitude": -111.9951,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJfxAK2YADU4cRyaaaqGNq_0w"
+    }
+  ],
   "roy-ut": [
     {
       "placeId": "ChIJjTihc10FU4cRZUavBmSPTuk",
@@ -46764,8 +47542,36 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJKShjfwCbTYcRmOKGSFrOuv8"
     }
   ],
-  "farmington-ut": [],
-  "syracuse-ut": [],
+  "farmington-ut": [
+    {
+      "placeId": "ChIJbQcp8RH_UocRV74H_Y2C5qI",
+      "name": "Ramen Haus",
+      "address": "1060 Park Ln #112, Farmington, UT 84025, USA",
+      "rating": 4.4,
+      "reviewCount": 595,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.9848462,
+      "longitude": -111.9117149,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJbQcp8RH_UocRV74H_Y2C5qI"
+    }
+  ],
+  "syracuse-ut": [
+    {
+      "placeId": "ChIJ_X2VVJUbU4cRc6z06H-bUlw",
+      "name": "Ramen Garden Syracuse",
+      "address": "2058 W 1700 S #106, Syracuse, UT 84075, USA",
+      "rating": 4.7,
+      "reviewCount": 358,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 41.0894957,
+      "longitude": -112.0661274,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_X2VVJUbU4cRc6z06H-bUlw"
+    }
+  ],
   "north-salt-lake-ut": [
     {
       "placeId": "ChIJfxR-3wL3UocRThI3YuPu9QQ",
@@ -46928,7 +47734,268 @@
       "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJvVmbIn29TYcRttweKmscQQw"
     }
   ],
-  "highland-ut": [],
+  "highland-ut": [
+    {
+      "placeId": "ChIJTV52WwC9TYcRJN7mGa7rld0",
+      "name": "Hakata Ramen Restaurant",
+      "address": "160 S Main St, Springville, UT 84663, USA",
+      "rating": 4.4,
+      "reviewCount": 63,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 40.1645913,
+      "longitude": -111.61099279999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJTV52WwC9TYcRJN7mGa7rld0"
+    },
+    {
+      "placeId": "ChIJf9ui6vOLUocREzybs_Vn5M4",
+      "name": "Ramen Legend",
+      "address": "2118 Highland Dr #10, Salt Lake City, UT 84106, USA",
+      "rating": 4.1,
+      "reviewCount": 721,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.724683,
+      "longitude": -111.859811,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJf9ui6vOLUocREzybs_Vn5M4"
+    },
+    {
+      "placeId": "ChIJ4SSOtciBUocRPT0UTXvnJFI",
+      "name": "JINYA Ramen Bar - Lehi",
+      "address": "3725 N Thanksgiving Way Ste B, Lehi, UT 84048, USA",
+      "rating": 4.3,
+      "reviewCount": 484,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.433360799999996,
+      "longitude": -111.895449,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ4SSOtciBUocRPT0UTXvnJFI"
+    },
+    {
+      "placeId": "ChIJBaeLeaP3UocRFzVMC4jo_Ck",
+      "name": "OKA Ramen Japanese Restaurant",
+      "address": "1492 S 800 W Unit B, Woods Cross, UT 84087, USA",
+      "rating": 4.7,
+      "reviewCount": 323,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 40.8752983,
+      "longitude": -111.9025822,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJBaeLeaP3UocRFzVMC4jo_Ck"
+    },
+    {
+      "placeId": "ChIJS26YfpKBTYcRbjPqRiDNo4E",
+      "name": "Haku Ramen House",
+      "address": "101 NW State St Ste 104, American Fork, UT 84003, USA",
+      "rating": 4.8,
+      "reviewCount": 843,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 40.3788086,
+      "longitude": -111.8135372,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJS26YfpKBTYcRbjPqRiDNo4E"
+    },
+    {
+      "placeId": "ChIJZX-kps5byoAR3MRIUkS-IBY",
+      "name": "Soul ramen & Noodle Bar",
+      "address": "250 Red Cliffs Dr, St. George, UT 84790, USA",
+      "rating": 4.7,
+      "reviewCount": 1934,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 37.111433999999996,
+      "longitude": -113.5534423,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJZX-kps5byoAR3MRIUkS-IBY"
+    },
+    {
+      "placeId": "ChIJB98STtpjUocRxRST7PQAa58",
+      "name": "Sake Restaurant",
+      "address": "8657 Highland Dr, Sandy, UT 84093, USA",
+      "rating": 4.7,
+      "reviewCount": 356,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.5933892,
+      "longitude": -111.8306484,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJB98STtpjUocRxRST7PQAa58"
+    },
+    {
+      "placeId": "ChIJT7p9xiX1UocRYW5AQgtzFkc",
+      "name": "Mensho Ramen",
+      "address": "550 S 300 W Ste 101, Salt Lake City, UT 84101, USA",
+      "rating": 4.4,
+      "reviewCount": 328,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 40.757360999999996,
+      "longitude": -111.9007637,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJT7p9xiX1UocRYW5AQgtzFkc"
+    },
+    {
+      "placeId": "ChIJhYE5Krb1UocR3VMzQqbLl2s",
+      "name": "Koyote",
+      "address": "551 W 400 N, Salt Lake City, UT 84116, USA",
+      "rating": 4.5,
+      "reviewCount": 579,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.7778268,
+      "longitude": -111.90698619999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJhYE5Krb1UocR3VMzQqbLl2s"
+    },
+    {
+      "placeId": "ChIJv41A3rCLUocR1iBgnilPgXE",
+      "name": "JINYA Ramen Bar - Sugarhouse",
+      "address": "675 E 2100 S, Salt Lake City, UT 84106, USA",
+      "rating": 4.5,
+      "reviewCount": 1888,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.7260554,
+      "longitude": -111.8720566,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJv41A3rCLUocR1iBgnilPgXE"
+    },
+    {
+      "placeId": "ChIJ4a8ae3n1UocRYA1LoDbwyuk",
+      "name": "Kuchu Shabu Sugarhouse",
+      "address": "2121 S McClelland St #106, Salt Lake City, UT 84106, USA",
+      "rating": 4.8,
+      "reviewCount": 98,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.72486920000001,
+      "longitude": -111.8611119,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ4a8ae3n1UocRYA1LoDbwyuk"
+    },
+    {
+      "placeId": "ChIJj9prcSj1UocRDjZr7RCrp4o",
+      "name": "Ramen Ichizu Bar",
+      "address": "915 Washington St Ste 1A, Salt Lake City, UT 84101, USA",
+      "rating": 4.4,
+      "reviewCount": 432,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 40.74945470000001,
+      "longitude": -111.8980179,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJj9prcSj1UocRDjZr7RCrp4o"
+    },
+    {
+      "placeId": "ChIJ2QfGrI2aTYcRF5-3bs5gtZ0",
+      "name": "Asa Ramen",
+      "address": "1120 S State St, Orem, UT 84057, USA",
+      "rating": 4.6,
+      "reviewCount": 2308,
+      "priceLevel": 1,
+      "photo": null,
+      "latitude": 40.2766917,
+      "longitude": -111.686425,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ2QfGrI2aTYcRF5-3bs5gtZ0"
+    },
+    {
+      "placeId": "ChIJayCDF-b1UocREhVHgX0GVwA",
+      "name": "Tosh’s Ramen Express",
+      "address": "545 West 700 S, Salt Lake City, UT 84101, USA",
+      "rating": 4.1,
+      "reviewCount": 82,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.7538844,
+      "longitude": -111.9070215,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJayCDF-b1UocREhVHgX0GVwA"
+    },
+    {
+      "placeId": "ChIJ1fVozh9iUocR84-Wvtu2FfA",
+      "name": "Tosh’s Ramen-Holladay",
+      "address": "1963 E Murray Holladay Rd, Holladay, UT 84117, USA",
+      "rating": 4.6,
+      "reviewCount": 513,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.666633,
+      "longitude": -111.83554199999999,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ1fVozh9iUocR84-Wvtu2FfA"
+    },
+    {
+      "placeId": "ChIJbQcp8RH_UocRV74H_Y2C5qI",
+      "name": "Ramen Haus",
+      "address": "1060 Park Ln #112, Farmington, UT 84025, USA",
+      "rating": 4.4,
+      "reviewCount": 595,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.9848462,
+      "longitude": -111.9117149,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJbQcp8RH_UocRV74H_Y2C5qI"
+    },
+    {
+      "placeId": "ChIJORkiALBFyoARhXlX4Tpp4DU",
+      "name": "Genki Ramen",
+      "address": "929 W Sunset Blvd #12, St. George, UT 84770, USA",
+      "rating": 4.8,
+      "reviewCount": 393,
+      "priceLevel": null,
+      "photo": null,
+      "latitude": 37.123936,
+      "longitude": -113.6041302,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJORkiALBFyoARhXlX4Tpp4DU"
+    },
+    {
+      "placeId": "ChIJ8Rk-T5WBUocR-3Y_UL3VKX0",
+      "name": "Toro Ramen and Sushi",
+      "address": "14653 #9 Porter Rockwell Blvd, Bluffdale, UT 84065, USA",
+      "rating": 4.6,
+      "reviewCount": 577,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.4852152,
+      "longitude": -111.9051994,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ8Rk-T5WBUocR-3Y_UL3VKX0"
+    },
+    {
+      "placeId": "ChIJHyQlrW31UocRUrS8Yk9U5-c",
+      "name": "Yoko Ramen",
+      "address": "473 E 300 S, Salt Lake City, UT 84111, USA",
+      "rating": 4.1,
+      "reviewCount": 1096,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.7631345,
+      "longitude": -111.8771785,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJHyQlrW31UocRUrS8Yk9U5-c"
+    },
+    {
+      "placeId": "ChIJNRvQr1eBUocRrJjJrZbDDQE",
+      "name": "Hamachi Sushi Bar Lehi",
+      "address": "3370 Digital Dr #160, Lehi, UT 84043, USA",
+      "rating": 4.5,
+      "reviewCount": 273,
+      "priceLevel": 2,
+      "photo": null,
+      "latitude": 40.4298603,
+      "longitude": -111.8857773,
+      "openNow": true,
+      "googleMapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJNRvQr1eBUocRrJjJrZbDDQE"
+    }
+  ],
   "vineyard-ut": [
     {
       "placeId": "ChIJwfxmAy6FTYcRUHSuVHCah90",
