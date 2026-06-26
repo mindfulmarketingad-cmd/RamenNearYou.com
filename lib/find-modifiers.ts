@@ -313,6 +313,36 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'hanabi-ramen-in',
+    filter: { initialFlags: ['hanabi'] },
+    title: (c, s) => `Hanabi Ramen In ${c}, ${s}`,
+    metaNoun: 'Hanabi Ramen',
+    hubHref: '/find/hanabi-ramen-near-me',
+    hubLabel: 'Hanabi Ramen',
+    about:
+      'Hanabi Ramen ("fireworks" in Japanese) serves vibrant, boldly flavored bowls of Japanese ramen. This map is filtered to Hanabi Ramen locations near you.',
+    faqs: (city, st) => [
+      { q: `Is there a Hanabi Ramen in ${city}?`, a: `The map above shows Hanabi Ramen locations in ${city}, ${st}. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is Hanabi Ramen?', a: 'Hanabi Ramen is a Japanese ramen restaurant — "hanabi" means fireworks in Japanese, reflecting the vibrant flavors in every bowl. They serve a range of ramen styles with classic toppings.' },
+      { q: 'What broth does Hanabi Ramen serve?', a: 'Hanabi Ramen typically offers multiple broth styles including tonkotsu, shoyu, miso, and spicy. Menu offerings vary by location.' },
+    ],
+  },
+  {
+    prefix: 'shokku-ramen-in',
+    filter: { initialFlags: ['shokku'] },
+    title: (c, s) => `Shokku Ramen In ${c}, ${s}`,
+    metaNoun: 'Shokku Ramen',
+    hubHref: '/find/shokku-ramen-near-me',
+    hubLabel: 'Shokku Ramen',
+    about:
+      'Shokku Ramen ("impact" or "shock" in Japanese) serves bold, intensely flavored ramen with a modern take on Japanese classics. This map is filtered to Shokku Ramen locations near you.',
+    faqs: (city, st) => [
+      { q: `Is there a Shokku Ramen in ${city}?`, a: `The map above shows Shokku Ramen locations in ${city}, ${st}. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is Shokku Ramen?', a: 'Shokku Ramen is a Japanese ramen concept built around bold, impactful flavors — "shokku" means shock or impact in Japanese. They serve curated ramen styles with modern presentation.' },
+      { q: 'What should I order at Shokku Ramen?', a: 'Start with the house signature bowl to taste what the kitchen is best known for. The spicy option is also a popular choice at Shokku locations.' },
+    ],
+  },
+  {
     prefix: 'tonkatsu-ramen-in',
     filter: {},
     title: (c, s) => `Tonkatsu Ramen In ${c}, ${s}`,

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
-  List, Map as MapIcon,
+  List, Map as MapIcon, HelpCircle,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -121,22 +121,7 @@ export default function HomeMapHero({
   // City boundary outline (Zillow-style) — fetched once for city pages.
   const [boundary, setBoundary] = useState<unknown | null>(null)
 
-  // Live "members searching now" count — slowly drifts between 20 and 24.
-  // Starts at a fixed value so SSR and first client render match (no hydration
-  // mismatch); the random walk only begins after mount.
-  const [searchingNow, setSearchingNow] = useState(22)
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>
-    const tick = () => {
-      setSearchingNow(prev => {
-        const step = Math.random() < 0.5 ? -1 : 1
-        return Math.min(24, Math.max(20, prev + step))
-      })
-      timer = setTimeout(tick, 4000 + Math.random() * 4000) // every ~4–8s
-    }
-    timer = setTimeout(tick, 4000 + Math.random() * 4000)
-    return () => clearTimeout(timer)
-  }, [])
+  const [helpOpen, setHelpOpen] = useState(false)
 
   // Mount the Leaflet map after hydration. On mobile the map renders full-screen
   // (the list is an absolute overlay on top of it, so the map container always
@@ -355,6 +340,8 @@ export default function HomeMapHero({
         // "Fish Ramen" — seafood-broth bowls (gyokai/niboshi) and seafood-forward
         // shops. The slim payload only carries the name, so match on the name.
         if (flags.has('fish-ramen') && !/fish|seafood|gyokai|niboshi|shellfish|crab|shrimp|clam|oyster|sushi/i.test(r.name)) return false
+        if (flags.has('hanabi') && !/hanabi/i.test(r.name)) return false
+        if (flags.has('shokku') && !/shokku/i.test(r.name)) return false
         // Feature/amenity flags — DB listings carry an amenities array; Places
         // supplements don't, so they're excluded when an amenity filter is on.
         for (const f of FEATURE_KEYS) {
@@ -511,19 +498,15 @@ export default function HomeMapHero({
               )}
             </div>
 
-            {/* Live activity — "members searching now" (social proof) */}
-            <div
-              className="hidden md:flex items-center gap-1.5 shrink-0 mr-1 text-xs font-medium text-[#6B6862]"
-              aria-live="polite"
-              title="Members browsing the ramen map right now"
+            {/* Help button */}
+            <button
+              onClick={() => setHelpOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-black/12 bg-white text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-all shrink-0"
+              aria-label="How to use this map"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="tabular-nums text-[#1E2026] font-semibold">{searchingNow}</span>
-              <span>members searching now</span>
-            </div>
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Help</span>
+            </button>
 
             {/* Save Search — pinned to the right outside the scrollable area */}
             <button
@@ -868,6 +851,81 @@ export default function HomeMapHero({
 
       {gateMode === 'signin' && <SigninGateModal onClose={() => setGateMode(null)} redirectTo="/" />}
       {gateMode === 'subscribe' && <SubscribeGateModal onClose={() => setGateMode(null)} featureName="Ramen Pass features" />}
+
+      {/* Help modal */}
+      {helpOpen && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={(e) => { if (e.target === e.currentTarget) setHelpOpen(false) }}
+        >
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-black/8">
+              <h2 className="font-serif text-xl font-bold text-[#1E2026]">How to use the Ramen Map</h2>
+              <button
+                onClick={() => setHelpOpen(false)}
+                className="p-1.5 rounded-full hover:bg-black/5 text-[#6B6862] hover:text-[#1E2026] transition-colors"
+                aria-label="Close help"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="px-6 py-5 space-y-5 text-sm text-[#1E2026]">
+              <div className="flex gap-3">
+                <span className="text-2xl leading-none mt-0.5">📍</span>
+                <div>
+                  <p className="font-semibold mb-1">Find ramen near you</p>
+                  <p className="text-[#6B6862]">Type your ZIP code into the search bar and press <strong>Go</strong>, or tap <strong>Use my location</strong> (the arrow icon) to automatically center the map on where you are. The list on the left sorts by distance.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-2xl leading-none mt-0.5">🔍</span>
+                <div>
+                  <p className="font-semibold mb-1">Filter by broth, mood, or features</p>
+                  <p className="text-[#6B6862]">Tap <strong>Filters</strong> to open the filter panel. Pick a broth style (tonkotsu, miso, shoyu…), a vibe (date night, late night, hidden gems…), or features like outdoor seating or a full bar. Filters stack — combine as many as you like.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-2xl leading-none mt-0.5">🗺️</span>
+                <div>
+                  <p className="font-semibold mb-1">Browse the map</p>
+                  <p className="text-[#6B6862]">Click any pin on the map to highlight that restaurant in the list. Pan or zoom the map and tap <strong>Search this area</strong> to reload results for the visible region. On mobile, use the circular list button (bottom-right) to switch between map and list view.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-2xl leading-none mt-0.5">⭐</span>
+                <div>
+                  <p className="font-semibold mb-1">Read ratings and reviews</p>
+                  <p className="text-[#6B6862]">Each card shows the star rating and review count. Click a card to open the full restaurant page with address, hours, phone number, and a link to get directions.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-2xl leading-none mt-0.5">🔖</span>
+                <div>
+                  <p className="font-semibold mb-1">Save your search</p>
+                  <p className="text-[#6B6862]">Tap <strong>Save Search</strong> to bookmark your current filters and location so you can come back to the same view later.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-4 border-t border-black/8 bg-[#F5F4F0] rounded-b-2xl">
+              <button
+                onClick={() => setHelpOpen(false)}
+                className="w-full py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+              >
+                Got it — start searching
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
