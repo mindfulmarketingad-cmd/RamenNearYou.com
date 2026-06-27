@@ -25,7 +25,7 @@ const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
 
 // Stripe claim/free-trial checkout (same link used by the per-restaurant claim flow).
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/3cIfZi96i6cM7My9pIfrW09'
 
 export default function ClaimSearch() {
   const [query, setQuery] = useState('')
@@ -92,7 +92,7 @@ export default function ClaimSearch() {
             <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
             <span className="text-[#6B6862] text-sm mb-1.5">today</span>
           </div>
-          <p className="text-[#9B9490] text-xs mb-5">Then $19.99/month after your trial. Cancel anytime.</p>
+          <p className="text-[#9B9490] text-xs mb-5">Then $49.99/month after your trial. Cancel anytime.</p>
           <a
             href={trialLink}
             className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
@@ -119,7 +119,7 @@ export default function ClaimSearch() {
           <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
           <span className="text-[#6B6862] text-sm mb-2">today</span>
         </div>
-        <p className="text-[#9B9490] text-xs">Then $19.99/month after your free trial. Cancel anytime.</p>
+        <p className="text-[#9B9490] text-xs">Then $49.99/month after your free trial. Cancel anytime.</p>
       </div>
 
       {/* Benefits */}

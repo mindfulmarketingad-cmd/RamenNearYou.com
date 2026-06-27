@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getRestaurant } from '@/lib/restaurants'
 
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/3cIfZi96i6cM7My9pIfrW09'
 
 const BENEFITS = [
   { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
@@ -79,7 +79,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
                   <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
                   <span className="text-[#6B6862] text-sm mb-2">today</span>
                 </div>
-                <p className="text-[#9B9490] text-xs text-center mb-6">Then $19.99/month after your free trial. Cancel anytime.</p>
+                <p className="text-[#9B9490] text-xs text-center mb-6">Then $49.99/month after your free trial. Cancel anytime.</p>
 
                 <ul className="space-y-3 mb-8">
                   {BENEFITS.map(({ icon: Icon, text }) => (
