@@ -2,15 +2,16 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BadgeCheck, BarChart2, FileText, Globe, MapPin, Search, CheckCircle2 } from 'lucide-react'
+import { BadgeCheck, BarChart2, FileText, Globe, MapPin, Search, CheckCircle2, TrendingUp } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 
 const BENEFITS = [
-  { icon: FileText, text: 'Dedicated landing page for your restaurant' },
-  { icon: Globe, text: 'Fully editable content — description, photos, hours, menu link' },
+  { icon: FileText, text: 'Dedicated landing page for your restaurant — fully editable content, photos, hours & menu link' },
   { icon: MapPin, text: '#1 featured spot on the ramen search map' },
+  { icon: TrendingUp, text: 'Increased SEO & organic traffic to your website — your dedicated page and featured listing rank on Google and drive clicks directly to you' },
   { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
   { icon: BarChart2, text: 'Weekly page visit analytics' },
+  { icon: Globe, text: 'Backlink from your listing page to your main website' },
 ]
 
 const US_STATES = [
