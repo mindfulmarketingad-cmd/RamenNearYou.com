@@ -2,15 +2,15 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BadgeCheck, BarChart2, Clock, Globe, MapPin, Search, CheckCircle2 } from 'lucide-react'
+import { BadgeCheck, BarChart2, FileText, Globe, MapPin, Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 
 const BENEFITS = [
+  { icon: FileText, text: 'Dedicated landing page for your restaurant' },
+  { icon: Globe, text: 'Fully editable content — description, photos, hours, menu link' },
+  { icon: MapPin, text: '#1 featured spot on the ramen search map' },
   { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
-  { icon: Globe, text: 'Update your website, phone, and description' },
-  { icon: Clock, text: 'Keep your hours accurate and up to date' },
-  { icon: BarChart2, text: 'See weekly page visit analytics' },
-  { icon: MapPin, text: 'Featured placement on your city page' },
+  { icon: BarChart2, text: 'Weekly page visit analytics' },
 ]
 
 const US_STATES = [
@@ -79,7 +79,7 @@ export default function ClaimSearch() {
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Submission Received!</h2>
         <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
-          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Start your free trial now to lock in your claim, then you can update your hours, photos, and menu the moment it&apos;s live.
+          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Start your free trial to lock in your dedicated landing page and the #1 featured spot on the search map.
         </p>
 
         {/* Free-trial prompt */}
