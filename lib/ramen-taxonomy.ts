@@ -89,6 +89,7 @@ export type MapPoint = {
   bowls: string[]
   moods: string[]
   amenities?: string[]    // active FEATURE_META keys (delivers, outdoor-seating, …)
+  website?: string        // restaurant's own website (DB entries only)
   googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
   googleMapsLink?: string // set for DB entries (links to the verified listing)
   featured?: boolean      // promoted listing — pinned first with a Featured badge

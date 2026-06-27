@@ -47,20 +47,12 @@ import {
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  // Pre-render only the top-rated restaurants; the long tail renders on demand
-  // and caches via ISR (dynamicParams = true). Supplement listings are likewise
-  // capped to a small set — both bounds keep the build fast.
-  const restaurantParams = [...restaurants]
-    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-    .slice(0, 1000)
-    .map((r) => ({
-      city: r.citySlug,
-      state: r.stateSlug,
-      restaurant: r.slug,
-    }))
-  // City × filter pages share this route's third segment.
-  // Supplement (Google Places) listings get internal pages too.
-  return [...restaurantParams, ...getCityFilterStaticParams(), ...getSupplementListingParams(500)]
+  // Only the one featured listing gets a dedicated detail page. City × filter
+  // pages share this route segment and are also pre-rendered.
+  return [
+    { city: 'port-washington', state: 'new-york', restaurant: 'ikedo-ramen' },
+    ...getCityFilterStaticParams(),
+  ]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
@@ -277,19 +269,14 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     notFound()
   }
 
+  // Only Ikedo Ramen has a dedicated detail page. Every other restaurant
+  // listing lives on the search map and links out externally.
+  if (!(city === 'port-washington' && state === 'new-york' && restaurant === 'ikedo-ramen')) {
+    notFound()
+  }
+
   const original = getRestaurant(city, state, restaurant)
   if (!original) {
-    // Supplement (Google Places) listing — render the internal listing page.
-    const sup = findSupplementListing(city, state, restaurant)
-    if (sup) {
-      const stateName = getSupplementStateName(state)
-      const stateCode = STATE_SLUG_TO_CODE[state] ?? ''
-      const nearby = getSupplementListings(city, stateCode)
-        .filter(n => n.slug !== sup.slug)
-        .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-        .slice(0, 4)
-      return <SupplementRestaurantPage listing={sup} stateName={stateName} nearby={nearby} />
-    }
     notFound()
   }
   const r = { ...original } as Restaurant

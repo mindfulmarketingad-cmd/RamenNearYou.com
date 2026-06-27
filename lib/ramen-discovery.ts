@@ -124,6 +124,7 @@ export function computeMapData(): MapPoint[] {
       amenities: FEATURE_META
         .filter(f => (r.amenities as Record<string, boolean> | undefined)?.[FEATURE_AMENITY_FIELD[f.key]] === true)
         .map(f => f.key),
+      website: r.website || undefined,
       googleMapsLink: r.googleMapsLink || undefined,
       featured: featuredSlugs.has(r.slug),
     }))
