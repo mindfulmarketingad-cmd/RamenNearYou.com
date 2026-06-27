@@ -694,8 +694,8 @@ export default function HomeMapHero({
                   const directionsUrl = r.googleMapsLink
                     ?? r.googleMapsUrl
                     ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + ' ' + r.city + ' ' + r.stateCode)}`
-                  // External destination for all non-ikedo listings: own website → Google Maps
-                  const externalUrl = r.website || directionsUrl
+                  // Non-ikedo listings link out to their Google Maps listing
+                  const externalUrl = directionsUrl
                   return (
                     <div
                       key={uid}
