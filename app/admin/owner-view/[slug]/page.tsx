@@ -1,6 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronLeft, BadgeCheck, ShieldAlert, Crown, Edit3, MapPin } from 'lucide-react'
+import { ChevronLeft, BadgeCheck, ShieldAlert, Edit3, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createClient } from '@/lib/supabase/server'
@@ -99,22 +99,6 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
 
           {/* Visit analytics */}
           <VisitStatsCard slug={base.slug} restaurantName={base.name} />
-
-          {/* Featured upsell */}
-          <div className="mt-4 flex items-center justify-between gap-3 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <Crown className="w-4 h-4 text-amber-500 shrink-0" />
-              <p className="text-[#1E2026] text-xs leading-snug">
-                <span className="font-semibold">Get featured</span> — appear at the top of the city page and reach more ramen lovers.
-              </p>
-            </div>
-            <Link
-              href="/featured/apply"
-              className="shrink-0 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold transition-colors whitespace-nowrap"
-            >
-              Get Featured
-            </Link>
-          </div>
         </div>
 
         {/* Edit form section */}

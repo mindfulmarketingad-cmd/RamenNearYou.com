@@ -19,16 +19,20 @@ export async function GET(request: Request) {
   const admin = createAdminClient()
   const client = admin ?? supabase
 
-  // Verify the user has an approved claim on this restaurant
-  const { data: claim } = await client
-    .from('claims')
-    .select('id')
-    .eq('user_id', user.id)
-    .eq('restaurant_slug', slug)
-    .eq('status', 'approved')
-    .maybeSingle()
+  const isAdmin = process.env.ADMIN_EMAIL && user.email === process.env.ADMIN_EMAIL
 
-  if (!claim) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  if (!isAdmin) {
+    // Verify the user has an approved claim on this restaurant
+    const { data: claim } = await client
+      .from('claims')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('restaurant_slug', slug)
+      .eq('status', 'approved')
+      .maybeSingle()
+
+    if (!claim) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
 
   // Fetch last 30 days of visits
   const since = new Date()
