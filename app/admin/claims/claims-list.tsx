@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CheckCircle, XCircle, ChevronDown, ChevronUp, LayoutDashboard } from 'lucide-react'
+import { CheckCircle, XCircle, ChevronDown, ChevronUp, LayoutDashboard, PlusCircle } from 'lucide-react'
 
 interface Claim {
   id: string
@@ -195,6 +195,62 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
   )
 }
 
+function RegisterClaimPanel() {
+  const [slug, setSlug] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<string | null>(null)
+
+  async function submit() {
+    if (!slug.trim()) return
+    setLoading(true)
+    setResult(null)
+    const res = await fetch('/api/admin/claims', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ restaurant_slug: slug.trim() }),
+    })
+    const json = await res.json()
+    if (res.ok) {
+      setResult(`Done (${json.action}) — refresh the page to see the claim.`)
+      setSlug('')
+    } else {
+      setResult(`Error: ${json.error}`)
+    }
+    setLoading(false)
+  }
+
+  return (
+    <div className="mt-8 pt-6 border-t border-black/8">
+      <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+        <PlusCircle className="w-3.5 h-3.5" /> Manually Register a Claim
+      </p>
+      <p className="text-[#6B6862] text-xs mb-3">
+        If a restaurant is verified on its public page but not appearing here, enter its slug to register or repair the claim record.
+      </p>
+      <div className="flex gap-2">
+        <input
+          value={slug}
+          onChange={(e) => setSlug(e.target.value)}
+          placeholder="restaurant-slug (e.g. ikedo-ramen)"
+          className="flex-1 px-3 py-2 bg-white border border-black/8 rounded-lg text-sm text-[#1E2026] placeholder-[#9B9490]/40 outline-none focus:border-[#B57F50] transition-colors"
+        />
+        <button
+          onClick={submit}
+          disabled={loading || !slug.trim()}
+          className="px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors disabled:opacity-50"
+        >
+          {loading ? 'Working…' : 'Register'}
+        </button>
+      </div>
+      {result && (
+        <p className={`mt-2 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600'}`}>
+          {result}
+        </p>
+      )}
+    </div>
+  )
+}
+
 export default function ClaimsList({ initialClaims }: { initialClaims: Claim[] }) {
   const [claims, setClaims] = useState(initialClaims)
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('pending')
@@ -241,6 +297,8 @@ export default function ClaimsList({ initialClaims }: { initialClaims: Claim[] }
           ))}
         </div>
       )}
+
+      <RegisterClaimPanel />
     </div>
   )
 }

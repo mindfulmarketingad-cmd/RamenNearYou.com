@@ -1,12 +1,13 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronLeft, BadgeCheck, ShieldAlert } from 'lucide-react'
+import { ChevronLeft, BadgeCheck, ShieldAlert, Crown, Edit3, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { restaurants as ALL } from '@/lib/restaurants'
 import OwnerEditForm from '@/app/owner/[slug]/edit-form'
+import VisitStatsCard from '@/components/visit-stats-card'
 
 export const metadata = { title: 'Admin: Owner Dashboard Preview | Ramen Near You' }
 
@@ -34,10 +35,9 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
     .eq('restaurant_slug', slug)
     .maybeSingle()
 
-  // Fetch the owner's claim info to show context
   const { data: claim } = await client
     .from('claims')
-    .select('user_id, status, created_at')
+    .select('user_id, status, created_at, contact_name, contact_email, restaurant_name')
     .eq('restaurant_slug', slug)
     .eq('status', 'approved')
     .maybeSingle()
@@ -53,33 +53,77 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
   return (
     <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-20">
 
         {/* Admin banner */}
-        <div className="flex items-start gap-3 mb-8 px-4 py-3 rounded-xl bg-amber-50 border border-amber-300">
+        <div className="flex items-start gap-3 mb-6 px-4 py-3 rounded-xl bg-amber-50 border border-amber-300">
           <ShieldAlert className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
           <div className="text-sm">
             <p className="font-semibold text-amber-800">Admin preview — owner dashboard</p>
             <p className="text-amber-700 text-xs mt-0.5">
               You are viewing this as an admin. Any edits submitted here will be attributed to your admin account.
-              {claim ? ` Claimed by user ${claim.user_id.slice(0, 8)}…` : ' No approved claim found for this listing.'}
+              {claim
+                ? ` Claimed by ${claim.contact_name ?? 'unknown'} (${claim.contact_email ?? claim.user_id.slice(0, 8) + '…'})`
+                : ' No approved claim found for this listing.'}
             </p>
           </div>
         </div>
 
-        <Link href="/admin/claims" className="inline-flex items-center gap-1 text-[#6B6862] hover:text-[#1E2026] text-sm mb-4 transition-colors">
+        <Link href="/admin/claims" className="inline-flex items-center gap-1 text-[#6B6862] hover:text-[#1E2026] text-sm mb-6 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Back to claims
         </Link>
 
-        <div className="flex items-center gap-2 flex-wrap mb-2">
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">{base.name}</h1>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
-            <BadgeCheck className="w-3 h-3" /> Verified
-          </span>
+        {/* Restaurant header — matches owner dashboard style */}
+        <div className="bg-[#F5F4F0] border border-black/8 rounded-2xl p-5 mb-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">{base.name}</h1>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
+                  <BadgeCheck className="w-3 h-3" /> Verified
+                </span>
+              </div>
+              <p className="text-[#6B6862] text-sm flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-[#B57F50]" /> {base.address}
+              </p>
+            </div>
+            <Link
+              href={`/${base.citySlug}/${base.stateSlug}/${base.slug}`}
+              className="shrink-0 px-3 py-2 rounded-lg bg-black/5 hover:bg-black/8 text-[#6B6862] hover:text-[#1E2026] text-xs font-medium transition-colors"
+            >
+              View Public Page
+            </Link>
+          </div>
+
+          <div className="border-t border-black/6 my-4" />
+
+          {/* Visit analytics */}
+          <VisitStatsCard slug={base.slug} restaurantName={base.name} />
+
+          {/* Featured upsell */}
+          <div className="mt-4 flex items-center justify-between gap-3 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Crown className="w-4 h-4 text-amber-500 shrink-0" />
+              <p className="text-[#1E2026] text-xs leading-snug">
+                <span className="font-semibold">Get featured</span> — appear at the top of the city page and reach more ramen lovers.
+              </p>
+            </div>
+            <Link
+              href="/featured/apply"
+              className="shrink-0 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold transition-colors whitespace-nowrap"
+            >
+              Get Featured
+            </Link>
+          </div>
         </div>
-        <p className="text-[#6B6862] text-sm mb-6">{base.address}</p>
-        <p className="text-[#6B6862] text-sm mb-8 leading-relaxed">
-          Edit the content shown on this listing. Changes are reviewed before going live, usually within 24 hours.
+
+        {/* Edit form section */}
+        <div className="flex items-center gap-2 mb-4">
+          <Edit3 className="w-4 h-4 text-[#B57F50]" />
+          <h2 className="font-semibold text-[#1E2026]">Edit Listing Content</h2>
+        </div>
+        <p className="text-[#6B6862] text-sm mb-6 leading-relaxed">
+          Changes submitted here will be attributed to your admin account. Use this to fix or update listing content on behalf of the owner.
         </p>
 
         <OwnerEditForm slug={base.slug} restaurantName={base.name} initial={initial} />
