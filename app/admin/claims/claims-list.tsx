@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle, XCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import Link from 'next/link'
+import { CheckCircle, XCircle, ChevronDown, ChevronUp, LayoutDashboard } from 'lucide-react'
 
 interface Claim {
   id: string
@@ -174,6 +175,18 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
                 <XCircle className="w-4 h-4" />
                 {loading === 'reject' ? 'Rejecting…' : 'Reject'}
               </button>
+            </div>
+          )}
+
+          {claim.status === 'approved' && claim.restaurant_slug && (
+            <div className="flex gap-3">
+              <Link
+                href={`/admin/owner-view/${claim.restaurant_slug}`}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-sm font-medium transition-colors border border-[#B57F50]/30"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                Preview Dashboard
+              </Link>
             </div>
           )}
         </div>
