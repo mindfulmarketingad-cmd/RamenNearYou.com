@@ -48,6 +48,7 @@ export const FIND_PAGES = [
   { href: '/find/ramen-open-weekends', label: 'Ramen Open on Weekends Near Me', emoji: '📆' },
   { href: '/find/hand-pulled-ramen', label: 'Hand Pulled Ramen Near Me', emoji: '🍜' },
   { href: '/find/ramen-open-july-4th', label: 'Ramen Open on Independence Day', emoji: '🎆' },
+  { href: '/find/ramen-open-on-july-4th', label: 'Ramen Open on July 4th Near Me', emoji: '🇺🇸' },
   { href: '/find/5-star-ramen', label: '5 Star Ramen Restaurants Near Me', emoji: '🌟' },
   { href: '/find/traditional-ramen', label: 'Traditional Ramen Near Me', emoji: '🎌' },
   { href: '/find/chicken-katsu-ramen', label: 'Chicken Katsu Ramen Near Me', emoji: '🍗' },
