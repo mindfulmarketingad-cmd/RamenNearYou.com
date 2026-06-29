@@ -563,7 +563,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {BOWL_META.map(b => (
-                    <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requireAccess()) return; toggleBowl(b.key) }} />
+                    <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requirePremium()) return; toggleBowl(b.key) }} />
                   ))}
                 </div>
               </section>
@@ -575,7 +575,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {MOOD_META.map(m => (
-                    <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requireAccess()) return; toggleMood(m.key) }} />
+                    <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requirePremium()) return; toggleMood(m.key) }} />
                   ))}
                 </div>
               </section>
@@ -586,8 +586,8 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requireAccess()) return; toggleFlag('ramen-sushi') }} />
-                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => { if (!requireAccess()) return; toggleFlag('fish-ramen') }} />
+                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requirePremium()) return; toggleFlag('ramen-sushi') }} />
+                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => { if (!requirePremium()) return; toggleFlag('fish-ramen') }} />
                 </div>
               </section>
 
@@ -597,14 +597,14 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => { if (!requireAccess()) return; toggleFlag('open-now') }} />
-                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => { if (!requireAccess()) return; toggleFlag('open-late') }} />
-                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => { if (!requireAccess()) return; toggleFlag('open-midnight') }} />
-                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => { if (!requireAccess()) return; toggleFlag('open-early') }} />
-                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => { if (!requireAccess()) return; toggleFlag('open-weekends') }} />
-                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requireAccess()) return; toggleFlag('top-rated') }} />
-                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requireAccess()) return; toggleFlag('hidden-gems') }} />
-                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => { if (!requireAccess()) return; toggleFlag('new-ramen') }} />
+                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => { if (!requirePremium()) return; toggleFlag('open-now') }} />
+                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => { if (!requirePremium()) return; toggleFlag('open-late') }} />
+                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => { if (!requirePremium()) return; toggleFlag('open-midnight') }} />
+                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => { if (!requirePremium()) return; toggleFlag('open-early') }} />
+                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => { if (!requirePremium()) return; toggleFlag('open-weekends') }} />
+                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requirePremium()) return; toggleFlag('top-rated') }} />
+                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requirePremium()) return; toggleFlag('hidden-gems') }} />
+                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => { if (!requirePremium()) return; toggleFlag('new-ramen') }} />
                 </div>
               </section>
 
@@ -615,7 +615,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {PRICE_META.map(p => (
-                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requireAccess()) return; togglePrice(p.key) }} />
+                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requirePremium()) return; togglePrice(p.key) }} />
                   ))}
                 </div>
               </section>
@@ -627,7 +627,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {FEATURE_META.map(f => (
-                    <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requireAccess()) return; toggleFlag(f.key) }} />
+                    <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requirePremium()) return; toggleFlag(f.key) }} />
                   ))}
                 </div>
               </section>

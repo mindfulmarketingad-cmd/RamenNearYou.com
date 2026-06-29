@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { X, SlidersHorizontal, Check, Loader2 } from 'lucide-react'
+import { X, SlidersHorizontal, Check } from 'lucide-react'
+
+const STRIPE_LINK = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
 
 interface Props {
   onClose: () => void
@@ -9,29 +10,8 @@ interface Props {
 }
 
 export default function SubscribeGateModal({ onClose, featureName = 'Filters' }: Props) {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
-  async function handleSubscribe() {
-    setLoading(true)
-    setError('')
-    try {
-      const res = await fetch('/api/ramen-pass/checkout', { method: 'POST' })
-      if (res.status === 409) {
-        onClose()
-        return
-      }
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      } else {
-        setError(data.error || 'Something went wrong. Please try again.')
-      }
-    } catch {
-      setError('Something went wrong. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+  function handleSubscribe() {
+    window.location.href = STRIPE_LINK
   }
 
   return (
@@ -76,17 +56,12 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
           ))}
         </ul>
 
-        {error && <p className="text-red-500 text-xs mb-3">{error}</p>}
-
         <div className="flex flex-col gap-2.5">
           <button
             onClick={handleSubscribe}
-            disabled={loading}
-            className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-60 text-white text-sm font-bold transition-colors"
+            className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
           >
-            {loading
-              ? <><Loader2 className="w-4 h-4 animate-spin" /> Setting up checkout&hellip;</>
-              : 'Subscribe — $2.99/month'}
+            Subscribe — $2.99/month
           </button>
           <button
             onClick={onClose}
