@@ -34,7 +34,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-          Unlock {featureName}
+          Unlock All Filters
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
