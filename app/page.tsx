@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import HomeMapHero from '@/components/home-map-hero'
@@ -40,6 +41,7 @@ const websiteSchema = {
 export default function HomePage() {
   return (
     <>
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2173008413459742" crossOrigin="anonymous" strategy="afterInteractive" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <main className="min-h-screen bg-[#ffffff]">
