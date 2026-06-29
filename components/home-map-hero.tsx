@@ -334,6 +334,10 @@ export default function HomeMapHero({
         // "Ramen + Sushi" — spots that also do sushi. The slim payload only
         // carries the name, so we match shops whose name signals sushi.
         if (flags.has('ramen-sushi') && !/sushi|sashimi|izakaya|japanese/i.test(r.name)) return false
+        if (flags.has('korean-style') && !/korean|gochujang|kimchi|doenjang/i.test(r.name)) return false
+        if (flags.has('japanese-fusion') && !/fusion/i.test(r.name)) return false
+        if (flags.has('halal') && !/halal/i.test(r.name)) return false
+        if (flags.has('gluten-free') && !/gluten.free|gluten free/i.test(r.name)) return false
         // "New Spots" — recently opened shops haven't accumulated many reviews
         // yet, so we surface rated spots with a low review count.
         if (flags.has('new-ramen') && !((r.reviewCount ?? 0) > 0 && (r.reviewCount ?? 0) <= 75)) return false
@@ -583,11 +587,15 @@ export default function HomeMapHero({
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
                   <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine & Dietary</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requirePremium()) return; toggleFlag('ramen-sushi') }} />
                   <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => { if (!requirePremium()) return; toggleFlag('fish-ramen') }} />
+                  <Chip active={flags.has('korean-style')} emoji="🌶" label="Korean-Style" onClick={() => { if (!requirePremium()) return; toggleFlag('korean-style') }} />
+                  <Chip active={flags.has('japanese-fusion')} emoji="🔀" label="Japanese Fusion" onClick={() => { if (!requirePremium()) return; toggleFlag('japanese-fusion') }} />
+                  <Chip active={flags.has('halal')} emoji="☪️" label="Halal-Friendly" onClick={() => { if (!requirePremium()) return; toggleFlag('halal') }} />
+                  <Chip active={flags.has('gluten-free')} emoji="🌾" label="Gluten-Free Options" onClick={() => { if (!requirePremium()) return; toggleFlag('gluten-free') }} />
                 </div>
               </section>
 

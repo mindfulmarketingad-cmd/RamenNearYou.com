@@ -43,11 +43,11 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
 
         <ul className="text-left space-y-2 mb-6">
           {[
-            'Filter by bowl — Tonkotsu, Spicy Miso, Shoyu & more',
-            'Filter by mood — Late-night, Date Night, Quick Lunch',
-            'Filter by price — Budget, Premium, Best Value',
-            'Filter by hours — Open Now, Open Late, Past Midnight',
-            'Just $2.99/month, cancel anytime',
+            '11 bowl types — Tonkotsu, Miso, Shoyu, Shio, Tsukemen & more',
+            '12 mood filters — Cozy & Intimate, Izakaya Vibe, Date Night & more',
+            'Dietary & cuisine — Halal, Gluten-Free, Korean-Style, Japanese Fusion',
+            'Hours — Open Now, Open Late, Open Early, Past Midnight',
+            'Price, amenities, top-rated & hidden gems',
           ].map(item => (
             <li key={item} className="flex items-start gap-2 text-sm text-[#1E2026]">
               <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />

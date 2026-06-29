@@ -22,13 +22,18 @@ export const BOWL_META: ChipMeta[] = [
 ]
 
 export const MOOD_META: ChipMeta[] = [
-  { key: 'rich-creamy', label: 'Rich & Creamy', emoji: '🥛', hex: '#d97706' },
-  { key: 'light-clean', label: 'Light & Clean', emoji: '🍃', hex: '#0ea5e9' },
-  { key: 'extra-spicy', label: 'Extra Spicy', emoji: '🔥', hex: '#dc2626' },
-  { key: 'late-night', label: 'Late-Night Comfort', emoji: '🌙', hex: '#6366f1' },
-  { key: 'hangover', label: 'Hangover Cure', emoji: '🍲', hex: '#ef4444' },
-  { key: 'quick-lunch', label: 'Quick Lunch', emoji: '⏱️', hex: '#16a34a' },
-  { key: 'date-night', label: 'Date Night', emoji: '🍷', hex: '#9333ea' },
+  { key: 'rich-creamy',    label: 'Rich & Creamy',      emoji: '🥛', hex: '#d97706' },
+  { key: 'light-clean',   label: 'Light & Clean',       emoji: '🍃', hex: '#0ea5e9' },
+  { key: 'extra-spicy',   label: 'Extra Spicy',         emoji: '🔥', hex: '#dc2626' },
+  { key: 'late-night',    label: 'Late-Night Comfort',  emoji: '🌙', hex: '#6366f1' },
+  { key: 'hangover',      label: 'Hangover Cure',       emoji: '🍲', hex: '#ef4444' },
+  { key: 'quick-lunch',   label: 'Quick Lunch',         emoji: '⏱️', hex: '#16a34a' },
+  { key: 'date-night',    label: 'Date Night',          emoji: '🍷', hex: '#9333ea' },
+  { key: 'cozy-intimate', label: 'Cozy & Intimate',     emoji: '🕯️', hex: '#92400e' },
+  { key: 'lively-social', label: 'Lively & Social',     emoji: '✨', hex: '#7c3aed' },
+  { key: 'izakaya-vibe',  label: 'Izakaya Vibe',        emoji: '🍶', hex: '#1d4ed8' },
+  { key: 'solo-dining',   label: 'Solo-Friendly',       emoji: '🪑', hex: '#4b5563' },
+  { key: 'sake-drinks',   label: 'Sake & Drinks',       emoji: '🥃', hex: '#b45309' },
 ]
 
 export const BOWL_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(BOWL_META.map(b => [b.key, b]))

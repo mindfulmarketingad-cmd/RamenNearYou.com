@@ -91,13 +91,18 @@ const BOWL_MATCH: Record<string, (r: Restaurant) => boolean> = {
 
 // Mood matchers, keyed to MOOD_META.
 const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
-  'rich-creamy': r => getBrothTypes(r).includes('Tonkotsu') || /paitan|creamy|rich broth|velvety/.test(txt(r)),
-  'light-clean': r => getBrothTypes(r).includes('Shoyu') || /shio|clear broth|light broth|delicate broth/.test(txt(r)),
-  'extra-spicy': r => getBrothTypes(r).includes('Spicy'),
-  'late-night': r => isOpenLate(r.hours, 22 * 60),
-  'hangover': r => (getBrothTypes(r).includes('Tonkotsu') || getBrothTypes(r).includes('Spicy')) && isOpenLate(r.hours, 21 * 60),
-  'quick-lunch': r => !!r.amenities?.takeout,
-  'date-night': r => isUpscale(r) || !!r.amenities?.acceptsReservations,
+  'rich-creamy':    r => getBrothTypes(r).includes('Tonkotsu') || /paitan|creamy|rich broth|velvety/.test(txt(r)),
+  'light-clean':    r => getBrothTypes(r).includes('Shoyu') || /shio|clear broth|light broth|delicate broth/.test(txt(r)),
+  'extra-spicy':    r => getBrothTypes(r).includes('Spicy'),
+  'late-night':     r => isOpenLate(r.hours, 22 * 60),
+  'hangover':       r => (getBrothTypes(r).includes('Tonkotsu') || getBrothTypes(r).includes('Spicy')) && isOpenLate(r.hours, 21 * 60),
+  'quick-lunch':    r => !!r.amenities?.takeout,
+  'date-night':     r => isUpscale(r) || !!r.amenities?.acceptsReservations,
+  'cozy-intimate':  r => !!r.amenities?.cozy || /cozy|intimate|warm atmosphere|snug/.test(txt(r)),
+  'lively-social':  r => !!r.amenities?.trendy || /lively|vibrant|energetic|buzzing|social/.test(txt(r)),
+  'izakaya-vibe':   r => /izakaya/.test(txt(r)) || (r.subtypes ?? '').toLowerCase().includes('izakaya'),
+  'solo-dining':    r => /counter seating|bar seating|ramen counter|communal|solo dining|solo-friendly/.test(txt(r)),
+  'sake-drinks':    r => /sake|saké|shochu|japanese whisky/.test(txt(r)) && !!r.amenities?.alcohol,
 }
 
 export function computeMapData(): MapPoint[] {
