@@ -50,9 +50,24 @@ END $$;
 
 -- ── listing_edit_requests ─────────────────────────────────────────────────────
 
+CREATE TABLE IF NOT EXISTS public.listing_edit_requests (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  restaurant_slug  text NOT NULL,
+  user_id          uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  type             text NOT NULL,  -- 'info' | 'photo' | 'review_response'
+  payload          jsonb NOT NULL DEFAULT '{}',
+  status           text NOT NULL DEFAULT 'pending',  -- 'pending' | 'approved' | 'rejected'
+  admin_note       text,
+  created_at       timestamptz DEFAULT now(),
+  reviewed_at      timestamptz
+);
+
+CREATE INDEX IF NOT EXISTS listing_edit_requests_slug_idx   ON public.listing_edit_requests (restaurant_slug);
+CREATE INDEX IF NOT EXISTS listing_edit_requests_user_idx   ON public.listing_edit_requests (user_id);
+CREATE INDEX IF NOT EXISTS listing_edit_requests_status_idx ON public.listing_edit_requests (status);
+
 ALTER TABLE public.listing_edit_requests ENABLE ROW LEVEL SECURITY;
 
--- Owners can insert their own edit requests
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'listing_edit_requests' AND policyname = 'Owners insert edit requests'
@@ -63,7 +78,6 @@ DO $$ BEGIN
   END IF;
 END $$;
 
--- Owners can read their own edit requests
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'listing_edit_requests' AND policyname = 'Owners read own edit requests'
@@ -74,7 +88,6 @@ DO $$ BEGIN
   END IF;
 END $$;
 
--- Admin can manage all edit requests
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'listing_edit_requests' AND policyname = 'Admin manages all edit requests'
@@ -86,25 +99,23 @@ DO $$ BEGIN
   END IF;
 END $$;
 
--- ── restaurant_overrides ──────────────────────────────────────────────────────
-
--- Admin can manage all overrides (needed for approving listing edits)
-DO $$ BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_overrides' AND policyname = 'Admin manages all overrides'
-  ) THEN
-    CREATE POLICY "Admin manages all overrides"
-      ON public.restaurant_overrides FOR ALL
-      USING (public.is_admin())
-      WITH CHECK (public.is_admin());
-  END IF;
-END $$;
-
 -- ── review_responses ──────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS public.review_responses (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  review_id        uuid NOT NULL,
+  restaurant_slug  text NOT NULL,
+  user_id          uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  response         text NOT NULL,
+  created_at       timestamptz DEFAULT now(),
+  UNIQUE(review_id)
+);
+
+CREATE INDEX IF NOT EXISTS review_responses_review_idx ON public.review_responses (review_id);
+CREATE INDEX IF NOT EXISTS review_responses_slug_idx   ON public.review_responses (restaurant_slug);
 
 ALTER TABLE public.review_responses ENABLE ROW LEVEL SECURITY;
 
--- Public can read all approved review responses
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'review_responses' AND policyname = 'Public reads review responses'
@@ -115,13 +126,26 @@ DO $$ BEGIN
   END IF;
 END $$;
 
--- Admin can manage all review responses
 DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'review_responses' AND policyname = 'Admin manages review responses'
   ) THEN
     CREATE POLICY "Admin manages review responses"
       ON public.review_responses FOR ALL
+      USING (public.is_admin())
+      WITH CHECK (public.is_admin());
+  END IF;
+END $$;
+
+-- ── restaurant_overrides ──────────────────────────────────────────────────────
+
+-- Admin can manage all overrides (needed for approving listing edits without service role key)
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE tablename = 'restaurant_overrides' AND policyname = 'Admin manages all overrides'
+  ) THEN
+    CREATE POLICY "Admin manages all overrides"
+      ON public.restaurant_overrides FOR ALL
       USING (public.is_admin())
       WITH CHECK (public.is_admin());
   END IF;
