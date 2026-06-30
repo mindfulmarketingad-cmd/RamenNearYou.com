@@ -80,16 +80,19 @@ export default function ClaimSearch() {
 
         {/* Payment prompt */}
         <div className="bg-[#F5F4F0] rounded-2xl border border-black/8 p-6 max-w-sm mx-auto mb-5">
+          <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
+            14-Day Free Trial
+          </span>
           <div className="flex items-end justify-center gap-1.5 mb-1">
-            <span className="font-serif text-4xl font-bold text-[#1E2026]">$49.99</span>
-            <span className="text-[#6B6862] text-sm mb-1.5">/month</span>
+            <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
+            <span className="text-[#6B6862] text-sm mb-1.5">today</span>
           </div>
-          <p className="text-[#9B9490] text-xs mb-5">Cancel anytime.</p>
+          <p className="text-[#9B9490] text-xs mb-5">Then $49.99/month after your free trial. Cancel anytime.</p>
           <a
             href={trialLink}
             className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
           >
-            Get Featured — $49.99/month
+            Start Free Trial — $0 Today
           </a>
         </div>
 
@@ -104,11 +107,14 @@ export default function ClaimSearch() {
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
       {/* Pricing header */}
       <div className="text-center mb-6 pb-6 border-b border-black/6">
+        <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
+          14-Day Free Trial
+        </span>
         <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">$49.99</span>
-          <span className="text-[#6B6862] text-sm mb-2">/month</span>
+          <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
+          <span className="text-[#6B6862] text-sm mb-2">today</span>
         </div>
-        <p className="text-[#9B9490] text-xs">Cancel anytime.</p>
+        <p className="text-[#9B9490] text-xs">Then $49.99/month after your free trial. Cancel anytime.</p>
       </div>
 
       {/* Benefits */}
