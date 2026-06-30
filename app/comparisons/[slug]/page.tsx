@@ -108,7 +108,7 @@ export default async function ComparisonPage({ params }: Props) {
 
               <Link
                 href={`/authors/${slugifyAuthor(cmp.author.name)}`}
-                className="inline-flex items-center gap-2.5 group"
+                className="inline-flex items-center gap-2.5 group mb-8"
               >
                 <Image
                   src={cmp.author.avatar}
@@ -123,6 +123,18 @@ export default async function ComparisonPage({ params }: Props) {
                   <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
                 </div>
               </Link>
+
+              {/* Featured image */}
+              <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden bg-[#D6D4CE]">
+                <Image
+                  src={cmp.featuredImage.src}
+                  alt={cmp.featuredImage.alt}
+                  fill
+                  className="object-cover"
+                  priority
+                  unoptimized
+                />
+              </div>
             </header>
 
             <div

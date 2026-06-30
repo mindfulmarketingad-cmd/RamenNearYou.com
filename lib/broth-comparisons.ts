@@ -28,6 +28,8 @@ export interface BrothProfile {
   toppings: string        // 1–2 sentence detail
   bestFor: string         // who/when it suits
   nearMePath: string      // internal link to the "near me" search page
+  image: string           // /images/comparisons/{key}-bowl.jpg
+  imageAlt: string        // descriptive alt text
 }
 
 // Fixed display order — also determines which broth appears first in a pair slug
@@ -58,6 +60,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Chashu pork, wood-ear mushrooms (kikurage), pickled red ginger (beni shoga), sesame seeds and scallion are the signatures; a marinated egg is a frequent add-on.',
     bestFor: 'anyone who wants the richest, most filling bowl on the menu and loves pork-forward, fatty depth',
     nearMePath: '/tonkotsu-ramen-near-me',
+    image: '/images/comparisons/tonkotsu-bowl.jpg',
+    imageAlt: 'A rich, creamy tonkotsu ramen bowl with chashu pork, soft-boiled egg and kikurage mushrooms',
   },
   shoyu: {
     key: 'shoyu',
@@ -81,6 +85,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Chashu, bamboo shoots (menma), nori, fish cake (naruto), a marinated egg and scallion are the textbook garnishes.',
     bestFor: 'people who want a balanced, savory, soup-forward bowl that is satisfying without being heavy',
     nearMePath: '/shoyu-ramen-near-me',
+    image: '/images/comparisons/shoyu-bowl.jpg',
+    imageAlt: 'A clear amber shoyu ramen bowl with chashu, bamboo shoots, nori and a marinated egg',
   },
   miso: {
     key: 'miso',
@@ -104,6 +110,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Sweet corn, a pat of butter, bean sprouts, ground pork, scallion and chashu are the Hokkaido-style classics.',
     bestFor: 'anyone craving a warming, robust, full-flavored bowl — especially in cold weather',
     nearMePath: '/miso-ramen-near-me',
+    image: '/images/comparisons/miso-bowl.jpg',
+    imageAlt: 'A hearty miso ramen bowl with sweet corn, butter, bean sprouts and ground pork',
   },
   shio: {
     key: 'shio',
@@ -127,6 +135,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Restrained, classic garnishes — chashu, menma, scallion, nori and sometimes seafood — keep the focus on the clean broth.',
     bestFor: 'diners who prefer a light, refined, soup-forward bowl that showcases a pristine stock',
     nearMePath: '/shio-ramen-near-me',
+    image: '/images/comparisons/shio-bowl.jpg',
+    imageAlt: 'A pale golden shio ramen bowl with chashu, scallion and a soft-boiled egg in clear broth',
   },
   spicy: {
     key: 'spicy',
@@ -150,6 +160,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Ground pork, chili oil, scallion, leafy greens like bok choy and a shower of sesame are typical.',
     bestFor: 'heat seekers who want a bold, warming, adrenaline-spiking bowl with adjustable spice',
     nearMePath: '/spicy-ramen-near-me',
+    image: '/images/comparisons/spicy-bowl.jpg',
+    imageAlt: 'A fiery red spicy ramen pot with green onions, chili oil and ramen noodles',
   },
   vegan: {
     key: 'vegan',
@@ -173,6 +185,8 @@ export const BROTHS: Record<BrothKey, BrothProfile> = {
     toppings: 'Tofu, sautéed or marinated mushrooms, corn, leafy greens, bamboo shoots and nori replace the usual meat and egg.',
     bestFor: 'plant-based diners and anyone wanting a lighter, vegetable- and mushroom-driven bowl with real umami',
     nearMePath: '/vegan-ramen-near-me',
+    image: '/images/comparisons/vegan-bowl.jpg',
+    imageAlt: 'A vegan ramen bowl with tofu, mushrooms, bok choy, corn and nori in clear umami broth',
   },
 }
 
@@ -192,6 +206,7 @@ export interface BrothComparison {
   author: { name: string; avatar: string }
   faqs: { q: string; a: string }[]
   content: string     // composed HTML body
+  featuredImage: { src: string; alt: string }
 }
 
 function intensityWord(n: number): string {
@@ -242,6 +257,13 @@ ${row('Origin', a.origin, b.origin)}
 </div>`
 }
 
+function inlineImg(src: string, alt: string, caption: string): string {
+  return `<figure class="comparison-figure">
+  <img src="${src}" alt="${alt}" loading="lazy" class="comparison-img" />
+  <figcaption>${caption}</figcaption>
+</figure>`
+}
+
 function buildContent(a: BrothProfile, b: BrothProfile, faqs: { q: string; a: string }[]): string {
   const richer = a.intensity >= b.intensity ? a : b
   const lighter = a.intensity >= b.intensity ? b : a
@@ -265,6 +287,7 @@ function buildContent(a: BrothProfile, b: BrothProfile, faqs: { q: string; a: st
 
 <h2>What is ${a.name} ramen?</h2>
 ${a.whatIs.join('\n')}
+${inlineImg(a.image, a.imageAlt, `A classic ${a.name.toLowerCase()} ramen bowl — ${a.colorWord} broth, ${a.bodyWord}.`)}
 <p><strong>Seasoning.</strong> ${a.seasoning}</p>
 <p><strong>Preparation.</strong> ${a.preparation}</p>
 <p><strong>Noodles.</strong> ${a.noodles}</p>
@@ -272,6 +295,7 @@ ${a.whatIs.join('\n')}
 
 <h2>What is ${b.name} ramen?</h2>
 ${b.whatIs.join('\n')}
+${inlineImg(b.image, b.imageAlt, `A classic ${b.name.toLowerCase()} ramen bowl — ${b.colorWord} broth, ${b.bodyWord}.`)}
 <p><strong>Seasoning.</strong> ${b.seasoning}</p>
 <p><strong>Preparation.</strong> ${b.preparation}</p>
 <p><strong>Noodles.</strong> ${b.noodles}</p>
@@ -308,6 +332,8 @@ export function getAllComparisons(): BrothComparison[] {
       const b = BROTHS[BROTH_ORDER[j]]
       const slug = `${a.key}-ramen-vs-${b.key}-ramen`
       const faqs = buildFaqs(a, b)
+      // Featured image: use the richer broth's photo so the hero is always the bolder bowl
+      const heroProfile = a.intensity >= b.intensity ? a : b
       list.push({
         slug,
         a,
@@ -318,6 +344,7 @@ export function getAllComparisons(): BrothComparison[] {
         author: AUTHORS[idx % AUTHORS.length],
         faqs,
         content: buildContent(a, b, faqs),
+        featuredImage: { src: heroProfile.image, alt: heroProfile.imageAlt },
       })
       idx++
     }
