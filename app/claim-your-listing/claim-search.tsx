@@ -2,16 +2,11 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { BadgeCheck, BarChart2, FileText, Globe, MapPin, Search, CheckCircle2, TrendingUp } from 'lucide-react'
+import { MapPin, Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 
 const BENEFITS = [
-  { icon: FileText, text: 'Dedicated landing page for your restaurant — fully editable content, photos, hours & menu link' },
-  { icon: MapPin, text: '#1 featured spot on the ramen search map' },
-  { icon: TrendingUp, text: 'Increased SEO & organic traffic to your website — your dedicated page and featured listing rank on Google and drive clicks directly to you' },
-  { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
-  { icon: BarChart2, text: 'Weekly page visit analytics' },
-  { icon: Globe, text: 'Backlink from your listing page to your main website' },
+  { icon: MapPin, text: '#1 featured spot at the top of the ramen search map — your restaurant appears first when someone searches for ramen near you' },
 ]
 
 const US_STATES = [
@@ -80,24 +75,21 @@ export default function ClaimSearch() {
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Submission Received!</h2>
         <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
-          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Start your free trial to lock in your dedicated landing page and the #1 featured spot on the search map.
+          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Get the #1 featured spot at the top of the ramen search map.
         </p>
 
-        {/* Free-trial prompt */}
+        {/* Payment prompt */}
         <div className="bg-[#F5F4F0] rounded-2xl border border-black/8 p-6 max-w-sm mx-auto mb-5">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
-            14-Day Free Trial
-          </div>
           <div className="flex items-end justify-center gap-1.5 mb-1">
-            <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
-            <span className="text-[#6B6862] text-sm mb-1.5">today</span>
+            <span className="font-serif text-4xl font-bold text-[#1E2026]">$49.99</span>
+            <span className="text-[#6B6862] text-sm mb-1.5">/month</span>
           </div>
-          <p className="text-[#9B9490] text-xs mb-5">Then $49.99/month after your trial. Cancel anytime.</p>
+          <p className="text-[#9B9490] text-xs mb-5">Cancel anytime.</p>
           <a
             href={trialLink}
             className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
           >
-            Start Free Trial — $0 Today
+            Get Featured — $49.99/month
           </a>
         </div>
 
@@ -112,14 +104,11 @@ export default function ClaimSearch() {
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
       {/* Pricing header */}
       <div className="text-center mb-6 pb-6 border-b border-black/6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-3">
-          14-Day Free Trial
-        </div>
         <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
-          <span className="text-[#6B6862] text-sm mb-2">today</span>
+          <span className="font-serif text-5xl font-bold text-[#1E2026]">$49.99</span>
+          <span className="text-[#6B6862] text-sm mb-2">/month</span>
         </div>
-        <p className="text-[#9B9490] text-xs">Then $49.99/month after your free trial. Cancel anytime.</p>
+        <p className="text-[#9B9490] text-xs">Cancel anytime.</p>
       </div>
 
       {/* Benefits */}

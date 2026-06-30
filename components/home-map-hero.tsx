@@ -718,20 +718,17 @@ export default function HomeMapHero({
                     >
                       {/* Main clickable row */}
                       {isIkedo ? (
-                        <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className="flex gap-3 p-3 pb-1.5 pr-10">
-                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
-                            {r.featured && (
-                              <span className="absolute top-0 left-0 bg-gradient-to-br from-[#f5b301] to-[#d4880b] text-white text-[8px] leading-none px-1 py-0.5 rounded-br-md font-bold">★</span>
-                            )}
+                        <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}>
+                          <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
                           </div>
                           <div className="flex-1 min-w-0">
                             {r.featured && (
-                              <span className="inline-flex items-center gap-1 mb-0.5 px-1.5 py-0.5 rounded bg-amber-100 text-[#9a6b0b] text-[9px] font-bold uppercase tracking-wide border border-[#f5b301]/40">
-                                👑 Featured
+                              <span className="inline-flex items-center gap-1 mb-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[9px] font-bold uppercase tracking-wide shadow-sm">
+                                👑 #1 Featured
                               </span>
                             )}
-                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className={`font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
@@ -751,21 +748,18 @@ export default function HomeMapHero({
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={e => { if (!requireAccess()) e.preventDefault() }}
-                          className="flex gap-3 p-3 pb-1.5 pr-10"
+                          className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
                         >
-                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
-                            {r.featured && (
-                              <span className="absolute top-0 left-0 bg-gradient-to-br from-[#f5b301] to-[#d4880b] text-white text-[8px] leading-none px-1 py-0.5 rounded-br-md font-bold">★</span>
-                            )}
+                          <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
                           </div>
                           <div className="flex-1 min-w-0">
                             {r.featured && (
-                              <span className="inline-flex items-center gap-1 mb-0.5 px-1.5 py-0.5 rounded bg-amber-100 text-[#9a6b0b] text-[9px] font-bold uppercase tracking-wide border border-[#f5b301]/40">
-                                👑 Featured
+                              <span className="inline-flex items-center gap-1 mb-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[9px] font-bold uppercase tracking-wide shadow-sm">
+                                👑 #1 Featured
                               </span>
                             )}
-                            <p className={`font-semibold text-sm truncate ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className={`font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
