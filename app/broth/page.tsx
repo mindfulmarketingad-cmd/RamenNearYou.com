@@ -91,6 +91,12 @@ export default async function BrothPage({
         <p className="text-[#6B6862] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
           Every bowl starts with the broth. Find ramen restaurants by the style that suits your taste.
         </p>
+        <p className="mt-4 text-sm text-[#6B6862]">
+          New to ramen styles?{' '}
+          <Link href="/comparisons" className="text-[#B57F50] font-medium hover:underline">
+            Compare broth types side by side →
+          </Link>
+        </p>
       </section>
 
       {/* Broth type info cards */}

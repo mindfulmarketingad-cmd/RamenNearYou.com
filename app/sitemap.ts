@@ -5,6 +5,7 @@ import { blogPosts } from '@/lib/blog-posts'
 import { FIND_PAGES } from '@/components/find-cross-links'
 import { getFindCityParams } from '@/lib/find-city'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
+import { getAllComparisons } from '@/lib/broth-comparisons'
 
 const BASE_URL = 'https://www.ramennearyou.com'
 
@@ -80,6 +81,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
+  // Broth-type comparison pages (e.g. /comparisons/tonkotsu-ramen-vs-miso-ramen)
+  const comparisonPages = getAllComparisons().map((c) => ({
+    url: `${BASE_URL}/comparisons/${c.slug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
   // /find filter, broth, brand & "near me" searchmap pages
   const findFilterPages = FIND_PAGES.map((p) => ({
     url: `${BASE_URL}${p.href}`,
@@ -135,6 +144,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/broth`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/comparisons`,
       lastModified: LAST_CONTENT,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
@@ -205,6 +220,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
+    ...comparisonPages,
     ...findFilterPages,
     ...findCityPages,
     ...modifierFindPages,

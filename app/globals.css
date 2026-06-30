@@ -149,6 +149,38 @@
   color: #6B6862;
   font-style: italic;
 }
+.prose-ramen a {
+  color: #B57F50;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-ramen a:hover {
+  color: #c8934f;
+}
+.prose-ramen table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.prose-ramen .overflow-x-auto {
+  overflow-x: auto;
+}
+.prose-ramen th,
+.prose-ramen td {
+  text-align: left;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+}
+.prose-ramen thead th {
+  background: #F5F4F0;
+  color: #1E2026;
+  font-weight: 600;
+}
+.prose-ramen tbody tr:nth-child(even) {
+  background: rgba(181, 127, 80, 0.04);
+}
 
 @keyframes slide-up {
   from { transform: translateY(100%); opacity: 0; }
