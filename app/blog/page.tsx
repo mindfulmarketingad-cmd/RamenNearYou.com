@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import BlogSearch from './blog-search'
 import { blogPosts } from '@/lib/blog-posts'
 
 export const metadata: Metadata = {
@@ -10,46 +10,65 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.ramennearyou.com/blog' },
 }
 
-export default function BlogPage() {
-  return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">The Ramen Blog</p>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">Recipes, Tips & Ramen Culture</h1>
-            <p className="text-[#6B6862] text-lg">Everything you need to know about making, eating, and finding great ramen.</p>
-          </div>
+// Canonical category order for the browse view
+const CATEGORY_ORDER = [
+  'Best Of',
+  'City Guides',
+  'Late Night',
+  'Delivery',
+  'Chain Locations',
+  'Cooking Guides',
+  'Recipes',
+  'Cooking Tips',
+  'Buying Guides',
+  'Health & Nutrition',
+  'Ramen 101',
+  'Reviews',
+  'Restaurant Review',
+  'Comparisons',
+  'Guides',
+  'For Owners',
+]
 
-          <div className="grid gap-6">
-            {blogPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group block bg-[#ffffff] rounded-xl p-6 sm:p-8 border border-black/5 hover:border-[#B57F50]/40 transition-all"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">
-                    {post.category}
-                  </span>
-                  <span className="text-xs text-[#6B6862]/60">{post.date}</span>
-                  <span className="text-xs text-[#6B6862]/60">·</span>
-                  <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
-                </div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-2 group-hover:text-[#B57F50] transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed">{post.description}</p>
-                <div className="mt-4 text-[#B57F50] text-sm font-medium group-hover:underline">
-                  Read article →
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </main>
+function getGroups() {
+  const map = new Map<string, { href: string; label: string }[]>()
+
+  for (const post of blogPosts) {
+    const label = post.h1 ?? post.title
+    const href = `/blog/${post.slug}`
+    const cat = post.category ?? 'General'
+    if (!map.has(cat)) map.set(cat, [])
+    map.get(cat)!.push({ href, label })
+  }
+
+  // Sort by canonical order, then alphabetically for any unknown categories
+  const sorted = [...map.entries()].sort(([a], [b]) => {
+    const ai = CATEGORY_ORDER.indexOf(a)
+    const bi = CATEGORY_ORDER.indexOf(b)
+    if (ai === -1 && bi === -1) return a.localeCompare(b)
+    if (ai === -1) return 1
+    if (bi === -1) return -1
+    return ai - bi
+  })
+
+  return sorted.map(([heading, pages]) => ({ heading, pages }))
+}
+
+export default function BlogPage() {
+  const groups = getGroups()
+
+  return (
+    <main className="min-h-screen bg-[#F5F4F0]">
+      <Navbar />
+      <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Blog</h1>
+        <p className="text-[#6B6862] text-sm mb-8">
+          Recipes, city guides, cooking tips, health guides and everything else about ramen culture.
+        </p>
+
+        <BlogSearch groups={groups} />
+      </div>
       <Footer />
-    </>
+    </main>
   )
 }
