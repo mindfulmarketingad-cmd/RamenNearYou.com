@@ -31,6 +31,7 @@ import PageViewTracker from '@/components/page-view-tracker'
 import LiveWaitTime from '@/components/live-wait-time'
 import ProductsCarousel from '@/components/products-carousel'
 import BrothStyleLinks from '@/components/broth-style-links'
+import ConnectAccountPanel from '@/components/connect-account-panel'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getFeaturedSlugsForCity } from '@/lib/featured-city'
@@ -292,21 +293,32 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const supabase = await createClient()
   let isVerified = false
   let isOwner = false
+  let canSelfLink = false // owner is logged in + email matches claim but user_id not yet set
 
   // Use admin client to bypass RLS so any visitor sees the verified/claimed state
   const claimsClient = createAdminClient() ?? supabase
   if (claimsClient) {
     const { data } = await claimsClient
       .from('claims')
-      .select('id, user_id')
+      .select('id, user_id, contact_email')
       .eq('restaurant_slug', r.slug)
       .eq('status', 'approved')
       .maybeSingle()
     isVerified = !!data
 
-    if (data?.user_id && supabase) {
+    if (data && supabase) {
       const { data: { user } } = await supabase.auth.getUser()
-      if (user && user.id === data.user_id) isOwner = true
+      if (user) {
+        if (user.id === data.user_id) {
+          isOwner = true
+        } else if (
+          data.contact_email &&
+          data.contact_email.toLowerCase() === user.email?.toLowerCase()
+        ) {
+          // The logged-in user's email matches the claim but their account isn't linked yet
+          canSelfLink = true
+        }
+      }
     }
   }
 
@@ -733,6 +745,11 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
                   Manage Listing
                 </Link>
               </div>
+            )}
+
+            {/* Self-link panel: logged-in user's email matches the claim but account not yet connected */}
+            {canSelfLink && (
+              <ConnectAccountPanel slug={r.slug} restaurantName={r.name} />
             )}
 
             {/* Contact & Info card */}

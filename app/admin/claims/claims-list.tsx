@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CheckCircle, XCircle, ChevronDown, ChevronUp, LayoutDashboard, PlusCircle } from 'lucide-react'
+import { CheckCircle, XCircle, ChevronDown, ChevronUp, LayoutDashboard, PlusCircle, Link2 } from 'lucide-react'
 
 interface Claim {
   id: string
@@ -15,6 +15,7 @@ interface Claim {
   status: string
   admin_note: string | null
   created_at: string
+  user_id: string | null
 }
 
 interface ParsedMessage {
@@ -179,17 +180,75 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
           )}
 
           {claim.status === 'approved' && claim.restaurant_slug && (
-            <div className="flex gap-3">
-              <Link
-                href={`/admin/owner-view/${claim.restaurant_slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-sm font-medium transition-colors border border-[#B57F50]/30"
-              >
-                <LayoutDashboard className="w-4 h-4" />
-                Preview Dashboard
-              </Link>
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-3 flex-wrap">
+                <Link
+                  href={`/admin/owner-view/${claim.restaurant_slug}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-sm font-medium transition-colors border border-[#B57F50]/30"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  Preview Dashboard
+                </Link>
+              </div>
+              <LinkOwnerPanel claimId={claim.id} currentUserId={claim.user_id} />
             </div>
           )}
         </div>
+      )}
+    </div>
+  )
+}
+
+function LinkOwnerPanel({ claimId, currentUserId }: { claimId: string; currentUserId: string | null }) {
+  const [userId, setUserId] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<string | null>(null)
+
+  async function submit() {
+    if (!userId.trim()) return
+    setLoading(true)
+    setResult(null)
+    const res = await fetch(`/api/admin/claims/${claimId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ owner_user_id: userId.trim() }),
+    })
+    const json = await res.json()
+    setResult(res.ok ? 'Done — owner account linked.' : `Error: ${json.error}`)
+    if (res.ok) setUserId('')
+    setLoading(false)
+  }
+
+  return (
+    <div className="border-t border-black/5 pt-3">
+      <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+        <Link2 className="w-3.5 h-3.5" /> Link Owner Account
+      </p>
+      {currentUserId && (
+        <p className="text-xs text-[#9B9490] mb-2">Current user_id: <code className="bg-black/5 px-1 rounded">{currentUserId}</code></p>
+      )}
+      <p className="text-[#6B6862] text-xs mb-2">
+        Enter the owner&apos;s Supabase user_id (from Dashboard → Authentication → Users) to link their account. This lets them edit the listing immediately.
+      </p>
+      <div className="flex gap-2">
+        <input
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+          placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          className="flex-1 px-3 py-2 bg-white border border-black/8 rounded-lg text-sm text-[#1E2026] placeholder-[#9B9490]/40 font-mono outline-none focus:border-sky-400 transition-colors"
+        />
+        <button
+          onClick={submit}
+          disabled={loading || !userId.trim()}
+          className="px-3 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-xs font-medium transition-colors disabled:opacity-50"
+        >
+          {loading ? 'Saving…' : 'Link'}
+        </button>
+      </div>
+      {result && (
+        <p className={`mt-1.5 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600'}`}>
+          {result}
+        </p>
       )}
     </div>
   )

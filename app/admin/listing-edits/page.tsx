@@ -15,16 +15,16 @@ export default async function AdminListingEditsPage() {
   if (!user) redirect('/auth/login?redirectTo=/admin/listing-edits')
   if (!process.env.ADMIN_EMAIL || user.email !== process.env.ADMIN_EMAIL) redirect('/')
 
-  const admin = createAdminClient()
+  // Prefer service-role client; fall back to admin session
+  // (requires "Admin manages all edit requests" RLS policy from supabase/admin-rls-policies.sql)
+  const client = createAdminClient() ?? supabase
   let edits: Record<string, unknown>[] = []
-  if (admin) {
-    const { data } = await admin
-      .from('listing_edit_requests')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(500)
-    edits = data ?? []
-  }
+  const { data } = await client
+    .from('listing_edit_requests')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(500)
+  edits = data ?? []
 
   return (
     <>

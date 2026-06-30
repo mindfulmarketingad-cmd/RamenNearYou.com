@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import ClaimsList from './claims-list'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 export const metadata: Metadata = {
   title: 'Admin — Review Claims | RamenNearYou',
@@ -20,20 +21,15 @@ export default async function AdminClaimsPage() {
     redirect('/')
   }
 
-  // Use service role key to read all claims
+  // Prefer service role client (bypasses RLS); fall back to admin session
+  // (requires "Admin manages all claims" RLS policy from supabase/admin-rls-policies.sql)
+  const client = createAdminClient() ?? supabase
   let claims: unknown[] = []
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    const { createClient: createAdmin } = await import('@supabase/supabase-js')
-    const admin = createAdmin(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    )
-    const { data } = await admin
-      .from('claims')
-      .select('*')
-      .order('created_at', { ascending: false })
-    claims = data ?? []
-  }
+  const { data } = await client
+    .from('claims')
+    .select('*')
+    .order('created_at', { ascending: false })
+  claims = data ?? []
 
   return (
     <>

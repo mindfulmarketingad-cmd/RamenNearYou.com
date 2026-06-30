@@ -11,8 +11,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const { data: { user } } = await supabase.auth.getUser()
   if (!user || user.email !== process.env.ADMIN_EMAIL) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-  const admin = createAdminClient()
-  if (!admin) return NextResponse.json({ error: 'No admin client' }, { status: 500 })
+  // Prefer service-role client (bypasses RLS); fall back to admin session
+  // (requires "Admin manages all overrides/edit requests" RLS policies)
+  const admin = createAdminClient() ?? supabase!
 
   const { action, admin_note } = await request.json()
   if (!['approve', 'reject'].includes(action)) return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
