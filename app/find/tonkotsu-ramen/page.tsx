@@ -3,6 +3,8 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
+import ServiceCityLinks from '@/components/service-city-links'
+import { getServiceCityLinks } from '@/lib/city-filter-pages'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
 }
 
 export default function TonkotsuRamenPage() {
+  const cityLinks = getServiceCityLinks('Tonkotsu')
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -107,6 +111,18 @@ export default function TonkotsuRamenPage() {
               { h3: 'Pacing matters', text: 'Tonkotsu broth is thick and hot, so it holds temperature well. Still, eat the noodles first before they soften too much, then slow down and enjoy the broth on its own terms.' },
             ],
           },
+          ...(cityLinks.length > 0 ? [{
+            h2: 'Tonkotsu Ramen by City',
+            body: (
+              <>
+                <p>
+                  Want a deeper dive into a specific city&apos;s tonkotsu scene? I have written dedicated guides
+                  for these cities, each with its own map, top picks, and local notes:
+                </p>
+                <ServiceCityLinks links={cityLinks} />
+              </>
+            ),
+          }] : []),
           {
             h2: 'Regional styles and variations worth knowing',
             body: (

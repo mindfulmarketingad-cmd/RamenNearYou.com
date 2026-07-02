@@ -3,6 +3,8 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
+import ServiceCityLinks from '@/components/service-city-links'
+import { getServiceCityLinks } from '@/lib/city-filter-pages'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
 }
 
 export default function MisoRamenPage() {
+  const cityLinks = getServiceCityLinks('Miso')
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -128,6 +132,18 @@ export default function MisoRamenPage() {
               { h3: 'Miso for cold days and big meals', text: 'I reach for miso ramen when the temperature drops, when I skipped lunch, or when I want a bowl that doubles as a full meal. It is the most sustaining of the classic styles and the most forgiving of a big appetite.' },
             ],
           },
+          ...(cityLinks.length > 0 ? [{
+            h2: 'Miso Ramen by City',
+            body: (
+              <>
+                <p>
+                  Want a deeper dive into a specific city&apos;s miso ramen scene? I have written dedicated
+                  guides for these cities, each with its own map, top picks, and local notes:
+                </p>
+                <ServiceCityLinks links={cityLinks} />
+              </>
+            ),
+          }] : []),
         ]}
         tipsHeading="My miso ramen tips"
         tips={[

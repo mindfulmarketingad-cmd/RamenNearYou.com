@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
@@ -88,6 +89,18 @@ export default function JinyaRamenPage() {
               { h3: 'Spicy options are balanced, not punishing', text: 'JINYA does spicy ramen well. The heat integrates into the broth rather than sitting on top of it, which makes the spicy bowls genuinely satisfying rather than just aggressively hot. If you like heat, they are worth trying.' },
               { h3: 'Shareable starters make the meal', text: 'The brussels sprouts and crispy chicken are reliable orders that hold the table while the ramen arrives. JINYA\'s kitchen handles non-ramen items with more care than most ramen chains, and the starters show it.' },
             ],
+          },
+          {
+            h2: 'See the full JINYA menu',
+            body: (
+              <p>
+                Want to see every bowl, side, and drink before you go? Check out the{' '}
+                <Link href="/menu/jinya-ramen-bar-menu" className="text-[#B57F50] hover:underline">
+                  full JINYA Ramen Bar menu with prices
+                </Link>{' '}
+                so you can plan your order ahead of time.
+              </p>
+            ),
           },
           {
             h2: 'JINYA for dietary restrictions',

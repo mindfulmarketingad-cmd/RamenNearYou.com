@@ -3,6 +3,8 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
+import ServiceCityLinks from '@/components/service-city-links'
+import { getServiceCityLinks } from '@/lib/city-filter-pages'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
 }
 
 export default function VeganRamenPage() {
+  const cityLinks = getServiceCityLinks('Vegan')
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -127,6 +131,18 @@ export default function VeganRamenPage() {
               </p>
             ),
           },
+          ...(cityLinks.length > 0 ? [{
+            h2: 'Vegan Ramen by City',
+            body: (
+              <>
+                <p>
+                  Want a deeper dive into a specific city&apos;s vegan ramen scene? I have written dedicated
+                  guides for these cities, each with its own map, top picks, and local notes:
+                </p>
+                <ServiceCityLinks links={cityLinks} />
+              </>
+            ),
+          }] : []),
         ]}
         tipsHeading="My vegan ramen tips"
         tips={[

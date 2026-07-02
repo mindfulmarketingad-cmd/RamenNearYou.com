@@ -14,8 +14,9 @@ import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
-import { matchModifier } from '@/lib/find-modifiers'
+import { matchModifier, FIND_MODIFIERS } from '@/lib/find-modifiers'
 import ModifierCityFindPage from '@/components/modifier-city-find-page'
+import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -154,6 +155,21 @@ export default async function CityFindPage(
     if (!nearbyCitiesMap.has(c.citySlug)) nearbyCitiesMap.set(c.citySlug, { city: c.city, citySlug: c.citySlug, stateCode: c.stateCode })
   }
   const nearbyCities = Array.from(nearbyCitiesMap.values()).slice(0, 12)
+
+  // City-filter pages that exist for this city (major cities only) — e.g.
+  // /{city}/{state}/tonkotsu-ramen — so they have a real inbound link.
+  const majorCity = getMajorCity(citySlug, stateSlug)
+  const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug) : []
+  const brothFilterLinks = filterLinks.filter(l => l.group === 'broth')
+  const dietFilterLinks = filterLinks.filter(l => l.group === 'diet')
+
+  // Every /find/{modifier}-in-{city}-{state} variant for this city — these
+  // render on demand (not statically pre-built) and are otherwise only
+  // reachable via the sitemap, so link them all from their base city page.
+  const modifierLinks = FIND_MODIFIERS.map(m => ({
+    href: `/find/${m.prefix}-${cityState}`,
+    label: m.title(cityName, stateName),
+  }))
 
   // Single source of truth for the FAQ — rendered on the page and emitted as
   // FAQPage schema, so the structured data always matches the visible content.
@@ -384,6 +400,50 @@ export default async function CityFindPage(
                 </div>
               </div>
             )}
+
+            {/* City-filter pages (major cities only) — broth & diet type links */}
+            {filterLinks.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                  Ramen in {cityName} by Type &amp; Diet
+                </h2>
+                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                  Narrow down what you&apos;re craving in {cityName} with these focused guides:
+                </p>
+                {brothFilterLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-2 mb-3">
+                    {brothFilterLinks.map(l => (
+                      <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                        {l.label} in {cityName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {dietFilterLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
+                    {dietFilterLinks.map(l => (
+                      <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                        {l.label} in {cityName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Modifier variants (open now, tonkotsu-in-city, etc.) for this city */}
+            <div className="mb-10">
+              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                More Ramen Searches in {cityName}
+              </h2>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {modifierLinks.map(l => (
+                  <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
               Frequently Asked Questions

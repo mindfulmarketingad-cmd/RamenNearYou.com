@@ -2,7 +2,7 @@ import {
   restaurants,
   getRestaurantsByCity,
   getBrothTypes,
-  getTonkotsuCities,
+  getCitiesForBroth,
   type Restaurant,
   type BrothType,
 } from './restaurants'
@@ -296,12 +296,23 @@ function serviceCitySpec(brothType: string): { spec: FilterSpec; slug: string } 
   }
 }
 
+// Dedicated /{broth}/{city}/{state} routes and the minimum-count threshold
+// their generateStaticParams uses — must stay in sync with those routes so
+// every pre-rendered page gets a matching internal link (no orphans).
+const DEDICATED_BROTH_ROUTE: Record<string, { prefix: string; minCount: number }> = {
+  Tonkotsu: { prefix: 'tonkotsu', minCount: 1 },
+  Miso: { prefix: 'miso', minCount: 2 },
+  Spicy: { prefix: 'spicy', minCount: 2 },
+  Vegan: { prefix: 'vegan', minCount: 5 },
+}
+
 // The service+city pages that EXIST for a given service, so the service page
 // can link down to them (and they link back up) — no orphans.
 export function getServiceCityLinks(brothType: string): ServiceCityLink[] {
-  if (brothType === 'Tonkotsu') {
-    return getTonkotsuCities(2).map((c) => ({
-      href: `/tonkotsu/${c.citySlug}/${c.stateSlug}`,
+  const dedicated = DEDICATED_BROTH_ROUTE[brothType]
+  if (dedicated) {
+    return getCitiesForBroth(brothType as BrothType, dedicated.minCount).map((c) => ({
+      href: `/${dedicated.prefix}/${c.citySlug}/${c.stateSlug}`,
       city: c.city,
       stateCode: c.stateCode,
       count: c.count,
