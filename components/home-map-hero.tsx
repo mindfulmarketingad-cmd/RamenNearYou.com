@@ -11,7 +11,7 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
-import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
+import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   FEATURE_META, FEATURE_KEYS, matchesPrice, type MapPoint,
@@ -49,6 +49,14 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number) {
 }
 
 type GeoState = 'idle' | 'loading' | 'granted' | 'denied'
+
+interface RegionOption {
+  cityName: string
+  stateName: string
+  citySlug: string
+  stateSlug: string
+  stateCode: string
+}
 
 const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
 
@@ -123,9 +131,16 @@ export default function HomeMapHero({
   const [zipFilter, setZipFilter] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('default')
 
-  // City pages (regionBoundary set) default to showing only that city's
-  // results — a removable preset rather than a silent, unbounded distance sort.
-  const [regionRestricted, setRegionRestricted] = useState(!!regionBoundary)
+  // Location toggle — city pages default to a preset (regionBoundary), but the
+  // control is editable everywhere: users can type or pick any city/state to
+  // restrict results to, and clear it to broaden back out to the full map.
+  const [selectedRegion, setSelectedRegion] = useState<RegionOption | null>(
+    regionBoundary
+      ? { ...regionBoundary, stateCode: STATE_SLUG_TO_CODE[regionBoundary.stateSlug] ?? '' }
+      : null
+  )
+  const [regionQuery, setRegionQuery] = useState('')
+  const [showRegionDropdown, setShowRegionDropdown] = useState(false)
 
   const [searchSaved, setSearchSaved] = useState(false)
 
@@ -198,10 +213,12 @@ export default function HomeMapHero({
     }).catch(() => {})
   }, [])
 
-  // Fetch the city boundary outline once (city pages only). Cached server-side.
+  // Fetch the city boundary outline whenever the selected region changes
+  // (city pages start with one preset; users can pick a different city too).
+  // Cached server-side.
   useEffect(() => {
-    if (!regionBoundary) { setBoundary(null); return }
-    const { cityName, stateName, citySlug, stateSlug } = regionBoundary
+    if (!selectedRegion) { setBoundary(null); return }
+    const { cityName, stateName, citySlug, stateSlug } = selectedRegion
     const key = `${citySlug}:${stateSlug}`
     let cancelled = false
     fetch(`/api/city-boundary?city=${encodeURIComponent(cityName)}&state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(key)}`)
@@ -209,7 +226,57 @@ export default function HomeMapHero({
       .then(d => { if (!cancelled && d?.geojson) setBoundary(d.geojson) })
       .catch(() => {})
     return () => { cancelled = true }
-  }, [regionBoundary])
+  }, [selectedRegion])
+
+  // Unique city/state options derived from the already-loaded map dataset —
+  // no extra network request needed for the location picker.
+  const cityOptions = useMemo(() => {
+    const map = new Map<string, RegionOption>()
+    for (const r of data) {
+      if (!r.citySlug || !r.stateSlug) continue
+      const key = `${r.citySlug}|${r.stateSlug}`
+      if (!map.has(key)) {
+        map.set(key, {
+          cityName: r.city,
+          stateName: STATE_CODE_TO_NAME[r.stateCode] ?? r.stateCode,
+          citySlug: r.citySlug,
+          stateSlug: r.stateSlug,
+          stateCode: r.stateCode,
+        })
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => a.cityName.localeCompare(b.cityName))
+  }, [data])
+
+  const regionMatches = useMemo(() => {
+    const q = regionQuery.trim().toLowerCase()
+    if (!q) return cityOptions.slice(0, 50)
+    return cityOptions
+      .filter(c =>
+        c.cityName.toLowerCase().includes(q) ||
+        c.stateName.toLowerCase().includes(q) ||
+        c.stateCode.toLowerCase().includes(q)
+      )
+      .slice(0, 50)
+  }, [regionQuery, cityOptions])
+
+  function selectRegion(opt: RegionOption) {
+    setSelectedRegion(opt)
+    setRegionQuery('')
+    setShowRegionDropdown(false)
+    // Recenter the map on the chosen city (average of its known listings).
+    const matches = data.filter(r => r.citySlug === opt.citySlug && r.stateSlug === opt.stateSlug && r.latitude && r.longitude)
+    if (matches.length > 0) {
+      const avgLat = matches.reduce((s, r) => s + (r.latitude ?? 0), 0) / matches.length
+      const avgLng = matches.reduce((s, r) => s + (r.longitude ?? 0), 0) / matches.length
+      setGeocodedCenter({ lat: avgLat, lng: avgLng })
+    }
+  }
+
+  function clearRegion() {
+    setSelectedRegion(null)
+    setRegionQuery('')
+  }
 
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
@@ -317,7 +384,7 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
-        if (regionRestricted && regionBoundary && !(r.citySlug === regionBoundary.citySlug && r.stateSlug === regionBoundary.stateSlug)) return false
+        if (selectedRegion && !(r.citySlug === selectedRegion.citySlug && r.stateSlug === selectedRegion.stateSlug)) return false
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
@@ -396,7 +463,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, regionRestricted, regionBoundary])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, selectedRegion])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -455,6 +522,56 @@ export default function HomeMapHero({
       <div className="border-t border-black/8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
           <div className="flex items-center gap-2">
+            {/* Location toggle — always visible, not part of the horizontal
+                scroll strip (so its dropdown never gets clipped). Editable
+                everywhere: pick a preset city or type/choose any other. */}
+            {selectedRegion ? (
+              <button
+                onClick={clearRegion}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-[#1E2026] text-white border-[#1E2026] shrink-0"
+                title="Remove city filter to see more results"
+              >
+                <MapPin className="w-3.5 h-3.5" />
+                {selectedRegion.cityName}, {selectedRegion.stateCode}
+                <X className="w-3 h-3 ml-0.5" />
+              </button>
+            ) : (
+              <div className="relative shrink-0">
+                <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50] pointer-events-none" />
+                <input
+                  type="text"
+                  value={regionQuery}
+                  onChange={e => { setRegionQuery(e.target.value); setShowRegionDropdown(true) }}
+                  onFocus={() => setShowRegionDropdown(true)}
+                  onBlur={() => setTimeout(() => setShowRegionDropdown(false), 150)}
+                  placeholder="City, State"
+                  aria-label="Filter by city and state"
+                  className="w-36 sm:w-40 pl-7 pr-2 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                />
+                {showRegionDropdown && (
+                  <div className="absolute z-20 left-0 top-full mt-1 w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
+                    {regionMatches.length === 0 ? (
+                      <p className="p-3 text-xs text-[#6B6862]">
+                        {dataLoading ? 'Loading cities…' : 'No matching city.'}
+                      </p>
+                    ) : (
+                      regionMatches.map(opt => (
+                        <button
+                          key={`${opt.citySlug}-${opt.stateSlug}`}
+                          type="button"
+                          onMouseDown={e => e.preventDefault()}
+                          onClick={() => selectRegion(opt)}
+                          className="block w-full text-left px-3 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+                        >
+                          {opt.cityName}, {opt.stateCode}
+                        </button>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0">
               <form
                 onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
@@ -480,20 +597,6 @@ export default function HomeMapHero({
               </form>
 
               <div className="h-5 w-px bg-black/10 shrink-0" />
-
-              {/* Region preset — city pages default to showing only that city's
-                  results; removable so users can broaden to the full map. */}
-              {regionBoundary && regionRestricted && (
-                <button
-                  onClick={() => setRegionRestricted(false)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-[#1E2026] text-white border-[#1E2026] shrink-0"
-                  title="Remove city filter to see more results"
-                >
-                  <MapPin className="w-3.5 h-3.5" />
-                  {regionBoundary.cityName}, {STATE_SLUG_TO_CODE[regionBoundary.stateSlug] ?? regionBoundary.stateName}
-                  <X className="w-3 h-3 ml-0.5" />
-                </button>
-              )}
 
               <button
                 onClick={() => setShowFilters(v => !v)}
@@ -682,7 +785,7 @@ export default function HomeMapHero({
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
                   {displayList.length} ramen spot{displayList.length !== 1 ? 's' : ''}
-                  {(activeCount > 0 || (regionBoundary && regionRestricted)) && <span className="text-[#6B6862] font-normal"> (filtered)</span>}
+                  {(activeCount > 0 || selectedRegion) && <span className="text-[#6B6862] font-normal"> (filtered)</span>}
                 </>
               )}
             </p>
@@ -712,14 +815,14 @@ export default function HomeMapHero({
                 <Utensils className="w-8 h-8 text-[#B57F50]/30" />
                 <p className="text-[#1E2026] font-semibold text-sm">No ramen spots found</p>
                 <p className="text-[#6B6862] text-xs">
-                  {regionBoundary && regionRestricted
-                    ? `Try removing the ${regionBoundary.cityName} filter to see more results, or clear your other filters.`
+                  {selectedRegion
+                    ? `Try removing the ${selectedRegion.cityName} filter to see more results, or clear your other filters.`
                     : 'Try clearing your filters or searching a different ZIP.'}
                 </p>
                 <div className="flex items-center gap-3">
-                  {regionBoundary && regionRestricted && (
-                    <button onClick={() => setRegionRestricted(false)} className="text-xs text-[#B57F50] font-medium">
-                      Remove {regionBoundary.cityName} filter →
+                  {selectedRegion && (
+                    <button onClick={clearRegion} className="text-xs text-[#B57F50] font-medium">
+                      Remove {selectedRegion.cityName} filter →
                     </button>
                   )}
                   {activeCount > 0 && (
@@ -729,8 +832,12 @@ export default function HomeMapHero({
               </div>
             ) : (
               <div className="divide-y divide-black/5">
-                {displayList.map(r => {
-                  const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}`
+                {displayList.map((r, i) => {
+                  // Some duplicate DB rows share an identical slug within the
+                  // same city (e.g. two distinct "Lifting Noodles Ramen"
+                  // locations in Atlanta) — fold in zip/lat/lng/index so the
+                  // React key never collides and sorting stays stable.
+                  const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}-${r.zip || `${r.latitude},${r.longitude}`}-${i}`
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
                   const isSupp = !!r.googleMapsUrl
