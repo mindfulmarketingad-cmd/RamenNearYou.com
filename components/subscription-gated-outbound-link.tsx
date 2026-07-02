@@ -1,8 +1,6 @@
 'use client'
 
-import { ComponentPropsWithoutRef, useState } from 'react'
-import { useGate } from '@/lib/use-gate'
-import SigninGateModal from '@/components/signin-gate-modal'
+import { ComponentPropsWithoutRef } from 'react'
 
 interface Props extends ComponentPropsWithoutRef<'a'> {
   url: string
@@ -11,8 +9,7 @@ interface Props extends ComponentPropsWithoutRef<'a'> {
   destination: string
 }
 
-// Members-only outbound link (Order Now, View Full Menu).
-// Routes signed-out users to a free sign-in prompt; signed-in users pass through.
+// Outbound link (Order Now, View Full Menu) — tracks the click, no auth gate.
 export default function SubscriptionGatedOutboundLink({
   url,
   restaurantSlug,
@@ -21,9 +18,6 @@ export default function SubscriptionGatedOutboundLink({
   children,
   ...props
 }: Props) {
-  const { evaluate } = useGate()
-  const [showSignin, setShowSignin] = useState(false)
-
   function track() {
     if (typeof window !== 'undefined' && 'gtag' in window) {
       (window as Window & { gtag: (...args: unknown[]) => void }).gtag('event', 'outbound_click', {
@@ -40,32 +34,15 @@ export default function SubscriptionGatedOutboundLink({
     }).catch(() => {})
   }
 
-  function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    if (evaluate() === 'ok') {
-      track()
-      return // let the anchor open the destination
-    }
-    e.preventDefault()
-    setShowSignin(true)
-  }
-
   return (
-    <>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleClick}
-        {...props}
-      >
-        {children}
-      </a>
-      {showSignin && (
-        <SigninGateModal
-          onClose={() => setShowSignin(false)}
-          redirectTo={typeof window !== 'undefined' ? window.location.pathname : '/'}
-        />
-      )}
-    </>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={track}
+      {...props}
+    >
+      {children}
+    </a>
   )
 }

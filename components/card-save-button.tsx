@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { Heart } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   slug: string
@@ -32,33 +31,16 @@ async function fetchSaved(): Promise<Set<string>> {
 }
 
 export default function CardSaveButton({ slug, restaurantName }: Props) {
-  const router = useRouter()
   const [saved, setSaved] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [authed, setAuthed] = useState<boolean | null>(null)
 
   useEffect(() => {
-    // Check auth + load saved state
-    import('@/lib/supabase/client').then(({ createClient }) => {
-      const client = createClient()
-      if (!client) { setAuthed(false); return }
-      client.auth.getUser().then(({ data: { user } }) => {
-        setAuthed(!!user)
-        if (user) {
-          fetchSaved().then(set => setSaved(set.has(slug)))
-        }
-      })
-    })
+    fetchSaved().then(set => setSaved(set.has(slug)))
   }, [slug])
 
   async function handleClick(e: React.MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
-
-    if (!authed) {
-      router.push(`/auth/login?redirectTo=${encodeURIComponent(window.location.pathname)}`)
-      return
-    }
 
     if (loading) return
     setLoading(true)

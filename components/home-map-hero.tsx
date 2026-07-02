@@ -10,9 +10,6 @@ import {
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
-import SigninGateModal from '@/components/signin-gate-modal'
-import SubscribeGateModal from '@/components/subscribe-gate-modal'
-import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import {
@@ -155,26 +152,7 @@ export default function HomeMapHero({
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
   const [searchingArea, setSearchingArea] = useState(false)
 
-  // Access gating
-  const { evaluate, evaluatePremium } = useGate()
-  const [gateMode, setGateMode] = useState<null | 'signin' | 'subscribe'>(null)
-
-  function requireAccess(): boolean {
-    const result = evaluate()
-    if (result === 'ok') return true
-    setGateMode(result)
-    return false
-  }
-  function requirePremium(): boolean {
-    const result = evaluatePremium()
-    if (result === 'ok') return true
-    setGateMode(result)
-    return false
-  }
-  const withGate = (fn: () => void) => () => { if (requireAccess()) fn() }
-
   function handleSaveSearch() {
-    if (!requireAccess()) return
     const state = {
       locationSearch,
       flags: [...flags],
@@ -236,7 +214,6 @@ export default function HomeMapHero({
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
     e.stopPropagation()
-    if (!requireAccess()) return
     const isSaved = saves.has(slug)
     setSaves(prev => {
       const next = new Set(prev)
@@ -424,12 +401,9 @@ export default function HomeMapHero({
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
   const handleSelect = useCallback((slug: string) => {
-    const result = evaluate()
-    if (result !== 'ok') { setGateMode(result); return }
     setSelectedSlug(slug)
     document.getElementById(`home-card-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [evaluate])
+  }, [])
 
   const handleMapCenter = useCallback((center: { lat: number; lng: number }) => {
     setMapDragCenter(center)
@@ -438,7 +412,6 @@ export default function HomeMapHero({
 
   async function handleSearchArea() {
     if (!mapDragCenter) return
-    if (!requireAccess()) return
     setSearchingArea(true)
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${mapDragCenter.lat}&lon=${mapDragCenter.lng}`
@@ -484,7 +457,7 @@ export default function HomeMapHero({
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0">
               <form
-                onSubmit={e => { e.preventDefault(); if (!requireAccess()) return; geocodeLocation(locationSearch) }}
+                onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
                 className="relative shrink-0"
               >
                 <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
@@ -523,7 +496,7 @@ export default function HomeMapHero({
               )}
 
               <button
-                onClick={() => { if (!requireAccess()) return; setShowFilters(v => !v) }}
+                onClick={() => setShowFilters(v => !v)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                   showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
                 }`}
@@ -621,7 +594,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {BOWL_META.map(b => (
-                    <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => { if (!requirePremium()) return; toggleBowl(b.key) }} />
+                    <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => toggleBowl(b.key)} />
                   ))}
                 </div>
               </section>
@@ -633,7 +606,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {MOOD_META.map(m => (
-                    <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => { if (!requirePremium()) return; toggleMood(m.key) }} />
+                    <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => toggleMood(m.key)} />
                   ))}
                 </div>
               </section>
@@ -644,12 +617,12 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine & Dietary</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => { if (!requirePremium()) return; toggleFlag('ramen-sushi') }} />
-                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => { if (!requirePremium()) return; toggleFlag('fish-ramen') }} />
-                  <Chip active={flags.has('korean-style')} emoji="🌶" label="Korean-Style" onClick={() => { if (!requirePremium()) return; toggleFlag('korean-style') }} />
-                  <Chip active={flags.has('japanese-fusion')} emoji="🔀" label="Japanese Fusion" onClick={() => { if (!requirePremium()) return; toggleFlag('japanese-fusion') }} />
-                  <Chip active={flags.has('halal')} emoji="☪️" label="Halal-Friendly" onClick={() => { if (!requirePremium()) return; toggleFlag('halal') }} />
-                  <Chip active={flags.has('gluten-free')} emoji="🌾" label="Gluten-Free Options" onClick={() => { if (!requirePremium()) return; toggleFlag('gluten-free') }} />
+                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => toggleFlag('ramen-sushi')} />
+                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => toggleFlag('fish-ramen')} />
+                  <Chip active={flags.has('korean-style')} emoji="🌶" label="Korean-Style" onClick={() => toggleFlag('korean-style')} />
+                  <Chip active={flags.has('japanese-fusion')} emoji="🔀" label="Japanese Fusion" onClick={() => toggleFlag('japanese-fusion')} />
+                  <Chip active={flags.has('halal')} emoji="☪️" label="Halal-Friendly" onClick={() => toggleFlag('halal')} />
+                  <Chip active={flags.has('gluten-free')} emoji="🌾" label="Gluten-Free Options" onClick={() => toggleFlag('gluten-free')} />
                 </div>
               </section>
 
@@ -659,14 +632,14 @@ export default function HomeMapHero({
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => { if (!requirePremium()) return; toggleFlag('open-now') }} />
-                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => { if (!requirePremium()) return; toggleFlag('open-late') }} />
-                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => { if (!requirePremium()) return; toggleFlag('open-midnight') }} />
-                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => { if (!requirePremium()) return; toggleFlag('open-early') }} />
-                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => { if (!requirePremium()) return; toggleFlag('open-weekends') }} />
-                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => { if (!requirePremium()) return; toggleFlag('top-rated') }} />
-                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => { if (!requirePremium()) return; toggleFlag('hidden-gems') }} />
-                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => { if (!requirePremium()) return; toggleFlag('new-ramen') }} />
+                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
+                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
+                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
+                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => toggleFlag('open-early')} />
+                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => toggleFlag('open-weekends')} />
+                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
+                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => toggleFlag('hidden-gems')} />
+                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => toggleFlag('new-ramen')} />
                 </div>
               </section>
 
@@ -677,7 +650,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {PRICE_META.map(p => (
-                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => { if (!requirePremium()) return; togglePrice(p.key) }} />
+                    <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => togglePrice(p.key)} />
                   ))}
                 </div>
               </section>
@@ -689,7 +662,7 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {FEATURE_META.map(f => (
-                    <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => { if (!requirePremium()) return; toggleFlag(f.key) }} />
+                    <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => toggleFlag(f.key)} />
                   ))}
                 </div>
               </section>
@@ -783,7 +756,7 @@ export default function HomeMapHero({
                     >
                       {/* Main clickable row */}
                       {isIkedo ? (
-                        <Link href={internalUrl} onClick={e => { if (!requireAccess()) e.preventDefault() }} className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}>
+                        <Link href={internalUrl} className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}>
                           <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
                           </div>
@@ -812,7 +785,6 @@ export default function HomeMapHero({
                           href={externalUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => { if (!requireAccess()) e.preventDefault() }}
                           className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
                         >
                           <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
@@ -844,7 +816,7 @@ export default function HomeMapHero({
                       <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
                         {isIkedo ? (
                           <button
-                            onClick={e => { e.stopPropagation(); if (!requireAccess()) return; window.location.href = internalUrl }}
+                            onClick={e => { e.stopPropagation(); window.location.href = internalUrl }}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                           >
                             View Menu
@@ -854,7 +826,7 @@ export default function HomeMapHero({
                             href={externalUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={e => { e.stopPropagation(); if (!requireAccess()) e.preventDefault() }}
+                            onClick={e => e.stopPropagation()}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                           >
                             View Menu
@@ -871,7 +843,7 @@ export default function HomeMapHero({
                         </a>
                         {isIkedo ? (
                           <button
-                            onClick={e => { e.stopPropagation(); if (!requireAccess()) return; window.location.href = internalUrl }}
+                            onClick={e => { e.stopPropagation(); window.location.href = internalUrl }}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
                           >
                             Order Now
@@ -881,7 +853,7 @@ export default function HomeMapHero({
                             href={externalUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={e => { e.stopPropagation(); if (!requireAccess()) e.preventDefault() }}
+                            onClick={e => e.stopPropagation()}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
                           >
                             Order Now
@@ -891,7 +863,7 @@ export default function HomeMapHero({
                           onClick={e => { e.stopPropagation(); window.location.href = '/claim-your-listing' }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
-                          Claim Listing
+                          Own This Business?
                         </button>
                       </div>
 
@@ -955,7 +927,7 @@ export default function HomeMapHero({
           {geoState === 'idle' && !showSearchAreaBtn && !dataLoading && (
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
               <button
-                onClick={withGate(requestLocation)}
+                onClick={requestLocation}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
               >
                 <Navigation className="w-4 h-4" /> Use my location
@@ -981,9 +953,6 @@ export default function HomeMapHero({
 
 
       </div>
-
-      {gateMode === 'signin' && <SigninGateModal onClose={() => setGateMode(null)} redirectTo="/" />}
-      {gateMode === 'subscribe' && <SubscribeGateModal onClose={() => setGateMode(null)} featureName="Ramen Pass features" />}
 
       {/* Help modal */}
       {helpOpen && (

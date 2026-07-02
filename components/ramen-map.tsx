@@ -18,6 +18,8 @@ export type MapRestaurant = {
   rating: number | null
   reviewCount: number
   googleMapsUrl?: string  // Places-supplement entries link out to Google Maps
+  googleMapsLink?: string // DB entries — verified Google Maps listing
+  website?: string        // restaurant's own website (DB entries only)
   featured?: boolean      // promoted listing — gold pin, shown above the rest
 }
 
@@ -242,12 +244,22 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       const state = r.slug === selectedSlug ? 'active' : 'default'
       const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured)
       ratingsRef.current[r.slug] = r.rating
+
+      // Only the one featured listing has an internal detail page — everyone
+      // else's popup should go straight to their own website.
+      const isIkedo = r.slug === 'ikedo-ramen' && r.citySlug === 'port-washington'
+      const siteUrl = isIkedo
+        ? `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+        : (r.website || r.googleMapsLink || r.googleMapsUrl
+          || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`)
+      const linkTarget = isIkedo ? '_self' : '_blank'
+
       const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
         .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
             ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
-            <a href="#" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
+            <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
             ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
           </div>
@@ -256,10 +268,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         .on('popupopen', () => {
           const el = marker.getPopup()?.getElement()?.querySelector<HTMLAnchorElement>('[data-ramen-slug]')
           if (el) {
-            el.addEventListener('click', (ev) => {
-              ev.preventDefault()
-              onSelect(r.slug)
-            }, { once: true })
+            el.addEventListener('click', () => onSelect(r.slug), { once: true })
           }
         })
       markersRef.current[r.slug] = marker
