@@ -63,6 +63,9 @@ interface RegionOption {
 
 const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
 
+// $49.99/month featured-listing checkout — same link used by /claim-your-listing.
+const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/3cIfZi96i6cM7My9pIfrW09'
+
 // ── Reusable colored chip ─────────────────────────────────────────────────────
 function Chip({
   active, hex, emoji, label, onClick,
@@ -1050,12 +1053,15 @@ export default function HomeMapHero({
                             Order Now
                           </a>
                         )}
-                        <button
-                          onClick={e => { e.stopPropagation(); window.location.href = '/claim-your-listing' }}
+                        <a
+                          href={STRIPE_CLAIM_LINK}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           Own This Business?
-                        </button>
+                        </a>
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}
