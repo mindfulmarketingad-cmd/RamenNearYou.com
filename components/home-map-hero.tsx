@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
@@ -341,6 +342,14 @@ export default function HomeMapHero({
     }
   }, [selectedRegion, flags, bowls, moods, prices, localQuery, router])
 
+  function revertSave(slug: string, wasSaved: boolean) {
+    setSaves(prev => {
+      const next = new Set(prev)
+      wasSaved ? next.add(slug) : next.delete(slug)
+      return next
+    })
+  }
+
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
     e.stopPropagation()
@@ -350,17 +359,27 @@ export default function HomeMapHero({
       isSaved ? next.delete(slug) : next.add(slug)
       return next
     })
-    await fetch('/api/saves', {
-      method: isSaved ? 'DELETE' : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug }),
-    }).catch(() => {
-      setSaves(prev => {
-        const next = new Set(prev)
-        isSaved ? next.add(slug) : next.delete(slug)
-        return next
+    try {
+      const res = await fetch('/api/saves', {
+        method: isSaved ? 'DELETE' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug }),
       })
-    })
+      if (res.status === 401) {
+        revertSave(slug, isSaved)
+        toast('Sign in to save restaurants', {
+          description: 'Create a free account to keep a list of your favorite ramen spots.',
+          action: {
+            label: 'Sign In',
+            onClick: () => router.push(`/auth/login?redirectTo=${encodeURIComponent(window.location.pathname)}`),
+          },
+        })
+        return
+      }
+      if (!res.ok) throw new Error('Save failed')
+    } catch {
+      revertSave(slug, isSaved)
+    }
   }
 
   // Geolocation is requested only on explicit user action (never on load).

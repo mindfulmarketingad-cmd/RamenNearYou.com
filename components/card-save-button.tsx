@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Heart } from 'lucide-react'
+import { toast } from 'sonner'
 
 interface Props {
   slug: string
@@ -31,12 +33,21 @@ async function fetchSaved(): Promise<Set<string>> {
 }
 
 export default function CardSaveButton({ slug, restaurantName }: Props) {
+  const router = useRouter()
   const [saved, setSaved] = useState(false)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchSaved().then(set => setSaved(set.has(slug)))
   }, [slug])
+
+  function revert(next: boolean) {
+    setSaved(!next)
+    if (savedCache) {
+      if (!next) savedCache.add(slug)
+      else savedCache.delete(slug)
+    }
+  }
 
   async function handleClick(e: React.MouseEvent) {
     e.preventDefault()
@@ -55,18 +66,25 @@ export default function CardSaveButton({ slug, restaurantName }: Props) {
     }
 
     try {
-      await fetch('/api/saves', {
+      const res = await fetch('/api/saves', {
         method: next ? 'POST' : 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug }),
       })
-    } catch {
-      // Revert on error
-      setSaved(!next)
-      if (savedCache) {
-        if (!next) savedCache.add(slug)
-        else savedCache.delete(slug)
+      if (res.status === 401) {
+        revert(next)
+        toast('Sign in to save restaurants', {
+          description: 'Create a free account to keep a list of your favorite ramen spots.',
+          action: {
+            label: 'Sign In',
+            onClick: () => router.push(`/auth/login?redirectTo=${encodeURIComponent(window.location.pathname)}`),
+          },
+        })
+        return
       }
+      if (!res.ok) throw new Error('Save failed')
+    } catch {
+      revert(next)
     } finally {
       setLoading(false)
     }

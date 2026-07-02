@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -84,6 +85,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white text-[#1E2026]">
         {children}
+        <Toaster position="bottom-center" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
