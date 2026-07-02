@@ -65,7 +65,7 @@ export default function ShareButton({ url, title }: Props) {
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
           <div ref={modalRef} className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
             <button
               onClick={() => setOpen(false)}

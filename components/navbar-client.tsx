@@ -63,7 +63,7 @@ export default function NavbarClient() {
   const userInitial = user?.email ? user.email[0].toUpperCase() : null
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-[1200]">
       {/* Promo banner */}
       {showBanner && (
         <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">
