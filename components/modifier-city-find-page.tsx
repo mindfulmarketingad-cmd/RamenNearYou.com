@@ -48,6 +48,7 @@ export default function ModifierCityFindPage({
             initialFlags={modifier.filter.initialFlags}
             initialQuery={modifier.filter.initialQuery}
             initialCenter={{ lat: city.lat, lng: city.lng }}
+            regionBoundary={{ cityName: city.cityName, stateName: city.stateName, citySlug: city.citySlug, stateSlug: city.stateSlug }}
             pageTitle={title}
             pageDescription={`Showing ${modifier.metaNoun} in ${city.cityName}. Enter your ZIP or use your location to sort by distance.`}
           />

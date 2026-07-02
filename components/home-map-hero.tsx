@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
-  List, Map as MapIcon, HelpCircle,
+  List, Map as MapIcon, HelpCircle, ArrowUpDown,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -14,10 +14,21 @@ import SigninGateModal from '@/components/signin-gate-modal'
 import SubscribeGateModal from '@/components/subscribe-gate-modal'
 import { useGate } from '@/lib/use-gate'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
+import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   FEATURE_META, FEATURE_KEYS, matchesPrice, type MapPoint,
 } from '@/lib/ramen-taxonomy'
+
+type SortOption = 'default' | 'name-az' | 'name-za' | 'most-reviews' | 'highest-rated'
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: 'default', label: 'Recommended' },
+  { value: 'most-reviews', label: 'Most Reviews' },
+  { value: 'highest-rated', label: 'Highest Rated' },
+  { value: 'name-az', label: 'Name (A–Z)' },
+  { value: 'name-za', label: 'Name (Z–A)' },
+]
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
@@ -113,6 +124,11 @@ export default function HomeMapHero({
   const [prices, setPrices] = useState<Set<string>>(new Set(initialPrices))
   const [showFilters, setShowFilters] = useState(false)
   const [zipFilter, setZipFilter] = useState('')
+  const [sortBy, setSortBy] = useState<SortOption>('default')
+
+  // City pages (regionBoundary set) default to showing only that city's
+  // results — a removable preset rather than a silent, unbounded distance sort.
+  const [regionRestricted, setRegionRestricted] = useState(!!regionBoundary)
 
   const [searchSaved, setSearchSaved] = useState(false)
 
@@ -324,6 +340,7 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
+        if (regionRestricted && regionBoundary && !(r.citySlug === regionBoundary.citySlug && r.stateSlug === regionBoundary.stateSlug)) return false
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
@@ -379,7 +396,15 @@ export default function HomeMapHero({
         list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
       }
 
-      if (flags.has('top-rated') && !hasLocation && !zipFilter) {
+      if (sortBy === 'name-az') {
+        list.sort((a, b) => a.name.localeCompare(b.name))
+      } else if (sortBy === 'name-za') {
+        list.sort((a, b) => b.name.localeCompare(a.name))
+      } else if (sortBy === 'most-reviews') {
+        list.sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+      } else if (sortBy === 'highest-rated') {
+        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+      } else if (flags.has('top-rated') && !hasLocation && !zipFilter) {
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
       } else if (hasLocation || zipFilter) {
         list.sort((a, b) => a.distKm - b.distKm)
@@ -394,7 +419,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, regionRestricted, regionBoundary])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -483,6 +508,20 @@ export default function HomeMapHero({
 
               <div className="h-5 w-px bg-black/10 shrink-0" />
 
+              {/* Region preset — city pages default to showing only that city's
+                  results; removable so users can broaden to the full map. */}
+              {regionBoundary && regionRestricted && (
+                <button
+                  onClick={() => setRegionRestricted(false)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-[#1E2026] text-white border-[#1E2026] shrink-0"
+                  title="Remove city filter to see more results"
+                >
+                  <MapPin className="w-3.5 h-3.5" />
+                  {regionBoundary.cityName}, {STATE_SLUG_TO_CODE[regionBoundary.stateSlug] ?? regionBoundary.stateName}
+                  <X className="w-3 h-3 ml-0.5" />
+                </button>
+              )}
+
               <button
                 onClick={() => { if (!requireAccess()) return; setShowFilters(v => !v) }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
@@ -494,6 +533,21 @@ export default function HomeMapHero({
                   <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
                 )}
               </button>
+
+              {/* Sort dropdown — to the right of Filters */}
+              <div className="relative shrink-0">
+                <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50] pointer-events-none" />
+                <select
+                  value={sortBy}
+                  onChange={e => setSortBy(e.target.value as SortOption)}
+                  aria-label="Sort results"
+                  className="appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] hover:border-black/30 focus:border-[#B57F50] transition-colors cursor-pointer"
+                >
+                  {SORT_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
 
               {activeCount > 0 && (
                 <button
@@ -655,7 +709,7 @@ export default function HomeMapHero({
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
                   {displayList.length} ramen spot{displayList.length !== 1 ? 's' : ''}
-                  {activeCount > 0 && <span className="text-[#6B6862] font-normal"> (filtered)</span>}
+                  {(activeCount > 0 || (regionBoundary && regionRestricted)) && <span className="text-[#6B6862] font-normal"> (filtered)</span>}
                 </>
               )}
             </p>
@@ -684,10 +738,21 @@ export default function HomeMapHero({
               <div className="p-6 flex flex-col items-center text-center gap-3">
                 <Utensils className="w-8 h-8 text-[#B57F50]/30" />
                 <p className="text-[#1E2026] font-semibold text-sm">No ramen spots found</p>
-                <p className="text-[#6B6862] text-xs">Try clearing your filters or searching a different ZIP.</p>
-                {activeCount > 0 && (
-                  <button onClick={clearAll} className="text-xs text-[#B57F50] font-medium">Clear all filters →</button>
-                )}
+                <p className="text-[#6B6862] text-xs">
+                  {regionBoundary && regionRestricted
+                    ? `Try removing the ${regionBoundary.cityName} filter to see more results, or clear your other filters.`
+                    : 'Try clearing your filters or searching a different ZIP.'}
+                </p>
+                <div className="flex items-center gap-3">
+                  {regionBoundary && regionRestricted && (
+                    <button onClick={() => setRegionRestricted(false)} className="text-xs text-[#B57F50] font-medium">
+                      Remove {regionBoundary.cityName} filter →
+                    </button>
+                  )}
+                  {activeCount > 0 && (
+                    <button onClick={clearAll} className="text-xs text-[#B57F50] font-medium">Clear all filters →</button>
+                  )}
+                </div>
               </div>
             ) : (
               <div className="divide-y divide-black/5">
