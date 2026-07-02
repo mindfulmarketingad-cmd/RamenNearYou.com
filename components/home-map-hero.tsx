@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
@@ -12,9 +13,11 @@ import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
-  FEATURE_META, FEATURE_KEYS, matchesPrice, type MapPoint,
+  FEATURE_META, FEATURE_KEYS, FEATURE_BY_KEY, MISC_FLAG_BY_KEY, matchesPrice,
+  type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
 
 type SortOption = 'default' | 'name-az' | 'name-za' | 'most-reviews' | 'highest-rated'
@@ -82,6 +85,24 @@ function Chip({
   )
 }
 
+// ── Color-coded badges showing which active filter(s) a card matched ────────
+function MatchedChips({ chips }: { chips: MatchedChip[] }) {
+  if (chips.length === 0) return null
+  return (
+    <div className="flex items-center gap-1 mt-1 flex-wrap">
+      {chips.map(c => (
+        <span
+          key={c.label}
+          style={{ backgroundColor: `${c.hex}1a`, color: c.hex, borderColor: `${c.hex}40` }}
+          className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold border whitespace-nowrap"
+        >
+          <span className="leading-none">{c.emoji}</span>{c.label}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 interface HomeMapHeroProps {
   initialFlags?: string[]
   initialBowls?: string[]
@@ -106,6 +127,8 @@ export default function HomeMapHero({
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
   regionBoundary,
 }: HomeMapHeroProps) {
+  const router = useRouter()
+
   // Slim dataset — fetched after mount so the 25 MB source never ships in the bundle.
   const [data, setData] = useState<MapPoint[]>([])
   const [dataLoading, setDataLoading] = useState(true)
@@ -277,6 +300,43 @@ export default function HomeMapHero({
     setSelectedRegion(null)
     setRegionQuery('')
   }
+
+  // If the current region + filter combination exactly matches a page we
+  // already publish (a curated /find/{modifier}-in-{city}-{state} page, or
+  // the plain /find/{city}-{state} page when no other filter is active),
+  // send the user to that canonical URL instead of only filtering in place.
+  useEffect(() => {
+    if (!selectedRegion) return
+    const cityState = `${selectedRegion.citySlug}-${selectedRegion.stateCode.toLowerCase()}`
+    const noOtherFilters = flags.size === 0 && bowls.size === 0 && moods.size === 0 && prices.size === 0 && !localQuery.trim()
+
+    let targetPath: string | null = null
+
+    if (noOtherFilters) {
+      targetPath = `/find/${cityState}`
+    } else if (moods.size === 0 && prices.size === 0) {
+      // Modifiers only ever gate on a single bowl, a single flag, or a
+      // query string — never a combination — so only look for a match
+      // when the active filters take exactly that shape.
+      const match = FIND_MODIFIERS.find(m => {
+        const wantBowls = m.filter.initialBowls ?? []
+        const wantFlags = m.filter.initialFlags ?? []
+        const wantQuery = m.filter.initialQuery ?? ''
+        if (wantBowls.length === 0 && wantFlags.length === 0 && !wantQuery) return false
+        const bowlsMatch = wantBowls.length === bowls.size && wantBowls.every(b => bowls.has(b))
+        const flagsMatch = wantFlags.length === flags.size && wantFlags.every(f => flags.has(f))
+        const queryMatch = wantQuery
+          ? localQuery.trim().toLowerCase() === wantQuery.toLowerCase()
+          : !localQuery.trim()
+        return bowlsMatch && flagsMatch && queryMatch
+      })
+      if (match) targetPath = `/find/${match.prefix}-${cityState}`
+    }
+
+    if (targetPath && typeof window !== 'undefined' && targetPath !== window.location.pathname) {
+      router.push(targetPath)
+    }
+  }, [selectedRegion, flags, bowls, moods, prices, localQuery, router])
 
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
@@ -459,7 +519,29 @@ export default function HomeMapHero({
       // Featured listings are pinned to the top (stable — keeps prior ordering).
       list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
 
-      return list.slice(0, 300)
+      // Tag each result with which active filter(s) it matched, so the card
+      // (and the map popup) can show a color-coded chip explaining why it's
+      // in the results — e.g. the "vegan" bowl filter shows a green chip.
+      const withChips = list.map(r => {
+        const matchedChips: MatchedChip[] = []
+        for (const b of BOWL_META) {
+          if (!bowls.has(b.key)) continue
+          const has = (r.bowls ?? []).includes(b.key) || (b.key === 'miso' && /miso/i.test(r.name))
+          if (has) matchedChips.push({ label: b.label, emoji: b.emoji, hex: b.hex })
+        }
+        for (const m of MOOD_META) {
+          if (moods.has(m.key) && (r.moods ?? []).includes(m.key)) {
+            matchedChips.push({ label: m.label, emoji: m.emoji, hex: m.hex })
+          }
+        }
+        for (const f of flags) {
+          const meta = FEATURE_BY_KEY[f] ?? MISC_FLAG_BY_KEY[f]
+          if (meta) matchedChips.push({ label: meta.label, emoji: meta.emoji, hex: meta.hex })
+        }
+        return { ...r, matchedChips }
+      })
+
+      return withChips.slice(0, 300)
     } catch {
       return []
     }
@@ -885,6 +967,7 @@ export default function HomeMapHero({
                               {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
                               {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
+                            <MatchedChips chips={r.matchedChips} />
                           </div>
                         </Link>
                       ) : (
@@ -915,6 +998,7 @@ export default function HomeMapHero({
                               {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
                               {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
+                            <MatchedChips chips={r.matchedChips} />
                           </div>
                         </a>
                       )}

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import type { MatchedChip } from '@/lib/ramen-taxonomy'
 
 // Structural subset of a restaurant the map needs — satisfied by both the full
 // Restaurant type (/searchmap) and the slim MapPoint type (homepage hero).
@@ -21,6 +22,7 @@ export type MapRestaurant = {
   googleMapsLink?: string // DB entries — verified Google Maps listing
   website?: string        // restaurant's own website (DB entries only)
   featured?: boolean      // promoted listing — gold pin, shown above the rest
+  matchedChips?: MatchedChip[] // active filters this result satisfied — shown as colored badges in the popup
 }
 
 // Fix Leaflet default marker icons in Next.js
@@ -254,6 +256,12 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`)
       const linkTarget = isIkedo ? '_self' : '_blank'
 
+      const chipsHtml = (r.matchedChips ?? []).length > 0
+        ? `<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:4px">${(r.matchedChips ?? []).map(c =>
+            `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;border-radius:999px;font-size:9px;font-weight:600;background:${c.hex}1a;color:${c.hex};border:1px solid ${c.hex}40">${c.emoji} ${c.label}</span>`
+          ).join('')}</div>`
+        : ''
+
       const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
         .addTo(map)
         .bindPopup(`
@@ -262,6 +270,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
             <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
             <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
             ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
+            ${chipsHtml}
           </div>
         `)
         .on('click', () => onSelect(r.slug))

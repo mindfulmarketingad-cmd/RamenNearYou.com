@@ -69,6 +69,34 @@ export const FEATURE_AMENITY_FIELD: Record<string, string> = {
 export const FEATURE_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(FEATURE_META.map(f => [f.key, f]))
 export const FEATURE_KEYS = new Set(FEATURE_META.map(f => f.key))
 
+// Hours & quality / cuisine flags that aren't amenity-derived (computed from
+// hours, rating, review count, or the restaurant name) but still need a
+// color + label so a matched card can show which active filter it satisfies.
+export const MISC_FLAG_META: ChipMeta[] = [
+  { key: 'open-now', label: 'Open Now', emoji: '🟢', hex: '#16a34a' },
+  { key: 'open-late', label: 'Open Late', emoji: '🌙', hex: '#6366f1' },
+  { key: 'open-midnight', label: 'Past Midnight', emoji: '🌃', hex: '#4338ca' },
+  { key: 'open-early', label: 'Open Early', emoji: '☕', hex: '#f59e0b' },
+  { key: 'open-weekends', label: 'Open Weekends', emoji: '📆', hex: '#0ea5e9' },
+  { key: 'top-rated', label: 'Top Rated', emoji: '⭐', hex: '#eab308' },
+  { key: 'hidden-gems', label: 'Hidden Gem', emoji: '💎', hex: '#8b5cf6' },
+  { key: 'new-ramen', label: 'New Spot', emoji: '🆕', hex: '#ec4899' },
+  { key: 'ramen-sushi', label: 'Ramen + Sushi', emoji: '🍣', hex: '#0891b2' },
+  { key: 'fish-ramen', label: 'Fish Ramen', emoji: '🐟', hex: '#0369a1' },
+  { key: 'korean-style', label: 'Korean-Style', emoji: '🌶', hex: '#dc2626' },
+  { key: 'japanese-fusion', label: 'Japanese Fusion', emoji: '🔀', hex: '#7c3aed' },
+  { key: 'halal', label: 'Halal-Friendly', emoji: '☪️', hex: '#15803d' },
+  { key: 'gluten-free', label: 'Gluten-Free', emoji: '🌾', hex: '#a16207' },
+  { key: 'hanabi', label: 'Hanabi', emoji: '🎆', hex: '#db2777' },
+  { key: 'shokku', label: 'Shokku', emoji: '⚡', hex: '#ca8a04' },
+]
+
+export const MISC_FLAG_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(MISC_FLAG_META.map(f => [f.key, f]))
+
+// A single active-filter badge rendered on a listing card / map popup —
+// tells the user which filter(s) this specific result matched.
+export type MatchedChip = { label: string; emoji: string; hex: string }
+
 export const PRICE_META: { key: string; label: string }[] = [
   { key: 'budget', label: 'Under ~$15' },
   { key: 'premium', label: 'Premium' },
