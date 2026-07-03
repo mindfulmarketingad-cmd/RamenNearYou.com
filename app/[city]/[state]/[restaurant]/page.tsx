@@ -14,6 +14,7 @@ import {
 } from '@/lib/places-supplements'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import SupplementRestaurantPage from '@/components/supplement-restaurant-page'
+import RestaurantListingPage from '@/components/restaurant-listing-page'
 import { expandDescription } from '@/lib/expand-description'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -270,10 +271,38 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     notFound()
   }
 
-  // Only Ikedo Ramen has a dedicated detail page. Every other restaurant
-  // listing lives on the search map and links out externally.
-  if (!(city === 'port-washington' && state === 'new-york' && restaurant === 'ikedo-ramen')) {
-    notFound()
+  // Ikedo Ramen (the featured/paid listing) keeps its richer dedicated page
+  // below. Every other DB restaurant renders the Google-Maps-style listing
+  // page — a scrollable details panel beside a single-pin map.
+  const isIkedo = city === 'port-washington' && state === 'new-york' && restaurant === 'ikedo-ramen'
+  if (!isIkedo) {
+    const dbr = getRestaurant(city, state, restaurant)
+    if (!dbr) notFound()
+    const r2 = { ...dbr } as Restaurant
+
+    // Apply owner-submitted overrides the same way the Ikedo path does.
+    const sb = await createClient()
+    if (sb) {
+      const { data: ov } = await sb
+        .from('restaurant_overrides')
+        .select('description, phone, website, menu_link, hours')
+        .eq('restaurant_slug', r2.slug)
+        .maybeSingle()
+      if (ov) {
+        if (ov.description?.trim()) r2.description = ov.description
+        if (ov.phone?.trim())       r2.phone       = ov.phone
+        if (ov.website?.trim())     r2.website     = ov.website
+        if (ov.menu_link?.trim())   r2.menuLink    = ov.menu_link
+        if (ov.hours && Object.keys(ov.hours).length > 0) r2.hours = ov.hours
+      }
+    }
+
+    const nearbyListings = getRestaurantsByCity(city, state)
+      .filter(n => n.slug !== r2.slug)
+      .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+      .slice(0, 6)
+
+    return <RestaurantListingPage r={r2} city={city} state={state} nearby={nearbyListings} />
   }
 
   const original = getRestaurant(city, state, restaurant)
