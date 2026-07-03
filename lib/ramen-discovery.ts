@@ -42,6 +42,11 @@ function supplementMapPoints(): MapPoint[] {
     // detail-page URL (/{city}/{state}/{slug}) exactly.
     for (const l of getSupplementListings(citySlug, stateCode)) {
       if (!l.latitude || !l.longitude) continue
+      // Supplement (Google Places) listings have no description/subtypes to
+      // run the full broth classifier against, but well-known chains can
+      // still be tagged by name — JINYA's tonkotsu base and spicy options
+      // apply at every location regardless of data source.
+      const isJinya = l.name.toLowerCase().includes('jinya ramen')
       points.push({
         name: l.name,
         slug: l.slug,
@@ -57,7 +62,7 @@ function supplementMapPoints(): MapPoint[] {
         priceRange: priceLevelToRange(l.priceLevel),
         photo: l.photo ?? '',
         hours: null,
-        bowls: [],
+        bowls: isJinya ? ['tonkotsu', 'spicy-miso'] : [],
         moods: [],
         googleMapsUrl: l.googleMapsUrl,
       })

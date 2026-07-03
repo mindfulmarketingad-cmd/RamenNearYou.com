@@ -111,6 +111,7 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
   ) types.push('Miso')
 
   if (
+    name.includes('jinya ramen') ||
     text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') ||
     text.includes('tori paitan') || text.includes('chili oil') || text.includes('doubanjiang') ||
     text.includes('fire ramen') || text.includes('hot ramen')
