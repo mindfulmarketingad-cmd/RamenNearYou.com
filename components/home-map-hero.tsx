@@ -945,8 +945,10 @@ export default function HomeMapHero({
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
                   const isSupp = !!r.googleMapsUrl
-                  // Only the one featured listing has an internal detail page.
-                  const isIkedo = r.slug === 'ikedo-ramen' && r.citySlug === 'port-washington'
+                  // Every DB restaurant has its own internal listing page;
+                  // only Google Places supplement listings (isSupp) don't, so
+                  // those keep linking out to Google Maps.
+                  const hasInternalPage = !isSupp
                   const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
                   const directionsUrl = r.googleMapsLink
                     ?? r.googleMapsUrl
@@ -966,7 +968,7 @@ export default function HomeMapHero({
                       }`}
                     >
                       {/* Main clickable row */}
-                      {isIkedo ? (
+                      {hasInternalPage ? (
                         <Link href={internalUrl} className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}>
                           <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
@@ -1027,13 +1029,14 @@ export default function HomeMapHero({
 
                       {/* Action buttons */}
                       <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
-                        {isIkedo ? (
-                          <button
-                            onClick={e => { e.stopPropagation(); window.location.href = internalUrl }}
+                        {hasInternalPage ? (
+                          <Link
+                            href={internalUrl}
+                            onClick={e => e.stopPropagation()}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                           >
                             View Menu
-                          </button>
+                          </Link>
                         ) : (
                           <a
                             href={externalUrl}
@@ -1054,13 +1057,14 @@ export default function HomeMapHero({
                         >
                           Get Directions
                         </a>
-                        {isIkedo ? (
-                          <button
-                            onClick={e => { e.stopPropagation(); window.location.href = internalUrl }}
+                        {hasInternalPage ? (
+                          <Link
+                            href={internalUrl}
+                            onClick={e => e.stopPropagation()}
                             className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
                           >
-                            Order Now
-                          </button>
+                            View Details
+                          </Link>
                         ) : (
                           <a
                             href={externalUrl}
