@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight, ExternalLink,
-  Navigation2, ShoppingBag, BookOpen, Store,
+  Navigation2, ShoppingBag, BookOpen, Store, QrCode,
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -301,6 +301,23 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                   </div>
                 </div>
               )}
+
+              {/* Want More Reviews? — Google review card CTA */}
+              <div className="mt-6 pt-5 border-t border-black/8">
+                <Link
+                  href={`/review-cards?restaurant=${encodeURIComponent(r.slug)}`}
+                  className="flex items-center gap-3 rounded-xl border border-[#B57F50]/25 bg-[#B57F50]/8 px-4 py-3.5 hover:bg-[#B57F50]/14 transition-colors"
+                >
+                  <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 flex items-center justify-center shrink-0">
+                    <QrCode className="w-5 h-5 text-[#B57F50]" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-bold text-[#1E2026]">Want More Reviews?</span>
+                    <span className="block text-xs text-[#6B6862]">Get a QR review card for {r.name}&apos;s tables</span>
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-[#B57F50] shrink-0 ml-auto" />
+                </Link>
+              </div>
 
               {/* Share + claim */}
               <div className="mt-6 pt-5 border-t border-black/8 flex items-center gap-3">

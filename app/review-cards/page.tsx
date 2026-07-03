@@ -4,6 +4,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ReviewCardOrderForm from './review-card-order-form'
 import { PRICE_LABEL } from './config'
+import { getRestaurantBySlug } from '@/lib/restaurants'
 
 export const metadata: Metadata = {
   title: 'Google Review Cards for Ramen Restaurants | Ramen Near You',
@@ -19,7 +20,17 @@ const STEPS = [
   { icon: LineChart, title: 'We track your scans', text: 'Your QR routes through RamenNearYou, so we can count scans and fix or update the destination without you ever reprinting.' },
 ]
 
-export default function ReviewCardsPage() {
+export default async function ReviewCardsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ restaurant?: string }>
+}) {
+  const { restaurant: restaurantSlug } = await searchParams
+  const preselected = restaurantSlug ? getRestaurantBySlug(restaurantSlug) : null
+  const initialPicked = preselected
+    ? { slug: preselected.slug, name: preselected.name, city: preselected.city, stateCode: preselected.stateCode }
+    : null
+
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
@@ -48,7 +59,7 @@ export default function ReviewCardsPage() {
           ))}
         </div>
 
-        <ReviewCardOrderForm />
+        <ReviewCardOrderForm initialPicked={initialPicked} />
 
         <p className="text-center text-xs text-[#9B9490] mt-6 max-w-md mx-auto">
           Every card sends every customer to the same public Google review page — no filtering,

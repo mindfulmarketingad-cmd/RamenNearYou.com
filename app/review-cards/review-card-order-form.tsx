@@ -10,10 +10,10 @@ const inputClass =
 
 type Picked = { slug: string; name: string; city: string; stateCode: string }
 
-export default function ReviewCardOrderForm() {
+export default function ReviewCardOrderForm({ initialPicked = null }: { initialPicked?: Picked | null }) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
-  const [picked, setPicked] = useState<Picked | null>(null)
+  const [picked, setPicked] = useState<Picked | null>(initialPicked)
   const [buyerName, setBuyerName] = useState('')
   const [buyerEmail, setBuyerEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
