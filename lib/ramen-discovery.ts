@@ -77,7 +77,7 @@ function isUpscale(r: Restaurant): boolean {
 // Bowl matchers, keyed to BOWL_META.
 const BOWL_MATCH: Record<string, (r: Restaurant) => boolean> = {
   'tonkotsu': r => getBrothTypes(r).includes('Tonkotsu') || /tonkotsu|pork bone|hakata/.test(txt(r)),
-  'spicy-miso': r => { const t = txt(r); return t.includes('spicy miso') || (t.includes('spicy') && t.includes('miso')) },
+  'spicy-miso': r => getBrothTypes(r).includes('Spicy') || /spicy/.test(txt(r)),
   'miso': r => getBrothTypes(r).includes('Miso') || /miso ramen|miso broth/.test(txt(r)),
   'shoyu': r => getBrothTypes(r).includes('Shoyu') || /shoyu|soy sauce broth/.test(txt(r)),
   'shio': r => /shio ramen|shio broth|salt broth|salt-based|sea salt broth/.test(txt(r)),
