@@ -8,11 +8,11 @@ import { getServiceCityLinks } from '@/lib/city-filter-pages'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Miso Ramen Near Me | Hearty Sapporo-Style Ramen | RamenNearYou',
+  title: 'Ramen Miso Near Me | Hearty Sapporo-Style Ramen | RamenNearYou',
   description: 'Find miso ramen near you — the hearty, fermented-soybean broth from Sapporo. What makes great miso ramen, what to order, and how it compares to other styles.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/miso-ramen' },
   openGraph: {
-    title: 'Miso Ramen Near Me',
+    title: 'Ramen Miso Near Me',
     description: 'Find hearty, savory miso ramen near you.',
     url: 'https://www.ramennearyou.com/find/miso-ramen',
     siteName: 'RamenNearYou',
@@ -37,7 +37,7 @@ export default function MisoRamenPage() {
       >
         <HomeMapHero
           initialBowls={['miso']}
-          pageTitle="Miso Ramen Near Me"
+          pageTitle="Ramen Miso Near Me"
           pageDescription="Showing miso ramen near you. Enter your ZIP or use your location to find a hearty, savory bowl nearby."
         />
       </ErrorBoundary>

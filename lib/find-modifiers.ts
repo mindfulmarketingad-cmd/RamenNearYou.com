@@ -45,7 +45,7 @@ export const FIND_MODIFIERS: FindModifier[] = [
   {
     prefix: 'miso-ramen-in',
     filter: { initialBowls: ['miso'] },
-    title: (c, s) => `Miso Ramen In ${c}, ${s}`,
+    title: (c, s) => `Ramen Miso In ${c}, ${s}`,
     metaNoun: 'miso ramen',
     hubHref: '/find/miso-ramen',
     hubLabel: 'Miso Ramen',
