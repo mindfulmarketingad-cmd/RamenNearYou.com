@@ -96,6 +96,13 @@ export default function ClaimSearch() {
           </a>
         </div>
 
+        <p className="text-sm text-[#6B6862] mb-4">
+          Want more Google reviews too?{' '}
+          <Link href="/review-cards" className="text-[#B57F50] font-semibold hover:underline">
+            Get QR review cards for your tables →
+          </Link>
+        </p>
+
         <Link href="/" className="inline-block text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
           Maybe later — back to home
         </Link>
