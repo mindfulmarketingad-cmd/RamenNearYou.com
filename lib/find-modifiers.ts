@@ -58,6 +58,21 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'ramen-spicy-miso',
+    filter: { initialBowls: ['spicy-miso'] },
+    title: (c, s) => `Ramen Spicy Miso ${c}, ${s}`,
+    metaNoun: 'spicy miso ramen',
+    hubHref: '/find/ramen-spicy-miso-near-me',
+    hubLabel: 'Ramen Spicy Miso',
+    about:
+      'Spicy miso (kara miso) is classic Sapporo-style miso ramen with chili paste or chili oil blended directly into the tare, keeping the fermented, savory-sweet miso character while adding real, building heat.',
+    faqs: (city, st) => [
+      { q: `Where can I find spicy miso ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving spicy miso ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is spicy miso ramen?', a: 'Spicy miso ramen — often called kara miso — is classic miso ramen with chili paste or chili oil blended into the tare, combining fermented, savory-sweet miso broth with real, building heat.' },
+      { q: 'Is spicy miso ramen the same as Korean spicy ramen?', a: 'No. Spicy miso uses a Japanese miso tare with Japanese chili preparations, while Korean-influenced spicy ramen typically uses gochugaru or gochujang on a different broth base, giving a fruitier, smokier heat.' },
+    ],
+  },
+  {
     prefix: 'shoyu-ramen-in',
     filter: { initialBowls: ['shoyu'] },
     title: (c, s) => `Ramen Shoyu In ${c}, ${s}`,

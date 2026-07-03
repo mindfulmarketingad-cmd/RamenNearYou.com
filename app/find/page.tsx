@@ -86,6 +86,7 @@ const CATEGORIES = [
     pages: [
       { href: '/find/tonkotsu-ramen', label: 'Tonkotsu Ramen Near Me' },
       { href: '/find/miso-ramen', label: 'Miso Ramen Near Me' },
+      { href: '/find/ramen-spicy-miso-near-me', label: 'Ramen Spicy Miso Near Me' },
       { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me' },
       { href: '/find/shio-ramen', label: 'Shio Ramen Near Me' },
       { href: '/find/chicken-ramen', label: 'Chicken Ramen Near Me' },

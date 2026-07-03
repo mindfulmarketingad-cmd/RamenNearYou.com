@@ -8,6 +8,7 @@ export const FIND_PAGES = [
   { href: '/find/spicy-ramen', label: 'Spicy Ramen Near Me', emoji: '🌶️' },
   { href: '/find/extra-spicy-ramen', label: 'Extra Spicy Ramen Near Me', emoji: '🔥' },
   { href: '/find/miso-ramen', label: 'Miso Ramen Near Me', emoji: '🥣' },
+  { href: '/find/ramen-spicy-miso-near-me', label: 'Ramen Spicy Miso Near Me', emoji: '🌶️' },
   { href: '/find/shoyu-ramen', label: 'Shoyu Ramen Near Me', emoji: '🍶' },
   { href: '/find/shio-ramen', label: 'Shio Ramen Near Me', emoji: '🧂' },
   { href: '/find/tsukemen', label: 'Tsukemen Near Me', emoji: '🥢' },
