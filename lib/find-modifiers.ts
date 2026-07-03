@@ -60,7 +60,7 @@ export const FIND_MODIFIERS: FindModifier[] = [
   {
     prefix: 'shoyu-ramen-in',
     filter: { initialBowls: ['shoyu'] },
-    title: (c, s) => `Shoyu Ramen In ${c}, ${s}`,
+    title: (c, s) => `Ramen Shoyu In ${c}, ${s}`,
     metaNoun: 'shoyu ramen',
     hubHref: '/find/shoyu-ramen',
     hubLabel: 'Shoyu Ramen',

@@ -6,11 +6,11 @@ import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Shoyu Ramen Near Me | Classic Tokyo Soy-Sauce Ramen | RamenNearYou',
+  title: 'Ramen Shoyu Near Me | Classic Tokyo Soy-Sauce Ramen | RamenNearYou',
   description: 'Find shoyu ramen near you — the original Tokyo-style soy-sauce broth, light yet deeply savory. What shoyu ramen is, how to order it, and how to judge a great bowl.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/shoyu-ramen' },
   openGraph: {
-    title: 'Shoyu Ramen Near Me',
+    title: 'Ramen Shoyu Near Me',
     description: 'Find classic, soy-seasoned shoyu ramen near you.',
     url: 'https://www.ramennearyou.com/find/shoyu-ramen',
     siteName: 'RamenNearYou',
@@ -33,7 +33,7 @@ export default function ShoyuRamenPage() {
       >
         <HomeMapHero
           initialBowls={['shoyu']}
-          pageTitle="Shoyu Ramen Near Me"
+          pageTitle="Ramen Shoyu Near Me"
           pageDescription="Showing shoyu (soy sauce) ramen near you. Enter your ZIP or use your location to find a classic, savory bowl nearby."
         />
       </ErrorBoundary>
