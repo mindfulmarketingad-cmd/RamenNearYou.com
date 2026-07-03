@@ -8,11 +8,11 @@ import { getServiceCityLinks } from '@/lib/city-filter-pages'
 import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Tonkotsu Ramen Near Me | Rich Pork-Bone Ramen | RamenNearYou',
+  title: 'Ramen Tonkotsu Near Me | Rich Pork-Bone Ramen | RamenNearYou',
   description: 'Find tonkotsu ramen near you — the rich, creamy pork-bone broth from Hakata. What real tonkotsu tastes like, how to order it, and how to spot the good stuff.',
   alternates: { canonical: 'https://www.ramennearyou.com/find/tonkotsu-ramen' },
   openGraph: {
-    title: 'Tonkotsu Ramen Near Me',
+    title: 'Ramen Tonkotsu Near Me',
     description: 'Find rich, creamy tonkotsu (pork-bone) ramen near you.',
     url: 'https://www.ramennearyou.com/find/tonkotsu-ramen',
     siteName: 'RamenNearYou',
@@ -37,7 +37,7 @@ export default function TonkotsuRamenPage() {
       >
         <HomeMapHero
           initialBowls={['tonkotsu']}
-          pageTitle="Tonkotsu Ramen Near Me"
+          pageTitle="Ramen Tonkotsu Near Me"
           pageDescription="Showing tonkotsu (pork-bone) ramen near you. Enter your ZIP or use your location to find a rich, creamy bowl nearby."
         />
       </ErrorBoundary>
