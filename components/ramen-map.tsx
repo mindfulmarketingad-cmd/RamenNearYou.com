@@ -3,9 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import 'leaflet.markercluster'
-import 'leaflet.markercluster/dist/MarkerCluster.css'
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import type { MatchedChip } from '@/lib/ramen-taxonomy'
 
 // Structural subset of a restaurant the map needs — satisfied by both the full
@@ -77,7 +74,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
       transform:scale(${scale});transform-origin:bottom center;
       transition:transform 0.15s;
       z-index:${featured ? 1000 : 'auto'};
-    ">${crown}<span style="font-size:10px;line-height:1">★</span>${label}${check}</div>`,
+    ">${crown}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg"><path d="M9 3.5c.6.6 1 1.4 1 2M12 3c.6.6 1 1.4 1 2M15 3.5c.6.6 1 1.4 1 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M3 11h18a1 1 0 011 1c0 5.5-4.9 9-10 9s-10-3.5-10-9a1 1 0 011-1z" fill="currentColor"/></svg>${label}${check}</div>`,
     iconSize: [44, 24],
     iconAnchor: [22, 24],
     popupAnchor: [0, -28],
@@ -142,7 +139,6 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
-  const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const ratingsRef = useRef<Record<string, number | null>>({})
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
@@ -234,25 +230,17 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     mapRef.current.flyTo([userLocation.lat, userLocation.lng], 13, { duration: 1.2 })
   }, [ready, userLocation])
 
-  // Add restaurant markers, grouped into clusters when zoomed out (hidden
-  // while heatmap mode is active). Clusters use Leaflet.markercluster's
-  // stock green/yellow/orange styling based on how many pins they contain.
+  // Add restaurant markers (hidden while heatmap mode is active). No
+  // clustering — every pin renders individually at every zoom level.
   useEffect(() => {
     if (!ready || !mapRef.current) return
     const map = mapRef.current
 
-    if (clusterGroupRef.current) { clusterGroupRef.current.remove(); clusterGroupRef.current = null }
+    Object.values(markersRef.current).forEach(m => m.remove())
     markersRef.current = {}
     ratingsRef.current = {}
 
     if (heatmap) return // heatmap layer handles visualization instead
-
-    const clusterGroup = L.markerClusterGroup({
-      maxClusterRadius: 55,
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
-      disableClusteringAtZoom: 16,
-    })
 
     restaurants.forEach((r) => {
       if (!r.latitude || !r.longitude) return
@@ -276,7 +264,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         : ''
 
       const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
-        .addTo(clusterGroup)
+        .addTo(map)
         .bindPopup(`
           <div style="min-width:160px">
             ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
@@ -295,9 +283,6 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         })
       markersRef.current[r.slug] = marker
     })
-
-    clusterGroup.addTo(map)
-    clusterGroupRef.current = clusterGroup
   }, [ready, restaurants, selectedSlug, onSelect, accentColor, heatmap, visitedSlugs])
 
   // Heatmap layer — density-based warm blobs that make the map feel alive.
@@ -394,14 +379,8 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     })
     const active = markersRef.current[selectedSlug]
     if (active) {
-      // If the marker is currently folded into a cluster, zoom in until it
-      // spiderfies/reveals on its own before opening the popup.
-      if (clusterGroupRef.current) {
-        clusterGroupRef.current.zoomToShowLayer(active, () => active.openPopup())
-      } else {
-        mapRef.current.panTo(active.getLatLng(), { animate: true, duration: 0.5 })
-        active.openPopup()
-      }
+      mapRef.current.panTo(active.getLatLng(), { animate: true, duration: 0.5 })
+      active.openPopup()
     }
   }, [selectedSlug, ready, accentColor, visitedSlugs])
 
