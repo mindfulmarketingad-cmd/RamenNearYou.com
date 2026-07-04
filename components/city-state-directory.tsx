@@ -1,9 +1,21 @@
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { getStates } from '@/lib/restaurants'
+import { getSupplementStateStats } from '@/lib/places-supplements'
 
 export default function CityStateDirectory() {
-  const states = getStates().sort((a, b) => a.state.localeCompare(b.state))
+  // Merge DB states with supplement-only states so all 50 show up, mirroring
+  // /cities. Dedupe case-insensitively by state name (Hawaii exists under both
+  // "hi" and "hawaii" slugs, DC under two capitalizations); the DB entry wins.
+  // Quebec is a Canadian supplement dataset — not a US state, so skip it here.
+  const dbStates = getStates()
+  const seenNames = new Set(dbStates.map(s => s.state.toLowerCase()))
+  const states = [
+    ...dbStates.map(s => ({ state: s.state, stateSlug: s.stateSlug, cityCount: s.cityCount })),
+    ...getSupplementStateStats().filter(
+      s => !seenNames.has(s.state.toLowerCase()) && s.stateSlug !== 'quebec'
+    ),
+  ].sort((a, b) => a.state.localeCompare(b.state))
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-black/5">
@@ -29,7 +41,7 @@ export default function CityStateDirectory() {
                 </span>
               </span>
               <span className="flex items-center gap-1 shrink-0 ml-2">
-                <span className="text-[#6B6862] text-xs">{s.cityCount} cities</span>
+                <span className="text-[#6B6862] text-xs">{s.cityCount} {s.cityCount === 1 ? 'city' : 'cities'}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-[#B57F50]/50 group-hover:text-[#B57F50] transition-colors" />
               </span>
             </Link>
