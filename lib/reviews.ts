@@ -60,6 +60,52 @@ export function hasReviewPage(slug: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
+// Related-review suggestions — every /reviews/[restaurant] page links out to
+// a handful of others (same city first, then same state, then top-rated
+// overall) so no review page is an orphan reachable only via the sitemap.
+// ---------------------------------------------------------------------------
+
+let _byCity: Map<string, Restaurant[]> | null = null
+let _byState: Map<string, Restaurant[]> | null = null
+
+function relatedIndexes() {
+  if (!_byCity || !_byState) {
+    _byCity = new Map()
+    _byState = new Map()
+    for (const r of getReviewRestaurants()) {
+      const cityKey = `${r.citySlug}|${r.stateSlug}`
+      if (!_byCity.has(cityKey)) _byCity.set(cityKey, [])
+      _byCity.get(cityKey)!.push(r)
+      if (!_byState.has(r.stateSlug)) _byState.set(r.stateSlug, [])
+      _byState.get(r.stateSlug)!.push(r)
+    }
+  }
+  return { byCity: _byCity, byState: _byState }
+}
+
+export function getRelatedReviewRestaurants(r: Restaurant, limit = 6): Restaurant[] {
+  const { byCity, byState } = relatedIndexes()
+  const picked: Restaurant[] = []
+  const seen = new Set<string>([getReviewSlug(r)])
+
+  function addFrom(pool: Restaurant[] | undefined) {
+    if (!pool) return
+    for (const cand of pool) {
+      if (picked.length >= limit) return
+      const slug = getReviewSlug(cand)
+      if (seen.has(slug)) continue
+      seen.add(slug)
+      picked.push(cand)
+    }
+  }
+
+  addFrom(byCity.get(`${r.citySlug}|${r.stateSlug}`))
+  if (picked.length < limit) addFrom(byState.get(r.stateSlug))
+  if (picked.length < limit) addFrom(getReviewRestaurants())
+  return picked
+}
+
+// ---------------------------------------------------------------------------
 // Deterministic review generation
 // Seeded by the restaurant slug so the same reviews render on every build.
 // ---------------------------------------------------------------------------

@@ -9,6 +9,7 @@ import {
   getRestaurantByReviewSlug,
   getReviewSlug,
   getReviewRestaurants,
+  getRelatedReviewRestaurants,
   hasReviewPage,
   generateReviews,
   googleReviewsUrl,
@@ -19,7 +20,7 @@ interface Props {
   params: Promise<{ restaurant: string }>
 }
 
-// Only the 400 generated pages exist; everything else 404s.
+// Only the generated review pages (one per restaurant) exist; everything else 404s.
 export const dynamicParams = false
 
 export async function generateStaticParams() {
@@ -72,6 +73,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   const listingUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
   const dist = r.reviewsPerScore ?? { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
   const distTotal = Object.values(dist).reduce((a, b) => a + b, 0)
+  const related = getRelatedReviewRestaurants(r, 6)
 
   const reviewSchema = {
     '@context': 'https://schema.org',
@@ -225,10 +227,42 @@ export default async function RestaurantReviewsPage({ params }: Props) {
           </section>
 
           {/* Reviews */}
-          <section>
+          <section className="mb-10">
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-5">What Diners Are Saying</h2>
             <RestaurantReviewsClient reviews={reviews} />
           </section>
+
+          {/* More reviews — keeps every review page linked to others */}
+          {related.length > 0 && (
+            <section>
+              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">
+                More Ramen Reviews Near {r.city}
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {related.map((other) => (
+                  <Link
+                    key={other.slug + other.citySlug}
+                    href={`/reviews/${getReviewSlug(other)}`}
+                    className="flex items-center justify-between gap-3 px-4 py-3 bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-[#1E2026] truncate">{other.name}</p>
+                      <p className="text-xs text-[#6B6862] truncate">{other.city}, {other.stateCode}</p>
+                    </div>
+                    {other.rating != null && (
+                      <span className="flex items-center gap-1 shrink-0 text-xs font-semibold text-[#1E2026]">
+                        <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                        {other.rating.toFixed(1)}
+                      </span>
+                    )}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/reviews" className="inline-block mt-4 text-sm text-[#B57F50] font-medium hover:underline">
+                Browse all restaurant reviews →
+              </Link>
+            </section>
+          )}
         </div>
       </main>
 
