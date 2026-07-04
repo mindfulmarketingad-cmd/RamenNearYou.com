@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitiesForBroth } from '@/lib/restaurants'
+import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
 import { FIND_PAGES } from '@/components/find-cross-links'
@@ -78,6 +79,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${BASE_URL}/vegan/${c.citySlug}/${c.stateSlug}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
+  // Individual restaurant review pages (e.g. /reviews/ikedo-japanese-eatery)
+  const reviewPages = getReviewRestaurants().map((r) => ({
+    url: `${BASE_URL}/reviews/${getReviewSlug(r)}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly' as const,
     priority: 0.6,
   }))
 
@@ -209,6 +218,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: `${BASE_URL}/reviews`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${BASE_URL}/about`,
       lastModified: SITE_LAUNCH,
       changeFrequency: 'yearly' as const,
@@ -251,5 +266,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...spicyCityPages,
     ...veganCityPages,
     ...restaurantPages,
+    ...reviewPages,
   ]
 }

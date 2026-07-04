@@ -43,16 +43,13 @@ export function allReviewSlugs(): string[] {
   return Array.from(_byReviewSlug.keys())
 }
 
-// Only the top-rated restaurants get a review page. Keep this list in one place
-// so the static params, the /reviews index, and lookups all stay in sync.
-export const REVIEW_PAGE_LIMIT = 900
-
+// Every restaurant gets a review page. Kept as one function so the static
+// params, the /reviews index, and lookups all stay in sync.
 let _reviewRestaurants: Restaurant[] | null = null
 export function getReviewRestaurants(): Restaurant[] {
   if (!_reviewRestaurants) {
     _reviewRestaurants = [...restaurants]
       .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
-      .slice(0, REVIEW_PAGE_LIMIT)
   }
   return _reviewRestaurants
 }
