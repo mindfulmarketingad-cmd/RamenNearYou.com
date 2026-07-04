@@ -17411,7 +17411,7 @@ blogPosts.push({
   <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Ask for <em>kata-men</em> (firm noodles) if you want more texture — tonkotsu broth is so rich it softens noodles fast. Thin, firm noodles are the authentic Hakata choice.</p>
 </div>
 
-<p>Ready to find tonkotsu ramen in your city? <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse tonkotsu ramen restaurants near you →</a></p>
+<p>Want the full deep dive? Read our guide to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is tonkotsu ramen</a>. Ready to find tonkotsu ramen in your city? <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse tonkotsu ramen restaurants near you →</a></p>
 
 <hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
 
@@ -17436,7 +17436,7 @@ blogPosts.push({
   <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> A great shoyu bowl should be clear, not murky. If the broth looks cloudy and the shop claims it's shoyu, ask what's in the base stock — some shops intentionally make a cloudy tori shoyu, but most muddy broths are a quality signal.</p>
 </div>
 
-<p>Find shoyu ramen restaurants near you: <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse shoyu ramen spots near you →</a></p>
+<p>Want the full deep dive? Read our guide to <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is shoyu ramen</a>. Find shoyu ramen restaurants near you: <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse shoyu ramen spots near you →</a></p>
 
 <hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
 
@@ -17462,6 +17462,8 @@ blogPosts.push({
   <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Shio ramen is the best style for evaluating a new ramen shop. Its simplicity means quality has nowhere to hide — if the shio is excellent, everything else on the menu will be too.</p>
 </div>
 
+<p>Want the full deep dive? Read our guide to <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is shio ramen</a>, or <a href="/shio-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">browse shio ramen restaurants near you →</a></p>
+
 <hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
 
 <h2 id="miso" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">4. Miso Ramen</h2>
@@ -17485,7 +17487,7 @@ blogPosts.push({
   <p style="margin:0;font-size:0.875rem;color:#1E2026;"><strong>Ordering tip:</strong> Ask which miso the shop uses — red, white, or a blend. Red miso bowls are more intense and savory; white miso bowls are milder and sweeter. Knowing this helps you calibrate expectations and order the right variant for your palate.</p>
 </div>
 
-<p>Find miso ramen restaurants near you: <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse miso ramen spots near you →</a></p>
+<p>Want the full deep dive? Read our guide to <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is miso ramen</a>. Find miso ramen restaurants near you: <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse miso ramen spots near you →</a></p>
 
 <hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
 
@@ -17548,6 +17550,1177 @@ blogPosts.push({
 <p>The four classic ramen styles are more different from each other than most people realize before they sit down and work through them deliberately. <strong>Tonkotsu</strong> is the bold, crowd-pleasing showstopper built from pork bones. <strong>Shoyu</strong> is the balanced, soy-seasoned classic that Tokyo made famous. <strong>Shio</strong> is the delicate, salt-seasoned style that rewards patience and reveals a chef's true skill. <strong>Miso</strong> is the hearty, fermented Hokkaido original that feels like the most complete meal of the four.</p>
 <p>My honest recommendation for where to start: order shoyu the first time at any new ramen shop — it shows you the kitchen's baseline without any broth style covering for weaknesses. If the shoyu is excellent, come back and work through the rest of the menu. If the shio is available and the shop seems serious, order that instead — same principle, even higher signal. Save tonkotsu for when you want pure indulgence and miso for when you want something warming and hearty.</p>
 <p>And if you want to shortcut the search entirely, <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find tonkotsu ramen near you</a>, <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find shoyu ramen near you</a>, or <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find miso ramen near you</a> using our broth-filtered restaurant directory. We have thousands of ramen spots mapped across the US — find yours.</p>`,
+})
+
+
+
+const tonkotsuGuideCards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'JINYA Ramen Bar – Buckhead',
+    rating: 4.7,
+    reviewCount: 2959,
+    address: '3714 Roswell Rd #35, Atlanta, GA 30342',
+    phone: '+1 404-254-4770',
+    description: "Atlanta's most-reviewed ramen restaurant and the definitive spot to experience tonkotsu in the South. JINYA's signature Tonkotsu Black — housemade noodles swimming in 16-hour pork bone broth finished with black garlic oil — is one of the richest, most satisfying bowls you'll find at a national chain. Nearly 3,000 Google reviews at 4.7 stars says it all.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGC7BquBSpHmTj4A8C9y4_0GU_48lDrJIRb7XtmeT962wpNby2bXoxLC7DkyFvMOWeMBRK5yP4jg5IWvZPKFM3qXbfY0qug4GTJEzbvgzlnFCTl4Qnd3ovRg3BnxmgyKbRp2uJW=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-buckhead',
+    citySlug: 'atlanta',
+    stateSlug: 'ga',
+    tags: ['Tonkotsu', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 2,
+    name: 'JINYA Ramen Bar – Midtown Houston',
+    rating: 4.8,
+    reviewCount: 11416,
+    address: '3201 Louisiana St Suite 105, Houston, TX 77006',
+    phone: '+1 832-925-8596',
+    description: "The highest-reviewed ramen restaurant in Texas with over 11,000 Google ratings. JINYA Midtown Houston serves a tonkotsu-forward menu where creamy pork bone broth is the headliner — their Spring Tonkotsu (light broth, pork belly, soft egg, crispy shallots) is the perfect introduction to the style for first-timers. Consistent 4.8 stars from thousands of diners.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHI01ecIwYk_aeFU9pFe_lk0pDSIc_9nhnRYcJzlvyk-Enw4HAaxtExjtS6IM1Yl2GhfVXqC_9twm5L7HB0X62iUrsJFofomlPbjghqa_4O8ocMAhtfs7dqim=w800-h500-k-no',
+    slug: 'jinya-ramen-bar-midtown',
+    citySlug: 'houston',
+    stateSlug: 'tx',
+    tags: ['Tonkotsu', 'Japanese', 'Bar'],
+  },
+  {
+    rank: 3,
+    name: 'Koi Kaze Ramen Bar',
+    rating: 4.8,
+    reviewCount: 720,
+    address: '2716 W Olympic Blvd Ste #101, Los Angeles, CA 90006',
+    phone: '+1 213-277-1123',
+    description: 'A quietly acclaimed Los Angeles ramen bar where tonkotsu is the unambiguous focus. Koi Kaze slow-simmers pork bones for hours to produce a rich, cloudy broth that holds up under the weight of perfectly calibrated chashu, jammy soft-boiled eggs, and nori. At 4.8 stars and growing, this is one of LA\'s best-kept tonkotsu secrets.',
+    photo: 'https://lh3.googleusercontent.com/gps-proxy/ALd4DhGcqzOnQhtS2SnbBRT3mt5vGmHPB1AlbaUWgbmtH3fLcUUIHEZ49ZQvtYjfZdrTQZivL_XVhrabPtine5CTOMo9cpzDz5ioYBcOneouRERsnn2dkLVcYn1X-TQUEZ6uQOKhq117PixTUJ2OS3os9C0i7TATPhE-VObXE36Ymu-nW8JvHpEjSoO2=w800-h500-k-no',
+    slug: 'koi-kaze-ramen-bar',
+    citySlug: 'los-angeles',
+    stateSlug: 'ca',
+    tags: ['Tonkotsu', 'Japanese', 'Ramen Bar'],
+  },
+]
+
+blogPosts.push({
+  slug: 'what-is-tonkotsu-ramen',
+  title: 'What Is Tonkotsu Ramen? The Complete Guide to Its Broth, History & More',
+  h1: 'What Is Tonkotsu Ramen?',
+  description: "Tonkotsu ramen is Japan's richest, creamiest ramen style — made by boiling pork bones for hours until the broth turns milky white. Here's everything to know: the broth science, flavor, history, noodles, toppings, and variations.",
+  date: 'June 20, 2026',
+  readTime: '11 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Top-Rated Tonkotsu Ramen Restaurants to Try',
+  content: `<p><strong>Tonkotsu ramen is a Japanese noodle soup built on a rich, milky-white pork bone broth, made by boiling pork bones at a hard rolling boil for 8 to 20 hours until the collagen, marrow, and fat break down and emulsify into the liquid.</strong> The result is one of Japan's four major ramen styles — thick, creamy, and intensely savory — traditionally served with thin, straight noodles, sliced chashu pork, and a soft-boiled egg. Born in the Kyushu region of southern Japan in the 1930s, tonkotsu has become the most recognized ramen style outside of Japan, prized for its deep umami and velvety, coat-your-spoon texture.</p>
+
+<p>Its bold, hearty character has made tonkotsu a favorite both in Japan and internationally, especially among diners who want a full-bodied, deeply savory bowl rather than something light and delicate. In this guide, I'll break down exactly how the broth gets its color and creaminess, what defines the flavor, how the noodles and toppings work together, where the style came from, and the regional variations worth knowing about.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.75rem;">Tonkotsu at a Glance</p>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Origin</td><td style="padding:0.4rem 0;color:#6B6862;">Kurume &amp; Hakata, Fukuoka Prefecture, Kyushu, Japan (1930s–1950s)</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Broth base</td><td style="padding:0.4rem 0;color:#6B6862;">Pork bones (leg, back, sometimes head), boiled 8–20+ hours</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Color &amp; texture</td><td style="padding:0.4rem 0;color:#6B6862;">Milky white, opaque, thick and velvety (from emulsified fat and collagen — no dairy)</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Flavor</td><td style="padding:0.4rem 0;color:#6B6862;">Deeply savory, porky, umami-rich, gently sweet</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Noodles</td><td style="padding:0.4rem 0;color:#6B6862;">Thin, straight, firm (Hakata-style); thicker in Jiro- and Iekei-style bowls</td></tr>
+        <tr><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Best for</td><td style="padding:0.4rem 0;color:#6B6862;">Diners who want the richest, most indulgent, most filling bowl on the menu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#what-is-tonkotsu" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">What It Is</a>
+    <a href="#characteristics" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Characteristics</a>
+    <a href="#broth" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">The Broth</a>
+    <a href="#flavor" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Flavor</a>
+    <a href="#noodles" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Noodles</a>
+    <a href="#toppings" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Toppings</a>
+    <a href="#history" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">History</a>
+    <a href="#variations" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Variations</a>
+    <a href="#faq" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">FAQ</a>
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="what-is-tonkotsu" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">What Is Tonkotsu Ramen, Exactly?</h2>
+<p>Tonkotsu (豚骨) literally translates to "pork bone" in Japanese, and that's exactly what defines the style: a broth built entirely from long-simmered pork bones rather than a lighter chicken or seafood stock. Unlike shoyu or miso ramen — where the name refers to the seasoning (tare) rather than the base — tonkotsu is named for the stock itself. That's an important distinction, because a shop can technically make a "tonkotsu shoyu" or "tonkotsu shio" bowl, layering a soy or salt tare on top of the same rich pork base.</p>
+<p>Tonkotsu is also recognized as one of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, alongside <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a> ramen. Of the four, it's the richest and most indulgent — the one most people picture when they imagine a "proper" bowl of ramen, largely thanks to how visually striking that opaque white broth is the moment it hits the table.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="characteristics" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Key Characteristics of Tonkotsu Ramen</h2>
+<p>Tonkotsu is defined above all by its cooking method: a long, high-heat simmer of pork bones that extracts deep flavor while physically transforming the broth's color and texture. That single technique — boil hard, boil long — is what separates tonkotsu from every other ramen style, all of which use a gentler simmer to keep their stocks clear.</p>
+<p>Beyond the base method, every bowl reflects choices made by the individual shop: which bones go into the pot, how long they simmer, and which tare (the concentrated seasoning added at the end) is used to season the finished broth. These decisions create real variation from shop to shop and region to region, even though every bowl stays true to tonkotsu's comforting, full-bodied identity. A shop in Kurume and a shop in Fukuoka City both make "tonkotsu," but the two bowls can taste noticeably different — which is exactly what the regional breakdown further down in this guide covers.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="broth" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">Tonkotsu Broth: Why It's White, Creamy, and Deeply Flavorful</h2>
+<p>Tonkotsu broth is famous for its milky-white color, velvety texture, and deep umami — but none of that comes from dairy, cream, or a thickening agent. It's produced entirely by a cooking technique that transforms plain pork bones, water, and time into an exceptionally rich soup. Even here, where the broth itself is fully emulsified, the underlying structure of ramen stays the same as every other style: a base stock, a seasoning tare, and an aroma oil, each built and added separately before the bowl is assembled. Our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">guide to Japan's four ramen styles</a> walks through how broth, tare, and aroma oil work together across every style if you want the fuller picture.</p>
+
+<h3 id="why-white" style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Why the Broth Turns White</h3>
+<p>The signature white color comes from emulsification — the process by which pork fat, collagen, and marrow break down during a long, hard boil and disperse into microscopic particles that stay suspended in the liquid rather than separating out. The bones are agitated at a rolling boil for hours, which is exactly what drives that emulsification; a gentle simmer, by contrast, produces a clear stock no matter how long it cooks. Some regions — Hakata and Kurume in particular — intentionally push for an intensely cloudy, opaque broth, while other shops aim for a slightly lighter version depending on their bone selection and boil time.</p>
+
+<h3 id="why-creamy" style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Why It Tastes So Creamy</h3>
+<p>The creaminess comes from that same emulsification process, combined with the breakdown of collagen and connective tissue inside the bones. As collagen melts, it turns into gelatin, which creates a smooth, silky mouthfeel that coats the palate without feeling heavy the way a cream-based soup would. The result is a broth that's simultaneously rich and easy to eat — savory, comforting, and full-bodied without the flat heaviness of dairy.</p>
+
+<h3 id="whats-inside" style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">What's Inside a Bowl of Tonkotsu Broth</h3>
+<p>A traditional tonkotsu broth is typically built from a mix of pork bones — genkotsu (leg bones), back bones, and sometimes head bones for extra depth — simmered alongside aromatics like garlic, onion, ginger, and green onion. Those aromatics round out the aroma without masking the pork's natural flavor. The specific blend of bones and aromatics varies by region and by shop, which is a big part of why Hakata-style and Kurume-style tonkotsu, despite sharing a name, can taste genuinely different bowl to bowl.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="flavor" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">Flavor Profile</h2>
+<p>Tonkotsu delivers a uniquely rich, comforting flavor that sets it apart from the other three major ramen styles. Despite looking heavy, the taste is surprisingly balanced — deeply savory and aromatic without tipping into overwhelming.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">A Deep, Savory Umami Base</h3>
+<p>The foundation of tonkotsu's flavor comes from pork bones simmered for hours until collagen, marrow, and fat fully break down into the liquid. That process concentrates umami into the broth, along with a gentle natural sweetness and a lingering richness that feels bold without being punishing to finish.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Aroma and Texture</h3>
+<p>The aroma is warm and comforting — savory pork, garlic, and slow-simmered aromatics drifting up before the first spoonful. The creamy, velvety texture enhances every sip, coating the palate and pairing especially well with thin, Hakata-style noodles or the thicker noodles used in regional variations further down this guide.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Regional Differences: Hakata vs. Kurume</h3>
+<p>Tonkotsu is most closely associated with Hakata ramen, but the flavor genuinely shifts across Kyushu depending on where a shop traces its lineage:</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.4rem;"><strong>Hakata-style</strong> tends to be cleaner and more straightforward, putting pure pork flavor front and center.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Kurume-style</strong> — where tonkotsu originated — is often richer and more intense, using a blend of fresh and "recycled" broth (a technique called <em>yobimodoshi</em>, where new bones and water are added to an existing pot rather than starting fresh) for extra complexity.</li>
+</ul>
+<p>These subtle regional differences are part of why tonkotsu has such wide appeal — it adapts to local preference while holding onto its signature creamy identity everywhere it's served.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="noodles" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">Noodle Shape and Texture</h2>
+<p>Tonkotsu ramen is traditionally served with thin, straight noodles — the ideal partner for a dense, creamy broth. Thin noodles are built to be slurped quickly, letting you taste that intense broth flavor with every bite, and they hold a firm, slightly chewy texture that stands up well against the richness of the soup. This is also the pairing behind Hakata's famous <em>kae-dama</em> tradition, where diners can order a fresh serving of noodles mid-meal once the first batch is gone — the broth stays put in the bowl while the noodles get refreshed.</p>
+<p>That said, noodle thickness isn't universal across every tonkotsu-adjacent style. Hakata-style tonkotsu uses very thin, straight noodles; Yokohama Iekei ramen (more on that in the variations section below) typically uses noodles that are noticeably thicker; and Jiro-style ramen goes further still, pairing its bold, hearty broth with extra-thick noodles built to match the intensity of the bowl.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="toppings" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">Toppings and Condiments</h2>
+<p>Tonkotsu ramen is most often topped with <strong>chashu</strong> (braised pork belly), which layers on even more richness. Other standard toppings include <strong>ajitama</strong> — soft-marinated ramen eggs with a creamy, slightly runny yolk — <strong>kikurage</strong> (wood ear mushrooms) for texture and crunch, and fresh <strong>green onion</strong> for a sharp, bright contrast against the richness of the broth.</p>
+<p>To push the flavor further, many diners add <strong>sesame seeds</strong> for a subtle nutty aroma, or freshly minced <strong>garlic</strong> for a pungent kick that pairs naturally with the pork-forward broth. <strong>Takana</strong> (pickled mustard greens) is a common table-side condiment, adding a spicy, tangy note that cuts through the creaminess. Some shops also offer <strong>mayu</strong> (black garlic oil) for smoky depth, or <strong>beni shoga</strong> (pickled ginger) for a tangy counterbalance to the rich broth.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="history" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">The History of Tonkotsu Ramen</h2>
+<p>Tonkotsu ramen originates in the Kyushu region of Japan, specifically Fukuoka Prefecture, where it took shape in the Hakata district. Its creation is closely tied to the <em>yatai</em> (food stall) culture of Fukuoka, where street vendors needed a way to feed busy workers quickly. A pork bone broth was a practical answer — it could simmer all day on its own, ready to serve the moment a customer sat down.</p>
+<p>The dish gained popularity through the 1940s and 1950s as a cheap, filling meal well-suited to hardworking laborers. From there, tonkotsu spread beyond Fukuoka to become one of the most popular ramen styles across Japan, and eventually the world. Today, Hakata-style tonkotsu is celebrated internationally, known for its luxurious broth and a deceptively simple combination of flavor and texture that's taken decades of refinement to perfect.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="variations" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Tonkotsu Ramen Variations</h2>
+<p>Tonkotsu's rich pork base has inspired several distinct offshoot styles, each pushing the original in a different direction.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Jiro-Style Ramen</h3>
+<p>Jiro-style (named for the Tokyo shop Ramen Jiro) takes tonkotsu's richness and turns it up dramatically: a thick, fatty pork-and-soy broth, extra-thick chewy noodles, and mountains of toppings — bean sprouts, cabbage, a thick slab of chashu, and a heavy dose of garlic — piled well above the rim of the bowl. It's built to be a full, heavy meal rather than a delicate first course, and it's developed a cult following of its own for exactly that reason.</p>
+
+<h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">Yokohama Iekei-Style Ramen</h3>
+<p>Iekei ramen, which originated in Yokohama, is essentially a hybrid of two of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's main ramen styles</a>: a tonkotsu-shoyu blend that combines pork bone richness with a soy-seasoned tare, finished with chicken fat for extra body. It's typically served with thick, straight noodles and generous toppings — spinach, nori, and a large slice of chashu are the traditional trio. Iekei shops are also known for offering customizable richness, noodle firmness, and fat levels, so regulars can dial in their exact preference on every visit.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="comparison" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">How Tonkotsu Compares to Other Ramen Styles</h2>
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Style</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Broth Color</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Flavor</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Learn More</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Tonkotsu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Milky white / opaque</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rich, porky, creamy, fatty</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">You're reading it</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shoyu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clear golden-amber</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Savory, balanced, umami</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shoyu Ramen? →</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shio</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Pale gold / translucent</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clean, mineral, delicate</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shio Ramen? →</a></td>
+      </tr>
+      <tr style="background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Miso</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Opaque golden-brown</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, deep, fermented</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Miso Ramen? →</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>Want the full breakdown on every pairing? See our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a>, or <a href="/comparisons" style="color:#B57F50;text-decoration:underline;font-weight:600;">browse every ramen style comparison →</a></p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How to Find Great Tonkotsu Ramen Near You</h2>
+<p>Tonkotsu is the most common style at American ramen restaurants — it's what chains like JINYA and Ippudo built their U.S. presence around — so it's usually the easiest style to find close to home. The best way to separate a great bowl from a mediocre one is to check for the visual signs covered above: a genuinely opaque, dense broth that coats the spoon, thin firm noodles if it's Hakata-style, and fresh, generous toppings.</p>
+<p><a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse tonkotsu ramen restaurants near you →</a> or use our <a href="/find/tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen search map</a> to filter thousands of restaurants by broth type, rating, and distance. If you want the single highest-rated bowl near you regardless of style, our <a href="/find/best-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">best ramen near me page</a> sorts every restaurant by rating automatically.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="faq" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Tonkotsu Ramen FAQ</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Why is tonkotsu broth white?</h3>
+<p>Tonkotsu broth turns white through emulsification. As pork bones simmer at a hard, rolling boil, fat, collagen, and marrow break down and disperse into the liquid, creating a cloudy, milky appearance. No dairy or thickening agents are used — just bone, heat, and time.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What makes tonkotsu broth creamy?</h3>
+<p>The creaminess comes from melted collagen and fat emulsifying into the broth during a long, vigorous boil. This creates a rich, velvety texture that coats the palate without feeling overly heavy.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What bones are used for tonkotsu ramen?</h3>
+<p>Traditional tonkotsu broth is made from a blend of pork bones such as genkotsu (leg bones), back bones, and sometimes head bones. These provide depth, umami, and the signature richness associated with Hakata- and Kurume-style ramen.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is tonkotsu ramen spicy?</h3>
+<p>Classic tonkotsu ramen is not spicy — its flavor is savory, aromatic, and pork-forward. Some shops offer spicy variations using chili oils, mayu (black garlic oil), or spicy condiments added at the table, but the base style itself is not heat-forward.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What toppings go well with tonkotsu ramen?</h3>
+<p>Popular toppings include chashu pork, ajitama (ramen eggs), green onions, kikurage mushrooms, sesame seeds, and freshly minced garlic. Regional or shop variations may add takana (pickled mustard greens), mayu, or beni shoga for extra depth and contrast.</p>`,
+  restaurantCards: tonkotsuGuideCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>Tonkotsu ramen is defined by one thing above all: a pork bone broth boiled hard and long enough to emulsify into a rich, milky-white soup with a texture no other ramen style can match. Everything else — the thin noodles, the chashu and ajitama, the regional differences between Hakata and Kurume, the Jiro and Iekei offshoots — builds on that single foundational technique.</p>
+<p>If you're new to the style, start with a classic Hakata-style bowl to understand the baseline, then branch out into Kurume's richer, yobimodoshi-blended broth or an Iekei shop's tonkotsu-shoyu hybrid once you know what you're comparing it to. And if you want to see how tonkotsu stacks up against the other three major styles, our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a> covers all of them side by side, or read our dedicated guides to <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu ramen</a>, <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio ramen</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso ramen</a>.</p>
+<p>Ready to try it yourself? <a href="/tonkotsu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find tonkotsu ramen near you</a> using our broth-filtered restaurant directory — thousands of ramen spots mapped across the US, sorted by rating and distance.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Why is tonkotsu broth white?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Tonkotsu broth becomes white through a process called emulsification. As pork bones simmer at high heat, fat, collagen, and marrow break down and disperse into the liquid, creating a cloudy, milky appearance. No dairy or thickening agents are used — just bone, heat, and time.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What makes tonkotsu broth creamy?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Its creaminess comes from melted collagen and fat that emulsify into the broth during long, vigorous boiling. This process creates a rich, velvety texture that coats the palate without feeling overly heavy.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What bones are used for tonkotsu ramen?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Traditional tonkotsu broth is made from a blend of pork bones such as genkotsu (leg bones), back bones, and sometimes head bones. These provide depth, umami, and the signature richness associated with Hakata- and Kurume-style ramen.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is tonkotsu ramen spicy?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Classic tonkotsu ramen is not spicy. Its flavor is savory, aromatic, and pork-forward. However, some shops offer spicy variations using chili oils, mayu (black garlic oil), or spicy condiments added at the table.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What toppings go well with tonkotsu ramen?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Popular toppings include chashu pork, ajitama (ramen eggs), green onions, kikurage mushrooms, sesame seeds, and freshly minced garlic. Regional or shop variations may add takana (pickled mustard greens), mayu, or beni shoga for extra depth and contrast.' },
+      },
+    ],
+  },
+})
+
+
+
+const ramenNoodleGuideCards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'E Ramen +',
+    rating: 4.6,
+    reviewCount: 1056,
+    address: '1110 W Peachtree St NW #300, Atlanta, GA 30309',
+    phone: '+1 404-913-4142',
+    description: "One of the few Atlanta ramen shops making noodles from scratch daily, in-house. The difference between fresh, hand-cut noodles and mass-produced dried ones is obvious from the first bite — springier, more aromatic, and cooked to order rather than pre-portioned. A great place to actually taste what fresh kansui noodles are supposed to be.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHpL-16lOC62LPA8GMFCSO_qz6OwfOcS15qXfs481X2z2U12myPsrs5hZAcfw0HAaxtExjtS6IM1Yl2GhfVXqC_9twm5L7HB0X62iUrsJFofomlPbjghqa_4O8ocMAhtfs7dqim=w800-h500-k-no',
+    slug: 'e-ramen',
+    citySlug: 'atlanta',
+    stateSlug: 'ga',
+    tags: ['Housemade Noodles', 'Japanese', 'Sake Bar'],
+  },
+  {
+    rank: 2,
+    name: 'Okiboru Tsukemen & Ramen',
+    rating: 4.8,
+    reviewCount: 1099,
+    address: '2277 Peachtree Rd NE B, Atlanta, GA 30309',
+    phone: '+1 404-941-7469',
+    description: "Atlanta's highest-rated ramen restaurant, and a masterclass in noodle texture. Tsukemen is the best possible dish for judging noodle quality on its own — thick, chewy noodles served separately from the broth so there's nowhere for a mediocre noodle to hide. Every component, including the noodles, is made in-house with real precision.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV-ir1WWoRunbC7WyOC76EfAEIJ9F0vxc_5dP29_YZQBQNdju9browSuXjCMRV9lGeT9BUHnBj5lyg7NvdZRD0VW28NK303hkY9tIvOvtYYMuUMZ8Ho6p7vCll_mPLEDXItNpphMds2RCL=w800-h500-k-no',
+    slug: 'okiboru-tsukemen-ramen',
+    citySlug: 'atlanta',
+    stateSlug: 'ga',
+    tags: ['Tsukemen', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 3,
+    name: 'Susuru Ramen',
+    rating: 4.8,
+    reviewCount: 669,
+    address: '33-19 36th Ave, Long Island City, NY 11106',
+    phone: '+1 718-806-1521',
+    description: "A compact Long Island City shop that makes its noodles fresh daily — a detail that matters more than most diners realize. Susuru's housemade noodles hold their bite far longer in hot broth than mass-produced dried noodles, which is exactly the kind of texture difference this guide explains the science behind.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEz2P9K5MB_GjCQnG5VNSjsO69aiD-5Q7CYYkvZacpfUSRaR6ZvE6deGjZ7bSUpA_HSXCgWl2vp2bKNwheuf1gLO9HZqIm1ErCMgtK57kgJN45Xf89E7d6jKf1n_KqCwp8v0OM=w800-h500-k-no',
+    slug: 'susuru-ramen',
+    citySlug: 'long-island-city',
+    stateSlug: 'ny',
+    tags: ['Shio', 'Japanese', 'Housemade Noodles'],
+  },
+]
+
+blogPosts.push({
+  slug: 'what-are-ramen-noodles-made-of',
+  title: 'What Are Ramen Noodles Made Of? The Complete Guide',
+  h1: 'What Are Ramen Noodles Made Of?',
+  description: "Ramen noodles are made from just four ingredients — wheat flour, water, salt, and kansui — but that one alkaline ingredient is what makes them yellow, springy, and unmistakably different from every other noodle. Here's the full breakdown.",
+  date: 'June 24, 2026',
+  readTime: '10 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Restaurants Known for Fresh, Housemade Noodles',
+  content: `<p><strong>Ramen noodles are made from just four core ingredients: wheat flour, water, salt, and kansui — an alkaline mineral solution (usually a blend of sodium carbonate and potassium carbonate) that gives ramen its signature yellow color, springy bite, and characteristic aroma.</strong> Kansui is the one ingredient that sets ramen apart from nearly every other noodle on earth: it raises the dough's pH, which changes how the wheat's gluten behaves and produces a firmer, chewier, more elastic noodle than plain wheat-and-water pasta or udon ever could.</p>
+
+<p>That sounds simple on paper, but the way those four ingredients come together — and the huge range of noodle shapes and thicknesses that come out the other end — is genuinely interesting once you dig into it. This guide covers exactly what's in a ramen noodle, why kansui matters so much, how the noodles are actually made, how fresh noodles differ from dried and instant ones, and how noodle shape changes depending on which ramen style it's built for.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.75rem;">Ramen Noodles at a Glance</p>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Core ingredients</td><td style="padding:0.4rem 0;color:#6B6862;">Wheat flour, water, salt, kansui (alkaline mineral solution)</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Key ingredient</td><td style="padding:0.4rem 0;color:#6B6862;">Kansui — usually sodium carbonate + potassium carbonate</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Color</td><td style="padding:0.4rem 0;color:#6B6862;">Pale yellow — from kansui's reaction with flavonoids in the wheat flour</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Texture</td><td style="padding:0.4rem 0;color:#6B6862;">Firm, springy, elastic ("chewy bite") — distinct from soft wheat pasta</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Not made with</td><td style="padding:0.4rem 0;color:#6B6862;">Eggs (traditionally), rice, or plastic — a common but false rumor</td></tr>
+        <tr><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Common forms</td><td style="padding:0.4rem 0;color:#6B6862;">Fresh, dried, and instant (flash-fried or air-dried)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#ingredients" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Ingredients</a>
+    <a href="#kansui" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Kansui</a>
+    <a href="#how-made" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">How They're Made</a>
+    <a href="#vs-other-noodles" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Vs. Other Noodles</a>
+    <a href="#shapes" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Shapes &amp; Thickness</a>
+    <a href="#fresh-vs-instant" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Fresh vs. Instant</a>
+    <a href="#diet" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Vegan &amp; Gluten-Free</a>
+    <a href="#faq" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">FAQ</a>
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="ingredients" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The Core Ingredients, One at a Time</h2>
+<p>Every traditional ramen noodle recipe starts from the same four building blocks. It's the ratio and technique — not extra ingredients — that create all the variety you see across different ramen styles.</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.5rem;"><strong>Wheat flour</strong> — Provides the structure and gluten needed to make the noodles stretchy and durable enough to survive a hot broth without falling apart. Ramen shops typically use a high-protein "strong" or "semi-strong" flour, similar to bread flour, because more protein means more gluten development.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Water</strong> — Hydrates the flour and activates gluten formation. The ratio of water to flour (hydration percentage) is one of the biggest levers a noodle maker has over the final texture — lower hydration produces firmer, thinner noodles; higher hydration produces softer, thicker ones.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Salt</strong> — Strengthens the gluten structure, tightens the dough, and adds baseline flavor. It also slows fermentation slightly, giving the dough more working time.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Kansui</strong> — An alkaline solution, usually made from sodium carbonate and potassium carbonate, that reacts with the proteins in the wheat to turn the dough yellow and give it its firm, springy "bite." This is the ingredient that makes ramen noodles taste and feel like ramen noodles rather than regular pasta.</li>
+</ul>
+<p>Some modern and regional variations add a small amount of egg for extra richness and color, but egg is not part of the traditional recipe — the yellow hue people often attribute to egg is almost always coming from kansui instead.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="kansui" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">What Is Kansui, and Why Does It Matter So Much?</h2>
+<p>Kansui (かん水) is a food-grade alkaline mineral water, most commonly a blend of sodium carbonate and potassium carbonate dissolved in water. It's added to the flour and water at the mixing stage, and it does three specific things that plain wheat dough can't do on its own:</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.4rem;"><strong>Raises the dough's pH.</strong> Ramen dough sits around pH 9–11, well above the neutral pH of standard pasta dough. That alkalinity changes how the wheat proteins fold and bond, producing a tighter, more elastic gluten network.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Creates the yellow color.</strong> The alkaline environment reacts with naturally occurring flavonoid pigments in the wheat flour, turning the dough a pale yellow — the same reaction (unrelated to egg) that gives ramen its recognizable look.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Produces the "bite."</strong> That tighter gluten network is what gives ramen noodles their firm, springy, slightly resistant chew — the quality Japanese cooks call <em>koshi</em> — and it's also what lets the noodles hold their texture in hot broth for longer than a standard wheat noodle would.</li>
+</ul>
+<p>Kansui is also responsible for ramen's faint, distinctive aroma — a subtle mineral note that's part of what makes a bowl smell unmistakably like ramen rather than any other noodle soup. Noodle makers vary the kansui ratio by style: a Hakata-style tonkotsu noodle typically uses a lighter kansui hand for a delicate, thin strand, while an Iekei or Jiro-style noodle — as covered in our <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">guide to tonkotsu ramen</a> — leans into a firmer, thicker noodle built to survive a much heavier broth.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="how-made" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How Ramen Noodles Are Actually Made</h2>
+<p>The process is simpler in concept than it sounds, but the details separate a mediocre noodle from a great one:</p>
+<ol style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.5rem;"><strong>Mixing</strong> — Flour, water, salt, and kansui are combined into a shaggy, deliberately dry dough. Ramen dough is much drier than most pasta dough, which is why it can't simply be kneaded smooth by hand the way pasta dough can.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Resting</strong> — The dough rests so the flour can fully hydrate and the gluten network can relax and develop, usually for 30 minutes to several hours depending on the shop.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Sheeting and laminating</strong> — The dough is repeatedly rolled and folded through progressively tighter rollers. This lamination step is what develops the tight, layered gluten structure responsible for that springy bite — it's doing mechanically what kneading does for softer doughs.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Cutting</strong> — The sheeted dough is cut into strands using a roller with grooves of a specific width, which determines whether the final noodle is thin and straight or thick and wavy.</li>
+  <li style="margin-bottom:0.5rem;"><strong>Aging (optional)</strong> — Some shops age the cut noodles briefly before cooking to let the texture settle further, though many serve them same-day for maximum freshness.</li>
+</ol>
+<p>If you want to see how that finished noodle interacts with broth once it's actually in the bowl, our guide to <a href="/blog/cooking-ramen-noodles-in-broth" style="color:#B57F50;text-decoration:underline;font-weight:600;">cooking ramen noodles in broth</a> covers the technique side in more depth.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="vs-other-noodles" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Ramen Noodles vs. Other Noodle Types</h2>
+<p>Ramen noodles are frequently confused with other Asian noodles that look similar but are built from completely different ingredients and techniques.</p>
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Noodle</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Made From</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Key Difference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Ramen</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Wheat flour, water, salt, kansui</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Kansui gives it yellow color and springy bite</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Udon</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Wheat flour, water, salt (no kansui)</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Thicker, softer, chewier without the alkaline bite</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Soba</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Buckwheat flour (often blended with wheat)</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, nutty flavor; naturally gray-brown</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Lanzhou hand-pulled noodles</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Wheat flour, water, salt, and a food-grade alkaline agent (peng hui)</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Hand-stretched rather than rolled and cut</td>
+      </tr>
+      <tr>
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Rice noodles / vermicelli</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rice flour, water</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Gluten-free, softer, no wheat at all</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>Interestingly, Lanzhou-style hand-pulled noodles use their own alkaline agent for a similar chewy effect — proof that the "wheat plus alkaline mineral" formula shows up more than once in noodle history, even outside Japan. You can browse <a href="/find/hand-pulled-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">hand-pulled ramen near you</a> to taste the difference side by side.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="shapes" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Noodle Shapes and Thickness by Ramen Style</h2>
+<p>The same four ingredients can be cut and formulated into noodles that behave completely differently, and the best shops match their noodle to their broth on purpose:</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.4rem;"><strong>Thin, straight noodles</strong> — The Hakata tonkotsu standard. Low hydration, quick-cooking, and built to be slurped fast alongside a rich, thick broth. Browse <a href="/find/thin-noodle-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">thin noodle ramen near you</a>.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Thick, wavy noodles</strong> — Common in miso and Jiro-style bowls, where a heavier, chunkier broth needs a noodle sturdy enough to hold onto it and stand up to a longer chew. Browse <a href="/find/thick-noodle-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">thick noodle ramen near you</a>.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Medium, wavy noodles</strong> — The classic Tokyo shoyu shape: a balanced middle ground that works with a lighter, clearer broth without disappearing into it.</li>
+</ul>
+<p>For a deeper look at how noodle thickness pairs with each broth style, see our full guide to <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="fresh-vs-instant" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Fresh vs. Dried vs. Instant Ramen Noodles</h2>
+<p>All three share the same core recipe, but how they're finished changes the texture and nutrition significantly:</p>
+<ul style="padding-left:1.25rem;margin:0.75rem 0 1.25rem;">
+  <li style="margin-bottom:0.4rem;"><strong>Fresh noodles</strong> — Cut and cooked within hours (sometimes minutes) of being made, with no drying step. This is what you'll get at a serious ramen shop, and it's why fresh noodles have a noticeably springier, more aromatic bite than anything packaged. Browse <a href="/find/fresh-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">fresh ramen noodles near you</a>.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Dried noodles</strong> — Air-dried after cutting to extend shelf life, then rehydrated in boiling water before serving. Texture is close to fresh but slightly less springy.</li>
+  <li style="margin-bottom:0.4rem;"><strong>Instant noodles</strong> — Pre-cooked (usually steamed), then either flash-fried in oil or air-dried, which is what lets them rehydrate in just a few minutes of soaking. The frying step adds fat and calories that fresh and dried noodles don't have, which is the real nutritional gap between instant ramen and restaurant-quality ramen — not the noodle recipe itself.</li>
+</ul>
+<p>This is also why comparing instant ramen to a proper bowl at a restaurant isn't really an apples-to-apples comparison — the base dough is similar, but the finishing process and the broth built around it are worlds apart.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="diet" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Are Ramen Noodles Vegan? Gluten-Free? Made of Plastic?</h2>
+<p>A few myths and genuine dietary questions come up constantly around ramen noodles, so it's worth addressing them directly.</p>
+<p><strong>Are ramen noodles vegan?</strong> The noodles themselves usually are — traditional ramen noodle dough contains no egg, dairy, or animal product, just wheat flour, water, salt, and kansui. The broth is a different story, since most traditional stocks are pork- or chicken-based. If you're looking for a fully plant-based bowl, browse <a href="/vegan-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">vegan ramen restaurants near you</a> — the noodles are rarely the problem; the broth is what to check.</p>
+<p><strong>Are ramen noodles gluten-free?</strong> No — traditional ramen noodles are made from wheat flour and contain gluten. Gluten-free versions exist using rice or buckwheat flour blends, but they're a substitution, not the standard recipe. See our <a href="/find/gluten-free-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">gluten-free ramen guide</a> for what to look for.</p>
+<p><strong>Are ramen noodles made of plastic?</strong> No — this is a persistent internet myth with no basis in the actual recipe. Ramen noodles are wheat flour, water, salt, and kansui, full stop. The rumor likely traces back to two unrelated things getting mixed together online: the thin wax coating sometimes used on instant noodle blocks to help them separate and stay shelf-stable, and viral (and misleading) claims about digestion times for processed noodles. Neither has anything to do with plastic being an actual ingredient — no ramen noodle, fresh or instant, contains plastic.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Where to Find Great Ramen Noodles Near You</h2>
+<p>Once you know what to look for — springy texture, a pale yellow color, and a noodle shape matched to its broth — it's easy to tell a shop that takes noodles seriously from one that doesn't. <a href="/find/ramen-noodles" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse ramen noodle restaurants near you</a>, or head straight to our <a href="/find/best-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">best ramen near me page</a> to see every restaurant in our directory sorted by rating.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="faq" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Ramen Noodles FAQ</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What are ramen noodles made of?</h3>
+<p>Ramen noodles are made from wheat flour, water, salt, and kansui — an alkaline mineral solution that gives the noodles their yellow color, firm texture, and springy bite. Some modern variations add a small amount of egg, but it isn't part of the traditional recipe.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What is kansui, and why is it used?</h3>
+<p>Kansui is a food-grade alkaline solution, typically sodium carbonate and potassium carbonate dissolved in water. It raises the pH of ramen dough, which changes how the wheat's gluten develops — producing the firm, elastic, springy texture and pale yellow color that define ramen noodles.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Are ramen noodles the same as egg noodles?</h3>
+<p>No. Traditional ramen noodles don't contain egg — their color and bite come from kansui, not egg yolk. Some regional or modern recipes add a small amount of egg for extra richness, but it's an addition, not the defining ingredient.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Are ramen noodles vegan?</h3>
+<p>The noodles themselves usually are, since the traditional recipe contains no animal products. The broth is where most ramen stops being vegan, as classic stocks are typically pork- or chicken-based. Look for restaurants that specifically offer a plant-based broth if you need the whole bowl to be vegan.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Are ramen noodles made of plastic?</h3>
+<p>No. This is a persistent but false internet rumor. Ramen noodles are made from wheat flour, water, salt, and kansui. The myth likely comes from confusion with the wax coating sometimes used on instant noodle blocks and unrelated, misleading claims about digestion — neither involves an actual plastic ingredient.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What's the difference between ramen noodles and instant noodles?</h3>
+<p>They share the same base dough, but instant noodles are pre-cooked and then flash-fried or air-dried so they rehydrate in minutes. That frying step is what adds extra fat and calories compared to fresh or dried noodles — the core recipe itself isn't the issue.</p>`,
+  restaurantCards: ramenNoodleGuideCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>Ramen noodles come down to four ingredients — wheat flour, water, salt, and kansui — with kansui doing almost all of the heavy lifting that makes ramen taste and feel like ramen instead of just another wheat noodle. Everything else, from noodle shape to hydration level to whether it's served fresh or instant, is a variation built on that same foundation.</p>
+<p>Next time you're comparing bowls, pay attention to the noodle as closely as the broth — a shop that makes fresh, well-formulated noodles in-house is usually a shop that takes everything else seriously too. <a href="/find/ramen-noodles" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find ramen noodle restaurants near you</a>, or explore <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what makes tonkotsu ramen distinct</a> to see how noodle and broth choices work together in one of Japan's most iconic styles.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What are ramen noodles made of?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Ramen noodles are made from wheat flour, water, salt, and kansui — an alkaline mineral solution that gives the noodles their yellow color, firm texture, and springy bite. Some modern variations add a small amount of egg, but it is not part of the traditional recipe.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is kansui, and why is it used?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Kansui is a food-grade alkaline solution, typically sodium carbonate and potassium carbonate dissolved in water. It raises the pH of ramen dough, which changes how the wheat gluten develops, producing the firm, elastic, springy texture and pale yellow color that define ramen noodles.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are ramen noodles the same as egg noodles?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No. Traditional ramen noodles do not contain egg. Their color and bite come from kansui, not egg yolk. Some regional or modern recipes add a small amount of egg for extra richness, but it is an addition, not the defining ingredient.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are ramen noodles vegan?',
+        acceptedAnswer: { '@type': 'Answer', text: 'The noodles themselves usually are, since the traditional recipe contains no animal products. The broth is where most ramen stops being vegan, as classic stocks are typically pork- or chicken-based.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are ramen noodles made of plastic?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No. This is a false internet rumor. Ramen noodles are made from wheat flour, water, salt, and kansui. The myth likely comes from confusion with the wax coating sometimes used on instant noodle blocks and unrelated claims about digestion.' },
+      },
+      {
+        '@type': 'Question',
+        name: "What's the difference between ramen noodles and instant noodles?",
+        acceptedAnswer: { '@type': 'Answer', text: 'They share the same base dough, but instant noodles are pre-cooked and then flash-fried or air-dried so they rehydrate in minutes. That frying step adds extra fat and calories compared to fresh or dried noodles.' },
+      },
+    ],
+  },
+})
+
+
+
+const shoyuGuideCards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Kin Ramen',
+    rating: 4.8,
+    reviewCount: 4465,
+    address: '129 W 56th St, New York, NY 10019',
+    phone: '+1 212-933-9292',
+    description: "One of Midtown Manhattan's most respected bowls. Kin Ramen keeps their shoyu broth anchored in a deeply seasoned chicken-and-dashi base brightened by aged soy tare — the result is layered, complex, and never salty-aggressive. Over 4,400 five-star reviews confirm this is the real thing. A must-visit for anyone chasing authentic Tokyo-style shoyu ramen in New York.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHb3SS2vp3WX9jmL1bLgqkUHdd5STk2ZWLdiozkwQrl7lM6HEiuPP5VcyolETgFdtSdX2LVQASR51_GnOv6rNUAsYHCdFMKIuPP5K8em80VcyolETgFdtSdX2LMSR=w800-h500-k-no',
+    slug: 'kin-ramen',
+    citySlug: 'new-york',
+    stateSlug: 'ny',
+    tags: ['Shoyu', 'Japanese', 'Tokyo-Style'],
+  },
+  {
+    rank: 2,
+    name: 'Tenichi Ramen',
+    rating: 4.8,
+    reviewCount: 2153,
+    address: '382 7th Ave, Brooklyn, NY 11215',
+    phone: '+1 718-369-8808',
+    description: "Brooklyn's go-to neighborhood ramen shop for a carefully made shoyu bowl. Tenichi uses a double-stock base (chicken and kombu dashi) seasoned with their house shoyu tare, producing a golden, transparent broth with exceptional depth. The noodles are sourced from a dedicated Japanese noodle house. At 4.8 stars with over 2,000 reviews, this is Park Slope's ramen anchor.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHb3SS2vp3WX9jmL1bLgqkUHdd5STk2ZWLdiozkwQrl7lM6HEiuPP5VcyolETgFdtSdX2LVQASR51_GnOv6rNUAsYHCdFMKIuPP5K8em80VcyolETgFdtSdX2LMSR=w800-h500-k-no',
+    slug: 'tenichi-ramen',
+    citySlug: 'brooklyn',
+    stateSlug: 'ny',
+    tags: ['Shoyu', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 3,
+    name: 'House of Umami Ramen',
+    rating: 4.8,
+    reviewCount: 2674,
+    address: '45250 Ford Rd, Canton Township, MI 48187',
+    phone: '+1 734-359-3053',
+    description: "Michigan's highest-rated ramen destination and proof that serious Japanese ramen has arrived in the Midwest. House of Umami's shoyu bowl — their chicken-based tori shoyu — is the standout, featuring clean, soy-kissed broth over wavy wheat noodles with sous-vide chicken chashu. Vegan options and a full bar round out one of the most complete ramen menus in the region.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGupMhpAzItM1DxIHJqQrjg3S-pBp9kXKGlLZjMhIrNRz5zXGz_HuwNm_Po1r4LpLQnZsSiYqNyhL1Cs7rkB6TbDG2MiO2flsGXKypRC5Mu8_wb0d-5g-2DQfUWdWa8aPJY_eXaeSLo8q4=w800-h500-k-no',
+    slug: 'house-of-umami-ramen',
+    citySlug: 'canton-township',
+    stateSlug: 'mi',
+    tags: ['Shoyu', 'Japanese', 'Ramen Bar'],
+  },
+]
+
+blogPosts.push({
+  slug: 'what-is-shoyu-ramen',
+  title: 'What Is Shoyu Ramen? The Complete Guide to Ramen\'s Original Style',
+  h1: 'What Is Shoyu Ramen?',
+  description: "Shoyu ramen is the original Japanese ramen style — a clear, soy-sauce-seasoned broth born in early-1900s Tokyo. Here's everything to know: the broth, flavor, history, noodles, toppings, and how it compares to tonkotsu, shio, and miso.",
+  date: 'June 26, 2026',
+  readTime: '10 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Top-Rated Shoyu Ramen Restaurants to Try',
+  content: `<p><strong>Shoyu ramen is a Japanese noodle soup built on a clear, amber-brown broth seasoned with soy sauce (shoyu) — typically a chicken or chicken-and-pork stock rounded out with kombu and bonito dashi, then finished with a soy-based tare just before serving.</strong> It's the original ramen style, tracing back to Tokyo in the early 1900s, and it's the light-to-medium-bodied, savory-but-balanced bowl most people picture by default when they hear the word "ramen." Where <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen</a> is defined by its broth base, shoyu is defined by its seasoning — the same chicken stock can become an entirely different bowl depending on which tare is stirred in.</p>
+
+<p>Shoyu is one of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, and arguably the most important one historically — it's the template every other style branched off from. This guide covers exactly what defines shoyu ramen, how the broth and tare are built, what the noodles and toppings look like, where it came from, and how it stacks up against tonkotsu, shio, and miso.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.75rem;">Shoyu at a Glance</p>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Origin</td><td style="padding:0.4rem 0;color:#6B6862;">Asakusa, Tokyo — first served around 1910</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Broth base</td><td style="padding:0.4rem 0;color:#6B6862;">Clear chicken stock, often with kombu-bonito dashi and sometimes pork</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Tare (seasoning)</td><td style="padding:0.4rem 0;color:#6B6862;">Soy sauce-based, often layered with mirin, sake, and aromatics</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Color &amp; texture</td><td style="padding:0.4rem 0;color:#6B6862;">Clear amber-brown; light to medium body</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Flavor</td><td style="padding:0.4rem 0;color:#6B6862;">Savory, tangy, balanced, clean soy backbone</td></tr>
+        <tr><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Best for</td><td style="padding:0.4rem 0;color:#6B6862;">First-timers and anyone who wants a balanced, classic bowl</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#what-is-shoyu" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">What It Is</a>
+    <a href="#broth" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">The Broth</a>
+    <a href="#flavor" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Flavor</a>
+    <a href="#noodles" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Noodles</a>
+    <a href="#toppings" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Toppings</a>
+    <a href="#history" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">History</a>
+    <a href="#comparison" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Comparison</a>
+    <a href="#faq" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">FAQ</a>
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="what-is-shoyu" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">What Is Shoyu Ramen, Exactly?</h2>
+<p>Shoyu (醤油) simply means "soy sauce" in Japanese, and that soy-based tare is the single defining feature of the style — not the stock underneath it. Because the name refers to the seasoning rather than the base, the same chicken or pork stock can become shoyu, shio, or tonkotsu ramen depending entirely on which tare gets stirred in at the end. That's a genuinely different logic than <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>, which is named for its broth, not its seasoning.</p>
+<p>Shoyu is one of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, alongside tonkotsu and its close cousins <a href="/shio-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> and <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a>. It's the oldest of the four, and the one that shaped what ramen looks like in the popular imagination worldwide: a clear-to-amber broth, wavy noodles, sliced chashu, and a soft-boiled egg.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="broth" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The Broth: Clear, Balanced, and Built on the Tare</h2>
+<p>The base stock for shoyu ramen is typically chicken (tori), sometimes blended with pork, and almost always enhanced with dashi — a combination of kombu (kelp) and dried bonito flakes (katsuobushi), or occasionally dried sardines (niboshi). Critically, the stock is simmered gently rather than boiled hard, which is exactly what keeps it clear instead of turning cloudy the way tonkotsu does. A shoyu broth that looks murky is usually a sign of a rushed or lower-quality stock, not an intentional style choice.</p>
+<p>What actually defines the bowl is the tare: a concentrated soy sauce seasoning blended with mirin, sake, aromatics, and sometimes dried seafood, then aged for anywhere from days to months before use. A well-built shoyu tare is genuinely complex — savory, a little sweet, a little tangy — and it's mixed into the base stock at the very last moment in the bowl, which is what gives the broth its deep amber color.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="flavor" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Flavor Profile</h2>
+<p>Shoyu ramen is savory, clean, and layered rather than intense. The soy tare provides a deep umami backbone with a gentle tang, but because the underlying stock is simmered gently rather than boiled hard, the broth never gets heavy the way a pork-bone-based style can. It's the most "drinkable" of the four classic styles — the kind of broth you can finish the whole bowl of without feeling weighed down.</p>
+<p>Because shoyu is balanced rather than dominant, it's also the style most likely to expose a kitchen's actual skill level. There's nowhere for a mediocre stock to hide behind heavy fat or fermented paste — if the shoyu bowl at a shop tastes complex and well-built, everything else on the menu usually is too.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="noodles" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Noodle Shape and Texture</h2>
+<p>Classic shoyu ramen uses medium-thickness, often slightly wavy or curly wheat noodles with medium hydration — a middle-ground shape that holds up in a lighter broth without overpowering it the way a thick Jiro-style noodle would, or disappearing into it the way an ultra-thin Hakata noodle might in a lighter soup. For more on how <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">ramen noodles are actually made</a> — including the role of kansui in giving them their signature bite — see our full noodle guide.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="toppings" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Toppings and Condiments</h2>
+<p>A textbook shoyu bowl is topped with sliced <strong>chashu</strong> pork belly or shoulder, <strong>menma</strong> (bamboo shoots), <strong>narutomaki</strong> (fish cake), a sheet of <strong>nori</strong>, fresh <strong>green onion</strong>, and a halved, soft-boiled marinated egg (<strong>ajitsuke tamago</strong>). Shoyu's balanced nature makes it the most food-friendly style on the menu — it pairs cleanly with a wide range of toppings without any of them getting lost or overwhelmed, which is part of why it's the style most traditional Japanese shops build their signature bowl around.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="history" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The History of Shoyu Ramen</h2>
+<p>Shoyu ramen's origins trace to Asakusa in Tokyo, where a restaurant called Rairaiken began serving a Chinese-inspired noodle soup around 1910. The dish was quickly adapted to Japanese tastes — cooks folded in Japanese soy sauce to season the broth, creating a distinctly Japanese flavor that diverged from its Chinese noodle-soup roots. By the 1940s and 1950s, shoyu ramen had become the dominant style across Tokyo and the wider Kanto region.</p>
+<p>Because it became the cultural template for ramen — the version that showed up constantly in Japanese film, television, and manga — shoyu is what most people outside Japan picture by default when they imagine "ramen," even if they've never heard the word shoyu itself.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="comparison" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">How Shoyu Compares to the Other Ramen Styles</h2>
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Style</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Broth Color</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Flavor</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Learn More</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shoyu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clear golden-amber</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Savory, balanced, umami</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">You're reading it</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Tonkotsu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Milky white / opaque</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rich, porky, creamy, fatty</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Tonkotsu Ramen? →</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shio</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Pale gold / translucent</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clean, mineral, delicate</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shio Ramen? →</a></td>
+      </tr>
+      <tr>
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Miso</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Opaque golden-brown</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, deep, fermented</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Miso Ramen? →</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>Want the full side-by-side breakdown? See our guide to <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">all four ramen styles compared</a>, or browse the <a href="/comparisons/shoyu-ramen-vs-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu vs. miso</a> and <a href="/comparisons/shoyu-ramen-vs-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu vs. shio</a> deep dives.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How to Find Great Shoyu Ramen Near You</h2>
+<p>Shoyu is widely available at traditional Japanese ramen shops, particularly in cities with strong Japanese American communities. Look for a broth that's genuinely clear rather than cloudy, and don't be afraid to order it as your first bowl at any new shop — it's the single best way to judge a kitchen's baseline quality.</p>
+<p><a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse shoyu ramen restaurants near you →</a> or use our <a href="/find/shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu ramen search map</a> to filter by rating, distance, and hours.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="faq" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Shoyu Ramen FAQ</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What does shoyu mean?</h3>
+<p>Shoyu (醤油) is the Japanese word for soy sauce. Shoyu ramen is named for its soy-sauce-based tare, the seasoning that defines the style's flavor.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What is shoyu ramen broth made of?</h3>
+<p>The base is typically a chicken stock, sometimes blended with pork, enriched with kombu and bonito dashi. It's seasoned at the end with a concentrated soy sauce tare, which is what gives the broth its amber color and savory depth.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What is the difference between shoyu and shio ramen?</h3>
+<p>Both are clear, light broths, but shoyu is seasoned with soy sauce, giving it a brown-amber color and deeper umami, while shio is seasoned with salt, producing a paler, more delicate broth.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is shoyu ramen the same as tonkotsu?</h3>
+<p>No. Tonkotsu is named for its pork-bone broth base, while shoyu is named for its soy-sauce seasoning. A shop can technically make a "tonkotsu shoyu" bowl by seasoning a pork-bone stock with a shoyu tare, combining both.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is shoyu ramen a good starting point for ramen beginners?</h3>
+<p>Yes — its balanced, savory-without-being-heavy flavor makes it the easiest of the four classic styles to enjoy immediately, and it's a great way to judge a new ramen shop's baseline quality before trying something bolder like tonkotsu.</p>`,
+  restaurantCards: shoyuGuideCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>Shoyu ramen is the original — a clear, soy-seasoned bowl that shaped what ramen looks like everywhere in the world. It's balanced rather than bold, which makes it both the easiest style for beginners and the best test of a kitchen's real skill.</p>
+<p>Curious how it stacks up against the other styles? Read our guides to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen</a>, <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio ramen</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso ramen</a>, or jump straight to <a href="/shoyu-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find shoyu ramen near you</a>.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'What does shoyu mean?', acceptedAnswer: { '@type': 'Answer', text: 'Shoyu is the Japanese word for soy sauce. Shoyu ramen is named for its soy-sauce-based tare, the seasoning that defines the style\'s flavor.' } },
+      { '@type': 'Question', name: 'What is shoyu ramen broth made of?', acceptedAnswer: { '@type': 'Answer', text: 'The base is typically a chicken stock, sometimes blended with pork, enriched with kombu and bonito dashi. It is seasoned at the end with a concentrated soy sauce tare, which gives the broth its amber color and savory depth.' } },
+      { '@type': 'Question', name: 'What is the difference between shoyu and shio ramen?', acceptedAnswer: { '@type': 'Answer', text: 'Both are clear, light broths, but shoyu is seasoned with soy sauce, giving it a brown-amber color and deeper umami, while shio is seasoned with salt, producing a paler, more delicate broth.' } },
+      { '@type': 'Question', name: 'Is shoyu ramen the same as tonkotsu?', acceptedAnswer: { '@type': 'Answer', text: 'No. Tonkotsu is named for its pork-bone broth base, while shoyu is named for its soy-sauce seasoning. A shop can make a "tonkotsu shoyu" bowl by seasoning a pork-bone stock with a shoyu tare.' } },
+      { '@type': 'Question', name: 'Is shoyu ramen a good starting point for ramen beginners?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Its balanced, savory-without-being-heavy flavor makes it the easiest of the four classic styles to enjoy immediately, and a great way to judge a new ramen shop\'s baseline quality.' } },
+    ],
+  },
+})
+
+
+
+const shioGuideCards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'MENSHO TOKYO',
+    rating: 4.8,
+    reviewCount: 551,
+    address: '9516 Culver Blvd, Culver City, CA 90232',
+    phone: '',
+    description: "MENSHO TOKYO is a direct import from one of Japan's most acclaimed ramen chefs, Chef Tomoharu Shono, whose Tokyo flagship draws lines around the block. The Culver City outpost brings his signature tori paitan shio — a light, clear salt broth made from free-range chicken bones and aged sea salt — to LA with uncompromising precision. One of the few places in America where you can taste what shio ramen looks like at its absolute ceiling.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAE6A3JyyupAPXYjN3-1AICmnNHeukv1Wm1J6SROkhk5HM4bHWJ1kk2RX-EJ1cxaAA9GJcPqy622reYCmLrkPcMzZ71Hbb5r1d61udleJky-HQU0HNC7XWU-UiYMSNOCg-BsJuf6DA=w800-h500-k-no',
+    slug: 'mensho-tokyo',
+    citySlug: 'culver-city',
+    stateSlug: 'ca',
+    tags: ['Shio', 'Tokyo-Style', 'Japanese'],
+  },
+  {
+    rank: 2,
+    name: 'HINODEYA Ramen & Bar Chestnut',
+    rating: 4.8,
+    reviewCount: 857,
+    address: '3340 Steiner St, San Francisco, CA 94123',
+    phone: '+1 415-949-9800',
+    description: "HINODEYA is a San Francisco institution that builds its menu around light, refined broths — their shio ramen is the purest expression of the style in Northern California. The broth is simmered from chicken and sea vegetables, seasoned with Pacific sea salt and finished with a drizzle of house-blended oil. Vegan-friendly options are also available. One of the Marina's most consistent and beloved ramen experiences.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-KBXX0TtWgGpR7Ve3JVeBb24WrgO9ohvvqj_F7VmPFYiYX5kxrh4FKY5sQQi6vhKKfDpBpA-UgWtLsGm9X6tLiH0w_IniEEOuBb_X4VazFCm0A6OIYbZymx8POI0YLbsDNGyeE_9A=w800-h500-k-no',
+    slug: 'hinodeya-ramen-and-bar-chestnut',
+    citySlug: 'san-francisco',
+    stateSlug: 'ca',
+    tags: ['Shio', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 3,
+    name: 'Susuru Ramen',
+    rating: 4.8,
+    reviewCount: 669,
+    address: '33-19 36th Ave, Long Island City, NY 11106',
+    phone: '+1 718-806-1521',
+    description: 'A compact Long Island City ramen spot that serves one of the most beautifully clear shio broths in New York City. Susuru — whose name literally means "to slurp" in Japanese — takes their shio seriously: the broth is light gold, fragrant with chicken and seafood umami, and seasoned with mineral sea salt tare that lets every ingredient shine. The noodles are housemade daily.',
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEz2P9K5MB_GjCQnG5VNSjsO69aiD-5Q7CYYkvZacpfUSRaR6ZvE6deGjZ7bSUpA_HSXCgWl2vp2bKNwheuf1gLO9HZqIm1ErCMgtK57kgJN45Xf89E7d6jKf1n_KqCwp8v0OM=w800-h500-k-no',
+    slug: 'susuru-ramen',
+    citySlug: 'long-island-city',
+    stateSlug: 'ny',
+    tags: ['Shio', 'Japanese', 'Housemade Noodles'],
+  },
+]
+
+blogPosts.push({
+  slug: 'what-is-shio-ramen',
+  title: 'What Is Shio Ramen? The Complete Guide to the Lightest Ramen Style',
+  h1: 'What Is Shio Ramen?',
+  description: "Shio ramen is Japan's lightest, most delicate ramen style — a clear, salt-seasoned broth that lets the underlying stock shine. Here's everything to know: the broth, flavor, history, noodles, toppings, and how it compares to the other styles.",
+  date: 'June 27, 2026',
+  readTime: '9 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Top-Rated Shio Ramen Restaurants to Try',
+  content: `<p><strong>Shio ramen is a Japanese noodle soup seasoned primarily with a salt-based tare rather than soy sauce or miso paste, producing a pale, near-transparent broth that showcases the underlying chicken, seafood, or dashi stock with almost nothing in the way.</strong> "Shio" (塩) simply means "salt" in Japanese. It's the lightest and most delicate of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, and — despite looking the simplest on paper — it's often considered the hardest style to execute well, since there's no rich fat or fermented paste to hide behind.</p>
+
+<p>Shio is also, historically, the oldest ramen seasoning of all — Japan's earliest bowls of ramen were salted rather than soy-seasoned, before shoyu became the dominant style nationwide. This guide covers what defines shio ramen, how the broth and tare are built, the noodles and toppings that typically accompany it, its Hokkaido origins, and how it compares to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a>.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.75rem;">Shio at a Glance</p>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Origin</td><td style="padding:0.4rem 0;color:#6B6862;">Hakodate, Hokkaido — Japan's oldest ramen seasoning style</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Broth base</td><td style="padding:0.4rem 0;color:#6B6862;">Chicken, pork, and/or seafood stock, often with dashi</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Tare (seasoning)</td><td style="padding:0.4rem 0;color:#6B6862;">Sea salt dissolved in sake, mirin, and aromatics</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Color &amp; texture</td><td style="padding:0.4rem 0;color:#6B6862;">Pale gold to nearly clear; light body</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Flavor</td><td style="padding:0.4rem 0;color:#6B6862;">Clean, mineral, delicate, stock-forward</td></tr>
+        <tr><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Best for</td><td style="padding:0.4rem 0;color:#6B6862;">Evaluating a kitchen's true stock quality; subtlety over intensity</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#what-is-shio" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">What It Is</a>
+    <a href="#broth" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">The Broth</a>
+    <a href="#flavor" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Flavor</a>
+    <a href="#noodles" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Noodles</a>
+    <a href="#toppings" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Toppings</a>
+    <a href="#history" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">History</a>
+    <a href="#comparison" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Comparison</a>
+    <a href="#faq" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">FAQ</a>
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="what-is-shio" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">What Is Shio Ramen, Exactly?</h2>
+<p>Shio ramen is seasoned with a salt-based tare instead of the soy sauce used in <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu ramen</a> or the fermented paste used in <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso ramen</a>. Because salt doesn't add color or masking flavor the way soy or miso does, shio broth stays pale gold to nearly clear, and the underlying stock quality becomes the entire story of the bowl. There's genuinely nowhere to hide a mediocre stock behind a shio tare, which is exactly why serious ramen chefs treat it as the benchmark style.</p>
+<p>Shio fell out of mainstream popularity as shoyu became Japan's dominant style through the mid-20th century, but it's seen a major revival among modern chefs who want to showcase pure technique rather than lean on a heavier seasoning.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="broth" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The Broth: Built Entirely on Stock Quality</h2>
+<p>The stock for shio ramen varies more than any other style — chicken, pork, seafood, or elaborate multi-ingredient blends are all common — but the tare is always the same basic idea: sea salt dissolved into a base of sake, mirin, and aromatics like ginger, green onion, and kelp. Some artisan shops age their shio tare with dried seafood — whole dried scallops, shrimp shells, dried anchovies — to build mineral complexity over weeks or months.</p>
+<p>Because the tare itself contributes almost no flavor beyond salinity, the best shio shops invest disproportionately in their stock: free-range chicken, fresh seafood, high-grade kombu and bonito. The broth is always simmered gently, never at the hard rolling boil used for tonkotsu, since a hard boil would cloud the broth and destroy the clarity the style depends on.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="flavor" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Flavor Profile</h2>
+<p>Shio ramen is clean, light, and almost sparkling on the palate — you should be able to taste the salt, the natural sweetness of the underlying stock, a subtle seaweed minerality, and often a faint whisper of dried seafood. It doesn't announce itself the way tonkotsu or miso does; it rewards patience and attention instead.</p>
+<p>This is also the style most likely to surprise first-time orderers who expect ramen to be aggressive and heavy. A well-made shio bowl often ends up being the most memorable one on the table precisely because of how much complexity it manages to pack into something that looks so simple.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="noodles" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Noodle Shape and Texture</h2>
+<p>Shio ramen is typically served with thin, straight or gently wavy noodles — the light broth doesn't need a thick, chewy noodle to support it the way a rich miso or tonkotsu broth does. Noodle thickness is one of the clearest visual cues for telling ramen styles apart at a glance; our guide to <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">what ramen noodles are made of</a> covers exactly how noodle shape is matched to broth style across the board.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="toppings" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Toppings and Condiments</h2>
+<p>Shio toppings tend to be restrained rather than piled high: sliced chicken or pork chashu, bamboo shoots, green onion, a sheet of nori, and sometimes a halved soft-boiled egg. The restraint is intentional — heavy or aggressive toppings would compete with, rather than complement, the delicate broth underneath.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="history" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The History of Shio Ramen</h2>
+<p>Shio ramen is most closely associated with Hakodate, a port city in Hokkaido, northern Japan. Hokkaido's coastal geography meant the region historically seasoned food with salt and dried seafood rather than soy sauce, and its ramen tradition followed the same pattern. Hakodate-style shio — built on a chicken, pork bone, and kombu stock, lightly salted and served with thin noodles — remains one of Japan's most celebrated regional ramen styles.</p>
+<p>Shio is also considered the oldest ramen seasoning historically, predating the widespread adoption of shoyu. Its modern revival among serious chefs is partly a return to that original simplicity, now executed with far more refined technique and ingredient sourcing than was available a century ago.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="comparison" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">How Shio Compares to the Other Ramen Styles</h2>
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Style</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Broth Color</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Flavor</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Learn More</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shio</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Pale gold / translucent</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clean, mineral, delicate</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">You're reading it</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Tonkotsu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Milky white / opaque</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rich, porky, creamy, fatty</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Tonkotsu Ramen? →</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shoyu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clear golden-amber</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Savory, balanced, umami</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shoyu Ramen? →</a></td>
+      </tr>
+      <tr>
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Miso</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Opaque golden-brown</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, deep, fermented</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Miso Ramen? →</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>See the full breakdown in our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a>, or dig into <a href="/comparisons/shoyu-ramen-vs-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu vs. shio</a> and <a href="/comparisons/miso-ramen-vs-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso vs. shio</a> directly.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How to Find Great Shio Ramen Near You</h2>
+<p>Shio is the rarest style at casual ramen shops but increasingly available at serious ramen destinations — look for shops that describe their bowls as "Tokyo-style" or that emphasize their stock sourcing. Since quality is so exposed in a shio bowl, it's worth seeking out a shop with a strong overall reputation rather than trying shio at a random spot.</p>
+<p><a href="/shio-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse shio ramen restaurants near you →</a> or use our <a href="/find/shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio ramen search map</a> to filter by rating and distance.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="faq" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Shio Ramen FAQ</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What does shio mean?</h3>
+<p>Shio (塩) is the Japanese word for salt. Shio ramen is named for its salt-based tare, which produces a pale, clear broth rather than the amber color of shoyu or the opacity of miso and tonkotsu.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is shio ramen the oldest ramen style?</h3>
+<p>Yes — historically, Japan's earliest bowls of ramen were seasoned with salt rather than soy sauce. Shio fell out of mainstream favor as shoyu became dominant but has seen a strong revival among modern chefs.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Why is shio ramen considered the hardest style to make well?</h3>
+<p>Because salt adds almost no flavor of its own beyond salinity, the entire bowl rests on the quality of the underlying stock. There's no rich fat or fermented paste to mask a weak base, which is why chefs treat shio as the ultimate test of technique.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What's the difference between shio and shoyu ramen?</h3>
+<p>Both are clear, light broths. Shio is seasoned with salt, producing a pale, near-transparent broth, while shoyu is seasoned with soy sauce, giving it a deeper amber color and more pronounced umami.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Where does shio ramen come from?</h3>
+<p>Shio ramen is most closely associated with Hakodate, a port city in Hokkaido, northern Japan, where a coastal tradition of salting food rather than using soy sauce shaped the local ramen style.</p>`,
+  restaurantCards: shioGuideCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>Shio ramen is the quiet, technical style — a clear, salt-seasoned broth with nowhere to hide a weak stock. It's the oldest ramen seasoning in Japan and, in the hands of a serious chef, one of the most rewarding bowls you can order.</p>
+<p>Want to compare it to the bolder styles? Read our guides to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu ramen</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso ramen</a>, or jump straight to <a href="/shio-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find shio ramen near you</a>.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'What does shio mean?', acceptedAnswer: { '@type': 'Answer', text: 'Shio is the Japanese word for salt. Shio ramen is named for its salt-based tare, which produces a pale, clear broth rather than the amber color of shoyu or the opacity of miso and tonkotsu.' } },
+      { '@type': 'Question', name: 'Is shio ramen the oldest ramen style?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Historically, Japan\'s earliest bowls of ramen were seasoned with salt rather than soy sauce. Shio fell out of mainstream favor as shoyu became dominant but has seen a strong revival among modern chefs.' } },
+      { '@type': 'Question', name: 'Why is shio ramen considered the hardest style to make well?', acceptedAnswer: { '@type': 'Answer', text: 'Because salt adds almost no flavor of its own beyond salinity, the entire bowl rests on the quality of the underlying stock, with no rich fat or fermented paste to mask a weak base.' } },
+      { '@type': 'Question', name: "What's the difference between shio and shoyu ramen?", acceptedAnswer: { '@type': 'Answer', text: 'Both are clear, light broths. Shio is seasoned with salt, producing a pale, near-transparent broth, while shoyu is seasoned with soy sauce, giving it a deeper amber color and more pronounced umami.' } },
+      { '@type': 'Question', name: 'Where does shio ramen come from?', acceptedAnswer: { '@type': 'Answer', text: 'Shio ramen is most closely associated with Hakodate, a port city in Hokkaido, northern Japan, where a coastal tradition of salting food rather than using soy sauce shaped the local ramen style.' } },
+    ],
+  },
+})
+
+
+
+const misoGuideCards: RestaurantCard[] = [
+  {
+    rank: 1,
+    name: 'Zen Ramen & Bento',
+    rating: 4.8,
+    reviewCount: 851,
+    address: '51 W Main St, Dahlonega, GA 30533',
+    phone: '+1 706-864-5455',
+    description: "Tucked into a small North Georgia mountain town, Zen Ramen & Bento punches far above its zip code. Their miso ramen — a red miso base fortified with chicken stock, finished with toasted sesame oil and a soft egg — is the kind of bowl that makes regulars drive 45 minutes for a lunch. At 4.8 stars and nearly 900 reviews, it's the best ramen in the Georgia mountains by a wide margin.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAElWTAXu3zyyuIz8soiXrkPpOlFMzmpysKH5P13o1NJ_Qvs29uBXBupSIrzFrVQNCLPBJRgWUqnFNUniKR7kHjVN7TW1cAwkldz4I5GMNAGmlFdhmZfuWmTThNJRNV7K7g3VmMu=w800-h500-k-no',
+    slug: 'zen-ramen-bento',
+    citySlug: 'dahlonega',
+    stateSlug: 'ga',
+    tags: ['Miso', 'Japanese', 'Ramen Bar'],
+  },
+  {
+    rank: 2,
+    name: 'Ramen Alley | Japanese',
+    rating: 4.8,
+    reviewCount: 543,
+    address: '217 Washington St Suite D, Columbus, IN 47201',
+    phone: '+1 812-552-5089',
+    description: "Columbus, Indiana's standout Japanese ramen shop and an unlikely destination for some of the Midwest's best miso ramen. Ramen Alley sources their miso from a traditional Japanese producer and builds the broth over multiple days — the result is a deeply savory, slightly sweet, fermented-forward bowl that holds its own against anything in a major metro. A craft beer and sake selection make this a full evening.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDfc3XjW-gl1_oe3Af06ij43vL7pXMU0ioO8LHHL-Tdiu7FcbEdIAY2cPR5V1YYtlTBA3mx9lIpYs0W9Sn-4y1gSYnHmFhsZ5gNvX8DohV2Nqq6mA2M9aWHQ=w800-h500-k-no',
+    slug: 'ramen-alley-japanese',
+    citySlug: 'columbus',
+    stateSlug: 'in',
+    tags: ['Miso', 'Japanese', 'Sake Bar'],
+  },
+  {
+    rank: 3,
+    name: 'Sakuratani Ramen & Izakaya',
+    rating: 4.8,
+    reviewCount: 621,
+    address: '531 Wood St, Bristol, RI 02809',
+    phone: '+1 401-396-5036',
+    description: "Rhode Island's top-rated ramen destination and a beautiful showcase for what miso ramen can become in the right hands. Sakuratani's signature white miso bowl — saikyo miso blended with dashi, finished with butter-sautéed corn, bamboo shoots, and slow-roasted pork belly — is rich without being heavy, a balance that takes real skill to achieve. The full izakaya menu and sake list make this a worthy destination from anywhere in New England.",
+    photo: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFvqtX1JmNaUjQc_7STw5TgueYvH41QxhDL8sb2VLEUktjaRCYmu-Ua8lye_zQzBYDo0_QMzLyGmk2u1hR691D6Q=w800-h500-k-no',
+    slug: 'sakuratani-ramen-izakaya',
+    citySlug: 'bristol',
+    stateSlug: 'ri',
+    tags: ['Miso', 'Japanese', 'Izakaya'],
+  },
+]
+
+blogPosts.push({
+  slug: 'what-is-miso-ramen',
+  title: 'What Is Miso Ramen? The Complete Guide to the Hokkaido Original',
+  h1: 'What Is Miso Ramen?',
+  description: "Miso ramen is a hearty Japanese noodle soup built by blending fermented soybean paste (miso) into a pork or chicken stock. Here's everything to know: the broth, flavor, history, noodles, toppings, and how it compares to the other styles.",
+  date: 'June 28, 2026',
+  readTime: '10 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  listHeading: 'Top-Rated Miso Ramen Restaurants to Try',
+  content: `<p><strong>Miso ramen is a Japanese noodle soup featuring a hearty, opaque broth seasoned with fermented soybean paste (miso) — most often blended into a pork or chicken stock alongside garlic, ginger, and sometimes ground pork.</strong> Invented in Sapporo, Hokkaido, in the 1950s, it's the youngest of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a> and also the boldest in terms of pure ingredient experimentation — earthy, savory-sweet, and warming in a way built specifically for cold weather.</p>
+
+<p>Miso is also the style most associated with generous, hearty toppings: sweet corn, a pat of butter, bean sprouts, and ground pork are the Hokkaido-style signatures. This guide covers exactly what makes miso ramen distinct, how the broth and tare are built, the noodles and toppings that define it, its Sapporo origins, and how it compares to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, and <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a>.</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.75rem;">Miso at a Glance</p>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Origin</td><td style="padding:0.4rem 0;color:#6B6862;">Sapporo, Hokkaido — invented in the 1950s–60s</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Broth base</td><td style="padding:0.4rem 0;color:#6B6862;">Chicken or pork stock, enriched with fermented miso paste</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Tare (seasoning)</td><td style="padding:0.4rem 0;color:#6B6862;">Red, white, or blended miso paste, often wok-fried with aromatics</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Color &amp; texture</td><td style="padding:0.4rem 0;color:#6B6862;">Opaque tan to deep reddish-brown; medium-thick and hearty</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,32,38,0.08);"><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Flavor</td><td style="padding:0.4rem 0;color:#6B6862;">Nutty, earthy, savory-sweet, fermented depth</td></tr>
+        <tr><td style="padding:0.4rem 0.75rem 0.4rem 0;font-weight:700;color:#1E2026;white-space:nowrap;">Best for</td><td style="padding:0.4rem 0;color:#6B6862;">Cold-weather comfort and bold, hearty flavor</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B57F50;margin:0 0 0.6rem;">Quick Navigation</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+    <a href="#what-is-miso" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">What It Is</a>
+    <a href="#broth" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">The Broth</a>
+    <a href="#flavor" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Flavor</a>
+    <a href="#noodles" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Noodles</a>
+    <a href="#toppings" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Toppings</a>
+    <a href="#history" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">History</a>
+    <a href="#comparison" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">Comparison</a>
+    <a href="#faq" style="background:rgba(181,127,80,0.12);color:#B57F50;padding:0.3rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:600;text-decoration:none;border:1px solid rgba(181,127,80,0.2);">FAQ</a>
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="what-is-miso" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">What Is Miso Ramen, Exactly?</h2>
+<p>Miso ramen is defined by miso paste — a fermented soybean product that's a staple of Japanese home cooking — blended into a chicken or pork stock to build a broth that's hearty, earthy, and more complex than a straightforward soy or salt seasoning could produce on its own. It's the only one of the four major styles whose defining ingredient is fermented, which is exactly why it tastes so different from <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a> or <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> even though all three are, technically, tare-defined styles rather than broth-defined ones like <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>.</p>
+<p>Because miso paste contributes real body as well as flavor, miso ramen sits comfortably between the lightness of shoyu and the heaviness of tonkotsu — bold and substantial without the sheer fat content of a pork-bone broth.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="broth" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The Broth: Miso Paste, Wok-Fried Aromatics, and a Robust Stock</h2>
+<p>Miso ramen requires an extra step that the other three styles skip entirely: the miso tare is often wok-fried or sautéed with aromatics before it ever touches the broth. A skilled cook heats a wok until it's screaming hot, adds lard or sesame oil, sautés minced garlic and ginger, then works in ground pork and miso paste to build a fragrant, slightly caramelized base. That extra cooking step adds a toasty, almost smoky depth that you simply can't get by dissolving miso paste straight into stock.</p>
+<p>The base stock is usually pork or chicken — something robust enough to stand up to miso's assertive flavor. The miso itself is endlessly variable: red miso (aka miso) produces a deeply savory, rustic bowl, while white miso (shiro miso) or a sweeter blend yields something softer. Many shops build proprietary blends of multiple miso varieties, which is why two miso bowls from two different restaurants can taste dramatically different despite sharing the same style name.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="flavor" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Flavor Profile</h2>
+<p>Miso ramen delivers a nutty, earthy, savory-sweet flavor with real fermented depth — a warming, substantial bowl that reads as more of a complete meal than the lighter styles. It's the ramen equivalent of comfort food: hearty, rich without tipping into heaviness, and built specifically to stand up to cold weather.</p>
+<p>Because miso's flavor is so dominant, it's also the most forgiving style for elaborate toppings. Shops can pile on ingredient after ingredient without any of them feeling lost in the bowl, which is a big part of why miso ramen tends to look the most loaded of the four classic styles.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="noodles" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Noodle Shape and Texture</h2>
+<p>Miso ramen is served with thick, wavy noodles — the broth is dense enough to genuinely coat and cling to them, and thinner noodles would get lost against such a bold flavor. Our guide to <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">what ramen noodles are made of</a> covers exactly why noodle thickness is matched to broth weight this deliberately, and how kansui gives every ramen noodle — thin or thick — its signature springy bite.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="toppings" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">Toppings and Condiments</h2>
+<p>Classic Sapporo-style miso toppings include <strong>sweet corn</strong>, a <strong>pat of butter</strong>, <strong>bean sprouts</strong>, <strong>bamboo shoots</strong>, ground or sliced <strong>chashu pork</strong>, and fresh <strong>green onion</strong>. The corn-and-butter combination in particular is iconic to the style — it sounds unusual on paper but adds a sweetness and richness that works surprisingly well against the fermented depth of the broth.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="history" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">The History of Miso Ramen</h2>
+<p>Miso ramen was invented in Sapporo, Hokkaido, in the 1950s at a restaurant called Aji no Sanpei, where owner Morito Omiya began experimenting with adding miso paste — already a staple of Hokkaido home cooking — directly into his ramen broth. Sapporo's brutally cold winters demanded something heartier than Tokyo's shoyu style, and miso delivered exactly that. By the 1960s, Sapporo miso ramen had become nationally famous and was being marketed as one of Japan's defining regional ramen identities, alongside Hakata tonkotsu and Hakodate shio.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="comparison" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">How Miso Compares to the Other Ramen Styles</h2>
+<div style="overflow-x:auto;margin:0 0 1.5rem;">
+  <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+    <thead>
+      <tr style="background:#1E2026;color:#ECEAE4;">
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Style</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Broth Color</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Flavor</th>
+        <th style="padding:0.75rem 1rem;text-align:left;font-weight:600;">Learn More</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Miso</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Opaque golden-brown</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Earthy, deep, fermented</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">You're reading it</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Tonkotsu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Milky white / opaque</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Rich, porky, creamy, fatty</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Tonkotsu Ramen? →</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(30,32,38,0.08);background:rgba(245,244,240,0.5);">
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shoyu</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clear golden-amber</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Savory, balanced, umami</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shoyu Ramen? →</a></td>
+      </tr>
+      <tr>
+        <td style="padding:0.75rem 1rem;font-weight:700;color:#1E2026;">Shio</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Pale gold / translucent</td>
+        <td style="padding:0.75rem 1rem;color:#6B6862;">Clean, mineral, delicate</td>
+        <td style="padding:0.75rem 1rem;"><a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shio Ramen? →</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>See the full side-by-side in our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a>, or explore <a href="/comparisons/tonkotsu-ramen-vs-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu vs. miso</a> and <a href="/comparisons/shoyu-ramen-vs-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu vs. miso</a> directly.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="find-near-you" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.75rem;">How to Find Great Miso Ramen Near You</h2>
+<p>Miso is widely available across American ramen shops, though quality varies enormously — seek out restaurants that specify which miso they use or make their own tare in-house rather than relying on a generic paste. It's an especially good choice on a cold night when you want something that feels like a full meal.</p>
+<p><a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">Browse miso ramen restaurants near you →</a> or use our <a href="/find/miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso ramen search map</a> to filter by rating and distance.</p>
+
+<hr style="border:none;border-top:1px solid rgba(30,32,38,0.1);margin:2.5rem 0;" />
+
+<h2 id="faq" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 1rem;">Miso Ramen FAQ</h2>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What is miso ramen made of?</h3>
+<p>Miso ramen is made by blending fermented soybean paste (miso) into a pork or chicken stock, usually alongside garlic, ginger, and sometimes ground pork that's wok-fried before the broth is added.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Where did miso ramen come from?</h3>
+<p>Miso ramen was invented in Sapporo, Hokkaido, in the 1950s at a restaurant called Aji no Sanpei, where the owner began adding miso paste to ramen broth to create something heartier for Hokkaido's cold winters.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is miso ramen spicy?</h3>
+<p>Classic miso ramen is not spicy on its own, but many shops offer a spicy miso (kara miso) variation that adds chili paste or oil for heat while keeping the fermented, savory-sweet base intact.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What's the difference between miso and tonkotsu ramen?</h3>
+<p>Tonkotsu is defined by its pork-bone broth base, while miso is defined by its fermented soybean paste seasoning, which can be blended into a pork, chicken, or even tonkotsu-style stock. Miso is generally earthier and less fatty than tonkotsu.</p>
+
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">What toppings are classic on miso ramen?</h3>
+<p>Sweet corn, a pat of butter, bean sprouts, bamboo shoots, chashu pork, and green onion are the classic Sapporo-style toppings. The corn-and-butter combination in particular is considered iconic to the style.</p>`,
+  restaurantCards: misoGuideCards,
+  outroContent: `<h2 style="font-size:1.5rem;font-weight:700;color:#1E2026;margin:2.5rem 0 0.75rem;">The Bottom Line</h2>
+<p>Miso ramen is the hearty, fermented Hokkaido original — earthy, warming, and the most forgiving of the four styles when it comes to bold, generous toppings. It's the youngest of the classic styles but arguably the most inventive, since its flavor allows for the widest range of interpretation from shop to shop.</p>
+<p>Curious how it stacks up against the others? Read our guides to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu ramen</a>, and <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio ramen</a>, or jump straight to <a href="/miso-ramen-near-me" style="color:#B57F50;text-decoration:underline;font-weight:600;">find miso ramen near you</a>.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'What is miso ramen made of?', acceptedAnswer: { '@type': 'Answer', text: 'Miso ramen is made by blending fermented soybean paste (miso) into a pork or chicken stock, usually alongside garlic, ginger, and sometimes ground pork that is wok-fried before the broth is added.' } },
+      { '@type': 'Question', name: 'Where did miso ramen come from?', acceptedAnswer: { '@type': 'Answer', text: 'Miso ramen was invented in Sapporo, Hokkaido, in the 1950s at a restaurant called Aji no Sanpei, where the owner began adding miso paste to ramen broth to create something heartier for Hokkaido\'s cold winters.' } },
+      { '@type': 'Question', name: 'Is miso ramen spicy?', acceptedAnswer: { '@type': 'Answer', text: 'Classic miso ramen is not spicy on its own, but many shops offer a spicy miso (kara miso) variation that adds chili paste or oil for heat while keeping the fermented, savory-sweet base intact.' } },
+      { '@type': 'Question', name: "What's the difference between miso and tonkotsu ramen?", acceptedAnswer: { '@type': 'Answer', text: 'Tonkotsu is defined by its pork-bone broth base, while miso is defined by its fermented soybean paste seasoning, which can be blended into a pork, chicken, or even tonkotsu-style stock.' } },
+      { '@type': 'Question', name: 'What toppings are classic on miso ramen?', acceptedAnswer: { '@type': 'Answer', text: 'Sweet corn, a pat of butter, bean sprouts, bamboo shoots, chashu pork, and green onion are the classic Sapporo-style toppings.' } },
+    ],
+  },
 })
 
 
