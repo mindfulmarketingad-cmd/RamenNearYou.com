@@ -211,6 +211,10 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                   </a>
                 )}
                 <ListingSaveButton slug={r.slug} restaurantName={r.name} />
+                <Link href="/claim-your-listing" className={iconBtn}>
+                  <span className={iconCircle}><Store className="w-5 h-5" /></span>
+                  Claim
+                </Link>
               </div>
 
               {/* Primary CTAs */}
@@ -324,12 +328,9 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                 </Link>
               </div>
 
-              {/* Share + claim */}
+              {/* Share */}
               <div className="mt-6 pt-5 border-t border-black/8 flex items-center gap-3">
                 <ShareButton title={r.name} url={url} />
-                <Link href="/claim-your-listing" className="inline-flex items-center gap-1.5 text-sm text-[#6B6862] hover:text-[#B57F50] transition-colors">
-                  <Store className="w-4 h-4" /> Own this business?
-                </Link>
               </div>
 
               {/* Nearby */}

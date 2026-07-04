@@ -92,11 +92,10 @@ export default function ProfilePage() {
         }
       })
 
-    setSavesCount(getSavedSlugs().length)
+    getSavedSlugs().then((slugs) => setSavesCount(slugs.length))
     setVisitsCount(getVisitedSlugs().length)
 
     function onStorage(e: StorageEvent) {
-      if (e.key === 'ramennearyou:saves') setSavesCount(getSavedSlugs().length)
       if (e.key === 'ramennearyou:visits') setVisitsCount(getVisitedSlugs().length)
     }
     window.addEventListener('storage', onStorage)

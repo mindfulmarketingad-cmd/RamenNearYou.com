@@ -11,12 +11,7 @@ export default function SavedSection() {
   const [slugs, setSlugs] = useState<string[] | null>(null)
 
   useEffect(() => {
-    setSlugs(getSavedSlugs())
-    function onStorage(e: StorageEvent) {
-      if (e.key === 'ramennearyou:saves') setSlugs(getSavedSlugs())
-    }
-    window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
+    getSavedSlugs().then(setSlugs)
   }, [])
 
   const saved = useMemo(
