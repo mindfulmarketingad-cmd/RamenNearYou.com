@@ -28,6 +28,21 @@ export interface FindModifier {
 
 export const FIND_MODIFIERS: FindModifier[] = [
   {
+    prefix: 'best-ramen',
+    filter: { initialFlags: ['top-rated'] },
+    title: (c, s) => `Best Ramen In ${c}, ${s}`,
+    metaNoun: 'best ramen',
+    hubHref: '/find/best-ramen-near-me',
+    hubLabel: 'Best Ramen',
+    about:
+      'The best ramen restaurants share a few traits: a broth simmered in-house rather than shortcuts, noodles with real bite, and a rating that holds up across a large number of reviews rather than a handful of lucky five-stars. This map is sorted so the highest-rated, most-reviewed spots near you rank first.',
+    faqs: (city, st) => [
+      { q: `What is the best ramen in ${city}?`, a: `The map above is sorted so the highest-rated ramen restaurants in ${city}, ${st} rank first, with review count as the tiebreaker. Enter your ZIP or click "Use my location" to see the best bowl closest to you.` },
+      { q: `How is "best" ranked on this page?`, a: `Rating first, review count as the tiebreaker, and a minimum review threshold so a perfect score from only a few reviews doesn't outrank a proven favorite with thousands behind it.` },
+      { q: `Is the top-ranked spot in ${city} always the right pick?`, a: `It's a strong default, but layering on a broth filter — tonkotsu, miso, shoyu, or shio — helps you find the best option within the specific style you're craving that day.` },
+    ],
+  },
+  {
     prefix: 'tonkotsu-ramen-in',
     filter: { initialBowls: ['tonkotsu'] },
     title: (c, s) => `Ramen Tonkotsu In ${c}, ${s}`,
