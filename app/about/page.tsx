@@ -124,7 +124,7 @@ export default function AboutPage() {
               {
                 step: '03',
                 title: 'Find Your Bowl',
-                description: 'Visit the restaurant and enjoy. Ramen owners can claim and manage their listings for $49.99/month.',
+                description: 'Visit the restaurant and enjoy. Ramen owners can claim and manage their listings.',
               },
             ].map(({ step, title, description }) => (
               <div key={step} className="flex flex-col gap-3">

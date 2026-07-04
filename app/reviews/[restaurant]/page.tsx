@@ -207,7 +207,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-bold text-[#1E2026]">Own This Business?</span>
-                <span className="block text-xs text-[#6B6862]">Claim {r.name} — $0 for 14 days</span>
+                <span className="block text-xs text-[#6B6862]">Claim and manage the {r.name} listing</span>
               </span>
             </Link>
             <Link
