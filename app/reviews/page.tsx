@@ -56,6 +56,7 @@ export default function ReviewsIndexPage() {
       stateCode: r.stateCode,
       rating: r.rating,
       reviewCount: r.reviewCount,
+      description: r.description ?? '',
     }))
 
   return (

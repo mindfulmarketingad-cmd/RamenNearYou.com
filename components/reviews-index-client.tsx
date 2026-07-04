@@ -11,14 +11,30 @@ export interface ReviewIndexItem {
   stateCode: string
   rating: number | null
   reviewCount: number
+  description: string
 }
 
+type SortBy = 'rating' | 'reviews' | 'name'
+
 const PAGE_SIZE = 60
+
+// Short excerpt centered on the matched word, so a search like "miso" shows
+// exactly why a restaurant matched even when it's not in the name or city.
+function matchExcerpt(description: string, q: string): string | null {
+  const idx = description.toLowerCase().indexOf(q)
+  if (idx === -1) return null
+  const start = Math.max(0, idx - 40)
+  const end = Math.min(description.length, idx + q.length + 60)
+  const prefix = start > 0 ? '…' : ''
+  const suffix = end < description.length ? '…' : ''
+  return `${prefix}${description.slice(start, end).trim()}${suffix}`
+}
 
 export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[] }) {
   const [query, setQuery] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
+  const [sortBy, setSortBy] = useState<SortBy>('rating')
   const [limit, setLimit] = useState(PAGE_SIZE)
 
   const states = useMemo(
@@ -32,19 +48,31 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return items.filter((r) => {
+    let list = items.filter((r) => {
       if (state && r.stateCode !== state) return false
       if (city && r.city !== city) return false
       if (!q) return true
       return (
         r.name.toLowerCase().includes(q) ||
         r.city.toLowerCase().includes(q) ||
-        r.stateCode.toLowerCase().includes(q)
+        r.stateCode.toLowerCase().includes(q) ||
+        r.description.toLowerCase().includes(q)
       )
     })
-  }, [query, state, city, items])
+
+    list = [...list]
+    if (sortBy === 'reviews') {
+      list.sort((a, b) => b.reviewCount - a.reviewCount)
+    } else if (sortBy === 'name') {
+      list.sort((a, b) => a.name.localeCompare(b.name))
+    } else {
+      list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
+    }
+    return list
+  }, [query, state, city, sortBy, items])
 
   const visible = filtered.slice(0, limit)
+  const q = query.trim().toLowerCase()
 
   return (
     <div>
@@ -58,13 +86,22 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
             setQuery(e.target.value)
             setLimit(PAGE_SIZE)
           }}
-          placeholder="Search by restaurant, city, or state…"
+          placeholder="Search by restaurant, city, state, or broth like “miso”…"
           className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-black/10 bg-white text-[#1E2026] placeholder-[#9B9490] text-sm outline-none focus:border-[#B57F50] transition-colors"
         />
       </div>
 
-      {/* State + city filters */}
+      {/* State + city + sort filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as SortBy)}
+          className="flex-1 px-4 py-3 rounded-xl border border-black/10 bg-white text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors appearance-none"
+        >
+          <option value="rating">Sort: Top Rated</option>
+          <option value="reviews">Sort: Most Reviews</option>
+          <option value="name">Sort: Name A-Z</option>
+        </select>
         <select
           value={state}
           onChange={(e) => {
@@ -108,26 +145,39 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {visible.map((r) => (
-          <Link
-            key={r.reviewSlug}
-            href={`/reviews/${r.reviewSlug}`}
-            className="flex items-center justify-between gap-3 px-4 py-3 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
-          >
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-[#1E2026] truncate">{r.name}</p>
-              <p className="text-xs text-[#6B6862] truncate">
-                {r.city}, {r.stateCode}
-              </p>
-            </div>
-            {r.rating != null && (
-              <span className="flex items-center gap-1 shrink-0 text-xs font-semibold text-[#1E2026]">
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                {r.rating.toFixed(1)}
-              </span>
-            )}
-          </Link>
-        ))}
+        {visible.map((r) => {
+          const nameOrLocationMatch = q
+            ? r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q) || r.stateCode.toLowerCase().includes(q)
+            : true
+          const excerpt = q && !nameOrLocationMatch ? matchExcerpt(r.description, q) : null
+          return (
+            <Link
+              key={r.reviewSlug}
+              href={`/reviews/${r.reviewSlug}`}
+              className="flex flex-col gap-1.5 px-4 py-3 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-[#1E2026] truncate">{r.name}</p>
+                  <p className="text-xs text-[#6B6862] truncate">
+                    {r.city}, {r.stateCode} · {r.reviewCount.toLocaleString()} reviews
+                  </p>
+                </div>
+                {r.rating != null && (
+                  <span className="flex items-center gap-1 shrink-0 text-xs font-semibold text-[#1E2026]">
+                    <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                    {r.rating.toFixed(1)}
+                  </span>
+                )}
+              </div>
+              {excerpt && (
+                <p className="text-xs text-[#9B9490] leading-snug line-clamp-2">
+                  &ldquo;{excerpt}&rdquo;
+                </p>
+              )}
+            </Link>
+          )
+        })}
       </div>
 
       {visible.length === 0 && (
