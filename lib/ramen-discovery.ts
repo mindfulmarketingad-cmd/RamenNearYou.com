@@ -3,6 +3,7 @@
 // (with bowl/mood tags) that the homepage map fetches via /api/ramen-map.
 import { restaurants, getBrothTypes, type Restaurant } from './restaurants'
 import { isOpenLate } from './hours'
+import { getReviewSlug } from './reviews'
 import { BOWL_META, MOOD_META, FEATURE_META, FEATURE_AMENITY_FIELD, type MapPoint } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
 import { getSupplementListings } from './places-supplements'
@@ -136,6 +137,7 @@ export function computeMapData(): MapPoint[] {
         .map(f => f.key),
       website: r.website || undefined,
       googleMapsLink: r.googleMapsLink || undefined,
+      reviewSlug: getReviewSlug(r),
       featured: featuredSlugs.has(r.slug),
     }))
 

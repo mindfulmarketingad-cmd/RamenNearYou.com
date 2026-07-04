@@ -125,6 +125,7 @@ export type MapPoint = {
   website?: string        // restaurant's own website (DB entries only)
   googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
   googleMapsLink?: string // set for DB entries (links to the verified listing)
+  reviewSlug?: string     // globally-unique /reviews/{slug} page (DB entries only)
   featured?: boolean      // promoted listing — pinned first with a Featured badge
 }
 

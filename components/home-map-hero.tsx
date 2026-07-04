@@ -969,7 +969,13 @@ export default function HomeMapHero({
                     >
                       {/* Main clickable row */}
                       {hasInternalPage ? (
-                        <Link href={internalUrl} className={`flex gap-3 pr-10 ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}>
+                        <div
+                          role="link"
+                          tabIndex={0}
+                          onClick={() => router.push(internalUrl)}
+                          onKeyDown={(e) => { if (e.key === 'Enter') router.push(internalUrl) }}
+                          className={`flex gap-3 pr-10 cursor-pointer ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
+                        >
                           <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
                           </div>
@@ -983,9 +989,19 @@ export default function HomeMapHero({
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
-                                <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
-                                </span>
+                                r.reviewSlug ? (
+                                  <Link
+                                    href={`/reviews/${r.reviewSlug}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#B57F50] hover:underline"
+                                  >
+                                    <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+                                  </Link>
+                                ) : (
+                                  <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+                                    <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+                                  </span>
+                                )
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
                               {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
@@ -993,7 +1009,7 @@ export default function HomeMapHero({
                             </div>
                             <MatchedChips chips={r.matchedChips} />
                           </div>
-                        </Link>
+                        </div>
                       ) : (
                         <a
                           href={externalUrl}
