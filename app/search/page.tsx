@@ -193,7 +193,7 @@ export default async function SearchPage({
                         <div className="flex items-center gap-2 mt-1">
                           <StarRating rating={r.rating} />
                           <span className="text-[#1E2026]/60 text-xs">
-                            {r.rating?.toFixed(1)} ({r.reviewCount.toLocaleString()} reviews)
+                            {r.rating?.toFixed(1)} ({(r.reviewCount ?? 0).toLocaleString()} reviews)
                           </span>
                         </div>
                       )}

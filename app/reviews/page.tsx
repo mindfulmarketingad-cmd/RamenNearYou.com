@@ -55,7 +55,7 @@ export default function ReviewsIndexPage() {
       city: r.city,
       stateCode: r.stateCode,
       rating: r.rating,
-      reviewCount: r.reviewCount,
+      reviewCount: r.reviewCount ?? 0,
       description: r.description ?? '',
     }))
 

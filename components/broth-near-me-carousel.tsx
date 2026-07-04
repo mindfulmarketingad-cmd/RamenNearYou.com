@@ -82,7 +82,7 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
               ))}
             </div>
             <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({r.reviewCount.toLocaleString()})</span>
+            <span className="text-[#9B9490] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
       </div>

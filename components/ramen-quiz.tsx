@@ -466,7 +466,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
           <div className="flex items-center gap-1.5">
             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
             <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({r.reviewCount.toLocaleString()})</span>
+            <span className="text-[#9B9490] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
       </div>

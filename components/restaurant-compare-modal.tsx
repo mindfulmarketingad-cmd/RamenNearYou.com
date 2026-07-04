@@ -78,10 +78,10 @@ function buildRows(left: Restaurant, right: Restaurant): CompareRow[] {
   const statusRight = right.businessStatus === 'OPERATIONAL' ? 'Open' : 'Closed'
 
   const ratingLeft = left.rating
-    ? `${left.rating.toFixed(1)} (${left.reviewCount.toLocaleString()} reviews)`
+    ? `${left.rating.toFixed(1)} (${(left.reviewCount ?? 0).toLocaleString()} reviews)`
     : '—'
   const ratingRight = right.rating
-    ? `${right.rating.toFixed(1)} (${right.reviewCount.toLocaleString()} reviews)`
+    ? `${right.rating.toFixed(1)} (${(right.reviewCount ?? 0).toLocaleString()} reviews)`
     : '—'
 
   return [
@@ -99,14 +99,14 @@ function buildRows(left: Restaurant, right: Restaurant): CompareRow[] {
         <span className="flex flex-wrap items-center gap-1.5">
           <StarRow rating={left.rating} />
           <span className="text-[#1E2026] text-sm font-semibold">{left.rating.toFixed(1)}</span>
-          <span className="text-[#6B6862] text-xs">({left.reviewCount.toLocaleString()})</span>
+          <span className="text-[#6B6862] text-xs">({(left.reviewCount ?? 0).toLocaleString()})</span>
         </span>
       ) : '—',
       rightVal: right.rating ? (
         <span className="flex flex-wrap items-center gap-1.5">
           <StarRow rating={right.rating} />
           <span className="text-[#1E2026] text-sm font-semibold">{right.rating.toFixed(1)}</span>
-          <span className="text-[#6B6862] text-xs">({right.reviewCount.toLocaleString()})</span>
+          <span className="text-[#6B6862] text-xs">({(right.reviewCount ?? 0).toLocaleString()})</span>
         </span>
       ) : '—',
       leftRaw: ratingLeft,

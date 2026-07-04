@@ -160,7 +160,7 @@ export default function ReviewsIndexClient({ items }: { items: ReviewIndexItem[]
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-[#1E2026] truncate">{r.name}</p>
                   <p className="text-xs text-[#6B6862] truncate">
-                    {r.city}, {r.stateCode} · {r.reviewCount.toLocaleString()} reviews
+                    {r.city}, {r.stateCode} · {(r.reviewCount ?? 0).toLocaleString()} reviews
                   </p>
                 </div>
                 {r.rating != null && (
