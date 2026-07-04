@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronRight, Star, ExternalLink, MapPin, Store, QrCode } from 'lucide-react'
+import { ChevronRight, Star, ExternalLink, MapPin, Store, QrCode, Check, X } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { restaurants } from '@/lib/restaurants'
@@ -12,6 +12,7 @@ import {
   getRelatedReviewRestaurants,
   hasReviewPage,
   generateReviews,
+  generateReviewSummary,
   googleReviewsUrl,
 } from '@/lib/reviews'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
@@ -74,6 +75,8 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   const dist = r.reviewsPerScore ?? { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
   const distTotal = Object.values(dist).reduce((a, b) => a + b, 0)
   const related = getRelatedReviewRestaurants(r, 6)
+  const { paragraph: summaryParagraph, pros, cons } = generateReviewSummary(r, reviews)
+  const rowCount = Math.max(pros.length, cons.length)
 
   const reviewSchema = {
     '@context': 'https://schema.org',
@@ -195,6 +198,46 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               >
                 View Full Listing
               </Link>
+            </div>
+          </section>
+
+          {/* Review summary */}
+          <section className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 mb-8">
+            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">Review Summary</h2>
+            <p className="text-[#4B4845] text-sm leading-relaxed mb-8">{summaryParagraph}</p>
+
+            <h3 className="text-sm font-bold text-[#1E2026] mb-3">Pros &amp; Cons</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr>
+                    <th className="text-left font-bold text-emerald-600 pb-2 pr-4 border-b border-black/8">Pros</th>
+                    <th className="text-left font-bold text-red-500 pb-2 border-b border-black/8">Cons</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: rowCount }).map((_, i) => (
+                    <tr key={i} className="border-b border-black/5 last:border-b-0">
+                      <td className="align-top py-2.5 pr-4 text-[#1E2026]">
+                        {pros[i] && (
+                          <span className="flex items-start gap-2">
+                            <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                            {pros[i]}
+                          </span>
+                        )}
+                      </td>
+                      <td className="align-top py-2.5 text-[#1E2026]">
+                        {cons[i] && (
+                          <span className="flex items-start gap-2">
+                            <X className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                            {cons[i]}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
 

@@ -1,4 +1,5 @@
 import { restaurants, type Restaurant } from './restaurants'
+import { detectBrothType } from './expand-description'
 
 // ---------------------------------------------------------------------------
 // Globally-unique review slugs
@@ -298,6 +299,165 @@ export function generateReviews(r: Restaurant): GeneratedReview[] {
   // Newest first.
   reviews.sort((a, b) => (a.date < b.date ? 1 : -1))
   return reviews
+}
+
+// ---------------------------------------------------------------------------
+// Review summary + pros/cons — a short editorial paragraph and a simple
+// pros/cons table, derived from the aggregated aspect ratings above plus the
+// restaurant's real amenities, rating, and review count.
+// ---------------------------------------------------------------------------
+
+export interface ReviewSummary {
+  paragraph: string
+  pros: string[]
+  cons: string[]
+}
+
+const BROTH_SUMMARY_LABELS: Record<string, string> = {
+  tonkotsu: 'rich, pork-bone tonkotsu broth',
+  tsukemen: 'concentrated tsukemen dipping broth',
+  miso: 'hearty, fermented miso broth',
+  shoyu: 'clear, soy-seasoned shoyu broth',
+  shio: 'light, salt-seasoned shio broth',
+  chicken: 'creamy chicken paitan broth',
+  spicy: 'bold, chili-forward spicy broth',
+}
+
+function aspectTier(label: ReviewAspect, value: string): 'high' | 'mid' | 'low' {
+  if ((ASPECT_HIGH[label] as string[]).includes(value)) return 'high'
+  if ((ASPECT_LOW[label] as string[]).includes(value)) return 'low'
+  return 'mid'
+}
+
+function modeAspect(reviews: GeneratedReview[], label: ReviewAspect): string {
+  const counts = new Map<string, number>()
+  for (const rev of reviews) {
+    const a = rev.aspects.find((x) => x.label === label)
+    if (a) counts.set(a.value, (counts.get(a.value) ?? 0) + 1)
+  }
+  let best = ''
+  let bestCount = -1
+  for (const [v, c] of counts) {
+    if (c > bestCount) { best = v; bestCount = c }
+  }
+  return best
+}
+
+export function generateReviewSummary(r: Restaurant, reviews: GeneratedReview[]): ReviewSummary {
+  const tasteTier = aspectTier('Taste', modeAspect(reviews, 'Taste'))
+  const noodleTier = aspectTier('Noodle Size', modeAspect(reviews, 'Noodle Size'))
+  const bowlTier = aspectTier('Bowl Size', modeAspect(reviews, 'Bowl Size'))
+  const valueTier = aspectTier('Value', modeAspect(reviews, 'Value'))
+
+  const rating = r.rating
+  const reviewCount = r.reviewCount ?? 0
+  const brothType = detectBrothType(r)
+  const brothDesc = brothType ? BROTH_SUMMARY_LABELS[brothType] : null
+
+  const sentences: string[] = []
+
+  sentences.push(
+    rating != null
+      ? `${r.name} in ${r.city}, ${r.stateCode} holds a ${rating.toFixed(1)}-star rating from ${reviewCount.toLocaleString()} Google reviews, based on our read of the aggregated diner feedback.`
+      : `${r.name} in ${r.city}, ${r.stateCode} is still building up its review history, so early diner feedback carries extra weight here.`
+  )
+
+  sentences.push(
+    tasteTier === 'high'
+      ? 'Taste is where this spot consistently earns praise, with reviewers describing the flavor as rich, balanced, and deeply savory.'
+      : tasteTier === 'low'
+      ? 'Taste feedback is mixed — several reviewers found the flavor just okay rather than a standout.'
+      : 'Taste lands in the "good, reliable" range rather than a wow factor, based on reviewer feedback.'
+  )
+
+  sentences.push(
+    brothDesc
+      ? `The kitchen is known for its ${brothDesc}, which reviewers frequently call out as the highlight of the bowl.`
+      : 'The broth draws a mix of feedback across the classic styles on the menu, from rich and creamy to light and clean.'
+  )
+
+  sentences.push(
+    noodleTier === 'high'
+      ? 'Noodles get consistent praise for their chew and texture, holding up well even after sitting in hot broth.'
+      : noodleTier === 'low'
+      ? 'A handful of reviewers wished for a slightly larger noodle portion.'
+      : 'Noodle portions are described as adequate — enough to satisfy without overloading the bowl.'
+  )
+
+  sentences.push(
+    bowlTier === 'high'
+      ? 'Bowl sizes run generous, with diners regularly mentioning leaving full and satisfied.'
+      : bowlTier === 'low'
+      ? 'Bowl sizes trend on the smaller side according to some reviewers, though quality generally makes up for it.'
+      : 'Bowl sizes are about what you would expect for a sit-down ramen restaurant — standard portions.'
+  )
+
+  sentences.push(
+    valueTier === 'high'
+      ? `Value for the price is a recurring positive${r.priceRange ? ` at the ${r.priceRange} price range` : ''}, with diners feeling the portion and quality justify the cost.`
+      : valueTier === 'low'
+      ? `Some reviewers felt the price${r.priceRange ? ` (${r.priceRange})` : ''} runs a bit high relative to the portion.`
+      : `Pricing is viewed as fair${r.priceRange ? ` at ${r.priceRange}` : ''} for a casual ramen meal.`
+  )
+
+  const amenityBits: string[] = []
+  if (r.amenities.dineIn) amenityBits.push('dine-in')
+  if (r.amenities.takeout) amenityBits.push('takeout')
+  if (r.amenities.delivery) amenityBits.push('delivery')
+  sentences.push(
+    amenityBits.length > 0
+      ? `${r.name} offers ${amenityBits.join(', ')}, so there are multiple ways to enjoy a bowl.`
+      : `${r.name} is set up primarily as a sit-down restaurant experience.`
+  )
+
+  if (r.amenities.veganOptions || r.amenities.vegetarianOptions) {
+    sentences.push('Vegan and/or vegetarian options are available for diners with dietary restrictions.')
+  }
+
+  sentences.push(
+    rating != null && rating >= 4.5 && reviewCount >= 100
+      ? `With a strong rating backed by a large volume of reviews, ${r.name} is a safe bet for most ramen cravings in ${r.city}.`
+      : rating != null && rating >= 4
+      ? `Overall, ${r.name} is a solid choice worth trying if you're in ${r.city} craving ramen.`
+      : `Overall, ${r.name} is worth a visit if you're curious, though it's worth skimming recent reviews before making a special trip.`
+  )
+
+  const paragraph = sentences.slice(0, 10).join(' ')
+
+  const pros: string[] = []
+  const cons: string[] = []
+
+  if (rating != null && rating >= 4.5) pros.push(`Strong ${rating.toFixed(1)}-star rating`)
+  if (reviewCount >= 200) pros.push(`Well-reviewed with ${reviewCount.toLocaleString()}+ Google reviews`)
+  if (tasteTier === 'high') pros.push('Reviewers consistently praise the taste')
+  if (bowlTier === 'high') pros.push('Generous bowl portions')
+  if (noodleTier === 'high') pros.push('Noodles cooked with great texture')
+  if (valueTier === 'high') pros.push('Good value for the price')
+  if (r.amenities.delivery) pros.push('Delivery available')
+  if (r.amenities.outdoorSeating) pros.push('Outdoor seating available')
+  if (r.amenities.acceptsReservations) pros.push('Accepts reservations')
+  if (r.amenities.alcohol) pros.push('Full bar / alcohol served')
+  if (r.amenities.veganOptions || r.amenities.vegetarianOptions) pros.push('Vegan/vegetarian options on the menu')
+  if (r.amenities.wheelchairAccessible) pros.push('Wheelchair accessible')
+  if (r.amenities.parking) pros.push('On-site or nearby parking')
+
+  if (reviewCount < 50) cons.push('Still building up a longer review history')
+  if (rating != null && rating < 4.3) cons.push('Rating trails top-tier spots in the area')
+  if (tasteTier === 'low') cons.push('Some reviewers found the flavor merely average')
+  if (bowlTier === 'low') cons.push('Portions run smaller than some diners expect')
+  if (noodleTier === 'low') cons.push('Noodle portion is modest for some diners')
+  if (valueTier === 'low') cons.push('Value is seen as so-so for the price')
+  if (!r.amenities.delivery) cons.push('No delivery listed')
+  if (!r.amenities.acceptsReservations) cons.push('Walk-in only — no reservations')
+  if (!r.amenities.outdoorSeating) cons.push('No outdoor seating')
+  if (!r.amenities.parking) cons.push('Parking may be limited nearby')
+
+  const finalPros = pros.slice(0, 5)
+  const finalCons = cons.slice(0, 5)
+  if (finalPros.length === 0) finalPros.push('Serves a full menu of classic ramen styles')
+  if (finalCons.length === 0) finalCons.push('No major drawbacks noted in aggregated reviews')
+
+  return { paragraph, pros: finalPros, cons: finalCons }
 }
 
 // Link out to the restaurant's Google reviews (by Place ID when available).
