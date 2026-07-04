@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronRight, Star, ExternalLink, MapPin } from 'lucide-react'
+import { ChevronRight, Star, ExternalLink, MapPin, Store, QrCode } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { restaurants } from '@/lib/restaurants'
@@ -194,6 +194,34 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                 View Full Listing
               </Link>
             </div>
+          </section>
+
+          {/* Owner CTAs */}
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+            <Link
+              href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+              className="flex items-center gap-3 rounded-xl border border-black/8 bg-white p-4 hover:border-[#B57F50]/40 transition-colors"
+            >
+              <span className="w-10 h-10 rounded-full bg-[#1E2026]/8 flex items-center justify-center shrink-0">
+                <Store className="w-5 h-5 text-[#1E2026]" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-bold text-[#1E2026]">Own This Business?</span>
+                <span className="block text-xs text-[#6B6862]">Claim {r.name} — $0 for 14 days</span>
+              </span>
+            </Link>
+            <Link
+              href={`/review-cards?restaurant=${encodeURIComponent(r.slug)}`}
+              className="flex items-center gap-3 rounded-xl border border-[#B57F50]/25 bg-[#B57F50]/8 p-4 hover:bg-[#B57F50]/14 transition-colors"
+            >
+              <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 flex items-center justify-center shrink-0">
+                <QrCode className="w-5 h-5 text-[#B57F50]" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-bold text-[#1E2026]">Want More Reviews?</span>
+                <span className="block text-xs text-[#6B6862]">Get a QR review card for your tables</span>
+              </span>
+            </Link>
           </section>
 
           {/* Reviews */}
