@@ -17,6 +17,8 @@ import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
 import { matchModifier, FIND_MODIFIERS } from '@/lib/find-modifiers'
 import ModifierCityFindPage from '@/components/modifier-city-find-page'
 import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
+import { getBlogPost } from '@/lib/blog-posts'
+import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -111,6 +113,11 @@ export default async function CityFindPage(
 
   const parsed = parseParam(cityState)
   if (!parsed) notFound()
+
+  // Preserved editorial content from a migrated /blog/ "Best Ramen in X" post,
+  // if this city has one — spliced into the page rather than lost.
+  const cityGuideSlug = CITY_GUIDE_CONTENT_SOURCE[cityState]
+  const cityGuidePost = cityGuideSlug ? getBlogPost(cityGuideSlug) : undefined
 
   const { citySlug, stateCode } = parsed!
   const stateSlug = STATE_CODE_TO_SLUG[stateCode]
@@ -237,6 +244,11 @@ export default async function CityFindPage(
               <span>/</span>
               <span className="text-[#6B6862]">{cityName}</span>
             </nav>
+
+            {/* Preserved editorial guide content, if this city has one */}
+            {cityGuidePost && (
+              <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+            )}
 
             {/* DB listings */}
             {dbRestaurants.length > 0 && (
@@ -444,6 +456,10 @@ export default async function CityFindPage(
                 ))}
               </div>
             </div>
+
+            {cityGuidePost?.outroContent && (
+              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
+            )}
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
               Frequently Asked Questions

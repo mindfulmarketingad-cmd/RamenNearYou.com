@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, Phone, ChevronRight } from 'lucide-react'
@@ -11,17 +11,21 @@ import { getRestaurantBySlug } from '@/lib/restaurants'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
+import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
+  return blogPosts
+    .filter((post) => !CITY_GUIDE_REDIRECTS[post.slug])
+    .map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
+  if (CITY_GUIDE_REDIRECTS[slug]) return {}
   const post = getBlogPost(slug)
   if (!post) return {}
   const url = `https://www.ramennearyou.com/blog/${post.slug}`
@@ -117,6 +121,7 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
+  if (CITY_GUIDE_REDIRECTS[slug]) permanentRedirect(CITY_GUIDE_REDIRECTS[slug])
   const post = getBlogPost(slug)
   if (!post) notFound()
 

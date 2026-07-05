@@ -7,6 +7,8 @@ import FindCrossLinks from '@/components/find-cross-links'
 import { Loader2 } from 'lucide-react'
 import type { ResolvedCity } from '@/lib/find-city'
 import type { FindModifier } from '@/lib/find-modifiers'
+import { getBlogPost } from '@/lib/blog-posts'
+import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 
 export default function ModifierCityFindPage({
   modifier,
@@ -19,6 +21,8 @@ export default function ModifierCityFindPage({
 }) {
   const title = modifier.title(city.cityName, city.stateName)
   const faqs = modifier.faqs(city.cityName, city.stateCode)
+  const cityGuideSlug = CITY_GUIDE_CONTENT_SOURCE[cityState]
+  const cityGuidePost = cityGuideSlug ? getBlogPost(cityGuideSlug) : undefined
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -66,6 +70,10 @@ export default function ModifierCityFindPage({
               <span>/</span>
               <span className="text-[#6B6862]">{city.cityName}</span>
             </nav>
+
+            {cityGuidePost && (
+              <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+            )}
 
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
               {title}
@@ -118,6 +126,10 @@ export default function ModifierCityFindPage({
               <Link href={modifier.hubHref} className="text-[#B57F50] hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
               nationwide.
             </p>
+
+            {cityGuidePost?.outroContent && (
+              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
+            )}
 
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
               Frequently Asked Questions

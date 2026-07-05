@@ -3,6 +3,7 @@ import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitie
 import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { blogPosts } from '@/lib/blog-posts'
+import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { FIND_PAGES } from '@/components/find-cross-links'
 import { getFindCityParams } from '@/lib/find-city'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
@@ -41,12 +42,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
-  const blogPostPages = blogPosts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'monthly' as const,
-    priority: 0.5,
-  }))
+  const blogPostPages = blogPosts
+    .filter((post) => !CITY_GUIDE_REDIRECTS[post.slug])
+    .map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    }))
 
   // City × filter pages (e.g. /atlanta/georgia/tonkotsu-ramen)
   const cityFilterPages = getCityFilterStaticParams().map((p) => ({

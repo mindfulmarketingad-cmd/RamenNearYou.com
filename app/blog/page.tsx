@@ -3,6 +3,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BlogSearch from './blog-search'
 import { blogPosts } from '@/lib/blog-posts'
+import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 
 export const metadata: Metadata = {
   title: 'Ramen Blog — Recipes, Tips & Guides',
@@ -34,6 +35,7 @@ function getGroups() {
   const map = new Map<string, { href: string; label: string }[]>()
 
   for (const post of blogPosts) {
+    if (CITY_GUIDE_REDIRECTS[post.slug]) continue
     const label = post.h1 ?? post.title
     const href = `/blog/${post.slug}`
     const cat = post.category ?? 'General'

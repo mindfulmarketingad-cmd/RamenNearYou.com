@@ -28,6 +28,21 @@ export interface FindModifier {
 
 export const FIND_MODIFIERS: FindModifier[] = [
   {
+    prefix: 'vegan-ramen-in',
+    filter: { initialBowls: ['vegan'] },
+    title: (c, s) => `Vegan Ramen In ${c}, ${s}`,
+    metaNoun: 'vegan ramen',
+    hubHref: '/vegan-ramen-near-me',
+    hubLabel: 'Vegan Ramen',
+    about:
+      'Vegan ramen swaps pork- or chicken-based stock for a plant-based broth — usually built on kombu, dried shiitake, and roasted vegetables — while keeping the same springy noodles and layered umami of a classic bowl. The best versions do not taste like a compromise.',
+    faqs: (city, st) => [
+      { q: `Where can I find vegan ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving vegan ramen. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'Is vegan ramen actually good?', a: 'Yes — the best shops build a genuinely rich, umami-deep broth from kombu, dried mushrooms, and roasted vegetables rather than just serving a thin vegetable stock. Many vegan bowls now rival their pork-based counterparts.' },
+      { q: 'Are ramen noodles themselves vegan?', a: 'Traditional ramen noodle dough (wheat flour, water, salt, kansui) contains no animal products, so the noodles are almost always vegan — it is the broth and toppings you need to check.' },
+    ],
+  },
+  {
     prefix: 'best-ramen',
     filter: { initialFlags: ['top-rated'] },
     title: (c, s) => `Best Ramen In ${c}, ${s}`,
