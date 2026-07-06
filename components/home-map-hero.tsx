@@ -168,6 +168,9 @@ export default function HomeMapHero({
   )
   const [regionQuery, setRegionQuery] = useState('')
   const [showRegionDropdown, setShowRegionDropdown] = useState(false)
+  // Viewport-relative top for the mobile city dropdown (rendered fixed so the
+  // horizontally scrolling pill strip can't clip it).
+  const [regionDropdownTop, setRegionDropdownTop] = useState(0)
 
   const [searchSaved, setSearchSaved] = useState(false)
 
@@ -641,23 +644,27 @@ export default function HomeMapHero({
 
   return (
     <section className="pt-16 bg-[#F5F4F0]">
-      {/* SEO heading + intro — kept visible for crawlers and users */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-3">
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
+      {/* SEO heading + intro — compact on mobile so the map owns the screen */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2.5 sm:pt-5 pb-2 sm:pb-3">
+        <h1 className="font-serif text-lg sm:text-3xl font-bold text-[#1E2026] truncate sm:overflow-visible sm:whitespace-normal">
           {pageTitle}
         </h1>
-        <p className="text-[#6B6862] text-sm mt-1">
+        <p className="hidden sm:block text-[#6B6862] text-sm mt-1">
           {pageDescription}
         </p>
       </div>
 
-      {/* Top filter bar */}
+      {/* Top filter bar — one horizontally scrollable pill strip on mobile
+          (AllTrails-style); on sm+ the location/help/save controls stay pinned
+          with only the middle section scrolling. */}
       <div className="border-t border-black/8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
-            {/* Location toggle — always visible, not part of the horizontal
-                scroll strip (so its dropdown never gets clipped). Editable
-                everywhere: pick a preset city or type/choose any other. */}
+          <div
+            className="flex items-center gap-2 overflow-x-auto scrollbar-hide sm:overflow-x-visible"
+            onScroll={() => { if (showRegionDropdown) setShowRegionDropdown(false) }}
+          >
+            {/* Location toggle — editable everywhere: pick a preset city or
+                type/choose any other. */}
             {selectedRegion ? (
               <button
                 onClick={clearRegion}
@@ -675,37 +682,67 @@ export default function HomeMapHero({
                   type="text"
                   value={regionQuery}
                   onChange={e => { setRegionQuery(e.target.value); setShowRegionDropdown(true) }}
-                  onFocus={() => setShowRegionDropdown(true)}
+                  onFocus={e => {
+                    setRegionDropdownTop(e.currentTarget.getBoundingClientRect().bottom + 6)
+                    setShowRegionDropdown(true)
+                  }}
                   onBlur={() => setTimeout(() => setShowRegionDropdown(false), 150)}
                   placeholder="City, State"
                   aria-label="Filter by city and state"
                   className="w-36 sm:w-40 pl-7 pr-2 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
                 />
                 {showRegionDropdown && (
-                  <div className="absolute z-20 left-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
-                    {regionMatches.length === 0 ? (
-                      <p className="p-3 text-xs text-[#6B6862]">
-                        {dataLoading ? 'Loading cities…' : 'No matching city.'}
-                      </p>
-                    ) : (
-                      regionMatches.map(opt => (
-                        <button
-                          key={`${opt.citySlug}-${opt.stateSlug}`}
-                          type="button"
-                          onMouseDown={e => e.preventDefault()}
-                          onClick={() => selectRegion(opt)}
-                          className="block w-full text-left px-3 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
-                        >
-                          {opt.cityName}, {opt.stateCode}
-                        </button>
-                      ))
-                    )}
-                  </div>
+                  <>
+                    {/* Mobile: fixed to the viewport so the scrollable pill
+                        strip's overflow clipping can't cut the dropdown off. */}
+                    <div
+                      className="sm:hidden fixed left-4 right-4 z-[1300] max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl"
+                      style={{ top: regionDropdownTop }}
+                    >
+                      {regionMatches.length === 0 ? (
+                        <p className="p-3 text-xs text-[#6B6862]">
+                          {dataLoading ? 'Loading cities…' : 'No matching city.'}
+                        </p>
+                      ) : (
+                        regionMatches.map(opt => (
+                          <button
+                            key={`m-${opt.citySlug}-${opt.stateSlug}`}
+                            type="button"
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => selectRegion(opt)}
+                            className="block w-full text-left px-3 py-2.5 text-sm text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+                          >
+                            {opt.cityName}, {opt.stateCode}
+                          </button>
+                        ))
+                      )}
+                    </div>
+                    {/* Desktop: anchored under the input as before. */}
+                    <div className="hidden sm:block absolute z-20 left-0 top-full mt-1 w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
+                      {regionMatches.length === 0 ? (
+                        <p className="p-3 text-xs text-[#6B6862]">
+                          {dataLoading ? 'Loading cities…' : 'No matching city.'}
+                        </p>
+                      ) : (
+                        regionMatches.map(opt => (
+                          <button
+                            key={`${opt.citySlug}-${opt.stateSlug}`}
+                            type="button"
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => selectRegion(opt)}
+                            className="block w-full text-left px-3 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+                          >
+                            {opt.cityName}, {opt.stateCode}
+                          </button>
+                        ))
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
             )}
 
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:overflow-x-auto sm:scrollbar-hide flex-1 min-w-0">
+            <div className="flex items-center gap-2 shrink-0 sm:shrink sm:flex-1 sm:min-w-0 sm:overflow-x-auto sm:scrollbar-hide">
               <form
                 onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
                 className="relative shrink-0"
@@ -909,8 +946,9 @@ export default function HomeMapHero({
 
 
 
-      {/* Map + list */}
-      <div className="relative h-[80vh] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
+      {/* Map + list — on mobile the map fills the rest of the screen below
+          the navbar/title/filter strip (AllTrails-style full-screen map) */}
+      <div className="relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
         {/* Left list panel — static sidebar on sm+, full-screen overlay on mobile */}
         <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
           <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
@@ -922,14 +960,15 @@ export default function HomeMapHero({
                 </>
               )}
             </p>
-            {/* Back to full-screen map (mobile only) */}
-            <button
-              onClick={() => setMobileView('map')}
-              className="sm:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1E2026] text-white text-xs font-semibold"
-            >
-              <MapIcon className="w-3.5 h-3.5" /> Map
-            </button>
           </div>
+
+          {/* Back to full-screen map — floating bottom-center pill (mobile only) */}
+          <button
+            onClick={() => setMobileView('map')}
+            className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
+          >
+            <MapIcon className="w-5 h-5" /> Map
+          </button>
 
           <div className="flex-1 overflow-y-auto">
             {dataLoading ? (
@@ -1072,8 +1111,8 @@ export default function HomeMapHero({
                         </a>
                       )}
 
-                      {/* Action buttons */}
-                      <div className="flex gap-1.5 px-3 pb-2.5 pt-1">
+                      {/* Action buttons — wrap so none clip off-screen on mobile */}
+                      <div className="flex flex-wrap gap-1.5 px-3 pb-2.5 pt-1">
                         {hasInternalPage ? (
                           <Link
                             href={internalUrl}
@@ -1200,15 +1239,16 @@ export default function HomeMapHero({
             </div>
           )}
 
-          {/* Floating list-view toggle (mobile only) — opens the list overlay */}
+          {/* Floating list-view toggle (mobile only) — bottom-center pill,
+              AllTrails-style, opens the list overlay */}
           <button
             onClick={() => setMobileView('list')}
-            className="sm:hidden absolute bottom-4 right-4 z-[1000] flex items-center justify-center w-14 h-14 rounded-full bg-white shadow-lg shadow-black/25 border border-black/10 text-[#1E2026] active:scale-95 transition-transform"
+            className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
             aria-label={`Show list of ${displayList.length} ramen spots`}
           >
-            <List className="w-6 h-6" />
+            <List className="w-5 h-5" /> List
             {displayList.length > 0 && (
-              <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">
+              <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-white/25 text-white text-[11px] font-bold">
                 {displayList.length > 99 ? '99+' : displayList.length}
               </span>
             )}
@@ -1260,7 +1300,7 @@ export default function HomeMapHero({
                 <span className="text-2xl leading-none mt-0.5">🗺️</span>
                 <div>
                   <p className="font-semibold mb-1">Browse the map</p>
-                  <p className="text-[#6B6862]">Click any pin on the map to highlight that restaurant in the list. Pan or zoom the map and tap <strong>Search this area</strong> to reload results for the visible region. On mobile, use the circular list button (bottom-right) to switch between map and list view.</p>
+                  <p className="text-[#6B6862]">Click any pin on the map to highlight that restaurant in the list. Pan or zoom the map and tap <strong>Search this area</strong> to reload results for the visible region. On mobile, use the List / Map button at the bottom of the screen to switch between map and list view.</p>
                 </div>
               </div>
 

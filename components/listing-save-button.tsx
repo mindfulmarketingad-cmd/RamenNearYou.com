@@ -35,7 +35,7 @@ export default function ListingSaveButton({ slug, restaurantName }: { slug: stri
       onClick={handleClick}
       disabled={busy}
       aria-label={saved ? `Remove ${restaurantName} from saved` : `Save ${restaurantName}`}
-      className="flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium disabled:opacity-60"
+      className="flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium disabled:opacity-60 shrink-0"
     >
       <span className="w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors">
         <Heart className={`w-5 h-5 transition-all ${saved ? 'fill-[#B57F50]' : ''}`} />

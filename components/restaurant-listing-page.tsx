@@ -140,7 +140,7 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
     } : {}),
   }
 
-  const iconBtn = 'flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium'
+  const iconBtn = 'flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium shrink-0'
   const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
 
   return (
@@ -192,8 +192,9 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                 )}
               </div>
 
-              {/* Google-Maps-style action row */}
-              <div className="flex items-center gap-5 mt-5 pb-5 border-b border-black/8">
+              {/* Google-Maps-style action row — scrolls horizontally on narrow
+                  screens so all six actions stay reachable without clipping */}
+              <div className="flex items-center gap-5 mt-5 pb-5 border-b border-black/8 overflow-x-auto scrollbar-hide">
                 <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn}>
                   <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
                   Directions
