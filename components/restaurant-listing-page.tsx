@@ -211,6 +211,12 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                   </a>
                 )}
                 <ListingSaveButton slug={r.slug} restaurantName={r.name} />
+                {menuUrl && (
+                  <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn}>
+                    <span className={iconCircle}><BookOpen className="w-5 h-5" /></span>
+                    Menu
+                  </a>
+                )}
                 <Link href="/claim-your-listing" className={iconBtn}>
                   <span className={iconCircle}><Store className="w-5 h-5" /></span>
                   Claim
