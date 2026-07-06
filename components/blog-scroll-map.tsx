@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Phone, ChevronRight, Star, BadgeCheck } from 'lucide-react'
+import { MapPin, Phone, ChevronRight, Star, BadgeCheck, Map as MapIcon } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
+import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -192,6 +193,9 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
   }, [])
 
   const withCoords = cards.filter(c => c.lat && c.lng)
+  const first = cards[0]
+  const stateCode = first ? STATE_SLUG_TO_CODE[first.stateSlug] : undefined
+  const findMapHref = first && stateCode ? `/find/${first.citySlug}-${stateCode.toLowerCase()}` : null
 
   return (
     <div className="lg:flex lg:gap-0 lg:-mx-8">
@@ -201,6 +205,17 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
             {listHeading}
           </h2>
+        )}
+        {/* Mobile has no inline map (avoids initializing Leaflet in a hidden
+            container) — link out to the full interactive map instead so
+            mobile users get the same map access desktop gets inline. */}
+        {!isDesktop && findMapHref && withCoords.length > 0 && (
+          <Link
+            href={findMapHref}
+            className="lg:hidden flex items-center justify-center gap-2 mb-6 px-4 py-3 rounded-xl bg-[#1E2026] hover:bg-black text-white text-sm font-semibold transition-colors"
+          >
+            <MapIcon className="w-4 h-4" /> View these spots on the interactive map
+          </Link>
         )}
         <div className="flex flex-col gap-5">
           {cards.map((card) => (

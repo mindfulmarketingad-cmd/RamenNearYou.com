@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -274,6 +274,35 @@ export default function HomeMapHero({
     }
     return Array.from(map.values()).sort((a, b) => a.cityName.localeCompare(b.cityName))
   }, [data])
+
+  // Legacy `/searchmap?city=&state=&q=&zip=` links (quiz results, broth-city
+  // pages, city directories, search page) redirect here — apply them once the
+  // city dataset is loaded so those links actually filter instead of landing
+  // on a generic nationwide map. Read directly from the URL (not the
+  // App Router's useSearchParams hook) so this client component doesn't force
+  // every one of the 70+ pages that render it to add a Suspense boundary.
+  const appliedUrlParams = useRef(false)
+  useEffect(() => {
+    if (appliedUrlParams.current || dataLoading || typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const cityParam = params.get('city')
+    const stateParam = params.get('state')
+    const qParam = params.get('q')
+    const zipParam = params.get('zip')
+    if (!cityParam && !stateParam && !qParam && !zipParam) return
+    appliedUrlParams.current = true
+
+    if (cityParam && stateParam) {
+      const match = cityOptions.find(c => c.citySlug === cityParam && c.stateSlug === stateParam)
+      if (match) selectRegion(match)
+    }
+    if (qParam) setLocalQuery(qParam)
+    if (zipParam && /^\d{5}$/.test(zipParam)) {
+      setLocationSearch(zipParam)
+      geocodeLocation(zipParam)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataLoading, cityOptions])
 
   const regionMatches = useMemo(() => {
     const q = regionQuery.trim().toLowerCase()
@@ -625,7 +654,7 @@ export default function HomeMapHero({
       {/* Top filter bar */}
       <div className="border-t border-black/8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
             {/* Location toggle — always visible, not part of the horizontal
                 scroll strip (so its dropdown never gets clipped). Editable
                 everywhere: pick a preset city or type/choose any other. */}
@@ -653,7 +682,7 @@ export default function HomeMapHero({
                   className="w-36 sm:w-40 pl-7 pr-2 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
                 />
                 {showRegionDropdown && (
-                  <div className="absolute z-20 left-0 top-full mt-1 w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
+                  <div className="absolute z-20 left-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
                     {regionMatches.length === 0 ? (
                       <p className="p-3 text-xs text-[#6B6862]">
                         {dataLoading ? 'Loading cities…' : 'No matching city.'}
@@ -676,7 +705,7 @@ export default function HomeMapHero({
               </div>
             )}
 
-            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:overflow-x-auto sm:scrollbar-hide flex-1 min-w-0">
               <form
                 onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
                 className="relative shrink-0"
@@ -689,7 +718,7 @@ export default function HomeMapHero({
                   value={locationSearch}
                   onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
                   placeholder="ZIP code"
-                  className="w-44 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                  className="w-36 sm:w-44 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
                 />
                 <button
                   type="submit"
@@ -700,7 +729,7 @@ export default function HomeMapHero({
                 </button>
               </form>
 
-              <div className="h-5 w-px bg-black/10 shrink-0" />
+              <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
 
               <button
                 onClick={() => setShowFilters(v => !v)}
@@ -746,7 +775,7 @@ export default function HomeMapHero({
               aria-label="How to use this map"
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Help</span>
+              <span>Help</span>
             </button>
 
             {/* Save Search — pinned to the right outside the scrollable area */}
@@ -760,7 +789,7 @@ export default function HomeMapHero({
               aria-label="Save this search"
             >
               <Bookmark className={`w-3.5 h-3.5 transition-all ${searchSaved ? 'fill-white' : ''}`} />
-              <span className="hidden sm:inline">{searchSaved ? 'Saved ✓' : 'Save Search'}</span>
+              <span>{searchSaved ? 'Saved ✓' : 'Save Search'}</span>
             </button>
           </div>
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
