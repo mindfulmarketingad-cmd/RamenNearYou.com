@@ -795,6 +795,17 @@ export default function HomeMapHero({
                 </select>
               </div>
 
+              {/* Quick filters — one-tap shortcuts for the most-used filters */}
+              <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
+              <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
+              <Chip
+                active={bowls.has('miso')}
+                hex={BOWL_BY_KEY['miso']?.hex}
+                emoji={BOWL_BY_KEY['miso']?.emoji}
+                label="Miso"
+                onClick={() => toggleBowl('miso')}
+              />
+
               {activeCount > 0 && (
                 <button
                   onClick={clearAll}
