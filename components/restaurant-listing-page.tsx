@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight, ExternalLink,
-  Navigation2, ShoppingBag, BookOpen, Store, QrCode,
+  Navigation2, ShoppingBag, BookOpen, Store, QrCode, BadgeCheck, Edit3,
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -9,6 +9,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingSaveButton from '@/components/listing-save-button'
+import ConnectAccountPanel from '@/components/connect-account-panel'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug } from '@/lib/reviews'
 import type { Restaurant } from '@/lib/restaurants'
@@ -86,11 +87,14 @@ interface Props {
   city: string
   state: string
   nearby: Restaurant[]
+  isVerified?: boolean
+  isOwner?: boolean
+  canSelfLink?: boolean
 }
 
 // Google-Maps-style single-restaurant listing: a scrollable details panel on
 // the left, a single-pin map on the right. Mirrors the searchmap layout.
-export default function RestaurantListingPage({ r, city, state, nearby }: Props) {
+export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false, isOwner = false, canSelfLink = false }: Props) {
   const url = `https://www.ramennearyou.com/${city}/${state}/${r.slug}`
   const openNow = isOpenNow(r.hours)
   const category = (r.subtypes?.split(',')[0] ?? 'Ramen restaurant').trim()
@@ -171,7 +175,14 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
               </nav>
 
               {/* Name + meta */}
-              <h1 className="font-serif text-2xl font-bold text-[#1E2026] leading-tight">{r.name}</h1>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="font-serif text-2xl font-bold text-[#1E2026] leading-tight">{r.name}</h1>
+                {isVerified && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold shrink-0">
+                    <BadgeCheck className="w-3.5 h-3.5" /> Verified
+                  </span>
+                )}
+              </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                   <span className="font-bold text-[#1E2026] text-sm">{r.rating?.toFixed(1) ?? '—'}</span>
@@ -218,11 +229,26 @@ export default function RestaurantListingPage({ r, city, state, nearby }: Props)
                     Menu
                   </a>
                 )}
-                <Link href="/claim-your-listing" className={iconBtn}>
-                  <span className={iconCircle}><Store className="w-5 h-5" /></span>
-                  Claim
-                </Link>
+                {isOwner ? (
+                  <Link href={`/owner/${r.slug}`} className={iconBtn}>
+                    <span className={iconCircle}><Edit3 className="w-5 h-5" /></span>
+                    Manage
+                  </Link>
+                ) : !isVerified ? (
+                  <Link href={`/claim/${city}/${state}/${r.slug}`} className={iconBtn}>
+                    <span className={iconCircle}><Store className="w-5 h-5" /></span>
+                    Claim
+                  </Link>
+                ) : null}
               </div>
+
+              {/* Self-link: logged-in user's email matches the approved claim
+                  but their account isn't connected to it yet */}
+              {canSelfLink && (
+                <div className="mt-5">
+                  <ConnectAccountPanel slug={r.slug} restaurantName={r.name} />
+                </div>
+              )}
 
               {/* Primary CTAs */}
               {(orderUrl || menuUrl) && (

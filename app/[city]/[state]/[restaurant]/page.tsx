@@ -301,7 +301,48 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
       .slice(0, 6)
 
-    return <RestaurantListingPage r={r2} city={city} state={state} nearby={nearbyListings} />
+    // Claim/verification status — same lookup the Ikedo path below uses, so
+    // every listing (not just the one hardcoded page) knows whether it's
+    // already claimed and, if so, whether the current visitor owns it.
+    let isVerified = false
+    let isOwner = false
+    let canSelfLink = false
+    const claimsClient = createAdminClient() ?? sb
+    if (claimsClient) {
+      const { data: claim } = await claimsClient
+        .from('claims')
+        .select('id, user_id, contact_email')
+        .eq('restaurant_slug', r2.slug)
+        .eq('status', 'approved')
+        .maybeSingle()
+      isVerified = !!claim
+
+      if (claim && sb) {
+        const { data: { user } } = await sb.auth.getUser()
+        if (user) {
+          if (user.id === claim.user_id) {
+            isOwner = true
+          } else if (
+            claim.contact_email &&
+            claim.contact_email.toLowerCase() === user.email?.toLowerCase()
+          ) {
+            canSelfLink = true
+          }
+        }
+      }
+    }
+
+    return (
+      <RestaurantListingPage
+        r={r2}
+        city={city}
+        state={state}
+        nearby={nearbyListings}
+        isVerified={isVerified}
+        isOwner={isOwner}
+        canSelfLink={canSelfLink}
+      />
+    )
   }
 
   const original = getRestaurant(city, state, restaurant)
