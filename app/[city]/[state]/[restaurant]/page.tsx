@@ -21,6 +21,15 @@ import {
 } from '@/lib/city-filter-pages'
 
 export const dynamicParams = true
+// Force-dynamic: the restaurant-detail branch reads cookies (via the
+// Supabase server client, for claim/owner status) on every request. Mixing
+// that with this route's generateStaticParams-based city×filter pages
+// caused Next to throw DYNAMIC_SERVER_USAGE instead of just rendering those
+// paths dynamically — "This page couldn't load" for effectively every
+// restaurant page. Forcing the whole segment dynamic trades a small amount
+// of static caching on the ~140 city×filter combo pages for every
+// individual restaurant page actually working.
+export const dynamic = 'force-dynamic'
 
 export async function generateStaticParams() {
   // Every restaurant (DB or Places-supplement) renders on demand via
