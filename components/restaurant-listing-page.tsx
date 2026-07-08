@@ -11,7 +11,7 @@ import ShareButton from '@/components/share-button'
 import ListingSaveButton from '@/components/listing-save-button'
 import ConnectAccountPanel from '@/components/connect-account-panel'
 import { expandDescription } from '@/lib/expand-description'
-import { getReviewSlug } from '@/lib/reviews'
+import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import type { Restaurant } from '@/lib/restaurants'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -188,9 +188,11 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   <span className="font-bold text-[#1E2026] text-sm">{r.rating?.toFixed(1) ?? '—'}</span>
                   <StarRating rating={r.rating} />
                   <span className="text-[#6B6862] text-sm">({(r.reviewCount ?? 0).toLocaleString()})</span>
-                  <Link href={`/reviews/${reviewSlug}`} className="text-xs text-[#B57F50] font-medium hover:underline">
-                    Read reviews →
-                  </Link>
+                  {hasReviewPage(reviewSlug) && (
+                    <Link href={`/reviews/${reviewSlug}`} className="text-xs text-[#B57F50] font-medium hover:underline">
+                      Read reviews →
+                    </Link>
+                  )}
                 </div>
               )}
               <div className="flex items-center gap-2 mt-1.5 text-sm text-[#6B6862] flex-wrap">

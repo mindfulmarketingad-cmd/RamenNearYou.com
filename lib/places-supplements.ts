@@ -2,6 +2,7 @@ import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
 import quebecRaw from './places-quebec.json'
 import { STATE_CODE_TO_SLUG, STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from './state-lookups'
+import type { Restaurant } from './restaurants'
 
 export interface PlacesRestaurant {
   placeId: string
@@ -150,6 +151,62 @@ export function getSupplementOnlyStateSlugs(dbStateSlugs: Set<string>): string[]
 export function getSupplementStateName(stateSlug: string): string {
   const stateCode = STATE_SLUG_TO_CODE[stateSlug]
   return stateCode ? (STATE_CODE_TO_NAME[stateCode] ?? stateSlug) : stateSlug
+}
+
+function priceLevelToRange(level: number | null): string {
+  if (level === 1) return '$'
+  if (level === 2) return '$$'
+  if (level === 3) return '$$$'
+  if (level === 4) return '$$$$'
+  return ''
+}
+
+// Adapts a Google Places supplement listing into the same Restaurant shape
+// the DB dataset uses, so supplement listings can render through
+// RestaurantListingPage (the Google-Maps-style listing layout) instead of a
+// separate page format. Fields Places doesn't provide (phone, website,
+// hours, amenities, etc.) fall back to their "unknown" defaults, which the
+// listing page already treats as "hide this section."
+export function supplementToRestaurant(sup: SupplementListing): Restaurant {
+  return {
+    name: sup.name,
+    slug: sup.slug,
+    citySlug: sup.citySlug,
+    stateSlug: sup.stateSlug,
+    phone: '',
+    website: '',
+    address: sup.address ?? '',
+    street: '',
+    city: sup.city,
+    county: '',
+    state: getSupplementStateName(sup.stateSlug),
+    stateCode: sup.stateCode,
+    postalCode: '',
+    latitude: sup.latitude,
+    longitude: sup.longitude,
+    rating: sup.rating,
+    reviewCount: sup.reviewCount ?? 0,
+    reviewsPerScore: null,
+    photosCount: 0,
+    photo: sup.photo ?? '',
+    logo: '',
+    businessStatus: '',
+    hours: null,
+    priceRange: priceLevelToRange(sup.priceLevel),
+    description: '',
+    menuLink: '',
+    orderLinks: '',
+    googleMapsLink: sup.googleMapsUrl,
+    placeId: sup.placeId,
+    subtypes: '',
+    amenities: {
+      delivery: false, takeout: false, dineIn: false, outdoorSeating: false,
+      alcohol: false, veganOptions: false, vegetarianOptions: false,
+      acceptsReservations: false, wheelchairAccessible: false,
+      casual: false, cozy: false, trendy: false, familyFriendly: false,
+      parking: false, creditCards: false,
+    },
+  }
 }
 
 // Returns one entry per state that has supplement data, with city count.
