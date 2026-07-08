@@ -1024,10 +1024,12 @@ export default function HomeMapHero({
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
                   const isSupp = !!r.googleMapsUrl
-                  // Every DB restaurant has its own internal listing page;
-                  // only Google Places supplement listings (isSupp) don't, so
-                  // those keep linking out to Google Maps.
-                  const hasInternalPage = !isSupp
+                  // Every restaurant — DB or Google Places supplement — has
+                  // its own internal listing page now (supplements render via
+                  // SupplementRestaurantPage at the same /{city}/{state}/{slug}
+                  // URL), so cards always link internally. isSupp still gates
+                  // the Save button below (saves are keyed to DB slugs only).
+                  const hasInternalPage = true
                   const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
                   const directionsUrl = r.googleMapsLink
                     ?? r.googleMapsUrl

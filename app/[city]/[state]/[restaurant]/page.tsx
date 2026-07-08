@@ -276,7 +276,19 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const isIkedo = city === 'port-washington' && state === 'new-york' && restaurant === 'ikedo-ramen'
   if (!isIkedo) {
     const dbr = getRestaurant(city, state, restaurant)
-    if (!dbr) notFound()
+    if (!dbr) {
+      // Not a DB restaurant — check Google Places supplement listings. These
+      // power map pins and cards too, and previously had no internal page at
+      // all (they linked straight out to Google Maps instead).
+      const stateCode = STATE_SLUG_TO_CODE[state]
+      const sup = stateCode ? findSupplementListing(city, state, restaurant) : null
+      if (!sup) notFound()
+      const stateName = getSupplementStateName(state)
+      const nearby = getSupplementListings(city, sup.stateCode)
+        .filter(n => n.slug !== sup.slug)
+        .slice(0, 8)
+      return <SupplementRestaurantPage listing={sup} stateName={stateName} nearby={nearby} />
+    }
     const r2 = { ...dbr } as Restaurant
 
     // Apply owner-submitted overrides the same way the Ikedo path does.

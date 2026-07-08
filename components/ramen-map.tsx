@@ -248,14 +248,10 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured)
       ratingsRef.current[r.slug] = r.rating
 
-      // Only the one featured listing has an internal detail page — everyone
-      // else's popup should go straight to their own website.
-      const isIkedo = r.slug === 'ikedo-ramen' && r.citySlug === 'port-washington'
-      const siteUrl = isIkedo
-        ? `/${r.citySlug}/${r.stateSlug}/${r.slug}`
-        : (r.website || r.googleMapsLink || r.googleMapsUrl
-          || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`)
-      const linkTarget = isIkedo ? '_self' : '_blank'
+      // Every restaurant — DB or Google Places supplement — has its own
+      // internal detail page, so the popup always links there.
+      const siteUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+      const linkTarget = '_self'
 
       const chipsHtml = (r.matchedChips ?? []).length > 0
         ? `<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:4px">${(r.matchedChips ?? []).map(c =>
