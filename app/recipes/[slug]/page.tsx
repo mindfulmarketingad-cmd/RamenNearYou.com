@@ -16,8 +16,13 @@ export async function generateStaticParams() {
 }
 
 function minutesFrom(label: string): number {
-  const match = label.match(/\d+/)
-  return match ? parseInt(match[0], 10) : 0
+  const hours = label.match(/(\d+)\s*hour/)
+  const minutes = label.match(/(\d+)\s*minute/)
+  if (hours || minutes) {
+    return (hours ? parseInt(hours[1], 10) * 60 : 0) + (minutes ? parseInt(minutes[1], 10) : 0)
+  }
+  const bare = label.match(/\d+/)
+  return bare ? parseInt(bare[0], 10) : 0
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
