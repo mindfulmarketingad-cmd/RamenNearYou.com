@@ -5,11 +5,21 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
 const PIN_HTML = `
-  <div style="position:relative;width:40px;height:48px;display:flex;align-items:flex-start;justify-content:center;">
+  <div class="rny-pin-pulse" style="position:relative;width:40px;height:48px;display:flex;align-items:flex-start;justify-content:center;transform-origin:50% 100%;">
     <div style="width:40px;height:40px;background:#B57F50;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
       <div style="width:11px;height:11px;border-radius:50%;background:white;transform:rotate(45deg)"></div>
     </div>
   </div>
+`
+
+// Pin pulses briefly once every 5 seconds to draw the eye to the location.
+const PULSE_CSS = `
+@keyframes rny-pin-pulse {
+  0%, 88%, 100% { transform: scale(1); }
+  92% { transform: scale(1.25); }
+  96% { transform: scale(0.95); }
+}
+.rny-pin-pulse { animation: rny-pin-pulse 5s ease-in-out infinite; }
 `
 
 const pinIcon = () =>
@@ -31,12 +41,24 @@ export default function RestaurantMapPane({ lat, lng, name, address }: Props) {
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
 
+    if (!document.getElementById('rny-pin-pulse-css')) {
+      const style = document.createElement('style')
+      style.id = 'rny-pin-pulse-css'
+      style.textContent = PULSE_CSS
+      document.head.appendChild(style)
+    }
+
     const map = L.map(containerRef.current, {
       center: [lat, lng],
       zoom: 15,
       zoomControl: false,
-      scrollWheelZoom: true,
-      dragging: true,
+      // Same policy as the searchmap: zoom only via the +/- buttons, and no
+      // one-finger drag on touch devices so page scrolling isn't hijacked.
+      scrollWheelZoom: false,
+      touchZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      dragging: !L.Browser.mobile,
       attributionControl: true,
     })
 

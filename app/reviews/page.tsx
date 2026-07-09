@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ChevronRight, QrCode, Star, Printer, TrendingUp } from 'lucide-react'
+import { QrCode, Star, Printer, TrendingUp } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
-import ReviewsIndexClient, { type ReviewIndexItem } from '@/components/reviews-index-client'
+import ReviewsHubSearch, { type LetterGroup } from './reviews-hub-search'
 
 const FAQS = [
   {
@@ -48,45 +48,44 @@ export const metadata: Metadata = {
 
 export default function ReviewsIndexPage() {
   const reviewRestaurants = getReviewRestaurants()
-  const items: ReviewIndexItem[] = reviewRestaurants
+
+  // Every review page as a plain link, alphabetical by restaurant name and
+  // grouped by first letter — same simple hyperlink-list format as /find.
+  const links = reviewRestaurants
     .map((r) => ({
-      name: r.name,
-      reviewSlug: getReviewSlug(r),
-      city: r.city,
-      stateCode: r.stateCode,
-      rating: r.rating,
-      reviewCount: r.reviewCount ?? 0,
-      description: r.description ?? '',
+      href: `/reviews/${getReviewSlug(r)}`,
+      label: `${r.name} — ${r.city}, ${r.stateCode}`,
+      sortKey: r.name.toLowerCase(),
     }))
+    .sort((a, b) => a.sortKey.localeCompare(b.sortKey))
+
+  const groupMap = new Map<string, { href: string; label: string }[]>()
+  for (const l of links) {
+    const first = l.sortKey.charAt(0)
+    const letter = first >= 'a' && first <= 'z' ? first.toUpperCase() : '#'
+    if (!groupMap.has(letter)) groupMap.set(letter, [])
+    groupMap.get(letter)!.push({ href: l.href, label: l.label })
+  }
+  const groups: LetterGroup[] = Array.from(groupMap.entries())
+    .map(([letter, ls]) => ({ letter, links: ls }))
+    .sort((a, b) => (a.letter === '#' ? -1 : b.letter === '#' ? 1 : a.letter.localeCompare(b.letter)))
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-8 pt-2">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Reviews</span>
-          </nav>
+      <main className="min-h-screen bg-[#F5F4F0] pt-24 pb-20 px-4 sm:px-6">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Restaurant Reviews</h1>
+          <p className="text-[#6B6862] text-sm mb-6">
+            Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on
+            taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
+          </p>
 
-          {/* Header */}
-          <div className="mb-10">
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-              Ramen Restaurant Reviews
-            </h1>
-            <p className="text-[#6B6862] text-lg max-w-2xl">
-              Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on
-              taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
-            </p>
-          </div>
-
-          <ReviewsIndexClient items={items} />
+          <ReviewsHubSearch groups={groups} total={reviewRestaurants.length} />
 
           {/* SEO content + owner CTA */}
-          <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-black/8">
+          <div className="mt-16 pt-12 border-t border-black/8">
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
               How to Read Ramen Reviews the Right Way
             </h2>

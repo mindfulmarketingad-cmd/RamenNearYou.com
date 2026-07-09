@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
-import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from '@/lib/hours'
+import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend, getOpenStatus } from '@/lib/hours'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -87,6 +87,23 @@ function Chip({
       {label}
     </button>
   )
+}
+
+// ── Open / closing-soon / closed tag for the listing cards ──────────────────
+function OpenStatusTag({ hours }: { hours: Record<string, string[]> | null }) {
+  const s = getOpenStatus(hours)
+  if (!s) return null
+  if (s.status === 'closed') {
+    return <span className="px-1.5 py-0.5 rounded bg-red-50 text-red-600 text-[10px] font-semibold">Closed</span>
+  }
+  if (s.status === 'closing-soon') {
+    return (
+      <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold">
+        Closes soon · {s.closesAt}
+      </span>
+    )
+  }
+  return <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">Open</span>
 }
 
 // ── Color-coded badges showing which active filter(s) a card matched ────────
@@ -1085,7 +1102,7 @@ export default function HomeMapHero({
                                 )
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                              {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
+                              <OpenStatusTag hours={r.hours} />
                               {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
                             <MatchedChips chips={r.matchedChips} />
@@ -1116,7 +1133,7 @@ export default function HomeMapHero({
                                 </span>
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
-                              {isOpenNow(r.hours) && <span className="text-emerald-600 text-xs font-medium">Open</span>}
+                              <OpenStatusTag hours={r.hours} />
                               {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
                             <MatchedChips chips={r.matchedChips} />

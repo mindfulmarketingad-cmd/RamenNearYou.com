@@ -142,6 +142,42 @@ export function getClosingTime(hours: Record<string, string[]>): string | null {
   return null
 }
 
+export type OpenStatus =
+  | { status: 'open'; closesAt: string }
+  | { status: 'closing-soon'; closesAt: string; minutesLeft: number }
+  | { status: 'closed' }
+
+/**
+ * Current open/closed status with a closing-soon warning when the active
+ * slot ends within `soonMinutes` (default 60). Returns null when hours are
+ * unknown so callers can simply render nothing.
+ */
+export function getOpenStatus(hours: Record<string, string[]> | null, soonMinutes = 60): OpenStatus | null {
+  if (!hours || Object.keys(hours).length === 0) return null
+  const now = new Date()
+  const dayName = DAYS[now.getDay()]
+  const slots = hours[dayName]
+  if (!slots || slots.length === 0) return null
+  const currentMinutes = now.getHours() * 60 + now.getMinutes()
+  let sawParseable = false
+  for (const slot of slots) {
+    if (slot === 'Closed') { sawParseable = true; continue }
+    const parsed = parseSlot(slot)
+    if (!parsed) continue
+    sawParseable = true
+    if (parsed.start === 0 && parsed.end === 1440) return { status: 'open', closesAt: 'midnight' }
+    let end = parsed.end
+    if (end <= parsed.start) end += 1440 // closes after midnight
+    if (currentMinutes >= parsed.start && currentMinutes < end) {
+      const minutesLeft = end - currentMinutes
+      const closesAt = minutesToLabel(parsed.end)
+      if (minutesLeft <= soonMinutes) return { status: 'closing-soon', closesAt, minutesLeft }
+      return { status: 'open', closesAt }
+    }
+  }
+  return sawParseable ? { status: 'closed' } : null
+}
+
 function formatSlotLabel(slot: string): string {
   const s = slot.trim()
   if (s === 'Closed' || s === 'Open 24 hours') return s
