@@ -9,6 +9,7 @@ import SearchMapShowcase from '@/components/searchmap-showcase'
 import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
+import UgcGrid from '@/components/ugc-grid'
 import HomepageReviews from '@/components/homepage-reviews'
 import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
@@ -150,6 +151,7 @@ export default function HomePage() {
           </section>
 
           <CommunityCarousel />
+          <UgcGrid />
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />
