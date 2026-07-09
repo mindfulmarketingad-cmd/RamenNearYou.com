@@ -164,6 +164,15 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       center: [userLat, userLng],
       zoom: initialZoom,
       zoomControl: true,
+      // Zoom ONLY via the +/- buttons — scroll-wheel, pinch, and double-tap
+      // zoom all hijack normal page scrolling (especially on mobile).
+      scrollWheelZoom: false,
+      touchZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      // On touch devices, one-finger drag pans the map and traps users who are
+      // trying to scroll down the page — disable it there; desktop keeps drag.
+      dragging: !L.Browser.mobile,
     })
     // Base tile layer (standard vs. satellite) is managed by a separate effect.
 
