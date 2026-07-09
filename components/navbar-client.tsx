@@ -104,8 +104,8 @@ export default function NavbarClient() {
                 <Link href="/reviews" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   Reviews
                 </Link>
-                <Link href="/collections" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Collections
+                <Link href="/recipes" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  Recipes
                 </Link>
                 <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   Blog
@@ -188,8 +188,8 @@ export default function NavbarClient() {
               <Link href="/reviews" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 Reviews
               </Link>
-              <Link href="/collections" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Collections
+              <Link href="/recipes" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                Recipes
               </Link>
               <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 Blog

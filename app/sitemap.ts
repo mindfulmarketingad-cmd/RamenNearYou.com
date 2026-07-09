@@ -8,6 +8,7 @@ import { FIND_PAGES } from '@/components/find-cross-links'
 import { getFindCityParams } from '@/lib/find-city'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import { getAllComparisons } from '@/lib/broth-comparisons'
+import { getAllRecipes } from '@/lib/recipes'
 
 const BASE_URL = 'https://www.ramennearyou.com'
 
@@ -96,6 +97,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Broth-type comparison pages (e.g. /comparisons/tonkotsu-ramen-vs-miso-ramen)
   const comparisonPages = getAllComparisons().map((c) => ({
     url: `${BASE_URL}/comparisons/${c.slug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  // Recipe pages (e.g. /recipes/quick-homemade-ramen)
+  const recipePages = getAllRecipes().map((r) => ({
+    url: `${BASE_URL}/recipes/${r.slug}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'monthly' as const,
     priority: 0.6,
@@ -203,6 +212,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${BASE_URL}/recipes`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${BASE_URL}/collections/ceramic-ramen-bowls`,
       lastModified: LAST_CONTENT,
       changeFrequency: 'monthly' as const,
@@ -257,6 +272,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.3,
     },
     ...comparisonPages,
+    ...recipePages,
     ...findFilterPages,
     ...findCityPages,
     ...modifierFindPages,
