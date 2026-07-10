@@ -5,6 +5,7 @@ import { ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RecipeCard from '@/components/recipe-card'
+import RestaurantImage from '@/components/restaurant-image'
 import { RECIPES, getRecipe } from '@/lib/recipes'
 
 interface Props {
@@ -55,7 +56,7 @@ export default async function RecipePage({ params }: Props) {
     '@type': 'Recipe',
     name: recipe.cardTitle,
     description: recipe.description,
-    image: [`https://www.ramennearyou.com${recipe.image}`],
+    image: [recipe.image.startsWith('http') ? recipe.image : `https://www.ramennearyou.com${recipe.image}`],
     author: { '@type': 'Organization', name: 'RamenNearYou' },
     datePublished: recipe.date,
     prepTime: `PT${minutesFrom(recipe.prepTime)}M`,
@@ -126,8 +127,25 @@ export default async function RecipePage({ params }: Props) {
             {recipe.description}
           </p>
 
+          {/* Photo gallery */}
+          {recipe.gallery && recipe.gallery.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 mb-10 print:hidden">
+              {recipe.gallery.map((src, i) => (
+                <div key={i} className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#EFEDE6]">
+                  <RestaurantImage
+                    src={src}
+                    alt={`${recipe.cardTitle} photo ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, 384px"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Ingredients needed */}
-          <section className="mb-10 print:hidden">
+          <section className="mb-10 print:hidden rounded-2xl bg-[#EFEDE6] p-6 sm:p-8">
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">Ingredients Needed</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
               {recipe.ingredients.map((ing, i) => (

@@ -27,6 +27,7 @@ export interface Recipe {
   cardTitle: string        // shorter title shown on the printable card
   description: string
   image: string
+  gallery?: string[]       // optional extra photos shown on the recipe page
   rating: number
   reviewCount: number
   prepTime: string
@@ -437,7 +438,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Shrimp Broth Ramen',
     description:
       "A quick, seafood-forward broth built entirely from shrimp shells and heads — nothing goes to waste. This broth comes together in under an hour and delivers a briny, umami-rich base that's lighter than a meat-based broth but just as satisfying.",
-    image: '/images/hero-ramen.jpg',
+    image: 'https://www.countrysidecravings.com/wp-content/uploads/2023/05/Shrimp-Ramen.jpeg',
     rating: 4.3,
     reviewCount: 54,
     prepTime: '10 minutes',
@@ -646,7 +647,11 @@ export const RECIPES: Recipe[] = [
     title: 'Miso Ramen Recipe',
     cardTitle: 'Miso Ramen',
     description: 'A rich, nutty miso ramen with a savory-sweet broth, tender noodles, and classic toppings — one of the most popular ramen styles to make at home.',
-    image: '/images/hero-ramen.jpg',
+    image: 'https://cdn.justonecookbook.com/spai/q_glossy+ret_img+to_auto/www.justonecookbook.com/wp-content/uploads/2025/10/Miso-Ramen-7281-II-1365x2048.jpg',
+    gallery: [
+      'https://cdn.justonecookbook.com/spai/q_glossy+ret_img+to_auto/www.justonecookbook.com/wp-content/uploads/2025/10/Miso-Ramen-7281-II-1365x2048.jpg',
+      'https://cdn.justonecookbook.com/spai/q_glossy+ret_img+to_auto/www.justonecookbook.com/wp-content/uploads/2025/10/Miso-Ramen-7272-III-1365x2048.jpg',
+    ],
     rating: 4.6,
     reviewCount: 97,
     prepTime: '15 minutes',
