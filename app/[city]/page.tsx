@@ -12,6 +12,8 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
 import BrothStyleLinks from '@/components/broth-style-links'
+import HomeMapHero from '@/components/home-map-hero'
+import ErrorBoundary from '@/components/error-boundary'
 
 export async function generateStaticParams() {
   const dbStates = getStates()
@@ -90,40 +92,43 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     }
 
     return (
-      <main className="min-h-screen bg-[#ffffff]">
+      <main className="min-h-screen bg-white">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         <Navbar />
-        <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
-          <div className="max-w-7xl mx-auto">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+        <ErrorBoundary fallback={null}>
+          <HomeMapHero
+            regionBoundary={{ cityName: stateName, stateName, citySlug: '', stateSlug, isState: true }}
+            pageTitle={`Best Ramen Restaurants In ${stateName}`}
+            pageDescription={`Find ramen restaurants across ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+          />
+        </ErrorBoundary>
+
+        <div className="relative z-10 bg-white">
+          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-6 flex-wrap">
+              <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-[#1E2026]">Ramen in {stateName}</span>
+              <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+              <ChevronRight className="w-3 h-3" />
+              <span className="text-[#1E2026]">{stateName}</span>
             </nav>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-              Best Ramen Restaurants in {stateName}
-            </h1>
-            <p className="text-[#6B6862] text-lg mb-5">
-              Browse ramen restaurants in {stateName} ({stateCode}) by city — {total} locations across {supplementCities.length} {supplementCities.length === 1 ? 'city' : 'cities'}.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-                {total} restaurants
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-                {supplementCities.length} {supplementCities.length === 1 ? 'city' : 'cities'}
-              </span>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#6B6862] text-xs">
+                  {total} restaurants
+                </span>
+                <span className="px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#6B6862] text-xs">
+                  {supplementCities.length} {supplementCities.length === 1 ? 'city' : 'cities'}
+                </span>
+              </div>
               <ShareButton url={pageUrl} title={`Best Ramen Restaurants in ${stateName} — ${total} listings on RamenNearYou`} />
             </div>
-          </div>
-        </section>
-        <section className="py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-              {stateName}, {stateCode} ({total} listings)
+
+            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">
+              Browse {stateName} by City
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-l border-black/10">
               {supplementCities.map((c) => (
                 <Link
                   key={c.citySlug}
@@ -139,8 +144,9 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
                 </Link>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
+
         <BrothStyleLinks place={stateName} />
         <Footer />
       </main>
@@ -171,6 +177,16 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   // the grid rather than only counting DB rows.
   const totalListings = cities.reduce((s, c) => s + c.count, 0)
 
+  // Rough center so the map doesn't flash a full-USA view before the state
+  // boundary fetch resolves and fits the real outline.
+  const withCoords = allRestaurants.filter(r => r.latitude && r.longitude)
+  const initialCenter = withCoords.length
+    ? {
+        lat: withCoords.reduce((s, r) => s + (r.latitude ?? 0), 0) / withCoords.length,
+        lng: withCoords.reduce((s, r) => s + (r.longitude ?? 0), 0) / withCoords.length,
+      }
+    : undefined
+
   const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
 
   const breadcrumbSchema = {
@@ -183,49 +199,49 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   }
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
-      {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
-        <div className="max-w-7xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+      <ErrorBoundary fallback={null}>
+        <HomeMapHero
+          initialCenter={initialCenter}
+          regionBoundary={{ cityName: state, stateName: state, citySlug: '', stateSlug, isState: true }}
+          pageTitle={`Best Ramen Restaurants In ${state}`}
+          pageDescription={`Find ramen restaurants across ${state}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+        />
+      </ErrorBoundary>
+
+      <div className="relative z-10 bg-white">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-6 flex-wrap">
+            <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Ramen in {state}</span>
+            <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-[#1E2026]">{state}</span>
           </nav>
 
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-            Best Ramen Restaurants in {state}
-          </h1>
-          <p className="text-[#6B6862] text-lg mb-5">
-            Browse ramen restaurants in {state} ({stateCode}) by city — {totalListings} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-              {totalListings} restaurants
-            </span>
-            <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-              {cities.length} {cities.length === 1 ? 'city' : 'cities'}
-            </span>
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#6B6862] text-xs">
+                {totalListings} restaurants
+              </span>
+              <span className="px-3 py-1.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#6B6862] text-xs">
+                {cities.length} {cities.length === 1 ? 'city' : 'cities'}
+              </span>
+            </div>
             <ShareButton
               url={pageUrl}
               title={`Best Ramen Restaurants in ${state} — ${totalListings} listings on RamenNearYou`}
             />
           </div>
-        </div>
-      </section>
 
-      {/* City grid */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-            {state}, {stateCode} ({totalListings} listings)
+          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">
+            Browse {state} by City
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-l border-black/10">
             {cities.map((c) => (
               <Link
                 key={c.citySlug}
@@ -241,8 +257,8 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
               </Link>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <BrothStyleLinks place={state} />
       <Footer />

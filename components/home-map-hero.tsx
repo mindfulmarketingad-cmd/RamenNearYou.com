@@ -61,6 +61,10 @@ interface RegionOption {
   citySlug: string
   stateSlug: string
   stateCode: string
+  // Whole-state pages (e.g. /north-carolina) filter by state only and draw
+  // the state's outline instead of one city's — cityName holds the state
+  // name in that case and citySlug is unused.
+  isState?: boolean
 }
 
 const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
@@ -141,7 +145,7 @@ interface HomeMapHeroProps {
   pageTitle?: string
   pageDescription?: string
   // When set, the map fetches and draws this city's boundary outline (Zillow-style).
-  regionBoundary?: { cityName: string; stateName: string; citySlug: string; stateSlug: string }
+  regionBoundary?: { cityName: string; stateName: string; citySlug: string; stateSlug: string; isState?: boolean }
 }
 
 export default function HomeMapHero({
@@ -285,15 +289,16 @@ export default function HomeMapHero({
     }).catch(() => {})
   }, [])
 
-  // Fetch the city boundary outline whenever the selected region changes
-  // (city pages start with one preset; users can pick a different city too).
-  // Cached server-side.
+  // Fetch the city (or, for whole-state pages, state) boundary outline
+  // whenever the selected region changes. Cached server-side either way.
   useEffect(() => {
     if (!selectedRegion) { setBoundary(null); return }
-    const { cityName, stateName, citySlug, stateSlug } = selectedRegion
-    const key = `${citySlug}:${stateSlug}`
+    const { cityName, stateName, citySlug, stateSlug, isState } = selectedRegion
     let cancelled = false
-    fetch(`/api/city-boundary?city=${encodeURIComponent(cityName)}&state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(key)}`)
+    const url = isState
+      ? `/api/state-boundary?state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(stateSlug)}`
+      : `/api/city-boundary?city=${encodeURIComponent(cityName)}&state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(`${citySlug}:${stateSlug}`)}`
+    fetch(url)
       .then(r => r.json())
       .then(d => { if (!cancelled && d?.geojson) setBoundary(d.geojson) })
       .catch(() => {})
@@ -384,7 +389,7 @@ export default function HomeMapHero({
   // the plain /find/{city}-{state} page when no other filter is active),
   // send the user to that canonical URL instead of only filtering in place.
   useEffect(() => {
-    if (!selectedRegion) return
+    if (!selectedRegion || selectedRegion.isState) return
     const cityState = `${selectedRegion.citySlug}-${selectedRegion.stateCode.toLowerCase()}`
     const noOtherFilters = flags.size === 0 && bowls.size === 0 && moods.size === 0 && prices.size === 0 && !localQuery.trim()
 
@@ -566,7 +571,13 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
-        if (selectedRegion && !(r.citySlug === selectedRegion.citySlug && r.stateSlug === selectedRegion.stateSlug)) return false
+        if (selectedRegion) {
+          if (selectedRegion.isState) {
+            if (r.stateSlug !== selectedRegion.stateSlug) return false
+          } else if (!(r.citySlug === selectedRegion.citySlug && r.stateSlug === selectedRegion.stateSlug)) {
+            return false
+          }
+        }
         if (flags.has('open-now') && !isOpenNow(r.hours)) return false
         if (flags.has('open-late') && !isOpenLate(r.hours, 22 * 60)) return false
         if (flags.has('open-midnight') && !isOpenPastMidnight(r.hours)) return false
@@ -738,10 +749,10 @@ export default function HomeMapHero({
               <button
                 onClick={clearRegion}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-[#1E2026] text-white border-[#1E2026] shrink-0"
-                title="Remove city filter to see more results"
+                title="Remove filter to see more results"
               >
                 <MapPin className="w-3.5 h-3.5" />
-                {selectedRegion.cityName}, {selectedRegion.stateCode}
+                {selectedRegion.isState ? selectedRegion.cityName : `${selectedRegion.cityName}, ${selectedRegion.stateCode}`}
                 <X className="w-3 h-3 ml-0.5" />
               </button>
             ) : (
