@@ -65,6 +65,12 @@ interface RegionOption {
 
 const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
 
+// Reverse-geocoding (Nominatim) returns a full state name — map it back to the
+// 2-letter code used everywhere else on the site.
+const STATE_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_CODE_TO_NAME).map(([code, name]) => [name, code])
+)
+
 // $19.99/month featured-listing checkout — same link used by /claim-your-listing.
 const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
 
@@ -187,9 +193,13 @@ export default function HomeMapHero({
   )
   const [regionQuery, setRegionQuery] = useState('')
   const [showRegionDropdown, setShowRegionDropdown] = useState(false)
-  // Viewport-relative top for the mobile city dropdown (rendered fixed so the
-  // horizontally scrolling pill strip can't clip it).
-  const [regionDropdownTop, setRegionDropdownTop] = useState(0)
+
+  // Auto-detected location (reverse-geocoded from the browser's geolocation)
+  // shown as the pulsing-dot "Roswell, GA · Choose area" pill when no explicit
+  // city has been picked. Informational + drives distance sort (via userPos)
+  // rather than a hard city filter — "Choose area" still opens the full
+  // city/ZIP picker for an exact filter.
+  const [detectedArea, setDetectedArea] = useState<{ cityName: string; stateCode: string } | null>(null)
 
   const [searchSaved, setSearchSaved] = useState(false)
 
@@ -441,7 +451,6 @@ export default function HomeMapHero({
     }
   }
 
-  // Geolocation is requested only on explicit user action (never on load).
   function requestLocation() {
     if (!('geolocation' in navigator)) { setGeoState('denied'); return }
     setGeoState('loading')
@@ -454,6 +463,38 @@ export default function HomeMapHero({
       { timeout: 10000 }
     )
   }
+
+  // Auto-detect the visitor's location on load (silently — the browser's own
+  // permission prompt is the only interruption) so the top bar can show
+  // "Roswell, GA · Choose area" instead of making everyone type a city or ZIP
+  // first. Skipped on pages that already have a fixed city (regionBoundary),
+  // e.g. a broth-in-{city} SEO page shouldn't recenter on the visitor's GPS.
+  useEffect(() => {
+    if (regionBoundary) return
+    requestLocation()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Reverse-geocode the detected (or ZIP-searched) position into a "City, ST"
+  // label for the pill. Failure is silent — "Choose area" still works either way.
+  useEffect(() => {
+    if (!userPos) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userPos.lat}&lon=${userPos.lng}&zoom=10&addressdetails=1`
+        const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
+        const json = await res.json()
+        const addr = json?.address ?? {}
+        const cityName: string = addr.city || addr.town || addr.village || addr.hamlet || addr.county || ''
+        const stateCode = STATE_NAME_TO_CODE[addr.state ?? ''] ?? ''
+        if (!cancelled && cityName && stateCode) setDetectedArea({ cityName, stateCode })
+      } catch {
+        // Silent — pill just shows the pin icon instead of a resolved label.
+      }
+    })()
+    return () => { cancelled = true }
+  }, [userPos])
 
   async function geocodeLocation(query: string) {
     const clean = query.trim()
@@ -690,8 +731,9 @@ export default function HomeMapHero({
             className="flex items-center gap-2 overflow-x-auto scrollbar-hide sm:overflow-x-visible"
             onScroll={() => { if (showRegionDropdown) setShowRegionDropdown(false) }}
           >
-            {/* Location toggle — editable everywhere: pick a preset city or
-                type/choose any other. */}
+            {/* Location — auto-detected via geolocation (blue pulsing dot +
+                reverse-geocoded "City, ST") when no explicit city is picked;
+                "Choose area" opens the picker for an exact city or ZIP. */}
             {selectedRegion ? (
               <button
                 onClick={clearRegion}
@@ -704,65 +746,100 @@ export default function HomeMapHero({
               </button>
             ) : (
               <div className="relative shrink-0">
-                <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50] pointer-events-none" />
-                <input
-                  type="text"
-                  value={regionQuery}
-                  onChange={e => { setRegionQuery(e.target.value); setShowRegionDropdown(true) }}
-                  onFocus={e => {
-                    setRegionDropdownTop(e.currentTarget.getBoundingClientRect().bottom + 6)
-                    setShowRegionDropdown(true)
-                  }}
-                  onBlur={() => setTimeout(() => setShowRegionDropdown(false), 150)}
-                  placeholder="City, State"
-                  aria-label="Filter by city and state"
-                  className="w-36 sm:w-40 pl-7 pr-2 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
-                />
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap border border-black/12 bg-white">
+                  {geoState === 'loading' && !detectedArea ? (
+                    <>
+                      <span className="w-2 h-2 rounded-full bg-[#9B9490] animate-pulse shrink-0" />
+                      <span className="text-[#6B6862] font-medium">Locating…</span>
+                    </>
+                  ) : detectedArea ? (
+                    <>
+                      <span className="relative flex h-2 w-2 shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
+                      </span>
+                      <span className="font-bold text-[#1E2026]">{detectedArea.cityName}, {detectedArea.stateCode}</span>
+                    </>
+                  ) : (
+                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                  )}
+                  <span className="text-[#9B9490]">·</span>
+                  <button
+                    onClick={() => setShowRegionDropdown(v => !v)}
+                    className="text-blue-600 font-semibold hover:underline"
+                  >
+                    Choose area
+                  </button>
+                </div>
+
                 {showRegionDropdown && (
                   <>
-                    {/* Mobile: fixed to the viewport so the scrollable pill
-                        strip's overflow clipping can't cut the dropdown off. */}
-                    <div
-                      className="sm:hidden fixed left-4 right-4 z-[1300] max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl"
-                      style={{ top: regionDropdownTop }}
-                    >
-                      {regionMatches.length === 0 ? (
-                        <p className="p-3 text-xs text-[#6B6862]">
-                          {dataLoading ? 'Loading cities…' : 'No matching city.'}
-                        </p>
-                      ) : (
-                        regionMatches.map(opt => (
-                          <button
-                            key={`m-${opt.citySlug}-${opt.stateSlug}`}
-                            type="button"
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => selectRegion(opt)}
-                            className="block w-full text-left px-3 py-2.5 text-sm text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
-                          >
-                            {opt.cityName}, {opt.stateCode}
-                          </button>
-                        ))
-                      )}
-                    </div>
-                    {/* Desktop: anchored under the input as before. */}
-                    <div className="hidden sm:block absolute z-20 left-0 top-full mt-1 w-64 max-h-64 overflow-y-auto bg-white border border-black/8 rounded-xl shadow-xl">
-                      {regionMatches.length === 0 ? (
-                        <p className="p-3 text-xs text-[#6B6862]">
-                          {dataLoading ? 'Loading cities…' : 'No matching city.'}
-                        </p>
-                      ) : (
-                        regionMatches.map(opt => (
-                          <button
-                            key={`${opt.citySlug}-${opt.stateSlug}`}
-                            type="button"
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => selectRegion(opt)}
-                            className="block w-full text-left px-3 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
-                          >
-                            {opt.cityName}, {opt.stateCode}
-                          </button>
-                        ))
-                      )}
+                    {/* Click-away backdrop */}
+                    <div className="fixed inset-0 z-[1290]" onClick={() => setShowRegionDropdown(false)} />
+                    <div className="absolute z-[1300] left-0 top-full mt-2 w-72 max-w-[85vw] bg-white border border-black/8 rounded-xl shadow-xl p-3">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9B9490] mb-2 px-0.5">Search by city</p>
+                      <div className="relative mb-2">
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
+                        <input
+                          autoFocus
+                          type="text"
+                          value={regionQuery}
+                          onChange={e => setRegionQuery(e.target.value)}
+                          placeholder="City, State"
+                          aria-label="Search by city and state"
+                          className="w-full pl-8 pr-2 py-2 text-xs bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                        />
+                      </div>
+                      <div className="max-h-40 overflow-y-auto mb-3 border border-black/6 rounded-lg divide-y divide-black/5">
+                        {regionMatches.length === 0 ? (
+                          <p className="p-2.5 text-xs text-[#6B6862]">
+                            {dataLoading ? 'Loading cities…' : 'No matching city.'}
+                          </p>
+                        ) : (
+                          regionMatches.map(opt => (
+                            <button
+                              key={`${opt.citySlug}-${opt.stateSlug}`}
+                              type="button"
+                              onClick={() => { selectRegion(opt); setShowRegionDropdown(false) }}
+                              className="block w-full text-left px-2.5 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+                            >
+                              {opt.cityName}, {opt.stateCode}
+                            </button>
+                          ))
+                        )}
+                      </div>
+
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9B9490] mb-2 px-0.5">Or search by ZIP</p>
+                      <form
+                        onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch); setShowRegionDropdown(false) }}
+                        className="relative mb-2"
+                      >
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          maxLength={5}
+                          value={locationSearch}
+                          onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
+                          placeholder="ZIP code"
+                          aria-label="Search by ZIP code"
+                          className="w-full pl-3 pr-14 py-2 text-xs bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                        />
+                        <button
+                          type="submit"
+                          disabled={geocoding}
+                          className="absolute right-1 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#B57F50] hover:bg-[#c8934f] text-white text-[11px] font-semibold rounded-md transition-colors disabled:opacity-60"
+                        >
+                          {geocoding ? '…' : 'Go'}
+                        </button>
+                      </form>
+                      {geocodeError && <p className="text-[10px] text-red-500 mb-2 px-0.5">{geocodeError}</p>}
+
+                      <button
+                        onClick={() => { requestLocation(); setShowRegionDropdown(false) }}
+                        className="flex items-center justify-center gap-1.5 w-full px-2.5 py-2 rounded-lg border border-black/10 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] transition-colors"
+                      >
+                        <Navigation className="w-3.5 h-3.5 text-[#B57F50]" /> Use my current location
+                      </button>
                     </div>
                   </>
                 )}
@@ -770,29 +847,6 @@ export default function HomeMapHero({
             )}
 
             <div className="flex items-center gap-2 shrink-0 sm:shrink sm:flex-1 sm:min-w-0 sm:overflow-x-auto sm:scrollbar-hide">
-              <form
-                onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch) }}
-                className="relative shrink-0"
-              >
-                <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50]" />
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={5}
-                  value={locationSearch}
-                  onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
-                  placeholder="ZIP code"
-                  className="w-36 sm:w-44 pl-7 pr-10 py-1.5 text-sm bg-white border border-black/12 rounded-full outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
-                />
-                <button
-                  type="submit"
-                  disabled={geocoding}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold rounded-full transition-colors disabled:opacity-60"
-                >
-                  {geocoding ? '…' : 'Go'}
-                </button>
-              </form>
-
               <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
 
               <button
