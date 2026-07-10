@@ -4,7 +4,7 @@ import ClaimSearch from './claim-search'
 
 export const metadata = {
   title: 'Get More Visitors To My Ramen Restaurant | Ramen Near You',
-  description: 'Get the #1 featured spot at the top of the ramen search map. Start with a 14-day free trial — then just $49.99/month. Your restaurant shows up first when people search for ramen nearby.',
+  description: 'Get the #1 featured spot at the top of the ramen search map. Free to claim for 14 days, then just $19.99/month. Your restaurant shows up first when people search for ramen nearby.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
@@ -21,7 +21,7 @@ export default function ClaimYourListingPage() {
             Get More Visitors To My Ramen Restaurant
           </h1>
           <p className="text-[#6B6862] leading-relaxed max-w-md mx-auto">
-            Get the <strong className="text-[#1E2026]">#1 featured spot</strong> at the top of the ramen search map — your restaurant appears first when someone searches for ramen near you. Start free for 14 days, then just $49.99/month.
+            Get the <strong className="text-[#1E2026]">#1 featured spot</strong> at the top of the ramen search map — your restaurant appears first when someone searches for ramen near you. Free to claim for 14 days, then just $19.99/month.
           </p>
         </div>
 

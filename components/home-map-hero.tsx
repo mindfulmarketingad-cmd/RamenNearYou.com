@@ -65,8 +65,8 @@ interface RegionOption {
 
 const USA_CENTER = { lat: 39.5, lng: -98.35 } // Continental USA default
 
-// $49.99/month featured-listing checkout — same link used by /claim-your-listing.
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/3cIfZi96i6cM7My9pIfrW09'
+// $19.99/month featured-listing checkout — same link used by /claim-your-listing.
+const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
 
 // ── Reusable colored chip ─────────────────────────────────────────────────────
 function Chip({
