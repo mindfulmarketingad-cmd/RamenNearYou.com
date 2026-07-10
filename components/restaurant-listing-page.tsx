@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight, ExternalLink,
-  Navigation2, ShoppingBag, BookOpen, Store, QrCode, BadgeCheck, Edit3,
+  ShoppingBag, BookOpen, QrCode, BadgeCheck,
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
-import ListingSaveButton from '@/components/listing-save-button'
+import ListingActionRow from '@/components/listing-action-row'
 import ConnectAccountPanel from '@/components/connect-account-panel'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
@@ -144,8 +144,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
     } : {}),
   }
 
-  const iconBtn = 'flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium shrink-0'
-  const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
 
   return (
     <>
@@ -206,43 +204,21 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               </div>
 
               {/* Google-Maps-style action row — scrolls horizontally on narrow
-                  screens so all six actions stay reachable without clipping */}
-              <div className="flex items-center gap-5 mt-5 pb-5 border-b border-black/8 overflow-x-auto scrollbar-hide">
-                <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn}>
-                  <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
-                  Directions
-                </a>
-                {r.website && (
-                  <a href={r.website} target="_blank" rel="noopener noreferrer" className={iconBtn}>
-                    <span className={iconCircle}><Globe className="w-5 h-5" /></span>
-                    Website
-                  </a>
-                )}
-                {r.phone && (
-                  <a href={`tel:${r.phone}`} className={iconBtn}>
-                    <span className={iconCircle}><Phone className="w-5 h-5" /></span>
-                    Call
-                  </a>
-                )}
-                <ListingSaveButton slug={r.slug} restaurantName={r.name} />
-                {menuUrl && (
-                  <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn}>
-                    <span className={iconCircle}><BookOpen className="w-5 h-5" /></span>
-                    Menu
-                  </a>
-                )}
-                {isOwner ? (
-                  <Link href={`/owner/${r.slug}`} className={iconBtn}>
-                    <span className={iconCircle}><Edit3 className="w-5 h-5" /></span>
-                    Manage
-                  </Link>
-                ) : !isVerified ? (
-                  <Link href={`/claim/${city}/${state}/${r.slug}`} className={iconBtn}>
-                    <span className={iconCircle}><Store className="w-5 h-5" /></span>
-                    Claim
-                  </Link>
-                ) : null}
-              </div>
+                  screens so all six actions stay reachable without clipping.
+                  Directions/Website/Call/Save/Claim require a login (client
+                  component so it can check auth state and gate each click). */}
+              <ListingActionRow
+                slug={r.slug}
+                restaurantName={r.name}
+                city={city}
+                state={state}
+                directionsUrl={directionsUrl}
+                website={r.website ?? ''}
+                phone={r.phone ?? ''}
+                menuUrl={menuUrl}
+                isOwner={isOwner}
+                isVerified={isVerified}
+              />
 
               {/* Self-link: logged-in user's email matches the approved claim
                   but their account isn't connected to it yet */}

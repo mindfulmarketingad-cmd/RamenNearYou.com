@@ -3,8 +3,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
+import { useRouter, usePathname } from 'next/navigation'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
@@ -13,6 +12,8 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend, getOpenStatus } from '@/lib/hours'
+import { useCurrentUser } from '@/lib/use-current-user'
+import LoginGateModal from '@/components/login-gate-modal'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -149,6 +150,7 @@ export default function HomeMapHero({
   regionBoundary,
 }: HomeMapHeroProps) {
   const router = useRouter()
+  const pathname = usePathname()
 
   // Slim dataset — fetched after mount so the 25 MB source never ships in the bundle.
   const [data, setData] = useState<MapPoint[]>([])
@@ -192,6 +194,19 @@ export default function HomeMapHero({
   const [searchSaved, setSearchSaved] = useState(false)
 
   const [saves, setSaves] = useState<Set<string>>(new Set())
+
+  // Directions/Save/Claim on each card require login — logged-out clicks
+  // open this modal instead of following the link.
+  const { user, authChecked } = useCurrentUser()
+  const [gateOpen, setGateOpen] = useState(false)
+  function requireAuth(e: React.MouseEvent): boolean {
+    if (!authChecked || !user) {
+      e.preventDefault()
+      if (authChecked) setGateOpen(true)
+      return false
+    }
+    return true
+  }
 
   // City boundary outline (Zillow-style) — fetched once for city pages.
   const [boundary, setBoundary] = useState<unknown | null>(null)
@@ -402,6 +417,7 @@ export default function HomeMapHero({
   async function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
     e.stopPropagation()
+    if (!requireAuth(e)) return
     const isSaved = saves.has(slug)
     setSaves(prev => {
       const next = new Set(prev)
@@ -416,13 +432,7 @@ export default function HomeMapHero({
       })
       if (res.status === 401) {
         revertSave(slug, isSaved)
-        toast('Sign in to save restaurants', {
-          description: 'Create a free account to keep a list of your favorite ramen spots.',
-          action: {
-            label: 'Sign In',
-            onClick: () => router.push(`/auth/login?redirectTo=${encodeURIComponent(window.location.pathname)}`),
-          },
-        })
+        setGateOpen(true)
         return
       }
       if (!res.ok) throw new Error('Save failed')
@@ -1166,7 +1176,7 @@ export default function HomeMapHero({
                           href={directionsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => e.stopPropagation()}
+                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           Get Directions
@@ -1194,7 +1204,7 @@ export default function HomeMapHero({
                           href={STRIPE_CLAIM_LINK}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => e.stopPropagation()}
+                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
                         >
                           Own This Business?
@@ -1363,6 +1373,8 @@ export default function HomeMapHero({
           </div>
         </div>
       )}
+
+      <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />
     </section>
   )
 }
