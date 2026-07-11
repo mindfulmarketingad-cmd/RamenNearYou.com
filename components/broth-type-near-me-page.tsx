@@ -3,8 +3,10 @@ import { MapPin, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BrothRestaurantGrid from '@/components/broth-restaurant-grid'
+import RestaurantImage from '@/components/restaurant-image'
 import type { Restaurant } from '@/lib/restaurants'
 import { getServiceCityLinks, SERVICE_PAGES } from '@/lib/city-filter-pages'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 interface BrothInfo {
   type: string
@@ -56,19 +58,24 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
 
         {/* Hero */}
         <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-b border-black/5">
-          <div className="max-w-4xl mx-auto">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
-              <ChevronRight className="w-3 h-3" />
-              <span className="text-[#1E2026]">{broth.headline}</span>
-            </nav>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E2026] leading-tight mb-4">
-              {broth.headline}
-            </h1>
-            <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl">
-              {broth.subhead}
-            </p>
+          <div className="max-w-4xl mx-auto grid sm:grid-cols-[1fr_auto] gap-8 items-center">
+            <div>
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+                <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+                <ChevronRight className="w-3 h-3" />
+                <span className="text-[#1E2026]">{broth.headline}</span>
+              </nav>
+              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E2026] leading-tight mb-4">
+                {broth.headline}
+              </h1>
+              <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl">
+                {broth.subhead}
+              </p>
+            </div>
+            <div className="relative w-full sm:w-48 h-40 sm:h-48 rounded-2xl overflow-hidden shrink-0 hidden sm:block">
+              <RestaurantImage src={pickStockPhoto(broth.type)} alt={`${broth.type} ramen`} fill className="object-cover" sizes="192px" />
+            </div>
           </div>
         </section>
 

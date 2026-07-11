@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import BlogSearch from './blog-search'
 import { blogPosts } from '@/lib/blog-posts'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
@@ -63,6 +65,9 @@ export default function BlogPage() {
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+        <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
+          <RestaurantImage src={pickStockPhoto('blog-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
+        </div>
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Blog</h1>
         <p className="text-[#6B6862] text-sm mb-8">
           Recipes, city guides, cooking tips, health guides and everything else about ramen culture.

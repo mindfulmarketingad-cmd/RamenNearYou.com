@@ -4,8 +4,10 @@ import { useState, useEffect, FormEvent } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors'
@@ -62,6 +64,9 @@ export default function AmbassadorPage() {
       <main className="flex-1 pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
+            <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-8">
+              <RestaurantImage src={pickStockPhoto('ambassador')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
+            </div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-4">
               Become a City Ambassador
             </h1>

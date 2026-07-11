@@ -4,6 +4,8 @@ import { getCities, getStates } from '@/lib/restaurants'
 import { getSupplementStateStats } from '@/lib/places-supplements'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -50,6 +52,9 @@ export default function CitiesPage() {
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1E2026]">Browse by State</span>
           </nav>
+          <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
+            <RestaurantImage src={pickStockPhoto('cities-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="1024px" priority />
+          </div>
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Restaurants by City &amp; State</h1>
           <p className="text-[#6B6862] text-lg">

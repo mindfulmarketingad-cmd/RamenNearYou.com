@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { QrCode, Star, Printer, LineChart } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import ReviewCardOrderForm from './review-card-order-form'
 import { PRICE_LABEL } from './config'
 import { getRestaurantBySlug } from '@/lib/restaurants'
@@ -36,6 +38,9 @@ export default async function ReviewCardsPage({
       <Navbar />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-28 pb-20">
         <div className="text-center mb-10">
+          <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
+            <RestaurantImage src={pickStockPhoto('review-cards')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
+          </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-4">
             <span className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>

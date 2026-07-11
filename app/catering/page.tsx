@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import CateringForm from './catering-form'
 
 export const metadata: Metadata = {
@@ -56,6 +58,9 @@ export default function CateringPage() {
       <Navbar />
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
+          <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-8">
+            <RestaurantImage src={pickStockPhoto('catering')} alt="Ramen bowls for a catered event" fill className="object-cover" sizes="672px" priority />
+          </div>
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Event Catering</p>
           <h1 className="font-serif text-4xl font-bold text-[#1E2026] mb-3">
             Ramen Catering Near Me

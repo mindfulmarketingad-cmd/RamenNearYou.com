@@ -1,5 +1,7 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import ClaimSearch from './claim-search'
 
 export const metadata = {
@@ -14,6 +16,9 @@ export default function ClaimYourListingPage() {
       <Navbar />
       <div className="max-w-xl mx-auto px-4 sm:px-6 pt-28 pb-20">
         <div className="text-center mb-10">
+          <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
+            <RestaurantImage src={pickStockPhoto('claim-your-listing')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
+          </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-4">
             <span className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>

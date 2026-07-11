@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { QrCode, Star, Printer, TrendingUp } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
 import ReviewsHubSearch, { type LetterGroup } from './reviews-hub-search'
 
@@ -76,6 +78,9 @@ export default function ReviewsIndexPage() {
       <Navbar />
       <main className="min-h-screen bg-[#F5F4F0] pt-24 pb-20 px-4 sm:px-6">
         <div className="max-w-2xl mx-auto">
+          <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
+            <RestaurantImage src={pickStockPhoto('reviews-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
+          </div>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Restaurant Reviews</h1>
           <p className="text-[#6B6862] text-sm mb-6">
             Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on

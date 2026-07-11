@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Mail, MessageSquare, Building2, HelpCircle } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 const subjects = [
   'General inquiry',
@@ -45,6 +47,9 @@ export default function ContactPage() {
 
       {/* Header */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative w-full max-w-xl mx-auto h-40 sm:h-48 rounded-2xl overflow-hidden mb-8">
+          <RestaurantImage src={pickStockPhoto('contact')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
+        </div>
         <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Get in Touch</p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">Contact Us</h1>
         <p className="text-[#6B6862] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 export const metadata: Metadata = {
   title: 'Ramen FAQ — Common Questions About Ramen',
@@ -157,6 +159,9 @@ export default function FaqPage() {
 
         {/* Header */}
         <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
+          <div className="relative w-full max-w-xl mx-auto h-40 sm:h-48 rounded-2xl overflow-hidden mb-8">
+            <RestaurantImage src={pickStockPhoto('faq')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
+          </div>
           <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Ramen FAQ

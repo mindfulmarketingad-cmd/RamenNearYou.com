@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 export type FindFaq = { q: string; a: string }
 export type FindSubPoint = { h3: string; text: string }
@@ -49,6 +51,11 @@ export default function FindPageContent({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+        {/* Editorial photo — every /find guide article gets at least one image */}
+        <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden mb-8">
+          <RestaurantImage src={pickStockPhoto(currentHref)} alt={heading} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" />
+        </div>
+
         {/* Intro */}
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">{heading}</h2>
         {intro.map((p, i) => (
