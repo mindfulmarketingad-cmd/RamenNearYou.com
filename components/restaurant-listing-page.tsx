@@ -164,12 +164,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
 
             <div className="px-5 py-5">
               {/* Breadcrumb */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-3 flex-wrap">
-                <Link href="/" className="hover:text-[#B57F50] transition-colors">Home</Link>
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-3 flex-wrap">
+                <Link href="/" className="hover:text-[#96602F] transition-colors">Home</Link>
                 <ChevronRight className="w-3 h-3" />
-                <Link href={`/${state}`} className="hover:text-[#B57F50] transition-colors">{r.state}</Link>
+                <Link href={`/${state}`} className="hover:text-[#96602F] transition-colors">{r.state}</Link>
                 <ChevronRight className="w-3 h-3" />
-                <Link href={`/${city}/${state}`} className="hover:text-[#B57F50] transition-colors">{r.city}</Link>
+                <Link href={`/${city}/${state}`} className="hover:text-[#96602F] transition-colors">{r.city}</Link>
               </nav>
 
               {/* Name + meta */}
@@ -187,7 +187,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   <StarRating rating={r.rating} />
                   <span className="text-[#6B6862] text-sm">({(r.reviewCount ?? 0).toLocaleString()})</span>
                   {hasReviewPage(reviewSlug) && (
-                    <Link href={`/reviews/${reviewSlug}`} className="text-xs text-[#B57F50] font-medium hover:underline">
+                    <Link href={`/reviews/${reviewSlug}`} className="text-xs text-[#96602F] font-medium hover:underline">
                       Read reviews →
                     </Link>
                   )}
@@ -195,7 +195,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               )}
               <div className="flex items-center gap-2 mt-1.5 text-sm text-[#6B6862] flex-wrap">
                 <span>{category}</span>
-                {r.priceRange && <><span className="text-[#9B9490]">·</span><span>{r.priceRange}</span></>}
+                {r.priceRange && <><span className="text-[#6B6862]">·</span><span>{r.priceRange}</span></>}
                 {r.businessStatus === 'OPERATIONAL' && (
                   <span className={`font-semibold ${openNow ? 'text-emerald-600' : 'text-red-500'}`}>
                     · {openNow ? 'Open now' : 'Closed'}
@@ -237,7 +237,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     </a>
                   )}
                   {menuUrl && (
-                    <a href={menuUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-white border-2 border-[#B57F50] text-[#B57F50] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors">
+                    <a href={menuUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-white border-2 border-[#B57F50] text-[#96602F] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors">
                       <BookOpen className="w-4 h-4" /> View Full Menu
                     </a>
                   )}
@@ -248,21 +248,21 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               <div className="mt-6 space-y-3.5">
                 {r.address && (
                   <div className="flex items-start gap-3 text-sm">
-                    <MapPin className="w-4 h-4 text-[#B57F50] mt-0.5 shrink-0" />
+                    <MapPin className="w-4 h-4 text-[#96602F] mt-0.5 shrink-0" />
                     <span className="text-[#4B4845] leading-snug">{r.address}</span>
                   </div>
                 )}
                 {r.phone && (
-                  <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#B57F50] transition-colors">
-                    <Phone className="w-4 h-4 text-[#B57F50] shrink-0" />
+                  <a href={`tel:${r.phone}`} className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#96602F] transition-colors">
+                    <Phone className="w-4 h-4 text-[#96602F] shrink-0" />
                     {r.phone}
                   </a>
                 )}
                 {r.website && (
-                  <a href={r.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#B57F50] transition-colors">
-                    <Globe className="w-4 h-4 text-[#B57F50] shrink-0" />
+                  <a href={r.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-[#4B4845] hover:text-[#96602F] transition-colors">
+                    <Globe className="w-4 h-4 text-[#96602F] shrink-0" />
                     <span className="truncate">{r.website.replace(/^https?:\/\/(www\.)?/, '')}</span>
-                    <ExternalLink className="w-3 h-3 shrink-0 text-[#9B9490]" />
+                    <ExternalLink className="w-3 h-3 shrink-0 text-[#6B6862]" />
                   </a>
                 )}
               </div>
@@ -271,7 +271,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               {r.hours && Object.keys(r.hours).length > 0 && (
                 <div className="mt-6 pt-5 border-t border-black/8">
                   <div className="flex items-center gap-2 mb-3">
-                    <Clock className="w-4 h-4 text-[#B57F50] shrink-0" />
+                    <Clock className="w-4 h-4 text-[#96602F] shrink-0" />
                     <span className="text-sm font-bold text-[#1E2026]">Hours</span>
                     {r.businessStatus === 'OPERATIONAL' && (
                       <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${openNow ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
@@ -285,8 +285,8 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       const isToday = day === DOW[new Date().getDay()]
                       return (
                         <div key={day} className={`flex justify-between gap-2 text-xs py-0.5 rounded px-1 ${isToday ? 'bg-[#B57F50]/8 -mx-1' : ''}`}>
-                          <span className={`font-semibold w-24 shrink-0 ${isToday ? 'text-[#B57F50]' : 'text-[#1E2026]'}`}>{day}</span>
-                          <span className={`text-right ${!slots || slots[0] === 'Closed' ? 'text-red-400' : isToday ? 'text-[#B57F50]' : 'text-[#6B6862]'}`}>
+                          <span className={`font-semibold w-24 shrink-0 ${isToday ? 'text-[#96602F]' : 'text-[#1E2026]'}`}>{day}</span>
+                          <span className={`text-right ${!slots || slots[0] === 'Closed' ? 'text-red-400' : isToday ? 'text-[#96602F]' : 'text-[#6B6862]'}`}>
                             {!slots || slots[0] === 'Closed' ? 'Closed' : slots.join(' · ')}
                           </span>
                         </div>
@@ -329,13 +329,13 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   className="flex items-center gap-3 rounded-xl border border-[#B57F50]/25 bg-[#B57F50]/8 px-4 py-3.5 hover:bg-[#B57F50]/14 transition-colors"
                 >
                   <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 flex items-center justify-center shrink-0">
-                    <QrCode className="w-5 h-5 text-[#B57F50]" />
+                    <QrCode className="w-5 h-5 text-[#96602F]" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-sm font-bold text-[#1E2026]">Want More Reviews?</span>
                     <span className="block text-xs text-[#6B6862]">Get a QR review card for {r.name}&apos;s tables</span>
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#B57F50] shrink-0 ml-auto" />
+                  <ChevronRight className="w-4 h-4 text-[#96602F] shrink-0 ml-auto" />
                 </Link>
               </div>
 
@@ -351,7 +351,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   <ul className="space-y-1">
                     {nearby.map((n) => (
                       <li key={n.slug}>
-                        <Link href={`/${n.citySlug}/${n.stateSlug}/${n.slug}`} className="flex items-center justify-between gap-2 text-sm text-[#1E2026] hover:text-[#B57F50] py-1.5 transition-colors">
+                        <Link href={`/${n.citySlug}/${n.stateSlug}/${n.slug}`} className="flex items-center justify-between gap-2 text-sm text-[#1E2026] hover:text-[#96602F] py-1.5 transition-colors">
                           <span className="truncate">{n.name}</span>
                           {n.rating && (
                             <span className="flex items-center gap-1 text-xs text-[#6B6862] shrink-0">
@@ -362,7 +362,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       </li>
                     ))}
                   </ul>
-                  <Link href={`/${city}/${state}`} className="inline-block mt-3 text-sm text-[#B57F50] font-medium hover:underline">
+                  <Link href={`/${city}/${state}`} className="inline-block mt-3 text-sm text-[#96602F] font-medium hover:underline">
                     See all ramen in {r.city}, {r.stateCode} →
                   </Link>
                 </div>
@@ -375,7 +375,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
             {r.latitude && r.longitude ? (
               <RestaurantMapPaneClient lat={r.latitude} lng={r.longitude} name={r.name} address={r.address} />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0] text-[#9B9490] text-sm">
+              <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0] text-[#6B6862] text-sm">
                 Location not available
               </div>
             )}

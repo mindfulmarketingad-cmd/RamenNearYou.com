@@ -7,7 +7,7 @@ const RestaurantMapPane = dynamic(() => import('./restaurant-map-pane'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-      <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
+      <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
     </div>
   ),
 })

@@ -20,7 +20,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
               key={i}
               className="relative shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-44 snap-start bg-[#ECEAE4] border-r border-black/5 last:border-r-0 flex items-center justify-center"
             >
-              <Utensils className="w-7 h-7 text-[#B57F50]/25" />
+              <Utensils className="w-7 h-7 text-[#96602F]/25" />
               <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/8 text-[#6B6862] text-[10px] font-medium">
                 {i + 1} / {PHOTO_COUNT}
               </span>
@@ -51,7 +51,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
             <h2 className="font-semibold text-[#1E2026]/50 text-lg leading-snug italic">
               Your Restaurant Name
             </h2>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#96602F] text-xs font-semibold shrink-0">
               <BadgeCheck className="w-3 h-3" />
               Verified
             </span>
@@ -67,7 +67,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
         </div>
 
         <div className="flex items-center gap-1.5 text-[#6B6862] text-xs">
-          <MapPin className="w-3.5 h-3.5 shrink-0 text-[#B57F50]" />
+          <MapPin className="w-3.5 h-3.5 shrink-0 text-[#96602F]" />
           <span>{cityName}, {stateCode}</span>
         </div>
 
@@ -84,7 +84,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
         </div>
 
         <div className="mt-auto pt-3 border-t border-black/5 flex items-center justify-between gap-3 flex-wrap">
-          <p className="text-[#B57F50] text-xs font-medium">
+          <p className="text-[#96602F] text-xs font-medium">
             Own a ramen shop in {cityName}?
           </p>
           <Link

@@ -50,7 +50,7 @@ export default function ContactPage() {
         <div className="relative w-full max-w-xl mx-auto h-40 sm:h-48 rounded-2xl overflow-hidden mb-8">
           <RestaurantImage src={pickStockPhoto('contact')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
         </div>
-        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Get in Touch</p>
+        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Get in Touch</p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">Contact Us</h1>
         <p className="text-[#6B6862] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
           Questions, listing requests, or partnership inquiries — we&apos;d love to hear from you.
@@ -64,52 +64,52 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
               <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
-                <Mail className="w-4 h-4 text-[#B57F50]" />
+                <Mail className="w-4 h-4 text-[#96602F]" />
               </div>
               <h3 className="font-semibold text-[#1E2026] text-sm mb-1">Email Us Directly</h3>
               <p className="text-[#6B6862] text-xs leading-relaxed">
                 Reach our team directly for any inquiries.
               </p>
-              <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+              <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#96602F] hover:underline">
                 hello@ramennearyououtreach.com
               </a>
             </div>
 
             <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
               <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
-                <Building2 className="w-4 h-4 text-[#B57F50]" />
+                <Building2 className="w-4 h-4 text-[#96602F]" />
               </div>
               <h3 className="font-semibold text-[#1E2026] text-sm mb-1">List Your Restaurant</h3>
               <p className="text-[#6B6862] text-xs leading-relaxed">
                 Own a ramen restaurant? Get listed and reach hungry customers searching near you.
               </p>
-              <Link href="/list" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+              <Link href="/list" className="inline-block mt-3 text-xs text-[#96602F] hover:underline">
                 Submit your listing →
               </Link>
             </div>
 
             <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
               <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
-                <MessageSquare className="w-4 h-4 text-[#B57F50]" />
+                <MessageSquare className="w-4 h-4 text-[#96602F]" />
               </div>
               <h3 className="font-semibold text-[#1E2026] text-sm mb-1">Catering Requests</h3>
               <p className="text-[#6B6862] text-xs leading-relaxed">
                 Need ramen catering for an event? Request a free quote with no commitment.
               </p>
-              <Link href="/catering" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+              <Link href="/catering" className="inline-block mt-3 text-xs text-[#96602F] hover:underline">
                 Request catering →
               </Link>
             </div>
 
             <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
               <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center mb-3">
-                <HelpCircle className="w-4 h-4 text-[#B57F50]" />
+                <HelpCircle className="w-4 h-4 text-[#96602F]" />
               </div>
               <h3 className="font-semibold text-[#1E2026] text-sm mb-1">Ramen Questions</h3>
               <p className="text-[#6B6862] text-xs leading-relaxed">
                 Curious about broth types, toppings, or ordering tips?
               </p>
-              <Link href="/faq" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+              <Link href="/faq" className="inline-block mt-3 text-xs text-[#96602F] hover:underline">
                 Read the FAQ →
               </Link>
             </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                 </p>
                 <button
                   onClick={() => { setStatus('idle'); setName(''); setEmail(''); setSubject(''); setMessage('') }}
-                  className="mt-2 text-sm text-[#B57F50] hover:underline"
+                  className="mt-2 text-sm text-[#96602F] hover:underline"
                 >
                   Send another message
                 </button>
@@ -146,8 +146,9 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-[#6B6862] mb-1.5">Name <span className="text-[#B57F50]">*</span></label>
+                    <label htmlFor="contact-name" className="block text-sm text-[#6B6862] mb-1.5">Name <span className="text-[#96602F]">*</span></label>
                     <input
+                      id="contact-name"
                       type="text"
                       required
                       value={name}
@@ -157,8 +158,9 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-[#6B6862] mb-1.5">Email <span className="text-[#B57F50]">*</span></label>
+                    <label htmlFor="contact-email" className="block text-sm text-[#6B6862] mb-1.5">Email <span className="text-[#96602F]">*</span></label>
                     <input
+                      id="contact-email"
                       type="email"
                       required
                       value={email}
@@ -170,8 +172,9 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-[#6B6862] mb-1.5">Subject</label>
+                  <label htmlFor="contact-subject" className="block text-sm text-[#6B6862] mb-1.5">Subject</label>
                   <select
+                    id="contact-subject"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors appearance-none"
@@ -184,8 +187,9 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-[#6B6862] mb-1.5">Message <span className="text-[#B57F50]">*</span></label>
+                  <label htmlFor="contact-message" className="block text-sm text-[#6B6862] mb-1.5">Message <span className="text-[#96602F]">*</span></label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={6}
                     value={message}

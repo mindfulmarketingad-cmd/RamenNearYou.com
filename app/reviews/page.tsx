@@ -129,15 +129,15 @@ export default function ReviewsIndexPage() {
             <div className="bg-white rounded-2xl border border-[#B57F50]/20 p-6 sm:p-8 mb-10">
               <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <div className="flex items-start gap-2.5">
-                  <QrCode className="w-5 h-5 text-[#B57F50] shrink-0 mt-0.5" />
+                  <QrCode className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
                   <p className="text-sm text-[#1E2026]"><strong>One scan.</strong> Opens your Google review popup directly — no searching, no typing your name.</p>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <Printer className="w-5 h-5 text-[#B57F50] shrink-0 mt-0.5" />
+                  <Printer className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
                   <p className="text-sm text-[#1E2026]"><strong>Print-ready kit.</strong> Table tents, counter cards, and stickers — ready for every table and the register.</p>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <TrendingUp className="w-5 h-5 text-[#B57F50] shrink-0 mt-0.5" />
+                  <TrendingUp className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
                   <p className="text-sm text-[#1E2026]"><strong>Scan tracking.</strong> We track every scan, so you can see the QR working without reprinting a thing.</p>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function ReviewsIndexPage() {
                 <details key={q} className="group border border-black/8 rounded-xl overflow-hidden bg-white">
                   <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                     {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
                   <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
                 </details>

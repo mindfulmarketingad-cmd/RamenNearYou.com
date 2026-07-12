@@ -17,7 +17,7 @@ export default function ServiceDirectory() {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
       <div className="max-w-7xl mx-auto">
-        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse by Style</p>
+        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Browse by Style</p>
         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
           Find Ramen by Broth &amp; Style
         </h2>
@@ -33,12 +33,12 @@ export default function ServiceDirectory() {
               className="group flex items-center justify-between gap-3 px-5 py-4 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
             >
               <span>
-                <span className="block text-[#1E2026] font-semibold text-sm group-hover:text-[#B57F50] transition-colors">
+                <span className="block text-[#1E2026] font-semibold text-sm group-hover:text-[#96602F] transition-colors">
                   {s.label} Near Me
                 </span>
                 <span className="block text-[#6B6862] text-xs mt-0.5">{BLURB[s.broth]}</span>
               </span>
-              <ChevronRight className="w-4 h-4 text-[#B57F50]/50 group-hover:text-[#B57F50] shrink-0 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-[#96602F]/50 group-hover:text-[#96602F] shrink-0 transition-colors" />
             </Link>
           ))}
         </div>

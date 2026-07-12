@@ -87,7 +87,7 @@ export default function RecentlyAdded() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff] noise-texture" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Fresh Listings</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Fresh Listings</p>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] text-balance">
             Newly Listed Restaurants
           </h2>
@@ -120,7 +120,7 @@ export default function RecentlyAdded() {
 
                 <div className="flex items-center gap-3 text-sm text-[#6B6862]">
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F]" />
                     {r.city}
                   </span>
                   <span className="flex items-center gap-1">
@@ -130,7 +130,7 @@ export default function RecentlyAdded() {
                 </div>
 
                 <div className="mt-auto pt-2">
-                  <button className="w-full py-2.5 rounded-none border border-[#B57F50]/50 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50] hover:text-[#1E2026] transition-all duration-200">
+                  <button className="w-full py-2.5 rounded-none border border-[#B57F50]/50 text-[#96602F] text-sm font-medium hover:bg-[#B57F50] hover:text-[#1E2026] transition-all duration-200">
                     View Restaurant
                   </button>
                 </div>

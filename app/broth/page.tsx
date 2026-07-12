@@ -84,7 +84,7 @@ export default async function BrothPage({
 
       {/* Header */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
+        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
           Find Ramen by Broth Type
         </h1>
@@ -93,7 +93,7 @@ export default async function BrothPage({
         </p>
         <p className="mt-4 text-sm text-[#6B6862]">
           New to ramen styles?{' '}
-          <Link href="/comparisons" className="text-[#B57F50] font-medium hover:underline">
+          <Link href="/comparisons" className="text-[#96602F] font-medium hover:underline">
             Compare broth types side by side →
           </Link>
         </p>
@@ -162,7 +162,7 @@ export default async function BrothPage({
               <p className="text-[#6B6862] text-lg mb-2">No restaurants found for this broth type yet.</p>
               <p className="text-[#6B6862]/50 text-sm">
                 Own a restaurant with this broth?{' '}
-                <Link href="/list" className="text-[#B57F50] hover:underline">List it here.</Link>
+                <Link href="/list" className="text-[#96602F] hover:underline">List it here.</Link>
               </p>
             </div>
           ) : (
@@ -186,18 +186,18 @@ export default async function BrothPage({
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Utensils className="w-10 h-10 text-[#B57F50]/20" />
+                          <Utensils className="w-10 h-10 text-[#96602F]/20" />
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
                     </div>
                     <div className="p-4 flex flex-col flex-1 gap-2">
                       <div>
-                        <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                        <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#96602F] transition-colors line-clamp-1">
                           {r.name}
                         </h3>
                         <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
-                          <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
+                          <MapPin className="w-3 h-3 text-[#96602F] flex-shrink-0" />
                           {r.city}, {r.stateCode}
                         </p>
                       </div>

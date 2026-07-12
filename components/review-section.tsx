@@ -165,7 +165,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                       className="w-8 h-8 rounded-full object-cover shrink-0 border border-black/8"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-[#B57F50]/20 border border-[#B57F50]/30 flex items-center justify-center shrink-0 text-xs font-bold text-[#B57F50]">
+                    <div className="w-8 h-8 rounded-full bg-[#B57F50]/20 border border-[#B57F50]/30 flex items-center justify-center shrink-0 text-xs font-bold text-[#96602F]">
                       {initial}
                     </div>
                   )}

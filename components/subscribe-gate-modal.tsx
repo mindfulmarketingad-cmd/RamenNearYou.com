@@ -1,6 +1,7 @@
 'use client'
 
 import { X, SlidersHorizontal, Check } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
 
 const STRIPE_LINK = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
 
@@ -10,26 +11,35 @@ interface Props {
 }
 
 export default function SubscribeGateModal({ onClose, featureName = 'Filters' }: Props) {
+  // Only ever mounted while open, so the dialog is "open" for the hook's
+  // entire lifetime — no separate open/closed state to track here.
+  const panelRef = useModalA11y(true, onClose)
+
   function handleSubscribe() {
     window.location.href = STRIPE_LINK
   }
 
   return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center">
+    <div
+      className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Unlock all filters"
+    >
+      <div ref={panelRef} tabIndex={-1} className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 text-center outline-none">
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 text-[#9B9490] hover:text-[#1E2026] transition-colors"
+          className="absolute right-4 top-4 text-[#6B6862] hover:text-[#1E2026] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#B57F50]/20 to-[#B57F50]/5 flex items-center justify-center mx-auto mb-4">
-          <SlidersHorizontal className="w-6 h-6 text-[#B57F50]" />
+          <SlidersHorizontal className="w-6 h-6 text-[#96602F]" />
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold mb-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#96602F] text-xs font-semibold mb-3">
           RamenNearYou+ — $2.99/month
         </div>
 
@@ -71,7 +81,7 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
           </button>
         </div>
 
-        <p className="text-[#9B9490] text-[11px] mt-3">
+        <p className="text-[#6B6862] text-[11px] mt-3">
           Filters unlock instantly after payment.{' '}
           Already subscribed? <a href="/auth/login" className="underline hover:text-[#1E2026]">Sign in</a>.
         </p>

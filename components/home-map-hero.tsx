@@ -13,6 +13,7 @@ import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend, getOpenStatus } from '@/lib/hours'
 import { useCurrentUser } from '@/lib/use-current-user'
+import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
@@ -36,7 +37,7 @@ const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-      <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
+      <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
     </div>
   ),
 })
@@ -198,6 +199,16 @@ export default function HomeMapHero({
   const [regionQuery, setRegionQuery] = useState('')
   const [showRegionDropdown, setShowRegionDropdown] = useState(false)
 
+  // Escape closes the "Choose area" popover, same as any other dismissible overlay.
+  useEffect(() => {
+    if (!showRegionDropdown) return
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setShowRegionDropdown(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [showRegionDropdown])
+
   // Auto-detected location (reverse-geocoded from the browser's geolocation)
   // shown as the pulsing-dot "Roswell, GA · Choose area" pill when no explicit
   // city has been picked. Informational + drives distance sort (via userPos)
@@ -226,6 +237,7 @@ export default function HomeMapHero({
   const [boundary, setBoundary] = useState<unknown | null>(null)
 
   const [helpOpen, setHelpOpen] = useState(false)
+  const helpPanelRef = useModalA11y(helpOpen, () => setHelpOpen(false))
 
   // Mount the Leaflet map after hydration. On mobile the map renders full-screen
   // (the list is an absolute overlay on top of it, so the map container always
@@ -771,11 +783,13 @@ export default function HomeMapHero({
                       <span className="font-bold text-[#1E2026]">{detectedArea.cityName}, {detectedArea.stateCode}</span>
                     </>
                   ) : (
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                   )}
-                  <span className="text-[#9B9490]">·</span>
+                  <span className="text-[#6B6862]">·</span>
                   <button
                     onClick={() => setShowRegionDropdown(v => !v)}
+                    aria-haspopup="dialog"
+                    aria-expanded={showRegionDropdown}
                     className="text-blue-600 font-semibold hover:underline"
                   >
                     Choose area
@@ -786,10 +800,14 @@ export default function HomeMapHero({
                   <>
                     {/* Click-away backdrop */}
                     <div className="fixed inset-0 z-[1290]" onClick={() => setShowRegionDropdown(false)} />
-                    <div className="absolute z-[1300] left-0 top-full mt-2 w-72 max-w-[85vw] bg-white border border-black/8 rounded-xl shadow-xl p-3">
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9B9490] mb-2 px-0.5">Search by city</p>
+                    <div
+                      role="dialog"
+                      aria-label="Choose an area"
+                      className="absolute z-[1300] left-0 top-full mt-2 w-72 max-w-[85vw] bg-white border border-black/8 rounded-xl shadow-xl p-3"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#6B6862] mb-2 px-0.5">Search by city</p>
                       <div className="relative mb-2">
-                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9B9490]" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#6B6862]" />
                         <input
                           autoFocus
                           type="text"
@@ -819,7 +837,7 @@ export default function HomeMapHero({
                         )}
                       </div>
 
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9B9490] mb-2 px-0.5">Or search by ZIP</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#6B6862] mb-2 px-0.5">Or search by ZIP</p>
                       <form
                         onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch); setShowRegionDropdown(false) }}
                         className="relative mb-2"
@@ -848,7 +866,7 @@ export default function HomeMapHero({
                         onClick={() => { requestLocation(); setShowRegionDropdown(false) }}
                         className="flex items-center justify-center gap-1.5 w-full px-2.5 py-2 rounded-lg border border-black/10 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] transition-colors"
                       >
-                        <Navigation className="w-3.5 h-3.5 text-[#B57F50]" /> Use my current location
+                        <Navigation className="w-3.5 h-3.5 text-[#96602F]" /> Use my current location
                       </button>
                     </div>
                   </>
@@ -873,7 +891,7 @@ export default function HomeMapHero({
 
               {/* Sort dropdown — to the right of Filters */}
               <div className="relative shrink-0">
-                <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#B57F50] pointer-events-none" />
+                <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#96602F] pointer-events-none" />
                 <select
                   value={sortBy}
                   onChange={e => setSortBy(e.target.value as SortOption)}
@@ -910,7 +928,7 @@ export default function HomeMapHero({
             {/* Help button */}
             <button
               onClick={() => setHelpOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-black/12 bg-white text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-all shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-black/12 bg-white text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-all shrink-0"
               aria-label="How to use this map"
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -923,7 +941,7 @@ export default function HomeMapHero({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-all shrink-0 ${
                 searchSaved
                   ? 'bg-emerald-600 text-white border-emerald-600'
-                  : 'bg-white text-[#1E2026] border-black/12 hover:border-[#B57F50] hover:text-[#B57F50]'
+                  : 'bg-white text-[#1E2026] border-black/12 hover:border-[#B57F50] hover:text-[#96602F]'
               }`}
               aria-label="Save this search"
             >
@@ -942,7 +960,7 @@ export default function HomeMapHero({
             {/* Panel header */}
             <div className="flex items-center justify-between pb-3 mb-1 border-b border-black/8">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-[#B57F50]" />
+                <SlidersHorizontal className="w-4 h-4 text-[#96602F]" />
                 <h3 className="text-sm font-bold text-[#1E2026]">Filters</h3>
                 {activeCount > 0 && (
                   <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
@@ -964,7 +982,7 @@ export default function HomeMapHero({
             <div className="divide-y divide-black/8">
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <Utensils className="w-3.5 h-3.5 text-[#96602F]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Instant Bowl Finder</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -976,7 +994,7 @@ export default function HomeMapHero({
 
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#96602F]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Mood</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -988,7 +1006,7 @@ export default function HomeMapHero({
 
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Utensils className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <Utensils className="w-3.5 h-3.5 text-[#96602F]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine & Dietary</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -1003,7 +1021,7 @@ export default function HomeMapHero({
 
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Clock className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <Clock className="w-3.5 h-3.5 text-[#96602F]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -1020,7 +1038,7 @@ export default function HomeMapHero({
 
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <span className="text-[#B57F50] text-xs font-bold w-3.5 text-center">$</span>
+                  <span className="text-[#96602F] text-xs font-bold w-3.5 text-center">$</span>
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Price</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -1032,7 +1050,7 @@ export default function HomeMapHero({
 
               <section className="py-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Heart className="w-3.5 h-3.5 text-[#B57F50]" />
+                  <Heart className="w-3.5 h-3.5 text-[#96602F]" />
                   <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Features &amp; Amenities</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -1075,18 +1093,18 @@ export default function HomeMapHero({
           <div className="flex-1 overflow-y-auto">
             {dataLoading ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Loader2 className="w-7 h-7 text-[#B57F50] animate-spin" />
+                <Loader2 className="w-7 h-7 text-[#96602F] animate-spin" />
                 <p className="text-[#6B6862] text-sm">Loading the ramen map…</p>
               </div>
             ) : dataError ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Utensils className="w-8 h-8 text-[#B57F50]/30" />
+                <Utensils className="w-8 h-8 text-[#96602F]/30" />
                 <p className="text-[#1E2026] font-semibold text-sm">Couldn&apos;t load the map</p>
-                <button onClick={() => location.reload()} className="text-xs text-[#B57F50] font-medium">Retry →</button>
+                <button onClick={() => location.reload()} className="text-xs text-[#96602F] font-medium">Retry →</button>
               </div>
             ) : displayList.length === 0 ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Utensils className="w-8 h-8 text-[#B57F50]/30" />
+                <Utensils className="w-8 h-8 text-[#96602F]/30" />
                 <p className="text-[#1E2026] font-semibold text-sm">No ramen spots found</p>
                 <p className="text-[#6B6862] text-xs">
                   {selectedRegion
@@ -1095,12 +1113,12 @@ export default function HomeMapHero({
                 </p>
                 <div className="flex items-center gap-3">
                   {selectedRegion && (
-                    <button onClick={clearRegion} className="text-xs text-[#B57F50] font-medium">
+                    <button onClick={clearRegion} className="text-xs text-[#96602F] font-medium">
                       Remove {selectedRegion.cityName} filter →
                     </button>
                   )}
                   {activeCount > 0 && (
-                    <button onClick={clearAll} className="text-xs text-[#B57F50] font-medium">Clear all filters →</button>
+                    <button onClick={clearAll} className="text-xs text-[#96602F] font-medium">Clear all filters →</button>
                   )}
                 </div>
               </div>
@@ -1165,7 +1183,7 @@ export default function HomeMapHero({
                                   <Link
                                     href={`/reviews/${r.reviewSlug}`}
                                     onClick={(e) => e.stopPropagation()}
-                                    className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#B57F50] hover:underline"
+                                    className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#96602F] hover:underline"
                                   >
                                     <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
                                   </Link>
@@ -1177,7 +1195,7 @@ export default function HomeMapHero({
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
                               <OpenStatusTag hours={r.hours} />
-                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
+                              {showDist && r.distKm > 0 && <span className="text-[#96602F] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
                             <MatchedChips chips={r.matchedChips} />
                           </div>
@@ -1208,7 +1226,7 @@ export default function HomeMapHero({
                               )}
                               {r.priceRange && <span className="text-xs text-[#1E2026]/40">{r.priceRange}</span>}
                               <OpenStatusTag hours={r.hours} />
-                              {showDist && r.distKm > 0 && <span className="text-[#B57F50] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
+                              {showDist && r.distKm > 0 && <span className="text-[#96602F] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
                             </div>
                             <MatchedChips chips={r.matchedChips} />
                           </div>
@@ -1221,7 +1239,7 @@ export default function HomeMapHero({
                           <Link
                             href={internalUrl}
                             onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                           >
                             View Menu
                           </Link>
@@ -1231,7 +1249,7 @@ export default function HomeMapHero({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                           >
                             View Menu
                           </a>
@@ -1241,7 +1259,7 @@ export default function HomeMapHero({
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={e => { e.stopPropagation(); requireAuth(e) }}
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                         >
                           Get Directions
                         </a>
@@ -1269,7 +1287,7 @@ export default function HomeMapHero({
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={e => { e.stopPropagation(); requireAuth(e) }}
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#B57F50] transition-colors whitespace-nowrap"
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                         >
                           Own This Business?
                         </a>
@@ -1282,7 +1300,7 @@ export default function HomeMapHero({
                           className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
                           aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
                         >
-                          <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#B57F50]' : 'text-[#9B9490]'}`} />
+                          <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
                         </button>
                       )}
                     </div>
@@ -1298,7 +1316,7 @@ export default function HomeMapHero({
         <div className="flex-1 relative block">
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
+              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
             </div>
           ) : (
             <RamenMap
@@ -1326,8 +1344,8 @@ export default function HomeMapHero({
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-[#F5F4F0] text-[#1E2026] text-sm font-semibold shadow-lg shadow-black/25 border border-black/10 transition-colors disabled:opacity-70"
               >
                 {searchingArea
-                  ? <><Loader2 className="w-4 h-4 animate-spin text-[#B57F50]" /> Searching…</>
-                  : <><Search className="w-4 h-4 text-[#B57F50]" /> Search this area</>}
+                  ? <><Loader2 className="w-4 h-4 animate-spin text-[#96602F]" /> Searching…</>
+                  : <><Search className="w-4 h-4 text-[#96602F]" /> Search this area</>}
               </button>
             </div>
           )}
@@ -1368,8 +1386,11 @@ export default function HomeMapHero({
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
           onClick={(e) => { if (e.target === e.currentTarget) setHelpOpen(false) }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="How to use the Ramen Map"
         >
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+          <div ref={helpPanelRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto outline-none">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-black/8">
               <h2 className="font-serif text-xl font-bold text-[#1E2026]">How to use the Ramen Map</h2>

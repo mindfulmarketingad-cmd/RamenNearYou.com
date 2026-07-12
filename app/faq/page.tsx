@@ -138,7 +138,7 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
     >
       <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none hover:bg-white/[0.03] transition-colors">
         <h2 className="font-semibold text-[#1E2026] text-base leading-snug">{question}</h2>
-        <ChevronDown className="w-4 h-4 text-[#B57F50] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+        <ChevronDown className="w-4 h-4 text-[#96602F] shrink-0 transition-transform duration-200 group-open:rotate-180" />
       </summary>
       <div className="px-6 pb-5">
         <p className="text-[#6B6862] text-sm leading-relaxed">{answer}</p>
@@ -162,7 +162,7 @@ export default function FaqPage() {
           <div className="relative w-full max-w-xl mx-auto h-40 sm:h-48 rounded-2xl overflow-hidden mb-8">
             <RestaurantImage src={pickStockPhoto('faq')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
           </div>
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Ramen FAQ
           </h1>

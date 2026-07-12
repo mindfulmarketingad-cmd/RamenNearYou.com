@@ -87,7 +87,7 @@ export default function ListForm() {
         )}
 
         <div>
-          <label className="block text-sm text-[#6B6862] mb-1.5">Restaurant Name <span className="text-[#B57F50]">*</span></label>
+          <label className="block text-sm text-[#6B6862] mb-1.5">Restaurant Name <span className="text-[#96602F]">*</span></label>
           <input
             name="name" required value={form.name} onChange={handleChange}
             placeholder="e.g. Hakata Ramen House"
@@ -96,7 +96,7 @@ export default function ListForm() {
         </div>
 
         <div>
-          <label className="block text-sm text-[#6B6862] mb-1.5">Street Address <span className="text-[#B57F50]">*</span></label>
+          <label className="block text-sm text-[#6B6862] mb-1.5">Street Address <span className="text-[#96602F]">*</span></label>
           <input
             name="address" required value={form.address} onChange={handleChange}
             placeholder="e.g. 123 Peachtree St NE"
@@ -106,7 +106,7 @@ export default function ListForm() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div className="col-span-2 sm:col-span-1">
-            <label className="block text-sm text-[#6B6862] mb-1.5">City <span className="text-[#B57F50]">*</span></label>
+            <label className="block text-sm text-[#6B6862] mb-1.5">City <span className="text-[#96602F]">*</span></label>
             <input
               name="city" required value={form.city} onChange={handleChange}
               placeholder="Atlanta"
@@ -114,7 +114,7 @@ export default function ListForm() {
             />
           </div>
           <div>
-            <label className="block text-sm text-[#6B6862] mb-1.5">State <span className="text-[#B57F50]">*</span></label>
+            <label className="block text-sm text-[#6B6862] mb-1.5">State <span className="text-[#96602F]">*</span></label>
             <select
               name="state" required value={form.state} onChange={handleChange}
               className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors appearance-none"

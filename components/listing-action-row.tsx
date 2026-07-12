@@ -8,7 +8,7 @@ import { useCurrentUser } from '@/lib/use-current-user'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
 import LoginGateModal from '@/components/login-gate-modal'
 
-const iconBtn = 'flex flex-col items-center gap-1 text-[#B57F50] text-[11px] font-medium shrink-0'
+const iconBtn = 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
 
 interface Props {
@@ -97,10 +97,10 @@ export default function ListingActionRow({
             Manage
           </Link>
         ) : !isVerified ? (
-          <a href="#" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
+          <button type="button" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
             <span className={iconCircle}><Store className="w-5 h-5" /></span>
             Claim
-          </a>
+          </button>
         ) : null}
       </div>
       <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />

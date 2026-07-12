@@ -293,7 +293,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
               activeFilterCount > 0
-                ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#B57F50]'
+                ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#96602F]'
                 : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026]'
             }`}
           >
@@ -372,7 +372,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
         <p className="text-[#6B6862] text-sm mb-4">
           {filtered.length} restaurant{filtered.length !== 1 ? 's' : ''} match your filters
           {filtered.length === 0 && (
-            <button onClick={clearAll} className="ml-2 text-[#B57F50] hover:underline">Clear filters</button>
+            <button onClick={clearAll} className="ml-2 text-[#96602F] hover:underline">Clear filters</button>
           )}
         </p>
       )}
@@ -400,7 +400,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                   sizes="(max-width: 640px) 100vw, 192px"
                 />
                 {distance !== null && (
-                  <span className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/70 text-[#B57F50] text-xs font-medium backdrop-blur-sm">
+                  <span className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/70 text-[#96602F] text-xs font-medium backdrop-blur-sm">
                     <Navigation className="w-2.5 h-2.5" />
                     {distance.toFixed(1)} mi
                   </span>
@@ -412,11 +412,11 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
                 {/* Name + verified */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-bold text-[#1E2026] text-base leading-snug group-hover:text-[#B57F50] transition-colors">
+                  <p className="font-bold text-[#1E2026] text-base leading-snug group-hover:text-[#96602F] transition-colors">
                     {r.name}
                   </p>
                   {isFeatured && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold shrink-0">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#96602F] text-xs font-semibold shrink-0">
                       <BadgeCheck className="w-3 h-3" />
                       Verified
                     </span>
@@ -432,7 +432,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
                 {/* Rating + type label */}
                 {(r.rating || r.reviewCount > 0) && (
                   <div className="flex flex-wrap items-center gap-1.5 text-sm">
-                    <span className="font-semibold text-[#B57F50]">{r.rating?.toFixed(1)}</span>
+                    <span className="font-semibold text-[#96602F]">{r.rating?.toFixed(1)}</span>
                     <span className="text-[#6B6862]">({(r.reviewCount ?? 0).toLocaleString()})</span>
                     {(r.amenities.veganOptions || r.amenities.vegetarianOptions) && (
                       <>
@@ -494,7 +494,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
                 {/* Address */}
                 {r.address && (
-                  <div className="flex items-center gap-1.5 text-sm text-[#B57F50]">
+                  <div className="flex items-center gap-1.5 text-sm text-[#96602F]">
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
                     <span className="hover:underline line-clamp-1">{r.address}</span>
                   </div>
@@ -502,7 +502,7 @@ export default function CityRestaurantGrid({ restaurants, city, state, verifiedS
 
                 {/* Footer: Read Reviews + distance */}
                 <div className="mt-auto pt-3 flex items-center justify-between gap-3 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold group-hover:bg-[#B57F50] group-hover:text-white transition-colors">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#B57F50]/40 text-[#96602F] text-xs font-semibold group-hover:bg-[#B57F50] group-hover:text-white transition-colors">
                     Read Reviews ↗
                   </span>
                   {distance !== null && (

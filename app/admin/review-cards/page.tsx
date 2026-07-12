@@ -38,20 +38,20 @@ export default async function AdminReviewCardsPage() {
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">Review Card Orders</h1>
             <p className="text-[#6B6862] mb-4">
               Confirm each payment in Stripe, then fulfill: email the buyer their print link and mark the order done.
             </p>
             <div className="flex gap-3 flex-wrap text-sm">
-              <Link href="/admin/claims" className="text-[#B57F50] hover:underline">Claims</Link>
-              <span className="text-[#9B9490]">·</span>
-              <Link href="/admin/listings" className="text-[#B57F50] hover:underline">Listings</Link>
-              <span className="text-[#9B9490]">·</span>
-              <Link href="/admin/contributions" className="text-[#B57F50] hover:underline">Contributions</Link>
-              <span className="text-[#9B9490]">·</span>
-              <Link href="/admin/listing-edits" className="text-[#B57F50] hover:underline">Listing Edits</Link>
-              <span className="text-[#9B9490]">·</span>
+              <Link href="/admin/claims" className="text-[#96602F] hover:underline">Claims</Link>
+              <span className="text-[#6B6862]">·</span>
+              <Link href="/admin/listings" className="text-[#96602F] hover:underline">Listings</Link>
+              <span className="text-[#6B6862]">·</span>
+              <Link href="/admin/contributions" className="text-[#96602F] hover:underline">Contributions</Link>
+              <span className="text-[#6B6862]">·</span>
+              <Link href="/admin/listing-edits" className="text-[#96602F] hover:underline">Listing Edits</Link>
+              <span className="text-[#6B6862]">·</span>
               <span className="text-[#1E2026] font-semibold">Review Cards</span>
             </div>
           </div>

@@ -40,7 +40,7 @@ export default async function ComparePage({
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">
               Compare
             </p>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">

@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { X, Star, ImagePlus, Loader2, Trash2 } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
 
 interface Props {
   restaurantSlug: string
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function ReviewModal({ restaurantSlug, restaurantName, onClose, onSubmitted }: Props) {
+  const panelRef = useModalA11y(true, onClose)
   const [rating, setRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
   const [body, setBody] = useState('')
@@ -81,8 +83,13 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm">
-      <div className="w-full sm:max-w-lg bg-[#F5F4F0] rounded-t-2xl sm:rounded-2xl border border-black/8 shadow-2xl overflow-hidden">
+    <div
+      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Write a review for ${restaurantName}`}
+    >
+      <div ref={panelRef} tabIndex={-1} className="w-full sm:max-w-lg bg-[#F5F4F0] rounded-t-2xl sm:rounded-2xl border border-black/8 shadow-2xl overflow-hidden outline-none">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-black/5">
           <div>
@@ -91,6 +98,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
           </div>
           <button
             onClick={onClose}
+            aria-label="Close"
             className="p-1.5 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -109,6 +117,8 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                   onMouseEnter={() => setHoverRating(s)}
                   onMouseLeave={() => setHoverRating(0)}
                   onClick={() => setRating(s)}
+                  aria-label={`Rate ${s} star${s === 1 ? '' : 's'}`}
+                  aria-pressed={s <= rating}
                   className="transition-transform hover:scale-110"
                 >
                   <Star
@@ -162,7 +172,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-16 h-16 rounded-lg border border-dashed border-black/12 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#6B6862] hover:text-[#B57F50] transition-colors"
+                  className="w-16 h-16 rounded-lg border border-dashed border-black/12 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#6B6862] hover:text-[#96602F] transition-colors"
                 >
                   <ImagePlus className="w-5 h-5" />
                   <span className="text-[10px]">Add</span>

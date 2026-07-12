@@ -71,7 +71,7 @@ export default function BrowseCities() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-                      <MapPin className="w-8 h-8 text-[#B57F50]/20" />
+                      <MapPin className="w-8 h-8 text-[#96602F]/20" />
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#ECEAE4] via-[#ECEAE4]/30 to-transparent" />
@@ -87,7 +87,7 @@ export default function BrowseCities() {
                   <p className="font-semibold text-[#1E2026] text-sm leading-tight">{city.city}</p>
                   <div className="flex items-center justify-between mt-0.5">
                     <p className="text-[#6B6862] text-xs">{city.stateCode}</p>
-                    <p className="text-[#B57F50] text-xs font-medium">{city.count} spots</p>
+                    <p className="text-[#96602F] text-xs font-medium">{city.count} spots</p>
                   </div>
                 </div>
               </Link>

@@ -37,7 +37,7 @@ export default function Footer() {
             <p className="text-[#6B6862] text-sm leading-relaxed">
               The most trusted ramen restaurant directory. Find top-rated ramen near you — searched by city, broth type, or name.
             </p>
-            <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#B57F50] hover:underline">
+            <a href="mailto:hello@ramennearyououtreach.com" className="inline-block mt-3 text-xs text-[#96602F] hover:underline">
               hello@ramennearyououtreach.com
             </a>
             <div className="flex items-center gap-3 mt-4">

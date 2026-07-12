@@ -83,7 +83,7 @@ export default async function AuthorPage({ params }: Props) {
               unoptimized
             />
             <div>
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Contributor Profile</p>
+              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Contributor Profile</p>
               <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">{info.name}</h1>
               <p className="text-[#6B6862] text-sm leading-relaxed">{info.bio}</p>
             </div>
@@ -100,7 +100,7 @@ export default async function AuthorPage({ params }: Props) {
                   className="block bg-white rounded-xl border border-black/5 p-5 hover:border-[#B57F50]/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50]">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#96602F]">
                       {p.category}
                     </span>
                     <span className="text-xs text-[#6B6862]/60">{p.date}</span>

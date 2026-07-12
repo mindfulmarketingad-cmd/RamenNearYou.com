@@ -9,7 +9,7 @@ export default function HomepageFeaturedCTA() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Homepage Featured</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Homepage Featured</p>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">
               The Premier Spot on RamenNearYou
             </h2>
@@ -29,7 +29,7 @@ export default function HomepageFeaturedCTA() {
                   key={i}
                   className="relative shrink-0 w-[85%] sm:w-[55%] md:w-[42%] lg:w-[32%] xl:w-[26%] h-64 sm:h-72 snap-start bg-[#ECEAE4] border-r border-black/5 last:border-r-0 flex items-center justify-center"
                 >
-                  <Utensils className="w-9 h-9 text-[#B57F50]/20" />
+                  <Utensils className="w-9 h-9 text-[#96602F]/20" />
                   <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/8 text-[#6B6862] text-xs font-medium">
                     {i + 1} / {PHOTO_COUNT}
                   </span>
@@ -60,7 +60,7 @@ export default function HomepageFeaturedCTA() {
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]/50 italic">
                     Your Restaurant Name
                   </h3>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#B57F50] text-xs font-semibold">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#96602F] text-xs font-semibold">
                     <BadgeCheck className="w-3.5 h-3.5" />
                     Verified
                   </span>
@@ -75,7 +75,7 @@ export default function HomepageFeaturedCTA() {
                   <span className="text-[#6B6862]/70 text-sm">5.0 (your reviews)</span>
                   <span className="text-[#6B6862]/30">·</span>
                   <span className="flex items-center gap-1 text-[#6B6862] text-sm">
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F]" />
                     Your City, ST
                   </span>
                 </div>
@@ -94,7 +94,7 @@ export default function HomepageFeaturedCTA() {
               </div>
 
               <div className="shrink-0 lg:w-64 flex flex-col gap-3 lg:border-l lg:border-black/8 lg:pl-6">
-                <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest">
+                <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest">
                   Your spot, our homepage
                 </p>
                 <p className="text-[#1E2026] text-sm leading-relaxed">

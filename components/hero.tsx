@@ -77,7 +77,7 @@ export default function Hero() {
                 onClick={() => setCateringOpen(true)}
                 className="inline-flex items-center gap-1.5 text-white/75 hover:text-white text-sm font-medium transition-colors group"
               >
-                <ChefHat className="w-4 h-4 text-[#B57F50] group-hover:text-white transition-colors" />
+                <ChefHat className="w-4 h-4 text-[#96602F] group-hover:text-white transition-colors" />
                 Order Catering
               </button>
             </div>

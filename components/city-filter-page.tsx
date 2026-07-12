@@ -135,7 +135,7 @@ export default function CityFilterPage({
             <span className="text-[#1E2026]">{eyebrow}</span>
           </nav>
 
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">{eyebrow}</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">{eyebrow}</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">{h1}</h1>
           <p className="text-[#6B6862] text-lg mb-4">{subhead}</p>
           <div className="flex flex-wrap items-center gap-3">
@@ -144,7 +144,7 @@ export default function CityFilterPage({
             </span>
             <Link
               href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
             >
               <Map className="w-3.5 h-3.5" />
               View on Map
@@ -159,7 +159,7 @@ export default function CityFilterPage({
           <div className="max-w-7xl mx-auto">
             <div className="rounded-2xl border border-[#B57F50]/20 bg-[#B57F50]/5 p-5 sm:p-6">
               <div className="flex items-start gap-3">
-                <Info className="w-5 h-5 text-[#B57F50] shrink-0 mt-0.5" />
+                <Info className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
                 <div className="space-y-3 text-sm leading-relaxed text-[#6B6862]">
                   {spec.kind === 'diabetic' ? (
                     <>
@@ -203,14 +203,14 @@ export default function CityFilterPage({
       {relatedLinks.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5 bg-[#F5F4F0]">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">More in {city}</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">More in {city}</p>
             <p className="text-[#1E2026] font-semibold text-lg mb-5">Other ways to browse ramen in {city}</p>
             <div className="flex flex-wrap gap-2.5">
               {relatedLinks.map((l) => (
                 <Link
                   key={l.slug}
                   href={l.href}
-                  className="px-4 py-2 rounded-full bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                  className="px-4 py-2 rounded-full bg-white border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
                 >
                   {l.label} in {city}
                 </Link>
@@ -224,15 +224,15 @@ export default function CityFilterPage({
       {nearbyCities.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
             <p className="text-[#1E2026] font-semibold text-lg mb-6">More ramen near {city}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
                 <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
                   <Link href={`/${c.citySlug}/${c.stateSlug}`} className="flex items-center gap-2 px-4 py-2.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                     <span>
-                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">{c.city}, {c.stateCode}</span>
                       <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
@@ -246,7 +246,7 @@ export default function CityFilterPage({
       {/* Back to full city */}
       <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-black/5">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">See all ramen in {city}</h2>
           <p className="text-[#6B6862] text-sm mb-5 max-w-xl mx-auto">
             Browse every ramen restaurant in {city}, {stateCode} — all styles and broth types.
@@ -260,7 +260,7 @@ export default function CityFilterPage({
           {servicePage && (
             <p className="mt-5 text-sm text-[#6B6862]">
               Or explore{' '}
-              <Link href={servicePage.href} className="font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors">
+              <Link href={servicePage.href} className="font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors">
                 {servicePage.label.toLowerCase()}
               </Link>{' '}
               nationwide.

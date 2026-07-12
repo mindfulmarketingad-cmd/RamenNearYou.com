@@ -95,7 +95,7 @@ export default async function ComparisonPage({ params }: Props) {
           <article className="mt-4">
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#96602F]">
                   Broth Comparison
                 </span>
                 <span className="text-xs text-[#6B6862]/60">8 min read</span>
@@ -119,7 +119,7 @@ export default async function ComparisonPage({ params }: Props) {
                   unoptimized
                 />
                 <div>
-                  <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#B57F50] transition-colors">{cmp.author.name}</p>
+                  <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#96602F] transition-colors">{cmp.author.name}</p>
                   <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
                 </div>
               </Link>

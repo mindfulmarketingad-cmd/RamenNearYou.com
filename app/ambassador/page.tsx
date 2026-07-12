@@ -91,7 +91,7 @@ export default function AmbassadorPage() {
           ) : submitted ? (
             <div className="bg-[#F5F4F0] border border-[#B57F50]/30 rounded-xl p-8 text-center">
               <div className="w-12 h-12 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[#B57F50]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-6 h-6 text-[#96602F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -107,8 +107,9 @@ export default function AmbassadorPage() {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#1E2026] text-sm font-medium">Full Name</label>
+                  <label htmlFor="amb-name" className="text-[#1E2026] text-sm font-medium">Full Name</label>
                   <input
+                    id="amb-name"
                     type="text"
                     required
                     value={name}
@@ -118,8 +119,9 @@ export default function AmbassadorPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#1E2026] text-sm font-medium">Email</label>
+                  <label htmlFor="amb-email" className="text-[#1E2026] text-sm font-medium">Email</label>
                   <input
+                    id="amb-email"
                     type="email"
                     required
                     value={email}
@@ -132,8 +134,9 @@ export default function AmbassadorPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#1E2026] text-sm font-medium">Your City</label>
+                  <label htmlFor="amb-city" className="text-[#1E2026] text-sm font-medium">Your City</label>
                   <input
+                    id="amb-city"
                     type="text"
                     required
                     value={city}
@@ -143,7 +146,7 @@ export default function AmbassadorPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#1E2026] text-sm font-medium">
+                  <label htmlFor="amb-instagram" className="text-[#1E2026] text-sm font-medium">
                     Instagram Handle{' '}
                     <span className="text-[#6B6862] font-normal">(optional)</span>
                   </label>
@@ -152,6 +155,7 @@ export default function AmbassadorPage() {
                       @
                     </span>
                     <input
+                      id="amb-instagram"
                       type="text"
                       value={instagram}
                       onChange={(e) => setInstagram(e.target.value)}
@@ -163,10 +167,11 @@ export default function AmbassadorPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#1E2026] text-sm font-medium">
+                <label htmlFor="amb-why" className="text-[#1E2026] text-sm font-medium">
                   Why do you want to be an ambassador?
                 </label>
                 <textarea
+                  id="amb-why"
                   required
                   rows={4}
                   value={whyApply}
@@ -177,8 +182,9 @@ export default function AmbassadorPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[#1E2026] text-sm font-medium">Describe your ramen experience</label>
+                <label htmlFor="amb-experience" className="text-[#1E2026] text-sm font-medium">Describe your ramen experience</label>
                 <textarea
+                  id="amb-experience"
                   required
                   rows={4}
                   value={experience}

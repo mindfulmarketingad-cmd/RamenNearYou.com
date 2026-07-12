@@ -61,7 +61,7 @@ export default function BrowseBroth() {
     <section id="broth" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Explore the Bowl</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Explore the Bowl</p>
           <h2 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] text-balance">
             Find Ramen by Broth Type
           </h2>

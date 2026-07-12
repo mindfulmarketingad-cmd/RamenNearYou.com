@@ -25,7 +25,7 @@ export default function CitiesSection() {
   if (follows.length === 0) {
     return (
       <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-8 text-center">
-        <MapPin className="w-10 h-10 text-[#B57F50]/30 mx-auto mb-3" />
+        <MapPin className="w-10 h-10 text-[#96602F]/30 mx-auto mb-3" />
         <p className="text-[#1E2026] text-sm font-medium mb-1">No cities followed yet</p>
         <p className="text-[#6B6862] text-xs mb-4">Follow a city to get updates on new ramen spots.</p>
         <Link
@@ -47,10 +47,10 @@ export default function CitiesSection() {
           className="flex items-center justify-between px-4 py-3 hover:bg-black/5 transition-colors group"
         >
           <span className="flex items-center gap-2 text-[#1E2026] text-sm">
-            <MapPin className="w-4 h-4 text-[#B57F50]" />
+            <MapPin className="w-4 h-4 text-[#96602F]" />
             <span className="capitalize">{f.city_slug.replace(/-/g, ' ')}, {f.state_slug.toUpperCase()}</span>
           </span>
-          <span className="text-[#B57F50] text-xs group-hover:underline">View →</span>
+          <span className="text-[#96602F] text-xs group-hover:underline">View →</span>
         </Link>
       ))}
     </div>

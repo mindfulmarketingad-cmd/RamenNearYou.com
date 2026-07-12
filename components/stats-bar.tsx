@@ -21,7 +21,7 @@ export default function StatsBar() {
             }`}
           >
             <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#B57F50]/20 flex items-center justify-center">
-              <Icon className="w-4 h-4 text-[#B57F50]" />
+              <Icon className="w-4 h-4 text-[#96602F]" />
             </div>
             <div>
               <p className="text-white font-bold text-lg leading-none">{value}</p>

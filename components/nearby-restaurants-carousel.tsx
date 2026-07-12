@@ -33,7 +33,7 @@ const BROTH_KEYWORDS: { label: string; terms: string[]; color: string; tooltip: 
   { label: 'Chicken', terms: ['tori paitan','chicken broth','chicken ramen','chicken-based','tori ramen','paitan','kin notori','kin no tori','chicken bone broth','poultry broth'], color: 'bg-lime-100 text-lime-800 border-lime-200', tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
 ]
 
-const RAMEN_FALLBACK = { label: 'Ramen', color: 'bg-[#B57F50]/10 text-[#B57F50] border-[#B57F50]/30', tooltip: 'Ramen restaurant — bowl style varies by location' }
+const RAMEN_FALLBACK = { label: 'Ramen', color: 'bg-[#B57F50]/10 text-[#96602F] border-[#B57F50]/30', tooltip: 'Ramen restaurant — bowl style varies by location' }
 
 function detectBroth(r: NearbyRestaurant): { label: string; color: string; tooltip: string } {
   const name = r.name.toLowerCase()
@@ -83,11 +83,11 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
 
       {/* Content */}
       <div className="p-4">
-        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
+        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#96602F] transition-colors line-clamp-1 mb-1">
           {r.name}
         </p>
         <div className="flex items-center gap-2 mb-2">
-          <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+          <p className="text-[#6B6862] text-xs">{r.city}, {r.stateCode}</p>
         </div>
 
         {r.rating && (
@@ -105,7 +105,7 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
               ))}
             </div>
             <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
+            <span className="text-[#6B6862] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
 
@@ -203,7 +203,7 @@ export default function NearbyRestaurantsCarousel() {
   if (status === 'loading') {
     return (
       <section className="py-10 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]">
-        <div className="max-w-7xl mx-auto flex items-center gap-2 text-[#9B9490] text-sm">
+        <div className="max-w-7xl mx-auto flex items-center gap-2 text-[#6B6862] text-sm">
           <Loader2 className="w-4 h-4 animate-spin" />
           Finding ramen near you…
         </div>
@@ -217,7 +217,7 @@ export default function NearbyRestaurantsCarousel() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-1">Near You</p>
+            <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-1">Near You</p>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
               Ramen Near Me
             </h2>
@@ -226,7 +226,7 @@ export default function NearbyRestaurantsCarousel() {
             <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
-              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#96602F] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -234,7 +234,7 @@ export default function NearbyRestaurantsCarousel() {
             <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
-              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#96602F] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-4 h-4" />

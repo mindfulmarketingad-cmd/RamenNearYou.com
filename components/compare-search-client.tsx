@@ -61,7 +61,7 @@ function RestaurantChip({
             <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
             {r.rating.toFixed(1)}
             {r.priceRange && (
-              <span className="ml-1 text-[#9B9490]">· {r.priceRange}</span>
+              <span className="ml-1 text-[#6B6862]">· {r.priceRange}</span>
             )}
           </span>
         )}
@@ -123,9 +123,9 @@ function SearchBox({
 
   return (
     <div className="flex-1">
-      <p className="text-xs font-semibold text-[#9B9490] uppercase tracking-wider mb-2">{label}</p>
+      <p className="text-xs font-semibold text-[#6B6862] uppercase tracking-wider mb-2">{label}</p>
       <div className="relative mb-2">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9B9490]" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
         <input
           ref={inputRef}
           type="text"
@@ -138,10 +138,10 @@ function SearchBox({
       </div>
       <div className="bg-white rounded-xl border border-black/8 overflow-hidden max-h-72 overflow-y-auto divide-y divide-black/5 shadow-sm">
         {loading && results.length === 0 && (
-          <p className="text-center text-[#9B9490] text-sm py-8">Searching…</p>
+          <p className="text-center text-[#6B6862] text-sm py-8">Searching…</p>
         )}
         {!loading && results.length === 0 && (
-          <p className="text-center text-[#9B9490] text-sm py-8">
+          <p className="text-center text-[#6B6862] text-sm py-8">
             No results for &ldquo;{query}&rdquo;
           </p>
         )}
@@ -161,7 +161,7 @@ function SearchBox({
                 />
               )}
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">
+                <p className="text-sm font-semibold text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">
                   {r.name}
                 </p>
                 <p className="text-xs text-[#6B6862] truncate">
@@ -177,7 +177,7 @@ function SearchBox({
                 </span>
               )}
               {r.priceRange && (
-                <span className="text-xs text-[#9B9490]">{r.priceRange}</span>
+                <span className="text-xs text-[#6B6862]">{r.priceRange}</span>
               )}
             </div>
           </button>
@@ -214,7 +214,7 @@ export default function CompareSearchClient({ restaurantA }: Props) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-[1fr_56px_1fr] gap-4 md:gap-5 items-start">
         <div>
-          <p className="text-xs font-semibold text-[#9B9490] uppercase tracking-wider mb-2">
+          <p className="text-xs font-semibold text-[#6B6862] uppercase tracking-wider mb-2">
             Restaurant A
           </p>
           <RestaurantChip
@@ -256,7 +256,7 @@ export default function CompareSearchClient({ restaurantA }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[1fr_56px_1fr] gap-4 md:gap-5 items-start">
       <div>
-        <p className="text-xs font-semibold text-[#9B9490] uppercase tracking-wider mb-2">
+        <p className="text-xs font-semibold text-[#6B6862] uppercase tracking-wider mb-2">
           Restaurant A
         </p>
         <RestaurantChip r={selectedA} onClear={() => setSelectedA(null)} />

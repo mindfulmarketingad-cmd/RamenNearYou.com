@@ -25,7 +25,7 @@ const BROTH_COLORS: Record<string, string> = {
 }
 
 function ProfileCard({ p }: { p: CommunityProfile }) {
-  const brothClass = p.favorite_broth ? (BROTH_COLORS[p.favorite_broth] ?? 'bg-[#B57F50]/15 text-[#B57F50] border-[#B57F50]/20') : ''
+  const brothClass = p.favorite_broth ? (BROTH_COLORS[p.favorite_broth] ?? 'bg-[#B57F50]/15 text-[#96602F] border-[#B57F50]/20') : ''
 
   return (
     <div className="flex flex-col items-center gap-3 w-44 shrink-0 select-none">
@@ -34,7 +34,7 @@ function ProfileCard({ p }: { p: CommunityProfile }) {
           <Image src={p.avatar_url} alt={p.display_name} fill className="object-cover" unoptimized />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-            <User className="w-12 h-12 text-[#B57F50]/30" />
+            <User className="w-12 h-12 text-[#96602F]/30" />
           </div>
         )}
       </div>
@@ -46,7 +46,7 @@ function ProfileCard({ p }: { p: CommunityProfile }) {
           </span>
         )}
         {p.ramen_count != null && p.ramen_count > 0 && (
-          <p className="text-[#9B9490] text-[10px] mt-1">{p.ramen_count} bowls</p>
+          <p className="text-[#6B6862] text-[10px] mt-1">{p.ramen_count} bowls</p>
         )}
       </div>
     </div>
@@ -97,7 +97,7 @@ export default function CommunityCarousel() {
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">Meet the Community</h2>
           <Link
             href="/auth/login"
-            className="flex items-center gap-1 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+            className="flex items-center gap-1 text-sm font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
           >
             View all <ChevronRight className="w-4 h-4" />
           </Link>
@@ -148,8 +148,8 @@ export default function CommunityCarousel() {
           )}
         </div>
 
-        <p className="text-center text-xs text-[#9B9490] mt-6">
-          <Link href="/auth/login" className="text-[#B57F50] hover:underline font-medium">Create your profile</Link>
+        <p className="text-center text-xs text-[#6B6862] mt-6">
+          <Link href="/auth/login" className="text-[#96602F] hover:underline font-medium">Create your profile</Link>
           {' '}to appear in the community
         </p>
       </div>

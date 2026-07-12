@@ -109,10 +109,10 @@ export default async function RecipePage({ params }: Props) {
 
         <div className="pt-24 pb-16 max-w-3xl mx-auto px-4 sm:px-6 print:pt-0 print:max-w-none">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-6 flex-wrap print:hidden">
-            <Link href="/" className="hover:text-[#B57F50] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap print:hidden">
+            <Link href="/" className="hover:text-[#96602F] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/recipes" className="hover:text-[#B57F50] transition-colors">Recipes</Link>
+            <Link href="/recipes" className="hover:text-[#96602F] transition-colors">Recipes</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1E2026]">{recipe.cardTitle}</span>
           </nav>
@@ -163,7 +163,7 @@ export default async function RecipePage({ params }: Props) {
             <ol className="space-y-4">
               {recipe.steps.map((step, i) => (
                 <li key={i} className="flex gap-4 text-[#1E2026] text-sm leading-relaxed">
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-sm font-bold flex items-center justify-center">
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-[#B57F50]/15 text-[#96602F] text-sm font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <span className="pt-0.5">{step.text}</span>

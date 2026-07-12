@@ -216,7 +216,7 @@ export default function ProfilePage() {
                       className="w-20 h-20 rounded-full object-cover border-2 border-black/8"
                     />
                   ) : (
-                    <div className="w-20 h-20 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center text-2xl font-bold text-[#B57F50]">
+                    <div className="w-20 h-20 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center text-2xl font-bold text-[#96602F]">
                       {userInitial}
                     </div>
                   )}
@@ -410,7 +410,7 @@ export default function ProfilePage() {
 
           <section className="mt-8">
             <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
-              <MapPin className="w-4 h-4 text-[#B57F50]" />
+              <MapPin className="w-4 h-4 text-[#96602F]" />
               Cities You Follow
             </h2>
             <CitiesSection />

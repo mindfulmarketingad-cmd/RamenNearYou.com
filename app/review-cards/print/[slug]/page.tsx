@@ -27,7 +27,7 @@ function Card({ qrSvg, name, size }: { qrSvg: string; name: string; size: 'large
 
   return (
     <div className={`${dims.w} ${dims.pad} bg-white border-2 border-[#1E2026] rounded-2xl flex flex-col items-center text-center break-inside-avoid`}>
-      <p className={`${dims.sub} font-semibold uppercase tracking-widest text-[#B57F50] mb-1`}>Enjoyed your bowl?</p>
+      <p className={`${dims.sub} font-semibold uppercase tracking-widest text-[#96602F] mb-1`}>Enjoyed your bowl?</p>
       <p className={`font-serif ${dims.title} font-bold text-[#1E2026] leading-tight mb-3`}>
         Review us on Google <span aria-hidden>⭐</span>
       </p>
@@ -62,7 +62,7 @@ export default async function ReviewCardPrintPage({ params }: Props) {
     <main className="min-h-screen bg-[#F5F4F0] print:bg-white">
       {/* Screen-only header */}
       <div className="max-w-3xl mx-auto px-6 pt-10 pb-6 text-center print:hidden">
-        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Google Review Card Kit</p>
+        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Google Review Card Kit</p>
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">{r.name}</h1>
         <p className="text-[#6B6862] text-sm max-w-md mx-auto mb-5">
           Print this page (or save it as a PDF) on cardstock. Cut along the card edges — you get a

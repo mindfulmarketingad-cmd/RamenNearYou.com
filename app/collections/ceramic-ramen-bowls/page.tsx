@@ -29,8 +29,8 @@ export default function CeramicRamenBowlsPage() {
           </nav>
 
           <div className="flex items-center gap-2 mb-3">
-            <ShoppingBag className="w-4 h-4 text-[#B57F50]" />
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">Ramen Accessories</p>
+            <ShoppingBag className="w-4 h-4 text-[#96602F]" />
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest">Ramen Accessories</p>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Ceramic Ramen Bowls
@@ -39,7 +39,7 @@ export default function CeramicRamenBowlsPage() {
             A great bowl matters. These hand-picked ceramic ramen bowls are deep enough for a proper portion, retain heat well, and look the part — whether you&apos;re making tonkotsu at home or serving guests.
           </p>
 
-          <p className="text-[#9B9490] text-xs mt-4">
+          <p className="text-[#6B6862] text-xs mt-4">
             {ceramicRamenBowls.length} products · Links go to Amazon. As an Amazon Associate we earn from qualifying purchases.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function CeramicRamenBowlsPage() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-[#1E2026] text-sm font-semibold leading-snug group-hover:text-[#B57F50] transition-colors">
+                  <p className="text-[#1E2026] text-sm font-semibold leading-snug group-hover:text-[#96602F] transition-colors">
                     {product.name}
                   </p>
                   <div className="mt-auto">
@@ -122,11 +122,11 @@ export default function CeramicRamenBowlsPage() {
               {[
                 {
                   q: 'What size should a ceramic ramen bowl be?',
-                  a: <>A ramen bowl should hold at least <strong>50–60 oz (1.5–1.8 liters)</strong>. That gives you room for a generous portion of broth, a full serving of noodles, and space to arrange toppings like chashu, soft egg, nori, and bamboo shoots without everything crowding. Most traditional Japanese ramen restaurant bowls fall in this range — if you see something sold as a &ldquo;soup bowl&rdquo; at under 30 oz, it&apos;s too small for proper ramen. See the styles we recommend above, or find <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#B57F50] underline font-medium">which ramen type to make first</Link>.</>
+                  a: <>A ramen bowl should hold at least <strong>50–60 oz (1.5–1.8 liters)</strong>. That gives you room for a generous portion of broth, a full serving of noodles, and space to arrange toppings like chashu, soft egg, nori, and bamboo shoots without everything crowding. Most traditional Japanese ramen restaurant bowls fall in this range — if you see something sold as a &ldquo;soup bowl&rdquo; at under 30 oz, it&apos;s too small for proper ramen. See the styles we recommend above, or find <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#96602F] underline font-medium">which ramen type to make first</Link>.</>
                 },
                 {
                   q: 'Is ceramic or porcelain better for ramen bowls?',
-                  a: <>Ceramic wins for ramen. It&apos;s denser, thicker, and retains heat significantly longer than thin porcelain — which matters when your broth needs to stay hot through 10+ minutes of eating. Porcelain looks elegant but cools faster. If you preheat a ceramic bowl with hot water for 30 seconds before serving, your <Link href="/miso-ramen-near-me" className="text-[#B57F50] underline font-medium">miso ramen</Link> or <Link href="/tonkotsu-ramen-near-me" className="text-[#B57F50] underline font-medium">tonkotsu broth</Link> will stay at proper temperature from first noodle to last.</>
+                  a: <>Ceramic wins for ramen. It&apos;s denser, thicker, and retains heat significantly longer than thin porcelain — which matters when your broth needs to stay hot through 10+ minutes of eating. Porcelain looks elegant but cools faster. If you preheat a ceramic bowl with hot water for 30 seconds before serving, your <Link href="/miso-ramen-near-me" className="text-[#96602F] underline font-medium">miso ramen</Link> or <Link href="/tonkotsu-ramen-near-me" className="text-[#96602F] underline font-medium">tonkotsu broth</Link> will stay at proper temperature from first noodle to last.</>
                 },
                 {
                   q: 'Can I put ceramic ramen bowls in the microwave?',
@@ -138,11 +138,11 @@ export default function CeramicRamenBowlsPage() {
                 },
                 {
                   q: 'What\'s the difference between a ramen bowl and a regular soup bowl?',
-                  a: <>Ramen bowls are wider, deeper, and heavier than standard soup bowls. The wide mouth lets you lay out toppings across the surface — chashu slices, a halved soft egg, nori sheets — without them sinking into each other. The depth keeps the broth volume high so noodles stay submerged. A standard soup bowl holds 12–20 oz; a ramen bowl holds 50–60 oz. If you want to explore ramen styles before investing in bowls, browse our <Link href="/cities" className="text-[#B57F50] underline font-medium">ramen restaurant directory</Link> to taste the real thing first.</>
+                  a: <>Ramen bowls are wider, deeper, and heavier than standard soup bowls. The wide mouth lets you lay out toppings across the surface — chashu slices, a halved soft egg, nori sheets — without them sinking into each other. The depth keeps the broth volume high so noodles stay submerged. A standard soup bowl holds 12–20 oz; a ramen bowl holds 50–60 oz. If you want to explore ramen styles before investing in bowls, browse our <Link href="/cities" className="text-[#96602F] underline font-medium">ramen restaurant directory</Link> to taste the real thing first.</>
                 },
                 {
                   q: 'Are these bowls good for other noodle dishes besides ramen?',
-                  a: <>Absolutely. The same bowl that works for <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#B57F50] underline font-medium">tonkotsu or shoyu ramen</Link> is perfect for udon, pho, soba, and Korean ramyeon. The wide, deep shape accommodates any broth-based noodle dish. Many home cooks use their ramen bowl as their go-to for any large-format soup — it&apos;s the most versatile bowl you can own.</>
+                  a: <>Absolutely. The same bowl that works for <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#96602F] underline font-medium">tonkotsu or shoyu ramen</Link> is perfect for udon, pho, soba, and Korean ramyeon. The wide, deep shape accommodates any broth-based noodle dish. Many home cooks use their ramen bowl as their go-to for any large-format soup — it&apos;s the most versatile bowl you can own.</>
                 },
                 {
                   q: 'How many ramen bowls do I need?',
@@ -152,7 +152,7 @@ export default function CeramicRamenBowlsPage() {
                 <details key={i} className="group py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <summary className="flex items-center justify-between gap-4 font-semibold text-[#1E2026] text-sm sm:text-base select-none">
                     {q}
-                    <ChevronDown className="w-4 h-4 text-[#B57F50] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                    <ChevronDown className="w-4 h-4 text-[#96602F] shrink-0 transition-transform duration-200 group-open:rotate-180" />
                   </summary>
                   <p className="mt-3 text-[#6B6862] text-sm leading-relaxed">{a}</p>
                 </details>
@@ -164,7 +164,7 @@ export default function CeramicRamenBowlsPage() {
           <div className="mt-8 p-5 rounded-2xl bg-[#B57F50]/8 border border-[#B57F50]/20">
             <p className="text-[#1E2026] text-sm font-semibold mb-2">Ready to use your new bowl?</p>
             <p className="text-[#6B6862] text-sm">
-              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#B57F50] underline font-medium">the 4 types of ramen</Link> to know exactly what to make — or find a great ramen restaurant near you in our <Link href="/cities" className="text-[#B57F50] underline font-medium">city directory</Link>. Looking for <Link href="/tonkotsu-ramen-near-me" className="text-[#B57F50] underline font-medium">tonkotsu ramen near you</Link> or <Link href="/miso-ramen-near-me" className="text-[#B57F50] underline font-medium">miso ramen near you</Link>? Browse by broth type.
+              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#96602F] underline font-medium">the 4 types of ramen</Link> to know exactly what to make — or find a great ramen restaurant near you in our <Link href="/cities" className="text-[#96602F] underline font-medium">city directory</Link>. Looking for <Link href="/tonkotsu-ramen-near-me" className="text-[#96602F] underline font-medium">tonkotsu ramen near you</Link> or <Link href="/miso-ramen-near-me" className="text-[#96602F] underline font-medium">miso ramen near you</Link>? Browse by broth type.
             </p>
           </div>
         </div>

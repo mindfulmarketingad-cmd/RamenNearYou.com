@@ -87,7 +87,7 @@ export default function ClaimSearch() {
             <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
             <span className="text-[#6B6862] text-sm mb-1.5">today</span>
           </div>
-          <p className="text-[#9B9490] text-xs mb-5">Then $19.99/month after your free trial. Cancel anytime.</p>
+          <p className="text-[#6B6862] text-xs mb-5">Then $19.99/month after your free trial. Cancel anytime.</p>
           <a
             href={trialLink}
             className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
@@ -98,7 +98,7 @@ export default function ClaimSearch() {
 
         <p className="text-sm text-[#6B6862] mb-4">
           Want more Google reviews too?{' '}
-          <Link href="/review-cards" className="text-[#B57F50] font-semibold hover:underline">
+          <Link href="/review-cards" className="text-[#96602F] font-semibold hover:underline">
             Get QR review cards for your tables →
           </Link>
         </p>
@@ -121,14 +121,14 @@ export default function ClaimSearch() {
           <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
           <span className="text-[#6B6862] text-sm mb-2">today</span>
         </div>
-        <p className="text-[#9B9490] text-xs">Then $19.99/month after your free trial. Cancel anytime.</p>
+        <p className="text-[#6B6862] text-xs">Then $19.99/month after your free trial. Cancel anytime.</p>
       </div>
 
       {/* Benefits */}
       <ul className="space-y-3 mb-8">
         {BENEFITS.map(({ icon: Icon, text }) => (
           <li key={text} className="flex items-center gap-3 text-sm text-[#1E2026]">
-            <CheckCircle2 className="w-4 h-4 text-[#B57F50] shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0" />
             {text}
           </li>
         ))}
@@ -147,6 +147,7 @@ export default function ClaimSearch() {
                 onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
                 onFocus={() => setOpen(true)}
                 placeholder="Search by restaurant name..."
+                aria-label="Search by restaurant name"
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm placeholder-[#9B9490] focus:outline-none focus:border-[#B57F50]/50"
               />
             </div>
@@ -158,7 +159,7 @@ export default function ClaimSearch() {
                 ) : matches.length === 0 ? (
                   <div className="p-4 text-sm text-[#6B6862]">
                     No restaurants found for &ldquo;{query}&rdquo;.
-                    <button onClick={() => setManual(true)} className="block mt-2 text-[#B57F50] font-semibold hover:underline">
+                    <button onClick={() => setManual(true)} className="block mt-2 text-[#96602F] font-semibold hover:underline">
                       Add it manually →
                     </button>
                   </div>
@@ -181,7 +182,7 @@ export default function ClaimSearch() {
 
           <p className="text-center text-sm text-[#6B6862] mt-4">
             Can&apos;t find your restaurant?{' '}
-            <button onClick={() => setManual(true)} className="text-[#B57F50] font-semibold hover:underline">
+            <button onClick={() => setManual(true)} className="text-[#96602F] font-semibold hover:underline">
               Add it manually
             </button>
           </p>
@@ -203,22 +204,22 @@ export default function ClaimSearch() {
               </div>
             )}
 
-            <input name="name" required value={form.name} onChange={handleChange} placeholder="Restaurant name *" className={inputClass} />
-            <input name="address" required value={form.address} onChange={handleChange} placeholder="Street address *" className={inputClass} />
+            <input name="name" required aria-label="Restaurant name" value={form.name} onChange={handleChange} placeholder="Restaurant name *" className={inputClass} />
+            <input name="address" required aria-label="Street address" value={form.address} onChange={handleChange} placeholder="Street address *" className={inputClass} />
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <input name="city" required value={form.city} onChange={handleChange} placeholder="City *" className={`${inputClass} col-span-2 sm:col-span-1`} />
-              <select name="state" required value={form.state} onChange={handleChange} className={`${inputClass} appearance-none`}>
+              <input name="city" required aria-label="City" value={form.city} onChange={handleChange} placeholder="City *" className={`${inputClass} col-span-2 sm:col-span-1`} />
+              <select name="state" required aria-label="State" value={form.state} onChange={handleChange} className={`${inputClass} appearance-none`}>
                 {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
-              <input name="zip" value={form.zip} onChange={handleChange} placeholder="ZIP" className={inputClass} />
+              <input name="zip" aria-label="ZIP code" value={form.zip} onChange={handleChange} placeholder="ZIP" className={inputClass} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="Phone" className={inputClass} />
-              <input name="website" type="url" value={form.website} onChange={handleChange} placeholder="Website" className={inputClass} />
+              <input name="phone" type="tel" aria-label="Phone" value={form.phone} onChange={handleChange} placeholder="Phone" className={inputClass} />
+              <input name="website" type="url" aria-label="Website" value={form.website} onChange={handleChange} placeholder="Website" className={inputClass} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <input name="ownerName" value={form.ownerName} onChange={handleChange} placeholder="Your name" className={inputClass} />
-              <input name="ownerEmail" type="email" required value={form.ownerEmail} onChange={handleChange} placeholder="Your email *" className={inputClass} />
+              <input name="ownerName" aria-label="Your name" value={form.ownerName} onChange={handleChange} placeholder="Your name" className={inputClass} />
+              <input name="ownerEmail" type="email" required aria-label="Your email" value={form.ownerEmail} onChange={handleChange} placeholder="Your email *" className={inputClass} />
             </div>
 
             <button

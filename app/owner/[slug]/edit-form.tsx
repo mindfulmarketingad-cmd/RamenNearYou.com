@@ -346,13 +346,13 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
         <p className="text-[#6B6862] text-xs">Respond to customer reviews. Responses are reviewed by our team before going live.</p>
 
         {reviewsLoading && (
-          <div className="flex items-center gap-2 text-[#9B9490] text-sm py-4">
+          <div className="flex items-center gap-2 text-[#6B6862] text-sm py-4">
             <Loader2 className="w-4 h-4 animate-spin" /> Loading reviews…
           </div>
         )}
 
         {!reviewsLoading && reviews.length === 0 && (
-          <p className="text-[#9B9490] text-sm py-4">No reviews yet.</p>
+          <p className="text-[#6B6862] text-sm py-4">No reviews yet.</p>
         )}
 
         <div className="space-y-4">
@@ -364,7 +364,7 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
                     <StarRating rating={review.rating} />
                     <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
                   </div>
-                  <p className="text-[#9B9490] text-xs">{new Date(review.created_at).toLocaleDateString()}</p>
+                  <p className="text-[#6B6862] text-xs">{new Date(review.created_at).toLocaleDateString()}</p>
                 </div>
               </div>
 
@@ -374,7 +374,7 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
 
               {review.approvedResponse && (
                 <div className="mt-2 border-l-2 border-sky-300 pl-3">
-                  <p className="text-[#9B9490] text-xs mb-0.5">Your response</p>
+                  <p className="text-[#6B6862] text-xs mb-0.5">Your response</p>
                   <p className="text-[#1E2026] text-sm">{review.approvedResponse}</p>
                 </div>
               )}

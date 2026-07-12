@@ -119,7 +119,7 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
             Community Photos
           </h2>
           {photos.length > 0 && (
-            <span className="px-2 py-0.5 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 text-[#B57F50] text-xs font-semibold">
+            <span className="px-2 py-0.5 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 text-[#96602F] text-xs font-semibold">
               {photos.length}
             </span>
           )}

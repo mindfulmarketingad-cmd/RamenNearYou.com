@@ -71,7 +71,7 @@ export default function PlusPage() {
         )}
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/30 text-[#B57F50] text-xs font-bold uppercase tracking-widest mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/30 text-[#96602F] text-xs font-bold uppercase tracking-widest mb-6">
           RamenNearYou+
         </div>
 
@@ -124,7 +124,7 @@ export default function PlusPage() {
                 ? <><Loader2 className="w-4 h-4 animate-spin" /> Setting up checkout…</>
                 : 'Get RamenNearYou+ — $2.99/mo'}
             </button>
-            <p className="text-center text-[#9B9490] text-xs mt-3">
+            <p className="text-center text-[#6B6862] text-xs mt-3">
               Secure checkout via Stripe · Filters unlock instantly after payment
             </p>
           </div>
@@ -132,12 +132,12 @@ export default function PlusPage() {
 
         {/* Feature breakdown */}
         <div className="mt-16 w-full max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#9B9490] mb-6">What you unlock</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#6B6862] mb-6">What you unlock</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
             {features.map(({ icon: Icon, label, desc }) => (
               <div key={label} className="flex gap-4 bg-white rounded-xl border border-black/8 p-4">
                 <div className="w-9 h-9 rounded-lg bg-[#B57F50]/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-[#B57F50]" />
+                  <Icon className="w-4 h-4 text-[#96602F]" />
                 </div>
                 <div>
                   <p className="font-semibold text-sm text-[#1E2026]">{label}</p>
@@ -149,9 +149,9 @@ export default function PlusPage() {
         </div>
 
         {/* Already subscribed */}
-        <p className="mt-10 text-[#9B9490] text-sm">
+        <p className="mt-10 text-[#6B6862] text-sm">
           Already subscribed?{' '}
-          <Link href="/auth/login" className="text-[#B57F50] hover:underline font-medium">
+          <Link href="/auth/login" className="text-[#96602F] hover:underline font-medium">
             Sign in to activate
           </Link>
         </p>

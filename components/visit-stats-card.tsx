@@ -85,7 +85,7 @@ export default function VisitStatsCard({ slug, restaurantName }: { slug: string;
     <div className="mt-4 space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-[#1E2026] text-xs font-semibold uppercase tracking-wide flex items-center gap-1.5">
-          <BarChart3 className="w-3.5 h-3.5 text-[#B57F50]" /> Page Visit Analytics
+          <BarChart3 className="w-3.5 h-3.5 text-[#96602F]" /> Page Visit Analytics
         </p>
         <WeekChangeBadge change={stats.weekChange} />
       </div>
@@ -94,7 +94,7 @@ export default function VisitStatsCard({ slug, restaurantName }: { slug: string;
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-3">
           <div className="w-7 h-7 rounded-lg bg-[#B57F50]/10 flex items-center justify-center mb-2">
-            <Calendar className="w-3.5 h-3.5 text-[#B57F50]" />
+            <Calendar className="w-3.5 h-3.5 text-[#96602F]" />
           </div>
           <p className="text-[#1E2026] text-xl font-bold">{stats.thisWeek.toLocaleString()}</p>
           <p className="text-[#6B6862] text-[11px] mt-0.5 leading-tight">Visits this week</p>

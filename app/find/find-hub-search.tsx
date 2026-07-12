@@ -56,7 +56,7 @@ export default function FindHubSearch({
     <>
       {/* Search bar */}
       <div className="relative mb-10">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9B9490]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
         <input
           type="text"
           value={q}
@@ -69,7 +69,7 @@ export default function FindHubSearch({
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9B9490] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -95,7 +95,7 @@ export default function FindHubSearch({
                   <li key={p.href}>
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>
@@ -115,7 +115,7 @@ export default function FindHubSearch({
                   <li key={p.href} className="break-inside-avoid">
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>
@@ -123,7 +123,7 @@ export default function FindHubSearch({
                 ))}
               </ul>
               {results.cityMatches.length >= CITY_RESULT_CAP && (
-                <p className="text-xs text-[#9B9490] mt-3">
+                <p className="text-xs text-[#6B6862] mt-3">
                   Showing the first {CITY_RESULT_CAP} cities — keep typing to narrow it down.
                 </p>
               )}
@@ -144,7 +144,7 @@ export default function FindHubSearch({
                     <li key={p.href}>
                       <Link
                         href={p.href}
-                        className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                        className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                       >
                         {p.label}
                       </Link>
@@ -166,7 +166,7 @@ export default function FindHubSearch({
               {cityPagesByState.map((state) => (
                 <div key={state.stateCode}>
                   <h3 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
-                    <Link href={stateHref(state.stateName, state.stateCode)} className="hover:text-[#B57F50] transition-colors">
+                    <Link href={stateHref(state.stateName, state.stateCode)} className="hover:text-[#96602F] transition-colors">
                       {state.stateName}
                     </Link>
                   </h3>
@@ -175,7 +175,7 @@ export default function FindHubSearch({
                       <li key={c.param} className="break-inside-avoid">
                         <Link
                           href={`/find/${c.param}`}
-                          className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                          className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                         >
                           {c.city}, {state.stateCode}
                         </Link>

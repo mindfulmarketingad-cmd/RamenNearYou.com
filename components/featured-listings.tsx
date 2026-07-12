@@ -48,14 +48,14 @@ export default function FeaturedListings() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Featured Listings</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Featured Listings</p>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">
               Top Ramen Spots Near You
             </h2>
           </div>
           <Link
             href="/featured/apply"
-            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-[#B57F50]/40 text-[#96602F] text-sm font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
           >
             <Crown className="w-3.5 h-3.5" />
             Get Featured
@@ -85,7 +85,7 @@ export default function FeaturedListings() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Utensils className="w-8 h-8 text-[#B57F50]/25" />
+                      <Utensils className="w-8 h-8 text-[#96602F]/25" />
                     </div>
                   )}
                   <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50] text-white text-xs font-semibold">
@@ -99,7 +99,7 @@ export default function FeaturedListings() {
                     {listing.restaurant_name}
                   </h3>
                   <p className="flex items-center gap-1 text-[#6B6862] text-xs mb-2">
-                    <MapPin className="w-3 h-3 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3 h-3 text-[#96602F] shrink-0" />
                     {listing.city}, {listing.state_code}
                   </p>
                   {listing.description && (
@@ -113,7 +113,7 @@ export default function FeaturedListings() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => fireAnalytics(listing.id, 'click')}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#96602F] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
                     >
                       Visit Website <ChevronRight className="w-3 h-3" />
                     </a>
@@ -121,7 +121,7 @@ export default function FeaturedListings() {
                     <Link
                       href={href}
                       onClick={() => fireAnalytics(listing.id, 'click')}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#96602F] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
                     >
                       View Listing <ChevronRight className="w-3 h-3" />
                     </Link>

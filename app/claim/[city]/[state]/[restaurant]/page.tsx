@@ -56,7 +56,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
       <Navbar />
       <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
           <h1 className="font-serif text-4xl font-bold text-[#1E2026] mb-2">Claim {r.name}</h1>
           <p className="text-[#6B6862] mb-8">{r.address}</p>
 
@@ -79,12 +79,12 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
                   <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
                   <span className="text-[#6B6862] text-sm mb-2">today</span>
                 </div>
-                <p className="text-[#9B9490] text-xs text-center mb-6">Then $19.99/month after your free trial. Cancel anytime.</p>
+                <p className="text-[#6B6862] text-xs text-center mb-6">Then $19.99/month after your free trial. Cancel anytime.</p>
 
                 <ul className="space-y-3 mb-8">
                   {BENEFITS.map(({ icon: Icon, text }) => (
                     <li key={text} className="flex items-center gap-3 text-sm text-[#1E2026]">
-                      <CheckCircle2 className="w-4 h-4 text-[#B57F50] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0" />
                       {text}
                     </li>
                   ))}
@@ -97,7 +97,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
                   Start Free Trial — $0 Today
                 </a>
 
-                <p className="text-center text-xs text-[#9B9490] mt-4">
+                <p className="text-center text-xs text-[#6B6862] mt-4">
                   After subscribing, return to this page to complete your claim.
                 </p>
               </div>

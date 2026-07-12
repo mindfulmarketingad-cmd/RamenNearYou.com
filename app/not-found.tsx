@@ -58,7 +58,7 @@ export default function NotFound() {
 
       <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-black/5">
         <div className="max-w-2xl mx-auto">
-          <p className="font-serif text-8xl font-bold text-[#B57F50] mb-4">404</p>
+          <p className="font-serif text-8xl font-bold text-[#96602F] mb-4">404</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
             Page not found
           </h1>
@@ -91,7 +91,7 @@ export default function NotFound() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
             {SITEMAP.map((section) => (
               <div key={section.heading}>
-                <h3 className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-3">
+                <h3 className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-3">
                   {section.heading}
                 </h3>
                 <ul className="space-y-2">
@@ -101,7 +101,7 @@ export default function NotFound() {
                         href={link.href}
                         className="flex items-center gap-1 text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors group"
                       >
-                        <ChevronRight className="w-3 h-3 text-[#B57F50]/50 group-hover:text-[#B57F50] transition-colors shrink-0" />
+                        <ChevronRight className="w-3 h-3 text-[#96602F]/50 group-hover:text-[#96602F] transition-colors shrink-0" />
                         {link.label}
                       </Link>
                     </li>

@@ -105,10 +105,10 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-6 flex-wrap">
-              <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
+              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
               <ChevronRight className="w-3 h-3" />
-              <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+              <Link href="/cities" className="hover:text-[#96602F] transition-colors">Browse Cities &amp; States</Link>
               <ChevronRight className="w-3 h-3" />
               <span className="text-[#1E2026]">{stateName}</span>
             </nav>
@@ -135,7 +135,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
                   href={`/find/${c.citySlug}-${stateCodeLower}`}
                   className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
                 >
-                  <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
+                  <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">
                     {c.city}
                   </span>
                   <span className="text-[#6B6862] text-xs ml-4 shrink-0">
@@ -214,10 +214,10 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
       <div className="relative z-10 bg-white">
         <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#9B9490] mb-6 flex-wrap">
-            <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
+            <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+            <Link href="/cities" className="hover:text-[#96602F] transition-colors">Browse Cities &amp; States</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1E2026]">{state}</span>
           </nav>
@@ -248,7 +248,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
                 href={`/find/${c.citySlug}-${stateCodeLower}`}
                 className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
               >
-                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
+                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">
                   {c.city}
                 </span>
                 <span className="text-[#6B6862] text-xs ml-4 shrink-0">

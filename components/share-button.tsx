@@ -58,7 +58,7 @@ export default function ShareButton({ url, title }: Props) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:border-[#B57F50] hover:text-[#B57F50] transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
       >
         <Share2 className="w-4 h-4" />
         Share
@@ -74,7 +74,7 @@ export default function ShareButton({ url, title }: Props) {
               <X className="w-4 h-4 text-[#1E2026]" />
             </button>
 
-            <p className="font-bold text-[#B57F50] text-xl mb-1">Share This</p>
+            <p className="font-bold text-[#96602F] text-xl mb-1">Share This</p>
             <p className="text-[#6B6862] text-sm mb-6">Share this page with your family and friends</p>
 
             <div className="flex flex-col gap-3">

@@ -86,7 +86,7 @@ export default function ProductsPage() {
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-5 gap-3">
                   <div>
-                    <p className="text-[10px] font-semibold text-[#B57F50] uppercase tracking-widest mb-1">{product.category}</p>
+                    <p className="text-[10px] font-semibold text-[#96602F] uppercase tracking-widest mb-1">{product.category}</p>
                     <h2 className="font-semibold text-[#1E2026] text-base leading-snug">{product.name}</h2>
                   </div>
 
@@ -97,7 +97,7 @@ export default function ProductsPage() {
                   <div className="flex items-center justify-between pt-1">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="text-xs font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+                      className="text-xs font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
                     >
                       View details →
                     </Link>
@@ -134,19 +134,19 @@ export default function ProductsPage() {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 gap-2">
-                <p className="text-[10px] font-semibold text-[#B57F50] uppercase tracking-widest">Ramen Accessories</p>
+                <p className="text-[10px] font-semibold text-[#96602F] uppercase tracking-widest">Ramen Accessories</p>
                 <h3 className="font-semibold text-[#1E2026] text-xl">Ceramic Ramen Bowls</h3>
                 <p className="text-[#6B6862] text-sm leading-relaxed">
                   Hand-picked Japanese-style ceramic bowls — deep enough for a proper portion and built to retain heat. Perfect for tonkotsu, miso, and shoyu ramen at home.
                 </p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#B57F50] group-hover:text-[#c8934f] transition-colors mt-1">
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#96602F] group-hover:text-[#c8934f] transition-colors mt-1">
                   View collection <ChevronRight className="w-4 h-4" />
                 </span>
               </div>
             </Link>
           </section>
 
-          <p className="text-center text-xs text-[#9B9490] mt-10">
+          <p className="text-center text-xs text-[#6B6862] mt-10">
             * Links are affiliate links. We may earn a small commission at no extra cost to you.
           </p>
         </div>

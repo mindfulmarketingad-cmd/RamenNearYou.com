@@ -17,7 +17,7 @@ export default function TermsOfServicePage() {
 
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Terms of Service</h1>
           <p className="text-[#6B6862] text-sm mb-12">Last updated: {lastUpdated}</p>
 
@@ -178,8 +178,8 @@ export default function TermsOfServicePage() {
               </p>
               <div className="mt-3 p-4 bg-[#F5F4F0] rounded-xl border border-black/5 text-sm">
                 <p className="text-[#1E2026] font-medium">RamenNearYou</p>
-                <p>Email: <a href="mailto:legal@ramennearyou.com" className="text-[#B57F50] hover:underline">legal@ramennearyou.com</a></p>
-                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#B57F50] hover:underline">www.ramennearyou.com/contact</a></p>
+                <p>Email: <a href="mailto:legal@ramennearyou.com" className="text-[#96602F] hover:underline">legal@ramennearyou.com</a></p>
+                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#96602F] hover:underline">www.ramennearyou.com/contact</a></p>
               </div>
             </section>
 

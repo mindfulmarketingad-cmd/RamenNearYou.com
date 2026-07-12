@@ -55,12 +55,12 @@ export default function CitiesPage() {
           <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
             <RestaurantImage src={pickStockPhoto('cities-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="1024px" priority />
           </div>
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Restaurants by City &amp; State</h1>
           <p className="text-[#6B6862] text-lg">
             Find ramen spots and restaurants near you by browsing every city and state in our directory.
           </p>
-          <p className="text-[#9B9490] text-sm mt-2">{allStates.length} states · {totalCities.toLocaleString()} cities · {totalRestaurants.toLocaleString()} restaurants</p>
+          <p className="text-[#6B6862] text-sm mt-2">{allStates.length} states · {totalCities.toLocaleString()} cities · {totalRestaurants.toLocaleString()} restaurants</p>
         </div>
       </section>
 
@@ -74,7 +74,7 @@ export default function CitiesPage() {
                 href={`/${s.stateSlug}`}
                 className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/5 hover:border-[#B57F50]/40 hover:bg-[#B57F50]/5 transition-colors group"
               >
-                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{s.state}</span>
+                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">{s.state}</span>
                 <span className="text-[#6B6862] text-xs shrink-0 ml-2">{s.cityCount} {s.cityCount === 1 ? 'city' : 'cities'}</span>
               </Link>
             ))}

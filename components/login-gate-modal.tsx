@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { X } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
 
 // Shared "sign in to continue" prompt shown when a logged-out visitor clicks
 // a gated action (Directions, Website, Call, Save, Claim, etc.) on a
@@ -16,6 +17,7 @@ export default function LoginGateModal({
   redirectTo: string
 }) {
   const router = useRouter()
+  const panelRef = useModalA11y(open, onClose)
   if (!open) return null
 
   return (
@@ -27,13 +29,15 @@ export default function LoginGateModal({
       aria-label="Sign in required"
     >
       <div
-        className="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6"
+        ref={panelRef}
+        tabIndex={-1}
+        className="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 p-1 text-[#9B9490] hover:text-[#1E2026] transition-colors"
+          className="absolute top-3 right-3 p-1 text-[#6B6862] hover:text-[#1E2026] transition-colors"
         >
           <X className="w-4 h-4" />
         </button>

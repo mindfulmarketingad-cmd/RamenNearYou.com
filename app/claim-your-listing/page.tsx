@@ -20,7 +20,7 @@ export default function ClaimYourListingPage() {
             <RestaurantImage src={pickStockPhoto('claim-your-listing')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
           </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-4">
-            <span className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
+            <span className="text-[#96602F] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Get More Visitors To My Ramen Restaurant

@@ -73,7 +73,7 @@ export default function ReviewCardOrderForm({ initialPicked = null }: { initialP
           <span className="font-serif text-5xl font-bold text-[#1E2026]">{PRICE_LABEL}</span>
           <span className="text-[#6B6862] text-sm mb-2">one-time</span>
         </div>
-        <p className="text-[#9B9490] text-xs">Print-ready QR review kit for one restaurant.</p>
+        <p className="text-[#6B6862] text-xs">Print-ready QR review kit for one restaurant.</p>
       </div>
 
       {/* Restaurant picker */}
@@ -84,7 +84,7 @@ export default function ReviewCardOrderForm({ initialPicked = null }: { initialP
             <p className="text-sm font-medium text-[#1E2026] truncate">{picked.name}</p>
             <p className="text-xs text-[#6B6862]">{picked.city}, {picked.stateCode}</p>
           </div>
-          <button onClick={() => setPicked(null)} aria-label="Change restaurant" className="shrink-0 text-[#9B9490] hover:text-[#1E2026]">
+          <button onClick={() => setPicked(null)} aria-label="Change restaurant" className="shrink-0 text-[#6B6862] hover:text-[#1E2026]">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -106,7 +106,7 @@ export default function ReviewCardOrderForm({ initialPicked = null }: { initialP
               {matches.length === 0 ? (
                 <div className="p-4 text-sm text-[#6B6862]">
                   No restaurants found for &ldquo;{query}&rdquo;. Not listed yet?{' '}
-                  <a href="/claim-your-listing" className="text-[#B57F50] font-semibold hover:underline">Add your restaurant first →</a>
+                  <a href="/claim-your-listing" className="text-[#96602F] font-semibold hover:underline">Add your restaurant first →</a>
                 </div>
               ) : (
                 matches.map(r => (

@@ -95,11 +95,11 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
 
         <div className="flex items-center justify-center gap-6 mt-5 pt-5 border-t border-white/15 text-xs text-white/80">
           <span className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-[#B57F50]" />
+            <Clock className="w-3.5 h-3.5 text-[#96602F]" />
             <span className="font-semibold">Total Time:</span> {recipe.totalTime}
           </span>
           <span className="flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5 text-[#B57F50]" />
+            <Users className="w-3.5 h-3.5 text-[#96602F]" />
             <span className="font-semibold">Yield:</span> makes {scaledServings} {recipe.servingsLabel}
             <span className="ml-1 px-1.5 py-0.5 rounded border border-white/25 text-[10px] font-bold">{scale}x</span>
           </span>
@@ -175,7 +175,7 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
                   onChange={() => toggleChecked(i)}
                   className="mt-0.5 w-4 h-4 shrink-0 accent-[#B57F50] print:hidden"
                 />
-                <span className={`leading-snug ${checked.has(i) ? 'line-through text-[#9B9490]' : 'text-[#1E2026]'}`}>
+                <span className={`leading-snug ${checked.has(i) ? 'line-through text-[#6B6862]' : 'text-[#1E2026]'}`}>
                   {displayAmount && <strong>{displayAmount} </strong>}
                   {unit && <strong>{unit} </strong>}
                   {ing.item}
@@ -193,7 +193,7 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
         <ol className="space-y-3.5">
           {recipe.steps.map((step, i) => (
             <li key={i} className="flex gap-3 text-sm text-[#1E2026] leading-relaxed">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs font-bold flex items-center justify-center">
+              <span className="shrink-0 w-6 h-6 rounded-full bg-[#B57F50]/15 text-[#96602F] text-xs font-bold flex items-center justify-center">
                 {i + 1}
               </span>
               <span>{step.text}</span>
@@ -227,7 +227,7 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
             ))}
           </div>
         </div>
-        <p className="text-[10px] text-[#9B9490] mt-2">Nutrition is an estimate and will vary based on the exact ingredients and brands used.</p>
+        <p className="text-[10px] text-[#6B6862] mt-2">Nutrition is an estimate and will vary based on the exact ingredients and brands used.</p>
       </div>
     </div>
   )

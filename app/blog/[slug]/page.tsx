@@ -88,7 +88,7 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
             <span className="text-[#1E2026]/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
             <span className="text-[#1E2026]/20 text-xs">·</span>
             {card.tags.map((tag) => (
-              <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs font-medium">{tag}</span>
+              <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#96602F] text-xs font-medium">{tag}</span>
             ))}
           </div>
         </div>
@@ -97,11 +97,11 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
 
         <div className="flex flex-col gap-1 text-xs text-[#6B6862]/70">
           <span className="flex items-center gap-1.5">
-            <Phone className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+            <Phone className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
             {card.phone}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
             {card.address}
           </span>
         </div>
@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: Props) {
           <article className="mt-4">
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#96602F]">
                   {post.category}
                 </span>
                 <span className="text-xs text-[#6B6862]/60">{post.date}</span>
@@ -243,7 +243,7 @@ export default async function BlogPostPage({ params }: Props) {
                     unoptimized
                   />
                   <div>
-                    <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#B57F50] transition-colors">{post.author.name}</p>
+                    <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#96602F] transition-colors">{post.author.name}</p>
                     <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
                   </div>
                 </Link>

@@ -270,7 +270,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
               className="transition-all duration-200 ease-out"
               style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)' }}
             >
-              <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-3">
                 {step + 1} / {total}
               </p>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-7">
@@ -293,7 +293,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                       >
                         <span className="min-w-0">
                           <span className="block font-semibold text-[#1E2026] text-sm">{c.label}</span>
-                          {c.sublabel && <span className="block text-[#9B9490] text-xs mt-0.5">{c.sublabel}</span>}
+                          {c.sublabel && <span className="block text-[#6B6862] text-xs mt-0.5">{c.sublabel}</span>}
                         </span>
                       </button>
                     )
@@ -305,7 +305,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                 <div className="max-w-sm">
                   <form onSubmit={(e) => { e.preventDefault(); submitZip() }}>
                     <div className="flex items-center bg-white rounded-xl border border-black/10 overflow-hidden focus-within:border-[#B57F50] focus-within:ring-2 focus-within:ring-[#B57F50]/20 transition-all">
-                      <MapPin className="w-4 h-4 text-[#B57F50] shrink-0 ml-4" />
+                      <MapPin className="w-4 h-4 text-[#96602F] shrink-0 ml-4" />
                       <input
                         type="text"
                         inputMode="numeric"
@@ -314,7 +314,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                         placeholder="Enter ZIP code"
                         value={zip}
                         onChange={(e) => { setZip(e.target.value.replace(/\D/g, '')); setErrorMsg('') }}
-                        className="flex-1 px-3 py-3.5 text-[#1E2026] text-sm font-medium outline-none bg-transparent placeholder:text-[#9B9490]"
+                        className="flex-1 px-3 py-3.5 text-[#1E2026] text-sm font-medium outline-none bg-transparent placeholder:text-[#6B6862]"
                       />
                       <button
                         type="submit"
@@ -328,7 +328,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                   </form>
                   <button
                     onClick={useMyLocation}
-                    className="mt-3 inline-flex items-center gap-1.5 text-sm text-[#B57F50] hover:text-[#c8934f] font-medium transition-colors"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm text-[#96602F] hover:text-[#c8934f] font-medium transition-colors"
                   >
                     <Navigation className="w-3.5 h-3.5" />
                     Use my current location
@@ -343,7 +343,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
           {/* ── Loading ── */}
           {phase === 'loading' && (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <Loader2 className="w-9 h-9 text-[#B57F50] animate-spin mb-4" />
+              <Loader2 className="w-9 h-9 text-[#96602F] animate-spin mb-4" />
               <p className="font-serif text-xl font-bold text-[#1E2026] mb-1">Finding your ramen</p>
               <p className="text-[#6B6862] text-sm">Searching nearby spots...</p>
             </div>
@@ -366,7 +366,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
           {/* ── Results ── */}
           {phase === 'results' && (
             <div>
-              <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-2">Your matches</p>
+              <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">Your matches</p>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
                 {results.length > 0
                   ? `${results.length} spot${results.length === 1 ? '' : 's'} near ${answers.zip || 'you'}`
@@ -445,7 +445,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Utensils className="w-8 h-8 text-[#B57F50]/30" />
+            <Utensils className="w-8 h-8 text-[#96602F]/30" />
           </div>
         )}
         <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#1E2026] shadow-sm">
@@ -461,12 +461,12 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
       {/* Info */}
       <div className="p-4 flex flex-col flex-1 gap-1">
         <p className="font-semibold text-[#1E2026] text-sm leading-snug line-clamp-1">{r.name}</p>
-        <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+        <p className="text-[#6B6862] text-xs">{r.city}, {r.stateCode}</p>
         {r.rating != null && r.rating > 0 && (
           <div className="flex items-center gap-1.5">
             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
             <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
+            <span className="text-[#6B6862] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
       </div>
@@ -476,7 +476,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
         <Link
           href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
           onClick={onNavigate}
-          className="flex-1 text-center py-2 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+          className="flex-1 text-center py-2 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
         >
           View details
         </Link>

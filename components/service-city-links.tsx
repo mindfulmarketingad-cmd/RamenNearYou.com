@@ -17,7 +17,7 @@ export default function ServiceCityLinks({ links }: { links: ServiceCityLinkItem
     <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1 list-none p-0 m-0">
       {links.map((l) => (
         <li key={l.href} className="break-inside-avoid">
-          <Link href={l.href} className="text-sm text-[#B57F50] hover:underline">
+          <Link href={l.href} className="text-sm text-[#96602F] hover:underline">
             {l.city}, {l.stateCode}
           </Link>
         </li>

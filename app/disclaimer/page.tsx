@@ -17,7 +17,7 @@ export default function DisclaimerPage() {
 
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Disclaimer</h1>
           <p className="text-[#6B6862] text-sm mb-12">Last updated: {lastUpdated}</p>
 
@@ -27,7 +27,7 @@ export default function DisclaimerPage() {
               <h2 className="text-[#1E2026] text-xl font-semibold mb-3">1. General Information</h2>
               <p>
                 The information provided by RamenNearYou (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) on{' '}
-                <a href="https://www.ramennearyou.com" className="text-[#B57F50] hover:underline">
+                <a href="https://www.ramennearyou.com" className="text-[#96602F] hover:underline">
                   www.ramennearyou.com
                 </a>{' '}
                 (the &ldquo;Site&rdquo;) is for general informational purposes only. All information on the Site is
@@ -108,8 +108,8 @@ export default function DisclaimerPage() {
               </p>
               <div className="mt-3 p-4 bg-[#F5F4F0] rounded-xl border border-black/5 text-sm">
                 <p className="text-[#1E2026] font-medium">RamenNearYou</p>
-                <p>Email: <a href="mailto:hello@ramennearyou.com" className="text-[#B57F50] hover:underline">hello@ramennearyou.com</a></p>
-                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#B57F50] hover:underline">www.ramennearyou.com/contact</a></p>
+                <p>Email: <a href="mailto:hello@ramennearyou.com" className="text-[#96602F] hover:underline">hello@ramennearyou.com</a></p>
+                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#96602F] hover:underline">www.ramennearyou.com/contact</a></p>
               </div>
             </section>
 

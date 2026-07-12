@@ -131,7 +131,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
           </nav>
 
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">{config.broth} Ramen</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">{config.broth} Ramen</p>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
               {config.broth} Ramen in {cityName}, {stateCode}
             </h1>
@@ -142,7 +142,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
               </span>
               <Link
                 href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
               >
                 <Map className="w-3.5 h-3.5" />
                 View on Map
@@ -189,7 +189,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
           </p>
           <Link
             href={`/${config.nearMeSlug}`}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
           >
             Explore {config.broth.toLowerCase()} ramen nationwide
             <ChevronRight className="w-4 h-4" />
@@ -221,7 +221,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
               'Set your location to sort by distance so you never trade quality for a long drive.',
             ].map((t) => (
               <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
                 <span>{t}</span>
               </li>
             ))}
@@ -233,7 +233,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
               <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                   {q}
-                  <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
                 </summary>
                 <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
               </details>
@@ -246,22 +246,22 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       {nearbyCities.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
             <p className="text-[#1E2026] font-semibold text-lg mb-6">More ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
                 <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
                   <Link href={`/${c.citySlug}/${c.stateSlug}`} className="flex items-center gap-2 px-4 py-2.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                     <span>
-                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">{c.city}, {c.stateCode}</span>
                       <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
                   <Link
                     href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
                     title="View on map"
-                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
+                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#96602F] hover:bg-[#B57F50]/10 transition-colors"
                   >
                     <Map className="w-3.5 h-3.5" />
                   </Link>
@@ -275,7 +275,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       {/* Back to city */}
       <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-black/5">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">See all ramen in {cityName}</h2>
           <p className="text-[#6B6862] text-sm mb-5 max-w-xl mx-auto">
             Browse every ramen restaurant in {cityName}, {stateCode} — all styles, all broth types.

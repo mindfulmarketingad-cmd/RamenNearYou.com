@@ -53,7 +53,7 @@ export default function CookieConsent() {
           <strong className="text-[#1E2026]">Google Analytics</strong> and{' '}
           <strong className="text-[#1E2026]">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
           use of cookies.{' '}
-          <Link href="/privacy-policy" className="text-[#B57F50] hover:underline">
+          <Link href="/privacy-policy" className="text-[#96602F] hover:underline">
             Privacy Policy
           </Link>
         </p>

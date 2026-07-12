@@ -84,7 +84,7 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
                 </span>
               </div>
               <p className="text-[#6B6862] text-sm flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-[#B57F50]" /> {base.address}
+                <MapPin className="w-3 h-3 text-[#96602F]" /> {base.address}
               </p>
             </div>
             <Link
@@ -103,7 +103,7 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
 
         {/* Edit form section */}
         <div className="flex items-center gap-2 mb-4">
-          <Edit3 className="w-4 h-4 text-[#B57F50]" />
+          <Edit3 className="w-4 h-4 text-[#96602F]" />
           <h2 className="font-semibold text-[#1E2026]">Edit Listing Content</h2>
         </div>
         <p className="text-[#6B6862] text-sm mb-6 leading-relaxed">

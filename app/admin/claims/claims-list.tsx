@@ -184,7 +184,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
               <div className="flex gap-3 flex-wrap">
                 <Link
                   href={`/admin/owner-view/${claim.restaurant_slug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-sm font-medium transition-colors border border-[#B57F50]/30"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-sm font-medium transition-colors border border-[#B57F50]/30"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   Preview Dashboard
@@ -225,7 +225,7 @@ function LinkOwnerPanel({ claimId, currentUserId }: { claimId: string; currentUs
         <Link2 className="w-3.5 h-3.5" /> Link Owner Account
       </p>
       {currentUserId && (
-        <p className="text-xs text-[#9B9490] mb-2">Current user_id: <code className="bg-black/5 px-1 rounded">{currentUserId}</code></p>
+        <p className="text-xs text-[#6B6862] mb-2">Current user_id: <code className="bg-black/5 px-1 rounded">{currentUserId}</code></p>
       )}
       <p className="text-[#6B6862] text-xs mb-2">
         Enter the owner&apos;s Supabase user_id (from Dashboard → Authentication → Users) to link their account. This lets them edit the listing immediately.

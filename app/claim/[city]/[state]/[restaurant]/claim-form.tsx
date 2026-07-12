@@ -111,7 +111,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
     return (
       <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8 text-center">
         <div className="w-14 h-14 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-7 h-7 text-[#B57F50]" />
+          <CheckCircle className="w-7 h-7 text-[#96602F]" />
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Claim Submitted!</h2>
         <p className="text-[#6B6862] leading-relaxed">
@@ -139,7 +139,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 1: Restaurant details */}
       <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
-          <MapPin className="w-4 h-4 text-[#B57F50]" />
+          <MapPin className="w-4 h-4 text-[#96602F]" />
           <h2 className="font-serif text-lg font-bold text-[#1E2026]">Restaurant Details</h2>
         </div>
         <p className="text-[#6B6862] text-xs leading-relaxed">
@@ -206,7 +206,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 2: Hours */}
       <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-3">
         <div className="flex items-center gap-2 mb-1">
-          <Clock className="w-4 h-4 text-[#B57F50]" />
+          <Clock className="w-4 h-4 text-[#96602F]" />
           <h2 className="font-serif text-lg font-bold text-[#1E2026]">Business Hours</h2>
         </div>
         <p className="text-[#6B6862] text-xs">Use &ldquo;Closed&rdquo; for days you&apos;re not open. Format: 11:00 AM – 10:00 PM</p>
@@ -229,7 +229,7 @@ export default function ClaimForm({ userEmail, restaurant }: ClaimFormProps) {
       {/* Section 3: Contact info */}
       <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
-          <User className="w-4 h-4 text-[#B57F50]" />
+          <User className="w-4 h-4 text-[#96602F]" />
           <h2 className="font-serif text-lg font-bold text-[#1E2026]">Your Information</h2>
         </div>
 

@@ -326,7 +326,7 @@ export default function RestaurantCompareModal({ currentRestaurant, onClose }: P
                     className="w-full text-left px-4 py-3 hover:bg-[#F5F4F0] transition-colors flex items-center justify-between gap-4 group"
                   >
                     <div className="min-w-0">
-                      <p className="text-[#1E2026] text-sm font-semibold truncate group-hover:text-[#B57F50] transition-colors">
+                      <p className="text-[#1E2026] text-sm font-semibold truncate group-hover:text-[#96602F] transition-colors">
                         {r.name}
                       </p>
                       <p className="text-[#6B6862] text-xs mt-0.5 truncate">

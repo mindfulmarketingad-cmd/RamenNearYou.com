@@ -95,7 +95,7 @@ export default function ReviewCardOrdersList({
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#9B9490] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} review card orders.</p>
+        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} review card orders.</p>
       ) : (
         <div className="space-y-3">
           {filtered.map(o => (
@@ -105,9 +105,9 @@ export default function ReviewCardOrdersList({
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <span className="font-semibold text-[#1E2026] text-sm">{o.restaurant_name}</span>
                     {(o.city || o.state_code) && (
-                      <span className="text-xs text-[#9B9490]">{[o.city, o.state_code].filter(Boolean).join(', ')}</span>
+                      <span className="text-xs text-[#6B6862]">{[o.city, o.state_code].filter(Boolean).join(', ')}</span>
                     )}
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-xs font-medium bg-[#B57F50]/10 text-[#B57F50] border-[#B57F50]/20">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-xs font-medium bg-[#B57F50]/10 text-[#96602F] border-[#B57F50]/20">
                       <QrCode className="w-3 h-3" />
                       {scanCounts[o.restaurant_slug] ?? 0} scans
                     </span>
@@ -115,7 +115,7 @@ export default function ReviewCardOrdersList({
                   <p className="text-[#6B6862] text-sm">
                     {o.buyer_name ? `${o.buyer_name} — ` : ''}{o.buyer_email}
                   </p>
-                  <p className="text-[#9B9490] text-xs mt-0.5">
+                  <p className="text-[#6B6862] text-xs mt-0.5">
                     Ordered {new Date(o.created_at).toLocaleString()}
                     {o.fulfilled_at && <span className="ml-2">· Fulfilled {new Date(o.fulfilled_at).toLocaleString()}</span>}
                   </p>
@@ -125,13 +125,13 @@ export default function ReviewCardOrdersList({
                       href={`/review-cards/print/${o.restaurant_slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#B57F50] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
                     >
                       <Printer className="w-3.5 h-3.5" /> Print page
                     </a>
                     <a
                       href={fulfillmentMailto(o)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#B57F50] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
                     >
                       <Mail className="w-3.5 h-3.5" /> Email kit to buyer
                     </a>
@@ -169,7 +169,7 @@ export default function ReviewCardOrdersList({
                         onClick={() => act(o.id, 'reopen')}
                         disabled={busy === o.id}
                         title="Reopen as pending"
-                        className="p-1.5 rounded-lg border border-black/10 text-[#9B9490] hover:text-[#1E2026] transition-colors disabled:opacity-50"
+                        className="p-1.5 rounded-lg border border-black/10 text-[#6B6862] hover:text-[#1E2026] transition-colors disabled:opacity-50"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
                       </button>

@@ -87,7 +87,7 @@ export default function NavbarClient() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
               <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
-              <span className="font-serif text-lg font-bold tracking-tight transition-colors text-[#1E2026] group-hover:text-[#B57F50]">
+              <span className="font-serif text-lg font-bold tracking-tight transition-colors text-[#1E2026] group-hover:text-[#96602F]">
                 RamenNearYou
               </span>
             </Link>
@@ -116,11 +116,11 @@ export default function NavbarClient() {
                 {user && (
                   <>
                     <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
+                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#96602F]">
                         {userInitial}
                       </span>
                     </Link>
-                    <button onClick={handleSignOut} className="px-3 py-2 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors rounded-lg hover:bg-black/5">
+                    <button onClick={handleSignOut} className="px-3 py-2 text-sm text-[#96602F] hover:text-[#96602F]/80 transition-colors rounded-lg hover:bg-black/5">
                       Sign Out
                     </button>
                   </>
@@ -150,6 +150,8 @@ export default function NavbarClient() {
                 className="sm:hidden p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-nav-menu"
               >
                 {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -158,7 +160,7 @@ export default function NavbarClient() {
         </div>
 
         {menuOpen && (
-          <div className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
+          <div id="mobile-nav-menu" className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
             <Link
               href="/claim-your-listing"
               className="sm:hidden flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#1E2026] text-white text-sm font-semibold"
@@ -205,14 +207,14 @@ export default function NavbarClient() {
                   </Link>
                   <Link href="/profile" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                     <span className="inline-flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#B57F50]">
+                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#96602F]">
                         {userInitial}
                       </span>
                       {user.email}
                     </span>
                   </Link>
                   <div className="border-t border-black/5 pt-2">
-                    <button onClick={handleSignOut} className="py-2 text-sm text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
+                    <button onClick={handleSignOut} className="py-2 text-sm text-[#96602F] hover:text-[#96602F]/80 transition-colors">
                       Sign Out
                     </button>
                   </div>

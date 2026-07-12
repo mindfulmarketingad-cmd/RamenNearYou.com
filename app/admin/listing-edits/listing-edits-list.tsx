@@ -34,13 +34,13 @@ function PayloadDisplay({ type, payload }: { type: string; payload: Record<strin
         <p className="font-medium text-[#1E2026] capitalize">{field.replace(/_/g, ' ')}</p>
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <p className="text-[#9B9490] text-xs mb-0.5">Current</p>
+            <p className="text-[#6B6862] text-xs mb-0.5">Current</p>
             <p className="text-[#6B6862] bg-red-50 border border-red-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
               {old_value || <span className="italic">(empty)</span>}
             </p>
           </div>
           <div>
-            <p className="text-[#9B9490] text-xs mb-0.5">Requested</p>
+            <p className="text-[#6B6862] text-xs mb-0.5">Requested</p>
             <p className="text-[#1E2026] bg-green-50 border border-green-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
               {new_value || <span className="italic">(empty)</span>}
             </p>
@@ -74,12 +74,12 @@ function PayloadDisplay({ type, payload }: { type: string; payload: Record<strin
       <div className="mt-2 text-sm space-y-2">
         {review_body && (
           <div>
-            <p className="text-[#9B9490] text-xs mb-0.5">Customer review</p>
+            <p className="text-[#6B6862] text-xs mb-0.5">Customer review</p>
             <p className="text-[#6B6862] bg-[#F5F4F0] rounded px-2 py-1 text-xs italic">{review_body}</p>
           </div>
         )}
         <div>
-          <p className="text-[#9B9490] text-xs mb-0.5">Owner response</p>
+          <p className="text-[#6B6862] text-xs mb-0.5">Owner response</p>
           <p className="text-[#1E2026] bg-sky-50 border border-sky-100 rounded px-2 py-1 text-xs">{response}</p>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#9B9490] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} listing edits.</p>
+        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} listing edits.</p>
       ) : (
         <div className="space-y-3">
           {filtered.map(edit => {
@@ -160,7 +160,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
                         {badge.label}
                       </span>
                     </div>
-                    <p className="text-[#9B9490] text-xs">
+                    <p className="text-[#6B6862] text-xs">
                       {new Date(edit.created_at).toLocaleString()}
                       {edit.reviewed_at && (
                         <span className="ml-2">· Reviewed {new Date(edit.reviewed_at).toLocaleString()}</span>
@@ -168,7 +168,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
                     </p>
                     <PayloadDisplay type={edit.type} payload={edit.payload} />
                     {edit.admin_note && (
-                      <p className="mt-2 text-xs text-[#9B9490] italic">Note: {edit.admin_note}</p>
+                      <p className="mt-2 text-xs text-[#6B6862] italic">Note: {edit.admin_note}</p>
                     )}
                   </div>
 

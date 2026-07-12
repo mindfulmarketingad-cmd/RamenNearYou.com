@@ -29,8 +29,8 @@ export default function RamenCookersPage() {
           </nav>
 
           <div className="flex items-center gap-2 mb-3">
-            <ShoppingBag className="w-4 h-4 text-[#B57F50]" />
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">Ramen Equipment</p>
+            <ShoppingBag className="w-4 h-4 text-[#96602F]" />
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest">Ramen Equipment</p>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Ramen Cookers
@@ -39,7 +39,7 @@ export default function RamenCookersPage() {
             The right cooker makes all the difference between decent home ramen and a bowl that tastes like the real thing. These hand-picked electric ramen pots and hot pots give you precise heat control, enough capacity for a proper serving, and easy cleanup — everything you need to make restaurant-quality ramen at home.
           </p>
 
-          <p className="text-[#9B9490] text-xs mt-4">
+          <p className="text-[#6B6862] text-xs mt-4">
             {ramenCookers.length} product{ramenCookers.length !== 1 ? 's' : ''} · Links go to Amazon. As an Amazon Associate we earn from qualifying purchases.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function RamenCookersPage() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-[#1E2026] text-sm font-semibold leading-snug group-hover:text-[#B57F50] transition-colors">
+                  <p className="text-[#1E2026] text-sm font-semibold leading-snug group-hover:text-[#96602F] transition-colors">
                     {product.name}
                   </p>
                   <div className="mt-auto">
@@ -144,7 +144,7 @@ export default function RamenCookersPage() {
                 <details key={i} className="group py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <summary className="flex items-center justify-between gap-4 font-semibold text-[#1E2026] text-sm sm:text-base select-none">
                     {q}
-                    <ChevronDown className="w-4 h-4 text-[#B57F50] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                    <ChevronDown className="w-4 h-4 text-[#96602F] shrink-0 transition-transform duration-200 group-open:rotate-180" />
                   </summary>
                   <p className="mt-3 text-[#6B6862] text-sm leading-relaxed">{a}</p>
                 </details>
@@ -156,7 +156,7 @@ export default function RamenCookersPage() {
           <div className="mt-8 p-5 rounded-2xl bg-[#B57F50]/8 border border-[#B57F50]/20">
             <p className="text-[#1E2026] text-sm font-semibold mb-2">Ready to cook your first bowl?</p>
             <p className="text-[#6B6862] text-sm">
-              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#B57F50] underline font-medium">the 4 types of ramen</Link> to choose your first broth style — or pair your new cooker with a set of <Link href="/collections/ceramic-ramen-bowls" className="text-[#B57F50] underline font-medium">ceramic ramen bowls</Link>. Want to taste the real thing first? Find the best <Link href="/find/tonkotsu-ramen" className="text-[#B57F50] underline font-medium">tonkotsu ramen near you</Link> or <Link href="/find/miso-ramen" className="text-[#B57F50] underline font-medium">miso ramen near you</Link>.
+              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#96602F] underline font-medium">the 4 types of ramen</Link> to choose your first broth style — or pair your new cooker with a set of <Link href="/collections/ceramic-ramen-bowls" className="text-[#96602F] underline font-medium">ceramic ramen bowls</Link>. Want to taste the real thing first? Find the best <Link href="/find/tonkotsu-ramen" className="text-[#96602F] underline font-medium">tonkotsu ramen near you</Link> or <Link href="/find/miso-ramen" className="text-[#96602F] underline font-medium">miso ramen near you</Link>.
             </p>
           </div>
         </div>

@@ -49,7 +49,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: count }).map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-[#B57F50] text-[#B57F50]" />
+        <Star key={i} className="w-4 h-4 fill-[#B57F50] text-[#96602F]" />
       ))}
     </div>
   )
@@ -60,7 +60,7 @@ export default function HomepageReviews() {
     <section className="py-16 sm:py-20 bg-white border-t border-black/5">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-[#B57F50] text-sm font-semibold uppercase tracking-widest mb-2">What People Are Saying</p>
+          <p className="text-[#96602F] text-sm font-semibold uppercase tracking-widest mb-2">What People Are Saying</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
             Real Ramen Lovers, Real Results
           </h2>
@@ -82,7 +82,7 @@ export default function HomepageReviews() {
                   <p className="text-sm font-semibold text-[#1E2026]">{r.name}</p>
                   <p className="text-xs text-[#6B6862]">{r.location}</p>
                 </div>
-                <span className="text-xs font-medium text-[#B57F50] bg-[#B57F50]/10 px-2.5 py-1 rounded-full">
+                <span className="text-xs font-medium text-[#96602F] bg-[#B57F50]/10 px-2.5 py-1 rounded-full">
                   {r.bowl}
                 </span>
               </div>

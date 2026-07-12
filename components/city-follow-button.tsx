@@ -56,8 +56,8 @@ export default function CityFollowButton({ city, state }: Props) {
       onClick={toggle}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
         following
-          ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#B57F50] hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
-          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#B57F50]'
+          ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#96602F] hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
+          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F]'
       }`}
     >
       {following ? <BellOff className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}

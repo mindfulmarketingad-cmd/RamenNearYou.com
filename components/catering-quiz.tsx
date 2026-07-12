@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { X, ChevronRight, CheckCircle } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
@@ -81,6 +82,7 @@ const EMPTY: Data = {
 }
 
 export default function CateringQuiz({ onClose }: { onClose: () => void }) {
+  const panelRef = useModalA11y(true, onClose)
   const [step, setStep] = useState(1)
   const [data, setData] = useState<Data>(EMPTY)
   const [visible, setVisible] = useState(true)
@@ -161,24 +163,29 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
     <div
       className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Ramen catering request"
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       <div
-        className="relative z-10 bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[93vh] flex flex-col"
+        ref={panelRef}
+        tabIndex={-1}
+        className="relative z-10 bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[93vh] flex flex-col outline-none"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-black/5 flex-shrink-0">
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest">
               {done ? 'Catering Request' : `Step ${step} of ${TOTAL_STEPS}`}
             </p>
             <h2 className="font-serif text-xl font-bold text-[#1E2026]">
               {done ? "You're all set!" : STEP_TITLES[step]}
             </h2>
           </div>
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-black/5 transition-colors">
+          <button onClick={onClose} aria-label="Close" className="p-2 rounded-lg hover:bg-black/5 transition-colors">
             <X className="w-5 h-5 text-[#6B6862]" />
           </button>
         </div>
@@ -207,7 +214,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {done && (
               <div className="text-center py-6">
                 <div className="w-16 h-16 rounded-full bg-[#B57F50]/15 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-[#B57F50]" />
+                  <CheckCircle className="w-8 h-8 text-[#96602F]" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Request received!</h3>
                 <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
@@ -294,7 +301,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                         onClick={() => pick('eventTime', t)}
                         className={`px-4 py-3 rounded-lg border-2 text-left text-sm font-medium transition-all ${
                           data.eventTime === t
-                            ? 'border-[#B57F50] bg-[#B57F50]/8 text-[#B57F50]'
+                            ? 'border-[#B57F50] bg-[#B57F50]/8 text-[#96602F]'
                             : 'border-black/8 text-[#1E2026] hover:border-[#B57F50]/50'
                         }`}
                       >
@@ -362,7 +369,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                       onClick={() => toggleDietary(opt)}
                       className={`px-4 py-2 rounded-full border-2 text-sm font-medium transition-all ${
                         data.dietaryNeeds.includes(opt)
-                          ? 'border-[#B57F50] bg-[#B57F50]/10 text-[#B57F50]'
+                          ? 'border-[#B57F50] bg-[#B57F50]/10 text-[#96602F]'
                           : 'border-black/8 text-[#1E2026] hover:border-[#B57F50]/40'
                       }`}
                     >

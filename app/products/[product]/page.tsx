@@ -140,7 +140,7 @@ export default async function ProductPage({ params }: Props) {
             {/* Info */}
             <div className="flex flex-col gap-5">
               <div>
-                <p className="text-xs font-medium text-[#B57F50] mb-2 uppercase tracking-wide">{product.category}</p>
+                <p className="text-xs font-medium text-[#96602F] mb-2 uppercase tracking-wide">{product.category}</p>
                 <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] leading-tight mb-3">
                   {product.name}
                 </h1>
@@ -167,7 +167,7 @@ export default async function ProductPage({ params }: Props) {
               <ul className="flex flex-col gap-2 pt-1">
                 {product.features.slice(0, 4).map((f) => (
                   <li key={f.title} className="flex items-start gap-2 text-sm text-[#1E2026]">
-                    <Check className="w-4 h-4 text-[#B57F50] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 text-[#96602F] shrink-0 mt-0.5" />
                     {f.title}
                   </li>
                 ))}

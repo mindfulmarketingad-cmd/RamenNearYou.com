@@ -36,7 +36,7 @@ export default function RestaurantReviewsClient({ reviews }: { reviews: Generate
     <div>
       {/* Keyword filter */}
       <div className="relative mb-6">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9B9490]" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
         <input
           type="text"
           value={query}
@@ -55,12 +55,12 @@ export default function RestaurantReviewsClient({ reviews }: { reviews: Generate
           <article key={idx} className="bg-white rounded-2xl border border-black/5 p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex items-center gap-3">
-                <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/30 flex items-center justify-center text-sm font-bold text-[#B57F50]">
+                <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/30 flex items-center justify-center text-sm font-bold text-[#96602F]">
                   {r.author[0]}
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-[#1E2026]">{r.author}</p>
-                  <p className="text-xs text-[#9B9490]">{r.date}</p>
+                  <p className="text-xs text-[#6B6862]">{r.date}</p>
                 </div>
               </div>
               <Stars rating={r.rating} />

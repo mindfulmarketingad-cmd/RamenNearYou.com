@@ -65,11 +65,11 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
         )}
       </div>
       <div className="p-4">
-        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
+        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#96602F] transition-colors line-clamp-1 mb-1">
           {r.name}
         </p>
         <div className="flex items-center gap-2 mb-2">
-          <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+          <p className="text-[#6B6862] text-xs">{r.city}, {r.stateCode}</p>
         </div>
         {r.rating && (
           <div className="flex items-center gap-1.5">
@@ -82,7 +82,7 @@ function RestaurantCard({ r, brothType }: { r: NearbyRestaurant; brothType: stri
               ))}
             </div>
             <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
+            <span className="text-[#6B6862] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
       </div>

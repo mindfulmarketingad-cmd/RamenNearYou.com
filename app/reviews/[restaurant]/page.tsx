@@ -58,7 +58,7 @@ function RatingBars({ dist, total }: { dist: Record<string, number>; total: numb
             <span className="flex-1 h-2 rounded-full bg-black/8 overflow-hidden">
               <span className="block h-full bg-amber-400 rounded-full" style={{ width: `${pct}%` }} />
             </span>
-            <span className="w-12 shrink-0 text-right text-[#9B9490]">{count.toLocaleString()}</span>
+            <span className="w-12 shrink-0 text-right text-[#6B6862]">{count.toLocaleString()}</span>
           </div>
         )
       })}
@@ -171,7 +171,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               {r.name} Reviews | Taste, Noodle Size, Bowl Size and More
             </h1>
             <p className="flex items-center gap-1.5 text-sm text-[#6B6862]">
-              <MapPin className="w-4 h-4 text-[#B57F50]" />
+              <MapPin className="w-4 h-4 text-[#96602F]" />
               {r.address}
             </p>
           </header>
@@ -196,7 +196,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                     />
                   ))}
                 </span>
-                <p className="text-xs text-[#9B9490]">{(r.reviewCount ?? 0).toLocaleString()} Google reviews</p>
+                <p className="text-xs text-[#6B6862]">{(r.reviewCount ?? 0).toLocaleString()} Google reviews</p>
               </div>
 
               {/* Distribution bars */}
@@ -309,7 +309,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               className="flex items-center gap-3 rounded-xl border border-[#B57F50]/25 bg-[#B57F50]/8 p-4 hover:bg-[#B57F50]/14 transition-colors"
             >
               <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 flex items-center justify-center shrink-0">
-                <QrCode className="w-5 h-5 text-[#B57F50]" />
+                <QrCode className="w-5 h-5 text-[#96602F]" />
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-bold text-[#1E2026]">Want More Reviews?</span>
@@ -350,7 +350,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                   </Link>
                 ))}
               </div>
-              <Link href="/reviews" className="inline-block mt-4 text-sm text-[#B57F50] font-medium hover:underline">
+              <Link href="/reviews" className="inline-block mt-4 text-sm text-[#96602F] font-medium hover:underline">
                 Browse all restaurant reviews →
               </Link>
             </section>

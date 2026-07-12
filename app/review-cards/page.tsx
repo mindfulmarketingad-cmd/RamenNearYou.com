@@ -42,7 +42,7 @@ export default async function ReviewCardsPage({
             <RestaurantImage src={pickStockPhoto('review-cards')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
           </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-4">
-            <span className="text-[#B57F50] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
+            <span className="text-[#96602F] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
             Google Review Cards
@@ -57,7 +57,7 @@ export default async function ReviewCardsPage({
         <div className="grid sm:grid-cols-2 gap-4 mb-10">
           {STEPS.map(({ icon: Icon, title, text }) => (
             <div key={title} className="bg-white rounded-2xl border border-black/8 p-5">
-              <Icon className="w-6 h-6 text-[#B57F50] mb-3" />
+              <Icon className="w-6 h-6 text-[#96602F] mb-3" />
               <p className="font-semibold text-[#1E2026] text-sm mb-1">{title}</p>
               <p className="text-[#6B6862] text-xs leading-relaxed">{text}</p>
             </div>
@@ -66,7 +66,7 @@ export default async function ReviewCardsPage({
 
         <ReviewCardOrderForm initialPicked={initialPicked} />
 
-        <p className="text-center text-xs text-[#9B9490] mt-6 max-w-md mx-auto">
+        <p className="text-center text-xs text-[#6B6862] mt-6 max-w-md mx-auto">
           Every card sends every customer to the same public Google review page — no filtering,
           no gating, fully within Google&apos;s review policies.
         </p>

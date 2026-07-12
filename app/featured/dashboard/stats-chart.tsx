@@ -68,7 +68,7 @@ export default function StatsChart({ listingId, restaurantName }: { listingId: s
       label: 'Total Views',
       value: stats.totalViews.toLocaleString(),
       icon: Eye,
-      color: 'text-[#B57F50]',
+      color: 'text-[#96602F]',
       bg: 'bg-[#B57F50]/10',
     },
     {
@@ -113,7 +113,7 @@ export default function StatsChart({ listingId, restaurantName }: { listingId: s
       {/* Listing header */}
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center shrink-0">
-          <Crown className="w-4 h-4 text-[#B57F50]" />
+          <Crown className="w-4 h-4 text-[#96602F]" />
         </div>
         <div>
           <p className="text-[#1E2026] font-semibold">{restaurantName}</p>

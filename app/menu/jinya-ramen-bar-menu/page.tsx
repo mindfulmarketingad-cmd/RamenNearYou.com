@@ -292,7 +292,7 @@ export default function JinyaMenuPage() {
         {/* Hero */}
         <section className="px-4 sm:px-6 lg:px-8 pb-10 border-b border-black/5">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Restaurant Menu</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Restaurant Menu</p>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4 leading-tight">
               JINYA Ramen Bar Menu
             </h1>
@@ -300,10 +300,10 @@ export default function JinyaMenuPage() {
               The full <strong className="text-[#1E2026]">JINYA Ramen Bar menu</strong> — covering every ramen bowl, small plate, salad, rice bowl, dessert, and cocktail. Items and availability may vary by location.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-xs text-[#6B6862]/60">
-              <Link href="/atlanta/ga/jinya-ramen-bar-buckhead" className="hover:text-[#B57F50] transition-colors underline underline-offset-2">
+              <Link href="/atlanta/ga/jinya-ramen-bar-buckhead" className="hover:text-[#96602F] transition-colors underline underline-offset-2">
                 JINYA Ramen Bar – Buckhead, Atlanta →
               </Link>
-              <Link href="/atlanta/ga/jinya-ramen-bar-poncey-highland" className="hover:text-[#B57F50] transition-colors underline underline-offset-2">
+              <Link href="/atlanta/ga/jinya-ramen-bar-poncey-highland" className="hover:text-[#96602F] transition-colors underline underline-offset-2">
                 JINYA Ramen Bar – Poncey Highland, Atlanta →
               </Link>
             </div>
@@ -346,7 +346,7 @@ export default function JinyaMenuPage() {
                       <div className="flex items-start justify-between gap-4">
                         <p className="font-semibold text-[#1E2026] text-sm leading-snug">{item.name}</p>
                         {item.note && (
-                          <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] font-medium whitespace-nowrap">
+                          <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#96602F] font-medium whitespace-nowrap">
                             {item.note}
                           </span>
                         )}

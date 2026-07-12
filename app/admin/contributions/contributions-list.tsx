@@ -72,7 +72,7 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#9B9490] text-sm py-12 text-center">No {tab} contributions.</p>
+        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab} contributions.</p>
       ) : (
         <div className="space-y-2">
           {filtered.map(c => (
@@ -83,9 +83,9 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
               <div className="min-w-0">
                 <p className="font-semibold text-[#1E2026] text-sm">
                   {CONTRIBUTION_LABELS[c.type as ContributionType] ?? c.type}
-                  <span className="ml-2 text-[#B57F50]">${c.amount.toFixed(2)}</span>
+                  <span className="ml-2 text-[#96602F]">${c.amount.toFixed(2)}</span>
                 </p>
-                <p className="text-[#9B9490] text-xs truncate">
+                <p className="text-[#6B6862] text-xs truncate">
                   {c.display_name ?? c.user_id.slice(0, 8)} ·{' '}
                   {c.reference_id ?? '—'} · {new Date(c.created_at).toLocaleDateString()}
                 </p>

@@ -82,7 +82,7 @@ export default function LiveWaitTime({ hours }: Props) {
     low: 'text-emerald-700 bg-emerald-50 border-emerald-200',
     moderate: 'text-amber-700 bg-amber-50 border-amber-200',
     high: 'text-red-700 bg-red-50 border-red-200',
-    closed: 'text-[#9B9490] bg-[#F5F4F0] border-black/8',
+    closed: 'text-[#6B6862] bg-[#F5F4F0] border-black/8',
   }
 
   if (!estimate) return <div className="h-20 rounded-xl bg-[#F5F4F0] animate-pulse" />

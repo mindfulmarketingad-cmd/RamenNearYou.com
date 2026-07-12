@@ -97,7 +97,7 @@ export default function SignupPage() {
       <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <div className="w-16 h-16 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-6">
-            <UtensilsCrossed className="w-7 h-7 text-[#B57F50]" />
+            <UtensilsCrossed className="w-7 h-7 text-[#96602F]" />
           </div>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-3">Check your email</h1>
           <p className="text-[#6B6862] leading-relaxed mb-6">
@@ -144,7 +144,7 @@ export default function SignupPage() {
 
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-black/8" />
-              <span className="text-xs text-[#9B9490]">or</span>
+              <span className="text-xs text-[#6B6862]">or</span>
               <div className="flex-1 h-px bg-black/8" />
             </div>
 
@@ -194,7 +194,7 @@ export default function SignupPage() {
               </button>
               <p className="text-center text-sm text-[#6B6862]">
                 Already have an account?{' '}
-                <Link href="/auth/login" className="text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
+                <Link href="/auth/login" className="text-[#96602F] hover:text-[#96602F]/80 transition-colors">
                   Sign in
                 </Link>
               </p>

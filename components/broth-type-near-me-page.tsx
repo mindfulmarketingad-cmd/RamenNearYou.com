@@ -65,7 +65,7 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                 <ChevronRight className="w-3 h-3" />
                 <span className="text-[#1E2026]">{broth.headline}</span>
               </nav>
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
+              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E2026] leading-tight mb-4">
                 {broth.headline}
               </h1>
@@ -105,7 +105,7 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
         {cityLinks.length > 0 && (
           <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
             <div className="max-w-7xl mx-auto">
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
+              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
                 {broth.type} Ramen by City
               </h2>
@@ -114,9 +114,9 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                     {broth.type} Ramen in {c.city}, {c.stateCode}
                     <span className="text-[#6B6862]/60 text-xs">{c.count}</span>
                   </Link>
@@ -170,14 +170,14 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                 'Use your ZIP code or location above to sort by distance so you never trade quality for a long drive.',
               ].map((t) => (
                 <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                  <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
+              <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-[#B57F50]/40 text-[#96602F] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
                 Browse All Broth Types
               </Link>
               <Link href="/cities" className="px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
@@ -196,7 +196,7 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-[#ffffff] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-[#ffffff] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
                 >
                   {s.label} Near Me
                 </Link>

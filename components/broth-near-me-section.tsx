@@ -31,7 +31,7 @@ export default function BrothNearMeSection({
           </div>
           <Link
             href={href}
-            className="flex-shrink-0 flex items-center gap-2 text-sm font-medium text-[#B57F50] hover:text-[#1E2026] transition-colors group"
+            className="flex-shrink-0 flex items-center gap-2 text-sm font-medium text-[#96602F] hover:text-[#1E2026] transition-colors group"
           >
             View all locations
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -55,11 +55,11 @@ export default function BrothNearMeSection({
                 />
               </div>
               <div className="p-3 flex-1 flex flex-col gap-1">
-                <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-2">
+                <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#96602F] transition-colors line-clamp-2">
                   {r.name}
                 </p>
                 <div className="flex items-center gap-1 text-[#6B6862] text-xs">
-                  <MapPin className="w-3 h-3 shrink-0 text-[#B57F50]" />
+                  <MapPin className="w-3 h-3 shrink-0 text-[#96602F]" />
                   <span className="truncate">{r.city}, {r.stateCode}</span>
                 </div>
                 {r.rating && (
@@ -77,7 +77,7 @@ export default function BrothNearMeSection({
         <div className="mt-6 text-center">
           <Link
             href={href}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#B57F50]/40 text-[#96602F] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors"
           >
             See all locations →
           </Link>

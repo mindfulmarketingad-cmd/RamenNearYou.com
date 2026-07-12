@@ -43,7 +43,7 @@ export default function BrothStyleLinks({ place }: Props) {
               className="flex items-center gap-2.5 px-5 py-4 border-b border-r border-black/10 hover:bg-white transition-colors group"
             >
               <span aria-hidden className="text-base">{l.emoji}</span>
-              <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
+              <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">
                 {l.label} Near Me
               </span>
             </Link>

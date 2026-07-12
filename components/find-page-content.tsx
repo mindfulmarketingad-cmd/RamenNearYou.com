@@ -89,7 +89,7 @@ export default function FindPageContent({
             <ul className="space-y-2.5">
               {tips.map((t, i) => (
                 <li key={i} className="flex gap-2.5 text-[#6B6862] text-[15px] leading-relaxed">
-                  <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
@@ -107,7 +107,7 @@ export default function FindPageContent({
               <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                   {q}
-                  <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
                 </summary>
                 <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
               </details>

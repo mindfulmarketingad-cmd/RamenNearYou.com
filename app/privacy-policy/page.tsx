@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
 
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Legal</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Privacy Policy</h1>
           <p className="text-[#6B6862] text-sm mb-12">Last updated: {lastUpdated}</p>
 
@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-[#1E2026] text-xl font-semibold mb-3">1. Introduction</h2>
               <p>
                 RamenNearYou (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the website{' '}
-                <a href="https://www.ramennearyou.com" className="text-[#B57F50] hover:underline">
+                <a href="https://www.ramennearyou.com" className="text-[#96602F] hover:underline">
                   www.ramennearyou.com
                 </a>{' '}
                 (the &ldquo;Site&rdquo;). This Privacy Policy explains how we collect, use, disclose, and safeguard
@@ -88,11 +88,11 @@ export default function PrivacyPolicyPage() {
                     We use <strong className="text-[#1E2026]">Google Analytics</strong> (GA4) to understand how visitors interact with our Site.
                     Google Analytics sets cookies that collect information such as the number of visitors, pages visited, and traffic sources.
                     This information helps us improve the Site. Google&apos;s use of this data is governed by the{' '}
-                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">
                       Google Privacy Policy
                     </a>
                     . You can opt out of Google Analytics by installing the{' '}
-                    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
+                    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">
                       Google Analytics Opt-out Browser Add-on
                     </a>
                     .
@@ -105,15 +105,15 @@ export default function PrivacyPolicyPage() {
                     Google AdSense and its partners use cookies (including the DoubleClick cookie) to serve ads based on
                     your prior visits to this website or other websites. These cookies allow Google and its partners to
                     serve ads based on your interests. You can opt out of personalized advertising by visiting{' '}
-                    <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
+                    <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">
                       Google Ads Settings
                     </a>
                     {' '}or by visiting{' '}
-                    <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
+                    <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">
                       www.aboutads.info
                     </a>
                     . You can also opt out through the{' '}
-                    <a href="https://www.networkadvertising.org/choices/" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">
+                    <a href="https://www.networkadvertising.org/choices/" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">
                       Network Advertising Initiative opt-out page
                     </a>
                     .
@@ -128,23 +128,23 @@ export default function PrivacyPolicyPage() {
               <div className="space-y-2">
                 <div className="flex gap-3">
                   <span className="text-[#1E2026] font-medium min-w-[140px]">Google Analytics</span>
-                  <span>Site analytics and traffic measurement. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
+                  <span>Site analytics and traffic measurement. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-[#1E2026] font-medium min-w-[140px]">Google AdSense</span>
-                  <span>Display advertising. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
+                  <span>Display advertising. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-[#1E2026] font-medium min-w-[140px]">Supabase</span>
-                  <span>Authentication and database. <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
+                  <span>Authentication and database. <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-[#1E2026] font-medium min-w-[140px]">Stripe</span>
-                  <span>Payment processing for featured listings. <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
+                  <span>Payment processing for featured listings. <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-[#1E2026] font-medium min-w-[140px]">Vercel</span>
-                  <span>Website hosting and infrastructure. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Privacy Policy</a></span>
+                  <span>Website hosting and infrastructure. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Privacy Policy</a></span>
                 </div>
               </div>
               <p className="mt-3 text-sm">
@@ -172,11 +172,11 @@ export default function PrivacyPolicyPage() {
                 <li><strong className="text-[#1E2026]">Deletion:</strong> request deletion of your personal data (&ldquo;right to be forgotten&rdquo;).</li>
                 <li><strong className="text-[#1E2026]">Objection:</strong> object to our processing of your data for direct marketing or analytics.</li>
                 <li><strong className="text-[#1E2026]">Portability:</strong> receive your data in a structured, machine-readable format.</li>
-                <li><strong className="text-[#1E2026]">Opt-out of personalized ads:</strong> visit <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">Google Ads Settings</a>.</li>
+                <li><strong className="text-[#1E2026]">Opt-out of personalized ads:</strong> visit <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#96602F] hover:underline">Google Ads Settings</a>.</li>
               </ul>
               <p className="mt-3">
                 To exercise any of these rights, contact us at{' '}
-                <a href="mailto:privacy@ramennearyou.com" className="text-[#B57F50] hover:underline">
+                <a href="mailto:privacy@ramennearyou.com" className="text-[#96602F] hover:underline">
                   privacy@ramennearyou.com
                 </a>
                 .
@@ -217,8 +217,8 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="mt-3 p-4 bg-[#F5F4F0] rounded-xl border border-black/5 text-sm">
                 <p className="text-[#1E2026] font-medium">RamenNearYou</p>
-                <p>Email: <a href="mailto:privacy@ramennearyou.com" className="text-[#B57F50] hover:underline">privacy@ramennearyou.com</a></p>
-                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#B57F50] hover:underline">www.ramennearyou.com/contact</a></p>
+                <p>Email: <a href="mailto:privacy@ramennearyou.com" className="text-[#96602F] hover:underline">privacy@ramennearyou.com</a></p>
+                <p>Website: <a href="https://www.ramennearyou.com/contact" className="text-[#96602F] hover:underline">www.ramennearyou.com/contact</a></p>
               </div>
             </section>
 

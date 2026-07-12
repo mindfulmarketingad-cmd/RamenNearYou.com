@@ -17,7 +17,7 @@ export default function SafeImg({ src, alt, className }: Props) {
   if (!clean || failed) {
     return (
       <div className={`flex items-center justify-center bg-[#F0EDE8] ${className ?? ''}`}>
-        <Utensils className="w-5 h-5 text-[#B57F50]/40" />
+        <Utensils className="w-5 h-5 text-[#96602F]/40" />
       </div>
     )
   }

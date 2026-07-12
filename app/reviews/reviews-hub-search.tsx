@@ -32,7 +32,7 @@ export default function ReviewsHubSearch({ groups, total }: { groups: LetterGrou
     <>
       {/* Search bar */}
       <div className="relative mb-10">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9B9490]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
         <input
           type="text"
           value={q}
@@ -45,7 +45,7 @@ export default function ReviewsHubSearch({ groups, total }: { groups: LetterGrou
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9B9490] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -64,7 +64,7 @@ export default function ReviewsHubSearch({ groups, total }: { groups: LetterGrou
                 <li key={l.href} className="break-inside-avoid">
                   <Link
                     href={l.href}
-                    className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                    className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -72,7 +72,7 @@ export default function ReviewsHubSearch({ groups, total }: { groups: LetterGrou
               ))}
             </ul>
             {results.length >= RESULT_CAP && (
-              <p className="text-xs text-[#9B9490] mt-3">
+              <p className="text-xs text-[#6B6862] mt-3">
                 Showing the first {RESULT_CAP} matches — keep typing to narrow it down.
               </p>
             )}
@@ -90,7 +90,7 @@ export default function ReviewsHubSearch({ groups, total }: { groups: LetterGrou
                   <li key={l.href} className="break-inside-avoid">
                     <Link
                       href={l.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                     >
                       {l.label}
                     </Link>

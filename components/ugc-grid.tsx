@@ -111,7 +111,7 @@ export default function UgcGrid() {
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-black/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
+          <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">Ramen Near You, in the wild</h2>
         </div>
 

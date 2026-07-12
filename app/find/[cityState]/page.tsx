@@ -235,12 +235,12 @@ export default async function CityFindPage(
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
 
             {/* Breadcrumb anchor text */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#9B9490] mb-6">
-              <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
+            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
               <span>/</span>
-              <Link href="/cities" className="hover:text-[#B57F50] transition-colors">Browse Cities &amp; States</Link>
+              <Link href="/cities" className="hover:text-[#96602F] transition-colors">Browse Cities &amp; States</Link>
               <span>/</span>
-              <Link href={`/${stateSlug}`} className="hover:text-[#B57F50] transition-colors">Ramen in {stateName}</Link>
+              <Link href={`/${stateSlug}`} className="hover:text-[#96602F] transition-colors">Ramen in {stateName}</Link>
               <span>/</span>
               <span className="text-[#6B6862]">{cityName}</span>
             </nav>
@@ -272,17 +272,17 @@ export default async function CityFindPage(
                       >
                         <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
-                          {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
+                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
+                          {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
                           <div className="flex items-center gap-2 mt-1">
                             {r.rating && (
                               <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                                <Star className="w-3 h-3 fill-[#B57F50] text-[#B57F50]" />
+                                <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
                                 {r.rating.toFixed(1)}
-                                {r.reviewCount > 0 && <span className="text-[#9B9490]"> ({r.reviewCount.toLocaleString()})</span>}
+                                {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
                               </span>
                             )}
-                            {r.priceRange && <span className="text-xs text-[#9B9490]">{r.priceRange}</span>}
+                            {r.priceRange && <span className="text-xs text-[#6B6862]">{r.priceRange}</span>}
                           </div>
                         </div>
                       </Link>
@@ -309,17 +309,17 @@ export default async function CityFindPage(
                     >
                       <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#B57F50] transition-colors truncate">{r.name}</p>
-                        {r.address && <p className="text-xs text-[#9B9490] mt-0.5 truncate">{r.address}</p>}
+                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
+                        {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
                         <div className="flex items-center gap-2 mt-1">
                           {r.rating && (
                             <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                              <Star className="w-3 h-3 fill-[#B57F50] text-[#B57F50]" />
+                              <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
                               {r.rating.toFixed(1)}
-                              {r.reviewCount > 0 && <span className="text-[#9B9490]"> ({r.reviewCount.toLocaleString()})</span>}
+                              {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
                             </span>
                           )}
-                          {r.priceLevel && <span className="text-xs text-[#9B9490]">{'$'.repeat(r.priceLevel)}</span>}
+                          {r.priceLevel && <span className="text-xs text-[#6B6862]">{'$'.repeat(r.priceLevel)}</span>}
                         </div>
                       </div>
                     </Link>
@@ -367,27 +367,27 @@ export default async function CityFindPage(
               a handful. Then I match the bowl to the moment — something rich and creamy when it is cold out,
               something light and clean for lunch. You can do the same right on the map: filter by broth style
               like{' '}
-              <Link href="/find/tonkotsu-ramen" className="text-[#B57F50] hover:underline">tonkotsu</Link>,{' '}
-              <Link href="/find/miso-ramen" className="text-[#B57F50] hover:underline">miso</Link>,{' '}
-              <Link href="/find/shoyu-ramen" className="text-[#B57F50] hover:underline">shoyu</Link>, or{' '}
-              <Link href="/find/shio-ramen" className="text-[#B57F50] hover:underline">shio</Link>, then layer on
+              <Link href="/find/tonkotsu-ramen" className="text-[#96602F] hover:underline">tonkotsu</Link>,{' '}
+              <Link href="/find/miso-ramen" className="text-[#96602F] hover:underline">miso</Link>,{' '}
+              <Link href="/find/shoyu-ramen" className="text-[#96602F] hover:underline">shoyu</Link>, or{' '}
+              <Link href="/find/shio-ramen" className="text-[#96602F] hover:underline">shio</Link>, then layer on
               what matters that day.
             </p>
             <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">Narrowing down what you are craving</h3>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
               Some nights I just need a bowl that is open this minute; other times I am planning ahead. The
               filters handle both. In {cityName} you can jump straight to{' '}
-              <Link href="/find/ramen-open-now" className="text-[#B57F50] hover:underline">ramen open now</Link>,{' '}
-              <Link href="/find/ramen-open-late" className="text-[#B57F50] hover:underline">ramen open late</Link>,{' '}
-              <Link href="/find/spicy-ramen" className="text-[#B57F50] hover:underline">spicy ramen</Link>,{' '}
-              <Link href="/find/vegan-ramen" className="text-[#B57F50] hover:underline">vegan ramen</Link>, or the{' '}
-              <Link href="/find/top-rated-ramen" className="text-[#B57F50] hover:underline">top-rated ramen near you</Link>.
+              <Link href="/find/ramen-open-now" className="text-[#96602F] hover:underline">ramen open now</Link>,{' '}
+              <Link href="/find/ramen-open-late" className="text-[#96602F] hover:underline">ramen open late</Link>,{' '}
+              <Link href="/find/spicy-ramen" className="text-[#96602F] hover:underline">spicy ramen</Link>,{' '}
+              <Link href="/find/vegan-ramen" className="text-[#96602F] hover:underline">vegan ramen</Link>, or the{' '}
+              <Link href="/find/top-rated-ramen" className="text-[#96602F] hover:underline">top-rated ramen near you</Link>.
               If you are driving in, the &quot;Free Parking&quot; and &quot;Delivers&quot; filters save a lot of hassle too.
             </p>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
               When you have exhausted {cityName}, it is easy to keep going — explore{' '}
-              <Link href={`/${stateSlug}`} className="text-[#B57F50] hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
-              <Link href="/cities" className="text-[#B57F50] hover:underline">browse every city and state</Link> in the directory.
+              <Link href={`/${stateSlug}`} className="text-[#96602F] hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
+              <Link href="/cities" className="text-[#96602F] hover:underline">browse every city and state</Link> in the directory.
             </p>
 
             {/* Nearby cities — keyword-rich internal links */}
@@ -404,7 +404,7 @@ export default async function CityFindPage(
                     <Link
                       key={c.citySlug}
                       href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
-                      className="text-sm text-[#B57F50] hover:underline"
+                      className="text-sm text-[#96602F] hover:underline"
                     >
                       Ramen in {c.city}, {c.stateCode}
                     </Link>
@@ -425,7 +425,7 @@ export default async function CityFindPage(
                 {brothFilterLinks.length > 0 && (
                   <div className="flex flex-wrap gap-x-4 gap-y-2 mb-3">
                     {brothFilterLinks.map(l => (
-                      <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                      <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
                         {l.label} in {cityName}
                       </Link>
                     ))}
@@ -434,7 +434,7 @@ export default async function CityFindPage(
                 {dietFilterLinks.length > 0 && (
                   <div className="flex flex-wrap gap-x-4 gap-y-2">
                     {dietFilterLinks.map(l => (
-                      <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                      <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
                         {l.label} in {cityName}
                       </Link>
                     ))}
@@ -450,7 +450,7 @@ export default async function CityFindPage(
               </h2>
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {modifierLinks.map(l => (
-                  <Link key={l.href} href={l.href} className="text-sm text-[#B57F50] hover:underline">
+                  <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
                     {l.label}
                   </Link>
                 ))}
@@ -469,7 +469,7 @@ export default async function CityFindPage(
                 <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                     {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
                   <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
                 </details>

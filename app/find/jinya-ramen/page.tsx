@@ -27,7 +27,7 @@ export default function JinyaRamenPage() {
         fallback={
           <section className="pt-16 bg-[#F5F4F0]">
             <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
+              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
             </div>
           </section>
         }
@@ -95,7 +95,7 @@ export default function JinyaRamenPage() {
             body: (
               <p>
                 Want to see every bowl, side, and drink before you go? Check out the{' '}
-                <Link href="/menu/jinya-ramen-bar-menu" className="text-[#B57F50] hover:underline">
+                <Link href="/menu/jinya-ramen-bar-menu" className="text-[#96602F] hover:underline">
                   full JINYA Ramen Bar menu with prices
                 </Link>{' '}
                 so you can plan your order ahead of time.

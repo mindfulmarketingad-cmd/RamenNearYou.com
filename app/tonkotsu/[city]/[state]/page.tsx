@@ -118,7 +118,7 @@ export default async function TonkotsuCityPage({ params }: Props) {
           </nav>
 
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Tonkotsu Ramen</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Tonkotsu Ramen</p>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
               Ramen Tonkotsu in {cityName} {stateName}
             </h1>
@@ -131,7 +131,7 @@ export default async function TonkotsuCityPage({ params }: Props) {
               </span>
               <Link
                 href={`/searchmap?city=${city}&state=${state}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
               >
                 <Map className="w-3.5 h-3.5" />
                 View on Map
@@ -181,7 +181,7 @@ export default async function TonkotsuCityPage({ params }: Props) {
           </p>
           <Link
             href="/tonkotsu-ramen-near-me"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
           >
             Explore tonkotsu ramen nationwide
             <ChevronRight className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default async function TonkotsuCityPage({ params }: Props) {
       {nearbyCities.length > 0 && (
         <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
             <p className="text-[#1E2026] font-semibold text-lg mb-6">More ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
@@ -202,16 +202,16 @@ export default async function TonkotsuCityPage({ params }: Props) {
                     href={`/${c.citySlug}/${c.stateSlug}`}
                     className="flex items-center gap-2 px-4 py-2.5"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                     <span>
-                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">{c.city}, {c.stateCode}</span>
                       <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
                   <Link
                     href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
                     title="View on map"
-                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#B57F50] hover:bg-[#B57F50]/10 transition-colors"
+                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#96602F] hover:bg-[#B57F50]/10 transition-colors"
                   >
                     <Map className="w-3.5 h-3.5" />
                   </Link>
@@ -225,7 +225,7 @@ export default async function TonkotsuCityPage({ params }: Props) {
       {/* Back to full city */}
       <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-black/5">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">
             See all ramen in {cityName}
           </h2>

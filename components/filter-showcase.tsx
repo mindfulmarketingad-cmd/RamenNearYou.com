@@ -70,7 +70,7 @@ export default function FilterShowcase() {
     <section className="bg-[#F5F4F0] border-t border-black/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
-          <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-1">Powerful Filters</p>
+          <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-1">Powerful Filters</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
             Find exactly the bowl you want
           </h2>
@@ -131,7 +131,7 @@ export default function FilterShowcase() {
           </Link>
           <Link
             href="/find"
-            className="text-sm text-[#6B6862] hover:text-[#B57F50] transition-colors"
+            className="text-sm text-[#6B6862] hover:text-[#96602F] transition-colors"
           >
             Browse all ramen pages →
           </Link>

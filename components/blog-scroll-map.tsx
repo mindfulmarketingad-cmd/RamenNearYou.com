@@ -250,7 +250,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <h2 className="font-semibold text-[#1E2026] text-lg leading-snug">{card.name}</h2>
                     {card.featured && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#B57F50] text-xs font-semibold shrink-0">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#96602F] text-xs font-semibold shrink-0">
                         <BadgeCheck className="w-3 h-3" /> Verified
                       </span>
                     )}
@@ -260,7 +260,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                     <span className="text-[#1E2026]/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
                     <span className="text-[#1E2026]/20 text-xs">·</span>
                     {card.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs font-medium">{tag}</span>
+                      <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#96602F] text-xs font-medium">{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -281,12 +281,12 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 <div className="flex flex-col gap-1 text-xs text-[#6B6862]/70">
                   {card.phone && (
                     <span className="flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                      <Phone className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                       {card.phone}
                     </span>
                   )}
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
                     {card.address}
                   </span>
                 </div>

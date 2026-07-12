@@ -32,12 +32,12 @@ export default function ProductsCarousel() {
       <div className="max-w-5xl mx-auto">
         <div className="flex items-end justify-between mb-6">
           <div>
-            <p className="text-xs font-semibold text-[#B57F50] uppercase tracking-widest mb-1">Ramen Gear</p>
+            <p className="text-xs font-semibold text-[#96602F] uppercase tracking-widest mb-1">Ramen Gear</p>
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026]">Shop Our Picks</h2>
           </div>
           <Link
             href="/products"
-            className="text-xs font-semibold text-[#B57F50] hover:text-[#c8934f] transition-colors shrink-0"
+            className="text-xs font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors shrink-0"
           >
             View all →
           </Link>
@@ -71,7 +71,7 @@ export default function ProductsCarousel() {
 
                 <div className="flex items-center gap-1.5">
                   <StarRating rating={product.rating} />
-                  <span className="text-[10px] text-[#9B9490]">({product.reviewCount.toLocaleString()})</span>
+                  <span className="text-[10px] text-[#6B6862]">({product.reviewCount.toLocaleString()})</span>
                 </div>
 
                 <a
@@ -87,7 +87,7 @@ export default function ProductsCarousel() {
           ))}
         </div>
 
-        <p className="text-[10px] text-[#9B9490] mt-3">
+        <p className="text-[10px] text-[#6B6862] mt-3">
           * Affiliate links — we may earn a small commission at no extra cost to you.
         </p>
       </div>

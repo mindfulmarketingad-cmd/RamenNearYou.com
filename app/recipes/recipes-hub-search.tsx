@@ -23,7 +23,7 @@ export default function RecipesHubSearch({ groups }: { groups: RecipeGroup[] }) 
     <>
       {/* Search bar */}
       <div className="relative mb-10">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9B9490]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
         <input
           type="text"
           value={q}
@@ -36,7 +36,7 @@ export default function RecipesHubSearch({ groups }: { groups: RecipeGroup[] }) 
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9B9490] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -54,7 +54,7 @@ export default function RecipesHubSearch({ groups }: { groups: RecipeGroup[] }) 
               <li key={r.href}>
                 <Link
                   href={r.href}
-                  className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                  className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                 >
                   {r.label}
                 </Link>
@@ -74,7 +74,7 @@ export default function RecipesHubSearch({ groups }: { groups: RecipeGroup[] }) 
                   <li key={r.href}>
                     <Link
                       href={r.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#B57F50] hover:underline py-1 transition-colors"
+                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
                     >
                       {r.label}
                     </Link>

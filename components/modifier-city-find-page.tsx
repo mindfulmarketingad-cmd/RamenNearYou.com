@@ -42,7 +42,7 @@ export default function ModifierCityFindPage({
           fallback={
             <section className="pt-16 bg-[#F5F4F0]">
               <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#B57F50] animate-spin" />
+                <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
               </div>
             </section>
           }
@@ -61,12 +61,12 @@ export default function ModifierCityFindPage({
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
             {/* Breadcrumb anchor text */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#9B9490] mb-6">
-              <Link href="/" className="hover:text-[#B57F50] transition-colors">Ramen Near You</Link>
+            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
+              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
               <span>/</span>
-              <Link href={modifier.hubHref} className="hover:text-[#B57F50] transition-colors">{modifier.hubLabel}</Link>
+              <Link href={modifier.hubHref} className="hover:text-[#96602F] transition-colors">{modifier.hubLabel}</Link>
               <span>/</span>
-              <Link href={`/${city.stateSlug}`} className="hover:text-[#B57F50] transition-colors">Ramen in {city.stateName}</Link>
+              <Link href={`/${city.stateSlug}`} className="hover:text-[#96602F] transition-colors">Ramen in {city.stateName}</Link>
               <span>/</span>
               <span className="text-[#6B6862]">{city.cityName}</span>
             </nav>
@@ -112,18 +112,18 @@ export default function ModifierCityFindPage({
                 'Ask the shop for noodle firmness and spice level so the bowl arrives exactly how you like it.',
               ].map((t) => (
                 <li key={t} className="flex gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                  <span className="text-[#B57F50] shrink-0 mt-0.5">•</span>
+                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
               Prefer to widen the search? You can browse all{' '}
-              <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="text-[#B57F50] hover:underline">
+              <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="text-[#96602F] hover:underline">
                 ramen in {city.cityName}, {city.stateCode}
               </Link>{' '}
               or jump to{' '}
-              <Link href={modifier.hubHref} className="text-[#B57F50] hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
+              <Link href={modifier.hubHref} className="text-[#96602F] hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
               nationwide.
             </p>
 
@@ -139,7 +139,7 @@ export default function ModifierCityFindPage({
                 <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
                     {q}
-                    <span className="text-[#B57F50] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
                   <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
                 </details>
@@ -147,15 +147,15 @@ export default function ModifierCityFindPage({
             </div>
 
             <div className="mt-10 pt-8 border-t border-black/8">
-              <p className="text-xs text-[#9B9490]">
+              <p className="text-xs text-[#6B6862]">
                 Also browsing:{' '}
-                <Link href={modifier.hubHref} className="hover:text-[#B57F50] underline">{modifier.hubLabel} Near Me</Link>
+                <Link href={modifier.hubHref} className="hover:text-[#96602F] underline">{modifier.hubLabel} Near Me</Link>
                 {' · '}
-                <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="hover:text-[#B57F50] underline">
+                <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="hover:text-[#96602F] underline">
                   Ramen in {city.cityName}, {city.stateCode}
                 </Link>
                 {' · '}
-                <Link href={`/${city.stateSlug}`} className="hover:text-[#B57F50] underline">
+                <Link href={`/${city.stateSlug}`} className="hover:text-[#96602F] underline">
                   Ramen in {city.stateName}
                 </Link>
               </p>

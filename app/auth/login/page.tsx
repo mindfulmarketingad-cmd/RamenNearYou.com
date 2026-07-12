@@ -91,7 +91,7 @@ function LoginForm() {
 
       <div className="flex items-center gap-3">
         <div className="flex-1 h-px bg-black/8" />
-        <span className="text-xs text-[#9B9490]">or</span>
+        <span className="text-xs text-[#6B6862]">or</span>
         <div className="flex-1 h-px bg-black/8" />
       </div>
 
@@ -127,7 +127,7 @@ function LoginForm() {
         </button>
         <p className="text-center text-sm text-[#6B6862]">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/signup" className="text-[#B57F50] hover:text-[#B57F50]/80 transition-colors">
+          <Link href="/auth/signup" className="text-[#96602F] hover:text-[#96602F]/80 transition-colors">
             Create one
           </Link>
         </p>

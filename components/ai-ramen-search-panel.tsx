@@ -196,9 +196,9 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white font-semibold text-sm leading-tight">Ramen Near Me AI</p>
-              <p className="text-[#9B9490] text-[11px]">Describe what you&apos;re craving</p>
+              <p className="text-[#6B6862] text-[11px]">Describe what you&apos;re craving</p>
             </div>
-            <button onClick={onClose} aria-label="Close" className="text-[#9B9490] hover:text-white transition-colors shrink-0">
+            <button onClick={onClose} aria-label="Close" className="text-[#6B6862] hover:text-white transition-colors shrink-0">
               <X className="w-4.5 h-4.5" />
             </button>
           </div>
@@ -237,7 +237,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                         key={p}
                         type="button"
                         onClick={() => handleExample(p)}
-                        className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white border border-black/10 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#B57F50] transition-colors"
+                        className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white border border-black/10 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
                       >
                         {p}
                       </button>
@@ -251,11 +251,11 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
             {streaming && !parsed && (
               <div className="p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <Loader2 className="w-3.5 h-3.5 text-[#B57F50] animate-spin shrink-0" />
+                  <Loader2 className="w-3.5 h-3.5 text-[#96602F] animate-spin shrink-0" />
                   <p className="text-xs text-[#6B6862]">Finding your best bowl…</p>
                 </div>
                 {rawText && (
-                  <p className="text-[11px] text-[#9B9490] font-mono whitespace-pre-wrap leading-relaxed">{rawText}</p>
+                  <p className="text-[11px] text-[#6B6862] font-mono whitespace-pre-wrap leading-relaxed">{rawText}</p>
                 )}
               </div>
             )}
@@ -266,7 +266,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                 <div className="flex items-start gap-2.5 p-3 rounded-xl bg-red-50 border border-red-200">
                   <p className="text-sm text-red-700">{error}</p>
                 </div>
-                <button onClick={reset} className="mt-3 flex items-center gap-1.5 text-xs text-[#B57F50] font-medium hover:underline">
+                <button onClick={reset} className="mt-3 flex items-center gap-1.5 text-xs text-[#96602F] font-medium hover:underline">
                   <RotateCcw className="w-3 h-3" /> Try again
                 </button>
               </div>
@@ -278,7 +278,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                 {/* Reasoning */}
                 {parsed.reasoning && (
                   <div className="flex gap-2.5 p-3 rounded-xl bg-[#B57F50]/8 border border-[#B57F50]/15">
-                    <Sparkles className="w-3.5 h-3.5 text-[#B57F50] shrink-0 mt-0.5" />
+                    <Sparkles className="w-3.5 h-3.5 text-[#96602F] shrink-0 mt-0.5" />
                     <p className="text-xs text-[#6B6862] leading-relaxed">{parsed.reasoning}</p>
                   </div>
                 )}
@@ -303,7 +303,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                           <div className="flex-1 min-w-0">
                             <p className="font-semibold text-sm text-[#1E2026] truncate group-hover:text-[#c8934f] transition-colors">{r.name}</p>
                             <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
-                              <span className="flex items-center gap-0.5 text-[#9B9490] text-[11px]">
+                              <span className="flex items-center gap-0.5 text-[#6B6862] text-[11px]">
                                 <MapPin className="w-2.5 h-2.5" />{r.city}, {r.stateCode}
                               </span>
                               {r.rating && (
@@ -312,10 +312,10 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                                   {r.rating.toFixed(1)}
                                 </span>
                               )}
-                              {r.priceRange && <span className="text-[11px] text-[#9B9490]">{r.priceRange}</span>}
+                              {r.priceRange && <span className="text-[11px] text-[#6B6862]">{r.priceRange}</span>}
                               {openNow && <span className="text-[11px] text-emerald-600 font-medium">Open</span>}
                               {r.distKm !== undefined && (
-                                <span className="text-[11px] text-[#B57F50] font-medium">{(r.distKm * 0.621371).toFixed(1)} mi</span>
+                                <span className="text-[11px] text-[#96602F] font-medium">{(r.distKm * 0.621371).toFixed(1)} mi</span>
                               )}
                             </div>
                             <p className="text-[11px] text-[#6B6862] mt-1 leading-snug">{reason}</p>
@@ -337,7 +337,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
 
                 <button
                   onClick={reset}
-                  className="flex items-center gap-1.5 text-xs text-[#B57F50] font-medium hover:underline"
+                  className="flex items-center gap-1.5 text-xs text-[#96602F] font-medium hover:underline"
                 >
                   <RotateCcw className="w-3 h-3" /> Search again
                 </button>

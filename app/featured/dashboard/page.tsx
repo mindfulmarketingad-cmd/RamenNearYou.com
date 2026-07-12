@@ -73,7 +73,7 @@ export default async function FeaturedDashboardPage() {
                   <div className="min-w-0">
                     <p className="text-[#1E2026] font-medium truncate">{l.restaurant_name}</p>
                     <p className="text-[#6B6862] text-xs flex items-center gap-1 mt-0.5">
-                      <MapPin className="w-3 h-3 text-[#B57F50]" /> {l.city}, {l.state_code}
+                      <MapPin className="w-3 h-3 text-[#96602F]" /> {l.city}, {l.state_code}
                     </p>
                   </div>
                   <span className="shrink-0 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-medium">
@@ -99,12 +99,12 @@ export default async function FeaturedDashboardPage() {
                       </span>
                     </div>
                     <p className="text-[#6B6862] text-sm flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#B57F50]" /> {l.city}, {l.state_code}
+                      <MapPin className="w-3.5 h-3.5 text-[#96602F]" /> {l.city}, {l.state_code}
                     </p>
                   </div>
                   <Link
                     href="/featured/apply"
-                    className="shrink-0 px-3 py-2 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 text-[#B57F50] text-xs font-medium transition-colors border border-[#B57F50]/20"
+                    className="shrink-0 px-3 py-2 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
                   >
                     + Add Another
                   </Link>
@@ -126,7 +126,7 @@ export default async function FeaturedDashboardPage() {
                   <div className="min-w-0">
                     <p className="text-[#1E2026] font-medium truncate">{l.restaurant_name}</p>
                     <p className="text-[#6B6862] text-xs flex items-center gap-1 mt-0.5">
-                      <MapPin className="w-3 h-3 text-[#B57F50]" /> {l.city}, {l.state_code}
+                      <MapPin className="w-3 h-3 text-[#96602F]" /> {l.city}, {l.state_code}
                     </p>
                   </div>
                   <span className="shrink-0 px-2.5 py-1 rounded-full bg-black/8 text-[#6B6862] text-xs font-medium">

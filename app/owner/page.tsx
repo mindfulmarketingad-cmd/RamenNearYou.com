@@ -52,7 +52,7 @@ export default async function OwnerDashboardPage() {
 
         {/* Header */}
         <div className="mb-8">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Owner Dashboard</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Owner Dashboard</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">My Restaurants</h1>
           <p className="text-[#6B6862] text-sm">Manage your listings, track visits, and keep your info accurate.</p>
         </div>
@@ -84,7 +84,7 @@ export default async function OwnerDashboardPage() {
                   <div className="min-w-0">
                     <p className="text-[#1E2026] font-medium truncate">{c.restaurant_name}</p>
                     <p className="text-[#6B6862] text-xs flex items-center gap-1 mt-1">
-                      <MapPin className="w-3 h-3 text-[#B57F50]" /> {c.restaurant_city}
+                      <MapPin className="w-3 h-3 text-[#96602F]" /> {c.restaurant_city}
                     </p>
                   </div>
                   <span className="shrink-0 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-medium flex items-center gap-1">
@@ -115,7 +115,7 @@ export default async function OwnerDashboardPage() {
                           </span>
                         </div>
                         <p className="text-[#6B6862] text-xs flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#B57F50]" /> {c.restaurant_city}
+                          <MapPin className="w-3 h-3 text-[#96602F]" /> {c.restaurant_city}
                         </p>
                       </div>
                       <div className="flex gap-2 shrink-0">
@@ -178,7 +178,7 @@ export default async function OwnerDashboardPage() {
             <p className="text-[#6B6862] text-sm">Own another ramen restaurant?</p>
             <Link
               href="/claim-your-listing"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50]/30 text-[#B57F50] text-sm font-medium hover:bg-[#B57F50]/5 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50]/30 text-[#96602F] text-sm font-medium hover:bg-[#B57F50]/5 transition-colors"
             >
               Claim Another Listing <ChevronRight className="w-4 h-4" />
             </Link>
@@ -199,7 +199,7 @@ function BenefitsList() {
           className={`flex gap-3 p-4 rounded-xl border ${cta ? 'bg-amber-500/5 border-amber-500/20' : 'bg-[#F5F4F0] border-black/6'}`}
         >
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${cta ? 'bg-amber-500/15' : 'bg-[#B57F50]/10'}`}>
-            <Icon className={`w-4 h-4 ${cta ? 'text-amber-500' : 'text-[#B57F50]'}`} />
+            <Icon className={`w-4 h-4 ${cta ? 'text-amber-500' : 'text-[#96602F]'}`} />
           </div>
           <div className="min-w-0">
             <p className="text-[#1E2026] text-sm font-semibold">{label}</p>

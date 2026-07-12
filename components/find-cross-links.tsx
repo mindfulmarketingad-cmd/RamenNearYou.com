@@ -78,7 +78,7 @@ export default function FindCrossLinks({ currentHref }: Props) {
   return (
     <section className="border-t border-black/8 bg-[#F5F4F0]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-[#9B9490] mb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-[#6B6862] mb-4">
           More Ramen Searches Near Me
         </h2>
         <div className="flex flex-wrap gap-x-5 gap-y-1">
@@ -88,8 +88,8 @@ export default function FindCrossLinks({ currentHref }: Props) {
               href={p.href}
               className={`text-sm py-0.5 transition-colors ${
                 p.href === currentHref
-                  ? 'text-[#B57F50] font-semibold'
-                  : 'text-[#6B6862] hover:text-[#B57F50] hover:underline'
+                  ? 'text-[#96602F] font-semibold'
+                  : 'text-[#6B6862] hover:text-[#96602F] hover:underline'
               }`}
             >
               {p.label}

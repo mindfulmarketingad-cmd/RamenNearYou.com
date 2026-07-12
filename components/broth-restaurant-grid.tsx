@@ -138,7 +138,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
           disabled={loading}
           className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-none border border-black/10 bg-white text-[#1E2026] text-sm font-medium hover:border-[#B57F50] transition-colors disabled:opacity-60"
         >
-          <LocateFixed className="w-4 h-4 text-[#B57F50]" />
+          <LocateFixed className="w-4 h-4 text-[#96602F]" />
           Use my location
         </button>
       </form>
@@ -159,7 +159,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
         {origin && (
           <button
             onClick={clearFilter}
-            className="inline-flex items-center gap-1 text-sm font-medium text-[#B57F50] hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-medium text-[#96602F] hover:underline"
           >
             <X className="w-3.5 h-3.5" />
             Clear
@@ -203,7 +203,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
                 )}
               </div>
               <div className="flex flex-col flex-1 p-5 gap-2">
-                <h2 className="font-semibold text-[#1E2026] text-base leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                <h2 className="font-semibold text-[#1E2026] text-base leading-snug group-hover:text-[#96602F] transition-colors line-clamp-1">
                   {r.name}
                 </h2>
                 {(r.rating || r.reviewCount > 0) && (
@@ -214,12 +214,12 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
                   </div>
                 )}
                 <div className="flex items-start gap-1.5 text-[#6B6862] text-xs">
-                  <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#B57F50]" />
+                  <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#96602F]" />
                   <span className="line-clamp-1">{r.address}</span>
                 </div>
                 <div className="mt-auto pt-2 border-t border-black/5 flex justify-between items-center">
                   <span className="text-xs text-[#6B6862]/60">{r.city}, {r.stateCode}</span>
-                  <span className="text-[#B57F50] text-xs font-medium group-hover:underline">View →</span>
+                  <span className="text-[#96602F] text-xs font-medium group-hover:underline">View →</span>
                 </div>
               </div>
             </Link>

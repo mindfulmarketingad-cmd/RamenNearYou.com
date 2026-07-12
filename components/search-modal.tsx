@@ -109,12 +109,12 @@ export default function SearchModal({ open, onClose }: Props) {
                       </span>
                     )}
                     {r.amenities.dineIn && (
-                      <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#B57F50] text-[10px] font-medium shrink-0">
+                      <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#96602F] text-[10px] font-medium shrink-0">
                         Dine-in
                       </span>
                     )}
                     {r.amenities.delivery && (
-                      <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#B57F50] text-[10px] font-medium shrink-0">
+                      <span className="px-1.5 py-0.5 rounded bg-[#B57F50]/15 text-[#96602F] text-[10px] font-medium shrink-0">
                         Delivery
                       </span>
                     )}
@@ -132,7 +132,7 @@ export default function SearchModal({ open, onClose }: Props) {
           {trimmed && results.length > 0 && (
             <button
               onClick={() => { onClose(); router.push(`/search?q=${encodeURIComponent(trimmed)}`) }}
-              className="w-full px-4 py-3 text-center text-[#B57F50] text-xs font-medium hover:bg-black/5 transition-colors border-t border-black/5"
+              className="w-full px-4 py-3 text-center text-[#96602F] text-xs font-medium hover:bg-black/5 transition-colors border-t border-black/5"
             >
               See all results for &ldquo;{trimmed}&rdquo; →
             </button>

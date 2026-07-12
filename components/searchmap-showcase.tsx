@@ -49,13 +49,13 @@ function ListingCard({ l }: { l: typeof LISTINGS[number] }) {
             </span>
           )}
           <div className="font-bold text-sm text-[#1E2026] truncate">{l.name}</div>
-          <div className="text-[11px] text-[#9B9490]">{l.city}</div>
+          <div className="text-[11px] text-[#6B6862]">{l.city}</div>
           <div className="flex items-center gap-1.5 text-[11px] mt-0.5">
             <span className="text-[#F4C430]">★</span>
             <span className="font-semibold text-[#1E2026]">{l.rating}</span>
-            <span className="text-[#9B9490]">{l.price}</span>
+            <span className="text-[#6B6862]">{l.price}</span>
             {l.open && <span className="text-green-600 font-semibold">Open</span>}
-            {l.dist && <span className="text-[#9B9490]">{l.dist}</span>}
+            {l.dist && <span className="text-[#6B6862]">{l.dist}</span>}
           </div>
         </div>
         <Heart className="w-4 h-4 text-[#C9C4BD] flex-shrink-0" />
@@ -75,7 +75,7 @@ export default function SearchMapShowcase() {
     <section className="bg-[#F5F4F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
-          <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-1">Live Interactive Map</p>
+          <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-1">Live Interactive Map</p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
             Search ramen on the map
           </h2>
@@ -90,8 +90,8 @@ export default function SearchMapShowcase() {
           <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-black/8 bg-white">
             <div className="flex items-center gap-2 flex-1 max-w-sm">
               <div className="flex items-center gap-2 flex-1 rounded-full border border-black/10 px-3 py-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#B57F50]" />
-                <span className="text-xs text-[#9B9490]">ZIP code</span>
+                <MapPin className="w-3.5 h-3.5 text-[#96602F]" />
+                <span className="text-xs text-[#6B6862]">ZIP code</span>
                 <span className="ml-auto text-[10px] font-bold text-white bg-[#B57F50] rounded-full px-2 py-0.5">Go</span>
               </div>
               <div className="flex items-center gap-1.5 rounded-full border border-black/10 px-3 py-1.5">
@@ -115,8 +115,8 @@ export default function SearchMapShowcase() {
             <div className="w-[300px] flex-shrink-0 border-r border-black/8 flex flex-col bg-white">
               <div className="p-3 border-b border-black/8">
                 <div className="flex items-center gap-2 rounded-lg border border-black/10 px-3 py-2">
-                  <Search className="w-3.5 h-3.5 text-[#9B9490]" />
-                  <span className="text-xs text-[#9B9490]">Search restaurants…</span>
+                  <Search className="w-3.5 h-3.5 text-[#6B6862]" />
+                  <span className="text-xs text-[#6B6862]">Search restaurants…</span>
                 </div>
                 <p className="text-sm font-bold text-[#1E2026] mt-3">300 ramen spots</p>
               </div>
@@ -175,7 +175,7 @@ export default function SearchMapShowcase() {
           </Link>
           <Link
             href="/find"
-            className="text-sm text-[#6B6862] hover:text-[#B57F50] transition-colors"
+            className="text-sm text-[#6B6862] hover:text-[#96602F] transition-colors"
           >
             Browse all ramen pages →
           </Link>

@@ -19,7 +19,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Our Story</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Our Story</p>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-5">
             The Ramen Directory Built for Ramen Lovers
           </h1>
@@ -45,7 +45,7 @@ export default function AboutPage() {
               />
             </div>
             <div>
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Meet the Author</p>
+              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Meet the Author</p>
               <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">
                 Hi, I&apos;m John Jackson
               </h2>
@@ -69,7 +69,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Our Mission</p>
+              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Our Mission</p>
               <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">
                 Every city has great ramen. We help you find it.
               </h2>
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 { icon: Phone, label: 'Catering Requests', value: 'Growing' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5 text-center">
-                  <Icon className="w-6 h-6 text-[#B57F50] mx-auto mb-2" />
+                  <Icon className="w-6 h-6 text-[#96602F] mx-auto mb-2" />
                   <p className="text-[#1E2026] font-bold text-xl font-serif">{value}</p>
                   <p className="text-[#6B6862] text-xs mt-1">{label}</p>
                 </div>
@@ -105,7 +105,7 @@ export default function AboutPage() {
       {/* How it works */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-y border-black/5">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3 text-center">How It Works</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3 text-center">How It Works</p>
           <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-10 text-center">
             Finding great ramen near you is simple
           </h2>
@@ -128,7 +128,7 @@ export default function AboutPage() {
               },
             ].map(({ step, title, description }) => (
               <div key={step} className="flex flex-col gap-3">
-                <span className="text-[#B57F50] font-serif text-4xl font-bold opacity-60">{step}</span>
+                <span className="text-[#96602F] font-serif text-4xl font-bold opacity-60">{step}</span>
                 <h3 className="text-[#1E2026] font-semibold text-lg">{title}</h3>
                 <p className="text-[#6B6862] text-sm leading-relaxed">{description}</p>
               </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
       {/* Data disclaimer */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Data &amp; Accuracy</p>
+          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Data &amp; Accuracy</p>
           <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">Our Data</h2>
           <p className="text-[#6B6862] leading-relaxed mb-4">
             I compile restaurant information on RamenNearYou from publicly available sources and verified
@@ -149,7 +149,7 @@ export default function AboutPage() {
           </p>
           <p className="text-[#6B6862] leading-relaxed">
             Restaurant owners can{' '}
-            <Link href="/cities" className="text-[#B57F50] hover:underline">claim their listing</Link>
+            <Link href="/cities" className="text-[#96602F] hover:underline">claim their listing</Link>
             {' '}to update their information, add photos, and keep their page current at no cost.
           </p>
         </div>

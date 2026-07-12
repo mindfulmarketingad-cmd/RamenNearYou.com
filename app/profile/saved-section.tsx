@@ -27,7 +27,7 @@ export default function SavedSection() {
   if (saved.length === 0) {
     return (
       <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-8 text-center">
-        <Heart className="w-10 h-10 text-[#B57F50]/30 mx-auto mb-3" />
+        <Heart className="w-10 h-10 text-[#96602F]/30 mx-auto mb-3" />
         <p className="text-[#1E2026] text-sm font-medium mb-1">Nothing saved yet</p>
         <p className="text-[#6B6862] text-xs mb-4">Hit the Save button on any restaurant listing to build your list.</p>
         <Link
@@ -52,9 +52,9 @@ export default function SavedSection() {
             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" />
           </div>
           <div className="flex-1 min-w-0 py-2 pr-3">
-            <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">{r.name}</h3>
+            <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#96602F] transition-colors line-clamp-1">{r.name}</h3>
             <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
-              <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
+              <MapPin className="w-3 h-3 text-[#96602F] flex-shrink-0" />
               {r.city}, {r.stateCode}
             </p>
             {r.rating && (
