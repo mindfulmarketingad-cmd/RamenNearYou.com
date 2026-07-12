@@ -255,7 +255,8 @@ export default function HomeMapHero({
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
   const [searchingArea, setSearchingArea] = useState(false)
 
-  function handleSaveSearch() {
+  function handleSaveSearch(e: React.MouseEvent) {
+    if (!requireAuth(e)) return
     const state = {
       locationSearch,
       flags: [...flags],
