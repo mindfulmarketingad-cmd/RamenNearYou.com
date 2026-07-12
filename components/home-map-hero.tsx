@@ -740,7 +740,6 @@ export default function HomeMapHero({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
           <div
             className="flex items-center gap-2 overflow-x-auto scrollbar-hide sm:overflow-x-visible"
-            onScroll={() => { if (showRegionDropdown) setShowRegionDropdown(false) }}
           >
             {/* Location — auto-detected via geolocation (blue pulsing dot +
                 reverse-geocoded "City, ST") when no explicit city is picked;
