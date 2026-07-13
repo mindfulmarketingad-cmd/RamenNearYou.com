@@ -4,6 +4,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
+import UgcFeature from '@/components/ugc-feature'
 import { Loader2 } from 'lucide-react'
 import type { ResolvedCity } from '@/lib/find-city'
 import type { FindModifier } from '@/lib/find-modifiers'
@@ -162,6 +163,7 @@ export default function ModifierCityFindPage({
             </div>
           </section>
 
+          <UgcFeature seed={`/find/${cityState}`} />
           <FindCrossLinks currentHref={`/find/${cityState}`} />
           <Footer />
         </div>

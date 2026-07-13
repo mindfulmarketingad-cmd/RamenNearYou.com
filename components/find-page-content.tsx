@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
+import UgcFeature from '@/components/ugc-feature'
 import { pickStockPhoto } from '@/lib/stock-photos'
 
 export type FindFaq = { q: string; a: string }
@@ -116,6 +117,7 @@ export default function FindPageContent({
         </section>
       </article>
 
+      <UgcFeature seed={currentHref} />
       <FindCrossLinks currentHref={currentHref} />
       <Footer />
     </div>

@@ -29,7 +29,7 @@ function useTikTokMeta(url: string, enabled: boolean) {
   return meta
 }
 
-function VideoTile({ video }: { video: UgcVideo }) {
+export function VideoTile({ video }: { video: UgcVideo }) {
   const [playing, setPlaying] = useState(false)
   const tiktokMeta = useTikTokMeta(video.url, video.platform === 'tiktok' && !playing)
 

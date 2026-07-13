@@ -8,6 +8,7 @@ import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import SafeImg from '@/components/safe-img'
+import UgcFeature from '@/components/ugc-feature'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
@@ -477,6 +478,7 @@ export default async function CityFindPage(
             </div>
           </section>
 
+          <UgcFeature seed={`/find/${cityState}`} />
           <FindCrossLinks />
           <Footer />
         </div>
