@@ -1,3 +1,5 @@
+import { pickStockPhoto } from './stock-photos'
+
 export interface RecipeIngredient {
   amount: string  // e.g. "1" — scaled/converted client-side against baseServings
   unit: string     // e.g. "tablespoon", "cup" — shown as-is, pluralized client-side
@@ -50,7 +52,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Quick Homemade Ramen',
     description:
       "Take instant ramen up a notch — or skip it entirely. This quick homemade ramen builds a genuinely savory broth from pantry staples in about 25 minutes, then lets you load it up with whatever fresh veggies, herbs, and toppings you have on hand. It's the easy weeknight version of a bowl that usually takes all day.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('quick-homemade-ramen'),
     rating: 4.4,
     reviewCount: 118,
     prepTime: '10 minutes',
@@ -106,7 +108,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Homemade Chicken Ramen',
     description:
       "This homemade chicken ramen builds a deeply savory, golden broth by simmering bone-in chicken thighs right in the pot — no separate stock-making required. Shredded chicken, a soft-boiled egg, and a tangle of noodles make this a complete, comforting bowl in under an hour.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('homemade-chicken-ramen'),
     rating: 4.6,
     reviewCount: 94,
     prepTime: '10 minutes',
@@ -162,7 +164,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Homemade Beef Ramen',
     description:
       "This homemade beef ramen leans on seared beef and a soy-and-beef-broth base for a rich, restaurant-style bowl at home. Thin-sliced beef cooks in minutes right in the hot broth, so it stays tender instead of overcooked.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('homemade-beef-ramen'),
     rating: 4.5,
     reviewCount: 76,
     prepTime: '15 minutes',
@@ -218,7 +220,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Homemade Shrimp Ramen',
     description:
       "This homemade shrimp ramen uses the shrimp shells to build a quick, seafood-forward broth, then finishes with the shrimp themselves cooked just until pink and tender. It's a lighter, faster take on ramen that's ready in about 35 minutes.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('homemade-shrimp-ramen'),
     rating: 4.3,
     reviewCount: 61,
     prepTime: '15 minutes',
@@ -273,7 +275,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Homemade Creamy Chicken Ramen',
     description:
       "This creamy chicken ramen gets its silky, tonkotsu-style body from simmered chicken and a splash of milk — a shortcut for the rich, opaque broth that usually takes 12+ hours to make from pork bones. It's indulgent, cozy, and ready well within a weeknight.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('homemade-creamy-chicken-ramen'),
     rating: 4.7,
     reviewCount: 103,
     prepTime: '10 minutes',
@@ -330,7 +332,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Pork Broth Ramen',
     description:
       "A rich, deeply savory pork broth built from pork bones and a chashu-style shoulder roast, simmered low and slow until the broth turns cloudy and full-bodied. This is the broth to make when you want real ramen-shop flavor without needing a 12-hour tonkotsu boil.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('pork-broth-ramen'),
     rating: 4.6,
     reviewCount: 88,
     prepTime: '20 minutes',
@@ -384,7 +386,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Chicken Broth Ramen',
     description:
       "A clean, savory chicken broth (chintan-style) built from chicken wings and aromatics — lighter than a pork-based broth but still deeply flavorful. This is the broth that works for almost any ramen topping combination you have on hand.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('chicken-broth-ramen'),
     rating: 4.5,
     reviewCount: 72,
     prepTime: '15 minutes',
@@ -491,7 +493,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Spicy Chicken Broth Ramen',
     description:
       "This spicy chicken broth takes a savory chicken base and builds real heat into it with chili oil, gochujang, and doubanjiang — the kind of broth that warms you up from the first sip, with heat you can dial up or down to taste.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('spicy-chicken-broth-ramen'),
     rating: 4.5,
     reviewCount: 69,
     prepTime: '15 minutes',
@@ -545,7 +547,7 @@ export const RECIPES: Recipe[] = [
     cardTitle: 'Tonkotsu Ramen Broth',
     description:
       "Real tonkotsu is a long-haul project — pork bones boiled hard for hours until they break down into a broth that's thick, milky-white, and intensely rich. It takes patience, but the process itself is simple, and the payoff is a broth that tastes like it came straight from a ramen shop.",
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('tonkotsu-ramen-broth'),
     rating: 4.8,
     reviewCount: 142,
     prepTime: '20 minutes',
@@ -596,7 +598,7 @@ export const RECIPES: Recipe[] = [
     title: 'Homemade Egg and Ramen Recipe',
     cardTitle: 'Egg and Ramen',
     description: 'A comforting, egg-forward ramen bowl built around a silky soft-boiled marinated egg and a quick savory broth — ready in about 30 minutes.',
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('homemade-egg-and-ramen'),
     rating: 4.5,
     reviewCount: 61,
     prepTime: '10 minutes',
@@ -707,7 +709,7 @@ export const RECIPES: Recipe[] = [
     title: 'Spicy Miso Ramen Recipe',
     cardTitle: 'Spicy Miso Ramen',
     description: 'A fiery twist on classic miso ramen, with chili oil and doubanjiang stirred into a rich, nutty broth for serious heat and depth.',
-    image: '/images/hero-ramen.jpg',
+    image: pickStockPhoto('spicy-miso-ramen'),
     rating: 4.6,
     reviewCount: 83,
     prepTime: '15 minutes',
