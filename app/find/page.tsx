@@ -86,9 +86,11 @@ const CATEGORIES = [
       { href: '/find/ramen-family-friendly', label: 'Family-Friendly Ramen Near Me' },
       { href: '/find/ramen-wheelchair-accessible', label: 'Wheelchair Accessible Ramen Near Me' },
       { href: '/find/ramen-free-parking', label: 'Ramen With Free Parking Near Me' },
+      { href: '/find/pet-friendly-ramen', label: 'Pet Friendly Ramen Restaurants Near Me' },
       { href: '/find/ramen-hidden-gems', label: 'Hidden Gem Ramen Near Me' },
       { href: '/find/new-ramen-near-me', label: 'New Ramen Places Near Me' },
       { href: '/find/5-star-ramen', label: '5 Star Ramen Restaurants Near Me' },
+      { href: '/find/michelin-star-ramen', label: 'Michelin Star Ramen Restaurants Near Me' },
     ],
   },
   {

@@ -343,6 +343,36 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'michelin-star-ramen-in',
+    filter: { initialFlags: ['top-rated'] },
+    title: (c, s) => `Michelin Star Ramen Restaurants In ${c}, ${s}`,
+    metaNoun: 'Michelin star ramen restaurants',
+    hubHref: '/find/michelin-star-ramen',
+    hubLabel: 'Michelin Star Ramen',
+    about:
+      'Formal Michelin coverage is limited to a few cities, so this map surfaces the strongest available proxy — the highest-rated, most-reviewed ramen restaurants nearby, ranked by rating.',
+    faqs: (city, st) => [
+      { q: `Where can I find Michelin-caliber ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen restaurants ranked by rating with review depth as the tiebreaker. Enter your ZIP or click "Use my location" to see the standout bowls closest to you.` },
+      { q: 'Are these actually Michelin starred?', a: 'Michelin only reviews a small number of cities, so most areas have no formally starred ramen shop. This page uses top ratings and review depth as the closest available proxy for that level of quality.' },
+      { q: 'What makes ramen worthy of that level?', a: 'A broth simmered in-house for hours, noodles with real bite, and a kitchen precise about balancing salt, fat, and umami — consistently, across every bowl.' },
+    ],
+  },
+  {
+    prefix: 'pet-friendly-ramen-in',
+    filter: { initialFlags: ['outdoor-seating'] },
+    title: (c, s) => `Pet Friendly Ramen Restaurants In ${c}, ${s}`,
+    metaNoun: 'pet friendly ramen restaurants',
+    hubHref: '/find/pet-friendly-ramen',
+    hubLabel: 'Pet Friendly Ramen',
+    about:
+      'Pets are usually only welcome on patios, so this map is filtered to ramen restaurants with outdoor seating — the strongest signal that you can bring a dog along nearby.',
+    faqs: (city, st) => [
+      { q: `Where can I find pet friendly ramen in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots with outdoor seating — the best bet for bringing a dog. Call ahead or check recent reviews to confirm the pet policy before you go.` },
+      { q: 'Can I bring my dog inside?', a: 'Usually not — most health codes keep pets out of indoor dining areas, so outdoor seating is where pet friendly ramen happens. Service animals are the exception and are allowed indoors by law.' },
+      { q: 'Does this confirm dogs are allowed?', a: 'Not directly — pet policies vary. The outdoor-seating filter surfaces likely candidates; confirm with the restaurant before making the trip.' },
+    ],
+  },
+  {
     prefix: 'ramen-spots-near-me-in',
     filter: {},
     title: (c, s) => `Ramen Spots In ${c}, ${s}`,
