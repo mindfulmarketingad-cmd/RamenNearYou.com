@@ -133,6 +133,8 @@ const CATEGORIES = [
       { href: '/find/ramen-shop', label: 'Ramen Shop Near Me' },
       { href: '/find/ramen-karaoke-bar', label: 'Ramen Karaoke Bar Near Me' },
       { href: '/find/ramen-sushi-near-me', label: 'Ramen and Sushi Near Me' },
+      { href: '/find/sushi-near-me', label: 'Sushi Near Me' },
+      { href: '/find/lo-mein-near-me', label: 'Lo Mein Near Me' },
       { href: '/find/ramen-delivery', label: 'Ramen Delivery Near Me' },
     ],
   },

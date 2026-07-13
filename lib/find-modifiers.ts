@@ -283,6 +283,36 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'sushi-near-in',
+    filter: { initialFlags: ['sushi'] },
+    title: (c, s) => `Sushi Near ${c}, ${s}`,
+    metaNoun: 'sushi',
+    hubHref: '/find/sushi-near-me',
+    hubLabel: 'Sushi',
+    about:
+      'Great sushi comes down to rice temperature, fish freshness, and knife work — this map is filtered to the sushi bars and Japanese restaurants near you most likely to deliver all three.',
+    faqs: (city, st) => [
+      { q: `Where can I find sushi in ${city}?`, a: `The map above shows ${city}, ${st} sushi bars and Japanese restaurants. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What should I order first at a new sushi spot?', a: 'Order a few pieces of nigiri à la carte before committing to omakase — it is the fastest way to judge rice temperature and knife work.' },
+      { q: 'What is omakase?', a: 'Omakase is a chef\'s-choice tasting menu where the sushi chef selects each piece based on what is freshest that day.' },
+    ],
+  },
+  {
+    prefix: 'lo-mein-near-in',
+    filter: { initialFlags: ['lo-mein'] },
+    title: (c, s) => `Lo Mein Near ${c}, ${s}`,
+    metaNoun: 'lo mein',
+    hubHref: '/find/lo-mein-near-me',
+    hubLabel: 'Lo Mein',
+    about:
+      'Great lo mein comes down to wok technique — soft, lightly sauced noodles with a faint charred "wok hei" aroma. This map is filtered to the Chinese restaurants and noodle houses near you most likely to serve it well.',
+    faqs: (city, st) => [
+      { q: `Where can I find lo mein in ${city}?`, a: `The map above shows ${city}, ${st} Chinese restaurants and noodle houses. Enter your ZIP or click "Use my location" to sort by distance from your current location.` },
+      { q: 'What is the difference between lo mein and chow mein?', a: 'Lo mein noodles are boiled then tossed with sauce for a soft, silky texture. Chow mein noodles are pan-fried, so some strands turn crisp.' },
+      { q: 'What protein goes best with lo mein?', a: 'Shrimp, beef, and chicken are the most common and reliable choices at most Chinese restaurants.' },
+    ],
+  },
+  {
     prefix: 'ramen-karaoke-bar-in',
     filter: { initialFlags: ['full-bar'] },
     title: (c, s) => `Ramen Karaoke Bars In ${c}, ${s}`,

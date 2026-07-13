@@ -89,6 +89,8 @@ export const MISC_FLAG_META: ChipMeta[] = [
   { key: 'gluten-free', label: 'Gluten-Free', emoji: '🌾', hex: '#a16207' },
   { key: 'hanabi', label: 'Hanabi', emoji: '🎆', hex: '#db2777' },
   { key: 'shokku', label: 'Shokku', emoji: '⚡', hex: '#ca8a04' },
+  { key: 'sushi', label: 'Sushi', emoji: '🍣', hex: '#0891b2' },
+  { key: 'lo-mein', label: 'Lo Mein', emoji: '🍝', hex: '#b45309' },
 ]
 
 export const MISC_FLAG_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(MISC_FLAG_META.map(f => [f.key, f]))

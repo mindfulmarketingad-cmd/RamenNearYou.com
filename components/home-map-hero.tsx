@@ -613,6 +613,10 @@ export default function HomeMapHero({
         if (flags.has('fish-ramen') && !/fish|seafood|gyokai|niboshi|shellfish|crab|shrimp|clam|oyster|sushi/i.test(r.name)) return false
         if (flags.has('hanabi') && !/hanabi/i.test(r.name)) return false
         if (flags.has('shokku') && !/shokku/i.test(r.name)) return false
+        // "Sushi" — sushi bars and Japanese spots likely to serve sushi.
+        if (flags.has('sushi') && !/sushi|sashimi|nigiri|omakase/i.test(r.name)) return false
+        // "Lo Mein" — Chinese restaurants/noodle houses likely to serve lo mein.
+        if (flags.has('lo-mein') && !/lo.?mein|chow mein|chinese|\bwok\b/i.test(r.name)) return false
         // Feature/amenity flags — DB listings carry an amenities array; Places
         // supplements don't, so they're excluded when an amenity filter is on.
         for (const f of FEATURE_KEYS) {
@@ -1012,6 +1016,8 @@ export default function HomeMapHero({
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => toggleFlag('ramen-sushi')} />
+                  <Chip active={flags.has('sushi')} emoji="🍣" label="Sushi" onClick={() => toggleFlag('sushi')} />
+                  <Chip active={flags.has('lo-mein')} emoji="🍝" label="Lo Mein" onClick={() => toggleFlag('lo-mein')} />
                   <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => toggleFlag('fish-ramen')} />
                   <Chip active={flags.has('korean-style')} emoji="🌶" label="Korean-Style" onClick={() => toggleFlag('korean-style')} />
                   <Chip active={flags.has('japanese-fusion')} emoji="🔀" label="Japanese Fusion" onClick={() => toggleFlag('japanese-fusion')} />
