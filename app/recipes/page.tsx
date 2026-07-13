@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import RestaurantImage from '@/components/restaurant-image'
 import RecipesHubSearch from './recipes-hub-search'
 import { getAllRecipes } from '@/lib/recipes'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 export const metadata: Metadata = {
   title: 'Ramen Recipes — Make Ramen at Home',
@@ -32,6 +34,9 @@ export default function RecipesHubPage() {
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+        <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
+          <RestaurantImage src={pickStockPhoto('recipes-hub')} alt="A bowl of homemade ramen" fill className="object-cover" sizes="672px" priority />
+        </div>
         <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Recipes</h1>
         <p className="text-[#6B6862] text-sm mb-6">
           Make real ramen at home — every recipe includes step-by-step instructions and a printable
