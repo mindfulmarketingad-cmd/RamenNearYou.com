@@ -328,6 +328,21 @@ export const FIND_MODIFIERS: FindModifier[] = [
     ],
   },
   {
+    prefix: 'happy-hour-in',
+    filter: { initialFlags: ['full-bar'] },
+    title: (c, s) => `Ramen Restaurants With Happy Hour In ${c}, ${s}`,
+    metaNoun: 'ramen restaurants with happy hour',
+    hubHref: '/find/ramen-happy-hour',
+    hubLabel: 'Happy Hour',
+    about:
+      'Happy hour needs a real drink program behind it, so this map is filtered to ramen restaurants with a full bar — the strongest signal of a happy hour menu nearby.',
+    faqs: (city, st) => [
+      { q: `Where can I find ramen restaurants with happy hour in ${city}?`, a: `The map above shows ${city}, ${st} ramen spots with a full bar — the strongest signal of a happy hour menu. Call ahead or check the restaurant's website to confirm exact times and pricing.` },
+      { q: 'Does this show exact happy hour times?', a: 'Not directly — happy hour details change often and vary by restaurant. Use the "Full Bar" filter to shortlist candidates, then confirm hours and pricing directly with the restaurant.' },
+      { q: 'What kind of ramen spots usually run happy hour?', a: 'Izakaya, Japanese pubs, and full-service Japanese restaurants with a real bar program are the most likely to run one.' },
+    ],
+  },
+  {
     prefix: 'ramen-spots-near-me-in',
     filter: {},
     title: (c, s) => `Ramen Spots In ${c}, ${s}`,
