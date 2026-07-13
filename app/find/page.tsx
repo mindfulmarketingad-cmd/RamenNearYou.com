@@ -55,6 +55,16 @@ export const metadata: Metadata = {
 
 const CATEGORIES = [
   {
+    heading: 'By Distance',
+    pages: [
+      { href: '/find/ramen-near-me-within-1-mi', label: 'Ramen Near Me Within 1 Mi' },
+      { href: '/find/ramen-near-me-within-5-mi', label: 'Ramen Near Me Within 5 Mi' },
+      { href: '/find/ramen-near-me-within-10-mi', label: 'Ramen Near Me Within 10 Mi' },
+      { href: '/find/ramen-near-me-within-15-mi', label: 'Ramen Near Me Within 15 Mi' },
+      { href: '/find/ramen-near-me-within-20-mi', label: 'Ramen Near Me Within 20 Mi' },
+    ],
+  },
+  {
     heading: 'By Hours',
     pages: [
       { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me' },

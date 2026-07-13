@@ -147,6 +147,9 @@ interface HomeMapHeroProps {
   pageDescription?: string
   // When set, the map fetches and draws this city's boundary outline (Zillow-style).
   regionBoundary?: { cityName: string; stateName: string; citySlug: string; stateSlug: string; isState?: boolean }
+  // Hard radius cutoff (e.g. "ramen near me within 5 mi" pages) — only takes
+  // effect once the visitor's location is known (geolocation or ZIP search).
+  maxDistanceMiles?: number
 }
 
 export default function HomeMapHero({
@@ -159,6 +162,7 @@ export default function HomeMapHero({
   pageTitle = 'Find Ramen Near You',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
   regionBoundary,
+  maxDistanceMiles,
 }: HomeMapHeroProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -645,6 +649,12 @@ export default function HomeMapHero({
         }
       }
 
+      // Hard radius cutoff ("ramen near me within N mi" pages) — only once
+      // the visitor's location is actually known (geolocation or ZIP).
+      if (maxDistanceMiles != null && hasLocation) {
+        list = list.filter(r => kmToMiles(r.distKm) <= maxDistanceMiles)
+      }
+
       if (localQuery.trim()) {
         const q = localQuery.toLowerCase()
         list = list.filter(r => r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q))
@@ -695,7 +705,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, selectedRegion])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, selectedRegion, maxDistanceMiles])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
