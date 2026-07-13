@@ -3,6 +3,7 @@ import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import { Toaster } from '@/components/ui/sonner'
+import TimedLoginPrompt from '@/components/timed-login-prompt'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -98,6 +99,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <div id="main-content">{children}</div>
+        <TimedLoginPrompt />
         <Toaster position="bottom-center" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
