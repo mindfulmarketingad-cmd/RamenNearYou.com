@@ -12,6 +12,7 @@ import ListingActionRow from '@/components/listing-action-row'
 import ConnectAccountPanel from '@/components/connect-account-panel'
 import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import type { Restaurant } from '@/lib/restaurants'
@@ -173,6 +174,10 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <ChevronRight className="w-3 h-3" />
                 <Link href={`/${city}/${state}`} className="hover:text-[#96602F] transition-colors">{r.city}</Link>
               </nav>
+
+              <div className="mb-3">
+                <AdUnitInFeed />
+              </div>
 
               {/* Name + meta */}
               <div className="flex items-center gap-2 flex-wrap">
