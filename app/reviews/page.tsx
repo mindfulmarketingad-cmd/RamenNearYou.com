@@ -6,7 +6,7 @@ import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
-import ReviewsHubSearch, { type LetterGroup } from './reviews-hub-search'
+import ReviewsHubSearch, { type ReviewListing } from './reviews-hub-search'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 const FAQS = [
@@ -52,26 +52,18 @@ export const metadata: Metadata = {
 export default function ReviewsIndexPage() {
   const reviewRestaurants = getReviewRestaurants()
 
-  // Every review page as a plain link, alphabetical by restaurant name and
-  // grouped by first letter — same simple hyperlink-list format as /find.
-  const links = reviewRestaurants
+  // Every review page as a plain link — passed flat so the client can
+  // filter by state and sort by rating/review count as well as search.
+  const listings: ReviewListing[] = reviewRestaurants
     .map((r) => ({
       href: `/reviews/${getReviewSlug(r)}`,
-      label: `${r.name} — ${r.city}, ${r.stateCode}`,
-      sortKey: r.name.toLowerCase(),
+      name: r.name,
+      city: r.city,
+      stateCode: r.stateCode,
+      rating: r.rating ?? null,
+      reviewCount: r.reviewCount ?? 0,
     }))
-    .sort((a, b) => a.sortKey.localeCompare(b.sortKey))
-
-  const groupMap = new Map<string, { href: string; label: string }[]>()
-  for (const l of links) {
-    const first = l.sortKey.charAt(0)
-    const letter = first >= 'a' && first <= 'z' ? first.toUpperCase() : '#'
-    if (!groupMap.has(letter)) groupMap.set(letter, [])
-    groupMap.get(letter)!.push({ href: l.href, label: l.label })
-  }
-  const groups: LetterGroup[] = Array.from(groupMap.entries())
-    .map(([letter, ls]) => ({ letter, links: ls }))
-    .sort((a, b) => (a.letter === '#' ? -1 : b.letter === '#' ? 1 : a.letter.localeCompare(b.letter)))
+    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
 
   return (
     <>
@@ -93,7 +85,7 @@ export default function ReviewsIndexPage() {
             taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
           </p>
 
-          <ReviewsHubSearch groups={groups} total={reviewRestaurants.length} />
+          <ReviewsHubSearch listings={listings} total={reviewRestaurants.length} />
 
           {/* SEO content + owner CTA */}
           <div className="mt-16 pt-12 border-t border-black/8">

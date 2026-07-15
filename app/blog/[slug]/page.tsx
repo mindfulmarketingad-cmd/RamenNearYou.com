@@ -15,6 +15,7 @@ import { splitHtmlForAds } from '@/lib/split-html-for-ads'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
+import { pickStockPhoto } from '@/lib/stock-photos'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -128,6 +129,10 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getBlogPost(slug)
   if (!post) notFound()
 
+  // Every post needs a featured image — fall back to a deterministic stock
+  // photo for the handful of posts that don't have a real headerImage set.
+  const headerImage = post.headerImage ?? pickStockPhoto(post.slug)
+
   // Two in-article ads, spread evenly through the body copy.
   const contentParts = splitHtmlForAds(post.content, 2)
 
@@ -176,7 +181,7 @@ export default async function BlogPostPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://www.ramennearyou.com/blog/${post.slug}`,
     },
-    ...(post.headerImage ? { image: post.headerImage.startsWith('http') ? post.headerImage : `https://www.ramennearyou.com${post.headerImage}` } : {}),
+    image: headerImage.startsWith('http') ? headerImage : `https://www.ramennearyou.com${headerImage}`,
   }
 
   const breadcrumbSchema = {
@@ -219,14 +224,15 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
               </div>
 
-              {post.imageFirst && post.headerImage && (
+              {post.imageFirst && (
                 <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-6">
                   <Image
-                    src={post.headerImage}
+                    src={headerImage}
                     alt={post.headerImageAlt ?? post.title}
                     fill
                     className="object-cover"
                     priority
+                    unoptimized={!post.headerImage}
                   />
                 </div>
               )}
@@ -261,14 +267,15 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </header>
 
-            {!post.imageFirst && post.headerImage && (
+            {!post.imageFirst && (
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
-                  src={post.headerImage}
+                  src={headerImage}
                   alt={post.headerImageAlt ?? post.title}
                   fill
                   className="object-cover"
                   priority
+                  unoptimized={!post.headerImage}
                 />
               </div>
             )}
