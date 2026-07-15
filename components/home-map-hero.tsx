@@ -1113,7 +1113,7 @@ export default function HomeMapHero({
 
       {/* Map + list — full-screen map-only, or map + left list panel. */}
       <div className={mapOnly
-        ? 'relative h-[calc(100dvh-4rem)] flex overflow-hidden'
+        ? 'relative h-[calc(100dvh-var(--total-header-h,4rem))] flex overflow-hidden'
         : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden'}>
         {/* Left list panel — omitted entirely in the full-screen map-only layout */}
         {!mapOnly && (

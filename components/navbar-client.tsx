@@ -9,6 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 const BANNER_HEIGHT = 40 // px — keep in sync with the banner's h-10
+const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 
 export default function NavbarClient() {
   const router = useRouter()
@@ -44,7 +45,17 @@ export default function NavbarClient() {
   const showBanner = authChecked && !user && !bannerDismissed
   useEffect(() => {
     document.body.style.paddingTop = showBanner ? `${BANNER_HEIGHT}px` : ''
-    return () => { document.body.style.paddingTop = '' }
+    // Full fixed-header height (banner + navbar, or just navbar), exposed so
+    // any full-viewport-height layout (e.g. the mapOnly searchmap) can size
+    // itself against the *actual* header instead of assuming just the navbar.
+    document.documentElement.style.setProperty(
+      '--total-header-h',
+      `${showBanner ? BANNER_HEIGHT + NAVBAR_HEIGHT : NAVBAR_HEIGHT}px`
+    )
+    return () => {
+      document.body.style.paddingTop = ''
+      document.documentElement.style.removeProperty('--total-header-h')
+    }
   }, [showBanner])
 
   function dismissBanner() {
