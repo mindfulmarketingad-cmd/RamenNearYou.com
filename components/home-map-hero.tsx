@@ -15,6 +15,7 @@ import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend,
 import { useCurrentUser } from '@/lib/use-current-user'
 import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -994,6 +995,13 @@ export default function HomeMapHero({
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
         </div>
       </div>
+
+      {/* Ad — floats directly under the filter bar, on top of the map */}
+      {mapOnly && (
+        <div className="bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+          <AdUnitHorizontal />
+        </div>
+      )}
 
       {/* Expandable full filter panel */}
       {showFilters && (
