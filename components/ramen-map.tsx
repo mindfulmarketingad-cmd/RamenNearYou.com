@@ -39,6 +39,11 @@ const BOUNCE_CSS = `
   50%       { margin-top: -8px; }
 }
 .marker-bounce { animation: ramenBounce 0.55s ease-in-out infinite; }
+@keyframes ramenFeaturedGlow {
+  0%, 100% { box-shadow: 0 3px 14px rgba(212,136,11,0.75), 0 0 0 0 rgba(245,179,1,0.55); }
+  50%       { box-shadow: 0 3px 18px rgba(212,136,11,0.9), 0 0 0 8px rgba(245,179,1,0); }
+}
+.ramen-featured-pin { animation: ramenFeaturedGlow 1.8s ease-in-out infinite; }
 `
 
 function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false, featured = false) {
@@ -53,7 +58,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
     : state === 'active'
       ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
       : '0 2px 6px rgba(0,0,0,0.35)'
-  const scale = featured ? 1.2 : state === 'active' ? 1.15 : 1
+  const scale = featured ? 1.4 : state === 'active' ? 1.15 : 1
   const bounce = state === 'hover' ? 'marker-bounce' : ''
   const check = visited
     ? `<span style="position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:#16a34a;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;line-height:1;color:white">✓</span>`
@@ -64,7 +69,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
     : ''
   return L.divIcon({
     className: bounce,
-    html: `<div style="position:relative;
+    html: `<div class="${featured ? 'ramen-featured-pin' : ''}" style="position:relative;
       display:inline-flex;align-items:center;gap:3px;
       background:${bg};border:${border};border-radius:20px;
       box-shadow:${shadow};
@@ -140,6 +145,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
   const ratingsRef = useRef<Record<string, number | null>>({})
+  const featuredRef = useRef<Record<string, boolean>>({})
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
   const userCircleRef = useRef<L.Circle | null>(null)
@@ -248,6 +254,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     Object.values(markersRef.current).forEach(m => m.remove())
     markersRef.current = {}
     ratingsRef.current = {}
+    featuredRef.current = {}
 
     if (heatmap) return // heatmap layer handles visualization instead
 
@@ -256,6 +263,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       const state = r.slug === selectedSlug ? 'active' : 'default'
       const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured)
       ratingsRef.current[r.slug] = r.rating
+      featuredRef.current[r.slug] = !!r.featured
 
       // Every restaurant — DB or Google Places supplement — has its own
       // internal detail page, so the popup always links there.
@@ -380,7 +388,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   useEffect(() => {
     if (!ready || !mapRef.current || !selectedSlug) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
-      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === selectedSlug ? 'active' : 'default', accentColor, visitedSlugs?.has(slug)))
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === selectedSlug ? 'active' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug]))
     })
     const active = markersRef.current[selectedSlug]
     if (active) {
@@ -394,7 +402,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     if (!ready) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
       if (slug === selectedSlug) return // active marker takes priority
-      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === hoveredSlug ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug)))
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === hoveredSlug ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug]))
     })
   }, [hoveredSlug, selectedSlug, ready, accentColor, visitedSlugs])
 

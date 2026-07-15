@@ -150,6 +150,10 @@ interface HomeMapHeroProps {
   // Hard radius cutoff (e.g. "ramen near me within 5 mi" pages) — only takes
   // effect once the visitor's location is known (geolocation or ZIP search).
   maxDistanceMiles?: number
+  // Full-screen map-only layout: the map fills the viewport below the navbar
+  // with the controls floating on top and no left-hand list panel. Defaults on
+  // (homepage + all /find pages); state pages opt out to keep the list layout.
+  mapOnly?: boolean
 }
 
 export default function HomeMapHero({
@@ -163,6 +167,7 @@ export default function HomeMapHero({
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
   regionBoundary,
   maxDistanceMiles,
+  mapOnly = true,
 }: HomeMapHeroProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -749,9 +754,10 @@ export default function HomeMapHero({
   }
 
   return (
-    <section className="pt-16 bg-[#F5F4F0]">
-      {/* SEO heading + intro — compact on mobile so the map owns the screen */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2.5 sm:pt-5 pb-2 sm:pb-3">
+    <section className={mapOnly ? 'pt-16 bg-[#F5F4F0] relative' : 'pt-16 bg-[#F5F4F0]'}>
+      {/* SEO heading + intro — kept in the DOM for SEO; visually hidden in the
+          full-screen map-only layout so the map owns the whole viewport. */}
+      <div className={mapOnly ? 'sr-only' : 'max-w-7xl mx-auto px-4 sm:px-6 pt-2.5 sm:pt-5 pb-2 sm:pb-3'}>
         <h1 className="font-serif text-lg sm:text-3xl font-bold text-[#1E2026] truncate sm:overflow-visible sm:whitespace-normal">
           {pageTitle}
         </h1>
@@ -760,11 +766,14 @@ export default function HomeMapHero({
         </p>
       </div>
 
+      {/* Controls wrapper — floats over the top of the map in mapOnly mode. */}
+      <div className={mapOnly ? 'absolute top-[4.25rem] inset-x-0 z-[1200] px-2 sm:px-4 flex flex-col items-stretch sm:items-center gap-2 pointer-events-none' : ''}>
+
       {/* Top filter bar — one horizontally scrollable pill strip on mobile
           (AllTrails-style); on sm+ the location/help/save controls stay pinned
           with only the middle section scrolling. */}
-      <div className="border-t border-black/8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
+      <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl' : 'border-t border-black/8 bg-white'}>
+        <div className={mapOnly ? 'px-3 sm:px-4 py-2.5' : 'max-w-7xl mx-auto px-4 sm:px-6 py-2.5'}>
           <div
             className="flex items-center gap-2 overflow-x-auto scrollbar-hide sm:overflow-x-visible"
           >
@@ -970,8 +979,8 @@ export default function HomeMapHero({
 
       {/* Expandable full filter panel */}
       {showFilters && (
-        <div className="border-t border-black/8 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl max-h-[calc(100dvh-12rem)] overflow-y-auto' : 'border-t border-black/8 bg-white'}>
+          <div className={mapOnly ? 'px-3 sm:px-4 py-4' : 'max-w-7xl mx-auto px-4 sm:px-6 py-4'}>
             {/* Panel header */}
             <div className="flex items-center justify-between pb-3 mb-1 border-b border-black/8">
               <div className="flex items-center gap-2">
@@ -1081,12 +1090,15 @@ export default function HomeMapHero({
         </div>
       )}
 
+      {/* /Controls wrapper (mapOnly floats this over the map) */}
+      </div>
 
-
-      {/* Map + list — on mobile the map fills the rest of the screen below
-          the navbar/title/filter strip (AllTrails-style full-screen map) */}
-      <div className="relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden">
-        {/* Left list panel — static sidebar on sm+, full-screen overlay on mobile */}
+      {/* Map + list — full-screen map-only, or map + left list panel. */}
+      <div className={mapOnly
+        ? 'relative h-[calc(100dvh-4rem)] flex overflow-hidden'
+        : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden'}>
+        {/* Left list panel — omitted entirely in the full-screen map-only layout */}
+        {!mapOnly && (
         <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
           <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
             <p className="text-[#1E2026] font-semibold text-sm">
@@ -1328,8 +1340,9 @@ export default function HomeMapHero({
           </div>
 
         </div>
+        )}
 
-        {/* Map — full-screen on mobile (list overlays it), side-by-side on sm+ */}
+        {/* Map — fills the container (full-screen in mapOnly, right pane otherwise) */}
         <div className="flex-1 relative block">
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
@@ -1354,7 +1367,7 @@ export default function HomeMapHero({
           )}
 
           {showSearchAreaBtn && !dataLoading && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
+            <div className={`absolute left-1/2 -translate-x-1/2 z-[1000] ${mapOnly ? 'bottom-6' : 'top-4'}`}>
               <button
                 onClick={handleSearchArea}
                 disabled={searchingArea}
@@ -1368,7 +1381,7 @@ export default function HomeMapHero({
           )}
 
           {geoState === 'idle' && !showSearchAreaBtn && !dataLoading && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
+            <div className={`absolute left-1/2 -translate-x-1/2 z-[1000] ${mapOnly ? 'bottom-6' : 'top-4'}`}>
               <button
                 onClick={requestLocation}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
@@ -1379,7 +1392,8 @@ export default function HomeMapHero({
           )}
 
           {/* Floating list-view toggle (mobile only) — bottom-center pill,
-              AllTrails-style, opens the list overlay */}
+              AllTrails-style, opens the list overlay. Omitted in mapOnly (no list). */}
+          {!mapOnly && (
           <button
             onClick={() => setMobileView('list')}
             className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
@@ -1392,6 +1406,7 @@ export default function HomeMapHero({
               </span>
             )}
           </button>
+          )}
 
         </div>
 

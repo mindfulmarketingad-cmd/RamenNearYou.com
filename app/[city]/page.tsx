@@ -97,6 +97,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         <Navbar />
         <ErrorBoundary fallback={null}>
           <HomeMapHero
+            mapOnly={false}
             regionBoundary={{ cityName: stateName, stateName, citySlug: '', stateSlug, isState: true }}
             pageTitle={`Best Ramen Restaurants In ${stateName}`}
             pageDescription={`Find ramen restaurants across ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
@@ -206,6 +207,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
       <ErrorBoundary fallback={null}>
         <HomeMapHero
           initialCenter={initialCenter}
+          mapOnly={false}
           regionBoundary={{ cityName: state, stateName: state, citySlug: '', stateSlug, isState: true }}
           pageTitle={`Best Ramen Restaurants In ${state}`}
           pageDescription={`Find ramen restaurants across ${state}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
