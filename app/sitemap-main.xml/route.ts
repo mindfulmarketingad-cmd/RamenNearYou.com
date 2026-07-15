@@ -6,6 +6,9 @@ import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlRespons
 // Everything that isn't /find, /reviews, /recipes, or /blog: states, cities,
 // restaurants, city × filter pages, broth-by-city pages, comparisons, and
 // the site's static top-level pages.
+// Generated once at build time and served as a static asset.
+export const dynamic = 'force-static'
+
 export async function GET() {
   const cities = getCities()
   const states = getStates()

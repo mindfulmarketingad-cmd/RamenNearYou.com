@@ -6,6 +6,13 @@ import { SITEMAP_BASE_URL, LAST_CONTENT, buildUrlsetXml, xmlResponse, type Sitem
 // Every /find page: the filter/broth/brand/"near me" pages, the per-city
 // searchmap pages, and the modifier × city cross product — by far the
 // largest single category (~38k of the site's ~56k URLs).
+//
+// Generated once at build time and served as a static asset. Computing this
+// on every request took ~19s locally, which is enough to time out both
+// Vercel's serverless function and Google Search Console's own fetcher —
+// exactly what caused GSC's "Sitemap could not be read" error.
+export const dynamic = 'force-static'
+
 export async function GET() {
   const findFilterPages: SitemapEntry[] = FIND_PAGES.map((p) => ({
     url: `${SITEMAP_BASE_URL}${p.href}`,
