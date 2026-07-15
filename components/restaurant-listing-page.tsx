@@ -155,7 +155,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
         <Navbar />
 
         {/* App-shell split: scrollable details left, single-pin map right */}
-        <div className="pt-16 flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
+        <div className="pt-16 flex flex-col lg:flex-row lg:h-[calc(100vh-var(--total-header-h,4rem))]">
 
           {/* ── LEFT: scrollable details panel ── */}
           <div className="w-full lg:w-[440px] xl:w-[480px] lg:shrink-0 lg:h-full lg:overflow-y-auto bg-white border-r border-black/8 order-2 lg:order-1">

@@ -81,9 +81,27 @@ export default function RestaurantMapPane({ lat, lng, name, address }: Props) {
       .openPopup()
 
     mapRef.current = map
-    return () => { map.remove(); mapRef.current = null }
+
+    // Leaflet measures the container once at init. In a flex/dynamically-
+    // imported pane the container can still be 0-height at that moment, which
+    // leaves the map blank (no tiles laid out). Recompute the size after the
+    // browser has laid the pane out, and whenever it resizes, so the map
+    // always fills its pane instead of collapsing to a blank white box.
+    const recalc = () => map.invalidateSize()
+    const raf = requestAnimationFrame(recalc)
+    const t = setTimeout(recalc, 200)
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(recalc) : null
+    if (ro && containerRef.current) ro.observe(containerRef.current)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(t)
+      ro?.disconnect()
+      map.remove()
+      mapRef.current = null
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <div ref={containerRef} className="w-full h-full" />
+  return <div ref={containerRef} className="w-full h-full min-h-[288px]" />
 }
