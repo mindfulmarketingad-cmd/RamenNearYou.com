@@ -9,6 +9,7 @@ import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
+import AdUnit from '@/components/ad-unit'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
@@ -294,6 +295,10 @@ export default async function BlogPostPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: post.outroContent }}
               />
             )}
+
+            <div className="mt-10">
+              <AdUnit />
+            </div>
           </article>
 
           <div className="mt-16 pt-8 border-t border-black/8">

@@ -6,6 +6,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RecipeCard from '@/components/recipe-card'
 import RestaurantImage from '@/components/restaurant-image'
+import AdUnit from '@/components/ad-unit'
 import { RECIPES, getRecipe } from '@/lib/recipes'
 
 interface Props {
@@ -187,6 +188,10 @@ export default async function RecipePage({ params }: Props) {
               ))}
             </div>
           </section>
+
+          <div className="mb-12 print:hidden">
+            <AdUnit />
+          </div>
 
           {/* Printable summary card */}
           <section>

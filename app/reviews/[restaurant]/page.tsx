@@ -18,6 +18,7 @@ import {
   googleReviewsUrl,
 } from '@/lib/reviews'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
+import AdUnit from '@/components/ad-unit'
 
 interface Props {
   params: Promise<{ restaurant: string }>
@@ -323,6 +324,10 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-5">What Diners Are Saying</h2>
             <RestaurantReviewsClient reviews={reviews} />
           </section>
+
+          <div className="mb-10">
+            <AdUnit />
+          </div>
 
           {/* More reviews — keeps every review page linked to others */}
           {related.length > 0 && (
