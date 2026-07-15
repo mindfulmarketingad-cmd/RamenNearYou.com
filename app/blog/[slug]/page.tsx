@@ -234,6 +234,11 @@ export default async function BlogPostPage({ params }: Props) {
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
+
+              <div className="mb-5">
+                <AdUnitInArticle />
+              </div>
+
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
                 <Link

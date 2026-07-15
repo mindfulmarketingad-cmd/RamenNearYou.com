@@ -7,6 +7,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
 import ReviewsHubSearch, { type LetterGroup } from './reviews-hub-search'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 const FAQS = [
   {
@@ -82,6 +83,11 @@ export default function ReviewsIndexPage() {
             <RestaurantImage src={pickStockPhoto('reviews-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
           </div>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Restaurant Reviews</h1>
+
+          <div className="mb-6">
+            <AdUnitInFeed />
+          </div>
+
           <p className="text-[#6B6862] text-sm mb-6">
             Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on
             taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
