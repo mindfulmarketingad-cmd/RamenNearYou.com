@@ -279,7 +279,11 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           ).join('')}</div>`
         : ''
 
-      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name }).addTo(map)
+      // Leaflet auto-stacks markers by screen Y-position (lower pins paint on
+      // top), which can bury a featured pin behind ordinary ones regardless
+      // of the z-index in its own icon HTML. zIndexOffset overrides that so
+      // the featured pin always paints above every other marker on the map.
+      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name, zIndexOffset: r.featured ? 10000 : 0 }).addTo(map)
       if (!disablePopups) {
         marker
           .bindPopup(`

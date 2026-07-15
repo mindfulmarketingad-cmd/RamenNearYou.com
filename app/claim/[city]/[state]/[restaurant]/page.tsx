@@ -1,22 +1,15 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircle2, BadgeCheck, BarChart2, Globe, Clock, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ClaimForm from './claim-form'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getRestaurant } from '@/lib/restaurants'
+import PricingToggle from './pricing-toggle'
 
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
-
-const BENEFITS = [
-  { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
-  { icon: Globe, text: 'Update your website, phone, and description' },
-  { icon: Clock, text: 'Keep your hours accurate and up to date' },
-  { icon: BarChart2, text: 'See weekly page visit analytics' },
-  { icon: MapPin, text: 'Featured placement on your city page' },
-]
+const STRIPE_CLAIM_LINK_MONTHLY = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const STRIPE_CLAIM_LINK_ANNUAL = 'https://buy.stripe.com/5kQ5kE2HU44Eff0eK2frW0b'
 
 export default async function ClaimPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
@@ -49,7 +42,9 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
     hasSubscription = !!sub
   }
 
-  const stripeLink = `${STRIPE_CLAIM_LINK}?prefilled_email=${encodeURIComponent(user.email ?? '')}&client_reference_id=${r.slug}`
+  const emailParam = encodeURIComponent(user.email ?? '')
+  const monthlyLink = `${STRIPE_CLAIM_LINK_MONTHLY}?prefilled_email=${emailParam}&client_reference_id=${r.slug}`
+  const annualLink = `${STRIPE_CLAIM_LINK_ANNUAL}?prefilled_email=${emailParam}&client_reference_id=${r.slug}`
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
@@ -69,38 +64,7 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
           ) : (
             // Pricing wall
             <div className="space-y-6">
-              <div className="bg-[#F5F4F0] rounded-2xl border border-black/5 p-8">
-                {/* Free trial badge */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold mb-4">
-                  14-Day Free Trial
-                </div>
-
-                <div className="flex items-end justify-center gap-1.5 mb-1">
-                  <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
-                  <span className="text-[#6B6862] text-sm mb-2">today</span>
-                </div>
-                <p className="text-[#6B6862] text-xs text-center mb-6">Then $19.99/month after your free trial. Cancel anytime.</p>
-
-                <ul className="space-y-3 mb-8">
-                  {BENEFITS.map(({ icon: Icon, text }) => (
-                    <li key={text} className="flex items-center gap-3 text-sm text-[#1E2026]">
-                      <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0" />
-                      {text}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={stripeLink}
-                  className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
-                >
-                  Start Free Trial — $0 Today
-                </a>
-
-                <p className="text-center text-xs text-[#6B6862] mt-4">
-                  After subscribing, return to this page to complete your claim.
-                </p>
-              </div>
+              <PricingToggle monthlyLink={monthlyLink} annualLink={annualLink} />
 
               <div className="text-center">
                 <Link
