@@ -10,6 +10,8 @@ import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
 import ConnectAccountPanel from '@/components/connect-account-panel'
+import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
+import AdUnitInArticle from '@/components/ad-unit-in-article'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import type { Restaurant } from '@/lib/restaurants'
@@ -232,9 +234,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               {(orderUrl || menuUrl) && (
                 <div className="flex flex-col gap-2.5 mt-5">
                   {orderUrl && (
-                    <a href={orderUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
-                      <ShoppingBag className="w-4 h-4" /> Order Now
-                    </a>
+                    <>
+                      <AdUnitAutorelaxed />
+                      <a href={orderUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
+                        <ShoppingBag className="w-4 h-4" /> Order Now
+                      </a>
+                    </>
                   )}
                   {menuUrl && (
                     <a href={menuUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-white border-2 border-[#B57F50] text-[#96602F] hover:bg-[#B57F50]/8 text-sm font-bold transition-colors">
@@ -316,7 +321,10 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   <p className="text-sm font-bold text-[#1E2026] mb-3">About {r.name}</p>
                   <div className="space-y-3">
                     {aboutParas.map((p, i) => (
-                      <p key={i} className="text-[#4B4845] leading-relaxed text-[13px]">{p}</p>
+                      <div key={i}>
+                        <p className="text-[#4B4845] leading-relaxed text-[13px]">{p}</p>
+                        {i === 0 && <div className="mt-3"><AdUnitInArticle /></div>}
+                      </div>
                     ))}
                   </div>
                 </div>
