@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Search, Star, Loader2, SlidersHorizontal, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { BOWL_META, MOOD_META, FEATURE_META, BOWL_BY_KEY, MOOD_BY_KEY, FEATURE_BY_KEY, type MapPoint } from '@/lib/ramen-taxonomy'
 import { getOpenStatus, getTodayHoursLabel } from '@/lib/hours'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 const PAGE_SIZE = 25
 
@@ -216,42 +217,51 @@ export default function PartnersDirectory() {
               <tbody>
                 {paged.map((r, i) => {
                   return (
-                    <tr key={`${r.citySlug}-${r.stateSlug}-${r.slug}-${i}`} className="border-b border-black/5 last:border-0 hover:bg-black/[0.02]">
-                      <td className="px-4 py-3 align-top">
-                        <Link
-                          href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                          className="font-semibold text-[#1E2026] hover:text-[#96602F] transition-colors"
-                        >
-                          {r.name}
-                        </Link>
-                        <p className="text-[#6B6862] text-xs mt-0.5">{r.city}, {r.stateCode}</p>
-                      </td>
-                      <td className="px-4 py-3 align-top whitespace-nowrap">
-                        {r.rating ? (
-                          <span className="flex items-center gap-1 text-[#1E2026]">
-                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                            {r.rating.toFixed(1)}
-                            <span className="text-[#6B6862] text-xs">({r.reviewCount.toLocaleString()})</span>
-                          </span>
-                        ) : (
-                          <span className="text-[#6B6862]/40 text-xs">No reviews</span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3 align-top max-w-[220px]">
-                        <ListingChips r={r} />
-                      </td>
-                      <td className="px-4 py-3 align-top whitespace-nowrap">
-                        <HoursCell hours={r.hours} />
-                      </td>
-                      <td className="px-4 py-3 align-top whitespace-nowrap">
-                        <Link
-                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                          className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
-                        >
-                          Claim Listing
-                        </Link>
-                      </td>
-                    </tr>
+                    <Fragment key={`${r.citySlug}-${r.stateSlug}-${r.slug}-${i}`}>
+                      <tr className="border-b border-black/5 last:border-0 hover:bg-black/[0.02]">
+                        <td className="px-4 py-3 align-top">
+                          <Link
+                            href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                            className="font-semibold text-[#1E2026] hover:text-[#96602F] transition-colors"
+                          >
+                            {r.name}
+                          </Link>
+                          <p className="text-[#6B6862] text-xs mt-0.5">{r.city}, {r.stateCode}</p>
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          {r.rating ? (
+                            <span className="flex items-center gap-1 text-[#1E2026]">
+                              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                              {r.rating.toFixed(1)}
+                              <span className="text-[#6B6862] text-xs">({r.reviewCount.toLocaleString()})</span>
+                            </span>
+                          ) : (
+                            <span className="text-[#6B6862]/40 text-xs">No reviews</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 align-top max-w-[220px]">
+                          <ListingChips r={r} />
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          <HoursCell hours={r.hours} />
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          <Link
+                            href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                            className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
+                          >
+                            Claim Listing
+                          </Link>
+                        </td>
+                      </tr>
+                      {currentPage === 1 && i === 0 && (
+                        <tr className="border-b border-black/5">
+                          <td colSpan={5} className="px-4 py-3">
+                            <AdUnitInFeed />
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
                   )
                 })}
               </tbody>
