@@ -19,6 +19,7 @@ import {
 } from '@/lib/reviews'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import AdUnit from '@/components/ad-unit'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 interface Props {
   params: Promise<{ restaurant: string }>
@@ -171,6 +172,11 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] leading-tight mb-2">
               {r.name} Reviews | Taste, Noodle Size, Bowl Size and More
             </h1>
+
+            <div className="mb-4">
+              <AdUnitInFeed />
+            </div>
+
             <p className="flex items-center gap-1.5 text-sm text-[#6B6862]">
               <MapPin className="w-4 h-4 text-[#96602F]" />
               {r.address}
