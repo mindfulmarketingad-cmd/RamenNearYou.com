@@ -10,6 +10,8 @@ import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import AdUnit from '@/components/ad-unit'
+import AdUnitInArticle from '@/components/ad-unit-in-article'
+import { splitHtmlForAds } from '@/lib/split-html-for-ads'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
@@ -125,6 +127,9 @@ export default async function BlogPostPage({ params }: Props) {
   if (CITY_GUIDE_REDIRECTS[slug]) permanentRedirect(CITY_GUIDE_REDIRECTS[slug])
   const post = getBlogPost(slug)
   if (!post) notFound()
+
+  // Two in-article ads, spread evenly through the body copy.
+  const contentParts = splitHtmlForAds(post.content, 2)
 
   // Enrich restaurant cards with lat/lng for map layout
   const hasCards = post.restaurantCards && post.restaurantCards.length > 0
@@ -263,10 +268,16 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             )}
 
-            <div
-              className="prose-ramen"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            {contentParts.map((chunk, i) => (
+              <div key={i}>
+                <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: chunk }} />
+                {i < contentParts.length - 1 && (
+                  <div className="my-6">
+                    <AdUnitInArticle />
+                  </div>
+                )}
+              </div>
+            ))}
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-[#F5F4F0] border border-black/5 rounded-2xl p-6 sm:p-8">
