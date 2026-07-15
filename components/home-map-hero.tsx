@@ -148,6 +148,36 @@ function MatchedChips({ chips }: { chips: MatchedChip[] }) {
   )
 }
 
+// The listing's OWN callouts (its bowls + amenities), independent of any
+// active filter — so the map detail card always describes the place even
+// when no filters are set. Any chips it already matched an active filter on
+// are listed first so they still stand out.
+function listingChips(r: MapPoint & { matchedChips?: MatchedChip[] }): MatchedChip[] {
+  const seen = new Set<string>()
+  const out: MatchedChip[] = []
+  const push = (m?: { label: string; emoji: string; hex: string }) => {
+    if (m && !seen.has(m.label)) { seen.add(m.label); out.push({ label: m.label, emoji: m.emoji, hex: m.hex }) }
+  }
+  for (const c of r.matchedChips ?? []) push(c)
+  for (const b of r.bowls ?? []) push(BOWL_BY_KEY[b])
+  for (const a of r.amenities ?? []) push(FEATURE_BY_KEY[a])
+  for (const m of r.moods ?? []) push(MOOD_BY_KEY[m])
+  return out.slice(0, 6)
+}
+
+// Google-style $ / $$ / $$$ / $$$$ scale — the restaurant's tier is dark,
+// the rest of the scale is dimmed, so it reads as a range at a glance.
+function PriceScale({ priceRange }: { priceRange: string }) {
+  const level = Math.min(Math.max((priceRange.match(/\$/g) || []).length, 1), 4)
+  return (
+    <span className="inline-flex items-center text-sm font-semibold" aria-label={`Price level ${level} of 4`}>
+      {[1, 2, 3, 4].map(i => (
+        <span key={i} className={i <= level ? 'text-[#1E2026]' : 'text-[#1E2026]/25'}>$</span>
+      ))}
+    </span>
+  )
+}
+
 interface HomeMapHeroProps {
   initialFlags?: string[]
   initialBowls?: string[]
@@ -1451,10 +1481,10 @@ export default function HomeMapHero({
                           </span>
                         )
                       )}
-                      {r.priceRange && <span className="text-sm text-[#1E2026]/40">{r.priceRange}</span>}
+                      {r.priceRange && <PriceScale priceRange={r.priceRange} />}
                       <OpenStatusTag hours={r.hours} />
                     </div>
-                    <MatchedChips chips={r.matchedChips ?? []} />
+                    <MatchedChips chips={listingChips(r)} />
 
                     <div className="flex flex-wrap gap-2 mt-4">
                       <a
