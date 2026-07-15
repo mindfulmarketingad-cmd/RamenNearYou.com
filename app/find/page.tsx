@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindHubSearch from './find-hub-search'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { CAPITAL_CITIES } from '@/lib/capital-cities'
 import { MAJOR_CITIES } from '@/lib/major-cities-list'
 import { getCities } from '@/lib/restaurants'
@@ -192,6 +193,10 @@ export default function FindHubPage() {
           className="w-full h-48 sm:h-64 object-cover rounded-2xl mb-8"
           loading="lazy"
         />
+
+        <div className="mb-8">
+          <AdUnitInFeed />
+        </div>
 
         <FindHubSearch
           categories={CATEGORIES}

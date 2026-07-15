@@ -9,6 +9,7 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import SafeImg from '@/components/safe-img'
 import UgcFeature from '@/components/ugc-feature'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
@@ -265,28 +266,30 @@ export default async function CityFindPage(
                     .slice()
                     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
                     .slice(0, 20)
-                    .map(r => (
-                      <Link
-                        key={r.slug}
-                        href={`/${citySlug}/${stateSlug}/${r.slug}`}
-                        className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                      >
-                        <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
-                          {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
-                          <div className="flex items-center gap-2 mt-1">
-                            {r.rating && (
-                              <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                                <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                                {r.rating.toFixed(1)}
-                                {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
-                              </span>
-                            )}
-                            {r.priceRange && <span className="text-xs text-[#6B6862]">{r.priceRange}</span>}
+                    .map((r, i) => (
+                      <div key={r.slug}>
+                        <Link
+                          href={`/${citySlug}/${stateSlug}/${r.slug}`}
+                          className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
+                        >
+                          <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
+                            {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
+                            <div className="flex items-center gap-2 mt-1">
+                              {r.rating && (
+                                <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
+                                  <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
+                                  {r.rating.toFixed(1)}
+                                  {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
+                                </span>
+                              )}
+                              {r.priceRange && <span className="text-xs text-[#6B6862]">{r.priceRange}</span>}
+                            </div>
                           </div>
-                        </div>
-                      </Link>
+                        </Link>
+                        {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
+                      </div>
                     ))}
                 </div>
               </>
@@ -302,28 +305,30 @@ export default async function CityFindPage(
                   {placesResults.length} ramen spots near {cityName}.
                 </p>
                 <div className="space-y-3 mb-10">
-                  {placesResults.slice(0, 20).map(r => (
-                    <Link
-                      key={r.placeId}
-                      href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                      className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                    >
-                      <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
-                        {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
-                        <div className="flex items-center gap-2 mt-1">
-                          {r.rating && (
-                            <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                              <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                              {r.rating.toFixed(1)}
-                              {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
-                            </span>
-                          )}
-                          {r.priceLevel && <span className="text-xs text-[#6B6862]">{'$'.repeat(r.priceLevel)}</span>}
+                  {placesResults.slice(0, 20).map((r, i) => (
+                    <div key={r.placeId}>
+                      <Link
+                        href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                        className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
+                      >
+                        <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
+                          {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
+                          <div className="flex items-center gap-2 mt-1">
+                            {r.rating && (
+                              <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
+                                <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
+                                {r.rating.toFixed(1)}
+                                {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
+                              </span>
+                            )}
+                            {r.priceLevel && <span className="text-xs text-[#6B6862]">{'$'.repeat(r.priceLevel)}</span>}
+                          </div>
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
+                      {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
+                    </div>
                   ))}
                 </div>
               </>
