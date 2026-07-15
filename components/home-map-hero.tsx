@@ -44,6 +44,17 @@ const RamenMap = dynamic(() => import('@/components/ramen-map'), {
 
 function kmToMiles(km: number) { return km * 0.621371 }
 
+// Directions that start from the visitor's own location whenever we know
+// it, so "Get Directions" from the map pin doesn't force them to re-enter
+// an origin Google Maps could already infer.
+function buildDirectionsUrl(r: MapPoint, userPos: { lat: number; lng: number } | null) {
+  const destination = encodeURIComponent(`${r.name} ${r.city}, ${r.stateCode}`)
+  if (userPos) {
+    return `https://www.google.com/maps/dir/?api=1&origin=${userPos.lat},${userPos.lng}&destination=${destination}`
+  }
+  return r.googleMapsLink ?? r.googleMapsUrl ?? `https://www.google.com/maps/search/?api=1&query=${destination}`
+}
+
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 6371
   const dLat = (lat2 - lat1) * Math.PI / 180
@@ -714,6 +725,13 @@ export default function HomeMapHero({
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
+  // The pin the visitor last clicked on the map — drives the floating detail
+  // card in mapOnly layouts (no list panel to show this info alongside).
+  const selectedRestaurant = useMemo(
+    () => mapRestaurants.find(r => r.slug === selectedSlug) ?? null,
+    [mapRestaurants, selectedSlug]
+  )
+
   const handleSelect = useCallback((slug: string) => {
     setSelectedSlug(slug)
     document.getElementById(`home-card-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -1363,8 +1381,96 @@ export default function HomeMapHero({
               userLocation={userPos}
               accentColor={accentColor}
               boundary={boundary}
+              disablePopups={mapOnly}
             />
           )}
+
+          {/* Full detail card for the selected pin — mapOnly has no list panel,
+              so this floating card is the only place to see hours/directions/
+              chips before committing to the full listing page. */}
+          {mapOnly && selectedRestaurant && (() => {
+            const r = selectedRestaurant
+            const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+            const directionsUrl = buildDirectionsUrl(r, userPos)
+            const isSupp = !!r.googleMapsUrl
+            return (
+              <div className="absolute inset-x-0 bottom-0 sm:bottom-6 sm:left-4 sm:inset-x-auto z-[1300] px-2 pb-2 sm:px-0 sm:pb-0 pointer-events-none">
+                <div className="pointer-events-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-black/10 w-full sm:w-96 max-h-[70vh] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto">
+                  <div className="relative">
+                    <div className="relative w-full h-36 sm:h-40 bg-[#F5F4F0]">
+                      <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="384px" />
+                    </div>
+                    <button
+                      onClick={() => setSelectedSlug(null)}
+                      className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/10 hover:bg-white transition-colors"
+                      aria-label="Close details"
+                    >
+                      <X className="w-4 h-4 text-[#1E2026]" />
+                    </button>
+                    {r.featured && (
+                      <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[10px] font-bold uppercase tracking-wide shadow-sm">
+                        👑 #1 Featured
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <Link href={internalUrl} className="font-serif text-lg font-bold text-[#1E2026] hover:text-[#96602F] transition-colors leading-tight">
+                      {r.name}
+                    </Link>
+                    <p className="text-[#6B6862] text-sm mt-0.5">{r.city}, {r.stateCode}</p>
+                    <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                      {r.rating != null && (
+                        r.reviewSlug ? (
+                          <Link
+                            href={`/reviews/${r.reviewSlug}`}
+                            className="flex items-center gap-1 text-sm text-[#1E2026]/70 hover:text-[#96602F] hover:underline"
+                          >
+                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                            {r.rating.toFixed(1)}{r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}
+                          </Link>
+                        ) : (
+                          <span className="flex items-center gap-1 text-sm text-[#1E2026]/70">
+                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+                          </span>
+                        )
+                      )}
+                      {r.priceRange && <span className="text-sm text-[#1E2026]/40">{r.priceRange}</span>}
+                      <OpenStatusTag hours={r.hours} />
+                    </div>
+                    <MatchedChips chips={r.matchedChips ?? []} />
+
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      <a
+                        href={directionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => requireAuth(e)}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors"
+                      >
+                        <Navigation className="w-3.5 h-3.5" /> Get Directions
+                      </a>
+                      <Link
+                        href={internalUrl}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                      >
+                        View Details
+                      </Link>
+                      {!isSupp && (
+                        <button
+                          onClick={(e) => handleToggleSave(e, r.slug)}
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] transition-colors"
+                          aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
+                        >
+                          <Heart className={`w-3.5 h-3.5 ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
+                          {saves.has(r.slug) ? 'Saved' : 'Save'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })()}
 
           {showSearchAreaBtn && !dataLoading && (
             <div className={`absolute left-1/2 -translate-x-1/2 z-[1000] ${mapOnly ? 'bottom-6' : 'top-4'}`}>

@@ -138,9 +138,12 @@ interface Props {
   heatmap?: boolean
   visitedSlugs?: Set<string>
   boundary?: unknown | null   // GeoJSON Polygon/MultiPolygon — city outline (Zillow-style)
+  // Suppress the built-in Leaflet popup on marker click — used in mapOnly
+  // layouts where a richer detail card renders outside the map instead.
+  disablePopups?: boolean
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -276,24 +279,26 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           ).join('')}</div>`
         : ''
 
-      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name })
-        .addTo(map)
-        .bindPopup(`
-          <div style="min-width:160px">
-            ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
-            <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
-            <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
-            ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
-            ${chipsHtml}
-          </div>
-        `)
-        .on('click', () => onSelect(r.slug))
-        .on('popupopen', () => {
-          const el = marker.getPopup()?.getElement()?.querySelector<HTMLAnchorElement>('[data-ramen-slug]')
-          if (el) {
-            el.addEventListener('click', () => onSelect(r.slug), { once: true })
-          }
-        })
+      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name }).addTo(map)
+      if (!disablePopups) {
+        marker
+          .bindPopup(`
+            <div style="min-width:160px">
+              ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
+              <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
+              <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
+              ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
+              ${chipsHtml}
+            </div>
+          `)
+          .on('popupopen', () => {
+            const el = marker.getPopup()?.getElement()?.querySelector<HTMLAnchorElement>('[data-ramen-slug]')
+            if (el) {
+              el.addEventListener('click', () => onSelect(r.slug), { once: true })
+            }
+          })
+      }
+      marker.on('click', () => onSelect(r.slug))
       markersRef.current[r.slug] = marker
     })
   }, [ready, restaurants, selectedSlug, onSelect, accentColor, heatmap, visitedSlugs])
