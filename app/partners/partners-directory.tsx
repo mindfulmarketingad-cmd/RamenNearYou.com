@@ -215,7 +215,6 @@ export default function PartnersDirectory() {
               </thead>
               <tbody>
                 {paged.map((r, i) => {
-                  const isSupplementOnly = !!r.googleMapsUrl
                   return (
                     <tr key={`${r.citySlug}-${r.stateSlug}-${r.slug}-${i}`} className="border-b border-black/5 last:border-0 hover:bg-black/[0.02]">
                       <td className="px-4 py-3 align-top">
@@ -245,16 +244,12 @@ export default function PartnersDirectory() {
                         <HoursCell hours={r.hours} />
                       </td>
                       <td className="px-4 py-3 align-top whitespace-nowrap">
-                        {isSupplementOnly ? (
-                          <span className="text-[#6B6862]/50 text-xs">Not yet listed</span>
-                        ) : (
-                          <Link
-                            href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                            className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
-                          >
-                            Claim Listing
-                          </Link>
-                        )}
+                        <Link
+                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                          className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
+                        >
+                          Claim Listing
+                        </Link>
                       </td>
                     </tr>
                   )

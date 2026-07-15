@@ -6,6 +6,7 @@ import ClaimForm from './claim-form'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getRestaurant } from '@/lib/restaurants'
+import { findSupplementListing, supplementToRestaurant } from '@/lib/places-supplements'
 import PricingToggle from './pricing-toggle'
 
 const STRIPE_CLAIM_LINK_MONTHLY = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
@@ -13,7 +14,12 @@ const STRIPE_CLAIM_LINK_ANNUAL = 'https://buy.stripe.com/5kQ5kE2HU44Eff0eK2frW0b
 
 export default async function ClaimPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
-  const r = getRestaurant(city, state, restaurant)
+  // Not every listing on the map/partners table has a DB row — Google
+  // Places-supplement listings are just as claimable, adapted into the
+  // same Restaurant shape the rest of this page expects.
+  const dbr = getRestaurant(city, state, restaurant)
+  const sup = !dbr ? findSupplementListing(city, state, restaurant) : null
+  const r = dbr ?? (sup ? supplementToRestaurant(sup) : null)
   if (!r) notFound()
 
   const supabase = await createClient()
