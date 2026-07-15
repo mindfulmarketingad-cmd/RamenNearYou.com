@@ -206,6 +206,7 @@ export default function HomeMapHero({
   const [moods, setMoods] = useState<Set<string>>(new Set(initialMoods))
   const [prices, setPrices] = useState<Set<string>>(new Set(initialPrices))
   const [showFilters, setShowFilters] = useState(false)
+  const [adDismissed, setAdDismissed] = useState(false)
   const [zipFilter, setZipFilter] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('default')
 
@@ -996,9 +997,17 @@ export default function HomeMapHero({
         </div>
       </div>
 
-      {/* Ad — floats directly under the filter bar, on top of the map */}
-      {mapOnly && (
-        <div className="bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+      {/* Ad — floats directly under the filter bar, on top of the map.
+          Dismissible so it never permanently blocks the map view. */}
+      {mapOnly && !adDismissed && (
+        <div className="relative bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+          <button
+            onClick={() => setAdDismissed(true)}
+            aria-label="Dismiss ad"
+            className="absolute top-1.5 right-1.5 z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white/90 border border-black/10 text-[#6B6862] hover:text-[#1E2026] hover:bg-white shadow-sm transition-colors"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
           <AdUnitHorizontal />
         </div>
       )}
