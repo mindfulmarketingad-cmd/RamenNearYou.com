@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import Stripe from 'stripe'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { applyContributionReward } from '@/lib/rewards'
@@ -80,6 +81,10 @@ export async function POST(request: Request) {
           updated_at: new Date().toISOString(),
         })
         .eq('id', listing_id)
+      // The gold pin/featured badge reads from this table (see
+      // lib/featured-city.ts) — force the map data to pick up the new
+      // subscriber instead of waiting out its 24h stale-while-revalidate.
+      try { revalidatePath('/api/ramen-map') } catch {}
     } else if (restaurantSlug) {
       await admin
         .from('claim_subscriptions')
@@ -150,6 +155,7 @@ export async function POST(request: Request) {
         .from('featured_listings')
         .update({ status: 'cancelled', updated_at: new Date().toISOString() })
         .eq('id', sub.metadata.listing_id)
+      try { revalidatePath('/api/ramen-map') } catch {}
     } else {
       await admin
         .from('claim_subscriptions')

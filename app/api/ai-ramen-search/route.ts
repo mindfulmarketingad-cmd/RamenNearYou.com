@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   }
 
   // 4. Build restaurant context (top 200 by review count to keep prompt tight)
-  const allData = computeMapData()
+  const allData = await computeMapData()
   const hasLocation = typeof userLat === 'number' && typeof userLng === 'number'
 
   const restaurants = allData

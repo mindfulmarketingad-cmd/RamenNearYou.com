@@ -111,8 +111,8 @@ const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
   'sake-drinks':    r => /sake|saké|shochu|japanese whisky/.test(txt(r)) && !!r.amenities?.alcohol,
 }
 
-export function computeMapData(): MapPoint[] {
-  const featuredSlugs = getAllFeaturedSlugs()
+export async function computeMapData(): Promise<MapPoint[]> {
+  const featuredSlugs = await getAllFeaturedSlugs()
   const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
     .map(r => ({
