@@ -121,6 +121,9 @@ export default function NavbarClient() {
                 <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   Blog
                 </Link>
+                <Link href="/partners" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
+                  Partners
+                </Link>
                 <Link href="/about" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                   About
                 </Link>
@@ -206,6 +209,9 @@ export default function NavbarClient() {
               </Link>
               <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 Blog
+              </Link>
+              <Link href="/partners" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                Partners
               </Link>
               <Link href="/about" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                 About
