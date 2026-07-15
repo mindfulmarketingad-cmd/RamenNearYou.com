@@ -49,11 +49,16 @@ export default function PricingToggle({ monthlyLink, annualLink }: { monthlyLink
         </>
       ) : (
         <>
-          <div className="flex items-end justify-center gap-1.5 mb-1">
-            <span className="font-serif text-5xl font-bold text-[#1E2026]">$250</span>
-            <span className="text-[#6B6862] text-sm mb-2">/year</span>
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs font-semibold">
+              14-Day Free Trial
+            </span>
           </div>
-          <p className="text-[#6B6862] text-xs text-center mb-6">Billed annually. Cancel anytime.</p>
+          <div className="flex items-end justify-center gap-1.5 mb-1">
+            <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
+            <span className="text-[#6B6862] text-sm mb-2">today</span>
+          </div>
+          <p className="text-[#6B6862] text-xs text-center mb-6">Then $250/year after your free trial. Billed annually. Cancel anytime.</p>
         </>
       )}
 
@@ -70,7 +75,7 @@ export default function PricingToggle({ monthlyLink, annualLink }: { monthlyLink
         href={plan === 'monthly' ? monthlyLink : annualLink}
         className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
       >
-        {plan === 'monthly' ? 'Start Free Trial — $0 Today' : 'Subscribe — $250/year'}
+        Start Free Trial — $0 Today
       </a>
 
       <p className="text-center text-xs text-[#6B6862] mt-4">

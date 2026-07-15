@@ -78,6 +78,7 @@ export default function PartnersDirectory() {
   const [error, setError] = useState(false)
   const [query, setQuery] = useState('')
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set())
+  const [stateFilter, setStateFilter] = useState('')
   const [showFilters, setShowFilters] = useState(false)
   const [page, setPage] = useState(1)
 
@@ -102,6 +103,11 @@ export default function PartnersDirectory() {
     })
   }
 
+  const stateOptions = useMemo(() => {
+    const codes = new Set(data.map((r) => r.stateCode).filter(Boolean))
+    return [...codes].sort()
+  }, [data])
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return data.filter((r) => {
@@ -109,13 +115,14 @@ export default function PartnersDirectory() {
         const haystack = `${r.name} ${r.city} ${r.stateCode}`.toLowerCase()
         if (!haystack.includes(q)) return false
       }
+      if (stateFilter && r.stateCode !== stateFilter) return false
       if (activeKeys.size > 0) {
         const tags = [...(r.bowls ?? []), ...(r.moods ?? []), ...(r.amenities ?? [])]
         if (!tags.some((t) => activeKeys.has(t))) return false
       }
       return true
     }).sort((a, b) => a.name.localeCompare(b.name))
-  }, [data, query, activeKeys])
+  }, [data, query, stateFilter, activeKeys])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const currentPage = Math.min(page, totalPages)
@@ -135,6 +142,16 @@ export default function PartnersDirectory() {
             className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
           />
         </div>
+        <select
+          value={stateFilter}
+          onChange={(e) => { setStateFilter(e.target.value); setPage(1) }}
+          className="px-3 py-2.5 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] focus:border-[#B57F50] transition-colors"
+        >
+          <option value="">All States</option>
+          {stateOptions.map((code) => (
+            <option key={code} value={code}>{code}</option>
+          ))}
+        </select>
         <button
           onClick={() => setShowFilters((v) => !v)}
           className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-colors ${
