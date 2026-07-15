@@ -19,13 +19,15 @@ const US_STATES = [
 const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
 
-// Stripe claim/free-trial checkout (same link used by the per-restaurant claim flow).
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+// Stripe claim/free-trial checkout (same links used by the per-restaurant claim flow).
+const STRIPE_CLAIM_LINK_MONTHLY = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const STRIPE_CLAIM_LINK_ANNUAL = 'https://buy.stripe.com/5kQ5kE2HU44Eff0eK2frW0b'
 
 export default function ClaimSearch() {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const [manual, setManual] = useState(false)
+  const [plan, setPlan] = useState<'monthly' | 'annual'>('monthly')
 
   const [form, setForm] = useState({
     name: '', address: '', city: '', state: 'GA', zip: '',
@@ -65,9 +67,9 @@ export default function ClaimSearch() {
   }
 
   if (status === 'success') {
-    const trialLink = form.ownerEmail.trim()
-      ? `${STRIPE_CLAIM_LINK}?prefilled_email=${encodeURIComponent(form.ownerEmail.trim())}`
-      : STRIPE_CLAIM_LINK
+    const emailParam = form.ownerEmail.trim() ? `?prefilled_email=${encodeURIComponent(form.ownerEmail.trim())}` : ''
+    const monthlyLink = `${STRIPE_CLAIM_LINK_MONTHLY}${emailParam}`
+    const annualLink = `${STRIPE_CLAIM_LINK_ANNUAL}${emailParam}`
     return (
       <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8 sm:p-10 text-center">
         <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
@@ -80,6 +82,27 @@ export default function ClaimSearch() {
 
         {/* Payment prompt */}
         <div className="bg-[#F5F4F0] rounded-2xl border border-black/8 p-6 max-w-sm mx-auto mb-5">
+          <div className="flex items-center justify-center gap-1 bg-white rounded-full border border-black/8 p-1 mb-5 max-w-[220px] mx-auto">
+            <button
+              type="button"
+              onClick={() => setPlan('monthly')}
+              className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                plan === 'monthly' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              type="button"
+              onClick={() => setPlan('annual')}
+              className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                plan === 'annual' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+              }`}
+            >
+              Annual
+            </button>
+          </div>
+
           <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
             14-Day Free Trial
           </span>
@@ -87,9 +110,13 @@ export default function ClaimSearch() {
             <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
             <span className="text-[#6B6862] text-sm mb-1.5">today</span>
           </div>
-          <p className="text-[#6B6862] text-xs mb-5">Then $19.99/month after your free trial. Cancel anytime.</p>
+          <p className="text-[#6B6862] text-xs mb-5">
+            {plan === 'monthly'
+              ? 'Then $19.99/month after your free trial. Cancel anytime.'
+              : 'Then $250/year after your free trial. Billed annually. Cancel anytime.'}
+          </p>
           <a
-            href={trialLink}
+            href={plan === 'monthly' ? monthlyLink : annualLink}
             className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
           >
             Start Free Trial — $0 Today
@@ -114,6 +141,27 @@ export default function ClaimSearch() {
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
       {/* Pricing header */}
       <div className="text-center mb-6 pb-6 border-b border-black/6">
+        <div className="flex items-center justify-center gap-1 bg-[#F5F4F0] rounded-full border border-black/8 p-1 mb-5 max-w-[220px] mx-auto">
+          <button
+            type="button"
+            onClick={() => setPlan('monthly')}
+            className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              plan === 'monthly' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+            }`}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            onClick={() => setPlan('annual')}
+            className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              plan === 'annual' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+            }`}
+          >
+            Annual
+          </button>
+        </div>
+
         <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
           14-Day Free Trial
         </span>
@@ -121,7 +169,11 @@ export default function ClaimSearch() {
           <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
           <span className="text-[#6B6862] text-sm mb-2">today</span>
         </div>
-        <p className="text-[#6B6862] text-xs">Then $19.99/month after your free trial. Cancel anytime.</p>
+        <p className="text-[#6B6862] text-xs">
+          {plan === 'monthly'
+            ? 'Then $19.99/month after your free trial. Cancel anytime.'
+            : 'Then $250/year after your free trial. Billed annually. Cancel anytime.'}
+        </p>
       </div>
 
       {/* Benefits */}
