@@ -68,6 +68,10 @@ export const FIND_PAGES = [
   { href: '/find/hanabi-ramen-near-me', label: 'Hanabi Ramen Near Me', emoji: '🎆' },
   { href: '/find/shokku-ramen-near-me', label: 'Shokku Ramen Near Me', emoji: '⚡' },
   { href: '/find/ramen-shop-near-me', label: 'Ramen Shop Near Me', emoji: '🏮' },
+  { href: '/find/muroran-curry-ramen-near-me', label: 'Muroran Curry Ramen Near Me', emoji: '🍛' },
+  { href: '/find/kagoshima-ramen-near-me', label: 'Kagoshima Ramen Near Me', emoji: '🧄' },
+  { href: '/find/hakata-ramen-near-me', label: 'Hakata Ramen Near Me', emoji: '🍜' },
+  { href: '/find/champon-ramen-near-me', label: 'Champon Ramen Near Me', emoji: '🦐' },
 ]
 
 interface Props {

@@ -477,6 +477,66 @@ export const FIND_MODIFIERS: FindModifier[] = [
       { q: 'Is tonkatsu the same as tonkotsu?', a: 'No. Tonkatsu is a breaded, fried pork cutlet, while tonkotsu is a rich pork-bone broth. Tonkatsu ramen often uses a tonkotsu broth, so one bowl can feature both.' },
     ],
   },
+  {
+    prefix: 'muroran-curry-ramen-in',
+    filter: { initialFlags: ['muroran-curry'] },
+    title: (c, s) => `Muroran Curry Ramen In ${c}, ${s}`,
+    metaNoun: 'Muroran curry ramen',
+    hubHref: '/find/muroran-curry-ramen-near-me',
+    hubLabel: 'Muroran Curry Ramen',
+    about:
+      'Muroran curry ramen comes from the port city of Muroran, Hokkaido — a bowl of thin, crimped noodles in a spicy, Japanese-style curry broth topped with a thin lard slick that keeps it piping hot until the last bite.',
+    faqs: (city, st) => [
+      { q: `Where can I find Muroran curry ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving Muroran-style curry ramen. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews for a dedicated curry ramen bowl.` },
+      { q: 'What is Muroran curry ramen?', a: 'Muroran curry ramen is a Hokkaido specialty from the city of Muroran — thin, crimped wheat noodles served in a spicy Japanese curry broth, usually topped with a lard slick that keeps the bowl scalding hot to the very end.' },
+      { q: 'Is Muroran curry ramen spicy?', a: 'It has a warming, curry-forward heat rather than chili-pepper spice — more like a Japanese curry roux than a fiery chili bowl, though some shops offer an extra-spicy version.' },
+    ],
+  },
+  {
+    prefix: 'kagoshima-ramen-in',
+    filter: { initialFlags: ['kagoshima'] },
+    title: (c, s) => `Kagoshima Ramen In ${c}, ${s}`,
+    metaNoun: 'Kagoshima ramen',
+    hubHref: '/find/kagoshima-ramen-near-me',
+    hubLabel: 'Kagoshima Ramen',
+    about:
+      'Kagoshima ramen comes from the southern tip of Kyushu — a pork-bone broth like tonkotsu, but simmered gentler and blended with chicken or vegetable stock, giving a milder, less funky, slightly sweet bowl often finished with fried garlic chips.',
+    faqs: (city, st) => [
+      { q: `Where can I find Kagoshima ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving Kagoshima-style ramen. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews to confirm the style.` },
+      { q: 'What is Kagoshima ramen?', a: 'Kagoshima ramen is a Kyushu pork-bone ramen style, but milder than its Hakata neighbor — the broth is blended with chicken or vegetable stock and simmered less aggressively, giving a softer, slightly sweet bowl often topped with fried garlic chips.' },
+      { q: 'How is Kagoshima ramen different from Hakata tonkotsu?', a: 'Both are pork-bone based, but Kagoshima ramen is gentler and less "porky" in smell, often blended with other stocks, while Hakata tonkotsu is a straight, intensely simmered pork-bone broth.' },
+    ],
+  },
+  {
+    prefix: 'hakata-ramen-in',
+    filter: { initialFlags: ['hakata'] },
+    title: (c, s) => `Hakata Ramen In ${c}, ${s}`,
+    metaNoun: 'Hakata ramen',
+    hubHref: '/find/hakata-ramen-near-me',
+    hubLabel: 'Hakata Ramen',
+    about:
+      'Hakata ramen is the original tonkotsu style from the Hakata district of Fukuoka — a rich, milky pork-bone broth with thin, straight, extra-firm noodles designed for kaedama (a noodle refill) so the broth outlasts the first serving.',
+    faqs: (city, st) => [
+      { q: `Where can I find Hakata ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving Hakata-style ramen. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews for kaedama and thin, straight noodles.` },
+      { q: 'What is Hakata ramen?', a: 'Hakata ramen is the original tonkotsu ramen style, from the Hakata district of Fukuoka on Kyushu — a rich, milky pork-bone broth served with thin, straight, extra-firm noodles.' },
+      { q: 'What is kaedama?', a: 'Kaedama is a noodle refill — you order a fresh batch of noodles to add to your remaining broth once the first serving is gone. It is a Hakata tradition that lets you keep eating without ordering a whole new bowl.' },
+    ],
+  },
+  {
+    prefix: 'champon-ramen-in',
+    filter: { initialFlags: ['champon'] },
+    title: (c, s) => `Champon Ramen In ${c}, ${s}`,
+    metaNoun: 'champon ramen',
+    hubHref: '/find/champon-ramen-near-me',
+    hubLabel: 'Champon Ramen',
+    about:
+      'Champon is a Nagasaki noodle dish where thick noodles, pork, seafood, and vegetables are stir-fried together and then simmered directly in a milky chicken-and-pork broth in the same pot — a heartier, one-pot cousin of classic ramen.',
+    faqs: (city, st) => [
+      { q: `Where can I find champon ramen in ${city}?`, a: `The map above shows ${city}, ${st} restaurants serving champon. Enter your ZIP or click "Use my location" to sort by distance, then check menus and reviews to confirm they serve the Nagasaki-style bowl.` },
+      { q: 'What is champon ramen?', a: 'Champon is a Nagasaki specialty where thick noodles, pork, seafood, and vegetables are stir-fried and then simmered together in the same pot as a milky chicken-and-pork broth, so the noodles cook directly in the soup.' },
+      { q: 'Is champon the same as ramen?', a: 'They are closely related noodle-soup dishes, but champon is typically loaded with more seafood and vegetables, uses thicker noodles cooked in the broth itself, and has its own distinct one-pot origin in Nagasaki.' },
+    ],
+  },
 ]
 
 export interface ModifierMatch {

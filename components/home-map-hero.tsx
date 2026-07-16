@@ -665,6 +665,12 @@ export default function HomeMapHero({
         if (flags.has('fish-ramen') && !/fish|seafood|gyokai|niboshi|shellfish|crab|shrimp|clam|oyster|sushi/i.test(r.name)) return false
         if (flags.has('hanabi') && !/hanabi/i.test(r.name)) return false
         if (flags.has('shokku') && !/shokku/i.test(r.name)) return false
+        // Regional Japanese ramen styles — the slim payload only carries the
+        // name, so match shops whose name signals the specific style.
+        if (flags.has('muroran-curry') && !/muroran|curry/i.test(r.name)) return false
+        if (flags.has('kagoshima') && !/kagoshima/i.test(r.name)) return false
+        if (flags.has('hakata') && !/hakata/i.test(r.name)) return false
+        if (flags.has('champon') && !/champon/i.test(r.name)) return false
         // "Sushi" — sushi bars and Japanese spots likely to serve sushi.
         if (flags.has('sushi') && !/sushi|sashimi|nigiri|omakase/i.test(r.name)) return false
         // "Lo Mein" — Chinese restaurants/noodle houses likely to serve lo mein.

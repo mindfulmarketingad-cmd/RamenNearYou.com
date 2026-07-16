@@ -171,6 +171,15 @@ const CATEGORIES = [
       { href: '/find/lanzhou-ramen', label: 'Lanzhou Ramen Near Me' },
     ],
   },
+  {
+    heading: 'By Regional Style',
+    pages: [
+      { href: '/find/hakata-ramen-near-me', label: 'Hakata Ramen Near Me' },
+      { href: '/find/kagoshima-ramen-near-me', label: 'Kagoshima Ramen Near Me' },
+      { href: '/find/muroran-curry-ramen-near-me', label: 'Muroran Curry Ramen Near Me' },
+      { href: '/find/champon-ramen-near-me', label: 'Champon Ramen Near Me' },
+    ],
+  },
 ]
 
 export default function FindHubPage() {
