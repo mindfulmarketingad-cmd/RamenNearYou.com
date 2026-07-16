@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
+import AdUnitInArticle from '@/components/ad-unit-in-article'
 import { Loader2 } from 'lucide-react'
 import type { ResolvedCity } from '@/lib/find-city'
 import type { FindModifier } from '@/lib/find-modifiers'
@@ -71,6 +72,10 @@ export default function ModifierCityFindPage({
               <span>/</span>
               <span className="text-[#6B6862]">{city.cityName}</span>
             </nav>
+
+            <div className="mb-6">
+              <AdUnitInArticle />
+            </div>
 
             {cityGuidePost && (
               <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />

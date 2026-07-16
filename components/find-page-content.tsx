@@ -3,6 +3,7 @@ import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import UgcFeature from '@/components/ugc-feature'
+import AdUnitInArticle from '@/components/ad-unit-in-article'
 import { pickStockPhoto } from '@/lib/stock-photos'
 
 export type FindFaq = { q: string; a: string }
@@ -59,6 +60,11 @@ export default function FindPageContent({
 
         {/* Intro */}
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">{heading}</h2>
+
+        <div className="mb-4">
+          <AdUnitInArticle />
+        </div>
+
         {intro.map((p, i) => (
           <p key={i} className="text-[#6B6862] text-[15px] leading-relaxed mb-4">{p}</p>
         ))}

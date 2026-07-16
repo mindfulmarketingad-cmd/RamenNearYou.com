@@ -10,6 +10,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import SafeImg from '@/components/safe-img'
 import UgcFeature from '@/components/ugc-feature'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitInArticle from '@/components/ad-unit-in-article'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
@@ -246,6 +247,10 @@ export default async function CityFindPage(
               <span>/</span>
               <span className="text-[#6B6862]">{cityName}</span>
             </nav>
+
+            <div className="mb-6">
+              <AdUnitInArticle />
+            </div>
 
             {/* Preserved editorial guide content, if this city has one */}
             {cityGuidePost && (
