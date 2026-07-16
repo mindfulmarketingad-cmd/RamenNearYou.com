@@ -8,7 +8,6 @@ import {
 } from '@/lib/places-supplements'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import RestaurantListingPage from '@/components/restaurant-listing-page'
-import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import CityFilterPage from '@/components/city-filter-page'
 import {
@@ -21,15 +20,15 @@ import {
 } from '@/lib/city-filter-pages'
 
 export const dynamicParams = true
-// Force-dynamic: the restaurant-detail branch reads cookies (via the
-// Supabase server client, for claim/owner status) on every request. Mixing
-// that with this route's generateStaticParams-based city×filter pages
-// caused Next to throw DYNAMIC_SERVER_USAGE instead of just rendering those
-// paths dynamically — "This page couldn't load" for effectively every
-// restaurant page. Forcing the whole segment dynamic trades a small amount
-// of static caching on the ~140 city×filter combo pages for every
-// individual restaurant page actually working.
-export const dynamic = 'force-dynamic'
+// ISR: these ~12k listing pages are the site's most important SEO surface,
+// and they used to be force-dynamic (every visit paid a full server render
+// plus 2-3 Supabase round-trips) because the render path read cookies for
+// per-visitor owner status. That per-visitor state now resolves client-side
+// (/api/owner/listing-status via useOwnerStatus), and the remaining Supabase
+// reads (owner overrides, claim/verified status) are per-restaurant and go
+// through the cookie-free admin client — so pages render once, cache at the
+// CDN, and revalidate hourly.
+export const revalidate = 3600
 
 export async function generateStaticParams() {
   // Every restaurant (DB or Places-supplement) renders on demand via
@@ -150,10 +149,14 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   }
   const r2 = { ...dbr } as Restaurant
 
+  // Per-restaurant Supabase reads go through the admin client (no cookies),
+  // which is what lets this page stay statically cached. Per-visitor owner
+  // status is resolved client-side instead.
+  const admin = createAdminClient()
+
   // Apply owner-submitted overrides.
-  const sb = await createClient()
-  if (sb) {
-    const { data: ov } = await sb
+  if (admin) {
+    const { data: ov } = await admin
       .from('restaurant_overrides')
       .select('description, phone, website, menu_link, hours')
       .eq('restaurant_slug', r2.slug)
@@ -172,35 +175,16 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 6)
 
-  // Claim/verification status — every restaurant checks this, not just one
-  // hardcoded listing, so the page knows whether it's already claimed and,
-  // if so, whether the current visitor owns it.
+  // Claim/verification status — per-restaurant, so it caches with the page.
   let isVerified = false
-  let isOwner = false
-  let canSelfLink = false
-  const claimsClient = createAdminClient() ?? sb
-  if (claimsClient) {
-    const { data: claim } = await claimsClient
+  if (admin) {
+    const { data: claim } = await admin
       .from('claims')
-      .select('id, user_id, contact_email')
+      .select('id')
       .eq('restaurant_slug', r2.slug)
       .eq('status', 'approved')
       .maybeSingle()
     isVerified = !!claim
-
-    if (claim && sb) {
-      const { data: { user } } = await sb.auth.getUser()
-      if (user) {
-        if (user.id === claim.user_id) {
-          isOwner = true
-        } else if (
-          claim.contact_email &&
-          claim.contact_email.toLowerCase() === user.email?.toLowerCase()
-        ) {
-          canSelfLink = true
-        }
-      }
-    }
   }
 
   return (
@@ -210,8 +194,6 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       state={state}
       nearby={nearbyListings}
       isVerified={isVerified}
-      isOwner={isOwner}
-      canSelfLink={canSelfLink}
     />
   )
 }

@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronRight, Star, ExternalLink, MapPin, Store, QrCode, Check, X, BadgeCheck, Edit3 } from 'lucide-react'
+import { ChevronRight, Star, ExternalLink, MapPin, QrCode, Check, X } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { restaurants } from '@/lib/restaurants'
-import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import {
   getRestaurantByReviewSlug,
@@ -18,6 +16,7 @@ import {
   googleReviewsUrl,
 } from '@/lib/reviews'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
+import OwnerCtaCard from '@/components/owner-cta-card'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 
@@ -25,11 +24,16 @@ interface Props {
   params: Promise<{ restaurant: string }>
 }
 
-// Only the generated review pages (one per restaurant) exist; everything else 404s.
-export const dynamicParams = false
+// ISR: ~7.9k review pages render on demand and cache at the CDN (pre-building
+// all of them would balloon the build). Unknown slugs still 404 via the
+// hasReviewPage() check in the page body. Per-visitor owner state lives in
+// the client-side OwnerCtaCard so nothing here reads cookies.
+export const dynamicParams = true
+export const revalidate = 86400
 
 export async function generateStaticParams() {
-  return getReviewRestaurants().map((r) => ({ restaurant: getReviewSlug(r) }))
+  // Pre-render only the most-reviewed pages; the long tail builds on demand.
+  return getReviewRestaurants().slice(0, 50).map((r) => ({ restaurant: getReviewSlug(r) }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -82,26 +86,19 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   const { paragraph: summaryParagraph, pros, cons } = generateReviewSummary(r, reviews)
   const rowCount = Math.max(pros.length, cons.length)
 
-  // Claim/verification status — same lookup used on the listing page, so this
-  // page doesn't keep showing "Own This Business?" to an owner who already
-  // claimed it.
+  // Claim/verification status — per-restaurant (admin client, no cookies),
+  // so it caches with the page. Whether the current visitor OWNS the claim
+  // is resolved client-side in OwnerCtaCard.
   let isVerified = false
-  let isOwner = false
-  const supabase = await createClient()
-  const claimsClient = createAdminClient() ?? supabase
-  if (claimsClient) {
-    const { data: claim } = await claimsClient
+  const admin = createAdminClient()
+  if (admin) {
+    const { data: claim } = await admin
       .from('claims')
-      .select('id, user_id')
+      .select('id')
       .eq('restaurant_slug', r.slug)
       .eq('status', 'approved')
       .maybeSingle()
     isVerified = !!claim
-
-    if (claim && supabase) {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user && user.id === claim.user_id) isOwner = true
-    }
   }
 
   const reviewSchema = {
@@ -274,43 +271,13 @@ export default async function RestaurantReviewsPage({ params }: Props) {
 
           {/* Owner CTAs */}
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-            {isOwner ? (
-              <Link
-                href={`/owner/${r.slug}`}
-                className="flex items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 p-4 hover:bg-sky-100 transition-colors"
-              >
-                <span className="w-10 h-10 rounded-full bg-sky-500/15 flex items-center justify-center shrink-0">
-                  <Edit3 className="w-5 h-5 text-sky-600" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-bold text-[#1E2026]">Manage Your Listing</span>
-                  <span className="block text-xs text-[#6B6862]">Update hours, photos, and info</span>
-                </span>
-              </Link>
-            ) : isVerified ? (
-              <div className="flex items-center gap-3 rounded-xl border border-black/8 bg-[#F5F4F0] p-4">
-                <span className="w-10 h-10 rounded-full bg-sky-500/15 flex items-center justify-center shrink-0">
-                  <BadgeCheck className="w-5 h-5 text-sky-500" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-bold text-[#1E2026]">Verified Listing</span>
-                  <span className="block text-xs text-[#6B6862]">This business has already been claimed</span>
-                </span>
-              </div>
-            ) : (
-              <Link
-                href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                className="flex items-center gap-3 rounded-xl border border-black/8 bg-white p-4 hover:border-[#B57F50]/40 transition-colors"
-              >
-                <span className="w-10 h-10 rounded-full bg-[#1E2026]/8 flex items-center justify-center shrink-0">
-                  <Store className="w-5 h-5 text-[#1E2026]" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-bold text-[#1E2026]">Own This Business?</span>
-                  <span className="block text-xs text-[#6B6862]">Claim and manage the {r.name} listing</span>
-                </span>
-              </Link>
-            )}
+            <OwnerCtaCard
+              slug={r.slug}
+              citySlug={r.citySlug}
+              stateSlug={r.stateSlug}
+              restaurantName={r.name}
+              isVerified={isVerified}
+            />
             <Link
               href={`/review-cards?restaurant=${encodeURIComponent(r.slug)}`}
               className="flex items-center gap-3 rounded-xl border border-[#B57F50]/25 bg-[#B57F50]/8 p-4 hover:bg-[#B57F50]/14 transition-colors"

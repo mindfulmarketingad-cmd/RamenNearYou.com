@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3 } from 'lucide-react'
 import { useCurrentUser } from '@/lib/use-current-user'
+import { useOwnerStatus } from '@/lib/use-owner-status'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
 import LoginGateModal from '@/components/login-gate-modal'
 
@@ -20,18 +21,20 @@ interface Props {
   website: string
   phone: string
   menuUrl: string
-  isOwner: boolean
   isVerified: boolean
 }
 
 // Google-Maps-style action row on the individual restaurant listing page.
 // Directions/Website/Call/Save/Claim all require a logged-in account — a
 // logged-out click opens LoginGateModal instead of following the link.
+// Owner status is resolved client-side (useOwnerStatus) so the page itself
+// can stay statically cached.
 export default function ListingActionRow({
-  slug, restaurantName, city, state, directionsUrl, website, phone, menuUrl, isOwner, isVerified,
+  slug, restaurantName, city, state, directionsUrl, website, phone, menuUrl, isVerified,
 }: Props) {
   const router = useRouter()
   const { user, authChecked } = useCurrentUser()
+  const { isOwner } = useOwnerStatus(slug)
   const [gateOpen, setGateOpen] = useState(false)
   const [saved, setSaved] = useState(false)
   const [busy, setBusy] = useState(false)

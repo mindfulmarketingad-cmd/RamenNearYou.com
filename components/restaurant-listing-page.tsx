@@ -9,12 +9,13 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
-import ConnectAccountPanel from '@/components/connect-account-panel'
+import SelfLinkPanel from '@/components/self-link-panel'
+import OpenNowBadge from '@/components/open-now-badge'
 import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { expandDescription } from '@/lib/expand-description'
-import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
+import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
 import type { Restaurant } from '@/lib/restaurants'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -54,35 +55,44 @@ function StarRating({ rating }: { rating: number | null }) {
   )
 }
 
-function isOpenNow(hours: Record<string, string[]> | null): boolean {
-  if (!hours) return false
-  const slots = hours[DOW[new Date().getDay()]]
-  if (!slots || slots[0] === 'Closed') return false
-  function parseSlot(slot: string): [number, number] | null {
-    const m = slot.match(/^(\d+(?::\d+)?)\s*(AM|PM)?\s*-\s*(\d+(?::\d+)?)\s*(AM|PM)$/i)
-    if (!m) return null
-    const [, sStr, sMer, eStr, eMer] = m
-    function p(t: string, mer: string | undefined): number {
-      const [h, mi] = t.split(':')
-      let hh = parseInt(h); const mm = mi ? parseInt(mi) : 0
-      const mer2 = mer?.toUpperCase()
-      if (mer2 === 'PM' && hh !== 12) hh += 12
-      else if (mer2 === 'AM' && hh === 12) hh = 0
-      return hh * 60 + mm
-    }
-    const end = p(eStr, eMer)
-    let sm = sMer
-    if (!sm) { const sh = parseInt(sStr); sm = sh < 6 && Math.floor(end / 60) >= 12 ? 'PM' : 'AM' }
-    return [p(sStr, sm), end]
-  }
-  const cur = new Date().getHours() * 60 + new Date().getMinutes()
-  return slots.some(s => { const rr = parseSlot(s); return rr ? cur >= rr[0] && cur < rr[1] : false })
-}
-
 function firstUrl(raw?: string | null): string {
   if (!raw) return ''
   const m = raw.match(/https?:\/\/[^\s,]+/)
   return m ? m[0] : ''
+}
+
+// Converts the human-readable hours ("11:30AM-3PM") into schema.org
+// OpeningHoursSpecification entries. Unparseable slots are skipped.
+function hoursToSchema(hours: Record<string, string[]>): object[] {
+  const specs: object[] = []
+  for (const [day, slots] of Object.entries(hours)) {
+    if (!slots || slots[0] === 'Closed') continue
+    for (const slot of slots) {
+      const m = slot.match(/^(\d+(?::\d+)?)\s*(AM|PM)?\s*-\s*(\d+(?::\d+)?)\s*(AM|PM)$/i)
+      if (!m) continue
+      const [, sStr, sMer, eStr, eMer] = m
+      const toMin = (t: string, mer: string | undefined): number => {
+        const [h, mi] = t.split(':')
+        let hh = parseInt(h); const mm = mi ? parseInt(mi) : 0
+        const mer2 = mer?.toUpperCase()
+        if (mer2 === 'PM' && hh !== 12) hh += 12
+        else if (mer2 === 'AM' && hh === 12) hh = 0
+        return hh * 60 + mm
+      }
+      const end = toMin(eStr, eMer)
+      let sm = sMer
+      if (!sm) { const sh = parseInt(sStr); sm = sh < 6 && Math.floor(end / 60) >= 12 ? 'PM' : 'AM' }
+      const start = toMin(sStr, sm)
+      const fmt = (min: number) => `${String(Math.floor(min / 60)).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`
+      specs.push({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: `https://schema.org/${day}`,
+        opens: fmt(start),
+        closes: fmt(end),
+      })
+    }
+  }
+  return specs
 }
 
 interface Props {
@@ -91,15 +101,14 @@ interface Props {
   state: string
   nearby: Restaurant[]
   isVerified?: boolean
-  isOwner?: boolean
-  canSelfLink?: boolean
 }
 
 // Google-Maps-style single-restaurant listing: a scrollable details panel on
 // the left, a single-pin map on the right. Mirrors the searchmap layout.
-export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false, isOwner = false, canSelfLink = false }: Props) {
+// Per-visitor owner state (manage button, self-link panel) resolves
+// client-side so this page can be statically cached.
+export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false }: Props) {
   const url = `https://www.ramennearyou.com/${city}/${state}/${r.slug}`
-  const openNow = isOpenNow(r.hours)
   const category = (r.subtypes?.split(',')[0] ?? 'Ramen restaurant').trim()
   const menuUrl = r.menuLink?.trim() ?? ''
   const orderUrl = firstUrl(r.orderLinks)
@@ -108,6 +117,18 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
   const about = expandDescription(r)
   const aboutParas = about ? about.split('\n\n').filter(Boolean) : []
   const reviewSlug = getReviewSlug(r)
+
+  // Deterministic per-listing review digest — unique editorial copy for this
+  // restaurant (same generator the /reviews pages use), so every listing
+  // page carries substantive, listing-specific text beyond the raw facts.
+  let dinersSay: { paragraph: string; pros: string[]; cons: string[] } | null = null
+  if (r.rating && (r.reviewCount ?? 0) > 0) {
+    try {
+      dinersSay = generateReviewSummary(r, generateReviews(r))
+    } catch {
+      dinersSay = null
+    }
+  }
 
   const features = [
     { active: r.amenities?.dineIn, label: '🍜 Dine-in' },
@@ -138,10 +159,17 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
     },
     url,
     servesCuisine: 'Ramen',
-    ...(r.latitude && r.longitude ? { geo: { '@type': 'GeoCoordinates', latitude: r.latitude, longitude: r.longitude } } : {}),
+    ...(r.photo ? { image: r.photo } : {}),
+    ...(r.latitude && r.longitude ? {
+      geo: { '@type': 'GeoCoordinates', latitude: r.latitude, longitude: r.longitude },
+      hasMap: directionsUrl,
+    } : {}),
     ...(r.phone ? { telephone: r.phone } : {}),
     ...(r.priceRange ? { priceRange: r.priceRange } : {}),
     ...(r.website ? { sameAs: r.website } : {}),
+    ...(menuUrl ? { menu: menuUrl } : {}),
+    ...(r.amenities?.acceptsReservations != null ? { acceptsReservations: !!r.amenities.acceptsReservations } : {}),
+    ...(r.hours && Object.keys(r.hours).length > 0 ? { openingHoursSpecification: hoursToSchema(r.hours) } : {}),
     ...(r.rating && r.reviewCount > 0 ? {
       aggregateRating: { '@type': 'AggregateRating', ratingValue: r.rating.toFixed(1), reviewCount: r.reviewCount, bestRating: '5', worstRating: '1' },
     } : {}),
@@ -204,9 +232,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <span>{category}</span>
                 {r.priceRange && <><span className="text-[#6B6862]">·</span><span>{r.priceRange}</span></>}
                 {r.businessStatus === 'OPERATIONAL' && (
-                  <span className={`font-semibold ${openNow ? 'text-emerald-600' : 'text-red-500'}`}>
-                    · {openNow ? 'Open now' : 'Closed'}
-                  </span>
+                  <OpenNowBadge hours={r.hours} variant="inline" />
                 )}
               </div>
 
@@ -223,17 +249,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 website={r.website ?? ''}
                 phone={r.phone ?? ''}
                 menuUrl={menuUrl}
-                isOwner={isOwner}
                 isVerified={isVerified}
               />
 
               {/* Self-link: logged-in user's email matches the approved claim
-                  but their account isn't connected to it yet */}
-              {canSelfLink && (
-                <div className="mt-5">
-                  <ConnectAccountPanel slug={r.slug} restaurantName={r.name} />
-                </div>
-              )}
+                  but their account isn't connected to it yet (client-side) */}
+              <SelfLinkPanel slug={r.slug} restaurantName={r.name} />
 
               {/* Primary CTAs */}
               {(orderUrl || menuUrl) && (
@@ -284,9 +305,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     <Clock className="w-4 h-4 text-[#96602F] shrink-0" />
                     <span className="text-sm font-bold text-[#1E2026]">Hours</span>
                     {r.businessStatus === 'OPERATIONAL' && (
-                      <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${openNow ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
-                        {openNow ? 'Open' : 'Closed'}
-                      </span>
+                      <OpenNowBadge hours={r.hours} variant="pill" />
                     )}
                   </div>
                   <div className="space-y-1.5">
@@ -331,6 +350,66 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                         {i === 0 && <div className="mt-3"><AdUnitInArticle /></div>}
                       </div>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {/* What diners say — per-listing review digest, unique to this
+                  restaurant, with a link to the full review page */}
+              {dinersSay && (
+                <div className="mt-6 pt-5 border-t border-black/8">
+                  <p className="text-sm font-bold text-[#1E2026] mb-3">What Diners Say</p>
+                  <p className="text-[#4B4845] leading-relaxed text-[13px] mb-3">{dinersSay.paragraph}</p>
+                  {dinersSay.pros.length > 0 && (
+                    <ul className="space-y-1.5 mb-3">
+                      {dinersSay.pros.slice(0, 3).map((p) => (
+                        <li key={p} className="flex items-start gap-2 text-[13px] text-[#4B4845]">
+                          <span className="text-emerald-500 shrink-0 mt-px">✓</span>
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {hasReviewPage(reviewSlug) && (
+                    <Link href={`/reviews/${reviewSlug}`} className="text-xs text-[#96602F] font-medium hover:underline">
+                      Read the full {r.name} review breakdown →
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {/* Own this business? — claim-value strip on unclaimed listings.
+                  Verified listings show the badge instead; this is the
+                  owner-facing pitch for everything still unclaimed. */}
+              {!isVerified && (
+                <div className="mt-6 pt-5 border-t border-black/8">
+                  <div className="rounded-xl border border-[#B57F50]/30 bg-gradient-to-br from-[#B57F50]/8 to-[#B57F50]/14 p-5">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <BadgeCheck className="w-4 h-4 text-[#96602F]" />
+                      <p className="text-sm font-bold text-[#1E2026]">Own {r.name}?</p>
+                    </div>
+                    <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
+                      This listing hasn&apos;t been claimed yet. Claimed listings get a verified badge,
+                      owner-updated hours, photos, and description — and premium placement on our search map.
+                    </p>
+                    <ul className="space-y-1.5 mb-4">
+                      {[
+                        'Verified badge on this page and the search map',
+                        'Update hours, photos, menu, and description anytime',
+                        'Premium map placement — 5,000+ monthly pageviews',
+                      ].map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
+                          <span className="text-[#96602F] shrink-0">✓</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={`/claim/${city}/${state}/${r.slug}`}
+                      className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+                    >
+                      Claim This Listing — Free 14-Day Trial
+                    </Link>
                   </div>
                 </div>
               )}
