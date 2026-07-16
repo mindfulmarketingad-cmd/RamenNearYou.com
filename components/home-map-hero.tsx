@@ -21,6 +21,7 @@ import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   FEATURE_META, FEATURE_KEYS, FEATURE_BY_KEY, MISC_FLAG_BY_KEY, matchesPrice,
+  mapPointReviewSlug, mapPointMapsUrl,
   type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
 
@@ -53,7 +54,7 @@ function buildDirectionsUrl(r: MapPoint, userPos: { lat: number; lng: number } |
   if (userPos) {
     return `https://www.google.com/maps/dir/?api=1&origin=${userPos.lat},${userPos.lng}&destination=${destination}`
   }
-  return r.googleMapsLink ?? r.googleMapsUrl ?? `https://www.google.com/maps/search/?api=1&query=${destination}`
+  return `https://www.google.com/maps/search/?api=1&query=${destination}`
 }
 
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -114,7 +115,7 @@ function Chip({
 }
 
 // ── Open / closing-soon / closed tag for the listing cards ──────────────────
-function OpenStatusTag({ hours }: { hours: Record<string, string[]> | null }) {
+function OpenStatusTag({ hours }: { hours: Record<string, string[]> | null | undefined }) {
   const s = getOpenStatus(hours)
   if (!s) return null
   if (s.status === 'closed') {
@@ -1232,7 +1233,7 @@ export default function HomeMapHero({
                   const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}-${r.zip || `${r.latitude},${r.longitude}`}-${i}`
                   const active = r.slug === selectedSlug
                   const showDist = hasLocation
-                  const isSupp = !!r.googleMapsUrl
+                  const isSupp = !!r.supp
                   // Every restaurant — DB or Google Places supplement — has
                   // its own internal listing page now (both render through
                   // RestaurantListingPage at the same /{city}/{state}/{slug}
@@ -1240,9 +1241,8 @@ export default function HomeMapHero({
                   // the Save button below (saves are keyed to DB slugs only).
                   const hasInternalPage = true
                   const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
-                  const directionsUrl = r.googleMapsLink
-                    ?? r.googleMapsUrl
-                    ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + ' ' + r.city + ' ' + r.stateCode)}`
+                  const directionsUrl = mapPointMapsUrl(r)
+                  const rSlugReview = mapPointReviewSlug(r)
                   // Non-ikedo listings link out to their Google Maps listing
                   const externalUrl = directionsUrl
                   return (
@@ -1279,9 +1279,9 @@ export default function HomeMapHero({
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
-                                r.reviewSlug ? (
+                                rSlugReview ? (
                                   <Link
-                                    href={`/reviews/${r.reviewSlug}`}
+                                    href={`/reviews/${rSlugReview}`}
                                     onClick={(e) => e.stopPropagation()}
                                     className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#96602F] hover:underline"
                                   >
@@ -1445,7 +1445,8 @@ export default function HomeMapHero({
             const r = selectedRestaurant
             const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
             const directionsUrl = buildDirectionsUrl(r, userPos)
-            const isSupp = !!r.googleMapsUrl
+            const isSupp = !!r.supp
+            const rSlugReview = mapPointReviewSlug(r)
             return (
               <div className="absolute inset-x-0 bottom-0 sm:bottom-6 sm:left-4 sm:inset-x-auto z-[1300] px-2 pb-2 sm:px-0 sm:pb-0 pointer-events-none">
                 <div className="pointer-events-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-black/10 w-full sm:w-96 max-h-[70vh] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto">
@@ -1473,9 +1474,9 @@ export default function HomeMapHero({
                     <p className="text-[#6B6862] text-sm mt-0.5">{r.city}, {r.stateCode}</p>
                     <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                       {r.rating != null && (
-                        r.reviewSlug ? (
+                        rSlugReview ? (
                           <Link
-                            href={`/reviews/${r.reviewSlug}`}
+                            href={`/reviews/${rSlugReview}`}
                             className="flex items-center gap-1 text-sm text-[#1E2026]/70 hover:text-[#96602F] hover:underline"
                           >
                             <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />

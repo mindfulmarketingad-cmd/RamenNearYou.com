@@ -105,7 +105,9 @@ export const PRICE_META: { key: string; label: string }[] = [
   { key: 'value', label: 'Best Value' },
 ]
 
-// Slim record shipped to the client (no description/subtypes — keeps payload small).
+// Slim record shipped to the client (no description/subtypes — keeps payload
+// small). Falsy/empty fields are omitted entirely and Google Maps URLs are
+// reconstructed client-side, so ~12k points stay as light as possible.
 export type MapPoint = {
   name: string
   slug: string
@@ -113,22 +115,37 @@ export type MapPoint = {
   stateSlug: string
   city: string
   stateCode: string
-  zip: string
+  zip?: string
   latitude: number | null
   longitude: number | null
   rating: number | null
   reviewCount: number
-  priceRange: string
-  photo: string
-  hours: Record<string, string[]> | null
-  bowls: string[]
-  moods: string[]
+  priceRange?: string
+  photo?: string
+  hours?: Record<string, string[]> | null
+  bowls?: string[]
+  moods?: string[]
   amenities?: string[]    // active FEATURE_META keys (delivers, outdoor-seating, …)
   website?: string        // restaurant's own website (DB entries only)
-  googleMapsUrl?: string  // set for Places-supplement entries (no internal page)
-  googleMapsLink?: string // set for DB entries (links to the verified listing)
-  reviewSlug?: string     // globally-unique /reviews/{slug} page (DB entries only)
+  supp?: 1                // Places-supplement entry (no DB row; saves are DB-only)
+  reviewSlug?: string     // /reviews/{slug} page when it differs from `slug` (DB
+                          // entries only — when absent on a DB entry, use `slug`)
   featured?: boolean      // promoted listing — pinned first with a Featured badge
+}
+
+// The /reviews page slug for a map point: DB entries always have a review
+// page (reviewSlug is only shipped when it differs from slug); supplement
+// entries never do.
+export function mapPointReviewSlug(p: MapPoint): string | null {
+  if (p.supp) return null
+  return p.reviewSlug ?? p.slug
+}
+
+// Google Maps URL reconstructed from the point itself — the long
+// per-listing maps URLs were ~2 MB of the payload and a search URL
+// resolves to the same place card.
+export function mapPointMapsUrl(p: MapPoint): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.city}, ${p.stateCode}`)}`
 }
 
 export function matchesPrice(p: MapPoint, key: string): boolean {

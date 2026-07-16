@@ -54,7 +54,7 @@ function ListingChips({ r }: { r: MapPoint }) {
   )
 }
 
-function HoursCell({ hours }: { hours: Record<string, string[]> | null }) {
+function HoursCell({ hours }: { hours: Record<string, string[]> | null | undefined }) {
   const status = getOpenStatus(hours)
   if (!status) return <span className="text-[#6B6862]/40 text-xs">Hours unavailable</span>
   const label = hours ? getTodayHoursLabel(hours) : ''

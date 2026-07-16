@@ -20,6 +20,12 @@ const allSupplements = {
   ...(quebecRaw as RawSupplement),
 }
 
+// ~1m precision is plenty for map pins; full-precision doubles were adding
+// hundreds of KB across 12k+ points.
+function round5(n: number): number {
+  return Math.round(n * 1e5) / 1e5
+}
+
 function priceLevelToRange(level: number | null): string {
   if (level === 1) return '$'
   if (level === 2) return '$$'
@@ -55,17 +61,14 @@ function supplementMapPoints(): MapPoint[] {
         stateSlug: l.stateSlug,
         city: l.city,
         stateCode: l.stateCode,
-        zip: '',
-        latitude: l.latitude,
-        longitude: l.longitude,
+        latitude: round5(l.latitude),
+        longitude: round5(l.longitude),
         rating: l.rating,
         reviewCount: l.reviewCount ?? 0,
-        priceRange: priceLevelToRange(l.priceLevel),
-        photo: l.photo ?? '',
-        hours: null,
-        bowls: isJinya ? ['tonkotsu', 'spicy-miso'] : [],
-        moods: [],
-        googleMapsUrl: l.googleMapsUrl,
+        priceRange: priceLevelToRange(l.priceLevel) || undefined,
+        photo: l.photo || undefined,
+        bowls: isJinya ? ['tonkotsu', 'spicy-miso'] : undefined,
+        supp: 1,
       })
     }
   }
@@ -115,31 +118,38 @@ export async function computeMapData(): Promise<MapPoint[]> {
   const featuredSlugs = await getAllFeaturedSlugs()
   const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
-    .map(r => ({
-      name: r.name,
-      slug: r.slug,
-      citySlug: r.citySlug,
-      stateSlug: r.stateSlug,
-      city: r.city,
-      stateCode: r.stateCode,
-      zip: r.postalCode ?? '',
-      latitude: r.latitude,
-      longitude: r.longitude,
-      rating: r.rating,
-      reviewCount: r.reviewCount ?? 0,
-      priceRange: r.priceRange,
-      photo: r.photo,
-      hours: r.hours,
-      bowls: BOWL_META.filter(b => BOWL_MATCH[b.key]?.(r)).map(b => b.key),
-      moods: MOOD_META.filter(m => MOOD_MATCH[m.key]?.(r)).map(m => m.key),
-      amenities: FEATURE_META
+    .map(r => {
+      const bowls = BOWL_META.filter(b => BOWL_MATCH[b.key]?.(r)).map(b => b.key)
+      const moods = MOOD_META.filter(m => MOOD_MATCH[m.key]?.(r)).map(m => m.key)
+      const amenities = FEATURE_META
         .filter(f => (r.amenities as Record<string, boolean> | undefined)?.[FEATURE_AMENITY_FIELD[f.key]] === true)
-        .map(f => f.key),
-      website: r.website || undefined,
-      googleMapsLink: r.googleMapsLink || undefined,
-      reviewSlug: getReviewSlug(r),
-      featured: featuredSlugs.has(r.slug),
-    }))
+        .map(f => f.key)
+      const reviewSlug = getReviewSlug(r)
+      return {
+        name: r.name,
+        slug: r.slug,
+        citySlug: r.citySlug,
+        stateSlug: r.stateSlug,
+        city: r.city,
+        stateCode: r.stateCode,
+        zip: r.postalCode || undefined,
+        latitude: round5(r.latitude!),
+        longitude: round5(r.longitude!),
+        rating: r.rating,
+        reviewCount: r.reviewCount ?? 0,
+        priceRange: r.priceRange || undefined,
+        photo: r.photo || undefined,
+        hours: r.hours ?? undefined,
+        bowls: bowls.length > 0 ? bowls : undefined,
+        moods: moods.length > 0 ? moods : undefined,
+        amenities: amenities.length > 0 ? amenities : undefined,
+        website: r.website || undefined,
+        // Only ship the review slug when it differs from the listing slug
+        // (clients fall back to `slug` for DB entries).
+        reviewSlug: reviewSlug !== r.slug ? reviewSlug : undefined,
+        featured: featuredSlugs.has(r.slug) || undefined,
+      }
+    })
 
   return [...dbPoints, ...supplementMapPoints()]
 }

@@ -8,6 +8,9 @@ export const dynamic = 'force-static'
 export async function GET() {
   const data = await computeMapData()
   return NextResponse.json(data, {
-    headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800' },
+    // Browser-cache for a day (it's a multi-MB payload fetched by every map
+    // page — repeat navigations shouldn't re-download it), CDN for a day,
+    // serve stale for a week while revalidating.
+    headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800' },
   })
 }

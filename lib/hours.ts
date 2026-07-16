@@ -33,7 +33,7 @@ function parseSlot(slot: string): { start: number; end: number } | null {
   return { start, end }
 }
 
-export function isOpenNow(hours: Record<string, string[]> | null): boolean | null {
+export function isOpenNow(hours: Record<string, string[]> | null | undefined): boolean | null {
   if (!hours || Object.keys(hours).length === 0) return null
   const now = new Date()
   const dayName = DAYS[now.getDay()]
@@ -51,7 +51,7 @@ export function isOpenNow(hours: Record<string, string[]> | null): boolean | nul
 }
 
 /** Latest closing time today in minutes from midnight (overnight slots > 1440). */
-export function latestCloseToday(hours: Record<string, string[]> | null): number | null {
+export function latestCloseToday(hours: Record<string, string[]> | null | undefined): number | null {
   if (!hours || Object.keys(hours).length === 0) return null
   const slots = hours[DAYS[new Date().getDay()]]
   if (!slots || slots.length === 0) return null
@@ -69,13 +69,13 @@ export function latestCloseToday(hours: Record<string, string[]> | null): number
 }
 
 /** Open until `minClose` (default 9 PM) or later today. */
-export function isOpenLate(hours: Record<string, string[]> | null, minClose = 21 * 60): boolean {
+export function isOpenLate(hours: Record<string, string[]> | null | undefined, minClose = 21 * 60): boolean {
   const c = latestCloseToday(hours)
   return c != null && c >= minClose
 }
 
 /** Open past midnight today. */
-export function isOpenPastMidnight(hours: Record<string, string[]> | null): boolean {
+export function isOpenPastMidnight(hours: Record<string, string[]> | null | undefined): boolean {
   const c = latestCloseToday(hours)
   return c != null && c > 1440
 }
@@ -94,7 +94,7 @@ function firstOpenMinute(slots: string[] | undefined): number | null {
 }
 
 /** Opens at or before `byMin` (default 10:30 AM) on at least one day. */
-export function opensEarly(hours: Record<string, string[]> | null, byMin = 10 * 60 + 30): boolean {
+export function opensEarly(hours: Record<string, string[]> | null | undefined, byMin = 10 * 60 + 30): boolean {
   if (!hours || Object.keys(hours).length === 0) return false
   for (const day of DAYS) {
     const fo = firstOpenMinute(hours[day])
@@ -104,7 +104,7 @@ export function opensEarly(hours: Record<string, string[]> | null, byMin = 10 * 
 }
 
 /** Open on both Saturday and Sunday. */
-export function isOpenOnWeekend(hours: Record<string, string[]> | null): boolean {
+export function isOpenOnWeekend(hours: Record<string, string[]> | null | undefined): boolean {
   if (!hours || Object.keys(hours).length === 0) return false
   const open = (day: string) => {
     const slots = hours[day]
@@ -152,7 +152,7 @@ export type OpenStatus =
  * slot ends within `soonMinutes` (default 60). Returns null when hours are
  * unknown so callers can simply render nothing.
  */
-export function getOpenStatus(hours: Record<string, string[]> | null, soonMinutes = 60): OpenStatus | null {
+export function getOpenStatus(hours: Record<string, string[]> | null | undefined, soonMinutes = 60): OpenStatus | null {
   if (!hours || Object.keys(hours).length === 0) return null
   const now = new Date()
   const dayName = DAYS[now.getDay()]

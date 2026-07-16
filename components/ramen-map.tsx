@@ -18,8 +18,6 @@ export type MapRestaurant = {
   longitude: number | null
   rating: number | null
   reviewCount: number
-  googleMapsUrl?: string  // Places-supplement entries link out to Google Maps
-  googleMapsLink?: string // DB entries — verified Google Maps listing
   website?: string        // restaurant's own website (DB entries only)
   featured?: boolean      // promoted listing — gold pin, shown above the rest
   matchedChips?: MatchedChip[] // active filters this result satisfied — shown as colored badges in the popup
