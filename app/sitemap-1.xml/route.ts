@@ -4,8 +4,9 @@ import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import { SITEMAP_BASE_URL, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
 // Every /find page: the filter/broth/brand/"near me" pages, the per-city
-// searchmap pages, and the modifier × city cross product — by far the
-// largest single category (~38k of the site's ~56k URLs).
+// searchmap pages, and the modifier × city cross product — ~44.9k URLs on
+// its own, big enough that it needs its own sitemap (see /sitemap-2.xml for
+// everything else on the site).
 //
 // Generated once at build time and served as a static asset. Computing this
 // on every request took ~19s locally, which is enough to time out both

@@ -10,6 +10,7 @@ import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
 import UgcGrid from '@/components/ugc-grid'
 import HomepageReviews from '@/components/homepage-reviews'
+import HomepageAbout from '@/components/homepage-about'
 import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
@@ -153,6 +154,7 @@ export default function HomePage() {
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />
+          <HomepageAbout />
           <HomepageFAQ />
           <FindCrossLinks />
           <Footer />
