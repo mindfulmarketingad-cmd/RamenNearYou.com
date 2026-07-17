@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3 } from 'lucide-react'
+import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3, ShoppingBag, Bike } from 'lucide-react'
 import { useCurrentUser } from '@/lib/use-current-user'
 import { useOwnerStatus } from '@/lib/use-owner-status'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
@@ -11,6 +11,11 @@ import LoginGateModal from '@/components/login-gate-modal'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
+
+// Order Pickup/Delivery point to Uber Eats' general search rather than a
+// restaurant-specific page — the site doesn't have per-listing Uber Eats IDs,
+// and Uber Eats' own search surfaces the right restaurant from its name.
+const UBER_EATS_URL = 'https://www.ubereats.com'
 
 interface Props {
   slug: string
@@ -71,6 +76,14 @@ export default function ListingActionRow({
         <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions
+        </a>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+          <span className={iconCircle}><ShoppingBag className="w-5 h-5" /></span>
+          Order Pickup
+        </a>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+          <span className={iconCircle}><Bike className="w-5 h-5" /></span>
+          Order Delivery
         </a>
         {website && (
           <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>

@@ -183,7 +183,15 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
         <Navbar />
 
         {/* App-shell split: scrollable details left, single-pin map right */}
-        <div className="pt-16 flex flex-col lg:flex-row lg:h-[calc(100vh-var(--total-header-h,4rem))]">
+        {/* The navbar is fixed (out of flow) — this div's own pt-16 clears
+            it, and doesn't need extra height. The promo banner, when shown,
+            IS in flow and already pushes this div down via body's own
+            padding-top, so the div's height only needs to shrink by that
+            banner offset, not by the full --total-header-h (which also
+            includes the navbar and would double-count it, leaving a gap at
+            the bottom of the map pane). --total-header-h minus the fixed
+            navbar height isolates just the banner's contribution. */}
+        <div className="pt-16 flex flex-col lg:flex-row lg:h-[calc(100dvh-var(--total-header-h,4rem)+4rem)]">
 
           {/* ── LEFT: scrollable details panel ── */}
           <div className="w-full lg:w-[440px] xl:w-[480px] lg:shrink-0 lg:h-full lg:overflow-y-auto bg-white border-r border-black/8 order-2 lg:order-1">
