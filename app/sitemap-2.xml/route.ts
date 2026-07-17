@@ -1,11 +1,17 @@
 import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitiesForBroth } from '@/lib/restaurants'
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { getAllComparisons } from '@/lib/broth-comparisons'
+import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
+import { getAllRecipes } from '@/lib/recipes'
+import { blogPosts } from '@/lib/blog-posts'
+import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
-// Everything that isn't /find, /reviews, /recipes, or /blog: states, cities,
-// restaurants, city × filter pages, broth-by-city pages, comparisons, and
-// the site's static top-level pages.
+// Everything except /find (which alone runs ~44.9k URLs and needs its own
+// sitemap): states, cities, restaurants, city × filter pages, broth-by-city
+// pages, comparisons, /reviews, /recipes, /blog, and static top-level pages.
+// Combined this stays well under Google's 50,000-URL cap, so the whole site
+// fits in exactly two category sitemaps (see /sitemap-1.xml for /find).
 // Generated once at build time and served as a static asset.
 export const dynamic = 'force-static'
 
@@ -78,6 +84,33 @@ export async function GET() {
     priority: 0.6,
   }))
 
+  // /reviews hub + one page per restaurant
+  const reviewPages: SitemapEntry[] = getReviewRestaurants().map((r) => ({
+    url: `${SITEMAP_BASE_URL}/reviews/${getReviewSlug(r)}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
+  // /recipes hub + individual recipes
+  const recipePages: SitemapEntry[] = getAllRecipes().map((r) => ({
+    url: `${SITEMAP_BASE_URL}/recipes/${r.slug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
+  // /blog hub + individual posts (excludes posts that just permanent-redirect
+  // to a city guide page)
+  const blogPostPages: SitemapEntry[] = blogPosts
+    .filter((post) => !CITY_GUIDE_REDIRECTS[post.slug])
+    .map((post) => ({
+      url: `${SITEMAP_BASE_URL}/blog/${post.slug}`,
+      lastModified: LAST_CONTENT,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    }))
+
   const staticPages: SitemapEntry[] = [
     { url: SITEMAP_BASE_URL, lastModified: LAST_CONTENT, changeFrequency: 'daily', priority: 1.0 },
     { url: `${SITEMAP_BASE_URL}/cities`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.9 },
@@ -87,11 +120,14 @@ export async function GET() {
     { url: `${SITEMAP_BASE_URL}/comparisons`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/menu/jinya-ramen-bar-menu`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/catering`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITEMAP_BASE_URL}/blog`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/products`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/collections`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITEMAP_BASE_URL}/recipes`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/collections/ceramic-ramen-bowls`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/collections/ramen-cookers`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/faq`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITEMAP_BASE_URL}/reviews`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/about`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.5 },
     { url: `${SITEMAP_BASE_URL}/contact`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${SITEMAP_BASE_URL}/privacy-policy`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.3 },
@@ -110,6 +146,9 @@ export async function GET() {
     ...spicyCityPages,
     ...veganCityPages,
     ...restaurantPages,
+    ...reviewPages,
+    ...recipePages,
+    ...blogPostPages,
   ]
 
   return xmlResponse(buildUrlsetXml(entries))
