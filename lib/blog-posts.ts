@@ -22231,7 +22231,7 @@ blogPosts.push({
 
 <h2>My bottom line</h2>
 <p>Do not over-think it. Get discoverable first — a niche ramen directory and a dialed-in Google profile — then layer reviews, social, delivery, and loyalty on top. Each one feeds the others. And if you only have ten minutes today, spend them <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claiming your listing</a> so the next person searching for ramen in your city finds <em>you</em>.</p>`,
-  outroContent: `<p style="color:#6B6862;">Ready to get found by more ramen lovers? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — it takes a few minutes, starts with a 14-day free trial, and puts your restaurant in front of people searching for ramen in your city right now.</p>`,
+  outroContent: `<p style="color:#6B6862;">Ready to get found by more ramen lovers? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — it takes a few minutes, it's completely free, and it puts your restaurant in front of people searching for ramen in your city right now.</p>`,
 })
 
 blogPosts.push({
@@ -22307,5 +22307,5 @@ blogPosts.push({
 
 <h2>My bottom line</h2>
 <p>Get discoverable first — Google Business Profile, a niche directory, and a clean local-SEO site — then amplify with video, reviews, email, and a little smart ad spend. Every channel feeds the others. If you only have a few minutes today, <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claim your listing</a> so the next person searching for ramen in your city finds you.</p>`,
-  outroContent: `<p style="color:#6B6862;">Want the single highest-leverage step done first? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — start a 14-day free trial and get in front of people searching for ramen in your city right now.</p>`,
+  outroContent: `<p style="color:#6B6862;">Want the single highest-leverage step done first? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — claiming is completely free, and it gets you in front of people searching for ramen in your city right now.</p>`,
 })

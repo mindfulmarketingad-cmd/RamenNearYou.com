@@ -6,7 +6,9 @@ import { MapPin, Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
 
 const BENEFITS = [
-  { icon: MapPin, text: '#1 featured spot at the top of the ramen search map — your restaurant appears first when someone searches for ramen near you' },
+  { icon: MapPin, text: 'Verified badge on your listing and the ramen search map' },
+  { icon: MapPin, text: 'Update your hours, photos, menu, and description anytime' },
+  { icon: MapPin, text: 'Respond to what diners see — your listing, your details' },
 ]
 
 const US_STATES = [
@@ -19,15 +21,10 @@ const US_STATES = [
 const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
 
-// Stripe claim/free-trial checkout (same links used by the per-restaurant claim flow).
-const STRIPE_CLAIM_LINK_MONTHLY = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
-const STRIPE_CLAIM_LINK_ANNUAL = 'https://buy.stripe.com/5kQ5kE2HU44Eff0eK2frW0b'
-
 export default function ClaimSearch() {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const [manual, setManual] = useState(false)
-  const [plan, setPlan] = useState<'monthly' | 'annual'>('monthly')
 
   const [form, setForm] = useState({
     name: '', address: '', city: '', state: 'GA', zip: '',
@@ -67,9 +64,6 @@ export default function ClaimSearch() {
   }
 
   if (status === 'success') {
-    const emailParam = form.ownerEmail.trim() ? `?prefilled_email=${encodeURIComponent(form.ownerEmail.trim())}` : ''
-    const monthlyLink = `${STRIPE_CLAIM_LINK_MONTHLY}${emailParam}`
-    const annualLink = `${STRIPE_CLAIM_LINK_ANNUAL}${emailParam}`
     return (
       <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8 sm:p-10 text-center">
         <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
@@ -77,51 +71,11 @@ export default function ClaimSearch() {
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Submission Received!</h2>
         <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
-          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}. Get the #1 featured spot at the top of the ramen search map.
+          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}.
+          We&apos;ll add it to the directory and email you at{' '}
+          {form.ownerEmail.trim() ? <strong>{form.ownerEmail.trim()}</strong> : 'your email'} to finish
+          claiming it — completely free.
         </p>
-
-        {/* Payment prompt */}
-        <div className="bg-[#F5F4F0] rounded-2xl border border-black/8 p-6 max-w-sm mx-auto mb-5">
-          <div className="flex items-center justify-center gap-1 bg-white rounded-full border border-black/8 p-1 mb-5 max-w-[220px] mx-auto">
-            <button
-              type="button"
-              onClick={() => setPlan('monthly')}
-              className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                plan === 'monthly' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              type="button"
-              onClick={() => setPlan('annual')}
-              className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                plan === 'annual' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
-              }`}
-            >
-              Annual
-            </button>
-          </div>
-
-          <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
-            14-Day Free Trial
-          </span>
-          <div className="flex items-end justify-center gap-1.5 mb-1">
-            <span className="font-serif text-4xl font-bold text-[#1E2026]">$0</span>
-            <span className="text-[#6B6862] text-sm mb-1.5">today</span>
-          </div>
-          <p className="text-[#6B6862] text-xs mb-5">
-            {plan === 'monthly'
-              ? 'Then $19.99/month after your free trial. Cancel anytime.'
-              : 'Then $250/year after your free trial. Billed annually. Cancel anytime.'}
-          </p>
-          <a
-            href={plan === 'monthly' ? monthlyLink : annualLink}
-            className="flex w-full items-center justify-center px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
-          >
-            Start Free Trial — $0 Today
-          </a>
-        </div>
 
         <p className="text-sm text-[#6B6862] mb-4">
           Want more Google reviews too?{' '}
@@ -139,40 +93,16 @@ export default function ClaimSearch() {
 
   return (
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
-      {/* Pricing header */}
+      {/* Free-claim header */}
       <div className="text-center mb-6 pb-6 border-b border-black/6">
-        <div className="flex items-center justify-center gap-1 bg-[#F5F4F0] rounded-full border border-black/8 p-1 mb-5 max-w-[220px] mx-auto">
-          <button
-            type="button"
-            onClick={() => setPlan('monthly')}
-            className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-              plan === 'monthly' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            type="button"
-            onClick={() => setPlan('annual')}
-            className={`flex-1 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-              plan === 'annual' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
-            }`}
-          >
-            Annual
-          </button>
-        </div>
-
         <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
-          14-Day Free Trial
+          100% Free
         </span>
         <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">$0</span>
-          <span className="text-[#6B6862] text-sm mb-2">today</span>
+          <span className="font-serif text-5xl font-bold text-[#1E2026]">Free</span>
         </div>
         <p className="text-[#6B6862] text-xs">
-          {plan === 'monthly'
-            ? 'Then $19.99/month after your free trial. Cancel anytime.'
-            : 'Then $250/year after your free trial. Billed annually. Cancel anytime.'}
+          Create an account, submit your claim, and our team verifies ownership. No card required.
         </p>
       </div>
 

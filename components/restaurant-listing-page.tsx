@@ -397,14 +397,14 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       <p className="text-sm font-bold text-[#1E2026]">Own {r.name}?</p>
                     </div>
                     <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
-                      This listing hasn&apos;t been claimed yet. Claimed listings get a verified badge,
-                      owner-updated hours, photos, and description — and premium placement on our search map.
+                      This listing hasn&apos;t been claimed yet. Claiming is completely free — create an
+                      account, submit your claim, and once our team verifies ownership you&apos;re in control.
                     </p>
                     <ul className="space-y-1.5 mb-4">
                       {[
+                        '100% free — no card required, just a quick ownership review',
                         'Verified badge on this page and the search map',
                         'Update hours, photos, menu, and description anytime',
-                        'Premium map placement — 5,000+ monthly pageviews',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
                           <span className="text-[#96602F] shrink-0">✓</span>
@@ -416,7 +416,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       href={`/claim/${city}/${state}/${r.slug}`}
                       className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
                     >
-                      Claim This Listing — Free 14-Day Trial
+                      Claim This Listing — Free
                     </Link>
                   </div>
                 </div>
