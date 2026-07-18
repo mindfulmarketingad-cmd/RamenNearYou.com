@@ -85,6 +85,19 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
 }
 
 // Small color utilities so pins can match the active filter color.
+// Straight-line distance in miles between the visitor's exact location and a
+// hovered pin, labeled on the route line drawn between them.
+function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371 // km
+  const dLat = (lat2 - lat1) * Math.PI / 180
+  const dLng = (lng2 - lng1) * Math.PI / 180
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2
+  const km = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  return km * 0.621371
+}
+
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '')
   const n = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16)
@@ -362,10 +375,20 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         hoverLineRef.current?.remove()
         hoverLineRef.current = null
         if (loc && r.latitude && r.longitude) {
+          const miles = haversineMiles(loc.lat, loc.lng, r.latitude, r.longitude)
+          const midpoint: L.LatLngTuple = [(loc.lat + r.latitude) / 2, (loc.lng + r.longitude) / 2]
           hoverLineRef.current = L.polyline(
             [[loc.lat, loc.lng], [r.latitude, r.longitude]],
             { color: '#3b82f6', weight: 3, opacity: 0.8, dashArray: '8 6', lineCap: 'round' }
-          ).addTo(map)
+          )
+            .bindTooltip(`${miles < 0.1 ? '<0.1' : miles.toFixed(1)} mi`, {
+              permanent: true,
+              direction: 'center',
+              className: 'ramen-distance-tooltip',
+              offset: [0, 0],
+            })
+            .addTo(map)
+          hoverLineRef.current.openTooltip(L.latLng(midpoint))
         }
       })
       marker.on('mouseout', () => {
