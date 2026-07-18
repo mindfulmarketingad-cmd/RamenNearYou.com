@@ -1425,6 +1425,7 @@ export default function HomeMapHero({
               selectedSlug={selectedSlug}
               hoveredSlug={hoveredSlug}
               onSelect={handleSelect}
+              onMarkerHover={setHoveredSlug}
               onUserMove={setVisibleBounds}
               onMapCenter={handleMapCenter}
               centerLatLng={geocodedCenter}

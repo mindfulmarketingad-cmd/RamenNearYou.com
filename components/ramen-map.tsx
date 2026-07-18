@@ -113,6 +113,20 @@ const userIcon = L.divIcon({
   iconAnchor: [9, 9],
 })
 
+// Tiny blue dot marking the visitor's exact (GPS-resolved) position — distinct
+// from the brown userIcon above, which marks the search's center point and
+// may just be a city estimate. Mirrors the pulsing blue dot already used for
+// "detected area" in the location picker, for a consistent visual language.
+const exactLocationIcon = L.divIcon({
+  className: '',
+  html: `<div style="position:relative;width:16px;height:16px;">
+    <span class="animate-ping" style="position:absolute;inset:0;border-radius:50%;background:#3b82f6;opacity:0.6;"></span>
+    <span style="position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#3b82f6;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></span>
+  </div>`,
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+})
+
 export interface MapBounds {
   north: number
   south: number
@@ -128,6 +142,10 @@ interface Props {
   selectedSlug: string | null
   hoveredSlug?: string | null
   onSelect: (slug: string) => void
+  // Fired when the pointer enters/leaves an actual map pin (null on leave) —
+  // lets the page sync its own hoveredSlug state (e.g. to also highlight a
+  // matching list row) with hover that originates on the map itself.
+  onMarkerHover?: (slug: string | null) => void
   onUserMove?: (bounds: MapBounds) => void
   onMapCenter?: (center: { lat: number; lng: number }) => void
   centerLatLng?: { lat: number; lng: number } | null
@@ -141,7 +159,7 @@ interface Props {
   disablePopups?: boolean
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onMarkerHover, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -150,6 +168,12 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
   const userCircleRef = useRef<L.Circle | null>(null)
+  const exactLocationMarkerRef = useRef<L.Marker | null>(null)
+  // Mirrors the userLocation prop for use inside marker event handlers set up
+  // by the (rarely-rerun) marker-creation effect, which would otherwise close
+  // over a stale value.
+  const userLocationRef = useRef<{ lat: number; lng: number } | null>(null)
+  const hoverLineRef = useRef<L.Polyline | null>(null)
   const baseLayerRef = useRef<L.TileLayer | null>(null)
   const overlayLayersRef = useRef<L.TileLayer[]>([])
   const [ready, setReady] = useState(false)
@@ -246,6 +270,30 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     mapRef.current.flyTo([userLocation.lat, userLocation.lng], 13, { duration: 1.2 })
   }, [ready, userLocation])
 
+  // Tiny blue "you are here" dot at the visitor's exact GPS position, and
+  // keep a ref mirror for the marker hover handlers below.
+  useEffect(() => {
+    userLocationRef.current = userLocation ?? null
+    if (!ready || !mapRef.current) return
+    const map = mapRef.current
+
+    if (!userLocation) {
+      exactLocationMarkerRef.current?.remove()
+      exactLocationMarkerRef.current = null
+      return
+    }
+
+    if (exactLocationMarkerRef.current) {
+      exactLocationMarkerRef.current.setLatLng([userLocation.lat, userLocation.lng])
+    } else {
+      exactLocationMarkerRef.current = L.marker([userLocation.lat, userLocation.lng], {
+        icon: exactLocationIcon,
+        zIndexOffset: 20000, // always above every restaurant pin
+        interactive: false,
+      }).addTo(map)
+    }
+  }, [ready, userLocation])
+
   // Add restaurant markers (hidden while heatmap mode is active). No
   // clustering — every pin renders individually at every zoom level.
   useEffect(() => {
@@ -256,6 +304,8 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     markersRef.current = {}
     ratingsRef.current = {}
     featuredRef.current = {}
+    hoverLineRef.current?.remove()
+    hoverLineRef.current = null
 
     if (heatmap) return // heatmap layer handles visualization instead
 
@@ -301,9 +351,32 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           })
       }
       marker.on('click', () => onSelect(r.slug))
+
+      // Hover a pin → draw a blue route line from the visitor's exact
+      // location dot to that restaurant. Only draws when we actually know
+      // the visitor's GPS position (userLocationRef), not just a fallback
+      // map center.
+      marker.on('mouseover', () => {
+        onMarkerHover?.(r.slug)
+        const loc = userLocationRef.current
+        hoverLineRef.current?.remove()
+        hoverLineRef.current = null
+        if (loc && r.latitude && r.longitude) {
+          hoverLineRef.current = L.polyline(
+            [[loc.lat, loc.lng], [r.latitude, r.longitude]],
+            { color: '#3b82f6', weight: 3, opacity: 0.8, dashArray: '8 6', lineCap: 'round' }
+          ).addTo(map)
+        }
+      })
+      marker.on('mouseout', () => {
+        onMarkerHover?.(null)
+        hoverLineRef.current?.remove()
+        hoverLineRef.current = null
+      })
+
       markersRef.current[r.slug] = marker
     })
-  }, [ready, restaurants, selectedSlug, onSelect, accentColor, heatmap, visitedSlugs])
+  }, [ready, restaurants, selectedSlug, onSelect, accentColor, heatmap, visitedSlugs, onMarkerHover])
 
   // Heatmap layer — density-based warm blobs that make the map feel alive.
   useEffect(() => {
