@@ -89,9 +89,6 @@ const STATE_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
   Object.entries(STATE_CODE_TO_NAME).map(([code, name]) => [name, code])
 )
 
-// $19.99/month featured-listing checkout — same link used by /claim-your-listing.
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
-
 // ── Reusable colored chip ─────────────────────────────────────────────────────
 function Chip({
   active, hex, emoji, label, onClick,
@@ -1382,15 +1379,15 @@ export default function HomeMapHero({
                             Order Now
                           </a>
                         )}
-                        <a
-                          href={STRIPE_CLAIM_LINK}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        {/* Claiming is free — link to the internal claim flow
+                            (account required; claims are admin-reviewed). */}
+                        <Link
+                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                           onClick={e => { e.stopPropagation(); requireAuth(e) }}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                         >
-                          Own This Business?
-                        </a>
+                          Claim For Free
+                        </Link>
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}

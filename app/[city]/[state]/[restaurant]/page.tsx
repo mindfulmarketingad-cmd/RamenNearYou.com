@@ -9,6 +9,7 @@ import {
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import RestaurantListingPage from '@/components/restaurant-listing-page'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { getApprovedListing, approvedListingToRestaurant } from '@/lib/approved-listings'
 import CityFilterPage from '@/components/city-filter-page'
 import {
   parseFilterSlug,
@@ -59,6 +60,21 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
   const r = getRestaurant(city, state, restaurant)
   if (!r) {
+    // Owner-submitted (admin-approved) listing metadata
+    const approved = await getApprovedListing(city, state, restaurant)
+    if (approved) {
+      const ar = approvedListingToRestaurant(approved)
+      const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
+      const title = `${ar.name} - ${ar.city}, ${ar.stateCode}`
+      const metaDesc = `${ar.name} in ${ar.city}, ${ar.state}. Hours, directions, menu, and reviews.`.slice(0, 160)
+      return {
+        title,
+        description: metaDesc,
+        alternates: { canonical: url },
+        openGraph: { title, description: metaDesc, url },
+      }
+    }
+
     // Supplement (Google Places) listing metadata
     const sup = findSupplementListing(city, state, restaurant)
     if (sup) {
@@ -133,7 +149,21 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     // Google-Maps-style RestaurantListingPage as every other listing.
     const stateCode = STATE_SLUG_TO_CODE[state]
     const sup = stateCode ? findSupplementListing(city, state, restaurant) : null
-    if (!sup) notFound()
+    if (!sup) {
+      // Owner-submitted restaurants approved at /admin/listings — these have
+      // no static-data row but still deserve a working page at the same URL.
+      const approved = await getApprovedListing(city, state, restaurant)
+      if (!approved) notFound()
+      return (
+        <RestaurantListingPage
+          r={approvedListingToRestaurant(approved)}
+          city={city}
+          state={state}
+          nearby={getRestaurantsByCity(city, state).slice(0, 6)}
+          isVerified={false}
+        />
+      )
+    }
     const nearbyListings = getSupplementListings(city, sup.stateCode)
       .filter(n => n.slug !== sup.slug)
       .slice(0, 6)
