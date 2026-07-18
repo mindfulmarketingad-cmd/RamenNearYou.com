@@ -98,12 +98,17 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
+/* Tailwind v4 custom utility — @utility (unlike a plain class in
+   @layer utilities) supports variants, so `sm:scrollbar-hide` actually
+   generates CSS. Without this, the responsive variant silently produced
+   nothing, leaving a real horizontal scrollbar visible on the searchmap's
+   filter bar at sm+ widths and throwing off its height/alignment. */
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
     display: none;
   }
 }
