@@ -121,7 +121,7 @@ export default function PartnersDirectory() {
         if (!tags.some((t) => activeKeys.has(t))) return false
       }
       return true
-    }).sort((a, b) => a.name.localeCompare(b.name))
+    }).sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   }, [data, query, stateFilter, activeKeys])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))

@@ -352,10 +352,10 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     try {
       const layer = L.geoJSON(boundary as Parameters<typeof L.geoJSON>[0], {
         style: {
-          color: '#2563eb',
+          color: '#B57F50',
           weight: 2.5,
           opacity: 0.9,
-          fillColor: '#2563eb',
+          fillColor: '#B57F50',
           fillOpacity: 0.05,
         },
         interactive: false,
