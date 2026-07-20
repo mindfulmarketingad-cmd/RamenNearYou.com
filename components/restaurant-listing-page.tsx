@@ -253,6 +253,8 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 restaurantName={r.name}
                 city={city}
                 state={state}
+                displayCity={r.city}
+                stateCode={r.stateCode}
                 directionsUrl={directionsUrl}
                 website={r.website ?? ''}
                 phone={r.phone ?? ''}

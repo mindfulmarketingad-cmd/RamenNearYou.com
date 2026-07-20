@@ -16,6 +16,7 @@ import { useCurrentUser } from '@/lib/use-current-user'
 import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
 import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import InquireButton from '@/components/inquire-button'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -1388,6 +1389,12 @@ export default function HomeMapHero({
                         >
                           Claim For Free
                         </Link>
+                        <InquireButton
+                          restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
+                          source="find"
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
+                          label="Inquire"
+                        />
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}
@@ -1517,6 +1524,11 @@ export default function HomeMapHero({
                           {saves.has(r.slug) ? 'Saved' : 'Save'}
                         </button>
                       )}
+                      <InquireButton
+                        restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
+                        source="find"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                      />
                     </div>
                   </div>
                 </div>

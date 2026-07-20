@@ -8,6 +8,7 @@ import { useCurrentUser } from '@/lib/use-current-user'
 import { useOwnerStatus } from '@/lib/use-owner-status'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
 import LoginGateModal from '@/components/login-gate-modal'
+import InquireButton from '@/components/inquire-button'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
@@ -22,6 +23,8 @@ interface Props {
   restaurantName: string
   city: string
   state: string
+  displayCity?: string
+  stateCode?: string
   directionsUrl: string
   website: string
   phone: string
@@ -35,7 +38,7 @@ interface Props {
 // Owner status is resolved client-side (useOwnerStatus) so the page itself
 // can stay statically cached.
 export default function ListingActionRow({
-  slug, restaurantName, city, state, directionsUrl, website, phone, menuUrl, isVerified,
+  slug, restaurantName, city, state, displayCity, stateCode, directionsUrl, website, phone, menuUrl, isVerified,
 }: Props) {
   const router = useRouter()
   const { user, authChecked } = useCurrentUser()
@@ -85,6 +88,12 @@ export default function ListingActionRow({
           <span className={iconCircle}><Bike className="w-5 h-5" /></span>
           Order Delivery
         </a>
+        <InquireButton
+          variant="iconColumn"
+          className={iconBtn}
+          restaurant={{ name: restaurantName, slug, city: displayCity, stateCode }}
+          source="listing"
+        />
         {website && (
           <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
             <span className={iconCircle}><Globe className="w-5 h-5" /></span>

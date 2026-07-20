@@ -6,6 +6,7 @@ import { Search, Star, Loader2, SlidersHorizontal, X, ChevronLeft, ChevronRight 
 import { BOWL_META, MOOD_META, FEATURE_META, BOWL_BY_KEY, MOOD_BY_KEY, FEATURE_BY_KEY, type MapPoint } from '@/lib/ramen-taxonomy'
 import { getOpenStatus, getTodayHoursLabel } from '@/lib/hours'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import InquireButton from '@/components/inquire-button'
 
 const PAGE_SIZE = 25
 
@@ -229,6 +230,7 @@ export default function PartnersDirectory() {
                   <th className="text-left font-semibold text-[#1E2026] px-4 py-3 whitespace-nowrap">Filters</th>
                   <th className="text-left font-semibold text-[#1E2026] px-4 py-3 whitespace-nowrap">Hours</th>
                   <th className="text-left font-semibold text-[#1E2026] px-4 py-3 whitespace-nowrap">Claim Listing</th>
+                  <th className="text-left font-semibold text-[#1E2026] px-4 py-3 whitespace-nowrap">Inquire</th>
                 </tr>
               </thead>
               <tbody>
@@ -270,10 +272,16 @@ export default function PartnersDirectory() {
                             Claim Listing
                           </Link>
                         </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          <InquireButton
+                            restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
+                            source="partners"
+                          />
+                        </td>
                       </tr>
                       {currentPage === 1 && i === 0 && (
                         <tr className="border-b border-black/5">
-                          <td colSpan={5} className="px-4 py-3">
+                          <td colSpan={6} className="px-4 py-3">
                             <AdUnitInFeed />
                           </td>
                         </tr>
