@@ -49,7 +49,6 @@ export default function InquireButton({ restaurant, source, className, label = '
         body: JSON.stringify({
           source,
           restaurantName: restaurant.name,
-          restaurantSlug: restaurant.slug,
           city: restaurant.city,
           stateCode: restaurant.stateCode,
           partySize: form.get('partySize'),
@@ -59,6 +58,7 @@ export default function InquireButton({ restaurant, source, className, label = '
           customerEmail: form.get('customerEmail'),
           customerPhone: form.get('customerPhone'),
           notes: form.get('notes'),
+          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
         }),
       })
       if (!res.ok) {

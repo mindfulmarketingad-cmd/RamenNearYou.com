@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createLeadsClient } from '@/lib/leads-supabase'
 
-const VALID_SOURCES = new Set(['listing', 'partners', 'find'])
-
 export async function POST(request: Request) {
   const body = await request.json()
   const {
     source,
     restaurantName,
-    restaurantSlug,
     city,
     stateCode,
     partySize,
@@ -18,6 +15,7 @@ export async function POST(request: Request) {
     customerEmail,
     customerPhone,
     notes,
+    pageUrl,
   } = body
 
   if (!restaurantName?.trim() || !customerName?.trim()) {
@@ -27,22 +25,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please provide an email or phone number so the restaurant can reach you.' }, { status: 400 })
   }
 
+  // The site's real name lives in `message` (no dedicated restaurant column
+  // on this shared, multi-directory table), with the originating surface and
+  // any customer notes appended.
+  const messageParts = [`Restaurant: ${restaurantName.trim()}${stateCode ? ` (${city ?? ''}, ${stateCode})` : ''}`]
+  if (source) messageParts.push(`via /${source}`)
+  if (notes?.trim()) messageParts.push(notes.trim())
+
   let dbOk = false
   try {
     const leads = createLeadsClient()
     const { error } = await leads.from('leads').insert({
-      source: VALID_SOURCES.has(source) ? source : 'listing',
-      restaurant_name: restaurantName.trim(),
-      restaurant_slug: restaurantSlug?.trim() || null,
+      name: customerName.trim(),
+      email: customerEmail?.trim() || null,
+      phone: customerPhone?.trim() || null,
       city: city?.trim() || null,
-      state_code: stateCode?.trim() || null,
-      party_size: partySize ? Number(partySize) : null,
-      reservation_date: reservationDate?.trim() || null,
-      reservation_time: reservationTime?.trim() || null,
-      customer_name: customerName.trim(),
-      customer_email: customerEmail?.trim() || null,
-      customer_phone: customerPhone?.trim() || null,
-      notes: notes?.trim() || null,
+      event_type: 'Restaurant Reservation',
+      event_date: reservationDate?.trim() || null,
+      guest_count: partySize ? String(partySize) : null,
+      best_time_to_call: reservationTime?.trim() || null,
+      message: messageParts.join(' — '),
+      source: 'ramennearyou.com',
+      page_url: pageUrl?.trim() || null,
     })
     if (error) console.error('Lead insert error:', error.message)
     else dbOk = true

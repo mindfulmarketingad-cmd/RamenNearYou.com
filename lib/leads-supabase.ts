@@ -1,35 +1,29 @@
-// SERVER-ONLY. Separate Supabase project used purely to capture booking-
-// inquiry leads (distinct from the main site's auth/claims database in
-// lib/supabase/*). Mirrors the fallback-constant pattern already used there:
-// the publishable key is safe to embed (equivalent to an anon key, gated by
-// RLS, not secrecy) and env vars can override it per-environment if needed.
+// SERVER-ONLY. Shared `leads` table this Supabase project already uses to
+// collect leads across multiple directory sites (construction/remodeling,
+// event rentals, etc.) — this is NOT a dedicated table for RamenNearYou, so
+// inquiries here are mapped onto its existing generic columns rather than
+// adding restaurant-specific ones. Relevant columns (see
+// app/api/inquire/route.ts for the exact mapping):
 //
-// Expected schema (run once in the Supabase SQL editor for this project):
+//   name, phone, email, city            — customer + restaurant city
+//   event_type, event_date, guest_count — repurposed as reservation type/
+//                                          date/party size (all loosely-
+//                                          typed text columns already used
+//                                          for the event-rental vertical)
+//   best_time_to_call                   — repurposed as requested arrival time
+//   message                             — restaurant name + any customer notes
+//   source                              — 'ramennearyou.com' so this
+//                                          directory's leads are filterable
+//                                          alongside the other sites
+//   page_url                            — the page the inquiry was sent from
 //
-//   create table leads (
-//     id uuid primary key default gen_random_uuid(),
-//     created_at timestamptz not null default now(),
-//     source text not null,               -- 'listing' | 'partners' | 'find'
-//     restaurant_name text not null,
-//     restaurant_slug text,
-//     city text,
-//     state_code text,
-//     party_size int,
-//     reservation_date date,
-//     reservation_time text,
-//     customer_name text not null,
-//     customer_email text,
-//     customer_phone text,
-//     notes text
-//   );
+// Everything vertical-specific to the other directories (project_type,
+// job_category, chair_count, concessions, etc.) is left null. `id`,
+// `created_at`, and `status` are NOT NULL but already have column defaults
+// (used successfully by the other directories), so they're omitted here too.
 //
-//   alter table leads enable row level security;
-//
-//   create policy "Anyone can submit an inquiry"
-//     on leads for insert
-//     to anon
-//     with check (true);
-//
+// The publishable key is safe to embed (equivalent to an anon key, gated by
+// RLS, not secrecy); env vars can override it per-environment if needed.
 import { createClient } from '@supabase/supabase-js'
 
 const LEADS_SUPABASE_URL = process.env.LEADS_SUPABASE_URL ?? 'https://tbqigevoksabizjogvtm.supabase.co'
