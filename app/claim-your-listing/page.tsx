@@ -13,6 +13,7 @@ const BENEFITS = [
   'Verified badge on your listing and the ramen search map',
   'Update your hours, photos, menu, and description anytime',
   'Respond to what diners see — your listing, your details',
+  'Ad-free listing page (no ads on your dedicated listing page)',
 ]
 
 const STEPS = [

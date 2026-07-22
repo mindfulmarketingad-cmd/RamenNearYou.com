@@ -211,9 +211,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <Link href={`/${city}/${state}`} className="hover:text-[#96602F] transition-colors">{r.city}</Link>
               </nav>
 
-              <div className="mb-3">
-                <AdUnitInFeed />
-              </div>
+              {/* Ad-free listing pages are a claim benefit — no ads once verified. */}
+              {!isVerified && (
+                <div className="mb-3">
+                  <AdUnitInFeed />
+                </div>
+              )}
 
               {/* Name + meta */}
               <div className="flex items-center gap-2 flex-wrap">
@@ -271,7 +274,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <div className="flex flex-col gap-2.5 mt-5">
                   {orderUrl && (
                     <>
-                      <AdUnitAutorelaxed />
+                      {!isVerified && <AdUnitAutorelaxed />}
                       <a href={orderUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
                         <ShoppingBag className="w-4 h-4" /> Order Now
                       </a>
@@ -357,7 +360,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     {aboutParas.map((p, i) => (
                       <div key={i}>
                         <p className="text-[#4B4845] leading-relaxed text-[13px]">{p}</p>
-                        {i === 0 && <div className="mt-3"><AdUnitInArticle /></div>}
+                        {i === 0 && !isVerified && <div className="mt-3"><AdUnitInArticle /></div>}
                       </div>
                     ))}
                   </div>
@@ -407,6 +410,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                         '100% free — no card required, just a quick ownership review',
                         'Verified badge on this page and the search map',
                         'Update hours, photos, menu, and description anytime',
+                        'Ad-free listing page (no ads on your dedicated listing page)',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
                           <span className="text-[#96602F] shrink-0">✓</span>
