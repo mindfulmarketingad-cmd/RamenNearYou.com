@@ -2,14 +2,8 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { MapPin, Search, CheckCircle2 } from 'lucide-react'
+import { Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/search'
-
-const BENEFITS = [
-  { icon: MapPin, text: 'Verified badge on your listing and the ramen search map' },
-  { icon: MapPin, text: 'Update your hours, photos, menu, and description anytime' },
-  { icon: MapPin, text: 'Respond to what diners see — your listing, your details' },
-]
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
@@ -93,33 +87,15 @@ export default function ClaimSearch() {
 
   return (
     <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
-      {/* Free-claim header */}
-      <div className="text-center mb-6 pb-6 border-b border-black/6">
-        <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold mb-3">
-          100% Free
-        </span>
-        <div className="flex items-end justify-center gap-1.5 mb-1">
-          <span className="font-serif text-5xl font-bold text-[#1E2026]">Free</span>
-        </div>
-        <p className="text-[#6B6862] text-xs">
-          Create an account, submit your claim, and our team verifies ownership. No card required.
-        </p>
-      </div>
-
-      {/* Benefits */}
-      <ul className="space-y-3 mb-8">
-        {BENEFITS.map(({ icon: Icon, text }) => (
-          <li key={text} className="flex items-center gap-3 text-sm text-[#1E2026]">
-            <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0" />
-            {text}
-          </li>
-        ))}
-      </ul>
-
       {!manual ? (
         <>
-          {/* Search */}
-          <p className="text-sm font-semibold text-[#1E2026] mb-3">Find your restaurant</p>
+          {/* Search — the very first action on the page */}
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-sm font-semibold text-[#1E2026]">Step 1 — Find your restaurant</p>
+            <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold whitespace-nowrap">
+              100% Free
+            </span>
+          </div>
           <div className="relative">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1E2026]/30" />
