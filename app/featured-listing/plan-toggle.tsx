@@ -18,9 +18,7 @@ interface Tier {
   highlight?: boolean
 }
 
-// 3 tiers, 2 ways to pay each. Swap in the real Stripe Payment Link URLs per
-// tier/interval once created (Stripe Dashboard → Payment Links → recurring
-// price). Falls back to a pre-filled mailto so no button is ever a dead link.
+// 3 tiers, 2 ways to pay each.
 const TIERS: Tier[] = [
   {
     id: 'city',
@@ -32,8 +30,8 @@ const TIERS: Tier[] = [
       'Stand-out crown icon on your city page',
       'Verified badge on your listing',
     ],
-    monthlyLink: '',
-    yearlyLink: '',
+    monthlyLink: 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04',
+    yearlyLink: 'https://buy.stripe.com/cNi9AU96ifNm8QC31kfrW0d',
   },
   {
     id: 'city_state',
@@ -45,8 +43,8 @@ const TIERS: Tier[] = [
       'Everything in City Feature',
       'Stand-out crown icon on your state page',
     ],
-    monthlyLink: '',
-    yearlyLink: '',
+    monthlyLink: 'https://buy.stripe.com/4gM28sgyK1WweaWgSafrW0e',
+    yearlyLink: 'https://buy.stripe.com/eVq00k1DQ6cM7My9pIfrW0f',
   },
   {
     id: 'city_state_homepage',
@@ -58,8 +56,8 @@ const TIERS: Tier[] = [
       'Everything in City + State Feature',
       'Top (#1) position on the homepage restaurant list',
     ],
-    monthlyLink: '',
-    yearlyLink: '',
+    monthlyLink: 'https://buy.stripe.com/cNi8wQ2HUat2gj431kfrW0g',
+    yearlyLink: 'https://buy.stripe.com/cNicN60zM44EeaWfO6frW0h',
     badge: 'Best Value',
     highlight: true,
   },
