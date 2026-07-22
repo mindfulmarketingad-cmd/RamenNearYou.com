@@ -5,7 +5,7 @@ import PlanToggle from './plan-toggle'
 
 export const metadata = {
   title: 'Get Featured on the Ramen Search Map | Ramen Near You',
-  description: 'Get your restaurant featured with a stand-out icon on the ramen search map and top placement on the homepage restaurant list. $19.99/month or $250/year.',
+  description: 'Get your restaurant featured on your city page, state page, and homepage. Plans from $19.99/month.',
   alternates: { canonical: 'https://www.ramennearyou.com/featured-listing' },
 }
 
@@ -19,8 +19,8 @@ export default async function FeaturedListingPage({
   return (
     <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-28 pb-20">
-        <div className="text-center mb-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+        <div className="text-center mb-10 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
             <span className="text-amber-600 text-xs font-medium uppercase tracking-widest">Featured Listing</span>
           </div>
@@ -49,14 +49,14 @@ export default async function FeaturedListingPage({
         </div>
 
         {cancelled === '1' && (
-          <div className="mb-8 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-sm text-center">
+          <div className="mb-8 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-sm text-center max-w-xl mx-auto">
             Payment was cancelled. Your information is saved — complete checkout when you&apos;re ready.
           </div>
         )}
 
         <PlanToggle />
 
-        <p className="text-center text-[#1E2026]/40 text-xs mt-8">
+        <p className="text-center text-[#1E2026]/40 text-xs mt-8 max-w-xl mx-auto">
           After checkout, email{' '}
           <a href="mailto:hello@ramennearyou.com" className="text-amber-600/70 hover:text-amber-600 transition-colors">
             hello@ramennearyou.com
