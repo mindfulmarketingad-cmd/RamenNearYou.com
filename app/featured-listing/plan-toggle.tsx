@@ -3,11 +3,9 @@
 import { useState } from 'react'
 import { Crown, Check } from 'lucide-react'
 
-// One plan, two ways to pay — swap in the real Stripe Payment Link URLs once
-// created (Stripe Dashboard → Payment Links → recurring price). Falls back to
-// a pre-filled mailto so the button is never a dead link before that's done.
-const STRIPE_MONTHLY_LINK = ''
-const STRIPE_YEARLY_LINK = ''
+// One plan, two ways to pay.
+const STRIPE_MONTHLY_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const STRIPE_YEARLY_LINK = 'https://buy.stripe.com/dRmfZifuG8kU4Am9pIfrW0c'
 
 const FALLBACK_MAILTO = (plan: string) =>
   `mailto:hello@ramennearyou.com?subject=${encodeURIComponent(`Featured Listing — ${plan}`)}`
