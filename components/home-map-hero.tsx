@@ -832,7 +832,12 @@ export default function HomeMapHero({
       <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl' : 'border-t border-black/8 bg-white'}>
         <div className={mapOnly ? 'px-3 sm:px-4 py-2.5' : 'max-w-7xl mx-auto px-4 sm:px-6 py-2.5'}>
           <div
-            className="flex items-center gap-2 overflow-x-auto scrollbar-hide sm:overflow-x-visible"
+            // `overflow-x-auto` clips vertical overflow too (per the CSS spec,
+            // a non-visible overflow-x forces overflow-y to auto as well) —
+            // that was clipping the "Choose area" dropdown invisible on
+            // mobile. Relax to visible while the dropdown is open so it can
+            // float above the map instead.
+            className={`flex items-center gap-2 ${showRegionDropdown ? 'overflow-visible' : 'overflow-x-auto scrollbar-hide'} sm:overflow-x-visible`}
           >
             {/* Location — auto-detected via geolocation (blue pulsing dot +
                 reverse-geocoded "City, ST") when no explicit city is picked;
