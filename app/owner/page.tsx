@@ -151,7 +151,7 @@ export default async function OwnerDashboardPage() {
                         </p>
                       </div>
                       <Link
-                        href="/featured/apply"
+                        href="/featured-listing"
                         className="shrink-0 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold transition-colors whitespace-nowrap"
                       >
                         Get Featured
@@ -206,7 +206,7 @@ function BenefitsList() {
             <p className="text-[#6B6862] text-xs mt-0.5 leading-snug">{desc}</p>
             {cta && (
               <Link
-                href="/featured/apply"
+                href="/featured-listing"
                 className="inline-flex items-center gap-1 text-amber-500 text-xs font-semibold mt-1.5 hover:underline"
               >
                 Learn more <ChevronRight className="w-3 h-3" />

@@ -4,7 +4,7 @@ import { createAdminClient } from './supabase-admin'
 // Featured restaurants appear first on the city find page with a gold pin and badge.
 // This hand-placed list is a fallback for house/demo listings that predate the
 // paid Stripe flow below — new featured placements should come through
-// /featured/apply instead of editing this file.
+// /featured-listing instead of editing this file.
 const featuredCityListings: Record<string, string[]> = {
   'port-washington:new-york': ['ikedo-ramen'],
 }
@@ -15,7 +15,7 @@ export function getFeaturedSlugsForCity(citySlug: string, stateSlug: string): st
 
 // Flat set of every featured restaurant slug — merges the hardcoded fallback
 // above with every `featured_listings` row an owner has an *active* paid
-// Stripe subscription for. This is what makes /featured/apply self-serve: a
+// Stripe subscription for. This is what makes /featured-listing self-serve: a
 // successful checkout (handled by the Stripe webhook) is enough to put a gold
 // pin on the map — no code change or redeploy required.
 //

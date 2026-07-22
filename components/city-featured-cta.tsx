@@ -88,7 +88,7 @@ export default function CityFeaturedCTA({ cityName, stateCode }: Props) {
             Own a ramen shop in {cityName}?
           </p>
           <Link
-            href="/featured/apply"
+            href="/featured-listing"
             className="shrink-0 px-4 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
           >
             Get Featured

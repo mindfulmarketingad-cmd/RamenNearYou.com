@@ -50,7 +50,7 @@ export default async function FeaturedSuccessPage({
             View Homepage
           </Link>
           <Link
-            href="/featured/apply"
+            href="/featured-listing"
             className="block w-full py-3 border border-black/8 text-[#6B6862] hover:text-[#1E2026] rounded-xl transition-colors text-sm"
           >
             Apply for Another Listing

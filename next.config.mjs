@@ -55,6 +55,8 @@ const nextConfig = {
       { source: '/vegetarian-ramen-near-me', destination: '/find/vegetarian-ramen', permanent: true },
       { source: '/korean-ramen-near-me', destination: '/find/korean-ramen', permanent: true },
       { source: '/japanese-ramen-near-me', destination: '/find/japanese-ramen', permanent: true },
+      // Renamed pages
+      { source: '/featured/apply', destination: '/featured-listing', permanent: true },
       // Removed sections — fold back into the homepage map
       { source: '/searchmap', destination: '/', permanent: true },
       { source: '/ramen-pass', destination: '/', permanent: true },

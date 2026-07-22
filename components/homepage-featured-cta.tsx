@@ -101,7 +101,7 @@ export default function HomepageFeaturedCTA() {
                   Claim the most visible placement on the site. Limited spots — first come, first served.
                 </p>
                 <Link
-                  href="/featured/apply"
+                  href="/featured-listing"
                   className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
                 >
                   <Crown className="w-4 h-4" />

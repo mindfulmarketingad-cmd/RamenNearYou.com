@@ -55,7 +55,7 @@ export default async function FeaturedDashboardPage() {
             <p className="text-[#1E2026] font-medium mb-1">No featured listings yet</p>
             <p className="text-[#6B6862] text-sm mb-6">Get your restaurant in front of thousands of ramen lovers every month.</p>
             <Link
-              href="/featured/apply"
+              href="/featured-listing"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
             >
               Get Featured <ChevronRight className="w-4 h-4" />
@@ -103,7 +103,7 @@ export default async function FeaturedDashboardPage() {
                     </p>
                   </div>
                   <Link
-                    href="/featured/apply"
+                    href="/featured-listing"
                     className="shrink-0 px-3 py-2 rounded-lg bg-[#B57F50]/10 hover:bg-[#B57F50]/20 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
                   >
                     + Add Another
@@ -142,7 +142,7 @@ export default async function FeaturedDashboardPage() {
         <div className="mt-12 pt-8 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[#6B6862] text-sm">Want to boost visibility even more?</p>
           <Link
-            href="/featured/apply"
+            href="/featured-listing"
             className="flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
           >
             <Crown className="w-4 h-4" /> Get Another Featured Spot

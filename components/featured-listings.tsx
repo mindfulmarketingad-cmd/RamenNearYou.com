@@ -54,7 +54,7 @@ export default function FeaturedListings() {
             </h2>
           </div>
           <Link
-            href="/featured/apply"
+            href="/featured-listing"
             className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-[#B57F50]/40 text-[#96602F] text-sm font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
           >
             <Crown className="w-3.5 h-3.5" />
