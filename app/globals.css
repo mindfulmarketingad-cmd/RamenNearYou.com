@@ -113,24 +113,6 @@
   }
 }
 
-/* Distance label on the blue hover-route line (searchmap pin hover).
-   Doubled-up class selector so this beats leaflet.css's own
-   `.leaflet-tooltip` rule at equal specificity — that stylesheet is
-   imported inside the map component and loads after this file. */
-.leaflet-tooltip.ramen-distance-tooltip {
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 700;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-.leaflet-tooltip.ramen-distance-tooltip::before {
-  display: none;
-}
-
 /* Blog prose styles */
 .prose-ramen {
   color: #4A4640;
