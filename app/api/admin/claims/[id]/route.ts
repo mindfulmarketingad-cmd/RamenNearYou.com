@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { upsertGhlContact } from '@/lib/gohighlevel'
+
+// Tag added when a claim is approved. Matches the pre-built "Claim Request
+// Approved" system workflow's "Wait until contact has 'business' tag" gate,
+// which hands off to the existing "Premium Upgrade Push" sequence.
+const GHL_BUSINESS_TAG = 'business'
 
 async function getAdminClient() {
   const supabase = await createServerClient()
@@ -33,13 +39,39 @@ export async function PATCH(
     .from('claims')
     .update({ status, admin_note: admin_note || null, reviewed_at: new Date().toISOString() })
     .eq('id', id)
-    .select('restaurant_slug, restaurant_name, restaurant_city, contact_name, contact_email')
+    .select('restaurant_slug, restaurant_name, restaurant_city, contact_name, contact_email, message')
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   if (claim?.restaurant_slug) {
     try { revalidatePath(`/[city]/[state]/${claim.restaurant_slug}`, 'page') } catch {}
+  }
+
+  // On approval, push the claimant to GoHighLevel tagged "business" — this is
+  // what kicks off the Premium Upgrade Offer sequence on the GHL side.
+  // Best-effort: never blocks or fails the approval itself if GHL is
+  // unreachable/misconfigured.
+  if (status === 'approved' && claim?.contact_name && claim?.contact_email) {
+    try {
+      const [firstName, ...rest] = claim.contact_name.trim().split(/\s+/)
+      let restaurantPhone: string | undefined
+      try {
+        restaurantPhone = claim.message ? JSON.parse(claim.message)?.corrections?.phone || undefined : undefined
+      } catch { /* message isn't the corrections JSON shape — ignore */ }
+
+      await upsertGhlContact({
+        firstName,
+        lastName: rest.join(' ') || undefined,
+        email: claim.contact_email.trim(),
+        phone: restaurantPhone,
+        companyName: claim.restaurant_name ?? undefined,
+        city: claim.restaurant_city ?? undefined,
+        tags: [GHL_BUSINESS_TAG],
+      })
+    } catch (err) {
+      console.error('GHL claim approval push error:', err)
+    }
   }
 
   // Email the claimant with the decision

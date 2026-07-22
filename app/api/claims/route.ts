@@ -1,13 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
-import { upsertGhlContact } from '@/lib/gohighlevel'
-
-// GHL tag added on every claim submission. Matches the pre-built
-// "Claim Request Approved" system workflow's "Wait until contact has
-// 'business' tag" gate, which hands off to the existing "Premium Upgrade
-// Push" workflow — set this workflow's trigger to "Tag Added: business".
-const GHL_CLAIMED_TAG = 'business'
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -51,29 +44,6 @@ export async function POST(request: Request) {
           : 'Failed to save your claim. Please try again.'
       return NextResponse.json({ error: friendly }, { status: 500 })
     }
-  }
-
-  // Push the claimant to GoHighLevel tagged "business" — this is what
-  // kicks off the Premium Upgrade Offer sequence on the GHL side. Best-effort:
-  // never blocks or fails the claim itself if GHL is unreachable/misconfigured.
-  try {
-    const [firstName, ...rest] = contact_name.trim().split(/\s+/)
-    let restaurantPhone: string | undefined
-    try {
-      restaurantPhone = message ? JSON.parse(message)?.corrections?.phone || undefined : undefined
-    } catch { /* message isn't the corrections JSON shape — ignore */ }
-
-    await upsertGhlContact({
-      firstName,
-      lastName: rest.join(' ') || undefined,
-      email: contact_email.trim(),
-      phone: restaurantPhone,
-      companyName: restaurant_name ?? undefined,
-      city: restaurant_city ?? undefined,
-      tags: [GHL_CLAIMED_TAG],
-    })
-  } catch (err) {
-    console.error('GHL claim push error:', err)
   }
 
   if (process.env.RESEND_API_KEY && process.env.ADMIN_EMAIL) {
