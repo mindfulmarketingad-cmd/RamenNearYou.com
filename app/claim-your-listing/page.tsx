@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { CheckCircle2 } from 'lucide-react'
 import ClaimSearch from './claim-search'
+import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
   title: 'Claim Your Ramen Restaurant Listing — Free | Ramen Near You',
@@ -78,6 +79,8 @@ export default function ClaimYourListingPage() {
         <p className="text-center text-xs text-[#6B6862]/70 mt-6">
           Unclaimed listings show whatever public data we have — claiming is the only way to control it.
         </p>
+
+        <RecentlyClaimed />
       </div>
       <Footer />
     </main>
