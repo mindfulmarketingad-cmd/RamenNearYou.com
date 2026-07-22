@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
+import { upsertGhlContact } from '@/lib/gohighlevel'
+
+// GHL tag added on every claim submission — configure a GoHighLevel Workflow
+// with trigger "Tag Added: claimed-listing" to kick off the Premium Upgrade
+// Offer email sequence.
+const GHL_CLAIMED_TAG = 'claimed-listing'
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -44,6 +50,29 @@ export async function POST(request: Request) {
           : 'Failed to save your claim. Please try again.'
       return NextResponse.json({ error: friendly }, { status: 500 })
     }
+  }
+
+  // Push the claimant to GoHighLevel tagged "claimed-listing" — this is what
+  // kicks off the Premium Upgrade Offer sequence on the GHL side. Best-effort:
+  // never blocks or fails the claim itself if GHL is unreachable/misconfigured.
+  try {
+    const [firstName, ...rest] = contact_name.trim().split(/\s+/)
+    let restaurantPhone: string | undefined
+    try {
+      restaurantPhone = message ? JSON.parse(message)?.corrections?.phone || undefined : undefined
+    } catch { /* message isn't the corrections JSON shape — ignore */ }
+
+    await upsertGhlContact({
+      firstName,
+      lastName: rest.join(' ') || undefined,
+      email: contact_email.trim(),
+      phone: restaurantPhone,
+      companyName: restaurant_name ?? undefined,
+      city: restaurant_city ?? undefined,
+      tags: [GHL_CLAIMED_TAG],
+    })
+  } catch (err) {
+    console.error('GHL claim push error:', err)
   }
 
   if (process.env.RESEND_API_KEY && process.env.ADMIN_EMAIL) {
