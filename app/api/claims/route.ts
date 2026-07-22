@@ -3,10 +3,11 @@ import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
 import { upsertGhlContact } from '@/lib/gohighlevel'
 
-// GHL tag added on every claim submission — configure a GoHighLevel Workflow
-// with trigger "Tag Added: claimed-listing" to kick off the Premium Upgrade
-// Offer email sequence.
-const GHL_CLAIMED_TAG = 'claimed-listing'
+// GHL tag added on every claim submission. Matches the pre-built
+// "Claim Request Approved" system workflow's "Wait until contact has
+// 'business' tag" gate, which hands off to the existing "Premium Upgrade
+// Push" workflow — set this workflow's trigger to "Tag Added: business".
+const GHL_CLAIMED_TAG = 'business'
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
     }
   }
 
-  // Push the claimant to GoHighLevel tagged "claimed-listing" — this is what
+  // Push the claimant to GoHighLevel tagged "business" — this is what
   // kicks off the Premium Upgrade Offer sequence on the GHL side. Best-effort:
   // never blocks or fails the claim itself if GHL is unreachable/misconfigured.
   try {
