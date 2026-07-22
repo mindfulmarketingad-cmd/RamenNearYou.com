@@ -76,6 +76,15 @@ export default function ListingActionRow({
   return (
     <>
       <div className="flex items-center gap-5 mt-5 pb-5 border-b border-black/8 overflow-x-auto scrollbar-hide">
+        {!isOwner && !isVerified && (
+          <button type="button" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
+            <span className="relative">
+              <span className="absolute inset-0 rounded-full bg-[#B57F50] animate-ping opacity-60" />
+              <span className={`relative ${iconCircle}`}><Store className="w-5 h-5" /></span>
+            </span>
+            Claim
+          </button>
+        )}
         <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions
@@ -116,17 +125,12 @@ export default function ListingActionRow({
             Menu
           </a>
         )}
-        {isOwner ? (
+        {isOwner && (
           <Link href={`/owner/${slug}`} className={iconBtn}>
             <span className={iconCircle}><Edit3 className="w-5 h-5" /></span>
             Manage
           </Link>
-        ) : !isVerified ? (
-          <button type="button" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
-            <span className={iconCircle}><Store className="w-5 h-5" /></span>
-            Claim
-          </button>
-        ) : null}
+        )}
       </div>
       <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />
     </>
