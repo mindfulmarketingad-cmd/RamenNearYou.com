@@ -237,7 +237,9 @@ export default function HomeMapHero({
   const [showFilters, setShowFilters] = useState(false)
   const [adDismissed, setAdDismissed] = useState(false)
   const [zipFilter, setZipFilter] = useState('')
-  const [sortBy, setSortBy] = useState<SortOption>('default')
+  // Defaults to highest-rated so listings (numbered in the list panel) lead
+  // with top-rated businesses — easiest for owners/visitors to find who's on top.
+  const [sortBy, setSortBy] = useState<SortOption>('highest-rated')
 
   // Location toggle — city pages default to a preset (regionBoundary), but the
   // control is editable everywhere: users can type or pick any city/state to
@@ -1004,6 +1006,22 @@ export default function HomeMapHero({
               )}
             </div>
 
+            {/* List/Map toggle — mapOnly layouts default to full-screen map;
+                this reveals the same numbered, top-rated-sorted list panel
+                the classic layout always shows. */}
+            {mapOnly && (
+              <button
+                onClick={() => setMobileView(v => v === 'list' ? 'map' : 'list')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-all shrink-0 ${
+                  mobileView === 'list' ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+                }`}
+                aria-label={mobileView === 'list' ? 'Show map' : `Show list of ${displayList.length} ramen spots`}
+              >
+                {mobileView === 'list' ? <MapIcon className="w-3.5 h-3.5" /> : <List className="w-3.5 h-3.5" />}
+                <span>{mobileView === 'list' ? 'Map' : 'List'}</span>
+              </button>
+            )}
+
             {/* Help button */}
             <button
               onClick={() => setHelpOpen(true)}
@@ -1167,9 +1185,12 @@ export default function HomeMapHero({
       <div className={mapOnly
         ? 'relative h-[calc(100dvh-var(--total-header-h,4rem))] flex overflow-hidden'
         : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden'}>
-        {/* Left list panel — omitted entirely in the full-screen map-only layout */}
-        {!mapOnly && (
-        <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
+        {/* Left list panel — always shown for the classic layout; in mapOnly
+            layouts it's an explicit toggle (see the List/Map button in the
+            filter bar and the floating mobile pill) so the map still owns
+            the screen by default. */}
+        {(!mapOnly || mobileView === 'list') && (
+        <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} ${mapOnly ? '' : 'sm:flex'} absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
           <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
             <p className="text-[#1E2026] font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
@@ -1181,10 +1202,12 @@ export default function HomeMapHero({
             </p>
           </div>
 
-          {/* Back to full-screen map — floating bottom-center pill (mobile only) */}
+          {/* Back to full-screen map — floating bottom-center pill. Mobile-only
+              for the classic layout (desktop always shows the panel there);
+              shown at every breakpoint in mapOnly since the list is opt-in. */}
           <button
             onClick={() => setMobileView('map')}
-            className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
+            className={`${mapOnly ? '' : 'sm:hidden'} absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform`}
           >
             <MapIcon className="w-5 h-5" /> Map
           </button>
@@ -1264,6 +1287,9 @@ export default function HomeMapHero({
                           onKeyDown={(e) => { if (e.key === 'Enter') router.push(internalUrl) }}
                           className={`flex gap-3 pr-10 cursor-pointer ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
                         >
+                          <span className="self-center shrink-0 w-5 text-center text-[#96602F] font-bold text-sm tabular-nums">
+                            {i + 1}
+                          </span>
                           <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
                           </div>
