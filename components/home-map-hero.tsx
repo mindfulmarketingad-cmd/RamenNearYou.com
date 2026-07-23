@@ -1398,6 +1398,15 @@ export default function HomeMapHero({
 
                       {/* Action buttons — wrap so none clip off-screen on mobile */}
                       <div className="flex flex-wrap gap-1.5 px-3 pb-2.5 pt-1">
+                        {/* Claiming is free — link to the internal claim flow
+                            (account required; claims are admin-reviewed). */}
+                        <Link
+                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
+                        >
+                          Claim For Free
+                        </Link>
                         {hasInternalPage ? (
                           <Link
                             href={internalUrl}
@@ -1445,21 +1454,6 @@ export default function HomeMapHero({
                             Order Now
                           </a>
                         )}
-                        {/* Claiming is free — link to the internal claim flow
-                            (account required; claims are admin-reviewed). */}
-                        <Link
-                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                        >
-                          Claim For Free
-                        </Link>
-                        <InquireButton
-                          restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
-                          source="find"
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                          label="Inquire"
-                        />
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}

@@ -5,9 +5,7 @@ import { createAdminClient } from './supabase-admin'
 // This hand-placed list is a fallback for house/demo listings that predate the
 // paid Stripe flow below — new featured placements should come through
 // /featured-listing instead of editing this file.
-const featuredCityListings: Record<string, string[]> = {
-  'port-washington:new-york': ['ikedo-ramen'],
-}
+const featuredCityListings: Record<string, string[]> = {}
 
 export function getFeaturedSlugsForCity(citySlug: string, stateSlug: string): string[] {
   return featuredCityListings[`${citySlug}:${stateSlug}`] ?? []
