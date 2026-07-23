@@ -18,7 +18,7 @@ const BENEFITS = [
 ]
 
 const STEPS = [
-  { title: 'Search your restaurant', text: 'Type your restaurant name in the box above and pick it from the list.' },
+  { title: 'Enter your restaurant\'s name', text: 'Type your restaurant name in the box above and pick it from the list.' },
   { title: 'Fill out the short claim form', text: 'Just four fields — your name, business name, phone, and email.' },
   { title: 'Get verified', text: 'We review every claim within 2–3 business days. Once approved, the listing is yours to manage.' },
 ]
