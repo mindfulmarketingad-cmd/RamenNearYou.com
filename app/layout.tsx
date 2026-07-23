@@ -62,6 +62,8 @@ export default function RootLayout({
       <head>
         <meta name="google-adsense-account" content="ca-pub-9332749804326149" />
         <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
+        {/* Crazy Egg */}
+        <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0133/3789.js" async></script>
         <Script id="gtag-consent-default" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
