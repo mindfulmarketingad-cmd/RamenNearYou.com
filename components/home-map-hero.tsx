@@ -768,6 +768,23 @@ export default function HomeMapHero({
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
+  // "Open Now" carousel (mobile, mapOnly) — independent of whatever filters/
+  // search are active, matching Google Maps' own always-on "Open now" row.
+  // Within 25 miles (~40.2 km) of the visitor's resolved location, sorted by
+  // rating so the best open-right-now spots lead.
+  const openNowNearby = useMemo(() => {
+    return data
+      .map(r => ({
+        ...r,
+        distKm: r.latitude != null && r.longitude != null
+          ? haversineKm(distanceOrigin.lat, distanceOrigin.lng, r.latitude, r.longitude)
+          : Infinity,
+      }))
+      .filter(r => isOpenNow(r.hours) && r.distKm <= 40.2336)
+      .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+      .slice(0, 15)
+  }, [data, distanceOrigin])
+
   // The pin the visitor last clicked on the map — drives the floating detail
   // card in mapOnly layouts (no list panel to show this info alongside).
   const selectedRestaurant = useMemo(
@@ -1467,6 +1484,46 @@ export default function HomeMapHero({
               >
                 More Places ({displayList.length - 3})
               </button>
+            )}
+
+            {/* "Open Now" horizontal carousel — mobile only, Google-Maps-app
+                style: photo card, rating, price, Open status, distance. */}
+            {mapOnly && openNowNearby.length > 0 && (
+              <div className="sm:hidden border-t border-black/8 pt-3 pb-1">
+                <h3 className="font-serif text-lg font-bold text-[#1E2026] px-3 mb-2.5">Open Now</h3>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-2 snap-x snap-mandatory">
+                  {openNowNearby.map((r, i) => {
+                    const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+                    const price = priceRangeLabel(r.priceRange)
+                    return (
+                      <Link
+                        key={`open-now-${r.slug}-${i}`}
+                        href={internalUrl}
+                        className="shrink-0 w-40 snap-start rounded-xl overflow-hidden bg-[#F5F4F0] border border-black/8"
+                      >
+                        <div className="relative w-full h-28 bg-[#EFEDE6]">
+                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="160px" />
+                        </div>
+                        <div className="p-2.5">
+                          <p className="font-semibold text-[#1E2026] text-xs leading-snug line-clamp-2 mb-1">{r.name}</p>
+                          {r.rating != null && (
+                            <div className="flex items-center gap-1 text-[11px] text-[#1E2026]/70 mb-0.5">
+                              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                              <span>{r.rating.toFixed(1)}</span>
+                              <span className="text-[#1E2026]/40">({r.reviewCount.toLocaleString()})</span>
+                              {price && <span className="text-[#1E2026]/40">· {price}</span>}
+                            </div>
+                          )}
+                          <p className="text-[11px]">
+                            <span className="text-emerald-600 font-semibold">Open</span>
+                            <span className="text-[#6B6862]"> · {kmToMiles(r.distKm).toFixed(1)} mi · {r.city}, {r.stateCode}</span>
+                          </p>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
             )}
           </div>
 
