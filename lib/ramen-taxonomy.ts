@@ -148,6 +148,17 @@ export function mapPointMapsUrl(p: MapPoint): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.city}, ${p.stateCode}`)}`
 }
 
+// Google-Maps-style "$10–20 per person" callout from the $/$$/$$$/$$$$ symbol.
+export function priceRangeLabel(priceRange?: string): string | null {
+  switch (priceRange) {
+    case '$': return '$1–10'
+    case '$$': return '$10–20'
+    case '$$$': return '$20–30'
+    case '$$$$': return '$30+'
+    default: return null
+  }
+}
+
 export function matchesPrice(p: MapPoint, key: string): boolean {
   const budget = p.priceRange === '$' || p.priceRange === '$$'
   const premium = p.priceRange === '$$$' || p.priceRange === '$$$$'
