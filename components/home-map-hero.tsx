@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef, type ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
@@ -34,6 +34,30 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'highest-rated', label: 'Highest Rated' },
   { value: 'name-az', label: 'Name (A–Z)' },
   { value: 'name-za', label: 'Name (Z–A)' },
+]
+
+// Data-driven (rather than hand-repeated Chip elements) so both rendering
+// and the per-section active-filter counts in the filter panel share one
+// source of truth.
+const CUISINE_DIETARY_META = [
+  { key: 'ramen-sushi', emoji: '🍣', label: 'Ramen + Sushi' },
+  { key: 'sushi', emoji: '🍣', label: 'Sushi' },
+  { key: 'lo-mein', emoji: '🍝', label: 'Lo Mein' },
+  { key: 'fish-ramen', emoji: '🐟', label: 'Fish Ramen' },
+  { key: 'korean-style', emoji: '🌶', label: 'Korean-Style' },
+  { key: 'japanese-fusion', emoji: '🔀', label: 'Japanese Fusion' },
+  { key: 'halal', emoji: '☪️', label: 'Halal-Friendly' },
+  { key: 'gluten-free', emoji: '🌾', label: 'Gluten-Free Options' },
+]
+const HOURS_QUALITY_META = [
+  { key: 'open-now', emoji: '🟢', label: 'Open Now' },
+  { key: 'open-late', emoji: '🌙', label: 'Open Late (10pm+)' },
+  { key: 'open-midnight', emoji: '🌃', label: 'Past Midnight' },
+  { key: 'open-early', emoji: '☕', label: 'Open Early' },
+  { key: 'open-weekends', emoji: '📆', label: 'Open Weekends' },
+  { key: 'top-rated', emoji: '⭐', label: 'Top Rated' },
+  { key: 'hidden-gems', emoji: '💎', label: 'Hidden Gems' },
+  { key: 'new-ramen', emoji: '🆕', label: 'New Spots' },
 ]
 
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
@@ -109,6 +133,23 @@ function Chip({
       {emoji && <span className="text-sm leading-none">{emoji}</span>}
       {label}
     </button>
+  )
+}
+
+// ── Filter-panel section header with an active-count badge, so a visitor can
+//    tell at a glance which categories already have filters applied without
+//    reading every chip. ──────────────────────────────────────────────────
+function FilterSectionHeading({
+  icon, label, count,
+}: { icon: ReactNode; label: string; count: number }) {
+  return (
+    <div className="flex items-center gap-1.5 mb-2">
+      {icon}
+      <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">{label}</span>
+      {count > 0 && (
+        <span className="inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{count}</span>
+      )}
+    </div>
   )
 }
 
@@ -1083,7 +1124,7 @@ export default function HomeMapHero({
 
       {/* Expandable full filter panel */}
       {showFilters && (
-        <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl max-h-[calc(100dvh-12rem)] overflow-y-auto' : 'border-t border-black/8 bg-white'}>
+        <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl lg:max-w-5xl max-h-[calc(100dvh-12rem)] overflow-y-auto' : 'border-t border-black/8 bg-white'}>
           <div className={mapOnly ? 'px-3 sm:px-4 py-4' : 'max-w-7xl mx-auto px-4 sm:px-6 py-4'}>
             {/* Panel header */}
             <div className="flex items-center justify-between pb-3 mb-1 border-b border-black/8">
@@ -1106,13 +1147,12 @@ export default function HomeMapHero({
               </div>
             </div>
 
-            {/* Grouped filter sections */}
-            <div className="divide-y divide-black/8">
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <Utensils className="w-3.5 h-3.5 text-[#96602F]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Instant Bowl Finder</span>
-                </div>
+            {/* Grouped filter sections — a single scrolling list on mobile;
+                a clean 2/3-column card grid on desktop so related filters
+                sit side by side instead of one long vertical scroll. */}
+            <div className="divide-y divide-black/8 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 sm:items-start">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading icon={<Utensils className="w-3.5 h-3.5 text-[#96602F]" />} label="Instant Bowl Finder" count={bowls.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {BOWL_META.map(b => (
                     <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => toggleBowl(b.key)} />
@@ -1120,11 +1160,8 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-[#96602F]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Mood</span>
-                </div>
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading icon={<Sparkles className="w-3.5 h-3.5 text-[#96602F]" />} label="Mood" count={moods.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {MOOD_META.map(m => (
                     <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => toggleMood(m.key)} />
@@ -1132,45 +1169,34 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <Utensils className="w-3.5 h-3.5 text-[#96602F]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Cuisine & Dietary</span>
-                </div>
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading
+                  icon={<Utensils className="w-3.5 h-3.5 text-[#96602F]" />}
+                  label="Cuisine & Dietary"
+                  count={CUISINE_DIETARY_META.filter(c => flags.has(c.key)).length}
+                />
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('ramen-sushi')} emoji="🍣" label="Ramen + Sushi" onClick={() => toggleFlag('ramen-sushi')} />
-                  <Chip active={flags.has('sushi')} emoji="🍣" label="Sushi" onClick={() => toggleFlag('sushi')} />
-                  <Chip active={flags.has('lo-mein')} emoji="🍝" label="Lo Mein" onClick={() => toggleFlag('lo-mein')} />
-                  <Chip active={flags.has('fish-ramen')} emoji="🐟" label="Fish Ramen" onClick={() => toggleFlag('fish-ramen')} />
-                  <Chip active={flags.has('korean-style')} emoji="🌶" label="Korean-Style" onClick={() => toggleFlag('korean-style')} />
-                  <Chip active={flags.has('japanese-fusion')} emoji="🔀" label="Japanese Fusion" onClick={() => toggleFlag('japanese-fusion')} />
-                  <Chip active={flags.has('halal')} emoji="☪️" label="Halal-Friendly" onClick={() => toggleFlag('halal')} />
-                  <Chip active={flags.has('gluten-free')} emoji="🌾" label="Gluten-Free Options" onClick={() => toggleFlag('gluten-free')} />
+                  {CUISINE_DIETARY_META.map(c => (
+                    <Chip key={c.key} active={flags.has(c.key)} emoji={c.emoji} label={c.label} onClick={() => toggleFlag(c.key)} />
+                  ))}
                 </div>
               </section>
 
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <Clock className="w-3.5 h-3.5 text-[#96602F]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Hours &amp; Quality</span>
-                </div>
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading
+                  icon={<Clock className="w-3.5 h-3.5 text-[#96602F]" />}
+                  label="Hours & Quality"
+                  count={HOURS_QUALITY_META.filter(h => flags.has(h.key)).length}
+                />
                 <div className="flex flex-wrap gap-1.5">
-                  <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
-                  <Chip active={flags.has('open-late')} emoji="🌙" label="Open Late (10pm+)" onClick={() => toggleFlag('open-late')} />
-                  <Chip active={flags.has('open-midnight')} emoji="🌃" label="Past Midnight" onClick={() => toggleFlag('open-midnight')} />
-                  <Chip active={flags.has('open-early')} emoji="☕" label="Open Early" onClick={() => toggleFlag('open-early')} />
-                  <Chip active={flags.has('open-weekends')} emoji="📆" label="Open Weekends" onClick={() => toggleFlag('open-weekends')} />
-                  <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
-                  <Chip active={flags.has('hidden-gems')} emoji="💎" label="Hidden Gems" onClick={() => toggleFlag('hidden-gems')} />
-                  <Chip active={flags.has('new-ramen')} emoji="🆕" label="New Spots" onClick={() => toggleFlag('new-ramen')} />
+                  {HOURS_QUALITY_META.map(h => (
+                    <Chip key={h.key} active={flags.has(h.key)} emoji={h.emoji} label={h.label} onClick={() => toggleFlag(h.key)} />
+                  ))}
                 </div>
               </section>
 
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <span className="text-[#96602F] text-xs font-bold w-3.5 text-center">$</span>
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Price</span>
-                </div>
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading icon={<span className="text-[#96602F] text-xs font-bold w-3.5 text-center">$</span>} label="Price" count={prices.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {PRICE_META.map(p => (
                     <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => togglePrice(p.key)} />
@@ -1178,11 +1204,12 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <Heart className="w-3.5 h-3.5 text-[#96602F]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">Features &amp; Amenities</span>
-                </div>
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading
+                  icon={<Heart className="w-3.5 h-3.5 text-[#96602F]" />}
+                  label="Features & Amenities"
+                  count={FEATURE_META.filter(f => flags.has(f.key)).length}
+                />
                 <div className="flex flex-wrap gap-1.5">
                   {FEATURE_META.map(f => (
                     <Chip key={f.key} active={flags.has(f.key)} hex={f.hex} emoji={f.emoji} label={f.label} onClick={() => toggleFlag(f.key)} />
