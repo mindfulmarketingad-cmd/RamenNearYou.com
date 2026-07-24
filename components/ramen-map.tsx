@@ -77,7 +77,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
       white-space:nowrap;
       transform:scale(${scale});transform-origin:bottom center;
       transition:transform 0.15s;
-      z-index:${featured ? 1000 : 'auto'};
+      z-index:${featured ? 1000 : claimed ? 500 : 'auto'};
     ">${crown}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg"><path d="M9 3.5c.6.6 1 1.4 1 2M12 3c.6.6 1 1.4 1 2M15 3.5c.6.6 1 1.4 1 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M3 11h18a1 1 0 011 1c0 5.5-4.9 9-10 9s-10-3.5-10-9a1 1 0 011-1z" fill="currentColor"/></svg>${label}${check}</div>`,
     iconSize: [44, 24],
     iconAnchor: [22, 24],
@@ -329,10 +329,12 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         : ''
 
       // Leaflet auto-stacks markers by screen Y-position (lower pins paint on
-      // top), which can bury a featured pin behind ordinary ones regardless
-      // of the z-index in its own icon HTML. zIndexOffset overrides that so
-      // the featured pin always paints above every other marker on the map.
-      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name, zIndexOffset: r.featured ? 10000 : 0 }).addTo(map)
+      // top), which can bury a featured/claimed pin behind ordinary ones
+      // regardless of the z-index in its own icon HTML. zIndexOffset
+      // overrides that so featured pins paint above everything, and claimed
+      // (verified) pins paint above ordinary ones but still behind featured.
+      const zIndexOffset = r.featured ? 10000 : r.claimed ? 5000 : 0
+      const marker = L.marker([r.latitude, r.longitude], { icon, title: r.name, zIndexOffset }).addTo(map)
       if (!disablePopups) {
         marker
           .bindPopup(`

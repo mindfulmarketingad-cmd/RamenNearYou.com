@@ -28,6 +28,10 @@ interface Props {
 // all of them would balloon the build). Unknown slugs still 404 via the
 // hasReviewPage() check in the page body. Per-visitor owner state lives in
 // the client-side OwnerCtaCard so nothing here reads cookies.
+// Hand-placed verified overrides — confirmed claimed outside the DB-driven
+// claims flow, so the badge/ad-removal don't depend on that lookup at all.
+const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
+
 export const dynamicParams = true
 export const revalidate = 86400
 
@@ -89,9 +93,9 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   // Claim/verification status — per-restaurant (admin client, no cookies),
   // so it caches with the page. Whether the current visitor OWNS the claim
   // is resolved client-side in OwnerCtaCard.
-  let isVerified = false
+  let isVerified = MANUALLY_VERIFIED_SLUGS.has(r.slug)
   const admin = createAdminClient()
-  if (admin) {
+  if (!isVerified && admin) {
     const { data: claim } = await admin
       .from('claims')
       .select('id')

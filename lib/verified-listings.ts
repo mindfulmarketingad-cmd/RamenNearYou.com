@@ -4,7 +4,7 @@ import { createAdminClient } from './supabase-admin'
 // testing — same pattern as featuredCityListings in featured-city.ts. New
 // verified slugs should come through a real approved claims row instead of
 // editing this list.
-const verifiedFallbackSlugs = new Set<string>(['ikedo-ramen'])
+const verifiedFallbackSlugs = new Set<string>(['ikedo-ramen', 'momonoki'])
 
 // Flat set of every restaurant slug with an approved claim — used to mark
 // listings "Claimed" (e.g. on the /partners directory table) without a

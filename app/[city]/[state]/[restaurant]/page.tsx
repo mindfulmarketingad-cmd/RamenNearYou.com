@@ -20,6 +20,10 @@ import {
   filterDescription,
 } from '@/lib/city-filter-pages'
 
+// Hand-placed verified overrides — confirmed claimed outside the DB-driven
+// claims flow, so the badge/ad-removal don't depend on that lookup at all.
+const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
+
 export const dynamicParams = true
 // ISR: these ~12k listing pages are the site's most important SEO surface,
 // and they used to be force-dynamic (every visit paid a full server render
@@ -210,8 +214,13 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   // null, no thrown error surfaced here) if more than one approved claim
   // row ever exists for the same slug — .maybeSingle() alone errors out
   // when a query returns more than one row.
-  let isVerified = false
-  if (admin) {
+  //
+  // MANUALLY_VERIFIED_SLUGS is a hand-placed override for listings confirmed
+  // claimed outside the DB-driven flow (mirrors the fallback pattern already
+  // used for featured/verified-map-pin slugs) — bypasses the claims lookup
+  // entirely so it can't be affected by caching or query issues.
+  let isVerified = MANUALLY_VERIFIED_SLUGS.has(r2.slug)
+  if (!isVerified && admin) {
     const { data: claim } = await admin
       .from('claims')
       .select('id')
