@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
-  List, Map as MapIcon, HelpCircle, ArrowUpDown,
+  List, Map as MapIcon, HelpCircle, ArrowUpDown, BadgeCheck,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -701,6 +701,7 @@ export default function HomeMapHero({
         if (flags.has('hidden-gems') && !((r.rating ?? 0) >= 4.5 && r.reviewCount < 100)) return false
         if (flags.has('open-early') && !opensEarly(r.hours)) return false
         if (flags.has('open-weekends') && !isOpenOnWeekend(r.hours)) return false
+        if (flags.has('verified') && !r.claimed) return false
         // "Ramen + Sushi" — spots that also do sushi. The slim payload only
         // carries the name, so we match shops whose name signals sushi.
         if (flags.has('ramen-sushi') && !/sushi|sashimi|izakaya|japanese/i.test(r.name)) return false
@@ -1061,6 +1062,7 @@ export default function HomeMapHero({
               {/* Quick filters — one-tap shortcuts for the most-used filters */}
               <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
               <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
+              <Chip active={flags.has('verified')} emoji="✅" label="Verified" onClick={() => toggleFlag('verified')} />
               <Chip
                 active={bowls.has('miso')}
                 hex={BOWL_BY_KEY['miso']?.hex}
@@ -1201,6 +1203,13 @@ export default function HomeMapHero({
                   {PRICE_META.map(p => (
                     <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => togglePrice(p.key)} />
                   ))}
+                </div>
+              </section>
+
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading icon={<BadgeCheck className="w-3.5 h-3.5 text-[#96602F]" />} label="Ownership" count={flags.has('verified') ? 1 : 0} />
+                <div className="flex flex-wrap gap-1.5">
+                  <Chip active={flags.has('verified')} emoji="✅" label="Verified Listings" onClick={() => toggleFlag('verified')} />
                 </div>
               </section>
 
@@ -1348,7 +1357,10 @@ export default function HomeMapHero({
                                 👑 #1 Featured
                               </span>
                             )}
-                            <p className={`font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>
+                              <span className="truncate">{r.name}</span>
+                              {r.claimed && !r.featured && <BadgeCheck className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
+                            </p>
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
@@ -1392,7 +1404,10 @@ export default function HomeMapHero({
                                 👑 #1 Featured
                               </span>
                             )}
-                            <p className={`font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>{r.name}</p>
+                            <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>
+                              <span className="truncate">{r.name}</span>
+                              {r.claimed && !r.featured && <BadgeCheck className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
+                            </p>
                             <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
                             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                               {r.rating && (
