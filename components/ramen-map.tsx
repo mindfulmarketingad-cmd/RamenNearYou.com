@@ -38,6 +38,10 @@ const BOUNCE_CSS = `
   50%       { box-shadow: 0 3px 18px rgba(212,136,11,0.9), 0 0 0 8px rgba(245,179,1,0); }
 }
 .ramen-featured-pin { animation: ramenFeaturedGlow 1.8s ease-in-out infinite; }
+/* Zoom control lives bottom-left (see zoomControl: false + L.control.zoom
+   below) so it never sits under the filter bar on mobile — pushed up just
+   above the Satellite toggle button instead of Leaflet's default corner. */
+.leaflet-control-zoom { margin-bottom: 64px !important; }
 `
 
 function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false, featured = false, claimed = false) {
@@ -195,7 +199,10 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     const map = L.map(containerRef.current, {
       center: [userLat, userLng],
       zoom: initialZoom,
-      zoomControl: true,
+      // Default top-left zoom control sits under the floating filter bar on
+      // mobile — moved to bottom-left (see CSS above), right above the
+      // Satellite toggle, instead.
+      zoomControl: false,
       // Zoom ONLY via the +/- buttons — scroll-wheel, pinch, and double-tap
       // zoom all hijack normal page scrolling (especially on mobile).
       scrollWheelZoom: false,
@@ -206,6 +213,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       // trying to scroll down the page — disable it there; desktop keeps drag.
       dragging: !L.Browser.mobile,
     })
+    L.control.zoom({ position: 'bottomleft' }).addTo(map)
     // Base tile layer (standard vs. satellite) is managed by a separate effect.
 
     L.marker([userLat, userLng], { icon: userIcon })
