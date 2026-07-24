@@ -55,8 +55,20 @@ function StarRating({ rating }: { rating: number | null }) {
   )
 }
 
-function firstUrl(raw?: string | null): string {
+function firstUrl(raw: unknown): string {
   if (!raw) return ''
+  // Some scraped restaurants store this as an array of {name, url} objects
+  // instead of a plain string — guard so those don't crash the page.
+  if (Array.isArray(raw)) {
+    for (const entry of raw) {
+      if (entry && typeof entry === 'object' && typeof (entry as { url?: unknown }).url === 'string') {
+        return (entry as { url: string }).url
+      }
+      if (typeof entry === 'string') return entry
+    }
+    return ''
+  }
+  if (typeof raw !== 'string') return ''
   const m = raw.match(/https?:\/\/[^\s,]+/)
   return m ? m[0] : ''
 }
@@ -68,6 +80,7 @@ function hoursToSchema(hours: Record<string, string[]>): object[] {
   for (const [day, slots] of Object.entries(hours)) {
     if (!slots || slots[0] === 'Closed') continue
     for (const slot of slots) {
+      if (typeof slot !== 'string') continue
       const m = slot.match(/^(\d+(?::\d+)?)\s*(AM|PM)?\s*-\s*(\d+(?::\d+)?)\s*(AM|PM)$/i)
       if (!m) continue
       const [, sStr, sMer, eStr, eMer] = m
