@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         await supabase.from('user_profiles').upsert(
-          { user_id: user.id, display_name: user.user_metadata?.display_name ?? '' },
+          { user_id: user.id, display_name: user.user_metadata?.display_name ?? '', email: user.email },
           { onConflict: 'user_id', ignoreDuplicates: true }
         )
       }
