@@ -1038,23 +1038,6 @@ export default function HomeMapHero({
               )}
             </div>
 
-            {/* List/Map toggle — desktop-only now that mapOnly's mobile view
-                always shows the card list below the map (no toggle needed
-                there). Reveals the same numbered, top-rated-sorted side
-                panel the classic layout always shows. */}
-            {mapOnly && (
-              <button
-                onClick={() => setMobileView(v => v === 'list' ? 'map' : 'list')}
-                className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-all shrink-0 ${
-                  mobileView === 'list' ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
-                }`}
-                aria-label={mobileView === 'list' ? 'Show map' : `Show list of ${displayList.length} ramen spots`}
-              >
-                {mobileView === 'list' ? <MapIcon className="w-3.5 h-3.5" /> : <List className="w-3.5 h-3.5" />}
-                <span>{mobileView === 'list' ? 'Map' : 'List'}</span>
-              </button>
-            )}
-
             {/* Help button */}
             <button
               onClick={() => setHelpOpen(true)}
@@ -1214,19 +1197,18 @@ export default function HomeMapHero({
       {/* /Controls wrapper (mapOnly floats this over the map) */}
       </div>
 
-      {/* Map + list. mapOnly: mobile stacks a shorter map above an
-          always-visible card list (Google-Maps-app style); sm+ keeps the
-          full-screen map with the List/Map toggle revealing a side panel.
-          Classic (!mapOnly) layout is unchanged at every breakpoint. */}
+      {/* Map + list. mapOnly: stacks a shorter map above an always-visible
+          card list (Google-Maps-app style) at every breakpoint. Classic
+          (!mapOnly) layout is unchanged — full-height map + side list on
+          desktop, toggle between the two on mobile. */}
       <div className={mapOnly
-        ? 'relative flex flex-col sm:h-[calc(100dvh-var(--total-header-h,4rem))] sm:flex-row sm:overflow-hidden'
+        ? 'relative flex flex-col'
         : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden'}>
         {/* Left list panel — always shown for the classic layout (mobile via
             its own toggle, desktop always); in mapOnly it's always visible
-            below the map on mobile, and an explicit toggle (List/Map button
-            in the filter bar) on desktop. */}
+            below the map, at every breakpoint. */}
         <div className={mapOnly
-          ? `flex flex-col w-full sm:w-80 lg:w-96 bg-white sm:border-r border-black/8 overflow-hidden shrink-0 order-2 sm:order-none ${mobileView === 'list' ? 'sm:flex' : 'sm:hidden'}`
+          ? 'flex flex-col w-full bg-white overflow-hidden shrink-0 order-2'
           : `${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
           <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
             <p className="text-[#1E2026] font-semibold text-sm">
@@ -1240,16 +1222,17 @@ export default function HomeMapHero({
           </div>
 
           {/* Back to full-screen map — floating bottom-center pill. Classic
-              layout: mobile-only (desktop always shows the panel there).
-              mapOnly: the map is always visible on mobile now (stacked above
-              this list), so this button only makes sense as the desktop
-              toggle-close action. */}
-          <button
-            onClick={() => setMobileView('map')}
-            className={`${mapOnly ? 'hidden sm:flex' : 'flex sm:hidden'} absolute bottom-6 left-1/2 -translate-x-1/2 z-10 items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform`}
-          >
-            <MapIcon className="w-5 h-5" /> Map
-          </button>
+              layout only: mobile-only (desktop always shows the panel
+              there). mapOnly no longer needs this — the map is always
+              visible above the list at every breakpoint now. */}
+          {!mapOnly && (
+            <button
+              onClick={() => setMobileView('map')}
+              className="flex sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
+            >
+              <MapIcon className="w-5 h-5" /> Map
+            </button>
+          )}
 
           <div className="flex-1 overflow-y-auto">
             {dataLoading ? (
@@ -1315,7 +1298,7 @@ export default function HomeMapHero({
                         r.featured
                           ? 'bg-amber-50/60 border-l-[3px] border-[#f5b301]'
                           : active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'
-                      } ${mapOnly && !mobileListExpanded && i >= 3 ? 'hidden sm:block' : ''}`}
+                      } ${mapOnly && !mobileListExpanded && i >= 3 ? 'hidden' : ''}`}
                     >
                       {/* Main clickable row */}
                       {hasInternalPage ? (
@@ -1480,16 +1463,16 @@ export default function HomeMapHero({
             {mapOnly && !mobileListExpanded && displayList.length > 3 && (
               <button
                 onClick={() => setMobileListExpanded(true)}
-                className="sm:hidden w-full py-3 text-center text-sm font-semibold text-[#96602F] hover:bg-black/5 transition-colors border-t border-black/5"
+                className="w-full py-3 text-center text-sm font-semibold text-[#96602F] hover:bg-black/5 transition-colors border-t border-black/5"
               >
                 More Places ({displayList.length - 3})
               </button>
             )}
 
-            {/* "Open Now" horizontal carousel — mobile only, Google-Maps-app
-                style: photo card, rating, price, Open status, distance. */}
+            {/* "Open Now" horizontal carousel — Google-Maps-app style: photo
+                card, rating, price, Open status, distance. */}
             {mapOnly && openNowNearby.length > 0 && (
-              <div className="sm:hidden border-t border-black/8 pt-3 pb-1">
+              <div className="border-t border-black/8 pt-3 pb-1">
                 <h3 className="font-serif text-lg font-bold text-[#1E2026] px-3 mb-2.5">Open Now</h3>
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-2 snap-x snap-mandatory">
                   {openNowNearby.map((r, i) => {
@@ -1529,10 +1512,10 @@ export default function HomeMapHero({
 
         </div>
 
-        {/* Map — shorter fixed height above the mobile card list in mapOnly,
-            fills the container otherwise (full-screen desktop mapOnly, or
-            right pane in the classic layout). */}
-        <div className={mapOnly ? 'h-[45vh] min-h-[280px] sm:h-auto sm:flex-1 relative block' : 'flex-1 relative block'}>
+        {/* Map — shorter fixed height above the card list in mapOnly (every
+            breakpoint, taller on larger screens), fills the container
+            otherwise (right pane in the classic layout). */}
+        <div className={mapOnly ? 'h-[45vh] min-h-[280px] sm:h-[55vh] sm:min-h-[380px] relative block' : 'flex-1 relative block'}>
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
