@@ -55,14 +55,6 @@ export default async function FeaturedListingPage({
         )}
 
         <PlanToggle />
-
-        <p className="text-center text-[#1E2026]/40 text-xs mt-8 max-w-xl mx-auto">
-          After checkout, email{' '}
-          <a href="mailto:hello@ramennearyou.com" className="text-amber-600/70 hover:text-amber-600 transition-colors">
-            hello@ramennearyou.com
-          </a>{' '}
-          with your restaurant name and any updated photos. We&apos;ll have your Featured badge live within 24 hours.
-        </p>
       </div>
       <Footer />
     </main>
