@@ -3,6 +3,8 @@ import { revalidatePath } from 'next/cache'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { upsertGhlContact } from '@/lib/gohighlevel'
+import { getRestaurantBySlug } from '@/lib/restaurants'
+import { getReviewSlug } from '@/lib/reviews'
 
 // Tag added when a claim is approved. Matches the pre-built "Claim Request
 // Approved" system workflow's "Wait until contact has 'business' tag" gate,
@@ -44,8 +46,18 @@ export async function PATCH(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  // Revalidate the actual cached path — the previous version used the
+  // literal `[city]/[state]` template with only the slug substituted, which
+  // never matched any real rendered path and silently did nothing, so a
+  // newly-approved claim's Verified badge/ad removal could stay stale for
+  // up to the page's full revalidate window (1 hour for the listing page,
+  // 24 hours for its reviews page).
   if (claim?.restaurant_slug) {
-    try { revalidatePath(`/[city]/[state]/${claim.restaurant_slug}`, 'page') } catch {}
+    const restaurant = getRestaurantBySlug(claim.restaurant_slug)
+    if (restaurant) {
+      try { revalidatePath(`/${restaurant.citySlug}/${restaurant.stateSlug}/${restaurant.slug}`, 'page') } catch {}
+      try { revalidatePath(`/reviews/${getReviewSlug(restaurant)}`, 'page') } catch {}
+    }
   }
 
   // On approval, push the claimant to GoHighLevel tagged "business" — this is
