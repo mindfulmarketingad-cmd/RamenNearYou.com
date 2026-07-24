@@ -265,12 +265,18 @@ export default function PartnersDirectory() {
                           <HoursCell hours={r.hours} />
                         </td>
                         <td className="px-4 py-3 align-top whitespace-nowrap">
-                          <Link
-                            href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                            className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
-                          >
-                            Claim Listing
-                          </Link>
+                          {r.claimed ? (
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-black/5 text-[#6B6862] text-xs font-semibold whitespace-nowrap">
+                              Claimed
+                            </span>
+                          ) : (
+                            <Link
+                              href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                              className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors whitespace-nowrap"
+                            >
+                              Claim Listing
+                            </Link>
+                          )}
                         </td>
                         <td className="px-4 py-3 align-top whitespace-nowrap">
                           <InquireButton

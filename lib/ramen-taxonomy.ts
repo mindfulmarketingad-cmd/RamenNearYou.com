@@ -131,6 +131,7 @@ export type MapPoint = {
   reviewSlug?: string     // /reviews/{slug} page when it differs from `slug` (DB
                           // entries only — when absent on a DB entry, use `slug`)
   featured?: boolean      // promoted listing — pinned first with a Featured badge
+  claimed?: boolean       // has an approved ownership claim — shows "Claimed" instead of a CTA
 }
 
 // The /reviews page slug for a map point: DB entries always have a review

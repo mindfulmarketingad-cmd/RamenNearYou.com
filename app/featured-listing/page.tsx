@@ -1,10 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import { ChevronRight, Store } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { createClient } from '@/lib/supabase/server'
-import { createAdminClient } from '@/lib/supabase-admin'
 import PlanToggle from './plan-toggle'
 
 export const metadata = {
@@ -13,53 +9,12 @@ export const metadata = {
   alternates: { canonical: 'https://www.ramennearyou.com/featured-listing' },
 }
 
-// Getting featured requires a claimed (approved) restaurant — this is an
-// upgrade on top of an existing free listing, not a way to create one.
-function ClaimGate() {
-  return (
-    <main className="min-h-screen bg-[#ffffff]">
-      <Navbar />
-      <div className="max-w-lg mx-auto px-4 sm:px-6 pt-28 pb-20 text-center">
-        <div className="w-14 h-14 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-5">
-          <Store className="w-6 h-6 text-amber-600" />
-        </div>
-        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-3">Claim Your Restaurant First</h1>
-        <p className="text-[#6B6862] leading-relaxed mb-8">
-          Featured placements are an upgrade for restaurants that have already claimed their free listing.
-          Claim yours first — it&apos;s free — then come back here to get featured.
-        </p>
-        <Link
-          href="/claim-your-listing"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
-        >
-          Claim Your Listing <ChevronRight className="w-4 h-4" />
-        </Link>
-      </div>
-      <Footer />
-    </main>
-  )
-}
-
 export default async function FeaturedListingPage({
   searchParams,
 }: {
   searchParams: Promise<{ cancelled?: string }>
 }) {
   const { cancelled } = await searchParams
-
-  const supabase = await createClient()
-  const { data: { user } } = supabase ? await supabase.auth.getUser() : { data: { user: null } }
-  if (!user) return <ClaimGate />
-
-  const admin = createAdminClient()
-  const client = admin ?? supabase!
-  const { data: approvedClaims } = await client
-    .from('claims')
-    .select('restaurant_name')
-    .eq('user_id', user.id)
-    .eq('status', 'approved')
-
-  if (!approvedClaims?.length) return <ClaimGate />
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
@@ -76,11 +31,6 @@ export default async function FeaturedListingPage({
             Put your business in front of customers actively searching for places like yours.
             With over 1,000+ monthly pageviews, your listing gains valuable visibility from
             people ready to discover, visit, or buy.
-          </p>
-          <p className="text-[#96602F] text-sm font-medium mt-3">
-            {approvedClaims.length === 1
-              ? `Featuring: ${approvedClaims[0].restaurant_name}`
-              : `You have ${approvedClaims.length} claimed restaurants — mention which one in your email after checkout.`}
           </p>
         </div>
 

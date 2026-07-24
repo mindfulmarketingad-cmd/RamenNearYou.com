@@ -8,6 +8,7 @@ import { BOWL_META, MOOD_META, FEATURE_META, FEATURE_AMENITY_FIELD, type MapPoin
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
 import { getSupplementListings } from './places-supplements'
 import { getAllFeaturedSlugs } from './featured-city'
+import { getAllVerifiedSlugs } from './verified-listings'
 import capitalsRaw from './places-capital-supplements.json'
 import majorCitiesRaw from './places-major-cities.json'
 import quebecRaw from './places-quebec.json'
@@ -116,6 +117,7 @@ const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
 
 export async function computeMapData(): Promise<MapPoint[]> {
   const featuredSlugs = await getAllFeaturedSlugs()
+  const verifiedSlugs = await getAllVerifiedSlugs()
   const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
     .map(r => {
@@ -148,6 +150,7 @@ export async function computeMapData(): Promise<MapPoint[]> {
         // (clients fall back to `slug` for DB entries).
         reviewSlug: reviewSlug !== r.slug ? reviewSlug : undefined,
         featured: featuredSlugs.has(r.slug) || undefined,
+        claimed: verifiedSlugs.has(r.slug) || undefined,
       }
     })
 
