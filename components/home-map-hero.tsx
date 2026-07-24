@@ -238,8 +238,13 @@ export default function HomeMapHero({
   const [adDismissed, setAdDismissed] = useState(false)
   const [zipFilter, setZipFilter] = useState('')
   // Defaults to highest-rated so listings (numbered in the list panel) lead
-  // with top-rated businesses — easiest for owners/visitors to find who's on top.
+  // with top-rated businesses — easiest for owners/visitors to find who's on
+  // top. But that default must yield to distance once the visitor's exact
+  // location is known (sortTouched tracks whether they explicitly picked a
+  // sort themselves) — otherwise "highest rated nationwide" would silently
+  // override "nearby spots" the moment geolocation resolves.
   const [sortBy, setSortBy] = useState<SortOption>('highest-rated')
+  const [sortTouched, setSortTouched] = useState(false)
 
   // Location toggle — city pages default to a preset (regionBoundary), but the
   // control is editable everywhere: users can type or pick any city/state to
@@ -725,9 +730,10 @@ export default function HomeMapHero({
         list.sort((a, b) => b.name.localeCompare(a.name))
       } else if (sortBy === 'most-reviews') {
         list.sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-      } else if (sortBy === 'highest-rated') {
-        list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-      } else if (flags.has('top-rated') && !hasLocation && !zipFilter) {
+      } else if (sortBy === 'highest-rated' && sortTouched) {
+        // Only honor the "Highest Rated" default as an explicit sort once the
+        // visitor actually picked it themselves — otherwise it silently beats
+        // out distance below the moment geolocation/ZIP resolves.
         list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
       } else if (hasLocation || zipFilter) {
         list.sort((a, b) => a.distKm - b.distKm)
@@ -764,7 +770,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, selectedRegion, maxDistanceMiles])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, sortTouched, selectedRegion, maxDistanceMiles])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -1001,7 +1007,7 @@ export default function HomeMapHero({
                 <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#96602F] pointer-events-none" />
                 <select
                   value={sortBy}
-                  onChange={e => setSortBy(e.target.value as SortOption)}
+                  onChange={e => { setSortBy(e.target.value as SortOption); setSortTouched(true) }}
                   aria-label="Sort results"
                   className="appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] hover:border-black/30 focus:border-[#B57F50] transition-colors cursor-pointer"
                 >
