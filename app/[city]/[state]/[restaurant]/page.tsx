@@ -206,6 +206,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .slice(0, 6)
 
   // Claim/verification status — per-restaurant, so it caches with the page.
+  // .limit(1) before .maybeSingle() guards against silently failing (data
+  // null, no thrown error surfaced here) if more than one approved claim
+  // row ever exists for the same slug — .maybeSingle() alone errors out
+  // when a query returns more than one row.
   let isVerified = false
   if (admin) {
     const { data: claim } = await admin
@@ -213,6 +217,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       .select('id')
       .eq('restaurant_slug', r2.slug)
       .eq('status', 'approved')
+      .limit(1)
       .maybeSingle()
     isVerified = !!claim
   }

@@ -97,6 +97,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
       .select('id')
       .eq('restaurant_slug', r.slug)
       .eq('status', 'approved')
+      .limit(1)
       .maybeSingle()
     isVerified = !!claim
   }
