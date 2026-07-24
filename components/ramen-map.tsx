@@ -32,11 +32,6 @@ L.Icon.Default.mergeOptions({
 })
 
 const BOUNCE_CSS = `
-@keyframes ramenBounce {
-  0%, 100% { margin-top: 0px; }
-  50%       { margin-top: -8px; }
-}
-.marker-bounce { animation: ramenBounce 0.55s ease-in-out infinite; }
 @keyframes ramenFeaturedGlow {
   0%, 100% { box-shadow: 0 3px 14px rgba(212,136,11,0.75), 0 0 0 0 rgba(245,179,1,0.55); }
   50%       { box-shadow: 0 3px 18px rgba(212,136,11,0.9), 0 0 0 8px rgba(245,179,1,0); }
@@ -57,7 +52,6 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
       ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
       : '0 2px 6px rgba(0,0,0,0.35)'
   const scale = featured ? 1.4 : state === 'active' ? 1.15 : 1
-  const bounce = state === 'hover' ? 'marker-bounce' : ''
   const check = visited
     ? `<span style="position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:#16a34a;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;line-height:1;color:white">✓</span>`
     : ''
@@ -66,7 +60,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
     ? `<span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:11px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3))">👑</span>`
     : ''
   return L.divIcon({
-    className: bounce,
+    className: '',
     html: `<div class="${featured ? 'ramen-featured-pin' : ''}" style="position:relative;
       display:inline-flex;align-items:center;gap:3px;
       background:${bg};border:${border};border-radius:20px;
