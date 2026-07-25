@@ -34,55 +34,72 @@ export async function GET(request: Request) {
     if (!claim) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  // Fetch last 30 days of visits
+  // Fetch last 30 days of visit + click events
   const since = new Date()
   since.setDate(since.getDate() - 29)
   since.setHours(0, 0, 0, 0)
 
   const { data: rows, error } = await client
     .from('restaurant_visits')
-    .select('created_at')
+    .select('created_at, event_type')
     .eq('restaurant_slug', slug)
     .gte('created_at', since.toISOString())
     .order('created_at', { ascending: true })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Build a map of date → count for the last 30 days
-  const countByDay: Record<string, number> = {}
+  // Build per-day maps for the last 30 days — views and clicks separately.
+  // Rows written before the event_type column existed default to 'view'.
+  const viewsByDay: Record<string, number> = {}
+  const clicksByDay: Record<string, number> = {}
   for (let i = 0; i < 30; i++) {
     const d = new Date(since)
     d.setDate(since.getDate() + i)
-    countByDay[d.toISOString().slice(0, 10)] = 0
+    const key = d.toISOString().slice(0, 10)
+    viewsByDay[key] = 0
+    clicksByDay[key] = 0
   }
 
   for (const row of rows ?? []) {
     const day = row.created_at.slice(0, 10)
-    if (day in countByDay) countByDay[day]++
+    const bucket = row.event_type === 'click' ? clicksByDay : viewsByDay
+    if (day in bucket) bucket[day]++
   }
 
-  const daily = Object.entries(countByDay)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, visits]) => ({ date, visits }))
+  const daily = Object.keys(viewsByDay)
+    .sort((a, b) => a.localeCompare(b))
+    .map(date => ({ date, visits: viewsByDay[date], clicks: clicksByDay[date] }))
 
   const totalThisMonth = daily.reduce((s, d) => s + d.visits, 0)
+  const clicksThisMonth = daily.reduce((s, d) => s + d.clicks, 0)
 
   const last7 = daily.slice(-7)
   const thisWeek = last7.reduce((s, d) => s + d.visits, 0)
   const prevWeek = daily.slice(-14, -7).reduce((s, d) => s + d.visits, 0)
+  const clicksThisWeek = last7.reduce((s, d) => s + d.clicks, 0)
 
-  // All-time count
-  const { count: allTime } = await client
+  // All-time counts (views vs clicks)
+  const { count: allTimeViews } = await client
     .from('restaurant_visits')
     .select('id', { count: 'exact', head: true })
     .eq('restaurant_slug', slug)
+    .neq('event_type', 'click')
+
+  const { count: allTimeClicks } = await client
+    .from('restaurant_visits')
+    .select('id', { count: 'exact', head: true })
+    .eq('restaurant_slug', slug)
+    .eq('event_type', 'click')
 
   return NextResponse.json({
     daily,
     thisWeek,
     prevWeek,
     totalThisMonth,
-    allTime: allTime ?? 0,
+    allTime: allTimeViews ?? 0,
     weekChange: prevWeek > 0 ? Math.round(((thisWeek - prevWeek) / prevWeek) * 100) : null,
+    clicksThisWeek,
+    clicksThisMonth,
+    allTimeClicks: allTimeClicks ?? 0,
   })
 }

@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Eye, TrendingUp, TrendingDown, Calendar, BarChart3, Minus } from 'lucide-react'
+import { Eye, TrendingUp, TrendingDown, Calendar, BarChart3, Minus, MousePointerClick } from 'lucide-react'
 
-type DailyRow = { date: string; visits: number }
+type DailyRow = { date: string; visits: number; clicks: number }
 
 type VisitStats = {
   daily: DailyRow[]
@@ -12,6 +12,9 @@ type VisitStats = {
   totalThisMonth: number
   allTime: number
   weekChange: number | null
+  clicksThisWeek: number
+  clicksThisMonth: number
+  allTimeClicks: number
 }
 
 function MiniBar({ value, max }: { value: number; max: number }) {
@@ -90,7 +93,7 @@ export default function VisitStatsCard({ slug, restaurantName }: { slug: string;
         <WeekChangeBadge change={stats.weekChange} />
       </div>
 
-      {/* Stat cards */}
+      {/* Visit stat cards */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-3">
           <div className="w-7 h-7 rounded-lg bg-[#B57F50]/10 flex items-center justify-center mb-2">
@@ -115,6 +118,31 @@ export default function VisitStatsCard({ slug, restaurantName }: { slug: string;
         </div>
       </div>
 
+      {/* Click stat cards — directions / website / call / order / menu taps */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-3">
+          <div className="w-7 h-7 rounded-lg bg-violet-400/10 flex items-center justify-center mb-2">
+            <MousePointerClick className="w-3.5 h-3.5 text-violet-500" />
+          </div>
+          <p className="text-[#1E2026] text-xl font-bold">{stats.clicksThisWeek.toLocaleString()}</p>
+          <p className="text-[#6B6862] text-[11px] mt-0.5 leading-tight">Clicks this week</p>
+        </div>
+        <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-3">
+          <div className="w-7 h-7 rounded-lg bg-violet-400/10 flex items-center justify-center mb-2">
+            <MousePointerClick className="w-3.5 h-3.5 text-violet-500" />
+          </div>
+          <p className="text-[#1E2026] text-xl font-bold">{stats.clicksThisMonth.toLocaleString()}</p>
+          <p className="text-[#6B6862] text-[11px] mt-0.5 leading-tight">Clicks this month</p>
+        </div>
+        <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-3">
+          <div className="w-7 h-7 rounded-lg bg-violet-400/10 flex items-center justify-center mb-2">
+            <MousePointerClick className="w-3.5 h-3.5 text-violet-500" />
+          </div>
+          <p className="text-[#1E2026] text-xl font-bold">{stats.allTimeClicks.toLocaleString()}</p>
+          <p className="text-[#6B6862] text-[11px] mt-0.5 leading-tight">All-time clicks</p>
+        </div>
+      </div>
+
       {/* 7-day bar chart */}
       <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-4">
         <p className="text-[#1E2026] text-xs font-medium mb-4">Daily Visits — Last 7 Days</p>
@@ -123,7 +151,7 @@ export default function VisitStatsCard({ slug, restaurantName }: { slug: string;
             <div key={d.date} className="flex-1 flex flex-col items-center gap-1 group relative">
               <MiniBar value={d.visits} max={maxVisits} />
               <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 bg-[#1E2026] text-white text-[10px] rounded px-2 py-1 whitespace-nowrap pointer-events-none">
-                {d.date.slice(5)}: {d.visits} visit{d.visits !== 1 ? 's' : ''}
+                {d.date.slice(5)}: {d.visits} visit{d.visits !== 1 ? 's' : ''} · {d.clicks} click{d.clicks !== 1 ? 's' : ''}
               </div>
             </div>
           ))}

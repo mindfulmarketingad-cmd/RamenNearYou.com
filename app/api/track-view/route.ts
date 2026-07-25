@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
     await client
       .from('restaurant_visits')
-      .insert({ restaurant_slug: slug, visitor_token: crypto.randomUUID() })
+      .insert({ restaurant_slug: slug, visitor_token: crypto.randomUUID(), event_type: 'view' })
 
     return NextResponse.json({ ok: true })
   } catch {

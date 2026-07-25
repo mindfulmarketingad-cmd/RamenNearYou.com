@@ -62,6 +62,17 @@ export default function ListingActionRow({
     action()
   }
 
+  // Fire-and-forget click tracking for owner analytics (restaurant_visits,
+  // event_type='click'). Called when an action link actually proceeds — i.e.
+  // for logged-in visitors past the auth gate.
+  function trackClick(destination: string) {
+    fetch('/api/track-click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ restaurantSlug: slug, restaurantName, destination }),
+    }).catch(() => {})
+  }
+
   function handleSave(e: React.MouseEvent) {
     guard(e, async () => {
       if (busy) return
@@ -85,15 +96,15 @@ export default function ListingActionRow({
             Claim
           </button>
         )}
-        <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+        <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => trackClick('directions'))}>
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions
         </a>
-        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => trackClick('order'))}>
           <span className={iconCircle}><ShoppingBag className="w-5 h-5" /></span>
           Order Pickup
         </a>
-        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => trackClick('order'))}>
           <span className={iconCircle}><Bike className="w-5 h-5" /></span>
           Order Delivery
         </a>
@@ -104,13 +115,13 @@ export default function ListingActionRow({
           source="listing"
         />
         {website && (
-          <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+          <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => trackClick('website'))}>
             <span className={iconCircle}><Globe className="w-5 h-5" /></span>
             Website
           </a>
         )}
         {phone && (
-          <a href={`tel:${phone}`} className={iconBtn} onClick={(e) => guard(e, () => {})}>
+          <a href={`tel:${phone}`} className={iconBtn} onClick={(e) => guard(e, () => trackClick('call'))}>
             <span className={iconCircle}><Phone className="w-5 h-5" /></span>
             Call
           </a>
@@ -120,7 +131,7 @@ export default function ListingActionRow({
           {saved ? 'Saved' : 'Save'}
         </button>
         {menuUrl && (
-          <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => {})}>
+          <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => guard(e, () => trackClick('menu'))}>
             <span className={iconCircle}><BookOpen className="w-5 h-5" /></span>
             Menu
           </a>

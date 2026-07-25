@@ -20,7 +20,7 @@ const BENEFITS = [
   { icon: AlignLeft, label: 'Edit your description', desc: 'Control how your restaurant appears — update your story, specialties, and highlights.' },
   { icon: Phone, label: 'Update phone & website', desc: 'Keep contact info accurate so customers can reach you and order online.' },
   { icon: Clock, label: 'Accurate hours', desc: 'Set your current hours so visitors know exactly when you\'re open.' },
-  { icon: Eye, label: 'Weekly visit analytics', desc: 'See how many people are visiting your listing each week, month, and all-time.' },
+  { icon: Eye, label: 'Visit & click analytics', desc: 'See how many people visit your listing and click to get directions, call, or order — each week, month, and all-time.' },
   { icon: Star, label: 'Featured city placement', desc: 'Upgrade to appear at the top of your city\'s ramen results page.', cta: true },
 ]
 

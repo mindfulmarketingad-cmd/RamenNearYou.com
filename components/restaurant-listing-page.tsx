@@ -9,6 +9,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
+import PageViewTracker from '@/components/page-view-tracker'
 import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
 import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
@@ -192,6 +193,8 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      {/* Records one page view per browser session for owner analytics */}
+      <PageViewTracker slug={r.slug} />
       <main className="min-h-screen bg-white">
         <Navbar />
 

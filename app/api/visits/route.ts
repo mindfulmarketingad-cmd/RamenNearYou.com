@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   const { error } = await client
     .from('restaurant_visits')
     .upsert(
-      { restaurant_slug: slug, visitor_token: token, user_id: userId },
+      { restaurant_slug: slug, visitor_token: token, user_id: userId, event_type: 'view' },
       { onConflict: 'restaurant_slug,visitor_token', ignoreDuplicates: true }
     )
 
@@ -47,6 +47,7 @@ export async function GET(request: Request) {
     .from('restaurant_visits')
     .select('id', { count: 'exact', head: true })
     .eq('restaurant_slug', slug)
+    .eq('event_type', 'view')
 
   return NextResponse.json({ count: count ?? 0 })
 }
