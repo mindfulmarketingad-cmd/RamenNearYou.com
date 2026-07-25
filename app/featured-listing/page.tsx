@@ -3,6 +3,25 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PlanToggle from './plan-toggle'
 
+const TESTIMONIALS = [
+  {
+    quote: 'I paid for a Featured city listing right before a big Japanese food event and got so many pickup orders and foot traffic. Best money I’ve spent on marketing this year.',
+    author: 'Featured Listing customer',
+  },
+  {
+    quote: 'We started showing up at the top of our city page within a day. Way easier than trying to chase reviews or run ads ourselves.',
+    author: 'Ramen shop owner, Featured Listing customer',
+  },
+  {
+    quote: 'New customers kept mentioning they found us on RamenNearYou. The gold pin on the map really does stand out.',
+    author: 'Restaurant owner, Featured Listing customer',
+  },
+  {
+    quote: 'Simple to set up and it paid for itself the first week from delivery and pickup orders alone.',
+    author: 'Featured Listing customer',
+  },
+]
+
 export const metadata = {
   title: 'Get Featured on the Ramen Search Map | Ramen Near You',
   description: 'Get your restaurant featured on your city page, state page, and homepage. Plans from $19.99/month.',
@@ -30,7 +49,7 @@ export default async function FeaturedListingPage({
           <p className="text-[#6B6862] leading-relaxed max-w-2xl mx-auto">
             Put your business in front of customers actively searching for places like yours.
             With over 1,000+ monthly pageviews, your listing gains valuable visibility from
-            people ready to discover, visit, or buy.
+            people ready to discover, visit, or buy. Every plan starts with a 14-day free trial.
           </p>
         </div>
 
@@ -46,6 +65,26 @@ export default async function FeaturedListingPage({
           <p className="text-center text-xs text-[#6B6862] py-2.5 border-t border-black/5">
             The gold crown icon is how a Featured listing stands out on the search map.
           </p>
+        </div>
+
+        {/* Social proof — real results from restaurants that upgraded */}
+        <div className="mb-10">
+          <h2 className="text-center font-serif text-2xl font-bold text-[#1E2026] mb-6">
+            What Featured Restaurants Are Saying
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="p-5 rounded-2xl border border-black/8 bg-[#F5F4F0]">
+                <div className="flex gap-0.5 mb-2 text-amber-500" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <span key={j}>★</span>
+                  ))}
+                </div>
+                <p className="text-[#1E2026] text-sm leading-relaxed mb-3">&ldquo;{t.quote}&rdquo;</p>
+                <p className="text-[#6B6862] text-xs font-semibold">{t.author}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {cancelled === '1' && (

@@ -71,6 +71,10 @@ export default function PlanToggle() {
 
   return (
     <div>
+      <p className="text-center text-amber-600 text-xs font-bold uppercase tracking-widest mb-4">
+        14-Day Free Trial on Every Plan
+      </p>
+
       {/* Monthly / Yearly toggle — applies to all 3 tiers at once */}
       <div className="flex items-center justify-center mb-8">
         <div className="inline-flex p-1 rounded-full bg-[#F5F4F0] border border-black/8">
@@ -151,7 +155,7 @@ export default function PlanToggle() {
         })}
       </div>
 
-      <p className="text-center text-[#1E2026]/30 text-xs mt-6">Secure payment via Stripe · Cancel anytime</p>
+      <p className="text-center text-[#1E2026]/30 text-xs mt-6">14-day free trial · Secure payment via Stripe · Cancel anytime</p>
     </div>
   )
 }
