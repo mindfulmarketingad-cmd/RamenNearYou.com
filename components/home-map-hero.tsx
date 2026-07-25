@@ -906,7 +906,7 @@ export default function HomeMapHero({
             // that was clipping the "Choose area" dropdown invisible on
             // mobile. Relax to visible while the dropdown is open so it can
             // float above the map instead.
-            className={`flex items-center gap-2 ${showRegionDropdown ? 'overflow-visible' : 'overflow-x-auto scrollbar-hide'} sm:overflow-x-visible`}
+            className={`flex items-center justify-center gap-2 ${showRegionDropdown ? 'overflow-visible' : 'overflow-x-auto scrollbar-hide'} sm:overflow-x-visible`}
           >
             {/* Location — auto-detected via geolocation (blue pulsing dot +
                 reverse-geocoded "City, ST") when no explicit city is picked;
@@ -1029,80 +1029,18 @@ export default function HomeMapHero({
               </div>
             )}
 
-            <div className="flex items-center gap-2 shrink-0 sm:shrink sm:flex-1 sm:min-w-0 sm:overflow-x-auto sm:scrollbar-hide">
-              <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
+            <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
 
-              <button
-                onClick={() => setShowFilters(v => !v)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
-                  showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
-                }`}
-              >
-                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
-                {activeCount > 0 && (
-                  <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
-                )}
-              </button>
-
-              {/* Sort dropdown — to the right of Filters */}
-              <div className="relative shrink-0">
-                <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#96602F] pointer-events-none" />
-                <select
-                  value={sortBy}
-                  onChange={e => { setSortBy(e.target.value as SortOption); setSortTouched(true) }}
-                  aria-label="Sort results"
-                  className="appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] hover:border-black/30 focus:border-[#B57F50] transition-colors cursor-pointer"
-                >
-                  {SORT_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Quick filters — one-tap shortcuts for the most-used filters */}
-              <Chip active={flags.has('open-now')} emoji="🟢" label="Open Now" onClick={() => toggleFlag('open-now')} />
-              <Chip active={flags.has('top-rated')} emoji="⭐" label="Top Rated" onClick={() => toggleFlag('top-rated')} />
-              <Chip active={flags.has('verified')} emoji="✅" label="Verified" onClick={() => toggleFlag('verified')} />
-              <Chip
-                active={bowls.has('miso')}
-                hex={BOWL_BY_KEY['miso']?.hex}
-                emoji={BOWL_BY_KEY['miso']?.emoji}
-                label="Miso"
-                onClick={() => toggleBowl('miso')}
-              />
-
-              {activeCount > 0 && (
-                <button
-                  onClick={clearAll}
-                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] whitespace-nowrap shrink-0"
-                >
-                  <X className="w-3.5 h-3.5" /> Clear
-                </button>
-              )}
-            </div>
-
-            {/* Help button */}
             <button
-              onClick={() => setHelpOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-black/12 bg-white text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-all shrink-0"
-              aria-label="How to use this map"
-            >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>Help</span>
-            </button>
-
-            {/* Save Search — pinned to the right outside the scrollable area */}
-            <button
-              onClick={handleSaveSearch}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-all shrink-0 ${
-                searchSaved
-                  ? 'bg-emerald-600 text-white border-emerald-600'
-                  : 'bg-white text-[#1E2026] border-black/12 hover:border-[#B57F50] hover:text-[#96602F]'
+              onClick={() => setShowFilters(v => !v)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
+                showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}
-              aria-label="Save this search"
             >
-              <Bookmark className={`w-3.5 h-3.5 transition-all ${searchSaved ? 'fill-white' : ''}`} />
-              <span>{searchSaved ? 'Saved ✓' : 'Save Search'}</span>
+              <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+              {activeCount > 0 && (
+                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+              )}
             </button>
           </div>
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
@@ -1153,6 +1091,23 @@ export default function HomeMapHero({
                 a clean 2/3-column card grid on desktop so related filters
                 sit side by side instead of one long vertical scroll. */}
             <div className="divide-y divide-black/8 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 sm:items-start">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+                <FilterSectionHeading icon={<ArrowUpDown className="w-3.5 h-3.5 text-[#96602F]" />} label="Sort" count={0} />
+                <div className="relative">
+                  <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#96602F] pointer-events-none" />
+                  <select
+                    value={sortBy}
+                    onChange={e => { setSortBy(e.target.value as SortOption); setSortTouched(true) }}
+                    aria-label="Sort results"
+                    className="w-full appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] hover:border-black/30 focus:border-[#B57F50] transition-colors cursor-pointer"
+                  >
+                    {SORT_OPTIONS.map(opt => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
+                </div>
+              </section>
+
               <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
                 <FilterSectionHeading icon={<Utensils className="w-3.5 h-3.5 text-[#96602F]" />} label="Instant Bowl Finder" count={bowls.size} />
                 <div className="flex flex-wrap gap-1.5">
