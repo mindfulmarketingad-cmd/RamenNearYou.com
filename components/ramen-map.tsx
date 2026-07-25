@@ -206,12 +206,15 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       // Zoom ONLY via the +/- buttons — scroll-wheel, pinch, and double-tap
       // zoom all hijack normal page scrolling (especially on mobile).
       scrollWheelZoom: false,
-      touchZoom: false,
       doubleClickZoom: false,
       boxZoom: false,
-      // On touch devices, one-finger drag pans the map and traps users who are
-      // trying to scroll down the page — disable it there; desktop keeps drag.
-      dragging: !L.Browser.mobile,
+      // One-finger drag pans the map (Google-Maps-app style) on touch too —
+      // the mobile map is a bounded box stacked above the list, so panning it
+      // no longer traps page scrolling (scroll starts from the list below).
+      // Pinch-to-zoom stays on so the gesture feels natural; the page still
+      // scrolls with a normal one-finger swipe outside the map.
+      dragging: true,
+      touchZoom: true,
     })
     L.control.zoom({ position: 'bottomleft' }).addTo(map)
     // Base tile layer (standard vs. satellite) is managed by a separate effect.
