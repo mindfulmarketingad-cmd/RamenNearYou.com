@@ -71,6 +71,12 @@ const RamenMap = dynamic(() => import('@/components/ramen-map'), {
 
 function kmToMiles(km: number) { return km * 0.621371 }
 
+// Slugify a reverse-geocoded city name ("St. Louis" → "st-louis") so it can be
+// compared against a citySlug from the dataset.
+function citySlugify(name: string) {
+  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
 // Directions that start from the visitor's own location whenever we know
 // it, so "Get Directions" from the map pin doesn't force them to re-enter
 // an origin Google Maps could already infer.
@@ -616,6 +622,32 @@ export default function HomeMapHero({
     })()
     return () => { cancelled = true }
   }, [userPos])
+
+  // When the visitor grants location and we can resolve their area to a city
+  // we actually have a page for, send them to that city's dedicated /find
+  // search-map page — a real local landing page (and an extra pageview)
+  // instead of leaving them on the generic homepage. Homepage only, once per
+  // load, and only before they've started interacting (typing, filtering, or
+  // picking an area themselves) so it never yanks the page out from under them.
+  const autoAreaRedirected = useRef(false)
+  useEffect(() => {
+    if (autoAreaRedirected.current) return
+    if (pathname !== '/') return
+    if (!detectedArea || cityOptions.length === 0) return
+    if (selectedRegion || localQuery.trim() || flags.size || bowls.size || moods.size || prices.size) return
+
+    const wantName = detectedArea.cityName.trim().toLowerCase()
+    const wantSlug = citySlugify(detectedArea.cityName)
+    const match = cityOptions.find(c =>
+      c.stateCode === detectedArea.stateCode &&
+      (c.cityName.trim().toLowerCase() === wantName || c.citySlug === wantSlug)
+    )
+    if (!match) return
+
+    autoAreaRedirected.current = true
+    router.push(`/find/${match.citySlug}-${match.stateCode.toLowerCase()}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [detectedArea, cityOptions, pathname])
 
   async function geocodeLocation(query: string) {
     const clean = query.trim()
