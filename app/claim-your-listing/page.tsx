@@ -1,27 +1,36 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, Zap, ShieldCheck, Gift, Crown, MapPin, Map, Home } from 'lucide-react'
+import Link from 'next/link'
 import ClaimSearch from './claim-search'
 import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
-  title: 'Claim Your Ramen Restaurant Listing — Free | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou for free. Search your restaurant, submit a short claim form, and once verified you control your hours, photos, menu, and description.',
+  title: 'Claim Your Ramen Restaurant Listing — Free in 30 Seconds | Ramen Near You',
+  description: 'Claim your restaurant on RamenNearYou for free in about 30 seconds. Search your name, confirm it\'s you, done. Control your hours, photos, and menu — plus the option to get featured on your city, state, and homepage search map.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
 const BENEFITS = [
   'Verified badge on your listing and the ramen search map',
   'Update your hours, photos, menu, and description anytime',
-  'A dedicated owner dashboard to manage your listing and see visit & click analytics',
-  'Respond to what diners see — your listing, your details',
-  'Ad-free listing page (no ads on your dedicated listing page)',
+  'A dedicated owner dashboard with visit & click analytics',
+  'An ad-free listing page — nothing competing for your customers',
+  'You control what diners see — your listing, your details',
 ]
 
 const STEPS = [
-  { title: 'Enter your restaurant\'s name', text: 'Type your restaurant name in the box above and pick it from the list.' },
-  { title: 'Fill out the short claim form', text: 'Just four fields — your name, business name, phone, and email.' },
-  { title: 'Get verified', text: 'We review every claim within 2–3 business days. Once approved, the listing is yours to manage.' },
+  { title: 'Search your restaurant', text: 'Type your name and tap it from the list. Already in our directory? It takes one tap.' },
+  { title: 'Confirm it\'s you', text: 'Check one box and add your name — your email\'s already filled in. That\'s the whole form.' },
+  { title: 'You\'re verified', text: 'We approve most claims within 2–3 business days. Then the listing is yours to run.' },
+]
+
+// The optional upgrade a claimed owner can add — the three search-map surfaces
+// a Featured listing shows up on.
+const FEATURED_SURFACES = [
+  { icon: MapPin, label: 'Your city\'s search map', desc: 'Top spot when locals search your city.' },
+  { icon: Map, label: 'Your state\'s search map', desc: 'Stand out across your whole state.' },
+  { icon: Home, label: 'The homepage search map', desc: '#1 position seen by every visitor.' },
 ]
 
 export default function ClaimYourListingPage() {
@@ -29,25 +38,78 @@ export default function ClaimYourListingPage() {
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
       <div className="max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-20">
-        {/* Compact header — the search form is the first thing on screen */}
+        {/* Compact, enticing header — the search form is the first thing on screen */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-3">
             <span className="text-[#96602F] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">
-            Claim Your Free Restaurant Listing
+            Claim Your Restaurant — Free in 30 Seconds
           </h1>
           <p className="text-[#6B6862] text-sm leading-relaxed max-w-md mx-auto">
-            Thousands of diners use RamenNearYou to decide where to eat.
-            Make sure they see <strong className="text-[#1E2026]">your</strong> hours, your photos, and your menu —
-            not outdated info. Takes about 2 minutes. No card, no fees.
+            Thousands of diners use RamenNearYou to decide where to eat tonight.
+            Put <strong className="text-[#1E2026]">your</strong> hours, photos, and menu in front of them —
+            and get found first. No card. No fees. No catch.
           </p>
+
+          {/* Trust chips — reinforce how effortless and risk-free it is */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-semibold">
+              <Gift className="w-3.5 h-3.5" /> 100% Free
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#1E2026] text-xs font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#96602F]" /> No credit card
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#1E2026] text-xs font-semibold">
+              <Zap className="w-3.5 h-3.5 text-[#96602F]" /> ~30 seconds
+            </span>
+          </div>
         </div>
 
         <ClaimSearch />
 
+        {/* Featured upsell — mentioned right after the claim action, framed as
+            an optional bonus so it never muddies the "claiming is free" message */}
+        <div className="mt-6 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 to-white p-6 sm:p-8">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
+              <Crown className="w-3 h-3" /> Optional Upgrade
+            </span>
+          </div>
+          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1.5">
+            Want to be impossible to miss?
+          </h2>
+          <p className="text-[#6B6862] text-sm leading-relaxed mb-5">
+            Claiming is free forever. Once you&apos;ve claimed, you can choose to get{' '}
+            <strong className="text-[#1E2026]">Featured</strong> — a stand-out gold crown pin that puts you at the
+            very top of the search map on three levels:
+          </p>
+          <div className="space-y-3 mb-5">
+            {FEATURED_SURFACES.map(({ icon: Icon, label, desc }) => (
+              <div key={label} className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
+                  <Icon className="w-4 h-4 text-amber-600" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-[#1E2026]">{label}</p>
+                  <p className="text-xs text-[#6B6862] leading-snug">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/featured-listing"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
+          >
+            <Crown className="w-4 h-4" /> See Featured plans
+          </Link>
+          <p className="text-xs text-[#6B6862]/70 mt-3">
+            Totally optional — your free claim already gets you everything below.
+          </p>
+        </div>
+
         {/* What a free claim gets you */}
-        <div className="mt-8 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
+        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
           <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">What you get — free, forever</h2>
           <ul className="space-y-3">
             {BENEFITS.map((text) => (
@@ -59,9 +121,10 @@ export default function ClaimYourListingPage() {
           </ul>
         </div>
 
-        {/* How it works — 3 steps, nothing more */}
+        {/* How it works — 3 dead-simple steps */}
         <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">How it works</h2>
+          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">How it works</h2>
+          <p className="text-[#6B6862] text-sm mb-5">Three taps. No paperwork.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">

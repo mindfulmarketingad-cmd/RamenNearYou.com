@@ -91,9 +91,9 @@ export default function ClaimSearch() {
         <>
           {/* Search — the very first action on the page */}
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold text-[#1E2026]">Step 1 — Enter your restaurant&apos;s name</p>
+            <p className="text-base font-bold text-[#1E2026]">Start here — find your restaurant 👇</p>
             <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold whitespace-nowrap">
-              100% Free
+              Free
             </span>
           </div>
           <div className="relative">
