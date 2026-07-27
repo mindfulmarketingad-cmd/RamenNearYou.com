@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'upload', 20, 600_000)
+  if (limited) return limited
   const supabase = await createClient()
   if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 

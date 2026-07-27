@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'track-click', 120, 60_000)
+  if (limited) return limited
   const { restaurantSlug, restaurantName, destination, url } = await request.json()
   if (!restaurantSlug || !destination) return NextResponse.json({ ok: true })
 

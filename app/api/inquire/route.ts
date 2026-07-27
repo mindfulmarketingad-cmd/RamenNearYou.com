@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 import { createLeadsClient } from '@/lib/leads-supabase'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'inquire', 8, 600_000)
+  if (limited) return limited
   const body = await request.json()
   const {
     source,

@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 // POST /api/visits — record that this visitor visited a restaurant
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'visits', 60, 60_000)
+  if (limited) return limited
   const { slug, token } = await request.json()
   if (!slug || !token) {
     return NextResponse.json({ error: 'Missing slug or token' }, { status: 400 })
