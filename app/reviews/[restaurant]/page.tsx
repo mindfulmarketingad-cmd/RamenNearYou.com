@@ -15,6 +15,7 @@ import {
   generateReviewSummary,
   googleReviewsUrl,
 } from '@/lib/reviews'
+import { jsonLdString } from '@/lib/json-ld'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import OwnerCtaCard from '@/components/owner-cta-card'
 import AdUnit from '@/components/ad-unit'
@@ -154,8 +155,8 @@ export default async function RestaurantReviewsPage({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(reviewSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumbSchema) }} />
       <Navbar />
 
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">

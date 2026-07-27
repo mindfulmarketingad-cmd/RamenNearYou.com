@@ -3,6 +3,31 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Don't advertise the framework to attackers.
+  poweredByHeader: false,
+  // Baseline security headers applied to every response. Intentionally NOT a
+  // strict Content-Security-Policy — the site loads AdSense, Stripe, Google
+  // Maps tiles, Supabase, and OpenStreetMap/Nominatim, so a locked-down CSP
+  // would need careful per-source allow-listing before it could ship without
+  // breaking those. These headers cover the high-value, zero-risk protections
+  // (clickjacking, MIME sniffing, referrer leakage, transport security).
+  async headers() {
+    const securityHeaders = [
+      // Force HTTPS for two years (Vercel serves this site over HTTPS only).
+      { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
+      // Stop browsers from MIME-sniffing responses into a different type.
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      // Clickjacking protection — our pages can't be framed by other origins.
+      { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+      // Don't leak full URLs (which can carry query params) to other origins.
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      // Only our own origin may use geolocation (the search map); deny the
+      // rest and opt out of FLoC/Topics.
+      { key: 'Permissions-Policy', value: 'camera=(), microphone=(), payment=(), geolocation=(self), browsing-topics=()' },
+      { key: 'X-DNS-Prefetch-Control', value: 'on' },
+    ]
+    return [{ source: '/:path*', headers: securityHeaders }]
+  },
   async redirects() {
     // Old 2-letter state code → full state name slug
     const stateMap = {

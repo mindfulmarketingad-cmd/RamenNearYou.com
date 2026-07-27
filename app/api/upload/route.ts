@@ -23,10 +23,33 @@ export async function POST(request: Request) {
   if (!files.length) return NextResponse.json({ error: 'No files' }, { status: 400 })
   if (files.length > 8) return NextResponse.json({ error: 'Max 8 photos' }, { status: 400 })
 
+  // Only accept real image files, and derive the extension from the validated
+  // MIME type rather than the client-supplied filename — so nobody can upload
+  // an HTML/SVG/script payload (stored-XSS risk on a public bucket) or smuggle
+  // a path via a crafted filename.
+  const ALLOWED_EXT: Record<string, string> = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/gif': 'gif',
+    'image/heic': 'heic',
+    'image/heif': 'heif',
+  }
+  const MAX_BYTES = 10 * 1024 * 1024 // 10 MB per photo
+
   const urls: string[] = []
 
   for (const file of files) {
-    const ext = file.name.split('.').pop() ?? 'jpg'
+    if (!(file instanceof File)) {
+      return NextResponse.json({ error: 'Invalid upload' }, { status: 400 })
+    }
+    const ext = ALLOWED_EXT[file.type]
+    if (!ext) {
+      return NextResponse.json({ error: 'Only JPEG, PNG, WebP, GIF, or HEIC images are allowed' }, { status: 400 })
+    }
+    if (file.size === 0 || file.size > MAX_BYTES) {
+      return NextResponse.json({ error: 'Each photo must be between 1 byte and 10MB' }, { status: 400 })
+    }
     const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
     const bytes = await file.arrayBuffer()

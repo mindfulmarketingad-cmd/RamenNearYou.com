@@ -17,6 +17,7 @@ import AdUnitInArticle from '@/components/ad-unit-in-article'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
+import { jsonLdString } from '@/lib/json-ld'
 import type { Restaurant } from '@/lib/restaurants'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -192,7 +193,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(schema) }} />
       {/* Records one page view per browser session for owner analytics */}
       <PageViewTracker slug={r.slug} />
       <main className="min-h-screen bg-white">
