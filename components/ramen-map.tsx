@@ -49,20 +49,29 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
   // Featured listings get a gold gradient pin that stands out from the rest;
   // claimed/verified listings (that aren't also featured) get blue instead
   // of the default brand color, so a verified business stands out on the map.
+  // 'active' (selected) and 'hover' (card/pin hovered) both render "raised" —
+  // darker fill, thicker border, deeper shadow, and scaled up — so the pin
+  // clearly stands out from the rest.
+  const isActive = state === 'active'
+  const isHover = state === 'hover'
+  const raised = isActive || isHover
   const bg = featured
     ? 'linear-gradient(135deg,#f5b301,#d4880b)'
     : claimed
-      ? (state === 'active' ? shade('#2563eb', -18) : '#2563eb')
-      : state === 'active' ? shade(accent, -18) : accent
-  const border = featured ? '2.5px solid #fff7e0' : state === 'active' ? '2.5px solid white' : '2px solid white'
+      ? (raised ? shade('#2563eb', -18) : '#2563eb')
+      : raised ? shade(accent, -18) : accent
+  const border = featured ? '2.5px solid #fff7e0' : raised ? '2.5px solid white' : '2px solid white'
   const shadow = featured
     ? '0 3px 14px rgba(212,136,11,0.75)'
-    : claimed
-      ? '0 2px 8px rgba(37,99,235,0.5)'
-      : state === 'active'
-        ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
-        : '0 2px 6px rgba(0,0,0,0.35)'
-  const scale = featured ? 1.4 : state === 'active' ? 1.15 : 1
+    : isHover
+      ? `0 6px 18px rgba(0,0,0,0.45), 0 0 0 3px ${hexToRgba(claimed ? '#2563eb' : accent, 0.35)}`
+      : claimed
+        ? '0 2px 8px rgba(37,99,235,0.5)'
+        : isActive
+          ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
+          : '0 2px 6px rgba(0,0,0,0.35)'
+  // Hover pops a touch larger than the selected state so it reads instantly.
+  const scale = featured ? 1.4 : isHover ? 1.3 : isActive ? 1.15 : 1
   const check = visited
     ? `<span style="position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:#16a34a;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;line-height:1;color:white">✓</span>`
     : ''
@@ -81,7 +90,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
       white-space:nowrap;
       transform:scale(${scale});transform-origin:bottom center;
       transition:transform 0.15s;
-      z-index:${featured ? 1000 : claimed ? 500 : 'auto'};
+      z-index:${featured ? 1000 : raised ? 900 : claimed ? 500 : 'auto'};
     ">${crown}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg"><path d="M9 3.5c.6.6 1 1.4 1 2M12 3c.6.6 1 1.4 1 2M15 3.5c.6.6 1 1.4 1 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M3 11h18a1 1 0 011 1c0 5.5-4.9 9-10 9s-10-3.5-10-9a1 1 0 011-1z" fill="currentColor"/></svg>${label}${check}</div>`,
     iconSize: [44, 24],
     iconAnchor: [22, 24],
@@ -155,6 +164,9 @@ interface Props {
   onMapCenter?: (center: { lat: number; lng: number }) => void
   centerLatLng?: { lat: number; lng: number } | null
   userLocation?: { lat: number; lng: number } | null
+  // Called by the "your location" button when we don't yet have the visitor's
+  // position — lets the page kick off the geolocation request.
+  onLocateRequest?: () => void
   accentColor?: string
   heatmap?: boolean
   visitedSlugs?: Set<string>
@@ -164,7 +176,7 @@ interface Props {
   disablePopups?: boolean
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onMarkerHover, onUserMove, onMapCenter, centerLatLng, userLocation, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onMarkerHover, onUserMove, onMapCenter, centerLatLng, userLocation, onLocateRequest, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -456,6 +468,9 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     }
     map.on('dragend', emitCenter)
     map.on('zoomend', emitBounds)
+    // Report the initial viewport so bounds-based features (e.g. "update
+    // results as I move the map") have data before the first pan/zoom.
+    emitBounds()
     return () => { map.off('dragend', emitCenter); map.off('zoomend', emitBounds) }
   }, [ready, onUserMove, onMapCenter])
 
@@ -472,12 +487,16 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     }
   }, [selectedSlug, ready, accentColor, visitedSlugs])
 
-  // Bounce hovered marker
+  // Highlight the hovered marker (from a card or the pin itself) and lift it
+  // above its neighbours so it's never buried behind other pins.
   useEffect(() => {
     if (!ready) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
       if (slug === selectedSlug) return // active marker takes priority
-      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === hoveredSlug ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug]))
+      const isHover = slug === hoveredSlug
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, isHover ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug]))
+      const base = featuredRef.current[slug] ? 10000 : claimedRef.current[slug] ? 5000 : 0
+      marker.setZIndexOffset(isHover ? 20000 : base)
     })
   }, [hoveredSlug, selectedSlug, ready, accentColor, visitedSlugs])
 
@@ -492,6 +511,29 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           className="absolute bottom-5 left-3 z-[1000] flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/95 hover:bg-white text-[#1E2026] text-xs font-semibold shadow-md border border-black/10 transition-colors"
         >
           {view === 'standard' ? '🛰️ Satellite' : '🗺️ Standard'}
+        </button>
+      )}
+
+      {/* Recenter to the visitor's exact location — flies there if we already
+          have it, otherwise asks the page to request geolocation. */}
+      {ready && (
+        <button
+          type="button"
+          onClick={() => {
+            const loc = userLocationRef.current
+            if (loc && mapRef.current) {
+              mapRef.current.flyTo([loc.lat, loc.lng], 15, { duration: 1 })
+            } else {
+              onLocateRequest?.()
+            }
+          }}
+          aria-label="Center map on my location"
+          className="absolute bottom-5 right-3 z-[1000] flex items-center justify-center w-11 h-11 rounded-full bg-white/95 hover:bg-white text-[#1E2026] shadow-md border border-black/10 transition-colors"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+          </svg>
         </button>
       )}
     </div>

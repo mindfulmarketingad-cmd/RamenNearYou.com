@@ -359,10 +359,14 @@ export default function HomeMapHero({
   // shows the full list regardless of this flag.
   const [mobileListExpanded, setMobileListExpanded] = useState(false)
 
-  const [, setVisibleBounds] = useState<MapBounds | null>(null)
+  const [visibleBounds, setVisibleBounds] = useState<MapBounds | null>(null)
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
   const [searchingArea, setSearchingArea] = useState(false)
+  // "Update results as I move the map" — when on, the list is filtered to the
+  // map's current viewport (Google-Maps style) instead of requiring a tap on
+  // the "Search this area" button.
+  const [updateOnMapMove, setUpdateOnMapMove] = useState(false)
 
   function handleSaveSearch(e: React.MouseEvent) {
     if (!requireAuth(e)) return
@@ -719,6 +723,14 @@ export default function HomeMapHero({
       }))
 
       let list = enriched.filter(r => {
+        // "Update results as I move the map" — keep only spots inside the
+        // current viewport. Runs first so it composes with every other filter.
+        if (updateOnMapMove && visibleBounds && r.latitude != null && r.longitude != null) {
+          if (
+            r.latitude < visibleBounds.south || r.latitude > visibleBounds.north ||
+            r.longitude < visibleBounds.west || r.longitude > visibleBounds.east
+          ) return false
+        }
         if (selectedRegion) {
           if (selectedRegion.isState) {
             if (r.stateSlug !== selectedRegion.stateSlug) return false
@@ -844,7 +856,7 @@ export default function HomeMapHero({
     } catch {
       return []
     }
-  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, sortTouched, selectedRegion, maxDistanceMiles])
+  }, [data, distanceOrigin, flags, bowls, moods, prices, localQuery, hasLocation, zipFilter, geocodedCenter, sortBy, sortTouched, selectedRegion, maxDistanceMiles, updateOnMapMove, visibleBounds])
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
@@ -879,8 +891,10 @@ export default function HomeMapHero({
 
   const handleMapCenter = useCallback((center: { lat: number; lng: number }) => {
     setMapDragCenter(center)
-    setShowSearchAreaBtn(true)
-  }, [])
+    // When auto-update is on, results already follow the map — no manual
+    // "Search this area" prompt needed.
+    if (!updateOnMapMove) setShowSearchAreaBtn(true)
+  }, [updateOnMapMove])
 
   async function handleSearchArea() {
     if (!mapDragCenter) return
@@ -1311,6 +1325,12 @@ export default function HomeMapHero({
                   const rSlugReview = mapPointReviewSlug(r)
                   // Non-ikedo listings link out to their Google Maps listing
                   const externalUrl = directionsUrl
+                  // Order Online / Reserve A Table both point to the
+                  // restaurant's own site; fall back to the listing page when
+                  // we don't have a website on file so the buttons still work.
+                  const websiteHref = r.website
+                    ? (/^https?:\/\//i.test(r.website) ? r.website : `https://${r.website}`)
+                    : internalUrl
                   return (
                     <div
                       key={uid}
@@ -1414,64 +1434,27 @@ export default function HomeMapHero({
                         </a>
                       )}
 
-                      {/* Action buttons — wrap so none clip off-screen on mobile */}
+                      {/* Action buttons — both point to the restaurant's own
+                          site (Order Online / Reserve A Table). */}
                       <div className="flex flex-wrap gap-1.5 px-3 pb-2.5 pt-1">
-                        {/* Claiming is free — link to the internal claim flow
-                            (account required; claims are admin-reviewed). */}
-                        <Link
-                          href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
-                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                        >
-                          Claim For Free
-                        </Link>
-                        {hasInternalPage ? (
-                          <Link
-                            href={internalUrl}
-                            onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                          >
-                            View Menu
-                          </Link>
-                        ) : (
-                          <a
-                            href={externalUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                          >
-                            View Menu
-                          </a>
-                        )}
                         <a
-                          href={directionsUrl}
+                          href={websiteHref}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => { e.stopPropagation(); requireAuth(e) }}
+                          onClick={e => e.stopPropagation()}
+                          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+                        >
+                          Order Online
+                        </a>
+                        <a
+                          href={websiteHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
                           className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
                         >
-                          Get Directions
+                          Reserve A Table
                         </a>
-                        {hasInternalPage ? (
-                          <Link
-                            href={internalUrl}
-                            onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
-                          >
-                            View Details
-                          </Link>
-                        ) : (
-                          <a
-                            href={externalUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={e => e.stopPropagation()}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
-                          >
-                            Order Now
-                          </a>
-                        )}
                       </div>
 
                       {/* Save button — DB listings only (saves are keyed to DB slugs) */}
@@ -1563,6 +1546,7 @@ export default function HomeMapHero({
               onMapCenter={handleMapCenter}
               centerLatLng={geocodedCenter}
               userLocation={userPos}
+              onLocateRequest={requestLocation}
               accentColor={accentColor}
               boundary={boundary}
               disablePopups={mapOnly}
@@ -1661,6 +1645,26 @@ export default function HomeMapHero({
               </div>
             )
           })()}
+
+          {/* "Update results as I move the map" toggle — top-left of the map */}
+          {showMap && !dataLoading && (
+            <label className="absolute top-3 left-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-full bg-white/95 shadow-md border border-black/10 cursor-pointer select-none">
+              <span className="relative inline-flex items-center">
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  checked={updateOnMapMove}
+                  onChange={(e) => {
+                    setUpdateOnMapMove(e.target.checked)
+                    if (e.target.checked) setShowSearchAreaBtn(false)
+                  }}
+                />
+                <span className="w-9 h-5 rounded-full bg-black/15 peer-checked:bg-[#B57F50] transition-colors" />
+                <span className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4" />
+              </span>
+              <span className="text-xs font-semibold text-[#1E2026] whitespace-nowrap">Update as map moves</span>
+            </label>
+          )}
 
           {showSearchAreaBtn && !dataLoading && (
             <div className={`absolute left-1/2 -translate-x-1/2 z-[1000] ${mapOnly ? 'bottom-6' : 'top-4'}`}>
