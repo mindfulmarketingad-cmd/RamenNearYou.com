@@ -107,7 +107,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
     (r.placeId ? `&destination_place_id=${encodeURIComponent(r.placeId)}` : '')
   const dist = r.reviewsPerScore ?? { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
   const distTotal = Object.values(dist).reduce((a, b) => a + b, 0)
-  const related = getRelatedReviewRestaurants(r, 6)
+  const related = getRelatedReviewRestaurants(r, 12)
   const { paragraph: summaryParagraph, pros, cons } = generateReviewSummary(r, reviews)
   const rowCount = Math.max(pros.length, cons.length)
 
@@ -369,9 +369,16 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                   </Link>
                 ))}
               </div>
-              <Link href="/reviews" className="inline-block mt-4 text-sm text-[#96602F] font-medium hover:underline">
-                Browse all restaurant reviews →
-              </Link>
+              <div className="flex flex-wrap items-center gap-4 mt-4">
+                <Link href="/reviews" className="text-sm text-[#96602F] font-medium hover:underline">
+                  Browse all restaurant reviews →
+                </Link>
+                {/* Review pages should feed the listing pages too, not only
+                    other review pages. */}
+                <Link href={`/${r.citySlug}/${r.stateSlug}`} className="text-sm text-[#96602F] font-medium hover:underline">
+                  All ramen listings in {r.city}, {r.stateCode} →
+                </Link>
+              </div>
             </section>
           )}
 

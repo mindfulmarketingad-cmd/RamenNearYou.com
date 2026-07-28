@@ -8,6 +8,7 @@ import Footer from '@/components/footer'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
+import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
@@ -165,6 +166,7 @@ export default async function BlogPostPage({ params }: Props) {
           lat: r?.latitude ?? card.lat ?? null,
           lng: r?.longitude ?? card.lng ?? null,
           perfectFor: r ? getPerfectFor(r) : undefined,
+          reviewSlug: r && hasReviewPage(getReviewSlug(r)) ? getReviewSlug(r) : undefined,
         }
       })
     : []

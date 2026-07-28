@@ -18,6 +18,7 @@ import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
 import { jsonLdString } from '@/lib/json-ld'
+import { getRelatedGroups, getNearbyCityLinks } from '@/lib/related-listings'
 import type { Restaurant } from '@/lib/restaurants'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -129,6 +130,16 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
   const orderUrl = firstUrl(r.orderLinks)
   const directionsUrl = r.googleMapsLink
     || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`
+  // Grouped onward links. Falls back to the flat `nearby` list the page was
+  // already given when grouping finds nothing (e.g. a one-restaurant city).
+  const groups = getRelatedGroups(r)
+  const relatedGroups = groups.length > 0
+    ? groups
+    : nearby.length > 0
+      ? [{ key: 'city', heading: `More ramen in ${r.city}`, items: nearby }]
+      : []
+  const nearbyCities = getNearbyCityLinks(r)
+
   const about = expandDescription(r)
   const aboutParas = about ? about.split('\n\n').filter(Boolean) : []
   const reviewSlug = getReviewSlug(r)
@@ -467,25 +478,48 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <ShareButton title={r.name} url={url} />
               </div>
 
-              {/* Nearby */}
-              {nearby.length > 0 && (
-                <div className="mt-6 pt-5 border-t border-black/8">
-                  <p className="text-sm font-bold text-[#1E2026] mb-3">More ramen in {r.city}</p>
-                  <ul className="space-y-1">
-                    {nearby.map((n) => (
-                      <li key={n.slug}>
-                        <Link href={`/${n.citySlug}/${n.stateSlug}/${n.slug}`} className="flex items-center justify-between gap-2 text-sm text-[#1E2026] hover:text-[#96602F] py-1.5 transition-colors">
-                          <span className="truncate">{n.name}</span>
-                          {n.rating && (
-                            <span className="flex items-center gap-1 text-xs text-[#6B6862] shrink-0">
-                              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />{n.rating.toFixed(1)}
-                            </span>
-                          )}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={`/${city}/${state}`} className="inline-block mt-3 text-sm text-[#96602F] font-medium hover:underline">
+              {/* Where to go next — grouped by reason so each set of links has
+                  its own motive to be clicked, instead of one flat list. */}
+              {relatedGroups.length > 0 && (
+                <div className="mt-6 pt-5 border-t border-black/8 space-y-5">
+                  {relatedGroups.map((group) => (
+                    <div key={group.key}>
+                      <p className="text-sm font-bold text-[#1E2026] mb-2">{group.heading}</p>
+                      <ul className="space-y-1">
+                        {group.items.map((n) => (
+                          <li key={n.slug}>
+                            <Link href={`/${n.citySlug}/${n.stateSlug}/${n.slug}`} className="flex items-center justify-between gap-2 text-sm text-[#1E2026] hover:text-[#96602F] py-1.5 transition-colors">
+                              <span className="truncate">{n.name}</span>
+                              {n.rating && (
+                                <span className="flex items-center gap-1 text-xs text-[#6B6862] shrink-0">
+                                  <Star className="w-3 h-3 fill-amber-400 text-amber-400" />{n.rating.toFixed(1)}
+                                </span>
+                              )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+
+                  {nearbyCities.length > 0 && (
+                    <div>
+                      <p className="text-sm font-bold text-[#1E2026] mb-2">Ramen in nearby cities</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {nearbyCities.map((c) => (
+                          <Link
+                            key={`${c.citySlug}-${c.stateSlug}`}
+                            href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
+                            className="px-2.5 py-1 rounded-full border border-black/12 text-xs font-medium text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                          >
+                            {c.city}, {c.stateCode}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Link href={`/${city}/${state}`} className="inline-block text-sm text-[#96602F] font-medium hover:underline">
                     See all ramen in {r.city}, {r.stateCode} →
                   </Link>
                 </div>
