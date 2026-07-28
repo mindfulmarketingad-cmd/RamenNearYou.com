@@ -40,6 +40,11 @@ export default function ShoyuRamenPage() {
 
       <FindPageContent
         currentHref="/find/shoyu-ramen"
+        guideLink={{
+          href: '/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen',
+          title: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+          blurb: 'How shoyu compares to the other three classic broth styles — history, technique, flavor, and what to order.',
+        }}
         heading="Finding Classic Shoyu Ramen Near Me"
         intro={[
           'Shoyu is where ramen started, and it is still the bowl I recommend to anyone who thinks they do not like ramen. That clear, soy-seasoned broth is light on its feet but deeply savory — proof that ramen does not have to be rich and heavy to be completely unforgettable. The map above is filtered to shoyu ramen near you; enter your ZIP or use your location to find the closest bowl.',

@@ -12,6 +12,7 @@ import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
 import { splitHtmlForAds } from '@/lib/split-html-for-ads'
+import { extractToc } from '@/lib/blog-toc'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
@@ -133,8 +134,15 @@ export default async function BlogPostPage({ params }: Props) {
   // photo for the handful of posts that don't have a real headerImage set.
   const headerImage = post.headerImage ?? pickStockPhoto(post.slug)
 
+  // Table of contents built from the post's own H2s. This also stamps ids onto
+  // headings that lack one, so render tocHtml (not post.content) below.
+  const { headings, html: tocHtml } = extractToc(post.content)
+  // Skip the auto TOC on short posts, and on the ~26 posts that already hand-roll
+  // their own "Quick Navigation" block, so they don't end up with two.
+  const showToc = headings.length >= 3 && !post.content.includes('Quick Navigation')
+
   // Two in-article ads, spread evenly through the body copy.
-  const contentParts = splitHtmlForAds(post.content, 2)
+  const contentParts = splitHtmlForAds(tocHtml, 2)
 
   // Enrich restaurant cards with lat/lng for map layout
   const hasCards = post.restaurantCards && post.restaurantCards.length > 0
@@ -278,6 +286,27 @@ export default async function BlogPostPage({ params }: Props) {
                   unoptimized={!post.headerImage}
                 />
               </div>
+            )}
+
+            {showToc && (
+              <nav
+                aria-label="Table of contents"
+                className="mb-8 rounded-xl border border-[#B57F50]/25 bg-[#F5F4F0] p-5"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#96602F] mb-3">
+                  Table of Contents
+                </p>
+                <ol className="space-y-1.5">
+                  {headings.map((h, i) => (
+                    <li key={h.id} className="flex gap-2.5 text-[15px] leading-snug">
+                      <span className="text-[#96602F] font-semibold tabular-nums shrink-0">{i + 1}.</span>
+                      <a href={`#${h.id}`} className="text-[#1E2026] hover:text-[#96602F] hover:underline">
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             )}
 
             {contentParts.map((chunk, i) => (

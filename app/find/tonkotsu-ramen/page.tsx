@@ -44,6 +44,11 @@ export default function TonkotsuRamenPage() {
 
       <FindPageContent
         currentHref="/find/tonkotsu-ramen"
+        guideLink={{
+          href: '/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen',
+          title: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+          blurb: 'How tonkotsu compares to the other three classic broth styles — history, technique, flavor, and what to order.',
+        }}
         heading="My Guide to Finding Real Tonkotsu Ramen Near Me"
         intro={[
           'Tonkotsu is the bowl that made me fall in love with ramen — that rich, creamy, milky-white pork broth that coats every noodle and stays with you long after the last sip. The first time I had a properly made tonkotsu, I understood immediately why people fly to Fukuoka just for a bowl. The map above is filtered to tonkotsu ramen near you, so you can skip straight to the good stuff. Enter your ZIP or use your location and the closest spots sort to the top.',

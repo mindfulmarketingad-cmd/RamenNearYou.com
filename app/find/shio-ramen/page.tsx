@@ -40,6 +40,11 @@ export default function ShioRamenPage() {
 
       <FindPageContent
         currentHref="/find/shio-ramen"
+        guideLink={{
+          href: '/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen',
+          title: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+          blurb: 'How shio compares to the other three classic broth styles — history, technique, flavor, and what to order.',
+        }}
         heading="Where I Find Delicate Shio Ramen Near Me"
         intro={[
           'Shio is the quiet master of the ramen world. It is the lightest of the classic styles — a clear, salt-seasoned broth that lets the quality of the stock shine through with almost nothing to hide behind. The first time I had a truly excellent shio, I was struck by how much complexity could live in something so transparent and seemingly simple. The map above is filtered to shio ramen near you; enter your ZIP or use your location to find the closest delicate bowl.',

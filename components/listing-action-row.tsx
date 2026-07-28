@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3, ShoppingBag, Bike } from 'lucide-react'
+import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3, ShoppingBag, Bike, Image as ImageIcon } from 'lucide-react'
 import { useCurrentUser } from '@/lib/use-current-user'
 import { useOwnerStatus } from '@/lib/use-owner-status'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
@@ -47,6 +47,11 @@ export default function ListingActionRow({
   const [saved, setSaved] = useState(false)
   const [busy, setBusy] = useState(false)
   const pathname = `/${city}/${state}/${slug}`
+  // Google Images results for this specific restaurant (name + city/state so
+  // same-named shops in other cities don't dominate the results).
+  const imagesUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(
+    [restaurantName, displayCity, stateCode].filter(Boolean).join(' ')
+  )}`
 
   useEffect(() => {
     getSavedSlugs().then((slugs) => setSaved(slugs.includes(slug)))
@@ -102,6 +107,16 @@ export default function ListingActionRow({
             Claim
           </button>
         )}
+        <a
+          href={imagesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconBtn}
+          onClick={(e) => trackedGuard(e, 'images')}
+        >
+          <span className={iconCircle}><ImageIcon className="w-5 h-5" /></span>
+          Images
+        </a>
         <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'directions')}>
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions

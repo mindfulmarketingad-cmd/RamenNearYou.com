@@ -17395,6 +17395,14 @@ blogPosts.push({
 
 <p>Tonkotsu is probably the most famous ramen style in the United States, and for good reason — it's the boldest, most indulgent bowl you can order. When you see a thick, milky white broth with a rich, porky aroma drifting up from the bowl, you're looking at tonkotsu.</p>
 
+<img
+  src="/images/blog/tonkotsu-ramen.jpg"
+  alt="Tonkotsu ramen — opaque, creamy pork-bone broth with sliced chashu, scallions, sesame, and chili oil"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
+
 <h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
 <p>Tonkotsu ramen was born in Kurume, a city in Fukuoka Prefecture on the island of Kyushu in southern Japan. The story goes that in 1937, a street vendor named Tokio Miyamoto accidentally over-boiled pork bones while running his stall — instead of the intended clear broth, the water turned thick, creamy, and opaque from the collagen and fat emulsifying into the liquid. The taste was revelatory. Fukuoka's Hakata district refined this technique over the following decades, and the Hakata tonkotsu style — characterized by extremely thin, straight noodles in a rich white broth — became the defining face of the style.</p>
 <p>Tonkotsu spread across Japan and then globally, partly because of how visceral and satisfying the flavor is, and partly because Fukuoka's ramen culture is uniquely open — Hakata-style shops pioneered the <em>kae-dama</em> system, where diners can order replacement noodles mid-bowl, and the open kitchen counter format that's now synonymous with ramen culture worldwide.</p>
@@ -17419,6 +17427,14 @@ blogPosts.push({
 <p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Savory · Balanced · Soy Sauce Seasoned</p>
 
 <p>Shoyu ramen is the oldest of the four major ramen styles and the one that shaped what most people picture when they think of a classic bowl of ramen: a clear-to-amber broth, wavy noodles, sliced chashu, bamboo shoots, and a soft-boiled egg. It's the baseline. The reference point. If tonkotsu is the showboat, shoyu is the craftsman.</p>
+
+<img
+  src="/images/blog/shoyu-ramen.jpg"
+  alt="Shoyu ramen — clear amber soy-seasoned broth with chashu pork, nori, menma bamboo shoots, and scallions"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
 
 <h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
 <p>Shoyu ramen's origins trace to Asakusa in Tokyo, where a restaurant called Rairaiken began serving Chinese-inspired noodle soup in 1910. The dish quickly evolved to fit Japanese tastes: the Chinese chefs adapted their noodle soups by adding Japanese soy sauce (shoyu) to the seasoning, creating a distinctly Japanese flavor profile. By the 1940s and 50s, shoyu ramen had become the dominant style in Tokyo and the surrounding Kanto region.</p>
@@ -17446,6 +17462,14 @@ blogPosts.push({
 <p>Shio ramen is the quiet genius of the four styles and the one that most clearly exposes a chef's technical ability. <em>Shio</em> (塩) simply means "salt" in Japanese — and a bowl of shio ramen is seasoned primarily with a salt-based tare rather than soy sauce or miso paste. The result is a pale, golden or near-transparent broth with a clean, mineral quality that lets every component of the stock shine through uninterrupted.</p>
 <p>Shio is also the oldest ramen style by origin — the very earliest iterations of ramen in Japan were seasoned with salt rather than soy sauce. It fell out of fashion as shoyu became dominant, but has experienced a major revival in modern ramen culture among chefs who appreciate the technical challenge of building deep flavor without the crutch of fermented soy.</p>
 
+<img
+  src="/images/blog/shio-ramen.jpg"
+  alt="Shio ramen — pale, near-clear salt-seasoned broth with chashu, a soft-boiled egg, and shredded negi"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
+
 <h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
 <p>Shio ramen is most closely associated with Hakodate, a port city in Hokkaido, northern Japan. Hokkaido's proximity to the sea meant that the region historically seasoned foods with salt and dried seafood rather than soy sauce, and the ramen tradition there followed suit. Hakodate shio ramen — made with a chicken, pork bone, and kombu stock, lightly salted and served with thin noodles — remains one of Japan's most celebrated regional ramen styles.</p>
 <p>In contemporary ramen culture, shio has become the benchmark style for serious ramen chefs who want to showcase stock quality. Because there's no soy sauce or miso to hide behind, the clarity and depth of the base stock is everything. A shio bowl made with an extraordinary chicken-and-seafood stock is revelatory. A shio bowl made with a mediocre stock has nowhere to hide.</p>
@@ -17469,7 +17493,15 @@ blogPosts.push({
 <h2 id="miso" style="font-size:1.65rem;font-weight:800;color:#1E2026;margin:2.5rem 0 0.5rem;">4. Miso Ramen</h2>
 <p style="font-size:0.8rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B57F50;margin:0 0 1rem;">Bold · Earthy · Fermented Depth</p>
 
-<p>Miso ramen is the fourth and youngest of the classic ramen styles — and also the one that generates the most creative experimentation. It's hearty, earthy, and warming in a way that makes it feel like the most complete meal of the four. If tonkotsu is bold and tonkotsu and shoyu are classic, miso is the one that feels most like comfort food: deeply savory, slightly sweet, with a fermented complexity that rewards every sip.</p>
+<p>Miso ramen is the fourth and youngest of the classic ramen styles — and also the one that generates the most creative experimentation. It's hearty, earthy, and warming in a way that makes it feel like the most complete meal of the four. If tonkotsu is bold and shoyu is classic, miso is the one that feels most like comfort food: deeply savory, slightly sweet, with a fermented complexity that rewards every sip.</p>
+
+<img
+  src="/images/blog/miso-ramen.jpg"
+  alt="Miso ramen — hearty fermented soybean broth with a miso tare dollop, corn, mushrooms, nori, egg, and chashu"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
 
 <h3 style="font-size:1.15rem;font-weight:700;color:#1E2026;margin:1.75rem 0 0.5rem;">The History</h3>
 <p>Miso ramen was invented in Sapporo, the capital of Hokkaido, in the 1950s. The story traces to a restaurant called Aji no Sanpei, where the owner, Morito Omiya, began experimenting with adding miso paste — a fermented soybean staple already central to Hokkaido home cooking — to his ramen broth. Sapporo's cold climate demanded something heartier than Tokyo's shoyu style, and miso delivered exactly that. By the 1960s, Sapporo miso ramen had become nationally famous and was being mass-marketed as one of Japan's regional ramen identities.</p>
@@ -17611,6 +17643,14 @@ blogPosts.push({
   author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
   listHeading: 'Top-Rated Tonkotsu Ramen Restaurants to Try',
   content: `<p><strong>Tonkotsu ramen is a Japanese noodle soup built on a rich, milky-white pork bone broth, made by boiling pork bones at a hard rolling boil for 8 to 20 hours until the collagen, marrow, and fat break down and emulsify into the liquid.</strong> The result is one of Japan's four major ramen styles — thick, creamy, and intensely savory — traditionally served with thin, straight noodles, sliced chashu pork, and a soft-boiled egg. Born in the Kyushu region of southern Japan in the 1930s, tonkotsu has become the most recognized ramen style outside of Japan, prized for its deep umami and velvety, coat-your-spoon texture.</p>
+
+<img
+  src="/images/blog/tonkotsu-ramen.jpg"
+  alt="Tonkotsu ramen — opaque, creamy pork-bone broth with sliced chashu, scallions, sesame, and chili oil"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
 
 <p>Its bold, hearty character has made tonkotsu a favorite both in Japan and internationally, especially among diners who want a full-bodied, deeply savory bowl rather than something light and delicate. In this guide, I'll break down exactly how the broth gets its color and creaminess, what defines the flavor, how the noodles and toppings work together, where the style came from, and the regional variations worth knowing about.</p>
 
@@ -18154,6 +18194,14 @@ blogPosts.push({
   listHeading: 'Top-Rated Shoyu Ramen Restaurants to Try',
   content: `<p><strong>Shoyu ramen is a Japanese noodle soup built on a clear, amber-brown broth seasoned with soy sauce (shoyu) — typically a chicken or chicken-and-pork stock rounded out with kombu and bonito dashi, then finished with a soy-based tare just before serving.</strong> It's the original ramen style, tracing back to Tokyo in the early 1900s, and it's the light-to-medium-bodied, savory-but-balanced bowl most people picture by default when they hear the word "ramen." Where <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu ramen</a> is defined by its broth base, shoyu is defined by its seasoning — the same chicken stock can become an entirely different bowl depending on which tare is stirred in.</p>
 
+<img
+  src="/images/blog/shoyu-ramen.jpg"
+  alt="Shoyu ramen — clear amber soy-seasoned broth with chashu pork, nori, menma bamboo shoots, and scallions"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
+
 <p>Shoyu is one of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, and arguably the most important one historically — it's the template every other style branched off from. This guide covers exactly what defines shoyu ramen, how the broth and tare are built, what the noodles and toppings look like, where it came from, and how it stacks up against tonkotsu, shio, and miso.</p>
 
 <div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
@@ -18364,6 +18412,14 @@ blogPosts.push({
   listHeading: 'Top-Rated Shio Ramen Restaurants to Try',
   content: `<p><strong>Shio ramen is a Japanese noodle soup seasoned primarily with a salt-based tare rather than soy sauce or miso paste, producing a pale, near-transparent broth that showcases the underlying chicken, seafood, or dashi stock with almost nothing in the way.</strong> "Shio" (塩) simply means "salt" in Japanese. It's the lightest and most delicate of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a>, and — despite looking the simplest on paper — it's often considered the hardest style to execute well, since there's no rich fat or fermented paste to hide behind.</p>
 
+<img
+  src="/images/blog/shio-ramen.jpg"
+  alt="Shio ramen — pale, near-clear salt-seasoned broth with chashu, a soft-boiled egg, and shredded negi"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
+
 <p>Shio is also, historically, the oldest ramen seasoning of all — Japan's earliest bowls of ramen were salted rather than soy-seasoned, before shoyu became the dominant style nationwide. This guide covers what defines shio ramen, how the broth and tare are built, the noodles and toppings that typically accompany it, its Hokkaido origins, and how it compares to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a>.</p>
 
 <div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
@@ -18573,6 +18629,14 @@ blogPosts.push({
   author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
   listHeading: 'Top-Rated Miso Ramen Restaurants to Try',
   content: `<p><strong>Miso ramen is a Japanese noodle soup featuring a hearty, opaque broth seasoned with fermented soybean paste (miso) — most often blended into a pork or chicken stock alongside garlic, ginger, and sometimes ground pork.</strong> Invented in Sapporo, Hokkaido, in the 1950s, it's the youngest of <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Japan's four main ramen styles</a> and also the boldest in terms of pure ingredient experimentation — earthy, savory-sweet, and warming in a way built specifically for cold weather.</p>
+
+<img
+  src="/images/blog/miso-ramen.jpg"
+  alt="Miso ramen — hearty fermented soybean broth with a miso tare dollop, corn, mushrooms, nori, egg, and chashu"
+  loading="lazy"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;"
+  onerror="this.src='/images/hero-ramen.jpg'"
+/>
 
 <p>Miso is also the style most associated with generous, hearty toppings: sweet corn, a pat of butter, bean sprouts, and ground pork are the Hokkaido-style signatures. This guide covers exactly what makes miso ramen distinct, how the broth and tare are built, the noodles and toppings that define it, its Sapporo origins, and how it compares to <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, and <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a>.</p>
 
@@ -22308,4 +22372,184 @@ blogPosts.push({
 <h2>My bottom line</h2>
 <p>Get discoverable first — Google Business Profile, a niche directory, and a clean local-SEO site — then amplify with video, reviews, email, and a little smart ad spend. Every channel feeds the others. If you only have a few minutes today, <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">claim your listing</a> so the next person searching for ramen in your city finds you.</p>`,
   outroContent: `<p style="color:#6B6862;">Want the single highest-leverage step done first? <a href="/claim-your-listing" style="color:#B57F50;text-decoration:underline;font-weight:600;">Claim your listing on Ramen Near You</a> — claiming is completely free, and it gets you in front of people searching for ramen in your city right now.</p>`,
+})
+
+blogPosts.push({
+  slug: 'how-to-eat-ramen-noodles-the-right-way',
+  title: 'How To Eat Ramen Noodles The Right Way',
+  h1: 'How To Eat Ramen Noodles The Right Way',
+  description: 'The right way to eat ramen is to start immediately, sip the broth before touching the noodles, and slurp. I break down the full order of operations, the etiquette that actually matters, and the mistakes I see first-timers make every week.',
+  date: 'July 28, 2026',
+  readTime: '11 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/hero-ramen.jpg',
+  headerImageAlt: 'A bowl of ramen with noodles being lifted on chopsticks, steam rising',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How To Eat Ramen Noodles The Right Way',
+    description: 'A step-by-step guide to eating a bowl of ramen the way it was designed to be eaten — in the right order, at the right speed, with the right technique.',
+    totalTime: 'PT10M',
+    step: [
+      { '@type': 'HowToStep', position: 1, name: 'Start immediately', text: 'Begin eating the moment the bowl lands. Ramen is engineered to be eaten within about ten minutes, before the noodles absorb broth and go soft.' },
+      { '@type': 'HowToStep', position: 2, name: 'Sip the broth first', text: 'Take two or three spoonfuls of broth before touching the noodles. This is the chef signature and the clearest read on the quality of the bowl.' },
+      { '@type': 'HowToStep', position: 3, name: 'Lift and loosen the noodles', text: 'Use chopsticks to lift the noodles from underneath and separate the block so every strand is coated in broth.' },
+      { '@type': 'HowToStep', position: 4, name: 'Slurp', text: 'Draw the noodles in with air. Slurping cools the noodles, aerates the broth, and pushes aroma up into the nose, which is where most of the flavor is perceived.' },
+      { '@type': 'HowToStep', position: 5, name: 'Alternate noodles, broth, and toppings', text: 'Eat nori early before it dissolves, pace the chashu across the bowl, and save the egg for the middle rather than the end.' },
+      { '@type': 'HowToStep', position: 6, name: 'Finish the noodles first', text: 'Prioritize the noodles over the broth. Noodles degrade by the minute; broth does not. Finishing the broth is a compliment, never an obligation.' },
+    ],
+  },
+  content: `<p><strong>The right way to eat ramen is to start the moment the bowl hits the table, sip the broth before you touch the noodles, and slurp without apology.</strong> Everything else — the toppings, the condiments, the pace — follows from one principle: a bowl of ramen is a dish with a clock running on it. The chef built it to be eaten in about ten minutes, and every rule below exists to protect the bowl inside that window.</p>
+
+<p>I have eaten ramen in more shops than I can count, from counter seats in Fukuoka where the chef watches you take the first sip, to strip-mall shops in Atlanta doing quietly excellent work. The single biggest difference between people who love ramen and people who think it is just fine is almost never the restaurant. It is how they eat it. This guide is everything I wish someone had told me at my first counter.</p>
+
+<h2>Why Eating Ramen Correctly Actually Matters</h2>
+
+<p>Most dishes are stable. A steak rested on a plate is roughly the same dish five minutes later. Ramen is not. From the second the noodles enter the broth, they are absorbing liquid, softening, and swelling. A bowl that is perfect at minute one is noticeably worse at minute twelve and genuinely disappointing at minute twenty.</p>
+
+<p>This is why ramen shops feel faster than other restaurants, why chefs sometimes look impatient when you photograph your bowl for too long, and why so many shops have no-lingering policies. None of it is rudeness. It is the kitchen protecting a dish with a very short peak.</p>
+
+<p>Once you internalize that, the etiquette stops feeling like arbitrary tradition and starts feeling like common sense.</p>
+
+<h2>Step 1: Start Immediately</h2>
+
+<p>Take your photo if you want one — but take it fast. Ten seconds, not two minutes. The noodles are already softening while you frame the shot.</p>
+
+<p>If you are with a group, do not wait for everyone to be served before starting. This is the one context where the usual table manners are inverted. In Japan it is completely normal, and expected, for each person to start eating the instant their own bowl arrives. Waiting politely for the last bowl means three people are now eating a worse version of what they ordered.</p>
+
+<h2>Step 2: Sip the Broth Before Anything Else</h2>
+
+<p>Pick up the spoon and take two or three sips of broth before you touch the noodles.</p>
+
+<p>There is a practical reason and a cultural one. Practically, the broth is the single clearest signal of how good the bowl is. It is where the labor lives — a <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> may have simmered for twelve to twenty hours; a <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> has nowhere to hide. Tasting it clean, before noodle starch and chili oil and egg yolk muddy it, is the only time you get an unobstructed read.</p>
+
+<p>Culturally, sipping the broth first is understood as acknowledging the chef work. At a good counter you may notice the chef glance up on that first sip. That moment is real, and it is worth honoring.</p>
+
+<p>It is also the reason you should taste before reaching for condiments — more on that below.</p>
+
+<h2>Step 3: Lift and Loosen the Noodles</h2>
+
+<p>Noodles arrive as a folded nest. If you eat straight off the top, you get dry, under-seasoned strands while the bottom sits in the broth turning soft.</p>
+
+<p>Slide your chopsticks down the side of the bowl, lift from underneath, and gently turn the nest over so the whole portion gets coated. Do not stir aggressively, especially with a delicate style — you will cloud a clear broth and break up the toppings.</p>
+
+<p>Then pull up a manageable bundle. Aim for the amount you can finish in one or two mouthfuls, not a giant clump you have to fight.</p>
+
+<h2>Step 4: Slurp — Properly, and Without Apology</h2>
+
+<p>Slurping is not bad manners in ramen. It is technique, and it does three concrete things:</p>
+
+<p><strong>It cools the noodles in transit.</strong> Broth is served near boiling. Drawing air in alongside the noodles drops the temperature enough to eat them at their peak instead of waiting for the bowl to cool, by which point the noodles have gone soft.</p>
+
+<p><strong>It aerates the broth.</strong> Same principle as slurping wine or coffee at a tasting. Air pulled through the liquid opens up the volatile aromatic compounds.</p>
+
+<p><strong>It pushes aroma into your nasal passage.</strong> Most of what we call flavor is retronasal olfaction — smell perceived from the back of the mouth. Slurping forces aroma upward. You are not just being loud; you are literally tasting more.</p>
+
+<p>If you have never done it: purse your lips slightly, hold the noodle ends in your mouth, and inhale as you draw them in. It feels ridiculous for about two bowls and then becomes automatic.</p>
+
+<h2>Step 5: Do Not Bite the Noodles In Half</h2>
+
+<p>Take the full length in. Do not bite a mouthful and let the rest drop back into the bowl.</p>
+
+<p>Partly this is aesthetic — dropped noodles splash broth and leave broken strands floating. But there is a real reason too. Ramen noodles are made to a specific length and thickness for that specific broth. A shop serving thin Hakata-style noodles in a heavy <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> chose that length so the full strand carries the right ratio of broth per bite. Cutting it in half changes what the chef designed.</p>
+
+<p>And never, ever ask for a knife.</p>
+
+<h2>Step 6: Eat the Toppings in the Right Order</h2>
+
+<p>Toppings are not garnish. They are timed components, and most people eat them in exactly the wrong order.</p>
+
+<p><strong>Nori (seaweed) — eat it early.</strong> Nori starts dissolving the moment it hits hot broth. Within a few minutes it is a limp, disintegrating sheet. Eat it in the first minute or two, or pull it out and rest it against the rim to use as a wrap for noodles later.</p>
+
+<p><strong>Chashu (pork) — pace it.</strong> Do not eat all your pork in the first thirty seconds. Spread it across the bowl so you get some in the last few bites. If it is a thick, fatty cut, let it sit in the broth briefly to warm through and soften.</p>
+
+<p><strong>Ajitama (marinated egg) — save it for the middle.</strong> Not the end. A jammy egg yolk breaking into the broth enriches everything after it, so you want at least a few bites remaining to benefit. Bite it in halves rather than eating it whole.</p>
+
+<p><strong>Menma (bamboo shoots), negi (scallions), bean sprouts — use them as palate resets.</strong> These exist for contrast and crunch. Work them in between heavier bites rather than clearing them at once.</p>
+
+<p><strong>Corn and butter, if you have a Hokkaido-style <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a> bowl</strong> — let the butter melt fully before stirring it through, then treat the bowl as a different dish from that point on. It gets richer and sweeter, and it is meant to.</p>
+
+<h2>Step 7: Taste Before You Season</h2>
+
+<p>Every ramen counter has an array of condiments: chili oil, garlic press, white pepper, vinegar, pickled ginger, sesame seeds.</p>
+
+<p>Use them — after you have tasted the bowl as served. The chef seasoned the tare to a specific balance. Dumping chili oil in before your first sip means you never actually tasted what the shop makes, and you cannot tell whether you are fixing something or ruining it.</p>
+
+<p>My rule: taste, eat a third of the bowl, then adjust if you want to. On a heavy tonkotsu, a small spoon of vinegar cuts richness beautifully. On a delicate <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a>, adding almost anything is a mistake.</p>
+
+<h2>Step 8: Prioritize Noodles Over Broth</h2>
+
+<p>If you are slowing down and cannot finish everything, finish the noodles and leave broth behind — not the other way around.</p>
+
+<p>Noodles degrade by the minute. Broth does not. Leaving half your noodles to sit while you spoon soup is how you end up with a mushy final third.</p>
+
+<p>On finishing the broth: it is a genuine compliment to drain the bowl, and in some shops you will get a nod for it. It is not an obligation. Ramen broth is extremely high in sodium, and no chef in the world is offended by a customer who eats the noodles with enthusiasm and leaves some soup. Do not force it.</p>
+
+<h2>Kaedama: The Noodle Refill Most People Miss</h2>
+
+<p>At Hakata-style tonkotsu shops, look for <em>kaedama</em> on the menu or a small sign at the counter. It means a replacement portion of noodles, usually a dollar or two, added to your remaining broth.</p>
+
+<p>The system exists precisely because thin Hakata noodles go soft fast. Rather than serving a large portion that degrades, the shop serves a small firm one and lets you order more. To use it well: order your kaedama when you have roughly a quarter of your noodles left, not after you have finished, so there is enough hot broth remaining to serve the new batch properly.</p>
+
+<p>You can also often specify noodle firmness when ordering — <em>barikata</em> (very firm), <em>katamen</em> (firm), <em>futsu</em> (normal), <em>yawa</em> (soft). If you are a slow eater, ordering firm buys you time.</p>
+
+<h2>Style-Specific Notes</h2>
+
+<p>Not every bowl follows the standard pattern. Two common exceptions:</p>
+
+<p><strong>Tsukemen (dipping ramen).</strong> Noodles and broth arrive separately, and the broth is deliberately concentrated and intensely salty because it is a dipping sauce, not a soup. Dip a small bundle, do not submerge, and do not try to drink the dipping broth straight. Many shops offer <em>soup wari</em> — plain hot dashi to dilute what is left so you can finish it as a soup at the end. Ask for it.</p>
+
+<p><strong>Mazemen / abura soba (brothless).</strong> These need to be mixed thoroughly before the first bite — that is the whole point. Everything sits on top with a concentrated sauce and oil pooled at the bottom. Toss it hard for a good twenty seconds until every strand is glossy, then eat.</p>
+
+<p>If you are still learning the differences between the main broths, our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">guide to the four types of ramen</a> covers tonkotsu, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, shio, and miso in detail.</p>
+
+<h2>Counter Etiquette That Actually Matters</h2>
+
+<p>A few things that are worth knowing before you sit down at a serious shop:</p>
+
+<p><strong>Do not linger after finishing.</strong> Ramen shops run on turnover, and many have people waiting. Eat, pay, go. Long post-meal conversation belongs at a bar afterward, not at a twelve-seat counter.</p>
+
+<p><strong>Keep strong fragrance off.</strong> Aroma is a huge part of the experience, especially for delicate styles. Heavy cologne or perfume genuinely affects the people sitting next to you.</p>
+
+<p><strong>Do not stack or rearrange the dishes.</strong> Well-meant, but it disrupts the kitchen system. Leave the bowl where it is.</p>
+
+<p><strong>Order promptly.</strong> Decide before you sit if there is a line. Some shops use a ticket vending machine at the entrance — choose, pay, and hand the ticket to the counter.</p>
+
+<p><strong>Phones down.</strong> One photo is fine. A ten-minute filming session while your bowl dies in front of you is not.</p>
+
+<h2>The Mistakes I See Most Often</h2>
+
+<p>Ranked roughly by how much damage they do to the bowl:</p>
+
+<p><strong>1. Letting it sit.</strong> By far the worst. Talking for five minutes before starting costs you more quality than any other single thing.</p>
+
+<p><strong>2. Not slurping.</strong> You lose aroma, and you eat slower because the noodles stay too hot — which compounds mistake number one.</p>
+
+<p><strong>3. Seasoning before tasting.</strong> You may be improving it. You will never know.</p>
+
+<p><strong>4. Eating all the toppings first.</strong> Leaves the last half of the bowl as plain noodles.</p>
+
+<p><strong>5. Ordering a giant portion.</strong> A normal portion eaten hot beats a large portion eaten cold every time. If you want more, that is what kaedama is for.</p>
+
+<p><strong>6. Drinking a lot of ice water throughout.</strong> It numbs your palate against a hot, subtle broth. Sip sparingly.</p>
+
+<h2>What About Chopstick Technique?</h2>
+
+<p>You do not need perfect form. You do need to avoid two specific things, both of which come from Japanese funerary custom and read as genuinely off-putting:</p>
+
+<p><strong>Do not stand chopsticks upright in the bowl.</strong> Vertical chopsticks in rice resemble incense at a funeral. Rest them on the bowl rim or a chopstick rest instead.</p>
+
+<p><strong>Do not pass food chopstick-to-chopstick with someone else.</strong> This mirrors a bone-passing ritual during cremation rites. If you are sharing, set the piece down on a plate and let the other person pick it up.</p>
+
+<p>Beyond that: use the spoon and chopsticks together. The standard grip is chopsticks in your dominant hand, spoon in the other, using the spoon as a resting platform for a noodle bundle or to catch broth as you lift. It is not required, but it is efficient, and it keeps the table clean.</p>
+
+<h2>My Bottom Line</h2>
+
+<p>Eating ramen well is not about memorizing rules. It is about understanding that you have been handed something with a ten-minute peak, and eating accordingly: fast, hot, loud, and in the order the chef intended.</p>
+
+<p>Sip the broth first. Lift and loosen. Slurp. Eat the nori early and the egg in the middle. Taste before you season. Finish the noodles. Everything else is detail.</p>
+
+<p>Do that, and the same bowl at the same shop will taste better than it did last time — with no change on the kitchen side at all.</p>`,
+  outroContent: `<p style="color:#6B6862;">Ready to put it into practice? <a href="/" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find highly rated ramen near you on the search map</a>, or read our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">guide to the four types of ramen</a> so you know exactly what to order when you get there.</p>`,
 })

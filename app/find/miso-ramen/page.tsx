@@ -44,6 +44,11 @@ export default function MisoRamenPage() {
 
       <FindPageContent
         currentHref="/find/miso-ramen"
+        guideLink={{
+          href: '/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen',
+          title: 'Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained',
+          blurb: 'How miso compares to the other three classic broth styles — history, technique, flavor, and what to order.',
+        }}
         heading="How I Find Hearty Miso Ramen Near Me"
         intro={[
           'When I want a bowl that feels like a warm hug, miso ramen is what I reach for every single time. That deep, savory, slightly sweet broth built on fermented soybean paste is the most full-bodied of the classic ramen styles, and it is absolutely incredible on a cold day or any time I need something genuinely comforting. The map above is filtered to miso ramen near you — enter your ZIP or use your location to find the closest bowl.',

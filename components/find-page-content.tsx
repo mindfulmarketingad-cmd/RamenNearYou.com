@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import Link from 'next/link'
+import { BookOpen } from 'lucide-react'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
@@ -23,6 +25,9 @@ interface Props {
   tips?: string[]
   /** Expanded FAQ — also emitted as FAQPage JSON-LD so schema matches the page. */
   faqs: FindFaq[]
+  /** Optional callout linking a related in-depth blog guide, rendered under
+   *  the intro — internal linking from the map pages into the editorial. */
+  guideLink?: { href: string; title: string; blurb: string }
 }
 
 // Shared rich content block for every /find map page. Renders a substantial,
@@ -37,6 +42,7 @@ export default function FindPageContent({
   tipsHeading,
   tips,
   faqs,
+  guideLink,
 }: Props) {
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -68,6 +74,25 @@ export default function FindPageContent({
         {intro.map((p, i) => (
           <p key={i} className="text-[#6B6862] text-[15px] leading-relaxed mb-4">{p}</p>
         ))}
+
+        {/* Related in-depth guide — internal link from the map page into the blog */}
+        {guideLink && (
+          <Link
+            href={guideLink.href}
+            className="group flex items-start gap-3 mt-6 p-4 rounded-xl border border-[#B57F50]/25 bg-[#F5F4F0] hover:border-[#B57F50]/50 transition-colors"
+          >
+            <BookOpen className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
+            <span className="min-w-0">
+              <span className="block text-[10px] font-bold uppercase tracking-widest text-[#96602F] mb-1">
+                Read the guide
+              </span>
+              <span className="block text-[#1E2026] font-semibold text-[15px] group-hover:text-[#96602F] transition-colors">
+                {guideLink.title}
+              </span>
+              <span className="block text-[#6B6862] text-[13px] leading-snug mt-0.5">{guideLink.blurb}</span>
+            </span>
+          </Link>
+        )}
 
         {/* Deep-dive sections */}
         {sections.map((s) => (
