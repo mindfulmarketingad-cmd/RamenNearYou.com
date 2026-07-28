@@ -71,12 +71,6 @@ const RamenMap = dynamic(() => import('@/components/ramen-map'), {
 
 function kmToMiles(km: number) { return km * 0.621371 }
 
-// Slugify a reverse-geocoded city name ("St. Louis" → "st-louis") so it can be
-// compared against a citySlug from the dataset.
-function citySlugify(name: string) {
-  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-}
-
 // Directions that start from the visitor's own location whenever we know
 // it, so "Get Directions" from the map pin doesn't force them to re-enter
 // an origin Google Maps could already infer.
@@ -598,10 +592,17 @@ export default function HomeMapHero({
   // Auto-detect the visitor's location on load (silently — the browser's own
   // permission prompt is the only interruption) so the top bar can show
   // "Roswell, GA · Choose area" instead of making everyone type a city or ZIP
-  // first. Skipped on pages that already have a fixed city (regionBoundary),
-  // e.g. a broth-in-{city} SEO page shouldn't recenter on the visitor's GPS.
+  // first.
+  //
+  // Two deliberate exceptions:
+  //  - regionBoundary pages already have a fixed city (e.g. a broth-in-{city}
+  //    SEO page), so they shouldn't recenter on the visitor's GPS.
+  //  - The homepage does NOT auto-locate. Landing visitors pick their own area
+  //    ("Choose area", or the "Use my location" button on the map) so the first
+  //    move on the page is theirs rather than something done for them.
   useEffect(() => {
     if (regionBoundary) return
+    if (pathname === '/') return
     requestLocation()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -626,32 +627,6 @@ export default function HomeMapHero({
     })()
     return () => { cancelled = true }
   }, [userPos])
-
-  // When the visitor grants location and we can resolve their area to a city
-  // we actually have a page for, send them to that city's dedicated /find
-  // search-map page — a real local landing page (and an extra pageview)
-  // instead of leaving them on the generic homepage. Homepage only, once per
-  // load, and only before they've started interacting (typing, filtering, or
-  // picking an area themselves) so it never yanks the page out from under them.
-  const autoAreaRedirected = useRef(false)
-  useEffect(() => {
-    if (autoAreaRedirected.current) return
-    if (pathname !== '/') return
-    if (!detectedArea || cityOptions.length === 0) return
-    if (selectedRegion || localQuery.trim() || flags.size || bowls.size || moods.size || prices.size) return
-
-    const wantName = detectedArea.cityName.trim().toLowerCase()
-    const wantSlug = citySlugify(detectedArea.cityName)
-    const match = cityOptions.find(c =>
-      c.stateCode === detectedArea.stateCode &&
-      (c.cityName.trim().toLowerCase() === wantName || c.citySlug === wantSlug)
-    )
-    if (!match) return
-
-    autoAreaRedirected.current = true
-    router.push(`/find/${match.citySlug}-${match.stateCode.toLowerCase()}`)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [detectedArea, cityOptions, pathname])
 
   async function geocodeLocation(query: string) {
     const clean = query.trim()
@@ -965,6 +940,13 @@ export default function HomeMapHero({
               >
                 <MapPin className="w-3.5 h-3.5" />
                 {selectedRegion.isState ? selectedRegion.cityName : `${selectedRegion.cityName}, ${selectedRegion.stateCode}`}
+                {/* How many spots the chosen area currently has (respects any
+                    other active filters, so it matches the list heading). */}
+                {!dataLoading && (
+                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-white/25 text-white text-[10px] font-bold tabular-nums">
+                    {displayList.length}
+                  </span>
+                )}
                 <X className="w-3 h-3 ml-0.5" />
               </button>
             ) : (
@@ -984,7 +966,12 @@ export default function HomeMapHero({
                       <span className="font-bold text-[#1E2026]">{detectedArea.cityName}, {detectedArea.stateCode}</span>
                     </>
                   ) : (
-                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                    <>
+                      <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                      {/* No location yet (the homepage never auto-locates) —
+                          prompt for the pick instead of showing a bare "·". */}
+                      <span className="text-[#6B6862] font-medium">Where to?</span>
+                    </>
                   )}
                   <span className="text-[#6B6862]">·</span>
                   <button
