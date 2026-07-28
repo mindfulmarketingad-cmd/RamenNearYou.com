@@ -171,8 +171,8 @@ function OpenStatusTag({ hours }: { hours: Record<string, string[]> | null | und
 }
 
 // ── Color-coded badges showing which active filter(s) a card matched ────────
-function MatchedChips({ chips }: { chips: MatchedChip[] }) {
-  if (chips.length === 0) return null
+function MatchedChips({ chips }: { chips?: MatchedChip[] }) {
+  if (!chips || chips.length === 0) return null
   return (
     <div className="flex items-center gap-1 mt-1 flex-wrap">
       {chips.map(c => (
@@ -835,22 +835,72 @@ export default function HomeMapHero({
 
   const mapRestaurants = useMemo(() => displayList.slice(0, 300), [displayList])
 
-  // "Open Now" carousel (mobile, mapOnly) — independent of whatever filters/
-  // search are active, matching Google Maps' own always-on "Open now" row.
-  // Within 25 miles (~40.2 km) of the visitor's resolved location, sorted by
-  // rating so the best open-right-now spots lead.
-  const openNowNearby = useMemo(() => {
-    return data
+  // Themed discovery shelves under the map (map view only) — Google-Maps /
+  // Netflix style rows. These are deliberately independent of the active
+  // filters (they're for browsing, not refining) but they DO respect the
+  // chosen area: a picked city/state scopes them, otherwise they cover
+  // everything within 25 miles (~40.2 km) of the visitor's resolved location.
+  const shelves = useMemo(() => {
+    const pool = data
       .map(r => ({
         ...r,
         distKm: r.latitude != null && r.longitude != null
           ? haversineKm(distanceOrigin.lat, distanceOrigin.lng, r.latitude, r.longitude)
           : Infinity,
       }))
-      .filter(r => isOpenNow(r.hours) && r.distKm <= 40.2336)
-      .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-      .slice(0, 15)
-  }, [data, distanceOrigin])
+      .filter(r => {
+        if (selectedRegion) {
+          return selectedRegion.isState
+            ? r.stateSlug === selectedRegion.stateSlug
+            : r.citySlug === selectedRegion.citySlug && r.stateSlug === selectedRegion.stateSlug
+        }
+        return r.distKm <= 40.2336
+      })
+
+    const byRating = (a: typeof pool[number], b: typeof pool[number]) =>
+      (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
+    const take = (list: typeof pool) => list.slice(0, 15)
+
+    const defs: { key: string; title: string; subtitle: string; items: typeof pool }[] = [
+      {
+        key: 'open-now',
+        title: 'Open Now',
+        subtitle: 'Serving right this minute',
+        items: take(pool.filter(r => isOpenNow(r.hours)).sort(byRating)),
+      },
+      {
+        key: 'top-rated',
+        title: 'Top Rated',
+        subtitle: '4.5+ stars with real review volume',
+        items: take(pool.filter(r => (r.rating ?? 0) >= 4.5 && r.reviewCount >= 50).sort(byRating)),
+      },
+      {
+        key: 'new-spots',
+        title: 'New Spots',
+        subtitle: 'Recently opened, still building a following',
+        items: take(
+          pool
+            .filter(r => (r.reviewCount ?? 0) > 0 && (r.reviewCount ?? 0) <= 75)
+            .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || a.reviewCount - b.reviewCount)
+        ),
+      },
+      {
+        key: 'upscale',
+        title: 'Upscale',
+        subtitle: 'Higher-end bowls worth dressing up for',
+        items: take(pool.filter(r => r.priceRange === '$$$' || r.priceRange === '$$$$').sort(byRating)),
+      },
+      {
+        key: 'cheap',
+        title: 'Cheap Eats',
+        subtitle: 'Great ramen under about $10',
+        items: take(pool.filter(r => r.priceRange === '$').sort(byRating)),
+      },
+    ]
+
+    // Only surface a shelf with enough entries to be worth scrolling.
+    return defs.filter(s => s.items.length >= 3)
+  }, [data, distanceOrigin, selectedRegion])
 
   // The pin the visitor last clicked on the map — drives the floating detail
   // card in mapOnly layouts (no list panel to show this info alongside).
@@ -898,6 +948,210 @@ export default function HomeMapHero({
     setMoods(new Set())
     setPrices(new Set())
     setLocalQuery('')
+  }
+
+  // One card renderer for every surface — the main results list, the themed
+  // shelves below the map, and the classic sidebar row — so a change to the
+  // callouts or CTAs can't drift between them.
+  //   'carousel' = fixed-width card in a horizontal strip
+  //   'grid'     = full-width card in the 3-column list view
+  //   'row'      = photo-left row for the narrow /[city] sidebar
+  // The themed shelves reuse this renderer but don't compute matchedChips
+  // (those explain the active filters, which the shelves deliberately ignore).
+  type ResultItem = Omit<(typeof displayList)[number], 'matchedChips'> & { matchedChips?: MatchedChip[] }
+  function renderResultCard(r: ResultItem, i: number, layout: 'carousel' | 'grid' | 'row', keyPrefix = '') {
+    // Some duplicate DB rows share an identical slug within the
+    // same city (e.g. two distinct "Lifting Noodles Ramen"
+    // locations in Atlanta) — fold in zip/lat/lng/index so the
+    // React key never collides and sorting stays stable.
+    const uid = `${keyPrefix}${r.citySlug}-${r.stateSlug}-${r.slug}-${r.zip || `${r.latitude},${r.longitude}`}-${i}`
+    const active = r.slug === selectedSlug
+    const showDist = hasLocation
+    const isSupp = !!r.supp
+    // Every restaurant — DB or Google Places supplement — has its
+    // own internal listing page (both render through
+    // RestaurantListingPage at the same /{city}/{state}/{slug}
+    // URL), so cards always link internally. isSupp still gates
+    // the Save button below (saves are keyed to DB slugs only).
+    const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+    const rSlugReview = mapPointReviewSlug(r)
+    // Order Online / Reserve A Table both point to the
+    // restaurant's own site; fall back to the listing page when
+    // we don't have a website on file so the buttons still work.
+    const websiteHref = r.website
+      ? (/^https?:\/\//i.test(r.website) ? r.website : `https://${r.website}`)
+      : internalUrl
+
+    const open = () => router.push(internalUrl)
+
+    // ── Shared pieces, so the carousel card and the sidebar row
+    //    always carry the same callouts and CTAs ──
+    const featuredBadge = r.featured ? (
+      <span className="inline-flex items-center gap-1 mb-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[9px] font-bold uppercase tracking-wide shadow-sm">
+        👑 #1 Featured
+      </span>
+    ) : null
+
+    const titleRow = (
+      <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>
+        <span className="truncate">{r.name}</span>
+        {r.claimed && !r.featured && <BadgeCheck className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
+      </p>
+    )
+
+    const metaRow = (
+      <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+        {r.rating && (
+          rSlugReview ? (
+            <Link
+              href={`/reviews/${rSlugReview}`}
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#96602F] hover:underline"
+            >
+              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+            </Link>
+          ) : (
+            <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
+            </span>
+          )
+        )}
+        {priceRangeLabel(r.priceRange) && <span className="text-xs text-[#1E2026]/60">{priceRangeLabel(r.priceRange)}</span>}
+        <OpenStatusTag hours={r.hours} />
+        {showDist && r.distKm > 0 && <span className="text-[#96602F] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
+      </div>
+    )
+
+    const serviceLine = (
+      <p className="text-[#1E2026]/50 text-xs mt-0.5 truncate">
+        Dine-in{r.amenities?.includes('delivers') ? ' · Delivery' : ''}
+      </p>
+    )
+
+    const ctaRow = (
+      <div className="flex flex-wrap gap-1.5">
+        <a
+          href={websiteHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+        >
+          Order Online
+        </a>
+        <a
+          href={websiteHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
+        >
+          Reserve A Table
+        </a>
+      </div>
+    )
+
+    const saveBtn = !isSupp ? (
+      <button
+        onClick={(e) => handleToggleSave(e, r.slug)}
+        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
+        aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
+      >
+        <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
+      </button>
+    ) : null
+
+    // ── mapOnly: horizontal carousel card (photo on top) ──
+    if (layout !== 'row') {
+      return (
+        <div
+          key={uid}
+          id={`home-card-${r.slug}`}
+          onMouseEnter={() => setHoveredSlug(r.slug)}
+          onMouseLeave={() => setHoveredSlug(null)}
+          className={`relative flex flex-col rounded-xl overflow-hidden border transition-colors ${
+            layout === 'grid' ? 'w-full' : 'shrink-0 w-56 snap-start'
+          } ${
+            r.featured
+              ? 'border-[#f5b301] bg-amber-50/60'
+              : active
+                ? 'border-[#B57F50] bg-[#B57F50]/10'
+                : 'border-black/8 bg-white hover:border-[#B57F50]/40'
+          }`}
+        >
+          <div
+            role="link"
+            tabIndex={0}
+            onClick={open}
+            onKeyDown={(e) => { if (e.key === 'Enter') open() }}
+            className="cursor-pointer"
+          >
+            <div className={`relative w-full bg-[#F5F4F0] ${layout === 'grid' ? 'h-44' : 'h-28'}`}>
+              <RestaurantImage
+                src={r.photo}
+                alt={r.name}
+                fill
+                className="object-cover"
+                sizes={layout === 'grid' ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw' : '224px'}
+              />
+              <span className="absolute top-1.5 left-1.5 w-5 h-5 rounded-full bg-white/90 shadow-sm flex items-center justify-center text-[#96602F] font-bold text-[11px] tabular-nums">
+                {i + 1}
+              </span>
+            </div>
+            <div className="px-2.5 pt-2">
+              {featuredBadge}
+              {titleRow}
+              <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+              {metaRow}
+              {serviceLine}
+              <MatchedChips chips={r.matchedChips} />
+            </div>
+          </div>
+          <div className="px-2.5 pb-2.5 pt-2 mt-auto">{ctaRow}</div>
+          {saveBtn}
+        </div>
+      )
+    }
+
+    // ── classic sidebar: vertical row (photo on the left) ──
+    return (
+      <div
+        key={uid}
+        id={`home-card-${r.slug}`}
+        onMouseEnter={() => setHoveredSlug(r.slug)}
+        onMouseLeave={() => setHoveredSlug(null)}
+        className={`relative transition-colors ${
+          r.featured
+            ? 'bg-amber-50/60 border-l-[3px] border-[#f5b301]'
+            : active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'
+        }`}
+      >
+        <div
+          role="link"
+          tabIndex={0}
+          onClick={open}
+          onKeyDown={(e) => { if (e.key === 'Enter') open() }}
+          className={`flex gap-3 pr-10 cursor-pointer ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
+        >
+          <span className="self-center shrink-0 w-5 text-center text-[#96602F] font-bold text-sm tabular-nums">
+            {i + 1}
+          </span>
+          <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
+          </div>
+          <div className="flex-1 min-w-0">
+            {featuredBadge}
+            {titleRow}
+            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+            {metaRow}
+            {serviceLine}
+            <MatchedChips chips={r.matchedChips} />
+          </div>
+        </div>
+        <div className="px-3 pb-2.5 pt-1">{ctaRow}</div>
+        {saveBtn}
+      </div>
+    )
   }
 
   return (
@@ -1325,242 +1579,25 @@ export default function HomeMapHero({
                 : mapOnly
                   ? 'flex gap-3 overflow-x-auto scrollbar-hide px-3 py-3 snap-x snap-mandatory'
                   : 'divide-y divide-black/5'}>
-                {displayList.map((r, i) => {
-                  // Some duplicate DB rows share an identical slug within the
-                  // same city (e.g. two distinct "Lifting Noodles Ramen"
-                  // locations in Atlanta) — fold in zip/lat/lng/index so the
-                  // React key never collides and sorting stays stable.
-                  const uid = `${r.citySlug}-${r.stateSlug}-${r.slug}-${r.zip || `${r.latitude},${r.longitude}`}-${i}`
-                  const active = r.slug === selectedSlug
-                  const showDist = hasLocation
-                  const isSupp = !!r.supp
-                  // Every restaurant — DB or Google Places supplement — has its
-                  // own internal listing page (both render through
-                  // RestaurantListingPage at the same /{city}/{state}/{slug}
-                  // URL), so cards always link internally. isSupp still gates
-                  // the Save button below (saves are keyed to DB slugs only).
-                  const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
-                  const rSlugReview = mapPointReviewSlug(r)
-                  // Order Online / Reserve A Table both point to the
-                  // restaurant's own site; fall back to the listing page when
-                  // we don't have a website on file so the buttons still work.
-                  const websiteHref = r.website
-                    ? (/^https?:\/\//i.test(r.website) ? r.website : `https://${r.website}`)
-                    : internalUrl
-
-                  const open = () => router.push(internalUrl)
-
-                  // ── Shared pieces, so the carousel card and the sidebar row
-                  //    always carry the same callouts and CTAs ──
-                  const featuredBadge = r.featured ? (
-                    <span className="inline-flex items-center gap-1 mb-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[9px] font-bold uppercase tracking-wide shadow-sm">
-                      👑 #1 Featured
-                    </span>
-                  ) : null
-
-                  const titleRow = (
-                    <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>
-                      <span className="truncate">{r.name}</span>
-                      {r.claimed && !r.featured && <BadgeCheck className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
-                    </p>
-                  )
-
-                  const metaRow = (
-                    <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                      {r.rating && (
-                        rSlugReview ? (
-                          <Link
-                            href={`/reviews/${rSlugReview}`}
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#96602F] hover:underline"
-                          >
-                            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
-                          </Link>
-                        ) : (
-                          <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
-                            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
-                          </span>
-                        )
-                      )}
-                      {priceRangeLabel(r.priceRange) && <span className="text-xs text-[#1E2026]/60">{priceRangeLabel(r.priceRange)}</span>}
-                      <OpenStatusTag hours={r.hours} />
-                      {showDist && r.distKm > 0 && <span className="text-[#96602F] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
-                    </div>
-                  )
-
-                  const serviceLine = (
-                    <p className="text-[#1E2026]/50 text-xs mt-0.5 truncate">
-                      Dine-in{r.amenities?.includes('delivers') ? ' · Delivery' : ''}
-                    </p>
-                  )
-
-                  const ctaRow = (
-                    <div className="flex flex-wrap gap-1.5">
-                      <a
-                        href={websiteHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={e => e.stopPropagation()}
-                        className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
-                      >
-                        Order Online
-                      </a>
-                      <a
-                        href={websiteHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={e => e.stopPropagation()}
-                        className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
-                      >
-                        Reserve A Table
-                      </a>
-                    </div>
-                  )
-
-                  const saveBtn = !isSupp ? (
-                    <button
-                      onClick={(e) => handleToggleSave(e, r.slug)}
-                      className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
-                      aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
-                    >
-                      <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
-                    </button>
-                  ) : null
-
-                  // ── mapOnly: horizontal carousel card (photo on top) ──
-                  if (mapOnly) {
-                    return (
-                      <div
-                        key={uid}
-                        id={`home-card-${r.slug}`}
-                        onMouseEnter={() => setHoveredSlug(r.slug)}
-                        onMouseLeave={() => setHoveredSlug(null)}
-                        className={`relative flex flex-col rounded-xl overflow-hidden border transition-colors ${
-                          listView ? 'w-full' : 'shrink-0 w-56 snap-start'
-                        } ${
-                          r.featured
-                            ? 'border-[#f5b301] bg-amber-50/60'
-                            : active
-                              ? 'border-[#B57F50] bg-[#B57F50]/10'
-                              : 'border-black/8 bg-white hover:border-[#B57F50]/40'
-                        }`}
-                      >
-                        <div
-                          role="link"
-                          tabIndex={0}
-                          onClick={open}
-                          onKeyDown={(e) => { if (e.key === 'Enter') open() }}
-                          className="cursor-pointer"
-                        >
-                          <div className={`relative w-full bg-[#F5F4F0] ${listView ? 'h-44' : 'h-28'}`}>
-                            <RestaurantImage
-                              src={r.photo}
-                              alt={r.name}
-                              fill
-                              className="object-cover"
-                              sizes={listView ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw' : '224px'}
-                            />
-                            <span className="absolute top-1.5 left-1.5 w-5 h-5 rounded-full bg-white/90 shadow-sm flex items-center justify-center text-[#96602F] font-bold text-[11px] tabular-nums">
-                              {i + 1}
-                            </span>
-                          </div>
-                          <div className="px-2.5 pt-2">
-                            {featuredBadge}
-                            {titleRow}
-                            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                            {metaRow}
-                            {serviceLine}
-                            <MatchedChips chips={r.matchedChips} />
-                          </div>
-                        </div>
-                        <div className="px-2.5 pb-2.5 pt-2 mt-auto">{ctaRow}</div>
-                        {saveBtn}
-                      </div>
-                    )
-                  }
-
-                  // ── classic sidebar: vertical row (photo on the left) ──
-                  return (
-                    <div
-                      key={uid}
-                      id={`home-card-${r.slug}`}
-                      onMouseEnter={() => setHoveredSlug(r.slug)}
-                      onMouseLeave={() => setHoveredSlug(null)}
-                      className={`relative transition-colors ${
-                        r.featured
-                          ? 'bg-amber-50/60 border-l-[3px] border-[#f5b301]'
-                          : active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'
-                      }`}
-                    >
-                      <div
-                        role="link"
-                        tabIndex={0}
-                        onClick={open}
-                        onKeyDown={(e) => { if (e.key === 'Enter') open() }}
-                        className={`flex gap-3 pr-10 cursor-pointer ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
-                      >
-                        <span className="self-center shrink-0 w-5 text-center text-[#96602F] font-bold text-sm tabular-nums">
-                          {i + 1}
-                        </span>
-                        <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
-                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          {featuredBadge}
-                          {titleRow}
-                          <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
-                          {metaRow}
-                          {serviceLine}
-                          <MatchedChips chips={r.matchedChips} />
-                        </div>
-                      </div>
-                      <div className="px-3 pb-2.5 pt-1">{ctaRow}</div>
-                      {saveBtn}
-                    </div>
-                  )
-                })}
+                {displayList.map((r, i) => renderResultCard(r, i, listView ? 'grid' : mapOnly ? 'carousel' : 'row'))}
               </div>
             )}
 
-            {/* "Open Now" horizontal carousel — Google-Maps-app style: photo
-                card, rating, price, Open status, distance. */}
-            {mapOnly && !listView && openNowNearby.length > 0 && (
-              <div className="border-t border-black/8 pt-3 pb-1">
-                <h3 className="font-serif text-lg font-bold text-[#1E2026] px-3 mb-2.5">Open Now</h3>
-                <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-2 snap-x snap-mandatory">
-                  {openNowNearby.map((r, i) => {
-                    const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
-                    const price = priceRangeLabel(r.priceRange)
-                    return (
-                      <Link
-                        key={`open-now-${r.slug}-${i}`}
-                        href={internalUrl}
-                        className="shrink-0 w-40 snap-start rounded-xl overflow-hidden bg-[#F5F4F0] border border-black/8"
-                      >
-                        <div className="relative w-full h-28 bg-[#EFEDE6]">
-                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="160px" />
-                        </div>
-                        <div className="p-2.5">
-                          <p className="font-semibold text-[#1E2026] text-xs leading-snug line-clamp-2 mb-1">{r.name}</p>
-                          {r.rating != null && (
-                            <div className="flex items-center gap-1 text-[11px] text-[#1E2026]/70 mb-0.5">
-                              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                              <span>{r.rating.toFixed(1)}</span>
-                              <span className="text-[#1E2026]/40">({r.reviewCount.toLocaleString()})</span>
-                              {price && <span className="text-[#1E2026]/40">· {price}</span>}
-                            </div>
-                          )}
-                          <p className="text-[11px]">
-                            <span className="text-emerald-600 font-semibold">Open</span>
-                            <span className="text-[#6B6862]"> · {kmToMiles(r.distKm).toFixed(1)} mi · {r.city}, {r.stateCode}</span>
-                          </p>
-                        </div>
-                      </Link>
-                    )
-                  })}
+            {/* Themed discovery shelves — one horizontal carousel per theme
+                (Open Now / Top Rated / New Spots / Upscale / Cheap Eats),
+                using the same result card as the main list. Map view only;
+                list view is the 3-column grid instead. */}
+            {mapOnly && !listView && !dataLoading && shelves.map((shelf) => (
+              <div key={shelf.key} className="border-t border-black/8 pt-3 pb-1">
+                <div className="px-3 mb-2.5">
+                  <h3 className="font-serif text-lg font-bold text-[#1E2026]">{shelf.title}</h3>
+                  <p className="text-[#6B6862] text-xs">{shelf.subtitle}</p>
+                </div>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-3 snap-x snap-mandatory">
+                  {shelf.items.map((r, i) => renderResultCard(r, i, 'carousel', `${shelf.key}-`))}
                 </div>
               </div>
-            )}
+            ))}
           </div>
 
         </div>
