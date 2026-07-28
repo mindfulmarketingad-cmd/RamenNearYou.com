@@ -5,6 +5,7 @@
 export interface ModifierFilter {
   initialBowls?: string[]
   initialFlags?: string[]
+  initialPrices?: string[]
   initialQuery?: string
 }
 
@@ -20,13 +21,66 @@ export interface FindModifier {
   /** Breadcrumb hub link */
   hubHref: string
   hubLabel: string
-  /** Intro paragraph */
-  about: string
+  /** Intro paragraph. A function receives the city + state name so a page type
+   *  can write copy that actually reads as being about that city rather than
+   *  the same boilerplate on every URL. */
+  about: string | ((cityName: string, stateName: string, stateCode: string) => string)
   /** FAQ entries (cityName, stateCode interpolated) */
   faqs: (cityName: string, stateCode: string) => Array<{ q: string; a: string }>
 }
 
 export const FIND_MODIFIERS: FindModifier[] = [
+  {
+    prefix: 'ramen-takeout-in',
+    filter: { initialFlags: ['takeout'] },
+    title: (c, s) => `Ramen Takeout in ${c}, ${s}`,
+    metaNoun: 'ramen takeout',
+    hubHref: '/find/ramen-takeout',
+    hubLabel: 'Ramen Takeout',
+    about: (city, state, st) =>
+      `Ramen is the hardest takeout order to get right: noodles keep cooking in hot broth, so a bowl packed as one container can turn soft before you reach your door. The ${city} shops on this map all offer takeout, and the ones worth repeating pack the broth, noodles, and toppings separately so you assemble at home — the same thing a shop in ${state} does for a delivery driver when it cares about the bowl arriving intact. Use the map to find takeout ramen close to you in ${city}, ${st}, then filter by broth style, price, or what's open right now.`,
+    faqs: (city, st) => [
+      { q: `Which ramen restaurants in ${city} offer takeout?`, a: `Every restaurant on the map above offers takeout in ${city}, ${st}. Enter your ZIP or click "Use my location" to sort by distance, then layer on a broth filter — tonkotsu, miso, shoyu, or shio — to narrow it to the style you're craving.` },
+      { q: 'Does ramen travel well as takeout?', a: 'It does when the shop packs it properly. Noodles continue absorbing liquid the moment they sit in hot broth, so the best takeout ramen arrives with the broth, noodles, and toppings in separate containers. Assemble it the second you get home and it tastes close to counter-fresh.' },
+      { q: 'How should I reheat and assemble takeout ramen?', a: 'Bring the broth back to a near-simmer on the stove rather than microwaving the whole bowl, then pour it over the noodles in your own bowl and add the toppings last. If the noodles came pre-soaked in broth, eat immediately — reheating those makes them softer, not better.' },
+      { q: `Is takeout ramen cheaper than dining in around ${city}?`, a: `Usually it is close to the same menu price, though you avoid a tip on table service. Use the price filter on the map to see budget bowls under about $15 across ${city}, ${st}.` },
+      { q: 'Can I order takeout ramen for a group?', a: 'Yes, and it is one of the better group orders if the shop packs components separately — everyone assembles their own bowl and adds toppings to taste. Call ahead for larger orders so the kitchen can time the noodles.' },
+    ],
+  },
+  {
+    prefix: 'cheap-ramen-restaurants-in',
+    filter: { initialPrices: ['budget'] },
+    title: (c, s) => `Cheap Ramen Restaurants in ${c}, ${s}`,
+    metaNoun: 'cheap ramen',
+    hubHref: '/find/cheap-ramen',
+    hubLabel: 'Cheap Ramen',
+    about: (city, state, st) =>
+      `Cheap ramen is not lesser ramen. A bowl under about $15 in ${city} is usually the sign of a shop that keeps its menu tight and its overhead low — one broth done properly, a couple of toppings, no table service to pay for. Some of the most respected shops in ${state} sit squarely in this price band, because a long-simmered pork or chicken broth costs far less to make than it tastes like. This map filters ${city}, ${st} down to budget-friendly bowls, sorted so you can find the cheapest good ramen closest to you rather than just the cheapest.`,
+    faqs: (city, st) => [
+      { q: `Where can I find cheap ramen in ${city}?`, a: `The map above filters ${city}, ${st} to restaurants in the budget price range — roughly under $15 a bowl. Enter your ZIP or click "Use my location" to sort by distance and find the closest affordable option.` },
+      { q: 'How much should a bowl of ramen cost?', a: 'Most markets run about $14 to $20 for a standard bowl. Anything under roughly $15 counts as budget, and under $12 is genuinely cheap. Prices climb with premium toppings like extra chashu or a marinated egg, which are usually a few dollars each.' },
+      { q: 'Is cheap ramen lower quality?', a: 'Not usually. Price tracks overhead — rent, service model, decor — more than broth quality. Counter-service shops with a short menu often make excellent ramen precisely because they do one or two bowls extremely well instead of a long menu adequately.' },
+      { q: `How do I eat cheap at a ramen shop in ${city}?`, a: `Order the shop's standard bowl rather than the loaded special, skip extra toppings, and drink water instead of a beverage — that alone often saves $8 to $12. Lunch service is also frequently cheaper than dinner for the same bowl.` },
+      { q: 'What is kaedama and does it save money?', a: 'Kaedama is a refill of noodles added to your remaining broth, usually $1 to $3. At shops that offer it, ordering a standard bowl plus a kaedama is almost always cheaper than ordering a large or a second bowl.' },
+    ],
+  },
+  {
+    prefix: 'jinya-ramen-bars-in',
+    filter: { initialQuery: 'jinya' },
+    title: (c, s) => `Jinya Ramen Bars in ${c}, ${s}`,
+    metaNoun: 'JINYA Ramen Bar locations',
+    hubHref: '/find/jinya-ramen',
+    hubLabel: 'JINYA Ramen Bar',
+    about: (city, state, st) =>
+      `JINYA Ramen Bar is one of the largest ramen chains in North America, known for broths simmered more than 20 hours and a build-your-own approach where you pick the bowl then layer on toppings. Because it is a chain, the experience in ${city} is consistent with any other location — which is exactly the appeal when you want a reliable bowl rather than a gamble. This map shows JINYA locations in and around ${city}, ${st}, along with other ramen shops nearby if you would rather compare against an independent shop in ${state} before deciding.`,
+    faqs: (city, st) => [
+      { q: `Is there a JINYA Ramen Bar in ${city}?`, a: `The map above shows JINYA Ramen Bar locations in and around ${city}, ${st}. If no JINYA appears, there is not one listed in this area yet — clear the search to see every other ramen restaurant nearby instead.` },
+      { q: 'What is JINYA Ramen Bar known for?', a: 'Long-simmered broths — the pork and chicken stocks cook for over 20 hours — and a customizable format where you choose a base bowl and add toppings like chashu, seasoned egg, spicy bean sprouts, or crispy garlic. The Tonkotsu Black, finished with garlic oil, is their signature.' },
+      { q: 'Does JINYA have vegan ramen?', a: 'Yes. JINYA offers a vegan ramen built on a plant-based broth with vegan noodles, and most locations can adapt several bowls. It is one of the more reliable vegan ramen options at a national chain.' },
+      { q: `Is JINYA better than independent ramen shops in ${city}?`, a: `Different strengths. JINYA gives you consistency and a broad, customizable menu; a good independent shop in ${city} often has more character and a broth made in smaller batches. The map shows both, so you can compare ratings side by side.` },
+      { q: 'Does JINYA offer takeout and delivery?', a: 'Most locations do both. Ramen travels best when the broth and noodles are packed separately, so ask for that when ordering to go and assemble the bowl at home.' },
+    ],
+  },
   {
     prefix: 'vegan-ramen-in',
     filter: { initialBowls: ['vegan'] },

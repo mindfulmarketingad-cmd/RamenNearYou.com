@@ -23,6 +23,9 @@ export default function ModifierCityFindPage({
 }) {
   const title = modifier.title(city.cityName, city.stateName)
   const faqs = modifier.faqs(city.cityName, city.stateCode)
+  const about = typeof modifier.about === 'function'
+    ? modifier.about(city.cityName, city.stateName, city.stateCode)
+    : modifier.about
   const cityGuideSlug = CITY_GUIDE_CONTENT_SOURCE[cityState]
   const cityGuidePost = cityGuideSlug ? getBlogPost(cityGuideSlug) : undefined
   const faqSchema = {
@@ -52,6 +55,7 @@ export default function ModifierCityFindPage({
           <HomeMapHero
             initialBowls={modifier.filter.initialBowls}
             initialFlags={modifier.filter.initialFlags}
+            initialPrices={modifier.filter.initialPrices}
             initialQuery={modifier.filter.initialQuery}
             initialCenter={{ lat: city.lat, lng: city.lng }}
             regionBoundary={{ cityName: city.cityName, stateName: city.stateName, citySlug: city.citySlug, stateSlug: city.stateSlug }}
@@ -95,7 +99,7 @@ export default function ModifierCityFindPage({
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
               What makes great {modifier.metaNoun}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">{modifier.about}</p>
+            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">{about}</p>
 
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
               How I find the best {modifier.metaNoun} in {city.cityName}

@@ -44,6 +44,7 @@ export const MOOD_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(MOOD_MET
 // filter without shipping the raw amenities object.
 export const FEATURE_META: ChipMeta[] = [
   { key: 'delivers', label: 'Delivers', emoji: '🛵', hex: '#16a34a' },
+  { key: 'takeout', label: 'Takeout', emoji: '🥡', hex: '#ea580c' },
   { key: 'outdoor-seating', label: 'Outdoor Seating', emoji: '☀️', hex: '#0ea5e9' },
   { key: 'reservations', label: 'Takes Reservations', emoji: '📅', hex: '#9333ea' },
   { key: 'full-bar', label: 'Full Bar', emoji: '🍺', hex: '#d97706' },
@@ -57,6 +58,7 @@ export const FEATURE_META: ChipMeta[] = [
 // building MapPoint.amenities (kept here so the keys stay in one place).
 export const FEATURE_AMENITY_FIELD: Record<string, string> = {
   'delivers': 'delivery',
+  'takeout': 'takeout',
   'outdoor-seating': 'outdoorSeating',
   'reservations': 'acceptsReservations',
   'full-bar': 'alcohol',
