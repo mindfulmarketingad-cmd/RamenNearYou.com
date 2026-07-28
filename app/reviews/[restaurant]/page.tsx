@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronRight, Star, ExternalLink, MapPin, QrCode, Check, X } from 'lucide-react'
+import { ChevronRight, Star, ExternalLink, MapPin, QrCode, Check, X, Image as ImageIcon } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { createAdminClient } from '@/lib/supabase-admin'
@@ -14,8 +14,10 @@ import {
   generateReviews,
   generateReviewSummary,
   googleReviewsUrl,
+  googlePhotosUrl,
 } from '@/lib/reviews'
 import { jsonLdString } from '@/lib/json-ld'
+import { resolveFindCity } from '@/lib/find-city'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import OwnerCtaCard from '@/components/owner-cta-card'
 import AdUnit from '@/components/ad-unit'
@@ -85,6 +87,24 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   const reviews = generateReviews(r)
   const url = `https://www.ramennearyou.com/reviews/${slug}`
   const listingUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+
+  // Link out to this restaurant's own city search-map page. resolveFindCity()
+  // tells us whether that /find page actually renders (vs. 404ing on an
+  // unrecognized city), so we never emit a dead internal link.
+  const findCityState = `${r.citySlug}-${r.stateCode.toLowerCase()}`
+  const findCity = resolveFindCity(findCityState)
+  const findUrl = findCity?.known ? `/find/${findCityState}` : null
+
+  // Tapping the address opens Google Maps directions to the restaurant.
+  // The /dir/ endpoint (not /search/) means Google fills in the visitor's own
+  // location as the origin and goes straight to navigation. place_id pins it to
+  // the exact business when we have one, instead of geocoding the address text.
+  const photosUrl = googlePhotosUrl(r)
+
+  const destinationQuery = [r.address, r.city, r.stateCode].filter(Boolean).join(', ')
+  const directionsUrl =
+    `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destinationQuery)}` +
+    (r.placeId ? `&destination_place_id=${encodeURIComponent(r.placeId)}` : '')
   const dist = r.reviewsPerScore ?? { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
   const distTotal = Object.values(dist).reduce((a, b) => a + b, 0)
   const related = getRelatedReviewRestaurants(r, 6)
@@ -180,10 +200,16 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               <AdUnitInFeed />
             </div>
 
-            <p className="flex items-center gap-1.5 text-sm text-[#6B6862]">
-              <MapPin className="w-4 h-4 text-[#96602F]" />
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-[#6B6862] hover:text-[#96602F] hover:underline transition-colors"
+              title={`Get directions to ${r.name}`}
+            >
+              <MapPin className="w-4 h-4 text-[#96602F] shrink-0" />
               {r.address}
-            </p>
+            </a>
           </header>
 
           {/* Rating summary card */}
@@ -225,6 +251,15 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               >
                 Read Google Reviews
                 <ExternalLink className="w-4 h-4" />
+              </a>
+              <a
+                href={photosUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-none border border-[#B57F50] text-[#96602F] hover:bg-[#B57F50]/10 text-sm font-semibold transition-colors"
+              >
+                <ImageIcon className="w-4 h-4" />
+                View Photos
               </a>
               <Link
                 href={listingUrl}
@@ -338,6 +373,27 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                 Browse all restaurant reviews →
               </Link>
             </section>
+          )}
+
+          {/* Straight into this restaurant's own city search map */}
+          {findUrl && (
+            <Link
+              href={findUrl}
+              className="group flex items-center gap-3 mt-8 rounded-xl border border-[#B57F50]/25 bg-[#F5F4F0] p-4 hover:border-[#B57F50]/50 transition-colors"
+            >
+              <span className="w-10 h-10 rounded-full bg-[#B57F50]/15 flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5 text-[#96602F]" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-bold text-[#1E2026] group-hover:text-[#96602F] transition-colors">
+                  See every ramen spot in {findCity?.cityName ?? r.city}, {r.stateCode} on the map
+                </span>
+                <span className="block text-xs text-[#6B6862]">
+                  Filter by broth, price, and hours — and find what&apos;s open right now near you.
+                </span>
+              </span>
+              <ChevronRight className="w-4 h-4 text-[#96602F] shrink-0 ml-auto" />
+            </Link>
           )}
         </div>
       </main>

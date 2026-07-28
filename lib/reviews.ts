@@ -468,3 +468,14 @@ export function googleReviewsUrl(r: Restaurant): string {
   if (r.googleMapsLink) return r.googleMapsLink
   return `https://www.google.com/search?q=${encodeURIComponent(r.name + ' ' + r.city + ' reviews')}`
 }
+
+// Google's photo gallery for the business — mirrors googleReviewsUrl above,
+// using the same local/ panel so the two buttons behave consistently. Falls
+// back to the Maps listing, then to a Google Images search for the shop.
+export function googlePhotosUrl(r: Restaurant): string {
+  if (r.placeId) {
+    return `https://search.google.com/local/photos?placeid=${encodeURIComponent(r.placeId)}`
+  }
+  if (r.googleMapsLink) return r.googleMapsLink
+  return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`
+}
