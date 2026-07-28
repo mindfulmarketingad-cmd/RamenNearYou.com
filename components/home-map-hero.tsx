@@ -348,6 +348,11 @@ export default function HomeMapHero({
   // Mobile-only view toggle: full-screen map (default) ⇄ list overlay. Ignored
   // on sm+ where the list sidebar and map are shown side by side.
   const [mobileView, setMobileView] = useState<'map' | 'list'>('map')
+  // Map vs. list view for the stacked (mapOnly) layout. Map is the default —
+  // list swaps the map + carousel for a 3-column grid of result cards.
+  const [viewMode, setViewMode] = useState<'map' | 'list'>('map')
+  const listView = mapOnly && viewMode === 'list'
+
   const [visibleBounds, setVisibleBounds] = useState<MapBounds | null>(null)
   const [mapDragCenter, setMapDragCenter] = useState<{ lat: number; lng: number } | null>(null)
   const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false)
@@ -908,8 +913,11 @@ export default function HomeMapHero({
         </p>
       </div>
 
-      {/* Controls wrapper — floats over the top of the map in mapOnly mode. */}
-      <div className={mapOnly ? 'absolute top-[4.25rem] inset-x-0 z-[1200] px-2 sm:px-4 flex flex-col items-stretch sm:items-center gap-2 pointer-events-none' : ''}>
+      {/* Controls wrapper — floats over the top of the map in mapOnly mode.
+          In list view there's no map to float over, so it sits in flow. */}
+      <div className={mapOnly && !listView
+        ? 'absolute top-[4.25rem] inset-x-0 z-[1200] px-2 sm:px-4 flex flex-col items-stretch sm:items-center gap-2 pointer-events-none'
+        : listView ? 'px-2 sm:px-4 pt-3 flex flex-col items-stretch sm:items-center gap-2' : ''}>
 
       {/* Top filter bar — one horizontally scrollable pill strip on mobile
           (AllTrails-style); on sm+ the location/help/save controls stay pinned
@@ -1070,6 +1078,30 @@ export default function HomeMapHero({
                 <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
               )}
             </button>
+
+            {/* Map / List view toggle — segmented control */}
+            {mapOnly && (
+              <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-[#F5F4F0] border border-black/12 shrink-0">
+                <button
+                  onClick={() => setViewMode('map')}
+                  aria-pressed={viewMode === 'map'}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold transition-colors ${
+                    viewMode === 'map' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                  }`}
+                >
+                  <MapIcon className="w-3.5 h-3.5" /> Map
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  aria-pressed={viewMode === 'list'}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold transition-colors ${
+                    viewMode === 'list' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                  }`}
+                >
+                  <List className="w-3.5 h-3.5" /> List
+                </button>
+              </div>
+            )}
           </div>
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
         </div>
@@ -1286,9 +1318,11 @@ export default function HomeMapHero({
                 </div>
               </div>
             ) : (
-              <div className={mapOnly
-                ? 'flex gap-3 overflow-x-auto scrollbar-hide px-3 py-3 snap-x snap-mandatory'
-                : 'divide-y divide-black/5'}>
+              <div className={listView
+                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 sm:px-4 py-4 max-w-7xl mx-auto w-full'
+                : mapOnly
+                  ? 'flex gap-3 overflow-x-auto scrollbar-hide px-3 py-3 snap-x snap-mandatory'
+                  : 'divide-y divide-black/5'}>
                 {displayList.map((r, i) => {
                   // Some duplicate DB rows share an identical slug within the
                   // same city (e.g. two distinct "Lifting Noodles Ramen"
@@ -1399,7 +1433,9 @@ export default function HomeMapHero({
                         id={`home-card-${r.slug}`}
                         onMouseEnter={() => setHoveredSlug(r.slug)}
                         onMouseLeave={() => setHoveredSlug(null)}
-                        className={`relative shrink-0 w-56 snap-start flex flex-col rounded-xl overflow-hidden border transition-colors ${
+                        className={`relative flex flex-col rounded-xl overflow-hidden border transition-colors ${
+                          listView ? 'w-full' : 'shrink-0 w-56 snap-start'
+                        } ${
                           r.featured
                             ? 'border-[#f5b301] bg-amber-50/60'
                             : active
@@ -1414,8 +1450,14 @@ export default function HomeMapHero({
                           onKeyDown={(e) => { if (e.key === 'Enter') open() }}
                           className="cursor-pointer"
                         >
-                          <div className="relative w-full h-28 bg-[#F5F4F0]">
-                            <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="224px" />
+                          <div className={`relative w-full bg-[#F5F4F0] ${listView ? 'h-44' : 'h-28'}`}>
+                            <RestaurantImage
+                              src={r.photo}
+                              alt={r.name}
+                              fill
+                              className="object-cover"
+                              sizes={listView ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw' : '224px'}
+                            />
                             <span className="absolute top-1.5 left-1.5 w-5 h-5 rounded-full bg-white/90 shadow-sm flex items-center justify-center text-[#96602F] font-bold text-[11px] tabular-nums">
                               {i + 1}
                             </span>
@@ -1480,7 +1522,7 @@ export default function HomeMapHero({
 
             {/* "Open Now" horizontal carousel — Google-Maps-app style: photo
                 card, rating, price, Open status, distance. */}
-            {mapOnly && openNowNearby.length > 0 && (
+            {mapOnly && !listView && openNowNearby.length > 0 && (
               <div className="border-t border-black/8 pt-3 pb-1">
                 <h3 className="font-serif text-lg font-bold text-[#1E2026] px-3 mb-2.5">Open Now</h3>
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-2 snap-x snap-mandatory">
@@ -1524,7 +1566,9 @@ export default function HomeMapHero({
         {/* Map — shorter fixed height above the card list in mapOnly (every
             breakpoint, taller on larger screens), fills the container
             otherwise (right pane in the classic layout). */}
-        <div className={mapOnly ? 'h-[45vh] min-h-[280px] sm:h-[55vh] sm:min-h-[380px] relative block' : 'flex-1 relative block'}>
+        <div className={listView
+          ? 'hidden'
+          : mapOnly ? 'h-[45vh] min-h-[280px] sm:h-[55vh] sm:min-h-[380px] relative block' : 'flex-1 relative block'}>
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
