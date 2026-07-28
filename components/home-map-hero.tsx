@@ -22,7 +22,7 @@ import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   FEATURE_META, FEATURE_KEYS, FEATURE_BY_KEY, MISC_FLAG_BY_KEY, matchesPrice,
-  mapPointReviewSlug, priceRangeLabel,
+  mapPointReviewSlug, mapPointMapsUrl, priceRangeLabel,
   type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
 
@@ -975,12 +975,15 @@ export default function HomeMapHero({
     // the Save button below (saves are keyed to DB slugs only).
     const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
     const rSlugReview = mapPointReviewSlug(r)
-    // Order Online / Reserve A Table both point to the
-    // restaurant's own site; fall back to the listing page when
-    // we don't have a website on file so the buttons still work.
+    // Order Online / Reserve A Table both send the visitor to the restaurant's
+    // own site. Roughly 14% of DB listings — and every Google Places supplement,
+    // which has no website field in the scraped data at all — have no URL on
+    // file; those fall back to the restaurant's Google Maps listing, which
+    // carries their real site and order/reserve links. Never an internal page:
+    // an "Order Online" click should always leave for the restaurant.
     const websiteHref = r.website
       ? (/^https?:\/\//i.test(r.website) ? r.website : `https://${r.website}`)
-      : internalUrl
+      : mapPointMapsUrl(r)
 
     const open = () => router.push(internalUrl)
 
