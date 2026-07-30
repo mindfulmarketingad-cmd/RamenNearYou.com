@@ -6,8 +6,8 @@ import ClaimSearch from './claim-search'
 import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
-  title: 'Claim Your Ramen Restaurant Listing — Free in 30 Seconds | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou for free in about 30 seconds. Search your name, confirm it\'s you, done. Control your hours, photos, and menu — plus the option to get featured on your city, state, and homepage search map.',
+  title: 'Claim Your Ramen Restaurant Listing — Free, One-Click | Ramen Near You',
+  description: 'Claim your restaurant on RamenNearYou free with one click. Search your name, sign in with Google, tap claim — done. Control your hours, photos, and menu — plus the option to get featured on your city, state, and homepage search map.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
@@ -20,9 +20,9 @@ const BENEFITS = [
 ]
 
 const STEPS = [
-  { title: 'Search your restaurant', text: 'Type your name and tap it from the list. Already in our directory? It takes one tap.' },
-  { title: 'Confirm it\'s you', text: 'Check one box and add your name — your email\'s already filled in. That\'s the whole form.' },
-  { title: 'You\'re verified', text: 'We approve most claims within 2–3 business days. Then the listing is yours to run.' },
+  { title: 'Search your restaurant', text: 'Type your name and tap it from the list.' },
+  { title: 'Sign in with Google', text: 'One tap — no password to create. Skip this if you\'re already signed in.' },
+  { title: 'Tap "Claim This Listing"', text: 'Everything\'s pre-filled from your Google account and our listing data. One click submits it — no form to fill out.' },
 ]
 
 // The optional upgrade a claimed owner can add — the three search-map surfaces
@@ -124,7 +124,7 @@ export default function ClaimYourListingPage() {
         {/* How it works — 3 dead-simple steps */}
         <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
           <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">How it works</h2>
-          <p className="text-[#6B6862] text-sm mb-5">Three taps. No paperwork.</p>
+          <p className="text-[#6B6862] text-sm mb-5">One-click claiming. No form to fill out.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">

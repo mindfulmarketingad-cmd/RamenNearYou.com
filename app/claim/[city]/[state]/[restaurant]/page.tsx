@@ -59,7 +59,19 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
                 </p>
               </div>
 
-              <ClaimForm userEmail={user.email ?? ''} restaurant={r} />
+              <ClaimForm
+                userEmail={user.email ?? ''}
+                // Google sign-in populates full_name/name in user_metadata —
+                // using it lets most visitors claim with a single click
+                // instead of retyping their name into a form.
+                userDisplayName={
+                  user.user_metadata?.full_name ??
+                  user.user_metadata?.name ??
+                  user.user_metadata?.display_name ??
+                  ''
+                }
+                restaurant={r}
+              />
 
               <div className="text-center">
                 <Link
