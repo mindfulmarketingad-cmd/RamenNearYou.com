@@ -33,8 +33,12 @@ interface Props {
 }
 
 // Google-Maps-style action row on the individual restaurant listing page.
-// Directions/Website/Call/Save/Claim all require a logged-in account — a
-// logged-out click opens LoginGateModal instead of following the link.
+// The outbound actions (Images/Directions/Order/Website/Call/Menu) are open to
+// everyone — making a visitor sign in just to get directions or call a shop is
+// friction with no payoff, and it blocks the exact conversions the listing
+// exists to drive. Only Save and Claim still require an account, because both
+// write to a specific user's record and literally cannot work without one.
+// Clicks are still tracked for owner analytics in every case.
 // Owner status is resolved client-side (useOwnerStatus) so the page itself
 // can stay statically cached.
 export default function ListingActionRow({
@@ -68,20 +72,13 @@ export default function ListingActionRow({
   }
 
   // Fire-and-forget click tracking for owner analytics (restaurant_visits,
-  // event_type='click'). Records the click for every visitor — anonymous
-  // included — so it runs before the auth gate, not inside guard().
+  // event_type='click'). Records the click for every visitor, signed in or not.
   function trackClick(destination: string) {
     fetch('/api/track-click', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ restaurantSlug: slug, restaurantName, destination }),
     }).catch(() => {})
-  }
-
-  // Track the click (all visitors), then apply the auth gate for navigation.
-  function trackedGuard(e: React.MouseEvent, destination: string) {
-    trackClick(destination)
-    guard(e, () => {})
   }
 
   function handleSave(e: React.MouseEvent) {
@@ -112,20 +109,20 @@ export default function ListingActionRow({
           target="_blank"
           rel="noopener noreferrer"
           className={iconBtn}
-          onClick={(e) => trackedGuard(e, 'images')}
+          onClick={() => trackClick('images')}
         >
           <span className={iconCircle}><ImageIcon className="w-5 h-5" /></span>
           Images
         </a>
-        <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'directions')}>
+        <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('directions')}>
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions
         </a>
-        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'order')}>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('order')}>
           <span className={iconCircle}><ShoppingBag className="w-5 h-5" /></span>
           Order Pickup
         </a>
-        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'order')}>
+        <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('order')}>
           <span className={iconCircle}><Bike className="w-5 h-5" /></span>
           Order Delivery
         </a>
@@ -136,13 +133,13 @@ export default function ListingActionRow({
           source="listing"
         />
         {website && (
-          <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'website')}>
+          <a href={website} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('website')}>
             <span className={iconCircle}><Globe className="w-5 h-5" /></span>
             Website
           </a>
         )}
         {phone && (
-          <a href={`tel:${phone}`} className={iconBtn} onClick={(e) => trackedGuard(e, 'call')}>
+          <a href={`tel:${phone}`} className={iconBtn} onClick={() => trackClick('call')}>
             <span className={iconCircle}><Phone className="w-5 h-5" /></span>
             Call
           </a>
@@ -152,7 +149,7 @@ export default function ListingActionRow({
           {saved ? 'Saved' : 'Save'}
         </button>
         {menuUrl && (
-          <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={(e) => trackedGuard(e, 'menu')}>
+          <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('menu')}>
             <span className={iconCircle}><BookOpen className="w-5 h-5" /></span>
             Menu
           </a>
