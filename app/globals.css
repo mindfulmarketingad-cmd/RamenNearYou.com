@@ -85,6 +85,13 @@
   html {
     scroll-behavior: smooth;
   }
+  /* Brand-colored text selection instead of the generic OS blue — a small
+     detail that shows up constantly (any copy/paste off the site) and costs
+     nothing. */
+  ::selection {
+    background: rgba(181, 127, 80, 0.25);
+    color: #1E2026;
+  }
 }
 
 @layer utilities {
@@ -111,6 +118,72 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* ── Site-wide "authority" polish — small, reusable pieces used across the
+   nav, footer, and card surfaces to give the whole site a consistent, more
+   confident feel without touching any page content or data. ── */
+
+/* A warm-toned shadow (instead of neutral gray) that matches the copper
+   brand color — used on elevated cards/panels so depth reads as "part of
+   this site" rather than a generic UI shadow. */
+@utility shadow-warm {
+  box-shadow: 0 1px 2px rgba(30, 32, 38, 0.04), 0 8px 24px -8px rgba(181, 127, 80, 0.25);
+}
+@utility shadow-warm-lg {
+  box-shadow: 0 2px 4px rgba(30, 32, 38, 0.05), 0 16px 40px -12px rgba(181, 127, 80, 0.3);
+}
+
+/* Lift + warm shadow on hover — the default "this card is interactive and
+   this site cares about detail" treatment for listing/blog/review cards. */
+@utility card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1px 2px rgba(30, 32, 38, 0.04), 0 12px 28px -10px rgba(181, 127, 80, 0.28);
+  }
+}
+
+/* Animated underline for inline text links — reads as more editorial /
+   "trusted publication" than a static color change, used in long-form
+   article and about copy. */
+@utility link-underline {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  transition: background-size 0.25s ease;
+  &:hover {
+    background-size: 100% 1.5px;
+  }
+}
+
+/* Subtle steam wisps for the ramen-bowl mark — a small signature touch used
+   sparingly (nav logo, hero) rather than everywhere, so it stays a detail
+   instead of a distraction. */
+@keyframes steam-rise {
+  0%   { transform: translateY(0) scaleX(1);   opacity: 0; }
+  15%  { opacity: 0.5; }
+  50%  { transform: translateY(-6px) scaleX(1.15); opacity: 0.35; }
+  100% { transform: translateY(-13px) scaleX(0.9); opacity: 0; }
+}
+.steam-wisp {
+  animation: steam-rise 2.6s ease-in-out infinite;
+}
+.steam-wisp:nth-child(2) { animation-delay: 0.5s; }
+.steam-wisp:nth-child(3) { animation-delay: 1s; }
+
+/* Gentle attention pulse for "live" trust indicators (e.g. an open-now dot) —
+   softer and slower than the default Tailwind ping so it reads as calm
+   confidence rather than an alert. */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.2s ease-in-out infinite;
 }
 
 /* Blog prose styles */

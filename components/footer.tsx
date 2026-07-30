@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram, Facebook, Twitter } from 'lucide-react'
+import { Instagram, Facebook, Twitter, Utensils, MapPin, Landmark } from 'lucide-react'
+import { getSiteStats } from '@/lib/restaurants'
 
 const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://instagram.com/ramennearyou', Icon: Instagram },
@@ -23,9 +24,42 @@ const footerLinks = {
   ],
 }
 
+const STATS_ICONS = [
+  { Icon: Utensils, key: 'restaurants', label: 'Ramen Restaurants Listed' },
+  { Icon: MapPin, key: 'cities', label: 'Cities Covered' },
+  { Icon: Landmark, key: 'states', label: 'States' },
+] as const
+
 export default function Footer() {
+  // Real dataset counts — same source as everywhere else on the site, just
+  // surfaced here as a quick "by the numbers" credibility strip.
+  const stats = getSiteStats()
+
   return (
-    <footer className="bg-[#F5F4F0] border-t border-black/5">
+    <footer className="bg-[#F5F4F0] border-t border-black/5 relative">
+      {/* Thin copper accent line — a small signature so the footer doesn't
+          just look like the page ran out of content. */}
+      <div className="h-[3px] bg-gradient-to-r from-transparent via-[#B57F50] to-transparent opacity-60" />
+
+      {/* By-the-numbers trust strip */}
+      <div className="border-b border-black/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-3 gap-4 sm:gap-8">
+          {STATS_ICONS.map(({ Icon, key, label }) => (
+            <div key={key} className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
+              <span className="w-10 h-10 rounded-full bg-[#B57F50]/10 flex items-center justify-center shrink-0">
+                <Icon className="w-5 h-5 text-[#96602F]" />
+              </span>
+              <div>
+                <p className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] leading-none">
+                  {stats[key].toLocaleString()}
+                </p>
+                <p className="text-[#6B6862] text-[11px] sm:text-xs mt-1">{label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand column */}
@@ -48,7 +82,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-black/10 text-[#6B6862] hover:text-white hover:bg-[#B57F50] hover:border-[#B57F50] transition-colors"
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-black/10 text-[#6B6862] hover:text-white hover:bg-[#B57F50] hover:border-[#B57F50] hover:-translate-y-0.5 transition-all"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -59,13 +93,15 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-[#1E2026] text-sm font-semibold mb-4">{category}</h4>
-              <ul className="space-y-2.5">
+              <h4 className="text-[#1E2026] text-sm font-semibold mb-4 pb-2 border-b-2 border-[#B57F50]/25 inline-block">
+                {category}
+              </h4>
+              <ul className="space-y-2.5 mt-2">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors"
+                      className="link-underline text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors"
                     >
                       {link.label}
                     </Link>

@@ -3,16 +3,27 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { Menu, X, Utensils, ArrowRight } from 'lucide-react'
+import { useRouter, usePathname } from 'next/navigation'
+import { Menu, X, Utensils, ArrowRight, Flame } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 const BANNER_HEIGHT = 40 // px — keep in sync with the banner's h-10
 const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 
-export default function NavbarClient() {
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/find', label: 'Find' },
+  { href: '/reviews', label: 'Reviews' },
+  { href: '/recipes', label: 'Recipes' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/partners', label: 'Partners' },
+  { href: '/about', label: 'About' },
+]
+
+export default function NavbarClient({ restaurantCount }: { restaurantCount?: number }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
@@ -73,6 +84,11 @@ export default function NavbarClient() {
 
   const userInitial = user?.email ? user.email[0].toUpperCase() : null
 
+  function isActive(href: string) {
+    if (href === '/') return pathname === '/'
+    return pathname === href || pathname?.startsWith(href + '/')
+  }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-[1200]">
       {/* Promo banner */}
@@ -92,41 +108,55 @@ export default function NavbarClient() {
         </div>
       )}
 
-      {/* Nav bar */}
-      <div className="bg-white shadow-sm border-b border-black/5">
+      {/* Nav bar — shadow deepens slightly once the page is scrolled, so the
+          header reads as "floating above" content instead of a flat static
+          bar sitting on top of it. */}
+      <div className={`bg-white border-b border-black/5 transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
-              <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="flex-shrink-0" />
+              <span className="relative flex-shrink-0">
+                <Image src="/ramen-bowl.svg" alt="RamenNearYou" width={36} height={36} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+                {/* Signature touch: a few soft steam wisps drifting off the
+                    bowl mark — subtle enough to be a detail, not a distraction. */}
+                <span aria-hidden="true" className="absolute -top-1 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/40 block" />
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/30 block" />
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/40 block" />
+                </span>
+              </span>
               <span className="font-serif text-lg font-bold tracking-tight transition-colors text-[#1E2026] group-hover:text-[#96602F]">
                 RamenNearYou
               </span>
+              {/* Real-data trust badge — quietly signals scale/authority
+                  without touching page content. Hidden on smaller screens
+                  where nav space is tight. */}
+              {typeof restaurantCount === 'number' && restaurantCount > 0 && (
+                <span className="hidden lg:inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#96602F] text-[11px] font-semibold whitespace-nowrap">
+                  <Flame className="w-3 h-3" />
+                  {restaurantCount.toLocaleString()} Ramen Spots
+                </span>
+              )}
             </Link>
 
             <div className="flex items-center gap-2">
-              {/* Desktop nav links */}
+              {/* Desktop nav links — active route gets a filled pill instead
+                  of just a color change, so it's obvious at a glance which
+                  section of the site you're in. */}
               <nav className="hidden sm:flex items-center gap-1">
-                <Link href="/" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Home
-                </Link>
-                <Link href="/find" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Find
-                </Link>
-                <Link href="/reviews" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Reviews
-                </Link>
-                <Link href="/recipes" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Recipes
-                </Link>
-                <Link href="/blog" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Blog
-                </Link>
-                <Link href="/partners" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  Partners
-                </Link>
-                <Link href="/about" className="px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                  About
-                </Link>
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-3 py-2 text-sm rounded-lg transition-colors ${
+                      isActive(link.href)
+                        ? 'text-[#1E2026] font-semibold bg-[#B57F50]/10'
+                        : 'text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
                 {user && (
                   <>
                     <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
@@ -179,27 +209,25 @@ export default function NavbarClient() {
             )}
 
             <nav className="flex flex-col gap-1 pt-3">
-              <Link href="/" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Home
-              </Link>
-              <Link href="/find" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Find
-              </Link>
-              <Link href="/reviews" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Reviews
-              </Link>
-              <Link href="/recipes" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Recipes
-              </Link>
-              <Link href="/blog" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Blog
-              </Link>
-              <Link href="/partners" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                Partners
-              </Link>
-              <Link href="/about" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
-                About
-              </Link>
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`py-2 text-sm transition-colors flex items-center gap-2 ${
+                    isActive(link.href) ? 'text-[#1E2026] font-semibold' : 'text-[#6B6862] hover:text-[#1E2026]'
+                  }`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {isActive(link.href) && <span className="w-1.5 h-1.5 rounded-full bg-[#B57F50]" />}
+                  {link.label}
+                </Link>
+              ))}
+
+              {typeof restaurantCount === 'number' && restaurantCount > 0 && (
+                <p className="flex items-center gap-1.5 pt-2 mt-1 border-t border-black/5 text-[11px] text-[#96602F] font-semibold">
+                  <Flame className="w-3 h-3" /> {restaurantCount.toLocaleString()} ramen spots and counting
+                </p>
+              )}
 
               {user && (
                 <div className="mt-2 flex flex-col gap-1">
