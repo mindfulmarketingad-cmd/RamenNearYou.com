@@ -30,10 +30,12 @@ export default function NavbarClient({ restaurantCount }: { restaurantCount?: nu
   const [isHomepage, setIsHomepage] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(true) // start hidden to avoid SSR/first-paint flash
+  const [phoBannerDismissed, setPhoBannerDismissed] = useState(true) // same pattern, own dismiss key
 
   useEffect(() => {
     setIsHomepage(window.location.pathname === '/')
     setBannerDismissed(localStorage.getItem('promoBannerDismissed') === '1')
+    setPhoBannerDismissed(localStorage.getItem('phoBannerDismissed') === '1')
     const onScroll = () => setScrolled(window.scrollY > 20)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -50,28 +52,35 @@ export default function NavbarClient({ restaurantCount }: { restaurantCount?: nu
     return () => subscription.unsubscribe()
   }, [])
 
-  // Promo banner: top strip, logged-out visitors only, dismissible. When shown,
-  // push the page down by the banner height so every page's existing top padding
-  // (calibrated for the 64px navbar) still clears the now-taller fixed header.
+  // Promo banners: stacked top strips, dismissible independently. When shown,
+  // push the page down by the combined banner height so every page's existing
+  // top padding (calibrated for the 64px navbar) still clears the now-taller
+  // fixed header. The pho banner shows to everyone; the sign-up banner stays
+  // logged-out only.
+  const showPhoBanner = !phoBannerDismissed
   const showBanner = authChecked && !user && !bannerDismissed
+  const bannerCount = (showPhoBanner ? 1 : 0) + (showBanner ? 1 : 0)
   useEffect(() => {
-    document.body.style.paddingTop = showBanner ? `${BANNER_HEIGHT}px` : ''
-    // Full fixed-header height (banner + navbar, or just navbar), exposed so
+    const extraHeight = bannerCount * BANNER_HEIGHT
+    document.body.style.paddingTop = extraHeight ? `${extraHeight}px` : ''
+    // Full fixed-header height (banners + navbar, or just navbar), exposed so
     // any full-viewport-height layout (e.g. the mapOnly searchmap) can size
     // itself against the *actual* header instead of assuming just the navbar.
-    document.documentElement.style.setProperty(
-      '--total-header-h',
-      `${showBanner ? BANNER_HEIGHT + NAVBAR_HEIGHT : NAVBAR_HEIGHT}px`
-    )
+    document.documentElement.style.setProperty('--total-header-h', `${extraHeight + NAVBAR_HEIGHT}px`)
     return () => {
       document.body.style.paddingTop = ''
       document.documentElement.style.removeProperty('--total-header-h')
     }
-  }, [showBanner])
+  }, [bannerCount])
 
   function dismissBanner() {
     setBannerDismissed(true)
     try { localStorage.setItem('promoBannerDismissed', '1') } catch {}
+  }
+
+  function dismissPhoBanner() {
+    setPhoBannerDismissed(true)
+    try { localStorage.setItem('phoBannerDismissed', '1') } catch {}
   }
 
   async function handleSignOut() {
@@ -91,6 +100,24 @@ export default function NavbarClient({ restaurantCount }: { restaurantCount?: nu
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1200]">
+      {/* Pho announcement banner — shown to every visitor, dismissed independently
+          from the sign-up banner below it. */}
+      {showPhoBanner && (
+        <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">
+          <Link href="/find/pho-restaurants" className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
+            <span>Now Including <span className="text-[#4ADE80]">Pho Restaurants</span></span>
+            <ArrowRight className="w-4 h-4 text-[#4ADE80] transition-transform group-hover:translate-x-1" />
+          </Link>
+          <button
+            onClick={dismissPhoBanner}
+            aria-label="Dismiss"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-white/50 hover:text-white transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* Promo banner */}
       {showBanner && (
         <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">

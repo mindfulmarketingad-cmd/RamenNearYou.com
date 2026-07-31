@@ -7,6 +7,7 @@ import { CAPITAL_CITIES } from '@/lib/capital-cities'
 import { MAJOR_CITIES } from '@/lib/major-cities-list'
 import { getCities } from '@/lib/restaurants'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+import { getPhoCities, phoCityParam } from '@/lib/pho'
 
 function titleCase(slug: string): string {
   return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
@@ -182,9 +183,28 @@ const CATEGORIES = [
   },
 ]
 
+// Pho listings live outside the ramen dataset, so their /find pages are
+// built separately: one category entry linking the main pho hub (keeps the
+// flat category list short), plus the full per-city list below, made
+// searchable the same way the ramen city pages are.
+function getPhoCategory() {
+  return { heading: 'Pho Restaurants', pages: [{ href: '/find/pho-restaurants', label: 'Pho Restaurants Near Me' }] }
+}
+
+function getPhoCityPages(): CatPage[] {
+  return getPhoCities().map(c => ({
+    href: `/find/${phoCityParam(c.citySlug, c.stateCode)}`,
+    label: `Pho Restaurants in ${c.city}, ${c.stateCode}`,
+  }))
+}
+
+type CatPage = { href: string; label: string }
+
 export default function FindHubPage() {
   const cityPagesByState = getCityFindPagesByState()
   const totalCityPages = cityPagesByState.reduce((s, st) => s + st.cities.length, 0)
+  const categories = [...CATEGORIES, getPhoCategory()]
+  const phoCityPages = getPhoCityPages()
 
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
@@ -208,9 +228,10 @@ export default function FindHubPage() {
         </div>
 
         <FindHubSearch
-          categories={CATEGORIES}
+          categories={categories}
           cityPagesByState={cityPagesByState}
           totalCityPages={totalCityPages}
+          phoCityPages={phoCityPages}
         />
       </div>
       <Footer />

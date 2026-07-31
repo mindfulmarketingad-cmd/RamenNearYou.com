@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Search, X } from 'lucide-react'
 
-type CatPage = { href: string; label: string }
+export type CatPage = { href: string; label: string }
 type Category = { heading: string; pages: CatPage[] }
 type CityState = { stateCode: string; stateName: string; cities: { param: string; city: string }[] }
 
@@ -20,10 +20,12 @@ export default function FindHubSearch({
   categories,
   cityPagesByState,
   totalCityPages,
+  phoCityPages = [],
 }: {
   categories: Category[]
   cityPagesByState: CityState[]
   totalCityPages: number
+  phoCityPages?: CatPage[]
 }) {
   const [q, setQ] = useState('')
   const query = q.trim().toLowerCase()
@@ -49,8 +51,12 @@ export default function FindHubSearch({
       if (cityMatches.length >= CITY_RESULT_CAP) break
     }
 
-    return { filterMatches, cityMatches }
-  }, [query, categories, cityPagesByState])
+    const phoCityMatches = phoCityPages
+      .filter((p) => p.label.toLowerCase().includes(query))
+      .slice(0, CITY_RESULT_CAP)
+
+    return { filterMatches, cityMatches, phoCityMatches }
+  }, [query, categories, cityPagesByState, phoCityPages])
 
   return (
     <>
@@ -79,7 +85,7 @@ export default function FindHubSearch({
       {results ? (
         /* ── Filtered results ── */
         <div className="space-y-8">
-          {results.filterMatches.length === 0 && results.cityMatches.length === 0 && (
+          {results.filterMatches.length === 0 && results.cityMatches.length === 0 && results.phoCityMatches.length === 0 && (
             <p className="text-sm text-[#6B6862]">
               No matches for &ldquo;{q}&rdquo;. Try a broth (tonkotsu, miso), a feature (open late, delivery), or a city.
             </p>
@@ -127,6 +133,26 @@ export default function FindHubSearch({
                   Showing the first {CITY_RESULT_CAP} cities — keep typing to narrow it down.
                 </p>
               )}
+            </div>
+          )}
+
+          {results.phoCityMatches.length > 0 && (
+            <div>
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#16a34a] mb-3">
+                Pho Cities
+              </h2>
+              <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
+                {results.phoCityMatches.map((p) => (
+                  <li key={p.href} className="break-inside-avoid">
+                    <Link
+                      href={p.href}
+                      className="block text-sm text-[#1E2026] hover:text-[#16a34a] hover:underline py-1 transition-colors"
+                    >
+                      {p.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
@@ -186,6 +212,27 @@ export default function FindHubSearch({
               ))}
             </div>
           </div>
+
+          {phoCityPages.length > 0 && (
+            <div className="mt-14 pt-10 border-t border-black/10">
+              <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-1">Pho by City</h2>
+              <p className="text-[#6B6862] text-sm mb-8">
+                Browse pho restaurants city by city — {phoCityPages.length} cities covered.
+              </p>
+              <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
+                {phoCityPages.map((p) => (
+                  <li key={p.href} className="break-inside-avoid">
+                    <Link
+                      href={p.href}
+                      className="block text-sm text-[#1E2026] hover:text-[#16a34a] hover:underline py-1 transition-colors"
+                    >
+                      {p.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </>
       )}
     </>

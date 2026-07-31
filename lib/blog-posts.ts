@@ -22934,3 +22934,266 @@ blogPosts.push({
 <p>"Healthiest ramen restaurant" isn't a title anyone can hand out with real authority, and I'd be skeptical of any source that claims otherwise. What you can do is judge a restaurant the way I do: read the broth descriptions, check whether vegetables and plant-based options are a real part of the menu, see if a lighter broth style is available, and ask the kitchen if they'll customize a bowl. Apply that checklist to any ramen restaurant near you, and you'll make a better decision than any generic ranking could give you.</p>`,
   outroContent: `<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are Ramen Noodles Made Of?</a>, <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Healthier Than Pasta?</a>, and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Noodles You Can Eat?</a> Or browse restaurants directly on <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">our search map</a>.</p>`,
 })
+
+blogPosts.push({
+  slug: 'what-is-pho-made-of',
+  title: 'What Is Pho Made Of?',
+  description: 'What is pho made of? A clear beef or chicken bone broth simmered with charred onion and warm spices, flat rice noodles, sliced meat, and a fresh herb plate. Here is the full breakdown.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Guides',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>Pho is made of four core components: a clear broth simmered for hours from beef or chicken bones with charred onion and ginger and a spice sachet of star anise, cinnamon, clove, coriander seed, and fennel seed; flat rice noodles called banh pho; thinly sliced meat; and a fresh garnish plate of Thai basil, bean sprouts, lime, and chili that the diner adds at the table.</strong> Nothing about a good bowl of pho is complicated in concept — it's a handful of humble ingredients — but the broth takes real time to get right, which is the part most home cooks and mediocre restaurants skip.</p>
+
+<p>I've made pho broth from scratch more times than I can count, and I've also eaten my way through enough bad versions to know exactly where corners get cut. The good news is that once you know what's supposed to be in the pot, it's easy to tell a serious kitchen from one using a bouillon shortcut.</p>
+
+<h2>The broth: the part that actually matters</h2>
+<p>Traditional pho broth (nuoc dung) starts with beef bones — usually a mix of marrow bones, knuckle bones, and oxtail — simmered for 6 to 12 hours. Before they go in the pot, the bones are typically parboiled and rinsed to remove impurities, which is why a well-made pho broth is clear rather than cloudy. Cloudy broth almost always means that step got skipped.</p>
+<p>The aromatics are non-negotiable: onion and a knob of ginger, charred directly over a flame or under a broiler until blackened on the outside, then added to the pot. The char is what gives pho its distinctive smoky-sweet backbone — it's not optional flavoring, it's structural.</p>
+<p>The spice sachet is the other signature element: star anise, cinnamon stick, whole cloves, coriander seed, and fennel seed, sometimes with black cardamom. These get toasted dry in a pan first to bloom their oils, then simmered in a cheesecloth bag so the broth stays clear instead of getting muddy with spice sediment. Fish sauce and rock sugar round out the seasoning at the end — fish sauce for savory depth, sugar to balance the acidity and salt.</p>
+
+<h2>The noodles: banh pho</h2>
+<p>Pho noodles are flat rice noodles made from rice flour and water, sold fresh or dried and rehydrated in hot water before serving. They come in a few widths — the noodle used in pho is usually a medium-flat cut, wider than the noodles in a stir-fried dish like pad thai but not as wide as the noodles in Cambodian or some Chinese soup dishes. Rice noodles are naturally gluten-free, though cross-contamination and sauces added later (hoisin often contains wheat) can complicate that for anyone with celiac disease.</p>
+
+<h2>The meat</h2>
+<p>Pho bo (beef pho) is built around several possible cuts, and a "dac biet" or special bowl typically includes a few of them together:</p>
+<ul>
+<li><strong>Tai</strong> — thinly sliced raw beef that finishes cooking in the hot broth right at your table</li>
+<li><strong>Chin</strong> — well-done brisket, simmered until tender</li>
+<li><strong>Nam</strong> — flank</li>
+<li><strong>Gau</strong> — fatty brisket</li>
+<li><strong>Gan</strong> — tendon</li>
+<li><strong>Sach</strong> — tripe</li>
+</ul>
+<p>Pho ga (chicken pho) swaps in poached, shredded chicken and a lighter chicken-bone broth, usually with fewer of the deep warm spices since chicken doesn't need as much aromatic weight to stand up to.</p>
+
+<h2>The garnish plate</h2>
+<p>What arrives on the side is not decoration — it's meant to be added gradually, and it changes the bowl as you eat it. The standard plate includes Thai basil, bean sprouts, lime wedges, and sliced Thai chili, sometimes with sawtooth herb (ngo gai) or cilantro. Add the herbs a little at a time; they wilt fast, and the lime shifts the whole acidity balance of the broth. Squeeze too much in at once and there's no getting that balance back.</p>
+
+<h2>How pho compares to ramen</h2>
+<p>If you're coming to pho from ramen, the biggest structural difference is the noodle and the broth-building technique. Ramen uses <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">wheat noodles treated with kansui</a>, an alkaline mineral water that gives them their springy bite and yellow tint — nothing like rice noodles. Ramen broths also lean on a separately-made concentrated seasoning base called tare, whereas pho broth is seasoned directly with fish sauce and rock sugar as it simmers. If you want the full comparison, see <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is the difference between pho and ramen</a>.</p>
+
+<h2>What to look for in a good bowl</h2>
+<p>When I'm judging a restaurant's pho, I look at the broth before I taste anything: it should be clear and glossy, with visible fat droplets on the surface rather than a uniform greasy sheen. It should smell aromatic — star anise and charred onion — before it tastes of anything. If the broth is cloudy, flat-smelling, or tastes primarily of salt, that's a bouillon-cube shortcut, not a real 8-hour simmer. Check hours and amenities before you go on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho restaurant map</a> — every listing includes what we could verify from the restaurant's own business profile.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'is-pho-healthy',
+  title: 'Is Pho Healthy?',
+  description: 'Is pho healthy? Generally yes — a clear broth, lean meat, rice noodles, and a fresh herb plate make it one of the lighter noodle soups you can order, with sodium as the main caveat.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Health & Nutrition',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>Pho is, on balance, one of the healthier noodle soups you can order: a typical bowl of beef pho runs roughly 350–450 calories, built on a clear broth, lean sliced meat, gluten-free rice noodles, and a fresh herb garnish of Thai basil, bean sprouts, lime, and chili. The main nutritional caveat is sodium — a full bowl of restaurant pho can carry 1,500–2,000 mg of sodium, which is 65–85% of a full day's recommended intake in one meal.</strong> Nothing about pho is inherently unhealthy, but "healthy" depends heavily on the specific bowl, the cut of meat, and how much broth you actually drink.</p>
+
+<p>I look at a lot of noodle soups for this site, and pho consistently comes out near the top of the list for what you actually get per bowl. It's not a diet food, but it's a genuinely reasonable meal — more reasonable than most restaurant options in its price range.</p>
+
+<h2>What makes pho relatively light</h2>
+<p>The broth itself, despite hours of simmering, isn't heavily thickened or emulsified with fat the way a rich tonkotsu broth is. Beef bone broth does carry collagen and some fat, but a well-skimmed pho broth is closer to a consommé in texture than to a cream-based soup. The rice noodles are low in fat and gluten-free, and the protein — lean cuts like flank, brisket, or thin-sliced round — is much leaner than the pork belly chashu you'd find on a ramen bowl. The vegetables you add yourself (bean sprouts, basil, lime) add volume and micronutrients without meaningfully adding calories.</p>
+
+<h2>Where the calories and sodium come from</h2>
+<p>A standard bowl of pho bo runs about 350–450 calories depending on portion size and how much fatty brisket (gau) versus lean cuts you order — a bowl loaded with fatty brisket and extra noodles can climb past 600. The bigger issue is sodium: fish sauce, the primary seasoning in pho broth, is extremely sodium-dense, and restaurant kitchens season broth to taste rather than to a nutrition label. Add hoisin sauce and sriracha at the table and the sodium count climbs further. If you're managing blood pressure or sodium intake, ask for the broth on the side or go easy on the table sauces — most of the sodium is in the liquid, not the noodles or meat.</p>
+
+<h2>Comparing pho to ramen</h2>
+<p>Pho generally comes out lighter than most ramen styles. <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Tonkotsu</a>, the pork-bone broth emulsified until it turns milky white, is considerably richer and higher in fat than pho's clear beef broth — that milky texture comes from actually emulsifying collagen and fat into the liquid, not just extracting flavor from it. <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Shio</a> and <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a> ramen sit closer to pho in weight, since both are clear, salt- or soy-seasoned broths rather than emulsified ones. For the full nutritional rundown on ramen specifically, see <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">is ramen healthier than pasta</a> and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">what are the healthiest noodles you can eat</a>.</p>
+
+<h2>How to make your bowl healthier without ruining it</h2>
+<ul>
+<li><strong>Choose leaner cuts.</strong> Tai (rare sliced beef) and chin (well-done brisket) are leaner than gau (fatty brisket).</li>
+<li><strong>Load up on the herb plate.</strong> Thai basil, bean sprouts, and lime add fiber, volume, and vitamin C for essentially no calories.</li>
+<li><strong>Go easy on hoisin and sriracha.</strong> Both are sodium-dense and easy to overdo — use them as a dip for the meat rather than mixing them into the broth.</li>
+<li><strong>Consider pho ga.</strong> Chicken pho typically runs a bit lighter than beef pho, with a clearer, less fatty broth.</li>
+<li><strong>Don't finish every drop of broth</strong> if you're watching sodium — most of it is dissolved in the liquid.</li>
+</ul>
+
+<h2>My actual take</h2>
+<p>Pho earns its reputation as a relatively healthy takeout option — it's genuinely one of the better choices on a menu of fried appetizers and heavy noodle dishes. The sodium is the one number worth paying attention to, and it's worth noting because most people don't think about soup broth as a sodium source the way they think about, say, a bag of chips. Order it, enjoy it, and if sodium is a concern for you specifically, ask the kitchen to go light on the broth seasoning or skip the table sauces. You can browse verified hours and amenities for pho restaurants near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'are-pho-and-ramen-the-same',
+  title: 'Are Pho and Ramen The Same?',
+  description: 'Are pho and ramen the same? No — they\'re both noodle soups, but they come from different countries, use different noodles, different broths, and are eaten differently. Here\'s exactly how they differ.',
+  date: 'July 31, 2026',
+  readTime: '5 min read',
+  category: 'Comparisons',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p><strong>No, pho and ramen are not the same dish. Pho is a Vietnamese noodle soup built on a clear beef or chicken bone broth with flat rice noodles, sliced meat, and fresh herbs added by the diner. Ramen is a Japanese noodle soup built on alkaline wheat noodles in a broth ranging from clear and light to thick and emulsified, arriving fully composed by the kitchen.</strong> They get lumped together constantly because both are noodle soups eaten with chopsticks and a spoon, but almost everything about how they're built, seasoned, and served is different.</p>
+
+<p>I get asked this constantly, usually by someone who's had both and liked both but couldn't articulate why they felt so different. Once you break down the individual components, the differences are actually pretty clear-cut.</p>
+
+<h2>Different countries, different histories</h2>
+<p>Pho originated in northern Vietnam in the early 20th century, likely influenced by French colonial-era beef consumption combined with Vietnamese rice noodle traditions. Ramen has its roots in Chinese wheat noodle dishes brought to Japan and adapted over the 20th century into a distinctly Japanese format, with regional styles developing across the country from Hakata to Sapporo. Neither dish is derivative of the other — they developed independently, thousands of miles apart, and only resemble each other at the broad "noodles in soup" level.</p>
+
+<h2>Different noodles entirely</h2>
+<p>Pho uses banh pho, flat noodles made from rice flour and water — naturally gluten-free, white, and slightly chewy without much springiness. Ramen noodles are made from wheat flour treated with kansui, an alkaline mineral water that gives them a yellow tint, a distinctive springy bite, and a slightly different flavor from the alkalinity itself. See <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">what ramen noodles are made of</a> for the full breakdown of that process.</p>
+
+<h2>Different broths, different techniques</h2>
+<p>Pho broth is built from beef or chicken bones simmered with charred onion, ginger, and a warm spice sachet (star anise, cinnamon, clove, coriander, fennel), seasoned with fish sauce and rock sugar. Ramen broth ranges much more widely by style — <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> is a light salt broth, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a> is soy-based, <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a> is fermented soybean paste based, and <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> is pork bone simmered and emulsified until it turns rich and milky-white. Most ramen shops also build a separate concentrated seasoning base called tare and combine it with the broth just before serving — a technique pho doesn't use.</p>
+
+<h2>Different ways of eating them</h2>
+<p>This is the difference people notice first but rarely name correctly: pho arrives half-finished. The herb plate — Thai basil, bean sprouts, lime, chili — sits on the side, and you build the final flavor yourself at the table. Ramen arrives fully composed by the kitchen exactly as the chef intends it to be eaten; rearranging or adding to it isn't part of the format the way it is with pho.</p>
+
+<h2>What they actually have in common</h2>
+<p>Both are built on a long-simmered bone broth as the foundation, both are eaten with chopsticks and a spoon, and both are considered comfort food in their home countries. Both also travel poorly for delivery — noodles keep absorbing liquid the moment they sit in hot broth, so any kitchen that cares packs the components separately for you to assemble at home.</p>
+
+<h2>Bottom line</h2>
+<p>Pho and ramen are cousins in the broadest sense — noodle soups built on long-simmered broth — but they're not variations of the same dish, and treating them interchangeably misses what makes each one distinct. If you want a deeper side-by-side, see <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">what is the difference between pho and ramen</a>. You can find both on our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">search map</a>: ramen restaurants and <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho restaurants</a> both show up, with pho marked by a green pin.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'what-is-the-difference-between-pho-and-ramen',
+  title: 'What Is The Difference Between Pho and Ramen?',
+  description: 'What is the difference between pho and ramen? Noodles, broth, seasoning technique, and how you eat them all differ. A full side-by-side breakdown of Vietnamese pho versus Japanese ramen.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Comparisons',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p><strong>The core difference between pho and ramen is the noodle and the broth: pho uses flat rice noodles in a clear beef or chicken broth seasoned with fish sauce and warm spices like star anise and cinnamon, while ramen uses alkaline wheat noodles in a broth seasoned with a concentrated tare base, ranging from light and clear to thick and emulsified.</strong> Pho is Vietnamese; ramen is Japanese. Beyond the headline difference, the two dishes diverge on nearly every component — here's the full breakdown.</p>
+
+<p>I've broken this comparison down side by side more times than I can count for readers trying to figure out which one they actually prefer, or explain to a dinner companion why the two aren't interchangeable. Here's every point of difference that actually matters.</p>
+
+<h2>Noodles</h2>
+<table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+<tr style="border-bottom:2px solid #B57F50;"><th style="text-align:left;padding:0.5rem;">&nbsp;</th><th style="text-align:left;padding:0.5rem;">Pho</th><th style="text-align:left;padding:0.5rem;">Ramen</th></tr>
+<tr style="border-bottom:1px solid #ECEAE4;"><td style="padding:0.5rem;font-weight:600;">Base</td><td style="padding:0.5rem;">Rice flour + water</td><td style="padding:0.5rem;">Wheat flour + kansui (alkaline water)</td></tr>
+<tr style="border-bottom:1px solid #ECEAE4;"><td style="padding:0.5rem;font-weight:600;">Shape</td><td style="padding:0.5rem;">Flat (banh pho)</td><td style="padding:0.5rem;">Round or flat, straight or wavy</td></tr>
+<tr style="border-bottom:1px solid #ECEAE4;"><td style="padding:0.5rem;font-weight:600;">Texture</td><td style="padding:0.5rem;">Soft, slightly chewy</td><td style="padding:0.5rem;">Springy, elastic bite</td></tr>
+<tr><td style="padding:0.5rem;font-weight:600;">Gluten-free?</td><td style="padding:0.5rem;">Yes</td><td style="padding:0.5rem;">No</td></tr>
+</table>
+<p>The kansui treatment is what gives ramen noodles their distinctive bounce and pale yellow color — see <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">what ramen noodles are made of</a> for the full process. Rice noodles have no equivalent alkaline treatment; their texture comes purely from the rice starch itself.</p>
+
+<h2>Broth</h2>
+<p>Pho broth is a single, relatively standardized formula: beef or chicken bones, charred onion and ginger, a spice sachet of star anise, cinnamon, clove, coriander, and fennel, seasoned with fish sauce and rock sugar. Ramen broth varies dramatically by style — <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> (salt), <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a> (soy sauce), <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a> (fermented soybean paste), and <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> (pork bone, boiled hard enough to emulsify into a milky, collagen-rich liquid). See the <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">full four-style ramen comparison</a> for how those differ from each other.</p>
+
+<h2>Seasoning technique</h2>
+<p>Pho is seasoned directly in the simmering broth. Ramen typically separates seasoning into two parts — the broth (tonkotsu, chicken, or a blend, simmered for flavor and body) and the tare (a concentrated, often soy- or salt-based seasoning paste made separately and ladled into the bowl before the broth is poured in). This two-part system is why ramen shops can offer several broth styles from the same base stock, just by swapping the tare.</p>
+
+<h2>Toppings and how you eat them</h2>
+<p>Pho's garnish plate — Thai basil, bean sprouts, lime, chili — arrives separately and gets added by the diner gradually through the meal, meaning the flavor shifts as you eat. Ramen toppings (chashu pork, ajitama soft-boiled egg, menma, nori, scallion) are placed on the bowl by the kitchen and the dish is meant to be eaten as composed, not modified.</p>
+
+<h2>Regional variation</h2>
+<p>Ramen has far more regional and stylistic variation within the dish itself — <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> from Kyushu, miso ramen from Hokkaido, shoyu from Tokyo, each meaningfully different in body and flavor. Pho has two main regional styles in Vietnam — northern (simpler, more herbaceous, thinner broth) and southern (sweeter, richer, with more garnish and bean sprouts) — but the format is more consistent overall than ramen's.</p>
+
+<h2>Which should you order?</h2>
+<p>If you want something lighter, brothy, and customizable at the table, pho. If you want a richer, more composed bowl with more variation in broth style and toppings, ramen. Neither is objectively better — see <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">is pho better than ramen</a> and <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">is ramen better than pho</a> for the case for each. You can find both on our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">search map</a>, with pho restaurants marked by a green pin.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'is-pho-better-than-ramen',
+  title: 'Is Pho Better Than Ramen?',
+  description: 'Is pho better than ramen? For lighter, brothier, more customizable meals — often yes. Here is the honest case for pho over ramen, and where ramen still wins.',
+  date: 'July 31, 2026',
+  readTime: '5 min read',
+  category: 'Comparisons',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>Pho is better than ramen if what you want is a lighter meal, a clearer and more aromatic broth, gluten-free noodles, and the ability to customize the flavor yourself at the table with fresh herbs and lime. Ramen is better than pho if you want a richer, more composed dish with more stylistic variety in the broth itself.</strong> "Better" here depends entirely on what you're in the mood for — but I'll make the honest case for pho, because it wins more often than people give it credit for.</p>
+
+<p>I eat both dishes regularly, and I've noticed I reach for pho specifically on days I want to feel good after eating, not just full. That's not nothing.</p>
+
+<h2>Where pho wins: it's lighter, and it doesn't sit heavy</h2>
+<p>A clear beef or chicken broth with lean sliced meat and rice noodles is simply a lighter meal than most ramen, which often leans on a fattier, more concentrated broth and a fattier cut of pork. Even setting nutrition aside, pho just feels different in your stomach an hour later — you can eat a full bowl of pho for lunch and still feel sharp for the rest of the day, which isn't always true of a rich <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> bowl.</p>
+
+<h2>Where pho wins: you control the flavor</h2>
+<p>The herb plate is the whole point. Thai basil, bean sprouts, lime, and chili let you tune the bowl to exactly what you want — brighter, spicier, more herbaceous — and that changes bite to bite as you work through the bowl. Ramen doesn't give you that same interactivity; it arrives as the chef intended, and altering it is generally discouraged rather than built into the format.</p>
+
+<h2>Where pho wins: it's naturally gluten-free</h2>
+<p>Rice noodles mean pho is accessible to anyone avoiding wheat, without needing a substitute noodle that changes the dish. Ramen's identity is tied to its wheat-and-kansui noodle — a gluten-free ramen noodle exists but isn't really the same dish anymore.</p>
+
+<h2>Where ramen still wins, honestly</h2>
+<p>I'm not going to pretend pho wins across the board. Ramen offers more variety within the category itself — <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a>, and tonkotsu are meaningfully different dishes, whereas pho's format stays fairly consistent bowl to bowl. If you want intensity and richness — a broth that coats the spoon, a soft-boiled ajitama egg, thick-cut chashu — ramen delivers that in a way pho isn't built to. And ramen has a much bigger footprint of dedicated specialty shops in most US cities right now, so it's often just easier to find a great one nearby.</p>
+
+<h2>My verdict</h2>
+<p>On a hot day, after a heavy week of eating, or when I want something that tastes bright and doesn't sit like a brick — pho wins. On a cold night when I want maximum comfort and richness, ramen wins. If I had to pick one to eat for the rest of the year, I'd actually go with pho, mostly because I never get sick of it the way I occasionally do with heavier tonkotsu bowls. But that's a personal preference, not an objective ranking — see the counter-argument in <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">is ramen better than pho</a>. Either way, you can find both near you on our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">search map</a> — pho restaurants show up with a green pin, and every listing links to a <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">dedicated pho page</a> with hours and amenities.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'is-ramen-better-than-pho',
+  title: 'Is Ramen Better Than Pho?',
+  description: 'Is ramen better than pho? If you want richness, variety of broth styles, and a fully composed bowl — yes, often. Here is the honest case for ramen over pho, and where pho still wins.',
+  date: 'July 31, 2026',
+  readTime: '5 min read',
+  category: 'Comparisons',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>Ramen is better than pho if what you're after is richness, a wider range of broth styles to choose from, and a fully composed dish built exactly the way the chef intended. Pho is better than ramen if you want something lighter, more customizable at the table, and naturally gluten-free.</strong> This is genuinely a matter of what you're craving on a given day — but here's the honest case for ramen, since it's the dish I keep coming back to more often.</p>
+
+<p>Between the two, I order ramen more, and after years of eating both, I think I finally understand why.</p>
+
+<h2>Where ramen wins: the variety within the dish itself</h2>
+<p>This is ramen's biggest advantage and it's not close. <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Shio</a>, <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a>, <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a>, and <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> are four genuinely different dishes under one name — different broths, different regional traditions, different ideal toppings. Pho, by comparison, is a much more consistent format bowl to bowl; you're mostly choosing which cut of beef goes in, not an entirely different broth philosophy. If you get bored easily, ramen gives you more to explore. See the <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">full four-style breakdown</a>.</p>
+
+<h2>Where ramen wins: richness and intensity</h2>
+<p>A properly made tonkotsu broth — pork bones boiled hard for 12+ hours until the collagen and fat fully emulsify into a milky, viscous liquid — delivers a depth of flavor that a clear broth like pho's simply isn't built to achieve. That richness is exactly what makes ramen feel like an event rather than just a meal, especially in cold weather.</p>
+
+<h2>Where ramen wins: it's a composed dish</h2>
+<p>Ramen arrives exactly as the chef designed it — the tare, the broth, the noodles, the chashu, the ajitama egg, the aromatics, all balanced against each other in a specific ratio the kitchen tested and refined. There's something to be said for eating a dish as its creator intended rather than reconstructing it yourself at the table.</p>
+
+<h2>Where pho still wins, honestly</h2>
+<p>I'm not going to pretend ramen wins everything. Pho is lighter, and there are plenty of days I don't want a rich, heavy bowl — I want something clean and bright that I can finish and still feel good an hour later. The herb plate genuinely is more interactive and lets you tune the flavor as you eat, which ramen doesn't offer. And pho's rice noodles make it accessible to anyone avoiding gluten, full stop, without changing the dish's identity the way a gluten-free ramen substitute does.</p>
+
+<h2>My verdict</h2>
+<p>For a cold night, a hungry day, or when I want a meal that feels like an occasion, I reach for ramen — the range of broth styles alone keeps it from ever feeling repetitive. For a lighter lunch or a hot day, pho wins, and I won't pretend otherwise. If you want the case for the other side, read <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">is pho better than ramen</a>. Both are worth having in rotation — find ramen and <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho restaurants</a> near you on our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">search map</a>, where pho listings show up with a green pin.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})
+
+
+blogPosts.push({
+  slug: 'what-is-the-spiciest-pho-in-the-world',
+  title: 'What Is the Spiciest Pho In The World?',
+  description: 'What is the spiciest pho in the world? There\'s no official Scoville-ranked record the way there is for instant ramen, but ghost pepper and Carolina Reaper challenge bowls at specialty restaurants top the list.',
+  date: 'July 31, 2026',
+  readTime: '5 min read',
+  category: 'Ramen 101',
+  headerImage: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEUnKnJDi8x890JNNvt_c4bpLf44dUaExWdQ33fuMkFSk6a6a-XGI7nHVlJj9MIsEkyDBqxa89G3pBPxpIlAHqYu5siPwRVtqHX15oPL1Hyz7pLWunRcfbg9iFDCcAB8dPYvY=w800-h500-k-no',
+  headerImageAlt: 'A steaming bowl of Vietnamese pho with rice noodles, sliced beef, and fresh herbs',
+  author: { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
+  content: `<p><strong>There is no single, universally recognized "spiciest pho in the world" the way there is a Scoville-ranked record for instant noodles like Samyang's Buldak line — pho isn't mass-produced in standardized heat tiers. The spiciest versions that exist are one-off challenge bowls at specialty restaurants built with ghost pepper (Bhut Jolokia, roughly 1,000,000 SHU) or Carolina Reaper (1,500,000–2,200,000 SHU) extract added to a traditional pho broth.</strong> Traditional pho, even at its spiciest, is nowhere near this — the heat in a standard bowl comes from sliced Thai chili and sriracha added at the table, which is a different category entirely.</p>
+
+<p>I've gone looking for the outer edge of spicy pho the same way I did for <a href="/blog/what-is-the-spiciest-noodles-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">the spiciest noodles in the world</a>, and the honest finding is that pho and extreme heat aren't naturally suited to each other — the dish's whole appeal is aromatic balance, not capsaicin overload. But the challenge-bowl scene has found ways to push it anyway.</p>
+
+<h2>How spicy is traditional pho, actually?</h2>
+<p>Not very, by design. The heat in a standard bowl comes entirely from what you add yourself: sliced Thai bird's eye chili (roughly 50,000–100,000 SHU per pepper, though only a few thin slices go into the broth) and sriracha or chili oil from the condiment tray. The broth itself carries zero capsaicin — pho's flavor foundation is built on star anise, cinnamon, and charred aromatics, not chili. This is a meaningful contrast with a dish like Sichuan mala ramen or Korean fire noodles, where heat is engineered directly into the base.</p>
+
+<h2>Regional Vietnamese variations that run hotter</h2>
+<p>Some regional and modern Vietnamese preparations lean spicier than classic Hanoi-style pho. Bun bo Hue, a spicy beef noodle soup from central Vietnam, is a closer cousin to "spicy pho" than pho itself — it's built with lemongrass, chili oil, and fermented shrimp paste directly in the broth, delivering real heat as part of the dish rather than as a table add-on. It's a different noodle (round bun noodles, not flat banh pho) and technically a different dish, but it's the closest thing Vietnamese cuisine has to a spice-forward noodle soup in the pho family.</p>
+
+<h2>Challenge-bowl pho: where the real heat lives</h2>
+<p>A small number of restaurants — mostly in the US, as a novelty menu item rather than a traditional Vietnamese preparation — have built "ghost pepper pho" or "reaper pho" challenge bowls, adding concentrated pepper extract or oil to a standard broth. These aren't traditional and most Vietnamese pho purists would tell you they're not really pho anymore so much as a heat-challenge format borrowed from the same tradition as ghost pepper wing challenges. At 1,000,000+ SHU from the pepper alone, these bowls function more as an endurance test than a meal, similar to the <a href="/blog/what-are-the-hottest-noodles-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">extreme end of the hottest instant noodles</a>.</p>
+
+<h2>How to add real heat to pho without ruining it</h2>
+<p>If you actually want a hotter bowl without turning it into a novelty challenge, the better approach is more Thai chili slices and a spoonful of chili oil or sriracha added gradually as you eat — that lets you control the burn without overwhelming the aromatics the broth spent hours building. Adding chili oil directly during the simmer (rather than at the table) is closer to how a genuinely spicy regional variation like bun bo Hue is built, if you're cooking at home.</p>
+
+<h2>Bottom line</h2>
+<p>Traditional pho was never designed to compete with capsaicin-forward dishes, and that's a feature, not a limitation — the whole point is aromatic balance. If you want extreme heat, look to Korean fire noodles or Sichuan mala broths, both of which build capsaicin directly into the dish. If you want a legitimately spicy Vietnamese noodle soup, bun bo Hue is the better search term than "spicy pho." You can browse pho restaurants near you, including which ones list spicy options, on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>
+
+<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
+})

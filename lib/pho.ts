@@ -280,3 +280,49 @@ export function getActiveAmenityGroups(p: PhoRestaurant) {
 export function countActiveAmenities(p: PhoRestaurant): number {
   return Object.values(p.amenities ?? {}).filter(Boolean).length
 }
+
+// Adapts a pho listing into the ramen Restaurant shape so it can flow through
+// the shared /claim/{city}/{state}/{slug} form — same pattern as
+// supplementToRestaurant() for Google Places-supplement listings.
+export function phoToRestaurant(p: PhoRestaurant): import('./restaurants').Restaurant {
+  return {
+    name: p.name,
+    slug: p.slug,
+    citySlug: p.citySlug,
+    stateSlug: STATE_CODE_TO_SLUG[p.stateCode] ?? p.stateCode.toLowerCase(),
+    phone: p.phone,
+    website: p.website,
+    address: p.address,
+    street: p.street,
+    city: p.city,
+    county: p.county,
+    state: p.state,
+    stateCode: p.stateCode,
+    postalCode: p.postalCode,
+    latitude: p.latitude,
+    longitude: p.longitude,
+    rating: p.rating,
+    reviewCount: p.reviewCount,
+    reviewsPerScore: p.reviewsPerScore,
+    photosCount: p.photosCount,
+    photo: p.photo,
+    logo: p.logo,
+    businessStatus: 'OPERATIONAL',
+    hours: p.hours,
+    priceRange: '',
+    description: p.description,
+    menuLink: p.menuLink,
+    orderLinks: p.orderLinks,
+    googleMapsLink: p.googleMapsLink,
+    placeId: p.placeId,
+    subtypes: p.subtypes,
+    amenities: {
+      delivery: !!p.amenities?.delivery, takeout: !!p.amenities?.takeout, dineIn: !!p.amenities?.dineIn,
+      outdoorSeating: !!p.amenities?.outdoorSeating, alcohol: !!p.amenities?.alcohol,
+      veganOptions: !!p.amenities?.veganOptions, vegetarianOptions: !!p.amenities?.vegetarianOptions,
+      acceptsReservations: !!p.amenities?.acceptsReservations, wheelchairAccessible: !!p.amenities?.wheelchairAccessible,
+      casual: !!p.amenities?.casual, cozy: !!p.amenities?.cozy, trendy: !!p.amenities?.trendy,
+      familyFriendly: !!p.amenities?.familyFriendly, parking: !!p.amenities?.parking, creditCards: !!p.amenities?.creditCards,
+    },
+  }
+}

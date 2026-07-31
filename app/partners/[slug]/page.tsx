@@ -16,6 +16,7 @@ import { buildPhoSections } from '@/lib/pho-content'
 import { getOpenStatus } from '@/lib/hours'
 import { jsonLdString } from '@/lib/json-ld'
 import { STATE_CODE_TO_SLUG } from '@/lib/state-lookups'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const SITE = 'https://www.ramennearyou.com'
@@ -59,6 +60,23 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
   const amenityGroups = getActiveAmenityGroups(p)
   const openStatus = p.hours ? getOpenStatus(p.hours) : null
   const sameCityCount = phoRestaurants.filter(o => o.citySlug === p.citySlug && o.stateCode === p.stateCode).length
+
+  // Claimed-on-RamenNearYou status, same claims-table lookup the ramen
+  // listing page uses. Distinct from p.verified, which just reflects whether
+  // the business's own Google profile is verified — nearly every active
+  // Google listing has that, so it can't gate the claim CTA.
+  let isClaimed = false
+  const admin = createAdminClient()
+  if (admin) {
+    const { data: claim } = await admin
+      .from('claims')
+      .select('id')
+      .eq('restaurant_slug', p.slug)
+      .eq('status', 'approved')
+      .limit(1)
+      .maybeSingle()
+    isClaimed = !!claim
+  }
 
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(p.address || `${p.name} ${p.city} ${p.stateCode}`)}${p.placeId ? `&destination_place_id=${p.placeId}` : ''}`
   const photosUrl = p.placeId
@@ -313,6 +331,42 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                     Amenities come from this restaurant&apos;s Google Business Profile. Only attributes the
                     business actually lists are shown — nothing is assumed.
                   </p>
+                </div>
+              )}
+
+              {/* Own this business? — same claim-value strip as ramen listings,
+                  linked through the shared /claim/{city}/{state}/{slug} flow. */}
+              {!isClaimed && (
+                <div className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 mb-6">
+                  <div className="rounded-xl border border-[#B57F50]/30 bg-gradient-to-br from-[#B57F50]/8 to-[#B57F50]/14 p-5">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <BadgeCheck className="w-4 h-4 text-[#96602F]" />
+                      <p className="text-sm font-bold text-[#1E2026]">Own {p.name}?</p>
+                    </div>
+                    <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
+                      This listing hasn&apos;t been claimed yet. Claiming is completely free — create an
+                      account, submit your claim, and once our team verifies ownership you&apos;re in control.
+                    </p>
+                    <ul className="space-y-1.5 mb-4">
+                      {[
+                        '100% free — no card required, just a quick ownership review',
+                        'Verified badge on this page and the search map',
+                        'Update hours, photos, menu, and description anytime',
+                        'Ad-free listing page (no ads on your dedicated listing page)',
+                      ].map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
+                          <span className="text-[#96602F] shrink-0">✓</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={`/claim/${p.citySlug}/${stateSlug ?? p.stateCode.toLowerCase()}/${p.slug}`}
+                      className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+                    >
+                      Claim This Listing — Free
+                    </Link>
+                  </div>
                 </div>
               )}
 
