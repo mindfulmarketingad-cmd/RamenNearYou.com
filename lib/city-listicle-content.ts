@@ -8,6 +8,7 @@
 // business profile show, consistent with how the rest of the site's
 // aggregate listicles ("we tasted our way through...") are written.
 import type { Restaurant } from './restaurants'
+import type { PhoRestaurant } from './pho'
 import { isOpenLate, isOpenPastMidnight } from './hours'
 
 export type ContextLink = { href: string; label: string }
@@ -117,6 +118,94 @@ export function getContextualLinks(r: Restaurant): ContextLink[] {
   }
   if (links.length === 0 && r.amenities?.acceptsReservations) {
     links.push({ href: '/find/ramen-reservations', label: 'Find ramen that takes reservations' })
+  }
+  return links
+}
+
+// ─── Pho version — same honesty rules, sourced from PhoRestaurant fields,
+// including reviewTags, which the ramen Restaurant type doesn't have. ───────
+
+export function buildPhoRestaurantReview(p: PhoRestaurant, rank: number): string[] {
+  const paras: string[] = []
+  const desc = (p.description || '').trim()
+
+  let lead = `${RANK_LABEL[rank] ?? `#${rank + 1}`}. `
+  if (p.rating != null && p.reviewCount > 0) {
+    lead += `${p.name} holds a ${p.rating.toFixed(1)}-star average across ${p.reviewCount.toLocaleString()} Google reviews`
+    lead += p.reviewCount >= 500
+      ? ', a large enough sample that the score reflects real consistency rather than a handful of visits.'
+      : p.reviewCount >= 100
+        ? ', a solid sample size for a neighborhood pho shop.'
+        : '.'
+  } else {
+    lead += `${p.name} is one of the highest-rated pho spots we found in the area.`
+  }
+  paras.push(lead)
+
+  if (desc) {
+    paras.push(`Google describes it as: &ldquo;${desc}&rdquo;`)
+  }
+
+  if (p.reviewTags && p.reviewTags.length > 0) {
+    paras.push(`Reviewers most often mention ${p.reviewTags.slice(0, 4).join(', ')} — a decent proxy for what regulars actually order.`)
+  }
+
+  const rps = p.reviewsPerScore
+  if (rps) {
+    const total = Object.values(rps).reduce((a, b) => a + (b || 0), 0)
+    if (total > 0) {
+      const topTwo = pct((rps['5'] ?? 0) + (rps['4'] ?? 0), total)
+      if (topTwo >= 90) {
+        paras.push(`${topTwo}% of its reviews land at 4 or 5 stars — a strongly positive spread with very little polarization.`)
+      } else if (topTwo >= 75) {
+        paras.push(`${topTwo}% of reviews are 4 stars or higher, a healthy spread for a working restaurant.`)
+      }
+    }
+  }
+
+  const am = p.amenities
+  const perks: string[] = []
+  if (am?.acceptsReservations) perks.push('takes reservations')
+  if (am?.outdoorSeating) perks.push('has outdoor seating')
+  if (am?.delivery) perks.push('offers delivery')
+  if (am?.veganOptions) perks.push('lists vegan options')
+  if (am?.vegetarianOptions && !am?.veganOptions) perks.push('lists vegetarian options')
+  if (am?.wheelchairAccessible) perks.push('is wheelchair accessible')
+  if (perks.length > 0) {
+    const cap = perks[0].charAt(0).toUpperCase() + perks[0].slice(1)
+    paras.push(`${cap}${perks.length > 1 ? `, and ${perks.slice(1).join(', ')}` : ''} — practical details worth knowing before you go.`)
+  }
+
+  if (p.hours) {
+    if (isOpenPastMidnight(p.hours)) {
+      paras.push(`It's also one of the later-running kitchens on this list, staying open past midnight on at least one night.`)
+    } else if (isOpenLate(p.hours)) {
+      paras.push(`It keeps evening hours later than most of the competition, which matters for a post-work or late dinner.`)
+    }
+  }
+
+  if (am?.cashOnly) {
+    paras.push(`One practical note: this listing is cash-only, so bring cash or find an ATM before you sit down.`)
+  }
+
+  return paras
+}
+
+const PHO_STYLE_LINKS: Array<{ pattern: RegExp; link: ContextLink }> = [
+  { pattern: /vegan/, link: { href: '/find/vegan-ramen', label: 'Find vegan noodle spots near you' } },
+  { pattern: /vegetarian/, link: { href: '/find/vegetarian-ramen', label: 'Find vegetarian noodle spots near you' } },
+  { pattern: /sushi/, link: { href: '/find/sushi-near-me', label: 'Find sushi near you' } },
+]
+
+export function getPhoContextualLinks(p: PhoRestaurant): ContextLink[] {
+  const blob = `${p.description || ''} ${p.subtypes || ''}`.toLowerCase()
+  const links: ContextLink[] = []
+  for (const { pattern, link } of PHO_STYLE_LINKS) {
+    if (pattern.test(blob) && !links.some(l => l.href === link.href)) links.push(link)
+    if (links.length >= 2) break
+  }
+  if (links.length === 0 && p.amenities?.acceptsReservations) {
+    links.push({ href: '/find/ramen-reservations', label: 'Find restaurants that take reservations' })
   }
   return links
 }

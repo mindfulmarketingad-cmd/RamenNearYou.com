@@ -8,9 +8,10 @@
 import { getCities, getRestaurantsByCity, type Restaurant } from './restaurants'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
 import { parseCityState } from './find-city'
-import { getPhoByCity } from './pho'
+import { getPhoByCity, getPhoCities, phoRestaurants, type PhoRestaurant } from './pho'
 
 export const CITY_LISTICLE_PREFIX = 'best-ramen-restaurants-'
+export const CITY_PHO_LISTICLE_PREFIX = 'best-pho-restaurants-'
 const MIN_RESTAURANTS = 5
 
 export function cityListicleParam(citySlug: string, stateCode: string): string {
@@ -76,5 +77,64 @@ export function matchCityListicle(slug: string): CityListicle | null {
     top5,
     totalCount: all.length,
     hasPho: getPhoByCity(citySlug, stateCode).length > 0,
+  }
+}
+
+// ─── Pho version — same shape and rules, sourced from the pho dataset ──────
+
+export function cityPhoListicleParam(citySlug: string, stateCode: string): string {
+  return `${CITY_PHO_LISTICLE_PREFIX}${citySlug}-${stateCode.toLowerCase()}`
+}
+
+export function getCityPhoListicleParams(): string[] {
+  return getPhoCities()
+    .filter(c => c.count >= MIN_RESTAURANTS)
+    .map(c => cityPhoListicleParam(c.citySlug, c.stateCode))
+}
+
+export function getCityPhoListicleEntries(): Array<{ href: string; label: string; count: number }> {
+  return getPhoCities()
+    .filter(c => c.count >= MIN_RESTAURANTS)
+    .map(c => ({
+      href: `/blog/${cityPhoListicleParam(c.citySlug, c.stateCode)}`,
+      label: `5 Best Pho Restaurants in ${c.city}, ${c.stateCode}`,
+      count: c.count,
+    }))
+    .sort((a, b) => b.count - a.count)
+}
+
+export type CityPhoListicle = {
+  citySlug: string
+  stateSlug: string
+  stateCode: string
+  cityName: string
+  stateName: string
+  top5: PhoRestaurant[]
+  totalCount: number
+}
+
+export function matchCityPhoListicle(slug: string): CityPhoListicle | null {
+  if (!slug.startsWith(CITY_PHO_LISTICLE_PREFIX)) return null
+  const parsed = parseCityState(slug.slice(CITY_PHO_LISTICLE_PREFIX.length))
+  if (!parsed) return null
+  const { citySlug, stateCode } = parsed
+  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+  if (!stateSlug) return null
+
+  const all = phoRestaurants.filter(p => p.citySlug === citySlug && p.stateCode === stateCode)
+  if (all.length < MIN_RESTAURANTS) return null
+
+  const top5 = [...all]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+    .slice(0, 5)
+
+  return {
+    citySlug,
+    stateSlug,
+    stateCode,
+    cityName: top5[0].city,
+    stateName: STATE_CODE_TO_NAME[stateCode] ?? stateCode,
+    top5,
+    totalCount: all.length,
   }
 }

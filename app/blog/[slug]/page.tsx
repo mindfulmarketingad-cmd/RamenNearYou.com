@@ -18,8 +18,9 @@ import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { pickStockPhoto } from '@/lib/stock-photos'
-import { getCityListicleParams, matchCityListicle } from '@/lib/city-listicles'
+import { getCityListicleParams, matchCityListicle, getCityPhoListicleParams, matchCityPhoListicle } from '@/lib/city-listicles'
 import CityRamenListicle from './city-ramen-listicle'
+import CityPhoListicle from './city-pho-listicle'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -29,6 +30,7 @@ export async function generateStaticParams() {
   return [
     ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
     ...getCityListicleParams().map((slug) => ({ slug })),
+    ...getCityPhoListicleParams().map((slug) => ({ slug })),
   ]
 }
 
@@ -41,6 +43,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { cityName, stateCode, totalCount } = cityListicle
     const title = `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
     const description = `The 5 highest-rated ramen restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} ramen spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: { title, description, type: 'article', url },
+    }
+  }
+
+  const cityPhoListicle = matchCityPhoListicle(slug)
+  if (cityPhoListicle) {
+    const { cityName, stateCode, totalCount } = cityPhoListicle
+    const title = `5 Best Pho Restaurants in ${cityName}, ${stateCode}`
+    const description = `The 5 highest-rated pho restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} pho spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
     const url = `https://www.ramennearyou.com/blog/${slug}`
     return {
       title,
@@ -190,6 +206,53 @@ export default async function BlogPostPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         <CityRamenListicle city={cityListicle} />
+      </>
+    )
+  }
+
+  const cityPhoListicle = matchCityPhoListicle(slug)
+  if (cityPhoListicle) {
+    const title = `5 Best Pho Restaurants in ${cityPhoListicle.cityName}, ${cityPhoListicle.stateCode}`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: title,
+      itemListElement: cityPhoListicle.top5.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Restaurant',
+          name: p.name,
+          url: `https://www.ramennearyou.com/partners/${p.slug}`,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: p.street || undefined,
+            addressLocality: p.city,
+            addressRegion: p.stateCode,
+            postalCode: p.postalCode || undefined,
+            addressCountry: 'US',
+          },
+          ...(p.rating != null && p.reviewCount > 0
+            ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: p.reviewCount, bestRating: 5, worstRating: 1 } }
+            : {}),
+        },
+      })),
+    }
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.ramennearyou.com/blog' },
+        { '@type': 'ListItem', position: 3, name: title, item: url },
+      ],
+    }
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <CityPhoListicle city={cityPhoListicle} />
       </>
     )
   }
