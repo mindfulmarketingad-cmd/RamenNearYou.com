@@ -22553,3 +22553,384 @@ blogPosts.push({
 <p>Do that, and the same bowl at the same shop will taste better than it did last time — with no change on the kitchen side at all.</p>`,
   outroContent: `<p style="color:#6B6862;">Ready to put it into practice? <a href="/" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find highly rated ramen near you on the search map</a>, or read our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">guide to the four types of ramen</a> so you know exactly what to order when you get there.</p>`,
 })
+
+blogPosts.push({
+  slug: 'what-are-ramen-noodles-made-of',
+  title: 'What Are Ramen Noodles Made Of? A Simple Breakdown',
+  h1: 'What Are Ramen Noodles Made Of? A Simple Breakdown',
+  description: 'Ramen noodles are made from just four ingredients — wheat flour, water, salt, and kansui (alkaline mineral water). I break down what each one does, why kansui is the ingredient that actually makes ramen taste like ramen, and how fresh, dried, and instant noodles differ.',
+  date: 'July 29, 2026',
+  readTime: '9 min read',
+  category: 'Ramen 101',
+  headerImage: '/images/comparisons/shoyu-bowl.jpg',
+  headerImageAlt: 'A bowl of shoyu ramen showing springy, yellow-tinted wheat noodles',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What are ramen noodles made of?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Ramen noodles are made from just four ingredients: wheat flour, water, salt, and kansui, an alkaline mineral water (usually potassium carbonate and sodium carbonate). Kansui is what separates ramen dough from plain pasta dough — it firms the gluten, tints the noodle yellow, and gives ramen its springy, chewy texture.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do ramen noodles contain egg?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Most ramen noodles do not contain egg. The springy texture and yellow color come from kansui reacting with flavonoid pigments in the wheat flour, not from egg. Some regional styles and restaurant recipes do add egg or egg white to the dough, but it is the exception, not the rule.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are ramen noodles the same as instant noodles?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No. Both start from the same flour-water-salt-kansui dough, but instant noodles are steamed and then deep-fried (or hot-air dried) to remove moisture so they last on a shelf and rehydrate in minutes. Fresh ramen noodles used in restaurants are never fried, which is the biggest reason they differ nutritionally.' },
+      },
+    ],
+  },
+  content: `<p><strong>Ramen noodles are made from just four ingredients: wheat flour, water, salt, and kansui — an alkaline mineral water, usually a blend of potassium carbonate and sodium carbonate.</strong> That's it. No egg, no oil, nothing exotic. The dough itself is almost identical to what you'd use for a plain Chinese-style wheat noodle. The one ingredient that makes ramen taste and feel like ramen — springy, chewy, faintly yellow, with that distinctive aroma — is kansui, and it's the part almost nobody outside a noodle shop actually understands.</p>
+
+<p>I've made ramen noodles from scratch at home more times than I can count, and the first time I did it, I was shocked by how simple the ingredient list was. The complexity in a great bowl of ramen almost always lives in the broth and tare, not the noodle. This is everything I've learned about what's actually in that bowl of noodles, why kansui matters so much, and how fresh, dried, and instant versions differ once you understand the base dough.</p>
+
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;background:#F5F4F0;border:1px solid rgba(181,127,80,0.2);border-radius:12px;padding:1.25rem 1.5rem;margin:1.75rem 0;">
+  <span style="background:#fff;border:1px solid rgba(181,127,80,0.3);color:#1E2026;padding:0.5rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:700;">🌾 Wheat Flour</span>
+  <span style="color:#B57F50;font-weight:700;">+</span>
+  <span style="background:#fff;border:1px solid rgba(181,127,80,0.3);color:#1E2026;padding:0.5rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:700;">💧 Water</span>
+  <span style="color:#B57F50;font-weight:700;">+</span>
+  <span style="background:#fff;border:1px solid rgba(181,127,80,0.3);color:#1E2026;padding:0.5rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:700;">🧂 Salt</span>
+  <span style="color:#B57F50;font-weight:700;">+</span>
+  <span style="background:#fff;border:1px solid rgba(181,127,80,0.3);color:#1E2026;padding:0.5rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:700;">🧪 Kansui</span>
+  <span style="color:#B57F50;font-weight:700;">→</span>
+  <span style="background:#1E2026;color:white;padding:0.5rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:700;">Ramen Dough</span>
+</div>
+
+<h2>The Four Core Ingredients</h2>
+<p>Every bowl of ramen you've ever had started as some version of this same dough:</p>
+<ul>
+<li><strong>Wheat flour</strong> — specifically a mid-to-high protein flour, which builds the gluten network that gives the noodle its chew. Softer, low-protein flours (like cake flour) can't hold up to boiling in broth.</li>
+<li><strong>Water</strong> — hydrates the flour and activates the gluten. Ratios are usually around 30–35% of the flour weight, noticeably less water than a typical bread dough.</li>
+<li><strong>Salt</strong> — a small amount, mostly for flavor and to tighten the gluten structure slightly.</li>
+<li><strong>Kansui</strong> — the alkaline mineral water that makes ramen dough different from every other wheat noodle on the planet.</li>
+</ul>
+
+<h2>What Is Kansui, Exactly?</h2>
+<p>Kansui is water with a small amount of alkaline salts dissolved in it — historically potassium carbonate and sodium carbonate, sometimes with a touch of sodium phosphate. The name literally means "alkaline water" in Japanese. It's typically added at somewhere between 0.5% and 2% of the flour's weight, which is a tiny amount, but it changes almost everything about how the noodle behaves.</p>
+<p>The story often told is that kansui was discovered by accident in Inner Mongolia, where noodle makers used naturally alkaline lake water and noticed their noodles came out springier and more yellow than noodles made with regular water. Whether or not that's the literal origin, the effect is well understood today, and it's why ramen noodles are sometimes called "alkaline noodles" in English-language cookbooks.</p>
+
+<h2>Why Kansui Changes Everything</h2>
+<p>Three things happen when kansui hits the dough, and each one is part of what makes a bowl of ramen recognizable as ramen instead of just noodle soup:</p>
+<h3>1. The color turns yellow</h3>
+<p>Wheat flour contains flavonoid pigments that are naturally colorless in a neutral or acidic environment. Raise the pH with kansui, and those pigments shift color and turn a pale yellow. This is a chemical reaction, not a food dye — most ramen noodles contain no coloring agents at all. The same phenomenon is why a squeeze of lemon can turn a yellow-tinted broth clearer: acid reverses the color shift.</p>
+<h3>2. The texture firms up and gets springy</h3>
+<p>An alkaline environment strengthens the gluten network more tightly than plain water would. That's the source of the characteristic springy, slightly resistant bite ramen noodles are known for, distinct from the softer bite of Italian pasta or a plain egg noodle.</p>
+<h3>3. The flavor and aroma shift</h3>
+<p>Kansui also affects the Maillard reaction and gives cooked ramen noodles a faint, distinct aroma some people describe as slightly mineral or "noodle-shop" smelling. It's subtle, but it's part of why a bowl of ramen has its own signature smell before you've even added broth.</p>
+
+<h2>Are Ramen Noodles the Same as Egg Noodles?</h2>
+<p>No, and this is one of the most common mix-ups I hear. Ramen noodles get their yellow color and bounce from kansui, not egg. Egg noodles (like the ones used in some Chinese wonton noodle dishes) get their color and richness from actual egg or egg yolk mixed into the dough. Some ramen shops and regional recipes do add a small amount of egg or egg white for extra richness and a firmer bite, but it's an addition on top of the kansui dough, not the default. If you're ordering ramen and have an egg allergy, the noodles themselves are very likely safe — but always ask, since recipes do vary shop to shop.</p>
+
+<h2>Fresh, Dried, and Instant Noodles Start the Same — Then Diverge</h2>
+<p>Here's the part that actually matters for how the noodle affects your health and your meal, which I go into in much more depth in <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Healthier Than Pasta?</a> and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Noodles You Can Eat?</a> All three formats start from the same basic flour-water-salt-kansui dough. What happens next is where they split:</p>
+<ul>
+<li><strong>Fresh noodles</strong> — mixed, rested, sheeted, and cut, then used within a day or two, or frozen. This is what a serious ramen-ya (ramen shop) uses, and it's the version with the best texture.</li>
+<li><strong>Dried noodles</strong> — the same dough, air-dried slowly until shelf-stable. No frying involved, so the nutrition profile stays close to fresh noodles, just with less water.</li>
+<li><strong>Instant noodles</strong> — steamed, then flash-fried in oil (or in some "non-fried" versions, hot-air dried) to remove moisture fast enough for a long shelf life and a 3-minute cook time. The frying step is what adds a meaningful amount of fat and calories that fresh and dried noodles don't have.</li>
+</ul>
+<p>That single manufacturing difference — fried versus not fried — is the biggest nutritional gap between a bowl of ramen at a real restaurant and a $0.30 instant brick, even though the base dough started out identical.</p>
+
+<h2>Regional Noodle Differences</h2>
+<p>Once you understand the base dough, the regional variation in ramen is really about thickness, curl, and hydration, tuned to match a specific broth style:</p>
+<ul>
+<li><strong>Hakata-style tonkotsu</strong> uses thin, straight, low-hydration noodles designed to cook fast and hold up in a thick, rich broth. I cover this in detail in <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Tonkotsu Ramen?</a></li>
+<li><strong>Sapporo-style miso ramen</strong> typically uses thicker, curlier, higher-hydration noodles that hold up to a heartier, more heavily topped bowl — see <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Miso Ramen?</a></li>
+<li><strong>Tokyo-style shoyu ramen</strong> generally sits in the middle: medium-thick, wavy noodles built for a clear, savory broth, as I cover in <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shoyu Ramen?</a></li>
+<li><strong>Shio ramen</strong> often pairs with thinner noodles to match its lighter, more delicate salt-based broth — more in <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Shio Ramen?</a></li>
+</ul>
+<p>If you want the full side-by-side, I put all four broth styles together in <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Tonkotsu vs. Shoyu vs. Shio vs. Miso: The 4 Types of Ramen Explained</a>.</p>
+
+<h2>What About Gluten-Free Ramen Noodles?</h2>
+<p>Because traditional ramen noodles are 100% wheat-based, they are not naturally gluten-free. Some restaurants and packaged brands now offer alternative versions made from rice flour, buckwheat, or other gluten-free starches blended to mimic the chew of a wheat-and-kansui noodle. The texture is usually a bit different — less springy, sometimes a little more delicate — but the category has improved a lot in the last few years. If that's what you're after, the map on <a href="/find/gluten-free-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Gluten-Free Ramen Near Me</a> filters to restaurants that offer it.</p>
+
+<h2>My Take After Making Noodles at Home</h2>
+<p>Making ramen noodles from scratch taught me how little separates a bowl of ramen from a bowl of any other wheat noodle soup on paper — and how much one small ingredient, kansui, actually does. It's a genuinely simple dough. The reason ramen feels like its own category of food isn't the noodle in isolation; it's the noodle built specifically to hold up to a particular broth, at a particular thickness, cooked for a particular number of seconds. That's also why I'd always rather order from a shop that makes its own noodles in-house — the noodle-to-broth pairing is deliberate in a way a generic noodle supplier's product usually isn't.</p>
+
+<p>If you're curious how the noodle itself stacks up nutritionally against other noodles you might reach for, I compare it directly in <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Healthier Than Pasta?</a> and rank it against soba, rice noodles, and more in <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Noodles You Can Eat?</a></p>`,
+  outroContent: `<p style="color:#6B6862;">Want to taste the difference a real, in-house noodle makes? <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find highly rated ramen restaurants near you</a>, or read <a href="/reviews" style="color:#B57F50;text-decoration:underline;font-weight:600;">real diner reviews</a> before you go.</p>`,
+})
+
+blogPosts.push({
+  slug: 'is-ramen-healthier-than-pasta',
+  title: 'Is Ramen Healthier Than Pasta? An Honest Comparison',
+  h1: 'Is Ramen Healthier Than Pasta? An Honest Comparison',
+  description: 'Is ramen healthier than pasta? Noodle-for-noodle they are surprisingly similar — the real gap is sodium, protein, and vegetables from the broth and toppings. I compare both side by side, bowl for plate.',
+  date: 'July 29, 2026',
+  readTime: '10 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/comparisons/tonkotsu-bowl.jpg',
+  headerImageAlt: 'A rich bowl of tonkotsu ramen next to the kind of hearty meal often compared to a plate of pasta',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is ramen healthier than pasta?',
+        acceptedAnswer: { '@type': 'Answer', text: 'The noodles themselves are nutritionally similar — both are wheat-based with comparable calories and carbs. The real difference is the rest of the bowl: restaurant ramen broth tends to run higher in sodium than a typical pasta sauce, but a well-built bowl often has more protein and vegetables than a plain pasta dish. Instant ramen is the exception and is generally less healthy than dried pasta because the noodles are fried.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is ramen or pasta better for weight loss?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Neither has an inherent advantage — both are refined-carb-based dishes where portion size and toppings matter more than the noodle itself. A vegetable- and protein-heavy ramen bowl with reduced noodles and less broth, or a pasta dish built around vegetables and lean protein with a light sauce, are both reasonable choices; a cream-sauce pasta and a rich tonkotsu ramen are both calorie-dense.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does ramen or pasta have more sodium?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Ramen broth is typically higher in sodium than a basic tomato or olive-oil-based pasta sauce. A full bowl of restaurant ramen commonly lands between 1,800 and 2,500 mg of sodium when you drink the broth, while a simple marinara pasta dish is often under 1,000 mg. Cream-based pasta sauces and instant ramen packets can both push sodium levels much higher.' },
+      },
+    ],
+  },
+  content: `<p><strong>Noodle-for-noodle, ramen and pasta are more alike than people expect — both are wheat-based, similar in calories and carbohydrates per serving. The real difference between the two dishes is everything built around the noodle: the broth versus the sauce, the toppings, and the sodium load.</strong> Restaurant ramen usually loses on sodium and wins on protein and vegetable variety. Instant ramen is a different story entirely, and generally comes out behind dried pasta because the noodles are deep-fried before you even open the package.</p>
+
+<p>I get asked this comparison constantly, usually by people trying to decide what to order for dinner and assuming one dish must be obviously "better" than the other. It's not that simple, so I broke it down properly — noodle, sauce versus broth, protein, vegetables, and sodium — the same way I'd want it explained to me.</p>
+
+<h2>Ramen vs. Pasta: The Noodles Themselves</h2>
+<p>Start with just the noodle, no broth or sauce, and the two are close cousins nutritionally. Both are made primarily from wheat flour and water — I cover exactly what goes into ramen dough in <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are Ramen Noodles Made Of?</a> The numbers below are typical, rounded values for a standard cooked serving — treat them as a general guide rather than a lab-tested figure, since exact numbers vary by brand and recipe.</p>
+
+<div class="overflow-x-auto">
+<table>
+<thead>
+<tr><th>Per ~2 oz dry / cooked serving</th><th>Fresh Ramen Noodles</th><th>Dried Spaghetti/Pasta</th><th>Instant Ramen Noodles</th></tr>
+</thead>
+<tbody>
+<tr><td>Calories</td><td>~200</td><td>~200</td><td>~380 (fried in oil)</td></tr>
+<tr><td>Carbohydrates</td><td>~40g</td><td>~42g</td><td>~50g</td></tr>
+<tr><td>Fat</td><td>~1g</td><td>~1g</td><td>~14–17g</td></tr>
+<tr><td>Protein</td><td>~7g</td><td>~7g</td><td>~8g</td></tr>
+<tr><td>Fiber</td><td>~2g</td><td>~2–3g (more for whole wheat)</td><td>~1g</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Plain, fresh ramen noodles and plain dried pasta are close to a wash. The gap only opens up once frying enters the picture, which is exactly what happens with most instant ramen.</p>
+
+<h2>The Real Difference Is the Broth vs. the Sauce</h2>
+<p>This is where the two dishes actually diverge. A pasta dish is usually noodle plus a relatively small amount of sauce — a few ounces of marinara, olive oil, or cream sauce coating the noodle. A ramen bowl is noodle sitting inside several cups of broth, and the broth itself is a meaningful part of the dish, not just a coating.</p>
+<p>That means the broth's ingredients matter more in ramen than a sauce typically does in pasta. A tonkotsu broth, simmered from pork bones for 12 to 18 hours, is rich in collagen and gelatin — filling and flavorful, but also higher in sodium and fat than a lighter shio or shoyu broth. A simple marinara is mostly tomato, garlic, and olive oil, generally lower in sodium unless heavily salted. A cream-based Alfredo, on the other hand, can rival or exceed a rich ramen broth in saturated fat.</p>
+
+<h2>Sodium: Where Ramen Usually Loses</h2>
+<p>If there's one place pasta usually wins, it's here. A full bowl of restaurant ramen — noodles, broth, and toppings, broth included — commonly lands between 1,800 and 2,500 mg of sodium if you drink it all. A basic marinara or olive-oil pasta dish is often under 1,000 mg. The gap narrows considerably if you don't finish the broth — I go through exactly how much sodium comes from the broth versus the noodles and toppings in <a href="/blog/is-ramen-unhealthy-or-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Unhealthy or Healthy? The Honest Answer</a>, along with practical ways to cut it down.</p>
+<p>Worth noting: a cream or cheese-heavy pasta sauce can also run high in sodium, sometimes surprisingly close to a rich ramen broth. Sodium isn't really a "ramen problem" so much as a "rich sauce or broth" problem, and it shows up in both cuisines.</p>
+
+<h2>Protein and Vegetables: Where Ramen Often Wins</h2>
+<p>A well-built ramen bowl typically includes a soft-boiled egg, sliced chashu pork or chicken, and vegetables like scallions, bamboo shoots, corn, bean sprouts, mushrooms, or bok choy — all built into the dish by default. A standard plate of pasta, unless you specifically order it with chicken, shrimp, or a vegetable-forward preparation, is often just noodle and sauce with minimal protein and few vegetables.</p>
+<p>That structural difference means an average bowl of restaurant ramen frequently delivers more complete nutrition — protein, fiber, vitamins from vegetables — than an average plate of plain pasta, even though the base noodle is nutritionally similar. Of course, a chicken-and-broccoli pasta dish flips that comparison entirely; it really comes down to what's actually on the plate or in the bowl, not the noodle category itself.</p>
+
+<h2>Instant Ramen vs. Dried Pasta: Not a Fair Fight</h2>
+<p>This is the comparison where the categories genuinely split. Instant ramen noodles are steamed and then flash-fried in oil to remove moisture for shelf stability, which adds roughly 150 to 200 extra calories and 12 to 16 grams of fat per serving compared to dried pasta, which is simply air-dried with no frying involved. Add a full seasoning packet — often 60 to 80% sodium by weight — and a serving of instant ramen can carry 1,500 to 2,000 mg of sodium with very little protein or fiber to show for it.</p>
+<p>Dried pasta, cooked plain, has none of that. If you're comparing instant ramen to dried pasta specifically, dried pasta is the more nutritionally balanced starting point, assuming a reasonably light sauce. I rank instant ramen against several other noodle types, including some genuinely healthier packaged options, in <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Noodles You Can Eat?</a></p>
+
+<h2>Calorie and Carb Load, Side by Side</h2>
+<div class="overflow-x-auto">
+<table>
+<thead>
+<tr><th>Typical full serving</th><th>Restaurant Tonkotsu Ramen</th><th>Restaurant Shio/Shoyu Ramen</th><th>Marinara Pasta</th><th>Alfredo Pasta</th></tr>
+</thead>
+<tbody>
+<tr><td>Calories</td><td>~550–700</td><td>~400–500</td><td>~500–600</td><td>~900–1,100</td></tr>
+<tr><td>Sodium</td><td>~2,000–2,500mg</td><td>~1,600–2,000mg</td><td>~800–1,000mg</td><td>~1,200–1,500mg</td></tr>
+<tr><td>Protein</td><td>~28–35g</td><td>~22–28g</td><td>~12–15g</td><td>~20–25g</td></tr>
+</tbody>
+</table>
+</div>
+<p>The lighter ramen styles — shio and shoyu — land closer to a basic pasta dish across the board, while a rich tonkotsu bowl or a cream-based pasta both sit at the higher end of the spectrum. If you're trying to eat lighter, the broth style you choose within ramen matters just as much as choosing ramen over pasta in the first place.</p>
+
+<h2>When Pasta Is the Healthier Choice</h2>
+<p>If you're managing sodium intake closely, or you're ordering a rich, cream-based ramen at a place that leans heavy-handed with salt, a simple marinara or olive-oil pasta dish with vegetables and lean protein is usually the lighter option. Whole wheat pasta also adds meaningfully more fiber than either ramen or regular pasta.</p>
+
+<h2>When Ramen Is the Healthier Choice</h2>
+<p>If the alternative is a cream sauce, a heavy meat sauce, or a cheese-loaded baked pasta, a shio or shoyu ramen with extra vegetables and an egg is very likely the lighter, more nutrient-dense option. The built-in protein and vegetables in a standard ramen bowl often outperform a plain plate of pasta unless you're deliberately building the pasta dish to include both.</p>
+
+<h2>My Verdict</h2>
+<p>I don't think this is a fair fight to try to win outright, because the honest answer is that it depends entirely on the specific bowl and the specific plate. What I do think is true: ramen has an advantage in built-in protein and vegetables that pasta doesn't get by default, and pasta has an advantage in sodium that ramen doesn't get by default. If I'm choosing for a lighter meal, I reach for a shio or shoyu ramen loaded with vegetables, or a marinara-based pasta with chicken and greens — either one, done that way, is a genuinely balanced meal.</p>
+<p>When I want the lighter style specifically, I use the <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Light & Clean Ramen Near Me</a> map to find it, and I've been genuinely impressed by restaurants like <a href="/atlanta/georgia/momonoki" style="color:#B57F50;text-decoration:underline;font-weight:600;">Momonoki in Atlanta</a>, which lists both vegan and vegetarian options alongside its regular menu — exactly the kind of place that makes "order the lighter bowl" an easy choice instead of a compromise.</p>`,
+  outroContent: `<p style="color:#6B6862;">Curious what's actually in the noodle? Start with <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are Ramen Noodles Made Of?</a>, then find a lighter bowl near you on <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">our search map</a>.</p>`,
+})
+
+blogPosts.push({
+  slug: 'what-are-the-healthiest-noodles-you-can-eat',
+  title: 'What Are the Healthiest Noodles You Can Eat?',
+  h1: 'What Are the Healthiest Noodles You Can Eat?',
+  description: 'From soba and shirataki to whole wheat and rice noodles, I rank the healthiest noodles you can actually eat, where ramen noodles fit in, and how to pick a genuinely nutritious bowl.',
+  date: 'July 29, 2026',
+  readTime: '11 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/comparisons/vegan-bowl.jpg',
+  headerImageAlt: 'A vegetable-forward vegan ramen bowl, one of the lighter noodle options',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What are the healthiest noodles you can eat?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Shirataki (konjac) noodles are the lowest in calories and carbs by a wide margin, but 100% buckwheat soba and whole wheat noodles offer the best overall balance of fiber, protein, and micronutrients for most people. Refined-wheat noodles like ramen, udon, and white pasta sit in the middle, and deep-fried instant noodles rank lowest.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are ramen noodles healthy?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Fresh or dried ramen noodles are nutritionally similar to plain pasta — moderate in calories, low in fiber, made from refined wheat flour. They are not the healthiest noodle option on their own, but a full ramen bowl with vegetables, egg, and lean protein is a reasonably balanced meal. Instant ramen noodles are less healthy because they are deep-fried before packaging.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What noodle has the lowest calories?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Shirataki noodles, made from konjac yam fiber, are the lowest-calorie noodle by far — typically under 20 calories per serving because they are almost entirely water and glucomannan fiber. They have very little flavor or protein on their own and are usually used as a low-calorie base absorbed into a broth or sauce.' },
+      },
+    ],
+  },
+  content: `<p><strong>Shirataki noodles are the lowest-calorie option by a wide margin, but 100% buckwheat soba and whole wheat noodles offer the best overall nutrition for most people, balancing fiber, protein, and micronutrients rather than just minimizing calories.</strong> Regular ramen, udon, and white pasta sit in the middle of the pack — moderate in nutrients, made from refined wheat. Deep-fried instant noodles rank at the bottom. Which one is "healthiest" really depends on what you're optimizing for: fewest calories, most fiber, most protein, or lowest glycemic impact.</p>
+
+<p>I get asked to rank noodles constantly, and the honest answer is that there isn't one single winner — it depends on your goal. So I built the comparison I wish existed: every major noodle type, side by side, with where ramen actually lands in the mix.</p>
+
+<h2>The Noodle Lineup, Side by Side</h2>
+<p>These are typical, rounded values for a standard cooked serving (about 1 cup / 150–170g). Exact numbers vary by brand and preparation, so treat this as a general guide rather than a precise lab figure.</p>
+
+<div class="overflow-x-auto">
+<table>
+<thead>
+<tr><th>Noodle Type</th><th>Calories</th><th>Protein</th><th>Fiber</th><th>Notable For</th></tr>
+</thead>
+<tbody>
+<tr><td>Shirataki (konjac)</td><td>~10–20</td><td>~0g</td><td>~1–3g</td><td>Near-zero calories, mostly water and glucomannan fiber</td></tr>
+<tr><td>100% buckwheat soba</td><td>~113</td><td>~6g</td><td>~4g</td><td>Complete-ish protein, manganese, gluten-free (check for wheat blends)</td></tr>
+<tr><td>Whole wheat pasta/noodles</td><td>~174</td><td>~7g</td><td>~6g</td><td>Highest fiber of the wheat-based noodles</td></tr>
+<tr><td>Rice noodles</td><td>~190</td><td>~2g</td><td>~1g</td><td>Naturally gluten-free, low protein and fiber</td></tr>
+<tr><td>Ramen noodles (fresh/dried)</td><td>~190–200</td><td>~7g</td><td>~2g</td><td>Refined wheat + kansui; see our <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;">full breakdown</a></td></tr>
+<tr><td>Udon</td><td>~210</td><td>~6g</td><td>~2g</td><td>Thick, refined wheat, mild and filling</td></tr>
+<tr><td>White pasta/spaghetti</td><td>~200</td><td>~7g</td><td>~2–3g</td><td>Refined wheat, close cousin to ramen noodles</td></tr>
+<tr><td>Egg noodles</td><td>~213</td><td>~8g</td><td>~1g</td><td>Slightly more protein and fat from added egg</td></tr>
+<tr><td>Glass/mung bean noodles</td><td>~160</td><td>~0.2g</td><td>~1g</td><td>Very low protein, mostly starch</td></tr>
+<tr><td>Instant ramen (fried)</td><td>~380</td><td>~8g</td><td>~1g</td><td>Deep-fried before packaging, high fat and sodium</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Shirataki: Lowest Calories, Lowest Nutrition</h2>
+<p>Shirataki noodles, made from the konjac yam's glucomannan fiber, are astonishingly low in calories — often under 20 per full serving — because they're close to 97% water. They're a legitimately useful tool if you're managing calorie or carbohydrate intake closely, and the fiber they do contain (glucomannan) has decent research behind it for satiety and blood sugar management. The tradeoff: almost no protein, no significant micronutrients, and very little inherent flavor, so they're really a vehicle for whatever broth or sauce they're served in rather than a nutritionally complete food on their own.</p>
+
+<h2>Soba: My Pick for Best Overall Balance</h2>
+<p>100% buckwheat soba is the noodle I'd point to as the best all-around choice. Buckwheat is technically a seed, not a grain, and it brings meaningful protein (with a more complete amino acid profile than wheat), manganese, and a lower glycemic impact than most wheat-based noodles. The catch: many packaged soba noodles are only partially buckwheat, cut with wheat flour for cheaper cost and better texture. If soba's benefits matter to you specifically — gluten-free, for instance — check the ingredient list for 100% buckwheat (sometimes labeled "juwari soba"), since a wheat-blended version won't be gluten-free and dilutes the nutritional edge.</p>
+
+<h2>Whole Wheat Noodles: The Easy Upgrade</h2>
+<p>If you already eat wheat-based noodles regularly, swapping to a whole wheat version is the simplest upgrade available. Whole wheat pasta or noodles roughly double the fiber of a refined-wheat equivalent while keeping calories and protein about the same. The texture is denser and slightly nuttier, which some people love and others don't — but nutritionally, it's a straightforward win with almost no downside.</p>
+
+<h2>Rice Noodles: Good for Gluten-Free, Not for Protein</h2>
+<p>Rice noodles are a solid gluten-free option and common in dishes like pho and pad thai, but they're relatively low in both protein and fiber compared to wheat or buckwheat noodles. They're a fine base when paired with a protein- and vegetable-rich broth or stir-fry, but as a standalone noodle, they're closer to a pure carbohydrate.</p>
+
+<h2>Where Ramen Noodles Actually Land</h2>
+<p>Ramen noodles — fresh or dried, made from wheat flour, water, salt, and kansui — sit almost exactly where plain white pasta sits: moderate calories, moderate protein, relatively low fiber. On the noodle alone, ramen is not a standout in either direction. What changes the picture is that a full bowl of ramen almost always comes with a soft-boiled egg, protein (chashu pork, chicken, or tofu), and several vegetables built in by default, which most other noodle dishes don't guarantee unless you specifically add them. I go through that full-bowl comparison, broth by broth, in <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Healthier Than Pasta?</a> and cover exactly how to lighten up any bowl in <a href="/blog/is-ramen-unhealthy-or-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Unhealthy or Healthy? The Honest Answer</a>.</p>
+
+<h2>Instant Ramen: The One to Watch</h2>
+<p>Instant ramen noodles are the clear outlier at the bottom of this list, and it's entirely because of how they're manufactured, not because of the base dough. Steaming and then deep-frying the noodles to make them shelf-stable adds roughly double the calories and 15+ grams of fat compared to fresh or dried ramen noodles, on top of a seasoning packet that's frequently 60 to 80% sodium. If you eat instant noodles regularly, using only half the seasoning packet and adding your own protein and vegetables goes a long way toward closing the gap with the rest of this list.</p>
+
+<h2>How I'd Rank Them for Different Goals</h2>
+<ul>
+<li><strong>Fewest calories:</strong> shirataki, by a wide margin.</li>
+<li><strong>Best overall nutrition balance:</strong> 100% buckwheat soba.</li>
+<li><strong>Easiest upgrade with no real downside:</strong> whole wheat noodles.</li>
+<li><strong>Best gluten-free option:</strong> rice noodles or verified 100% buckwheat soba.</li>
+<li><strong>Most satisfying as part of a complete meal by default:</strong> a full ramen bowl, thanks to what typically comes with it.</li>
+<li><strong>One to minimize:</strong> fried instant noodles, especially eaten alone with the full seasoning packet.</li>
+</ul>
+
+<h2>My Actual Takeaway</h2>
+<p>If I'm optimizing purely for the noodle itself, soba and whole wheat both beat ramen noodles on fiber and glycemic impact. But I don't eat noodles in isolation, and neither do most people — I eat a bowl or a dish, and the rest of what's in it usually matters more than the noodle category. A ramen bowl loaded with vegetables, a soft egg, and lean protein is, in practice, one of the more complete one-bowl meals on this entire list, refined noodle or not. If you want the version of ramen closest to the "healthiest noodle" ideal — vegetable-forward, lighter broth — the <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Light & Clean Ramen Near Me</a> map and the <a href="/find/vegan-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Vegan Ramen Near Me</a> map are the two filters I use myself.</p>`,
+  outroContent: `<p style="color:#6B6862;">Ready to find a genuinely balanced bowl? See <a href="/blog/what-are-the-healthiest-ramen-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Ramen Restaurants?</a> for exactly what to look for, or jump straight to the <a href="/find/vegetarian-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Vegetarian Ramen</a> and <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Light & Clean Ramen</a> maps.</p>`,
+})
+
+blogPosts.push({
+  slug: 'what-are-the-healthiest-ramen-restaurants',
+  title: 'What Are the Healthiest Ramen Restaurants?',
+  h1: 'What Are the Healthiest Ramen Restaurants?',
+  description: "There's no verified national ranking of the \"healthiest\" ramen restaurant, so instead I break down the exact, checkable things I look for — broth transparency, vegetable-forward menus, and real vegan/vegetarian options — and spotlight two real restaurants that get it right.",
+  date: 'July 30, 2026',
+  readTime: '12 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/comparisons/vegan-bowl.jpg',
+  headerImageAlt: 'A vegetable-forward vegan ramen bowl at a restaurant with real plant-based options',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What makes a ramen restaurant healthier than another?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Look for broth transparency (are ingredients or preparation described, not just a broth name?), a genuinely vegetable-forward menu, real vegan or vegetarian bowls (not just a plain-noodles substitution), a lighter broth style available alongside the richer ones, and willingness to customize a bowl — lower sodium, less oil, extra vegetables — on request.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is there an official ranking of the healthiest ramen restaurants?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No verified, independently audited national ranking of "healthiest ramen restaurants" exists, since restaurants don\'t publish standardized nutrition data the way packaged food does. The honest approach is to judge a restaurant by checkable signals — menu composition, ingredient transparency, and customization options — rather than trust an unverifiable superlative claim.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Which ramen restaurants have good vegan or vegetarian options?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Use a search map filtered specifically to vegan or vegetarian ramen, since not every restaurant lists this clearly on its own website. Restaurants like Momonoki in Atlanta and Ikedo Ramen in Port Washington, NY are two verified, claimed listings that list both vegan and vegetarian options on their profile.' },
+      },
+    ],
+  },
+  content: `<p><strong>There's no independently verified, standardized ranking of "the healthiest ramen restaurants" — restaurants don't publish nutrition panels the way packaged food does, so any list claiming a definitive national top 10 is guessing.</strong> What I can do honestly is tell you exactly what to look for so you can judge any ramen restaurant's menu yourself: broth transparency, a genuinely vegetable-forward menu, real vegan or vegetarian bowls, a lighter broth option, and a kitchen willing to customize. I'll also point to two real, verified restaurants — Momonoki in Atlanta and Ikedo Ramen in Port Washington, NY — that check these boxes, not because I've run lab tests on their broth, but because their listed menus and amenities back it up.</p>
+
+<p>This is the last piece of a series I've been building out: I already covered <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">what ramen noodles are made of</a>, <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">how ramen compares to pasta</a>, and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">how ramen noodles compare to soba, rice noodles, and shirataki</a>. This post is about the restaurant, not just the bowl — what to actually look for when you're deciding where to eat.</p>
+
+<h2>Why I Won't Give You a Fake "Top 10" List</h2>
+<p>I could write a listicle right now ranking ten restaurants as "the healthiest ramen spots in America." It would look authoritative, it would probably rank well, and it would be almost entirely made up — nobody has independently tested sodium content, oil content, or ingredient sourcing across a national sample of ramen restaurants. Restaurants don't publish that data, and I'm not going to fabricate precise-sounding numbers to fill a table. What I can give you instead is a framework you can apply to any ramen restaurant, anywhere, using information that's actually checkable — the menu itself.</p>
+
+<h2>1. Broth Transparency</h2>
+<p>The single best signal I look for is whether a restaurant describes how its broth is actually made, rather than just naming it. "Tonkotsu ramen" tells you almost nothing about how long it simmered or what's in it. A menu or website that says something like "12-hour pork bone broth, no added MSG, low-sodium tare available on request" is telling you the kitchen thinks about what's going into the bowl — and that same attention usually shows up in ingredient quality more broadly.</p>
+
+<h2>2. A Genuinely Vegetable-Forward Menu</h2>
+<p>Look past the broth section for a moment and check the toppings and side menu. A restaurant with only pork, egg, and scallion on every bowl is built around one style. A restaurant that offers bok choy, corn, bean sprouts, mushrooms, spinach, or a full vegetable topping add-on is giving you the tools to build a genuinely balanced bowl, whichever broth you order.</p>
+
+<h2>3. Real Vegan and Vegetarian Bowls — Not Just a Substitution</h2>
+<p>There's a real difference between a restaurant that will awkwardly remove the pork from a pork-based broth for you, and a restaurant that built an actual vegan or vegetarian broth from the ground up — usually a kombu, shiitake, or vegetable-stock base with its own tare. The second version is a genuine menu item, not an accommodation, and it's a strong sign the kitchen cares about more than just the default tonkotsu crowd. This is exactly the kind of detail I'd check on a restaurant's listing before assuming; you can filter for it directly on the <a href="/find/vegan-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Vegan Ramen Near Me</a> and <a href="/find/vegetarian-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Vegetarian Ramen Near Me</a> maps.</p>
+
+<h2>4. A Lighter Broth Style on the Menu</h2>
+<p>As I laid out in my <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a>, broth styles run from lighter to richer roughly in this order:</p>
+<ol>
+<li><a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;">Shio</a> — salt-based, the lightest and clearest</li>
+<li><a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;">Shoyu</a> — soy-based, balanced</li>
+<li><a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;">Miso</a> — fermented soybean paste, deeper and heartier</li>
+<li><a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;">Tonkotsu</a> — pork bone, the richest and most caloric</li>
+</ol>
+<p>A restaurant that only serves tonkotsu isn't doing anything wrong, but it isn't giving you a lighter option either. One that offers shio or shoyu alongside its richer bowls is giving you an actual choice, and you can find restaurants built specifically around that lighter style on the <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Light &amp; Clean Ramen Near Me</a> map.</p>
+
+<h2>5. Willingness to Customize</h2>
+<p>The last thing I check, and honestly one of the most telling: will the kitchen adjust a bowl if you ask? Lower sodium tare, less oil, extra vegetables instead of extra pork, noodles on the side — a restaurant that says yes to these requests without treating them as an inconvenience is signaling that the kitchen sees the broth and toppings as adjustable components, not a fixed recipe. That flexibility matters more for actual day-to-day healthy eating than any single ingredient does.</p>
+
+<h2>Two Real Restaurants Worth Checking</h2>
+<p>I'm not going to hand you a fabricated "healthiest in the country" superlative, but I can point to two verified, claimed listings on our directory where the owners have confirmed real vegan and vegetarian options, and that I'd personally check first if I were eating in their area:</p>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;color:#1E2026;margin:0 0 0.4rem;">Momonoki — Atlanta, GA</p>
+  <p style="color:#6B6862;margin:0 0 0.75rem;">A claimed, verified listing with confirmed vegan and vegetarian options alongside its regular menu — a real reason to check the menu before assuming it's tonkotsu-only.</p>
+  <a href="/atlanta/georgia/momonoki" style="color:#B57F50;text-decoration:underline;font-weight:600;margin-right:1rem;">View Listing</a>
+  <a href="/reviews/momonoki" style="color:#B57F50;text-decoration:underline;font-weight:600;">Read Reviews</a>
+</div>
+
+<div style="background:#F5F4F0;border:1px solid rgba(181,127,80,0.25);border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
+  <p style="font-weight:700;color:#1E2026;margin:0 0 0.4rem;">Ikedo Ramen — Port Washington, NY</p>
+  <p style="color:#6B6862;margin:0 0 0.75rem;">Another claimed, verified listing with real vegan and vegetarian bowls on the menu, worth checking if you're on Long Island and want a lighter option without giving up a proper ramen shop experience.</p>
+  <a href="/port-washington/new-york/ikedo-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;margin-right:1rem;">View Listing</a>
+  <a href="/reviews/ikedo-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Read Reviews</a>
+</div>
+
+<p>I'm calling these out as restaurants worth checking for these specific, verifiable options — not as an unsubstantiated claim that they're "the healthiest ramen restaurants in America." That distinction matters to me, and it should matter to you too when you're reading any "healthiest X" list online.</p>
+
+<h2>How to Find One Near You</h2>
+<p>Rather than trusting a list, I'd use a filtered search and read the actual menu and reviews yourself. Our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">Find Ramen Near Me</a> map lets you filter directly by <a href="/find/vegan-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">vegan</a>, <a href="/find/vegetarian-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">vegetarian</a>, <a href="/find/gluten-free-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">gluten-free</a>, and <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">light &amp; clean</a> options in your area, so you can check for these five signals yourself before you go.</p>
+
+<h2>My Actual Takeaway</h2>
+<p>"Healthiest ramen restaurant" isn't a title anyone can hand out with real authority, and I'd be skeptical of any source that claims otherwise. What you can do is judge a restaurant the way I do: read the broth descriptions, check whether vegetables and plant-based options are a real part of the menu, see if a lighter broth style is available, and ask the kitchen if they'll customize a bowl. Apply that checklist to any ramen restaurant near you, and you'll make a better decision than any generic ranking could give you.</p>`,
+  outroContent: `<p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-are-ramen-noodles-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are Ramen Noodles Made Of?</a>, <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Healthier Than Pasta?</a>, and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Are the Healthiest Noodles You Can Eat?</a> Or browse restaurants directly on <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">our search map</a>.</p>`,
+})

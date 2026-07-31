@@ -7,11 +7,18 @@ export type TocHeading = { id: string; text: string }
 //
 // Returns the (possibly rewritten) html alongside the headings — always render
 // the returned html, not the original, or the generated anchors won't exist.
+// Older posts hand-rolled their own "Quick Navigation" pill-link block inline.
+// Every post now gets the same numbered table of contents below, so this strips
+// the old hand-rolled block out rather than rendering both.
+const QUICK_NAV_RE = /<div[^>]*>\s*<p[^>]*>Quick Navigation<\/p>\s*<div[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi
+
 export function extractToc(html: string): { headings: TocHeading[]; html: string } {
   const headings: TocHeading[] = []
   const used = new Set<string>()
 
-  const out = html.replace(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi, (match, attrs: string, inner: string) => {
+  const cleaned = html.replace(QUICK_NAV_RE, '')
+
+  const out = cleaned.replace(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi, (match, attrs: string, inner: string) => {
     // Heading text with any nested markup (links, <em>, …) stripped out.
     const text = inner.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
     if (!text) return match

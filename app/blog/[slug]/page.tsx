@@ -135,12 +135,13 @@ export default async function BlogPostPage({ params }: Props) {
   // photo for the handful of posts that don't have a real headerImage set.
   const headerImage = post.headerImage ?? pickStockPhoto(post.slug)
 
-  // Table of contents built from the post's own H2s. This also stamps ids onto
-  // headings that lack one, so render tocHtml (not post.content) below.
+  // Table of contents built from the post's own H2s. This also strips any old
+  // hand-rolled "Quick Navigation" block and stamps ids onto headings that lack
+  // one, so every post gets the same numbered TOC and render tocHtml (not
+  // post.content) below.
   const { headings, html: tocHtml } = extractToc(post.content)
-  // Skip the auto TOC on short posts, and on the ~26 posts that already hand-roll
-  // their own "Quick Navigation" block, so they don't end up with two.
-  const showToc = headings.length >= 3 && !post.content.includes('Quick Navigation')
+  // Skip only on short posts that don't have enough headings for a TOC to help.
+  const showToc = headings.length >= 3
 
   // Two in-article ads, spread evenly through the body copy.
   const contentParts = splitHtmlForAds(tocHtml, 2)
@@ -213,7 +214,8 @@ export default async function BlogPostPage({ params }: Props) {
       )}
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className={hasCards ? 'max-w-7xl mx-auto' : 'max-w-2xl mx-auto'}>
+        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
+        <div className={hasCards ? '' : 'max-w-2xl'}>
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
             <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
@@ -364,6 +366,19 @@ export default async function BlogPostPage({ params }: Props) {
               Browse Ramen Restaurants →
             </Link>
           </div>
+        </div>
+
+          {/* Side rail — reserved space/dimensions for a sticky sidebar ad,
+              desktop only (below lg the ad units already run inline in the
+              article body). */}
+          <aside className="hidden lg:block sticky top-24 w-[300px] shrink-0 space-y-6 self-start">
+            <div className="min-h-[250px]">
+              <AdUnit />
+            </div>
+            <div className="min-h-[600px]">
+              <AdUnit />
+            </div>
+          </aside>
         </div>
       </main>
       <Footer />
