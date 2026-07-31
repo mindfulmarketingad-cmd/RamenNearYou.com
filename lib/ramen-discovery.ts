@@ -7,6 +7,7 @@ import { getReviewSlug } from './reviews'
 import { BOWL_META, MOOD_META, FEATURE_META, FEATURE_AMENITY_FIELD, type MapPoint } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from './state-lookups'
 import { getSupplementListings } from './places-supplements'
+import { phoRestaurants } from './pho'
 import { getAllFeaturedSlugs } from './featured-city'
 import { getAllVerifiedSlugs } from './verified-listings'
 import capitalsRaw from './places-capital-supplements.json'
@@ -74,6 +75,39 @@ function supplementMapPoints(): MapPoint[] {
     }
   }
   return points
+}
+
+// Pho listings ride on the same map as ramen but carry `pho: 1`, which drives
+// the green pin and the Pho filter chip. They link to /partners/{slug} rather
+// than the ramen /{city}/{state}/{slug} route, and they are never treated as
+// DB ramen rows (supp: 1 keeps saves/reviews off them).
+function phoMapPoints(): MapPoint[] {
+  return phoRestaurants
+    .filter(p => p.latitude && p.longitude)
+    .map(p => {
+      const amenities = FEATURE_META
+        .filter(f => (p.amenities as Record<string, boolean> | undefined)?.[FEATURE_AMENITY_FIELD[f.key]] === true)
+        .map(f => f.key)
+      return {
+        name: p.name,
+        slug: p.slug,
+        citySlug: p.citySlug,
+        stateSlug: STATE_CODE_TO_SLUG[p.stateCode] ?? '',
+        city: p.city,
+        stateCode: p.stateCode,
+        zip: p.postalCode || undefined,
+        latitude: round5(p.latitude),
+        longitude: round5(p.longitude),
+        rating: p.rating,
+        reviewCount: p.reviewCount ?? 0,
+        photo: p.photo || undefined,
+        hours: p.hours ?? undefined,
+        amenities: amenities.length > 0 ? amenities : undefined,
+        website: p.website || undefined,
+        supp: 1 as const,
+        pho: 1 as const,
+      }
+    })
 }
 
 function txt(r: Restaurant): string {
@@ -154,5 +188,5 @@ export async function computeMapData(): Promise<MapPoint[]> {
       }
     })
 
-  return [...dbPoints, ...supplementMapPoints()]
+  return [...dbPoints, ...supplementMapPoints(), ...phoMapPoints()]
 }

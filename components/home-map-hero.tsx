@@ -22,7 +22,7 @@ import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
   BOWL_META, BOWL_BY_KEY, MOOD_META, MOOD_BY_KEY, PRICE_META,
   FEATURE_META, FEATURE_KEYS, FEATURE_BY_KEY, MISC_FLAG_BY_KEY, matchesPrice,
-  mapPointReviewSlug, mapPointMapsUrl, priceRangeLabel,
+  mapPointReviewSlug, mapPointMapsUrl, mapPointHref, priceRangeLabel,
   type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
 
@@ -40,6 +40,7 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 // and the per-section active-filter counts in the filter panel share one
 // source of truth.
 const CUISINE_DIETARY_META = [
+  { key: 'pho', emoji: '🍲', label: 'Pho' },
   { key: 'ramen-sushi', emoji: '🍣', label: 'Ramen + Sushi' },
   { key: 'sushi', emoji: '🍣', label: 'Sushi' },
   { key: 'lo-mein', emoji: '🍝', label: 'Lo Mein' },
@@ -742,6 +743,9 @@ export default function HomeMapHero({
         if (flags.has('kagoshima') && !/kagoshima/i.test(r.name)) return false
         if (flags.has('hakata') && !/hakata/i.test(r.name)) return false
         if (flags.has('champon') && !/champon/i.test(r.name)) return false
+        // "Pho" — Vietnamese pho listings, flagged explicitly in the data
+        // rather than guessed from the name.
+        if (flags.has('pho') && !r.pho) return false
         // "Sushi" — sushi bars and Japanese spots likely to serve sushi.
         if (flags.has('sushi') && !/sushi|sashimi|nigiri|omakase/i.test(r.name)) return false
         // "Lo Mein" — Chinese restaurants/noodle houses likely to serve lo mein.
@@ -973,7 +977,7 @@ export default function HomeMapHero({
     // RestaurantListingPage at the same /{city}/{state}/{slug}
     // URL), so cards always link internally. isSupp still gates
     // the Save button below (saves are keyed to DB slugs only).
-    const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+    const internalUrl = mapPointHref(r)
     const rSlugReview = mapPointReviewSlug(r)
     // Order Online / Reserve A Table both send the visitor to the restaurant's
     // own site. Roughly 14% of DB listings — and every Google Places supplement,
@@ -1641,7 +1645,7 @@ export default function HomeMapHero({
               chips before committing to the full listing page. */}
           {mapOnly && selectedRestaurant && (() => {
             const r = selectedRestaurant
-            const internalUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+            const internalUrl = mapPointHref(r)
             const directionsUrl = buildDirectionsUrl(r, userPos)
             const isSupp = !!r.supp
             const rSlugReview = mapPointReviewSlug(r)

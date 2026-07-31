@@ -1,6 +1,8 @@
 import { FIND_PAGES } from '@/components/find-cross-links'
 import { getFindCityParams } from '@/lib/find-city'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
+import { getNeighborhoodParams } from '@/lib/neighborhoods'
+import { getPhoCityParams } from '@/lib/pho'
 import { SITEMAP_BASE_URL, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
 // Every /find page: the filter/broth/brand/"near me" pages, the per-city
@@ -39,6 +41,22 @@ export async function GET() {
     }))
   )
 
+  // Curated neighborhood pages (/find/ramen-restaurants-{hood}-{state})
+  const neighborhoodPages: SitemapEntry[] = getNeighborhoodParams().map((param) => ({
+    url: `${SITEMAP_BASE_URL}/find/${param}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }))
+
+  // Pho city pages (/find/pho-restaurants-{city}-{state})
+  const phoCityPages: SitemapEntry[] = getPhoCityParams().map((param) => ({
+    url: `${SITEMAP_BASE_URL}/find/${param}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }))
+
   const entries: SitemapEntry[] = [
     {
       url: `${SITEMAP_BASE_URL}/find`,
@@ -48,6 +66,8 @@ export async function GET() {
     },
     ...findFilterPages,
     ...findCityPages,
+    ...neighborhoodPages,
+    ...phoCityPages,
     ...modifierFindPages,
   ]
 

@@ -21,6 +21,8 @@ import { matchModifier, FIND_MODIFIERS } from '@/lib/find-modifiers'
 import ModifierCityFindPage from '@/components/modifier-city-find-page'
 import { matchNeighborhood, getNeighborhoodParams, getNeighborhoodRestaurants, neighborhoodStateName, getNeighborhoodsForCity, neighborhoodParam } from '@/lib/neighborhoods'
 import NeighborhoodFindPage from '@/components/neighborhood-find-page'
+import { matchPhoCity, getPhoCityParams, getNearbyPhoCities, phoCityParam } from '@/lib/pho'
+import PhoCityFindPage from '@/components/pho-city-find-page'
 import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
@@ -41,13 +43,31 @@ export async function generateStaticParams() {
   // {broth}-in-{city}-{state} modifier variants (8 per city, ~11k pages) render
   // on demand and cache via ISR (dynamicParams defaults to true) — keeping the
   // build from ballooning.
-  return [...getFindCityParams(), ...getNeighborhoodParams().map(cityState => ({ cityState }))]
+  return [
+    ...getFindCityParams(),
+    ...getNeighborhoodParams().map(cityState => ({ cityState })),
+    ...getPhoCityParams().map(cityState => ({ cityState })),
+  ]
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cityState: string }> }
 ): Promise<Metadata> {
   const { cityState } = await params
+
+  // Pho city page (e.g. pho-restaurants-atlanta-ga)
+  const phoCity = matchPhoCity(cityState)
+  if (phoCity) {
+    const count = phoCity.listings.length
+    const title = `Pho Restaurants in ${phoCity.cityName} ${phoCity.stateCode}`
+    const description = `There ${count === 1 ? 'is' : 'are'} ${count} pho ${count === 1 ? 'restaurant' : 'restaurants'} in ${phoCity.cityName} ${phoCity.stateName}`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
 
   // Neighborhood page (e.g. ramen-restaurants-midtown-ga)
   const hood = matchNeighborhood(cityState)
@@ -121,6 +141,16 @@ export default async function CityFindPage(
   { params }: { params: Promise<{ cityState: string }> }
 ) {
   const { cityState } = await params
+
+  // Pho city page (e.g. pho-restaurants-atlanta-ga) — rendered by the shared
+  // PhoCityFindPage. Lives in this catch-all for the same reason as the
+  // modifier and neighborhood pages below: Next does not support partial
+  // dynamic route segments.
+  const phoCity = matchPhoCity(cityState)
+  if (phoCity) {
+    const nearby = getNearbyPhoCities(phoCity.citySlug, phoCity.stateCode)
+    return <PhoCityFindPage city={phoCity} nearbyCities={nearby} />
+  }
 
   // Neighborhood page (e.g. ramen-restaurants-midtown-ga) — rendered by the
   // shared NeighborhoodFindPage. Lives in this catch-all for the same reason
@@ -196,6 +226,8 @@ export default async function CityFindPage(
   const majorCity = getMajorCity(citySlug, stateSlug)
   const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug) : []
   const cityNeighborhoods = getNeighborhoodsForCity(citySlug, stateCode)
+  // Real pho city page for this exact city+state, if we have one.
+  const cityPhoParam = getPhoCityParams().includes(phoCityParam(citySlug, stateCode)) ? phoCityParam(citySlug, stateCode) : null
   const brothFilterLinks = filterLinks.filter(l => l.group === 'broth')
   const dietFilterLinks = filterLinks.filter(l => l.group === 'diet')
 
@@ -501,6 +533,21 @@ export default async function CityFindPage(
                     </Link>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Pho page for this city, if we track any pho restaurants here */}
+            {cityPhoParam && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                  Looking for Pho Instead?
+                </h2>
+                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                  We also track pho restaurants in {cityName} on a separate map —{' '}
+                  <Link href={`/find/${cityPhoParam}`} className="text-[#96602F] hover:underline">
+                    pho restaurants in {cityName}, {stateCode}
+                  </Link>.
+                </p>
               </div>
             )}
 

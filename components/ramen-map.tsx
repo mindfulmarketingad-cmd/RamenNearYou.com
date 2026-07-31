@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import type { MatchedChip } from '@/lib/ramen-taxonomy'
+import { PHO_PIN_HEX, mapPointHref, type MatchedChip } from '@/lib/ramen-taxonomy'
 
 // Structural subset of a restaurant the map needs — satisfied by both the full
 // Restaurant type (/searchmap) and the slim MapPoint type (homepage hero).
@@ -21,6 +21,7 @@ export type MapRestaurant = {
   website?: string        // restaurant's own website (DB entries only)
   featured?: boolean      // promoted listing — gold pin, shown above the rest
   claimed?: boolean       // approved ownership claim — blue pin (unless also featured)
+  pho?: 1                 // Vietnamese pho listing — green pin, links to /partners/{slug}
   matchedChips?: MatchedChip[] // active filters this result satisfied — shown as colored badges in the popup
 }
 
@@ -44,8 +45,11 @@ const BOUNCE_CSS = `
 .leaflet-control-zoom { margin-bottom: 64px !important; }
 `
 
-function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false, featured = false, claimed = false) {
+function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'hover', accent = '#B57F50', visited = false, featured = false, claimed = false, pho = false) {
   const label = rating ? rating.toFixed(1) : '?'
+  // Pho listings always render green so the cuisine reads at a glance,
+  // regardless of which bowl filter is tinting the ramen pins.
+  if (pho) accent = PHO_PIN_HEX
   // Featured listings get a gold gradient pin that stands out from the rest;
   // claimed/verified listings (that aren't also featured) get blue instead
   // of the default brand color, so a verified business stands out on the map.
@@ -57,7 +61,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
   const raised = isActive || isHover
   const bg = featured
     ? 'linear-gradient(135deg,#f5b301,#d4880b)'
-    : claimed
+    : claimed && !pho
       ? (raised ? shade('#2563eb', -18) : '#2563eb')
       : raised ? shade(accent, -18) : accent
   const border = featured ? '2.5px solid #fff7e0' : raised ? '2.5px solid white' : '2px solid white'
@@ -65,7 +69,7 @@ function makeRatingIcon(rating: number | null, state: 'default' | 'active' | 'ho
     ? '0 3px 14px rgba(212,136,11,0.75)'
     : isHover
       ? `0 6px 18px rgba(0,0,0,0.45), 0 0 0 3px ${hexToRgba(claimed ? '#2563eb' : accent, 0.35)}`
-      : claimed
+      : claimed && !pho
         ? '0 2px 8px rgba(37,99,235,0.5)'
         : isActive
           ? `0 3px 12px ${hexToRgba(accent, 0.75)}`
@@ -183,6 +187,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const ratingsRef = useRef<Record<string, number | null>>({})
   const featuredRef = useRef<Record<string, boolean>>({})
   const claimedRef = useRef<Record<string, boolean>>({})
+  const phoRef = useRef<Record<string, boolean>>({})
   const heatLayerRef = useRef<L.LayerGroup | null>(null)
   const boundaryRef = useRef<L.GeoJSON | null>(null)
   const userCircleRef = useRef<L.Circle | null>(null)
@@ -329,20 +334,22 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     ratingsRef.current = {}
     featuredRef.current = {}
     claimedRef.current = {}
+    phoRef.current = {}
 
     if (heatmap) return // heatmap layer handles visualization instead
 
     restaurants.forEach((r) => {
       if (!r.latitude || !r.longitude) return
       const state = r.slug === selectedSlug ? 'active' : 'default'
-      const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured, r.claimed)
+      const icon = makeRatingIcon(r.rating, state, accentColor, visitedSlugs?.has(r.slug), r.featured, r.claimed, !!r.pho)
       ratingsRef.current[r.slug] = r.rating
       featuredRef.current[r.slug] = !!r.featured
       claimedRef.current[r.slug] = !!r.claimed
+      phoRef.current[r.slug] = !!r.pho
 
       // Every restaurant — DB or Google Places supplement — has its own
       // internal detail page, so the popup always links there.
-      const siteUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+      const siteUrl = mapPointHref(r)
       const linkTarget = '_self'
 
       const chipsHtml = (r.matchedChips ?? []).length > 0
@@ -478,7 +485,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   useEffect(() => {
     if (!ready || !mapRef.current || !selectedSlug) return
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
-      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === selectedSlug ? 'active' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug]))
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, slug === selectedSlug ? 'active' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug], phoRef.current[slug]))
     })
     const active = markersRef.current[selectedSlug]
     if (active) {
@@ -494,7 +501,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     Object.entries(markersRef.current).forEach(([slug, marker]) => {
       if (slug === selectedSlug) return // active marker takes priority
       const isHover = slug === hoveredSlug
-      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, isHover ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug]))
+      marker.setIcon(makeRatingIcon(ratingsRef.current[slug] ?? null, isHover ? 'hover' : 'default', accentColor, visitedSlugs?.has(slug), featuredRef.current[slug], claimedRef.current[slug], phoRef.current[slug]))
       const base = featuredRef.current[slug] ? 10000 : claimedRef.current[slug] ? 5000 : 0
       marker.setZIndexOffset(isHover ? 20000 : base)
     })

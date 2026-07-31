@@ -93,6 +93,7 @@ export const MISC_FLAG_META: ChipMeta[] = [
   { key: 'shokku', label: 'Shokku', emoji: '⚡', hex: '#ca8a04' },
   { key: 'sushi', label: 'Sushi', emoji: '🍣', hex: '#0891b2' },
   { key: 'lo-mein', label: 'Lo Mein', emoji: '🍝', hex: '#b45309' },
+  { key: 'pho', label: 'Pho', emoji: '🍲', hex: '#16a34a' },
 ]
 
 export const MISC_FLAG_BY_KEY: Record<string, ChipMeta> = Object.fromEntries(MISC_FLAG_META.map(f => [f.key, f]))
@@ -134,6 +135,17 @@ export type MapPoint = {
                           // entries only — when absent on a DB entry, use `slug`)
   featured?: boolean      // promoted listing — pinned first with a Featured badge
   claimed?: boolean       // has an approved ownership claim — shows "Claimed" instead of a CTA
+  pho?: 1                 // Vietnamese pho listing (lives at /partners/{slug},
+                          // rendered with a green pin instead of the ramen accent)
+}
+
+// Pho pins are green so they read as a distinct cuisine at a glance on a map
+// that is otherwise all ramen.
+export const PHO_PIN_HEX = '#16a34a'
+
+/** Detail-page URL for a map point — pho listings live under /partners. */
+export function mapPointHref(p: MapPoint): string {
+  return p.pho ? `/partners/${p.slug}` : `/${p.citySlug}/${p.stateSlug}/${p.slug}`
 }
 
 // The /reviews page slug for a map point: DB entries always have a review

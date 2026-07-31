@@ -4,6 +4,7 @@ import { getAllComparisons } from '@/lib/broth-comparisons'
 import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
 import { getAllRecipes } from '@/lib/recipes'
 import { blogPosts } from '@/lib/blog-posts'
+import { getAllPhoSlugs } from '@/lib/pho'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
@@ -111,6 +112,14 @@ export async function GET() {
       priority: 0.5,
     }))
 
+  // Pho partner listings (/partners/{slug})
+  const phoPages: SitemapEntry[] = getAllPhoSlugs().map((slug) => ({
+    url: `${SITEMAP_BASE_URL}/partners/${slug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
   const staticPages: SitemapEntry[] = [
     { url: SITEMAP_BASE_URL, lastModified: LAST_CONTENT, changeFrequency: 'daily', priority: 1.0 },
     { url: `${SITEMAP_BASE_URL}/cities`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.9 },
@@ -128,6 +137,7 @@ export async function GET() {
     { url: `${SITEMAP_BASE_URL}/collections/ramen-cookers`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/faq`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/reviews`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITEMAP_BASE_URL}/partners`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/about`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.5 },
     { url: `${SITEMAP_BASE_URL}/contact`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${SITEMAP_BASE_URL}/privacy-policy`, lastModified: SITE_LAUNCH, changeFrequency: 'yearly', priority: 0.3 },
@@ -149,6 +159,7 @@ export async function GET() {
     ...reviewPages,
     ...recipePages,
     ...blogPostPages,
+    ...phoPages,
   ]
 
   return xmlResponse(buildUrlsetXml(entries))

@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 export const FIND_PAGES = [
   { href: '/find/best-ramen-near-me', label: 'Best Ramen Near Me', emoji: '🏆' },
+  { href: '/find/pho-restaurants', label: 'Pho Restaurants Near Me', emoji: '🍲' },
   { href: '/find/top-rated-ramen', label: 'Top Rated Ramen Near Me', emoji: '⭐' },
   { href: '/find/ramen-open-now', label: 'Ramen Open Now Near Me', emoji: '🟢' },
   { href: '/find/ramen-open-late', label: 'Ramen Open Late Near Me', emoji: '🌙' },
