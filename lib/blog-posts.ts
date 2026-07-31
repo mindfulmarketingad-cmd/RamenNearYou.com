@@ -23305,3 +23305,285 @@ blogPosts.push({
 
 <p style="color:#6B6862;">Explore the rest of the series: <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is Pho Made Of?</a>, <a href="/blog/is-pho-healthy" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Healthy?</a>, <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">Are Pho and Ramen the Same?</a>, <a href="/blog/what-is-the-difference-between-pho-and-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Difference Between Pho and Ramen?</a>, <a href="/blog/is-pho-better-than-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Pho Better Than Ramen?</a>, <a href="/blog/is-ramen-better-than-pho" style="color:#B57F50;text-decoration:underline;font-weight:600;">Is Ramen Better Than Pho?</a>, and <a href="/blog/what-is-the-spiciest-pho-in-the-world" style="color:#B57F50;text-decoration:underline;font-weight:600;">What Is the Spiciest Pho in the World?</a> Or find a bowl near you on our <a href="/find/pho-restaurants" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho search map</a>.</p>`,
 })
+
+blogPosts.push({
+  slug: 'is-ramen-good-for-weight-loss',
+  title: 'Is Ramen Good for Weight Loss?',
+  description: 'Is ramen good for weight loss? It can be, if you choose a lighter broth, control the noodle portion, and add protein and vegetables. Here is exactly how ramen fits — or does not fit — into a weight-loss diet.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>Ramen can support weight loss when you choose a lighter broth (shio or shoyu over tonkotsu), order or make a half-noodle portion, and load the bowl with lean protein and vegetables — a bowl built that way can land at 350-450 calories with real satiety. A standard tonkotsu bowl with full noodles and a fatty broth, or a deep-fried instant ramen packet, works against a calorie deficit far more easily, often running 550-700 calories or more with less protein per calorie than the lighter version.</strong> Ramen is not automatically a diet food or automatically a diet-breaker — the format is genuinely flexible, and which bowl you build determines which category it falls into.</p>
+
+<p>I've spent a lot of time helping people fit ramen into an actual weight-loss plan rather than telling them to avoid it, and the honest answer is that the soup format itself works in your favor more than most people expect.</p>
+
+<h2>Why the soup format actually helps</h2>
+<p>Soups have a real, measured effect on satiety that dry foods with the same calorie count don't reliably produce. Broth adds volume and weight to a meal without adding many calories, and the combination of warm liquid plus solid food tends to slow eating pace, which gives your body more time to register fullness before you've overeaten. Several studies on soup-first meals have found people eat fewer total calories across the whole meal when it starts with a broth-based course. Ramen, eaten slowly with the broth as part of the meal rather than rushed, gets some of that same benefit built in.</p>
+
+<h2>Where the calories actually come from</h2>
+<p>In a typical ramen bowl, the noodles are the single largest calorie source — a full portion (roughly 200-250g cooked) can run 300-400 calories on its own before broth, fat, or toppings. The broth itself contributes calories mainly through fat: a light shio or shoyu broth is much leaner than a tonkotsu broth, which is deliberately boiled hard enough to emulsify pork fat and collagen into the liquid. Chashu pork belly, extra oil drizzles, and rich tare all add further calories that a leaner bowl skips.</p>
+
+<h2>How to build a weight-loss-friendly bowl</h2>
+<ul>
+<li><strong>Choose shio or shoyu over tonkotsu or a rich miso.</strong> The clear broths carry meaningfully less fat.</li>
+<li><strong>Ask for or make a half-noodle portion</strong> and fill the rest of the bowl with extra vegetables — bok choy, mushrooms, bean sprouts, scallions — which add volume and fiber for very few calories.</li>
+<li><strong>Add lean protein.</strong> Grilled chicken, tofu, or a modest amount of chashu (not a double portion) rounds out the meal without a large calorie penalty.</li>
+<li><strong>Add an egg.</strong> A soft-boiled ajitama adds roughly 70-80 calories and real protein, which supports satiety far better than the same calories from noodles.</li>
+<li><strong>Don't finish all the broth if you're also watching sodium</strong> — most bowls run 1,500-2,500mg, and while sodium itself doesn't directly cause weight gain, high-sodium meals can cause temporary water retention that muddies the scale.</li>
+</ul>
+
+<h2>Instant ramen is a different calculation</h2>
+<p>Instant noodles are deep-fried during manufacturing to preserve shelf life, which adds roughly 150-300 calories of fat per serving compared to fresh or dried (non-fried) noodles — before you even add the seasoning packet. That makes instant ramen a meaningfully worse starting point for a weight-loss-focused meal than restaurant-style ramen, purely because of the frying step, not because of the noodle itself. If instant ramen is what you have access to, adding a scrambled egg and a handful of frozen vegetables while using only half the seasoning packet meaningfully improves the nutritional profile without changing the format.</p>
+
+<h2>Ramen versus other "diet" options</h2>
+<p>A well-built shio or shoyu ramen with extra vegetables and lean protein often compares favorably to what people assume is the lighter choice — a fast-casual grain bowl can carry a similar or higher calorie and sodium count while delivering less protein. The soup format is doing real work here: broth-based meals consistently rate higher for fullness per calorie than dry-plated meals of equivalent calorie count. That doesn't make ramen a weight-loss superfood, but it does mean it's not the automatic diet-breaker its reputation suggests.</p>
+
+<h2>What to skip if weight loss is the goal</h2>
+<p>Tonkotsu bowls with extra chashu and a rich tare, tsukemen (which typically uses a larger, denser noodle portion and a concentrated dipping broth), and instant ramen eaten with the full seasoning packet and no added protein are the three formats working hardest against a calorie deficit. None of them are off-limits occasionally — the issue is frequency and portion, the same as with any calorie-dense comfort food.</p>
+
+<h2>My actual takeaway</h2>
+<p>Ramen fits into a weight-loss plan the same way pasta, rice, or any other carbohydrate-forward dish does: the specific bowl matters far more than the category. Build it around a lighter broth, a controlled noodle portion, and real protein and vegetables, and it's a satisfying, reasonably light meal. Order or make the rich, fully-loaded version regularly, and it works against you the same way any calorie-dense dish would. For the deeper comparison to other carbs, see <a href="/blog/is-ramen-healthier-than-pasta" style="color:#B57F50;text-decoration:underline;font-weight:600;">is ramen healthier than pasta</a> and <a href="/blog/what-are-the-healthiest-noodles-you-can-eat" style="color:#B57F50;text-decoration:underline;font-weight:600;">the healthiest noodles you can eat</a>. If you're managing a specific condition alongside weight, <a href="/blog/best-ramen-for-diabetics" style="color:#B57F50;text-decoration:underline;font-weight:600;">is ramen good for diabetics</a> and <a href="/blog/best-ramen-for-high-blood-pressure" style="color:#B57F50;text-decoration:underline;font-weight:600;">best ramen for high blood pressure</a> cover those cases directly.</p>
+
+<p>Ready to find a lighter bowl near you? The <a href="/find/light-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">Light & Clean Ramen Near Me</a> map filters directly for it.</p>
+
+<h2>Frequently Asked Questions</h2>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Can I eat ramen every day and still lose weight?</h3>
+<p>Eating rich, full-portion ramen daily makes a calorie deficit harder to maintain, mainly due to noodle and broth-fat calories. A lighter shio or shoyu bowl with controlled portions, eaten daily, is more workable, but variety in your diet is generally a better long-term strategy than eating any single dish every day.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is ramen broth fattening?</h3>
+<p>It depends on the style. Tonkotsu broth is deliberately boiled to emulsify pork fat and collagen, making it the most calorie-dense broth style. Shio and shoyu broths are much lighter, carrying far less fat per serving.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is it better to skip the noodles in ramen for weight loss?</h3>
+<p>Reducing rather than eliminating the noodles is usually the better approach — a half portion still delivers the dish's core experience while cutting a meaningful share of the calories. Replacing them entirely with shirataki (konjac) noodles is an option if you want to reduce carbohydrates further.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Can I eat ramen every day and still lose weight?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Eating rich, full-portion ramen daily makes a calorie deficit harder to maintain, mainly due to noodle and broth-fat calories. A lighter shio or shoyu bowl with controlled portions, eaten daily, is more workable, but variety in your diet is generally a better long-term strategy than eating any single dish every day.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is ramen broth fattening?',
+          acceptedAnswer: { '@type': 'Answer', text: 'It depends on the style. Tonkotsu broth is deliberately boiled to emulsify pork fat and collagen, making it the most calorie-dense broth style. Shio and shoyu broths are much lighter, carrying far less fat per serving.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it better to skip the noodles in ramen for weight loss?',
+          acceptedAnswer: { '@type': 'Answer', text: "Reducing rather than eliminating the noodles is usually the better approach — a half portion still delivers the dish's core experience while cutting a meaningful share of the calories. Replacing them entirely with shirataki (konjac) noodles is an option if you want to reduce carbohydrates further." },
+        }
+    ],
+  },
+})
+
+
+blogPosts.push({
+  slug: 'best-ramen-for-high-blood-pressure',
+  title: 'Best Ramen for High Blood Pressure and Hypertension',
+  description: 'The best ramen for high blood pressure is a low-sodium, broth-light bowl — shio or shoyu, half broth consumed, extra vegetables, and no added table salt. Here is exactly what to order and what to avoid if you have hypertension.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Health & Nutrition',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Maya Chen', avatar: '/authors/maya-chen.svg' },
+  content: `<p><strong>The best ramen for high blood pressure is a clear, lighter-sodium broth style — shio or shoyu over miso or tonkotsu — with only half the broth actually consumed, extra vegetables, lean protein, and no added table salt, soy sauce, or extra tare at the table.</strong> Sodium is the single most important lever for blood pressure management, and it lives almost entirely in the broth: a standard restaurant bowl can carry 1,500-2,500mg of sodium, most of which comes from the liquid rather than the noodles or toppings. Managed with the adjustments below, ramen can fit into a hypertension-conscious diet; ordered and eaten by default, it's one of the higher-sodium restaurant meals available.</p>
+
+<p>Type 2 diabetes and hypertension co-occur in a large share of patients, and I've written about ramen for both conditions because the core adjustments overlap heavily — sodium control matters as much as carbohydrate control, and often more.</p>
+
+<h2>Why ramen broth is a blood-pressure concern</h2>
+<p>Sodium raises blood pressure by causing the body to retain more fluid, which increases the volume of blood your heart has to move and the pressure on your artery walls. A single bowl of restaurant ramen can deliver most or all of a day's recommended sodium intake (the American Heart Association's ideal limit is 1,500mg/day for most adults with hypertension) in one sitting. The broth itself — not the noodles, not the toppings — is where the overwhelming majority of that sodium sits, since it's built from a concentrated tare (seasoning base) dissolved into a large volume of liquid you're meant to drink.</p>
+
+<h2>The best ramen styles for hypertension, ranked</h2>
+<p><strong>1. Shio (salt) ramen, ordered light.</strong> Despite the name, shio is generally the clearest and least heavily seasoned of the major broth styles — ask if the kitchen can go light on the tare, and you have the lowest-sodium starting point on the menu.</p>
+<p><strong>2. Chicken-based shoyu or paitan.</strong> Leaner than pork-based broths and typically a notch lower in sodium than a fully seasoned miso bowl, though still meaningful — drinking half the broth matters here too.</p>
+<p><strong>3. Vegetable or mushroom-dashi based ramen.</strong> Often lower in added sodium than meat-based tare, and the mushroom umami means less salt is needed to make the broth taste satisfying.</p>
+<p><strong>4. Miso ramen — order with caution.</strong> Fermented soybean paste is inherently high in sodium on top of the tare, making miso one of the saltier broth styles even before you add anything at the table.</p>
+<p><strong>5. Tonkotsu — the one to approach most carefully.</strong> Rich pork-bone broths are typically seasoned assertively to balance the fat, and combined with the fat itself, tonkotsu tends to be both the highest-sodium and highest-calorie standard broth style.</p>
+
+<h2>Five ordering rules for blood pressure control</h2>
+<p><strong>One:</strong> ask the kitchen for lighter tare if the shop makes bowls to order — many will accommodate this, especially for shio and shoyu bowls. <strong>Two:</strong> drink a quarter to half the broth, not all of it — this alone can cut the sodium you actually consume roughly in half. <strong>Three:</strong> skip the table condiments — extra soy sauce, chili oil with salt, and pickled toppings all add sodium on top of an already-seasoned bowl. <strong>Four:</strong> add unsalted or lightly salted toppings — a plain soft-boiled egg, fresh vegetables, and unseasoned protein don't compound the problem. <strong>Five:</strong> balance the rest of your day — if you know you're having ramen for dinner, keep sodium lower at other meals so your daily total stays reasonable.</p>
+
+<h2>What to avoid entirely if you're managing hypertension seriously</h2>
+<p>Instant ramen with the full seasoning packet is the single worst option — seasoning packets are commonly 60-80% sodium by weight, and a full packet alone can approach or exceed a full day's sodium target for someone on a restricted diet. Tsukemen's concentrated dipping broth is also worth approaching cautiously, since the broth is deliberately built more intensely seasoned to compensate for not coating the noodles directly. If you want a genuinely lower-sodium instant option, our <a href="/blog/best-low-sodium-instant-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">5 best low sodium instant ramen picks</a> covers brands running 390-860mg per serving instead of the standard 1,500mg+.</p>
+
+<h2>The overlap with diabetes management</h2>
+<p>If you're managing hypertension alongside type 2 diabetes — a very common combination — both carbohydrate load and sodium need attention at the same meal. The noodle-portion adjustments (half noodles, added protein and vegetables) that help blood sugar and the sodium adjustments above are fully compatible and can be applied to the same bowl. See <a href="/blog/best-ramen-for-diabetics" style="color:#B57F50;text-decoration:underline;font-weight:600;">best ramen for diabetics</a> for the full carbohydrate-focused breakdown.</p>
+
+<h2>Building a low-sodium bowl at home</h2>
+<p>Cooking at home gives you full control, which restaurant ordering can't fully replicate. Build your broth from a low-sodium chicken or vegetable stock plus fresh aromatics (ginger, garlic, scallion, kombu) rather than a bouillon cube or store-bought tare, and season to taste gradually rather than adding a full packet of concentrate upfront. You'll typically land well under 800mg of sodium per bowl this way, even with a genuinely flavorful result.</p>
+
+<h2>My actual takeaway</h2>
+<p>Ramen is not automatically off the table for someone managing high blood pressure, but the default restaurant bowl is genuinely one of the saltier common meals available, and it deserves the same attention you'd give a very salty entrée anywhere else. Choose shio or shoyu, drink half the broth, skip the table condiments, and ramen becomes a manageable part of a hypertension-conscious diet rather than a single-meal sodium problem.</p>
+
+<p><em>This is general information, not medical advice. Talk to your doctor or a registered dietitian about how sodium fits into your individual blood pressure management plan.</em></p>
+
+<h2>Frequently Asked Questions</h2>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">How much sodium is in a typical bowl of ramen?</h3>
+<p>A standard restaurant ramen bowl, broth included, commonly contains 1,500-2,500mg of sodium if you drink all of it. Most of that sodium is in the broth rather than the noodles or toppings.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Does drinking less broth actually lower the sodium I consume?</h3>
+<p>Yes. Since the overwhelming majority of a ramen bowl's sodium is dissolved in the liquid, drinking a quarter to half of the broth rather than all of it meaningfully reduces the sodium you actually take in, even though the noodles and toppings stay the same.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is miso ramen bad for blood pressure?</h3>
+<p>Miso ramen tends to run saltier than shio or shoyu because fermented soybean paste is itself sodium-dense, on top of the seasoning base. It isn't off-limits, but it's the broth style worth the most caution if you're managing hypertension closely.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How much sodium is in a typical bowl of ramen?',
+          acceptedAnswer: { '@type': 'Answer', text: 'A standard restaurant ramen bowl, broth included, commonly contains 1,500-2,500mg of sodium if you drink all of it. Most of that sodium is in the broth rather than the noodles or toppings.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does drinking less broth actually lower the sodium I consume?',
+          acceptedAnswer: { '@type': 'Answer', text: "Yes. Since the overwhelming majority of a ramen bowl's sodium is dissolved in the liquid, drinking a quarter to half of the broth rather than all of it meaningfully reduces the sodium you actually take in, even though the noodles and toppings stay the same." },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is miso ramen bad for blood pressure?',
+          acceptedAnswer: { '@type': 'Answer', text: "Miso ramen tends to run saltier than shio or shoyu because fermented soybean paste is itself sodium-dense, on top of the seasoning base. It isn't off-limits, but it's the broth style worth the most caution if you're managing hypertension closely." },
+        }
+    ],
+  },
+})
+
+
+blogPosts.push({
+  slug: 'how-long-does-ramen-last-in-the-fridge',
+  title: 'How Long Does Ramen Last in the Fridge?',
+  description: 'How long does ramen last in the fridge? Cooked ramen noodles and broth keep 3-4 days refrigerated when stored separately; combined, the noodles degrade within a day. Unopened instant ramen lasts months. Here is exactly how to store and reheat it.',
+  date: 'July 31, 2026',
+  readTime: '5 min read',
+  category: 'Cooking Tips',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p><strong>Cooked ramen broth and noodles last 3-4 days in the refrigerator when stored in separate airtight containers, which is how I recommend storing leftovers every time.</strong> If the noodles and broth are stored already combined, the noodles keep absorbing liquid and go soft within about 24 hours, so plan to eat that version the next day at the latest. Unopened dry or instant ramen noodles last 6-12 months past printing thanks to their low moisture content, and unopened seasoning packets last even longer. Fresh (never dried) ramen noodles, unopened, typically last 1-2 weeks in the fridge or several months in the freezer.</p>
+
+<p>This comes up constantly, whether you're storing restaurant leftovers or meal-prepping a batch of homemade ramen, so here's exactly how each component behaves and how to store it properly.</p>
+
+<h2>Why broth and noodles need to be stored separately</h2>
+<p>Ramen noodles are essentially a sponge for the broth they sit in — they keep absorbing liquid as long as they're in contact with it, whether the whole thing is hot or cold. Left combined in the fridge, noodles that were perfectly springy at dinner will be bloated and mushy within a day, even though the broth and toppings are still perfectly fine to eat for several more days. Separating them the moment you're done eating is the single most effective thing you can do to extend how good your leftovers actually taste.</p>
+
+<h2>How long each component lasts, stored separately</h2>
+<ul>
+<li><strong>Broth alone:</strong> 3-4 days refrigerated in an airtight container; up to 3 months frozen. Broth freezes exceptionally well since it's mostly liquid — pour it into a freezer-safe container or bag, leaving room to expand.</li>
+<li><strong>Cooked noodles alone:</strong> 3-5 days refrigerated in an airtight container, tossed lightly with a little oil to prevent sticking. Cooked noodles don't freeze well — they turn mushy and lose their bite when thawed, so freezing is not recommended.</li>
+<li><strong>Chashu pork or other cooked protein:</strong> 3-4 days refrigerated; 2-3 months frozen.</li>
+<li><strong>Soft-boiled or marinated eggs (ajitama):</strong> 3-4 days refrigerated in the marinade, in the shell or peeled. The yolk continues to firm up slowly over that time, so they're best within the first 2 days for that ideal jammy texture.</li>
+<li><strong>Fresh vegetables and garnishes (scallions, bean sprouts, mushrooms):</strong> best added fresh at reheating time rather than stored in the broth, where they'll go limp; stored dry and separate, most last 3-5 days.</li>
+</ul>
+
+<h2>How long unopened ramen lasts</h2>
+<p>Instant ramen (the fried, dried block with a seasoning packet) is shelf-stable for 6-12 months past the printed date due to its very low moisture content from the frying process — it's genuinely one of the longer-lasting pantry foods, though flavor and texture do slowly decline well before it becomes unsafe. Fresh, never-fried ramen noodles (the kind sold refrigerated at Japanese or Asian grocery stores) last 1-2 weeks unopened in the fridge, or several months in the freezer if you won't use them soon. Dried (non-instant) ramen noodles behave similarly to dry pasta and last well over a year in a sealed package.</p>
+
+<h2>How to reheat ramen without ruining it</h2>
+<p>Reheat the broth and noodles separately whenever possible. Bring the broth back to a simmer on the stove (microwaving works but tends to heat unevenly), then either add the cold noodles directly into the hot broth for 30-60 seconds just to warm them through, or briefly dunk them in a pot of freshly boiling water for 15-20 seconds before draining and adding to the reheated broth. Add any fresh garnishes — scallions, bean sprouts, a fresh egg — at the very end, after everything is combined and hot. This two-step reheat is the difference between leftovers that taste nearly as good as the original bowl and a soggy, muted version of it.</p>
+
+<h2>How to tell if ramen has gone bad</h2>
+<p>Broth that's gone off will typically smell noticeably sour or off rather than savory, and may show small bubbles or a cloudy film if bacterial growth has started — either sign means it should be discarded rather than reheated and eaten. Cooked noodles that have been stored too long turn slimy rather than simply soft, which is a different and more concerning texture than the normal softening from broth absorption. When in doubt with any refrigerated cooked food, the general food-safety guidance is: after 4 days, when uncertain, throw it out.</p>
+
+<h2>Ordering ramen for takeout with storage in mind</h2>
+<p>If you're getting ramen delivered or as takeout and know you won't finish it, ask the restaurant to pack the broth, noodles, and toppings in separate containers before you even leave — many kitchens that care about quality already do this by default. That single request means your leftovers reheat properly instead of arriving pre-combined and already partway to mushy by the time you get home. I go through this in more detail in <a href="/find/ramen-takeout" style="color:#B57F50;text-decoration:underline;font-weight:600;">ramen takeout</a>.</p>
+
+<h2>My actual takeaway</h2>
+<p>The rule that matters most: separate broth from noodles the moment you're done eating, refrigerate both in airtight containers, and reheat them separately too. Do that, and 3-4 day-old ramen broth with freshly reheated noodles tastes remarkably close to the night you made it — combined storage is really the only mistake that meaningfully ruins leftover ramen.</p>
+
+<h2>Frequently Asked Questions</h2>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Can you freeze ramen broth?</h3>
+<p>Yes — ramen broth freezes well for up to 3 months in an airtight, freezer-safe container. Leave some room at the top since liquid expands as it freezes.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Can you freeze cooked ramen noodles?</h3>
+<p>It's not recommended. Cooked noodles turn mushy and lose their springy texture when frozen and thawed. If you want to freeze a ramen meal, freeze the broth, protein, and any sauces, and cook fresh noodles when you're ready to eat.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">How long does restaurant ramen last as leftovers?</h3>
+<p>If the restaurant packed the broth, noodles, and toppings separately, each keeps for 3-4 days refrigerated using the same guidelines as homemade ramen. If everything arrived combined in one container, the noodles will already be softening within a day, so eat it the next day for the best texture.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Can you freeze ramen broth?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes — ramen broth freezes well for up to 3 months in an airtight, freezer-safe container. Leave some room at the top since liquid expands as it freezes.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can you freeze cooked ramen noodles?',
+          acceptedAnswer: { '@type': 'Answer', text: "It's not recommended. Cooked noodles turn mushy and lose their springy texture when frozen and thawed. If you want to freeze a ramen meal, freeze the broth, protein, and any sauces, and cook fresh noodles when you're ready to eat." },
+        },
+        {
+          '@type': 'Question',
+          name: 'How long does restaurant ramen last as leftovers?',
+          acceptedAnswer: { '@type': 'Answer', text: 'If the restaurant packed the broth, noodles, and toppings separately, each keeps for 3-4 days refrigerated using the same guidelines as homemade ramen. If everything arrived combined in one container, the noodles will already be softening within a day, so eat it the next day for the best texture.' },
+        }
+    ],
+  },
+})
+
+
+blogPosts.push({
+  slug: 'ramen-vs-udon-whats-the-difference',
+  title: 'Ramen vs. Udon: What\'s the Difference?',
+  description: 'Ramen vs. udon: the noodles, broth, and origin are all different. Ramen uses thin alkaline wheat noodles from Chinese-derived roots; udon uses thick, chewy wheat noodles native to Japan in a simpler dashi broth. Here\'s the full comparison.',
+  date: 'July 31, 2026',
+  readTime: '6 min read',
+  category: 'Comparisons',
+  headerImage: '/images/hero-ramen.jpg',
+  author: { name: 'Jackson Hewitt', avatar: '/authors/jackson-hewitt.svg' },
+  content: `<p><strong>The core difference between ramen and udon is the noodle: ramen uses thin, springy wheat noodles made alkaline with kansui, giving them a yellow tint and distinctive bite, while udon uses thick, chewy white wheat noodles made with just flour, water, and salt — no kansui at all.</strong> Ramen's origins trace to Chinese wheat-noodle dishes adapted in Japan over the 20th century, while udon is a native Japanese noodle with roots going back over a thousand years. The broths differ too: ramen broth ranges from light to rich and is almost always built with a separate concentrated tare, while udon broth is typically a simpler, lighter dashi (kombu and bonito flake stock) seasoned directly with soy sauce and mirin.</p>
+
+<p>I get this comparison question constantly from people who've had both and liked both but couldn't quite articulate why they felt so different. The differences are actually very clear once you break down each component.</p>
+
+<h2>The noodles: the biggest difference</h2>
+<p>Ramen noodles are made from wheat flour and water treated with kansui, an alkaline mineral water (a mix of sodium carbonate and potassium carbonate) that does three things: turns the dough slightly yellow, gives it a firm, springy, elastic bite, and imparts a subtle flavor and aroma distinct from any other noodle. Ramen noodles are typically thin to medium in width, though thickness varies by regional style.</p>
+<p>Udon noodles are made from just wheat flour, water, and salt — no alkaline treatment. They're thick, usually square or slightly rounded in cross-section, and have a soft, chewy, almost bouncy texture that's completely different from ramen's springiness. The dough is traditionally kneaded by foot (historically, wrapped in a cloth and stepped on) to develop the gluten structure that gives udon its characteristic chew.</p>
+
+<h2>The broth: rich and varied versus simple and clean</h2>
+<p>Ramen broth covers enormous range — <a href="/blog/what-is-tonkotsu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">tonkotsu</a> (pork bone, emulsified until milky), <a href="/blog/what-is-shoyu-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shoyu</a> (soy-based), <a href="/blog/what-is-shio-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">shio</a> (salt-based), and <a href="/blog/what-is-miso-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">miso</a> (fermented soybean paste) are the four major styles, each built on a long-simmered stock combined with a separately made tare. Udon broth is far more standardized: a dashi stock from kombu (kelp) and katsuobushi (dried bonito flakes), seasoned simply with soy sauce, mirin, and salt. It's generally lighter, clearer, and less assertive than most ramen broths, letting the noodle itself take center stage rather than a complex, engineered broth.</p>
+
+<h2>Origins and history</h2>
+<p>Udon has been part of Japanese cuisine for over a thousand years, with several regions — Sanuki (Kagawa Prefecture), Kansai, and others — developing their own distinct styles and broth traditions over centuries. Ramen is a far more recent arrival, emerging from Chinese immigrant communities in Japan in the late 19th and early 20th centuries and only becoming the nationally standardized, endlessly varied dish it is today after World War II, when wheat became more available and ramen carts and shops proliferated rapidly. Udon is native; ramen is an adapted import that Japan made distinctly its own.</p>
+
+<h2>Toppings and serving style</h2>
+<p>Ramen toppings are relatively standardized across shops: chashu pork, ajitama (marinated soft-boiled egg), menma (fermented bamboo shoots), nori, scallions, and often corn or butter in regional variants. Udon toppings vary more by preparation: kitsune udon comes with sweet fried tofu (aburaage), tempura udon with shrimp or vegetable tempura, curry udon in a Japanese curry-based broth, and zaru udon served cold with a dipping sauce rather than in hot broth at all. Udon is also more commonly served cold in summer than ramen is, which stays a hot-broth dish nearly year-round.</p>
+
+<h2>Which is richer, and which is lighter?</h2>
+<p>As a category, ramen skews richer — even shio and shoyu, the lighter ramen styles, are typically more seasoned and often fattier than a standard udon broth. Udon, especially a classic kake udon (noodles in plain dashi broth), is one of the lighter, cleaner noodle-soup options in Japanese cuisine, closer in weight to <a href="/blog/what-is-pho-made-of" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho</a> than to ramen. If you're comparing the two for a lighter meal, udon in its simplest form usually wins on that specific metric.</p>
+
+<h2>Which should you order?</h2>
+<p>If you want a complex, engineered broth with substantial toppings and a springy, distinctive noodle, order ramen. If you want a simpler, cleaner dashi broth that lets a thick, chewy noodle be the star of the dish, order udon. Neither is objectively better — they're built around different ideas of what a noodle soup should do. Many Japanese restaurants in the US serve both, so it's worth trying them side by side to see which noodle texture and broth weight you actually prefer.</p>
+
+<h2>My actual takeaway</h2>
+<p>Ramen and udon get lumped together constantly because both are Japanese wheat-noodle soups, but the noodle itself — kansui-treated and springy versus plain and chewy — is different enough that they barely compete for the same craving. I reach for ramen when I want something rich and involved, and udon when I want something simpler and lighter. If you're building out your noodle-soup vocabulary further, our <a href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" style="color:#B57F50;text-decoration:underline;font-weight:600;">4 types of ramen guide</a> and <a href="/blog/are-pho-and-ramen-the-same" style="color:#B57F50;text-decoration:underline;font-weight:600;">pho vs. ramen comparison</a> cover the other major noodle-soup families worth knowing.</p>
+
+<p>Looking for ramen near you? Our <a href="/find" style="color:#B57F50;text-decoration:underline;font-weight:600;">search map</a> covers thousands of restaurants across the country.</p>
+
+<h2>Frequently Asked Questions</h2>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Is udon healthier than ramen?</h3>
+<p>A simple udon in plain dashi broth is generally lighter than most ramen styles, since ramen broths tend to be more heavily seasoned and, in styles like tonkotsu, meaningfully fattier. Once toppings like tempura or a rich curry broth get added to udon, that gap narrows considerably.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Can you substitute udon noodles for ramen noodles?</h3>
+<p>You can, but the dish changes character significantly — udon's thick, chewy texture and neutral flavor are quite different from ramen noodles' springy bite and subtle kansui flavor, and udon won't hold a rich tonkotsu broth the same way. It works better as its own dish than as a direct substitute.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;">Are ramen and udon noodles made the same way?</h3>
+<p>No. Ramen noodles are made with kansui, an alkaline mineral water that gives them their yellow tint and springy texture. Udon noodles use only wheat flour, water, and salt, with no alkaline treatment, giving them a softer, thicker, chewier bite.</p>`,
+  additionalSchema: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is udon healthier than ramen?',
+          acceptedAnswer: { '@type': 'Answer', text: 'A simple udon in plain dashi broth is generally lighter than most ramen styles, since ramen broths tend to be more heavily seasoned and, in styles like tonkotsu, meaningfully fattier. Once toppings like tempura or a rich curry broth get added to udon, that gap narrows considerably.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can you substitute udon noodles for ramen noodles?',
+          acceptedAnswer: { '@type': 'Answer', text: "You can, but the dish changes character significantly — udon's thick, chewy texture and neutral flavor are quite different from ramen noodles' springy bite and subtle kansui flavor, and udon won't hold a rich tonkotsu broth the same way. It works better as its own dish than as a direct substitute." },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are ramen and udon noodles made the same way?',
+          acceptedAnswer: { '@type': 'Answer', text: 'No. Ramen noodles are made with kansui, an alkaline mineral water that gives them their yellow tint and springy texture. Udon noodles use only wheat flour, water, and salt, with no alkaline treatment, giving them a softer, thicker, chewier bite.' },
+        }
+    ],
+  },
+})
