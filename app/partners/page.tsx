@@ -25,7 +25,7 @@ export default async function PartnersPage() {
         <div className="max-w-6xl mx-auto">
           <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">Partners</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">
-            All Ramen Restaurants in USA
+            Ramen Restaurant Locator
           </h1>
           <p className="text-[#6B6862] text-sm max-w-2xl mb-8">
             Search or filter to find your restaurant, then claim your free listing to update your hours,

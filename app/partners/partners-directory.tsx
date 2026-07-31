@@ -239,12 +239,14 @@ export default function PartnersDirectory() {
                     <Fragment key={`${r.citySlug}-${r.stateSlug}-${r.slug}-${i}`}>
                       <tr className="border-b border-black/5 last:border-0 hover:bg-black/[0.02]">
                         <td className="px-4 py-3 align-top">
-                          <Link
-                            href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                            className="font-semibold text-[#1E2026] hover:text-[#96602F] transition-colors"
-                          >
-                            {r.name}
-                          </Link>
+                          <h4 className="font-semibold text-[#1E2026] text-sm leading-tight m-0">
+                            <Link
+                              href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                              className="hover:text-[#96602F] transition-colors"
+                            >
+                              {r.name}
+                            </Link>
+                          </h4>
                           <p className="text-[#6B6862] text-xs mt-0.5">{r.city}, {r.stateCode}</p>
                         </td>
                         <td className="px-4 py-3 align-top whitespace-nowrap">
