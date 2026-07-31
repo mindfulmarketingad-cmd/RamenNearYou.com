@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
+import RestaurantImage from '@/components/restaurant-image'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import { phoCityParam } from '@/lib/pho'
 import { pickStockPhoto } from '@/lib/stock-photos'
@@ -90,7 +91,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
               </header>
 
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8 bg-[#F5F4F0]">
-                <Image src={headerImage} alt={`Ramen in ${cityName}, ${stateCode}`} fill className="object-cover" priority unoptimized />
+                <RestaurantImage src={headerImage} alt={`Ramen in ${cityName}, ${stateCode}`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 900px" priority />
               </div>
 
               {/* Table of contents */}
@@ -131,11 +132,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                     <article key={r.slug} id={r.slug} className="scroll-mt-24 bg-white rounded-2xl border border-black/5 overflow-hidden">
                       <div className="flex flex-col sm:flex-row">
                         <div className="relative w-full sm:w-56 shrink-0 h-48 sm:h-auto bg-[#F5F4F0]">
-                          {r.photo ? (
-                            <Image src={r.photo} alt={r.name} fill className="object-cover" unoptimized />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-[#ECEAE4] text-[#96602F] font-serif text-3xl font-bold">#{i + 1}</div>
-                          )}
+                          <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 224px" />
                           <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-[#B57F50] flex items-center justify-center text-white text-sm font-bold shadow">
                             {i + 1}
                           </div>
