@@ -19,6 +19,8 @@ import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
 import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
 import { matchModifier, FIND_MODIFIERS } from '@/lib/find-modifiers'
 import ModifierCityFindPage from '@/components/modifier-city-find-page'
+import { matchNeighborhood, getNeighborhoodParams, getNeighborhoodRestaurants, neighborhoodStateName, getNeighborhoodsForCity, neighborhoodParam } from '@/lib/neighborhoods'
+import NeighborhoodFindPage from '@/components/neighborhood-find-page'
 import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
@@ -35,16 +37,32 @@ function parseParam(cityState: string): { citySlug: string; stateCode: string } 
 const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
 
 export async function generateStaticParams() {
-  // Pre-render only the base city pages. The {broth}-in-{city}-{state} modifier
-  // variants (8 per city, ~11k pages) render on demand and cache via ISR
-  // (dynamicParams defaults to true) — keeping the build from ballooning.
-  return getFindCityParams()
+  // Pre-render the base city pages plus the curated neighborhood pages. The
+  // {broth}-in-{city}-{state} modifier variants (8 per city, ~11k pages) render
+  // on demand and cache via ISR (dynamicParams defaults to true) — keeping the
+  // build from ballooning.
+  return [...getFindCityParams(), ...getNeighborhoodParams().map(cityState => ({ cityState }))]
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cityState: string }> }
 ): Promise<Metadata> {
   const { cityState } = await params
+
+  // Neighborhood page (e.g. ramen-restaurants-midtown-ga)
+  const hood = matchNeighborhood(cityState)
+  if (hood) {
+    const stateName = neighborhoodStateName(hood)
+    const count = getNeighborhoodRestaurants(hood).length
+    const title = `Ramen Restaurants in ${hood.name}`
+    const description = `There are ${count} ramen restaurants in ${hood.name} ${stateName}`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
 
   // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx)
   const mod = matchModifier(cityState)
@@ -103,6 +121,13 @@ export default async function CityFindPage(
   { params }: { params: Promise<{ cityState: string }> }
 ) {
   const { cityState } = await params
+
+  // Neighborhood page (e.g. ramen-restaurants-midtown-ga) — rendered by the
+  // shared NeighborhoodFindPage. Lives in this catch-all for the same reason
+  // as the modifier pages below: Next does not support partial dynamic
+  // route segments.
+  const hood = matchNeighborhood(cityState)
+  if (hood) return <NeighborhoodFindPage hood={hood} />
 
   // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx) — rendered by the shared
   // ModifierCityFindPage. Lives in this catch-all because Next does not support
@@ -170,6 +195,7 @@ export default async function CityFindPage(
   // /{city}/{state}/tonkotsu-ramen — so they have a real inbound link.
   const majorCity = getMajorCity(citySlug, stateSlug)
   const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug) : []
+  const cityNeighborhoods = getNeighborhoodsForCity(citySlug, stateCode)
   const brothFilterLinks = filterLinks.filter(l => l.group === 'broth')
   const dietFilterLinks = filterLinks.filter(l => l.group === 'diet')
 
@@ -451,6 +477,30 @@ export default async function CityFindPage(
                     ))}
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Curated neighborhood pages for this city */}
+            {cityNeighborhoods.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                  Ramen by Neighborhood in {cityName}
+                </h2>
+                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                  Looking for something closer to a specific part of town? These neighborhood pages only show
+                  restaurants actually near that area:
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  {cityNeighborhoods.map(n => (
+                    <Link
+                      key={n.slug}
+                      href={`/find/${neighborhoodParam(n)}`}
+                      className="text-sm text-[#96602F] hover:underline"
+                    >
+                      Ramen in {n.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 
