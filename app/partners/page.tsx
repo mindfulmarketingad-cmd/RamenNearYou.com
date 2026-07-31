@@ -1,8 +1,6 @@
-import { redirect } from 'next/navigation'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PartnersDirectory from './partners-directory'
-import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'All Ramen Restaurants in USA',
@@ -10,14 +8,7 @@ export const metadata = {
   alternates: { canonical: 'https://www.ramennearyou.com/partners' },
 }
 
-// The full partner directory is a signed-in feature — send logged-out
-// visitors to the login screen and bring them straight back afterwards.
-export default async function PartnersPage() {
-  const supabase = await createClient()
-  if (!supabase) redirect('/auth/login?redirectTo=/partners')
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login?redirectTo=/partners')
-
+export default function PartnersPage() {
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
       <Navbar />
