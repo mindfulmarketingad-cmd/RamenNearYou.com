@@ -7,6 +7,7 @@ import BlogSearch from './blog-search'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { blogPosts } from '@/lib/blog-posts'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
+import { getCityListicleEntries } from '@/lib/city-listicles'
 
 export const metadata: Metadata = {
   title: 'Ramen Blog — Recipes, Tips & Guides',
@@ -61,6 +62,13 @@ function getGroups() {
 
 export default function BlogPage() {
   const groups = getGroups()
+  const cityListicles = getCityListicleEntries()
+  // Cap the browsable group so the page doesn't dump hundreds of links into
+  // one flat list; the full set is still searchable via extraSearchPages.
+  const cityListicleGroups = [
+    ...groups,
+    { heading: 'Best Ramen by City', pages: cityListicles.slice(0, 20).map(({ href, label }) => ({ href, label })) },
+  ]
 
   return (
     <main className="min-h-screen bg-[#F5F4F0]">
@@ -79,7 +87,7 @@ export default function BlogPage() {
           Recipes, city guides, cooking tips, health guides and everything else about ramen culture.
         </p>
 
-        <BlogSearch groups={groups} />
+        <BlogSearch groups={cityListicleGroups} extraSearchPages={cityListicles.map(({ href, label }) => ({ href, label }))} />
       </div>
       <Footer />
     </main>

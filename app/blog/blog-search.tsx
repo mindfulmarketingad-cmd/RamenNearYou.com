@@ -7,18 +7,23 @@ import { Search, X } from 'lucide-react'
 type BlogPage = { href: string; label: string }
 type BlogGroup = { heading: string; pages: BlogPage[] }
 
-export default function BlogSearch({ groups }: { groups: BlogGroup[] }) {
+export default function BlogSearch({ groups, extraSearchPages = [] }: { groups: BlogGroup[]; extraSearchPages?: BlogPage[] }) {
   const [q, setQ] = useState('')
   const query = q.trim().toLowerCase()
 
   const results = useMemo(() => {
     if (!query) return null
-    return groups.flatMap((g) =>
+    const fromGroups = groups.flatMap((g) =>
       g.pages
         .filter((p) => p.label.toLowerCase().includes(query))
         .map((p) => ({ ...p, group: g.heading })),
     )
-  }, [query, groups])
+    const fromExtra = extraSearchPages
+      .filter((p) => p.label.toLowerCase().includes(query))
+      .map((p) => ({ ...p, group: 'Best Ramen by City' }))
+      .slice(0, 150)
+    return [...fromGroups, ...fromExtra]
+  }, [query, groups, extraSearchPages])
 
   return (
     <>

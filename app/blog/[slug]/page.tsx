@@ -18,20 +18,38 @@ import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { pickStockPhoto } from '@/lib/stock-photos'
+import { getCityListicleParams, matchCityListicle } from '@/lib/city-listicles'
+import CityRamenListicle from './city-ramen-listicle'
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return blogPosts
-    .filter((post) => !CITY_GUIDE_REDIRECTS[post.slug])
-    .map((post) => ({ slug: post.slug }))
+  return [
+    ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
+    ...getCityListicleParams().map((slug) => ({ slug })),
+  ]
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   if (CITY_GUIDE_REDIRECTS[slug]) return {}
+
+  const cityListicle = matchCityListicle(slug)
+  if (cityListicle) {
+    const { cityName, stateCode, totalCount } = cityListicle
+    const title = `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
+    const description = `The 5 highest-rated ramen restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} ramen spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: { title, description, type: 'article', url },
+    }
+  }
+
   const post = getBlogPost(slug)
   if (!post) return {}
   const url = `https://www.ramennearyou.com/blog/${post.slug}`
@@ -128,6 +146,54 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
   if (CITY_GUIDE_REDIRECTS[slug]) permanentRedirect(CITY_GUIDE_REDIRECTS[slug])
+
+  const cityListicle = matchCityListicle(slug)
+  if (cityListicle) {
+    const title = `5 Best Ramen Restaurants in ${cityListicle.cityName}, ${cityListicle.stateCode}`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: title,
+      itemListElement: cityListicle.top5.map((r, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Restaurant',
+          name: r.name,
+          url: `https://www.ramennearyou.com/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: r.street || undefined,
+            addressLocality: r.city,
+            addressRegion: r.stateCode,
+            postalCode: r.postalCode || undefined,
+            addressCountry: 'US',
+          },
+          ...(r.rating != null && r.reviewCount > 0
+            ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: r.rating, reviewCount: r.reviewCount, bestRating: 5, worstRating: 1 } }
+            : {}),
+        },
+      })),
+    }
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.ramennearyou.com/blog' },
+        { '@type': 'ListItem', position: 3, name: title, item: url },
+      ],
+    }
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <CityRamenListicle city={cityListicle} />
+      </>
+    )
+  }
+
   const post = getBlogPost(slug)
   if (!post) notFound()
 
