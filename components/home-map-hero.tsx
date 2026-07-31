@@ -245,7 +245,7 @@ export default function HomeMapHero({
   initialPrices = [],
   initialCenter,
   initialQuery = '',
-  pageTitle = 'Find Ramen Near You',
+  pageTitle = 'Find Ramen Near Me | Ramen Map',
   pageDescription = 'Search the map by bowl, mood, price, and hours — then find your best bowl right now.',
   regionBoundary,
   maxDistanceMiles,

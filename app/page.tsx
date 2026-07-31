@@ -3,6 +3,7 @@ import Navbar from '@/components/navbar'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import FeaturedListings from '@/components/featured-listings'
+import ClaimedShowcase from '@/components/claimed-showcase'
 import FilterShowcase from '@/components/filter-showcase'
 import SearchMapShowcase from '@/components/searchmap-showcase'
 import ServiceDirectory from '@/components/service-directory'
@@ -59,6 +60,7 @@ export default function HomePage() {
         </ErrorBoundary>
 
         <div className="relative z-10 bg-white">
+          <ClaimedShowcase />
           <FilterShowcase />
           <SearchMapShowcase />
           <UgcGrid />
