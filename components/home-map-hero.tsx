@@ -1329,9 +1329,7 @@ export default function HomeMapHero({
             <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
 
             <button
-              // Filtering is a signed-in feature — a logged-out click opens the
-              // login gate instead of the panel.
-              onClick={(e) => { if (!requireAuth(e)) return; setShowFilters(v => !v) }}
+              onClick={() => setShowFilters(v => !v)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                 showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}

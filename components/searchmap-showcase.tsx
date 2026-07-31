@@ -4,11 +4,16 @@ import { Search, MapPin, SlidersHorizontal, Bookmark, Navigation, Heart, Plus, M
 // A faithful static recreation of the live search map UI — used as a homepage
 // showcase under the filters section. Mirrors the real /#map experience:
 // a results sidebar (search, count, listing cards) beside a map with rating pins.
-
+//
+// Names/cities/ratings below are illustrative placeholders, not real
+// businesses — this is a static mockup that can't reflect a restaurant's
+// actual current rating, hours, or featured status, so it must never use a
+// real restaurant's name or it will end up silently misrepresenting them
+// (e.g. showing "Featured" long after a real listing's promotion ended).
 const LISTINGS = [
-  { name: 'Ikedo Ramen', city: 'Port Washington, NY', rating: '4.7', price: '$$', open: true, dist: '1105.9 mi', featured: true },
-  { name: 'Momi Ramen', city: 'Miami, FL', rating: '3.8', price: '$$', open: false, dist: '', featured: false },
-  { name: 'Momi Ramen', city: 'Hialeah, FL', rating: '3.8', price: '$$', open: false, dist: '', featured: false },
+  { name: 'Sakura Ramen House', city: 'Riverdale, NY', rating: '4.7', price: '$$', open: true, dist: '1.2 mi', featured: true },
+  { name: 'Noodle & Broth Co.', city: 'Maple Heights, FL', rating: '3.8', price: '$$', open: false, dist: '', featured: false },
+  { name: 'Umami Ramen Bar', city: 'Lakeview, FL', rating: '3.8', price: '$$', open: false, dist: '', featured: false },
 ]
 
 // Rating pins scattered across the faux map (percent positions).
