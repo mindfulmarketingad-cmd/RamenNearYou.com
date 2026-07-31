@@ -8,19 +8,23 @@ import { createClient } from '@/lib/supabase/server'
 import { getRestaurant } from '@/lib/restaurants'
 import { findSupplementListing, supplementToRestaurant } from '@/lib/places-supplements'
 import { getPhoBySlug, phoToRestaurant } from '@/lib/pho'
+import { getMiscPartnerBySlug } from '@/lib/misc-partners'
 
 export default async function ClaimPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
   // Not every listing on the map/partners table has a DB row — Google
-  // Places-supplement listings and pho listings are just as claimable, each
-  // adapted into the same Restaurant shape the rest of this page expects.
+  // Places-supplement listings, pho listings, and misc partner listings are
+  // all just as claimable, each adapted into the same Restaurant shape the
+  // rest of this page expects.
   const dbr = getRestaurant(city, state, restaurant)
   const sup = !dbr ? findSupplementListing(city, state, restaurant) : null
   const pho = !dbr && !sup ? getPhoBySlug(restaurant) : null
-  const r = dbr ?? (sup ? supplementToRestaurant(sup) : null) ?? (pho ? phoToRestaurant(pho) : null)
+  const misc = !dbr && !sup && !pho ? getMiscPartnerBySlug(restaurant) : null
+  const r = dbr ?? (sup ? supplementToRestaurant(sup) : null) ?? (pho ? phoToRestaurant(pho) : null) ?? misc
   if (!r) notFound()
-  // Pho listings live at /partners/{slug} rather than /{city}/{state}/{slug}.
-  const backHref = pho ? `/partners/${pho.slug}` : `/${city}/${state}/${restaurant}`
+  // Pho and misc partner listings live at /partners/{slug} rather than
+  // /{city}/{state}/{slug}.
+  const backHref = pho ? `/partners/${pho.slug}` : misc ? `/partners/${misc.slug}` : `/${city}/${state}/${restaurant}`
 
   const supabase = await createClient()
   if (!supabase) redirect(`/auth/login?redirectTo=/claim/${city}/${state}/${restaurant}`)

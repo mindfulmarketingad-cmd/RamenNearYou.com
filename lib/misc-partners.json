@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Old Sacramento Waterfront",
+    "slug": "old-sacramento-waterfront",
+    "citySlug": "sacramento",
+    "stateSlug": "california",
+    "phone": "+1 916-970-5226",
+    "website": "http://www.oldsacramento.com/",
+    "address": "1014 2nd St #200, Sacramento, CA 95814",
+    "street": "1014 2nd St #200",
+    "city": "Sacramento",
+    "county": "Old Sacramento",
+    "state": "California",
+    "stateCode": "CA",
+    "postalCode": "95814",
+    "latitude": 38.5825775,
+    "longitude": -121.5044442,
+    "rating": 4.6,
+    "reviewCount": 28937,
+    "reviewsPerScore": {
+      "1": 222,
+      "2": 335,
+      "3": 1749,
+      "4": 6387,
+      "5": 20244
+    },
+    "photosCount": 86855,
+    "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFAOFnG579skBqdNtFbVkps1zEHi-F5USxKsf2o14pjHA-Y_sFyLyE0on4ayXou0ntPrZbK1skloLFYnKk6CMaNnTDlF2VZDNP2HQTDKx-wzybVY0dJ2GRUiZxCFI7OdgGson8rIg=w800-h500-k-no",
+    "logo": "https://lh3.googleusercontent.com/-sHXmx_1-sVU/AAAAAAAAAAI/AAAAAAAAAAA/--ODPGeGdnI/s44-p-k-no-ns-nd/photo.jpg",
+    "businessStatus": "OPERATIONAL",
+    "hours": {
+      "Monday": [
+        "Open 24 hours"
+      ],
+      "Tuesday": [
+        "Open 24 hours"
+      ],
+      "Wednesday": [
+        "Open 24 hours"
+      ],
+      "Thursday": [
+        "Open 24 hours"
+      ],
+      "Friday": [
+        "Open 24 hours"
+      ],
+      "Saturday": [
+        "Open 24 hours"
+      ],
+      "Sunday": [
+        "Open 24 hours"
+      ]
+    },
+    "priceRange": "",
+    "description": "Founded in the 1960s, this 28-acre area has a visitor center, museums & a variety of history tours.",
+    "menuLink": "",
+    "orderLinks": "",
+    "googleMapsLink": "https://www.google.com/maps/place/Old+Sacramento+Waterfront/@38.5825775,-121.5044442,14z/data=!4m8!1m2!2m1!1sOld+Sacramento+Waterfront!3m4!1s0x809ad6cd12b0facb:0xd3b02d5f6ddf7470!8m2!3d38.5825775!4d-121.5044442",
+    "placeId": "ChIJy_qwEs3WmoARcHTfbV8tsNM",
+    "subtypes": "Historical landmark, Historical place museum, Restaurant, Shopping mall, Tourist attraction",
+    "amenities": {
+      "delivery": false,
+      "takeout": false,
+      "dineIn": true,
+      "outdoorSeating": false,
+      "alcohol": false,
+      "veganOptions": false,
+      "vegetarianOptions": false,
+      "acceptsReservations": false,
+      "wheelchairAccessible": true,
+      "casual": false,
+      "cozy": false,
+      "trendy": false,
+      "familyFriendly": false,
+      "parking": true,
+      "creditCards": true
+    }
+  }
+]

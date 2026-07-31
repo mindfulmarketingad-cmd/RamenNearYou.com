@@ -5,6 +5,7 @@ import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
 import { getAllRecipes } from '@/lib/recipes'
 import { blogPosts } from '@/lib/blog-posts'
 import { getAllPhoSlugs } from '@/lib/pho'
+import { getAllMiscPartnerSlugs } from '@/lib/misc-partners'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
@@ -112,8 +113,8 @@ export async function GET() {
       priority: 0.5,
     }))
 
-  // Pho partner listings (/partners/{slug})
-  const phoPages: SitemapEntry[] = getAllPhoSlugs().map((slug) => ({
+  // Pho and misc partner listings (/partners/{slug})
+  const phoPages: SitemapEntry[] = [...getAllPhoSlugs(), ...getAllMiscPartnerSlugs()].map((slug) => ({
     url: `${SITEMAP_BASE_URL}/partners/${slug}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'monthly',

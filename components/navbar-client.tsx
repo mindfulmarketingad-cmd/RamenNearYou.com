@@ -21,7 +21,7 @@ const NAV_LINKS = [
   { href: '/about', label: 'About' },
 ]
 
-export default function NavbarClient({ restaurantCount }: { restaurantCount?: number }) {
+export default function NavbarClient({ restaurantCount, phoCount }: { restaurantCount?: number; phoCount?: number }) {
   const router = useRouter()
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -162,6 +162,11 @@ export default function NavbarClient({ restaurantCount }: { restaurantCount?: nu
                 <span className="hidden lg:inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#96602F] text-[11px] font-semibold whitespace-nowrap">
                   <Flame className="w-3 h-3" />
                   {restaurantCount.toLocaleString()} Ramen Spots
+                </span>
+              )}
+              {typeof phoCount === 'number' && phoCount > 0 && (
+                <span className="hidden lg:inline-flex items-center gap-1 ml-1.5 px-2 py-0.5 rounded-full bg-[#16a34a]/10 border border-[#16a34a]/20 text-[#16a34a] text-[11px] font-semibold whitespace-nowrap">
+                  🍲 {phoCount.toLocaleString()} Pho Spots
                 </span>
               )}
             </Link>

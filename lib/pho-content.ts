@@ -403,3 +403,62 @@ export function buildPhoSections(p: PhoRestaurant): PhoSection[] {
 export function sectionWordCount(sections: PhoSection[]): number {
   return sections.reduce((n, s) => n + s.heading.split(/\s+/).length + s.paragraphs.reduce((m, p) => m + p.split(/\s+/).length, 0), 0)
 }
+
+// Generic editorial body for a /partners/{slug} page whose entry isn't a pho
+// restaurant — e.g. a DB row pulled out of the ramen dataset because it
+// turned out to be a landmark or mixed-use venue, not a ramen shop. Makes no
+// cuisine claims and skips every pho- or ramen-specific section; everything
+// below is derived from the same real fields buildPhoSections() uses.
+export function buildGenericPartnerSections(p: PhoRestaurant): PhoSection[] {
+  const sections: PhoSection[] = []
+  const where = `${p.city}, ${p.stateCode}`
+  const hf = hoursFacts(p)
+
+  {
+    const paras: string[] = []
+    const cats = (p.subtypes || '').split(',').map(s => s.trim()).filter(Boolean)
+    const typeLabel = cats[0] ? cats[0].toLowerCase() : 'listing'
+    let lead = `${esc(p.name)} is a ${esc(typeLabel)} in ${esc(where)}`
+    if (p.street) lead += `, located at ${esc(p.street)}`
+    lead += '.'
+    if (p.rating != null && p.reviewCount > 0) {
+      lead += ` It holds a ${p.rating.toFixed(1)}-star rating on Google across ${p.reviewCount.toLocaleString()} review${p.reviewCount === 1 ? '' : 's'}.`
+    }
+    paras.push(lead)
+
+    if (p.description) {
+      paras.push(`Google describes it this way: &ldquo;${esc(p.description)}&rdquo;`)
+    }
+    if (cats.length > 1) {
+      paras.push(`Google categorizes it under ${esc(list(cats.map(c => c.toLowerCase())))}.`)
+    }
+    sections.push({ id: 'overview', heading: `About ${esc(p.name)}`, paragraphs: paras })
+  }
+
+  if (hf) {
+    const paras: string[] = []
+    if (hf.closedDays.length > 0) {
+      paras.push(`${esc(p.name)} is open ${hf.openDays.length} day${hf.openDays.length === 1 ? '' : 's'} a week and closed on ${esc(list(hf.closedDays))}.`)
+    } else {
+      paras.push(`${esc(p.name)} is open all seven days of the week.`)
+    }
+    if (hf.earliestOpen !== null && hf.latestClose !== null) {
+      paras.push(`Hours run from about ${fmtMinutes(hf.earliestOpen)} at the earliest to ${fmtMinutes(hf.latestClose)} at the latest across the week.`)
+    }
+    sections.push({ id: 'hours', heading: 'Hours', paragraphs: paras })
+  }
+
+  {
+    const paras: string[] = []
+    let loc = `${esc(p.name)} is at ${esc(p.address || `${p.street}, ${where}`)}`
+    if (p.county) loc += `, in ${esc(p.county)}`
+    loc += '.'
+    paras.push(`${loc} The map on this page pins the exact location, and the address links straight to Google Maps driving directions.`)
+    if (p.phone) {
+      paras.push(`You can reach them at ${esc(p.phone)}.`)
+    }
+    sections.push({ id: 'location', heading: 'Location and Contact', paragraphs: paras })
+  }
+
+  return sections
+}

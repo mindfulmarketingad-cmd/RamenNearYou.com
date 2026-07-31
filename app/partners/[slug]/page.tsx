@@ -12,7 +12,8 @@ import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
 import AdUnit from '@/components/ad-unit'
 import { getPhoBySlug, getAllPhoSlugs, getNearbyPho, getActiveAmenityGroups, phoRestaurants, phoCityParam } from '@/lib/pho'
-import { buildPhoSections } from '@/lib/pho-content'
+import { buildPhoSections, buildGenericPartnerSections } from '@/lib/pho-content'
+import { getMiscPartnerBySlug, getAllMiscPartnerSlugs, miscPartnerToPhoShape } from '@/lib/misc-partners'
 import { getOpenStatus } from '@/lib/hours'
 import { jsonLdString } from '@/lib/json-ld'
 import { STATE_CODE_TO_SLUG } from '@/lib/state-lookups'
@@ -22,17 +23,22 @@ const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 const SITE = 'https://www.ramennearyou.com'
 
 export async function generateStaticParams() {
-  return getAllPhoSlugs().map(slug => ({ slug }))
+  return [...getAllPhoSlugs(), ...getAllMiscPartnerSlugs()].map(slug => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const p = getPhoBySlug(slug)
+  const pho = getPhoBySlug(slug)
+  const misc = !pho ? getMiscPartnerBySlug(slug) : null
+  const p = pho ?? (misc ? miscPartnerToPhoShape(misc) : null)
   if (!p) return {}
 
-  const title = `${p.name} — Pho Restaurant in ${p.city}, ${p.stateCode}`
+  const kindLabel = pho ? 'Pho Restaurant' : 'Business Profile'
+  const title = `${p.name} — ${kindLabel} in ${p.city}, ${p.stateCode}`
   const rating = p.rating != null ? `Rated ${p.rating.toFixed(1)} stars from ${p.reviewCount.toLocaleString()} reviews. ` : ''
-  const description = `${p.name} is a pho restaurant at ${p.street || p.address}, ${p.city}, ${p.stateCode}. ${rating}Hours, menu, photos, directions, and what to order.`
+  const description = pho
+    ? `${p.name} is a pho restaurant at ${p.street || p.address}, ${p.city}, ${p.stateCode}. ${rating}Hours, menu, photos, directions, and what to order.`
+    : `${p.name} at ${p.street || p.address}, ${p.city}, ${p.stateCode}. ${rating}Hours, photos, and directions.`
 
   return {
     title,
@@ -51,15 +57,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function PhoPartnerPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const p = getPhoBySlug(slug)
+  const pho = getPhoBySlug(slug)
+  const misc = !pho ? getMiscPartnerBySlug(slug) : null
+  const p = pho ?? (misc ? miscPartnerToPhoShape(misc) : null)
   if (!p) notFound()
+  const isPho = !!pho
 
   const stateSlug = STATE_CODE_TO_SLUG[p.stateCode]
-  const sections = buildPhoSections(p)
-  const nearby = getNearbyPho(p, 8)
+  const sections = isPho ? buildPhoSections(p) : buildGenericPartnerSections(p)
+  const nearby = isPho ? getNearbyPho(p, 8) : []
   const amenityGroups = getActiveAmenityGroups(p)
   const openStatus = p.hours ? getOpenStatus(p.hours) : null
-  const sameCityCount = phoRestaurants.filter(o => o.citySlug === p.citySlug && o.stateCode === p.stateCode).length
+  const sameCityCount = isPho ? phoRestaurants.filter(o => o.citySlug === p.citySlug && o.stateCode === p.stateCode).length : 0
 
   // Claimed-on-RamenNearYou status, same claims-table lookup the ramen
   // listing page uses. Distinct from p.verified, which just reflects whether
@@ -89,9 +98,9 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
   // Restaurant schema — only fields we genuinely have are emitted.
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'Restaurant',
+    '@type': isPho ? 'Restaurant' : 'LocalBusiness',
     name: p.name,
-    servesCuisine: 'Vietnamese',
+    ...(isPho ? { servesCuisine: 'Vietnamese' } : {}),
     address: {
       '@type': 'PostalAddress',
       streetAddress: p.street || undefined,
@@ -168,10 +177,12 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
               {/* Hero */}
               <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-warm mb-6">
                 <div className="relative w-full h-56 sm:h-72 bg-[#ECEAE4]">
-                  <RestaurantImage src={p.photo} alt={`${p.name} — pho restaurant in ${p.city}, ${p.stateCode}`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 700px" />
-                  <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#16a34a] text-white text-[11px] font-bold uppercase tracking-wide shadow">
-                    🍲 Pho
-                  </span>
+                  <RestaurantImage src={p.photo} alt={isPho ? `${p.name} — pho restaurant in ${p.city}, ${p.stateCode}` : `${p.name} in ${p.city}, ${p.stateCode}`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 700px" />
+                  {isPho && (
+                    <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#16a34a] text-white text-[11px] font-bold uppercase tracking-wide shadow">
+                      🍲 Pho
+                    </span>
+                  )}
                 </div>
 
                 <div className="p-6 sm:p-8">
@@ -387,8 +398,8 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                 ))}
               </article>
 
-              {/* Nearby pho */}
-              {nearby.length > 0 && (
+              {/* Nearby pho — only meaningful for actual pho listings */}
+              {isPho && nearby.length > 0 && (
                 <div className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 mb-6">
                   <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">More Pho Near {p.city}</h2>
                   <p className="text-[#6B6862] text-sm mb-5">
@@ -426,10 +437,14 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                 <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">Keep Exploring</h2>
                 <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
                   <Link href="/partners" className="text-[#96602F] hover:underline">All partner restaurants</Link>
-                  <Link href={`/find/${phoCityParam(p.citySlug, p.stateCode)}`} className="text-[#96602F] hover:underline">
-                    Pho in {p.city}, {p.stateCode}
-                  </Link>
-                  <Link href="/find/pho-restaurants" className="text-[#96602F] hover:underline">All pho restaurants</Link>
+                  {isPho && (
+                    <>
+                      <Link href={`/find/${phoCityParam(p.citySlug, p.stateCode)}`} className="text-[#96602F] hover:underline">
+                        Pho in {p.city}, {p.stateCode}
+                      </Link>
+                      <Link href="/find/pho-restaurants" className="text-[#96602F] hover:underline">All pho restaurants</Link>
+                    </>
+                  )}
                   <Link href="/find" className="text-[#96602F] hover:underline">Search map</Link>
                   <Link href={`/find/${p.citySlug}-${p.stateCode.toLowerCase()}`} className="text-[#96602F] hover:underline">
                     Ramen in {p.city}, {p.stateCode}
@@ -442,7 +457,7 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                   <Link href="/blog/is-ramen-healthier-than-pasta" className="text-[#96602F] hover:underline">Is ramen healthier than pasta?</Link>
                   <Link href="/blog/what-are-the-healthiest-noodles-you-can-eat" className="text-[#96602F] hover:underline">Healthiest noodles</Link>
                 </div>
-                {sameCityCount > 1 && (
+                {isPho && sameCityCount > 1 && (
                   <p className="text-[#6B6862] text-sm mt-4">
                     We list {sameCityCount} pho restaurants in {p.city}. Browse them all on the{' '}
                     <Link href="/partners" className="text-[#96602F] hover:underline">partners directory</Link>.

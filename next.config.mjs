@@ -122,6 +122,14 @@ const nextConfig = {
         destination: '/:city/:state/sushi-one-bobalicious-cafe',
         permanent: true,
       },
+      // Non-restaurant DB rows pulled out of the ramen dataset (landmarks,
+      // malls, etc. mismatched into it by the original scrape) — redirected
+      // to their new home at /partners/{slug}. See lib/misc-partners.ts.
+      {
+        source: '/sacramento/california/old-sacramento-waterfront',
+        destination: '/partners/old-sacramento-waterfront',
+        permanent: true,
+      },
       ...stateRedirects,
     ]
   },
