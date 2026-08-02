@@ -13,6 +13,7 @@ const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
+  { href: '/search', label: 'Search' },
   { href: '/find', label: 'Find' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/recipes', label: 'Recipes' },
@@ -164,8 +165,10 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                   {restaurantCount.toLocaleString()} Ramen Spots
                 </span>
               )}
+              {/* Second badge only from xl up — at lg the logo, two badges,
+                  the nav links and Sign In together overflow and wrap. */}
               {typeof phoCount === 'number' && phoCount > 0 && (
-                <span className="hidden lg:inline-flex items-center gap-1 ml-1.5 px-2 py-0.5 rounded-full bg-[#16a34a]/10 border border-[#16a34a]/20 text-[#16a34a] text-[11px] font-semibold whitespace-nowrap">
+                <span className="hidden xl:inline-flex items-center gap-1 ml-1.5 px-2 py-0.5 rounded-full bg-[#16a34a]/10 border border-[#16a34a]/20 text-[#16a34a] text-[11px] font-semibold whitespace-nowrap">
                   🍲 {phoCount.toLocaleString()} Pho Spots
                 </span>
               )}
