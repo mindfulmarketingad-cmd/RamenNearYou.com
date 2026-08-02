@@ -233,6 +233,11 @@ interface HomeMapHeroProps {
   // Hard radius cutoff (e.g. "ramen near me within 5 mi" pages) — only takes
   // effect once the visitor's location is known (geolocation or ZIP search).
   maxDistanceMiles?: number
+  // Play the one-time entrance reveal when the map first paints (veil
+  // dissolve + tile fade + pin bloom). Opt-in, and only used on the homepage:
+  // on /find pages visitors often arrive repeatedly from search, where a
+  // recurring intro would wear out fast.
+  introAnimation?: boolean
   // Full-screen map-only layout: the map fills the viewport below the navbar
   // with the controls floating on top and no left-hand list panel. Defaults on
   // (homepage + all /find pages); state pages opt out to keep the list layout.
@@ -251,6 +256,7 @@ export default function HomeMapHero({
   regionBoundary,
   maxDistanceMiles,
   mapOnly = true,
+  introAnimation = false,
 }: HomeMapHeroProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -345,6 +351,43 @@ export default function HomeMapHero({
   // zero-height container while still giving mobile users the map by default.
   const [showMap, setShowMap] = useState(false)
   useEffect(() => { setShowMap(true) }, [])
+  const rafRef = useRef<number | null>(null)
+
+  // One-time entrance reveal, in two phases (see globals.css). We arm first —
+  // map hidden behind an opaque cream veil — let Leaflet do its heavy
+  // synchronous marker build underneath, and only start the animation once the
+  // browser has actually painted a frame. Firing it immediately meant the
+  // ~1.8s main-thread block from marker creation swallowed the whole thing.
+  // Torn down at the end so the pin bloom can't replay on every filter change.
+  const mapReady = showMap && !dataLoading
+  const [introPhase, setIntroPhase] = useState<'armed' | 'playing' | null>(null)
+  const introStarted = useRef(false)
+  useEffect(() => {
+    if (!introAnimation || !mapReady || introStarted.current) return
+    introStarted.current = true
+    setIntroPhase('armed')
+
+    let playTimer: ReturnType<typeof setTimeout>
+    let endTimer: ReturnType<typeof setTimeout>
+    // Two frames, so we're past the commit that mounts the markers, plus a
+    // short settle for the marker build itself to finish.
+    const raf1 = requestAnimationFrame(() => {
+      const raf2 = requestAnimationFrame(() => {
+        playTimer = setTimeout(() => {
+          setIntroPhase('playing')
+          endTimer = setTimeout(() => setIntroPhase(null), 1300)
+        }, 120)
+      })
+      rafRef.current = raf2
+    })
+    rafRef.current = raf1
+    return () => {
+      cancelAnimationFrame(raf1)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      clearTimeout(playTimer)
+      clearTimeout(endTimer)
+    }
+  }, [introAnimation, mapReady])
 
   // Mobile-only view toggle: full-screen map (default) ⇄ list overlay. Ignored
   // on sm+ where the list sidebar and map are shown side by side.
@@ -1162,7 +1205,10 @@ export default function HomeMapHero({
   }
 
   return (
-    <section className={mapOnly ? 'pt-16 bg-[#F5F4F0] relative' : 'pt-16 bg-[#F5F4F0]'}>
+    <section
+      data-intro={introPhase ?? undefined}
+      className={mapOnly ? 'pt-16 bg-[#F5F4F0] relative' : 'pt-16 bg-[#F5F4F0]'}
+    >
       {/* SEO heading + intro — kept in the DOM for SEO; visually hidden in the
           full-screen map-only layout so the map owns the whole viewport. */}
       <div className={mapOnly ? 'sr-only' : 'max-w-7xl mx-auto px-4 sm:px-6 pt-2.5 sm:pt-5 pb-2 sm:pb-3'}>
@@ -1176,9 +1222,10 @@ export default function HomeMapHero({
 
       {/* Controls wrapper — floats over the top of the map in mapOnly mode.
           In list view there's no map to float over, so it sits in flow. */}
-      <div className={mapOnly && !listView
+      <div className={`${mapOnly && !listView
         ? 'absolute top-[4.25rem] inset-x-0 z-[1200] px-2 sm:px-4 flex flex-col items-stretch sm:items-center gap-2 pointer-events-none'
-        : listView ? 'px-2 sm:px-4 pt-3 flex flex-col items-stretch sm:items-center gap-2' : ''}>
+        : listView ? 'px-2 sm:px-4 pt-3 flex flex-col items-stretch sm:items-center gap-2' : ''}${
+          introPhase ? ' map-chrome-reveal' : ''}`}>
 
       {/* Top filter bar — one horizontally scrollable pill strip on mobile
           (AllTrails-style); on sm+ the location/help/save controls stay pinned
@@ -1610,9 +1657,11 @@ export default function HomeMapHero({
         {/* Map — shorter fixed height above the card list in mapOnly (every
             breakpoint, taller on larger screens), fills the container
             otherwise (right pane in the classic layout). */}
-        <div className={listView
+        <div className={`${listView
           ? 'hidden'
-          : mapOnly ? 'h-[45vh] min-h-[280px] sm:h-[55vh] sm:min-h-[380px] relative block' : 'flex-1 relative block'}>
+          : mapOnly ? 'h-[45vh] min-h-[280px] sm:h-[55vh] sm:min-h-[380px] relative block' : 'flex-1 relative block'}${
+            introPhase ? ' map-reveal-target' : ''}`}>
+          {introPhase && <div className="map-reveal-veil" aria-hidden="true" />}
           {!showMap ? null : dataLoading ? (
             <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
               <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />

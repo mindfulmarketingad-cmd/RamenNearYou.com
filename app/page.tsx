@@ -56,7 +56,7 @@ export default function HomePage() {
             </section>
           }
         >
-          <HomeMapHero />
+          <HomeMapHero introAnimation />
         </ErrorBoundary>
 
         <div className="relative z-10 bg-white">

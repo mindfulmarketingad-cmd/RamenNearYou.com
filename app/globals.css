@@ -287,6 +287,117 @@
   animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* ── Map entrance ────────────────────────────────────────────────────────
+   The map is the whole point of the homepage, so it gets a short, deliberate
+   reveal instead of just popping in: a warm veil dissolves, the tiles fade
+   up under it, and the rating pins bloom outward in a quick wave.
+
+   Two hard rules this has to respect:
+   1. Never transform the map container. Leaflet hit-tests against
+      getBoundingClientRect, so a scaling container would make clicks land on
+      the wrong pin for the length of the animation. Only opacity here.
+   2. Pins are positioned by Leaflet via `transform: translate3d()` on
+      .leaflet-marker-icon, and our own markup sets `transform: scale()`
+      inline on the child. So the pop animates the CSS `scale` property
+      (which composes with `transform` rather than replacing it) on the child
+      only, and deliberately does NOT use `forwards` — when it ends the pin
+      settles back onto its own inline scale, including the 1.4x featured pin. */
+@keyframes map-veil-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes map-tiles-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes map-pin-bloom {
+  0%   { opacity: 0; scale: 0.35; }
+  65%  { opacity: 1; scale: 1.14; }
+  100% { opacity: 1; scale: 1; }
+}
+
+/* Two phases, because Leaflet blocks the main thread for over a second while
+   it builds several hundred markers. Firing the reveal into that jank meant
+   the animation was simply skipped. So:
+
+   [data-intro="armed"]   — map held at opacity 0 behind an opaque cream veil.
+                            Same cream as the loading spinner's background, so
+                            there's no visible seam; Leaflet does its heavy
+                            synchronous work hidden underneath.
+   [data-intro="playing"] — thread is free and a frame has painted, so now the
+                            veil dissolves, the tiles fade up, and pins bloom. */
+[data-intro='armed'] .map-reveal-target {
+  opacity: 0;
+}
+[data-intro='playing'] .map-reveal-target {
+  animation: map-tiles-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Warm cream scrim over the map. pointer-events:none so it never intercepts a
+   click, and it's unmounted entirely once the intro finishes. */
+.map-reveal-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1200;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(245, 244, 240, 0.82) 0%, #f5f4f0 72%);
+}
+[data-intro='playing'] .map-reveal-veil {
+  animation: map-veil-out 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Pins bloom in a wave. Bucketed by nth-child rather than indexed per pin so
+   the whole wave always finishes in ~0.25s whether there are 12 pins on
+   screen or 400. */
+[data-intro='playing'] .leaflet-marker-icon > div {
+  animation: map-pin-bloom 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) 0.28s backwards;
+}
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 2) > div { animation-delay: 0.31s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 3) > div { animation-delay: 0.34s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 4) > div { animation-delay: 0.37s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 5) > div { animation-delay: 0.40s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 6) > div { animation-delay: 0.43s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 7) > div { animation-delay: 0.46s; }
+[data-intro='playing'] .leaflet-marker-icon:nth-child(8n + 8) > div { animation-delay: 0.49s; }
+
+/* The controls that sit on top of the map (search, filters, result cards)
+   settle in just behind the map itself, so the map reads as arriving first. */
+@keyframes map-chrome-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+[data-intro='armed'] .map-chrome-reveal {
+  opacity: 0;
+}
+[data-intro='playing'] .map-chrome-reveal {
+  animation: map-chrome-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────
+   Anyone who has asked their OS for less motion gets the map immediately,
+   with no veil, no bloom, and no drift. Also stops the two decorative
+   infinite loops (logo steam, live-status pulse), which are exactly the kind
+   of persistent movement this setting exists to switch off. */
+@media (prefers-reduced-motion: reduce) {
+  [data-intro] .map-reveal-target,
+  [data-intro] .map-reveal-veil,
+  [data-intro] .leaflet-marker-icon > div,
+  [data-intro] .map-chrome-reveal,
+  .animate-slide-up {
+    animation: none !important;
+  }
+  /* Nothing is held back or hidden — the map is just there. */
+  [data-intro] .map-reveal-target,
+  [data-intro] .map-chrome-reveal {
+    opacity: 1 !important;
+  }
+  .map-reveal-veil { display: none !important; }
+  .steam-wisp,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+}
+
 /* Alternating broth carousel backgrounds — nth-child counts only rendered sections */
 .broth-stack > section.broth-carousel-section:nth-child(odd) {
   background-color: #F5F4F0;
