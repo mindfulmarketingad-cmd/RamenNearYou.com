@@ -430,12 +430,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       <p className="text-sm font-bold text-[#1E2026]">Own {r.name}?</p>
                     </div>
                     <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
-                      This listing hasn&apos;t been claimed yet. Claiming is completely free — create an
-                      account, submit your claim, and once our team verifies ownership you&apos;re in control.
+                      This listing hasn&apos;t been claimed yet. Claiming is $19.99/mo — create an
+                      account, subscribe, submit your claim, and once our team verifies ownership you&apos;re in control.
                     </p>
                     <ul className="space-y-1.5 mb-4">
                       {[
-                        '100% free — no card required, just a quick ownership review',
+                        '$19.99/mo — quick ownership review, cancel anytime',
                         'Verified badge on this page and the search map',
                         'Update hours, photos, menu, and description anytime',
                         'Ad-free listing page (no ads on your dedicated listing page)',
@@ -450,7 +450,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       href={`/claim/${city}/${state}/${r.slug}`}
                       className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
                     >
-                      Claim This Listing — Free
+                      Claim This Listing — $19.99/mo
                     </Link>
                   </div>
                 </div>

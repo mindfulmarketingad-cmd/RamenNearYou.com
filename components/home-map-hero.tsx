@@ -17,6 +17,7 @@ import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
 import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import InquireButton from '@/components/inquire-button'
+import ShareButton from '@/components/share-button'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -1386,6 +1387,12 @@ export default function HomeMapHero({
                 <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
               )}
             </button>
+
+            <ShareButton
+              url={`https://www.ramennearyou.com${pathname}`}
+              title={pageTitle}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-white text-[#1E2026] border-black/12 hover:border-black/30 transition-colors shrink-0"
+            />
 
             {/* Map / List view toggle — segmented control */}
             {mapOnly && (

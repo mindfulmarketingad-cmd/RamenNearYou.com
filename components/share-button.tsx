@@ -6,9 +6,13 @@ import { Share2, Copy, Check, X } from 'lucide-react'
 interface Props {
   url: string
   title: string
+  className?: string
 }
 
-export default function ShareButton({ url, title }: Props) {
+const DEFAULT_BUTTON_CLASS =
+  'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:border-[#B57F50] hover:text-[#96602F] transition-colors'
+
+export default function ShareButton({ url, title, className }: Props) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
@@ -58,9 +62,9 @@ export default function ShareButton({ url, title }: Props) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+        className={className ?? DEFAULT_BUTTON_CLASS}
       >
-        <Share2 className="w-4 h-4" />
+        <Share2 className="w-3.5 h-3.5" />
         Share
       </button>
 

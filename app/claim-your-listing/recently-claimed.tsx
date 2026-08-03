@@ -65,7 +65,7 @@ export default function RecentlyClaimed() {
   return (
     <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
       <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">Owners are claiming their listings</h2>
-      <p className="text-[#6B6862] text-xs mb-4">A few restaurants that recently claimed their free listing.</p>
+      <p className="text-[#6B6862] text-xs mb-4">A few restaurants that recently claimed their listing.</p>
       <ul className="space-y-3">
         {entries.map((e) => (
           <li key={e.name} className="flex items-center gap-3">

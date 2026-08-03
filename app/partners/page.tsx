@@ -7,14 +7,14 @@ import { phoRestaurants, getPhoStats, getPhoCities, phoCityParam } from '@/lib/p
 
 export const metadata = {
   title: 'Ramen Restaurant Locator',
-  description: 'Find your ramen or pho restaurant on RamenNearYou, claim your free listing, and update your hours, photos, and description. Learn how claiming and featured placement work.',
+  description: 'Find your ramen or pho restaurant on RamenNearYou, claim your listing for $19.99/mo, and update your hours, photos, and description. Learn how claiming and featured placement work.',
   alternates: { canonical: 'https://www.ramennearyou.com/partners' },
 }
 
 const partnersFaqs = [
   {
-    q: 'Is it free to claim my restaurant listing?',
-    a: "Yes. Claiming a listing on RamenNearYou is completely free — there's no card required and no subscription. You create an account, submit your claim, and our team verifies ownership before approving it.",
+    q: 'How much does it cost to claim my restaurant listing?',
+    a: "Claiming a listing on RamenNearYou is $19.99/month. You create an account, subscribe, submit your claim, and our team verifies ownership before approving it.",
   },
   {
     q: 'How long does claim verification take?',
@@ -52,7 +52,7 @@ export default function PartnersPage() {
             Ramen Restaurant Locator
           </h1>
           <p className="text-[#6B6862] text-sm max-w-2xl mb-8">
-            Search or filter to find your restaurant, then claim your free listing to update your hours,
+            Search or filter to find your restaurant, then claim your listing for $19.99/mo to update your hours,
             photos, and description — and get featured placement on the map.
           </p>
 

@@ -49,7 +49,7 @@ export default async function ClaimedShowcase() {
             <path d="M2 8c6-8 12-8 18 0s12 8 18 0 12-8 18 0 12 8 18 0" stroke="#B57F50" strokeWidth="2" strokeLinecap="round" />
           </svg>
           <p className="text-[#6B6862] text-sm max-w-xl mx-auto mt-4">
-            These owners claimed their free listing to keep their hours, photos, and details accurate —
+            These owners claimed their listing to keep their hours, photos, and details accurate —
             look for the verified badge on any restaurant page.
           </p>
         </div>

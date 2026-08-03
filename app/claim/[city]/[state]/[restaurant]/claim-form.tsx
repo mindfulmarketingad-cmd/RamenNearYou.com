@@ -157,7 +157,7 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
           disabled={loading}
           className="w-full px-4 py-3.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {loading ? 'Submitting claim…' : 'Claim This Listing — It’s Free'}
+          {loading ? 'Submitting claim…' : 'Complete My Claim'}
         </button>
 
         <button

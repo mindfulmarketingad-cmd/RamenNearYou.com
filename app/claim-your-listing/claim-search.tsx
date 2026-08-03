@@ -67,8 +67,8 @@ export default function ClaimSearch() {
         <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
           Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}.
           We&apos;ll add it to the directory and email you at{' '}
-          {form.ownerEmail.trim() ? <strong>{form.ownerEmail.trim()}</strong> : 'your email'} to finish
-          claiming it — completely free.
+          {form.ownerEmail.trim() ? <strong>{form.ownerEmail.trim()}</strong> : 'your email'} with next steps
+          to claim it for $19.99/mo.
         </p>
 
         <p className="text-sm text-[#6B6862] mb-4">
@@ -92,8 +92,8 @@ export default function ClaimSearch() {
           {/* Search — the very first action on the page */}
           <div className="flex items-center justify-between mb-3">
             <p className="text-base font-bold text-[#1E2026]">Start here — find your restaurant 👇</p>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-xs font-semibold whitespace-nowrap">
-              Free
+            <span className="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 text-xs font-semibold whitespace-nowrap">
+              $19.99/mo
             </span>
           </div>
           <div className="relative">
@@ -188,7 +188,7 @@ export default function ClaimSearch() {
               {status === 'submitting' ? 'Submitting…' : 'Submit Restaurant'}
             </button>
             <p className="text-center text-xs text-[#6B6862]">
-              We&apos;ll add your restaurant and email you to finish claiming it.
+              We&apos;ll add your restaurant and email you to finish claiming it for $19.99/mo.
             </p>
           </form>
         </>
