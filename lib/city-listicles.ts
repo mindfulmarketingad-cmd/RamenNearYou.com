@@ -58,7 +58,14 @@ export function matchCityListicle(slug: string): CityListicle | null {
   const parsed = parseCityState(slug.slice(CITY_LISTICLE_PREFIX.length))
   if (!parsed) return null
   const { citySlug, stateCode } = parsed
-  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+
+  // Resolve stateSlug from the dataset rather than assuming the canonical
+  // "hawaii"-style slug. Hawaii's 289 rows are stored (and served) under the
+  // two-letter "hi" instead, so deriving it from STATE_CODE_TO_SLUG looked up
+  // a city that doesn't exist and 404'd a page we'd already listed and
+  // sitemapped.
+  const known = getCities().find(c => c.citySlug === citySlug && c.stateCode === stateCode)
+  const stateSlug = known?.stateSlug ?? STATE_CODE_TO_SLUG[stateCode]
   if (!stateSlug) return null
 
   const all = getRestaurantsByCity(citySlug, stateSlug)

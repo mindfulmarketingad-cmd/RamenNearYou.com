@@ -6,6 +6,7 @@ import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import SearchBox from './search-box'
 import NearMeResults from './near-me-results'
+import SearchExploreLinks from './search-explore-links'
 import { searchSite, type SearchHit } from '@/lib/site-search'
 
 export async function generateMetadata({
@@ -96,9 +97,11 @@ export default async function SearchPage({
   // ── Landing state: one search bar, Google-homepage style ────────────────
   if (!query) {
     return (
-      <main className="min-h-screen bg-[#F5F4F0] flex flex-col">
+      <main className="min-h-screen bg-[#F5F4F0]">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-20">
+        {/* The bar still owns the first screenful; the link hub sits below the
+            fold so browsing is one scroll away without competing with it. */}
+        <div className="flex flex-col items-center justify-center px-4 sm:px-6 min-h-[calc(100vh-14rem)] py-16">
           <div className="w-full max-w-2xl text-center">
             <div className="text-5xl mb-5" aria-hidden="true">🍜</div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
@@ -111,6 +114,7 @@ export default async function SearchPage({
             <SearchBox size="hero" autoFocus />
           </div>
         </div>
+        <SearchExploreLinks />
         <Footer />
       </main>
     )
@@ -283,6 +287,10 @@ export default async function SearchPage({
         )}
       </div>
 
+      {/* Also shown under results, not just on the empty state — a search that
+          returned something narrow is still a good place to offer the browse
+          route out. */}
+      <SearchExploreLinks />
       <Footer />
     </main>
   )
