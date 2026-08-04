@@ -15,6 +15,7 @@ import HomepageAbout from '@/components/homepage-about'
 import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -98,6 +99,10 @@ export default function HomePage() {
 
           <FeaturedListings />
 
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            <AdUnitVertical />
+          </div>
+
           {/* Photo grid — every bowl tells a story */}
           <section className="bg-[#F5F4F0] py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -156,6 +161,11 @@ export default function HomePage() {
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            <AdUnitVertical />
+          </div>
+
           <HomepageAbout />
           <HomepageFAQ />
           <FindCrossLinks />

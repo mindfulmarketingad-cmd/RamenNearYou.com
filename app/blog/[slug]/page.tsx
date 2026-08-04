@@ -12,6 +12,7 @@ import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import { splitHtmlForAds } from '@/lib/split-html-for-ads'
 import { extractToc } from '@/lib/blog-toc'
 import type { MapCard } from '@/components/blog-scroll-map'
@@ -385,6 +386,9 @@ export default async function BlogPostPage({ params }: Props) {
               <div className="mb-5">
                 <AdUnitInArticle />
               </div>
+              <div className="mb-5">
+                <AdUnitVertical />
+              </div>
 
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
@@ -483,6 +487,9 @@ export default async function BlogPostPage({ params }: Props) {
 
             <div className="mt-10">
               <AdUnit />
+            </div>
+            <div className="mt-6">
+              <AdUnitVertical />
             </div>
           </article>
 

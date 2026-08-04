@@ -15,6 +15,7 @@ import OpenNowBadge from '@/components/open-now-badge'
 import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
 import { jsonLdString } from '@/lib/json-ld'
@@ -243,6 +244,11 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               {!isVerified && (
                 <div className="mb-3">
                   <AdUnitInFeed />
+                </div>
+              )}
+              {!isVerified && (
+                <div className="mb-3">
+                  <AdUnitVertical />
                 </div>
               )}
 
@@ -477,6 +483,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               <div className="mt-6 pt-5 border-t border-black/8 flex items-center gap-3">
                 <ShareButton title={r.name} url={url} />
               </div>
+
+              {!isVerified && (
+                <div className="mt-6 pt-5 border-t border-black/8">
+                  <AdUnitVertical />
+                </div>
+              )}
 
               {/* Where to go next — grouped by reason so each set of links has
                   its own motive to be clicked, instead of one flat list. */}
