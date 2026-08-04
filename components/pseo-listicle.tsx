@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 export type ListicleItem = {
   key: string
@@ -353,7 +354,8 @@ export default function PseoListicle({
             {/* Ranked list */}
             <div className="space-y-3">
               {pagedRest.map((it, i) => (
-                <div key={it.key} className="bg-white border border-black/8 rounded-xl p-4 flex gap-3">
+                <Fragment key={it.key}>
+                <div className="bg-white border border-black/8 rounded-xl p-4 flex gap-3">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#B57F50] text-white text-xs font-bold shrink-0 mt-0.5">
                     {i + 1}
                   </span>
@@ -417,6 +419,12 @@ export default function PseoListicle({
                     )}
                   </div>
                 </div>
+                {(i === 0 || i === 1) && (
+                  <div className="my-3">
+                    <AdUnitInFeed />
+                  </div>
+                )}
+                </Fragment>
               ))}
             </div>
 
