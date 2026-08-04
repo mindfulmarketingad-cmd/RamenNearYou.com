@@ -6,6 +6,13 @@ import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigatio
 import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+
+// Reverse-geocoding (Nominatim) returns a full state name — map it back to
+// the 2-letter code used everywhere else on the site.
+const STATE_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_CODE_TO_NAME).map(([code, name]) => [name, code])
+)
 
 export type ListicleItem = {
   key: string
@@ -104,8 +111,10 @@ export default function PseoListicle({
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
   const [attraction, setAttraction] = useState('all')
+  const [cityFilter, setCityFilter] = useState('all')
   const [sort, setSort] = useState<SortKey>(initialSort)
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
+  const [userLocLabel, setUserLocLabel] = useState('')
   const [geoError, setGeoError] = useState('')
   const [visibleCount, setVisibleCount] = useState(pageSize ? pageSize - 1 : Infinity)
 
@@ -119,10 +128,21 @@ export default function PseoListicle({
     return Array.from(set).sort()
   }, [items])
 
+  // Only cities that actually have listings show up here — derived straight
+  // from the items themselves, so a state page's dropdown never lists a
+  // city with zero results. Single-city pages (city/neighborhood pages) get
+  // exactly one option, so the dropdown just doesn't render for those.
+  const cityOptions = useMemo(() => {
+    const set = new Set<string>()
+    for (const it of items) if (it.locationLabel) set.add(it.locationLabel)
+    return Array.from(set).sort()
+  }, [items])
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     let list = items.filter(it => {
       if (attraction !== 'all' && !(it.tags ?? []).includes(attraction)) return false
+      if (cityFilter !== 'all' && it.locationLabel !== cityFilter) return false
       if (maxDistanceMiles != null && userLoc) {
         if (it.lat == null || it.lng == null) return false
         if (distanceMiles(userLoc.lat, userLoc.lng, it.lat, it.lng) > maxDistanceMiles) return false
@@ -141,14 +161,30 @@ export default function PseoListicle({
       return (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
     })
     return list
-  }, [items, query, attraction, sort, userLoc, maxDistanceMiles])
+  }, [items, query, attraction, cityFilter, sort, userLoc, maxDistanceMiles])
 
   function handleReset() {
     setQuery('')
     setAttraction('all')
+    setCityFilter('all')
     setSort(initialSort)
     setUserLoc(null)
+    setUserLocLabel('')
     setGeoError('')
+  }
+
+  async function reverseGeocode(lat: number, lng: number) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en' } })
+      const json = await res.json()
+      const addr = json?.address ?? {}
+      const cityName: string = addr.city || addr.town || addr.village || addr.hamlet || addr.county || ''
+      const stateCode = STATE_NAME_TO_CODE[addr.state ?? ''] ?? ''
+      if (cityName && stateCode) setUserLocLabel(`${cityName}, ${stateCode}`)
+    } catch {
+      // Silent — the distance filter/sort still works without the label.
+    }
   }
 
   function handleDistance() {
@@ -158,12 +194,20 @@ export default function PseoListicle({
     }
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setUserLoc({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        setUserLoc(loc)
         setSort('distance')
         setGeoError('')
+        reverseGeocode(loc.lat, loc.lng)
       },
       () => setGeoError('Couldn’t get your location — check your browser permissions.'),
     )
+  }
+
+  function distanceLabel(it: ListicleItem): string | null {
+    if (!userLoc || it.lat == null || it.lng == null) return null
+    const mi = distanceMiles(userLoc.lat, userLoc.lng, it.lat, it.lng)
+    return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi away`
   }
 
   const spotlight = view === 'list' ? filtered[0] : undefined
@@ -247,6 +291,17 @@ export default function PseoListicle({
                 className="w-full px-3 py-2 mb-2.5 rounded-lg border border-black/10 bg-white text-sm text-[#1E2026] placeholder-[#9B9490] outline-none focus:border-[#B57F50]"
               />
               <div className="flex flex-wrap items-center gap-2">
+                {cityOptions.length > 1 && (
+                  <select
+                    value={cityFilter}
+                    onChange={(e) => setCityFilter(e.target.value)}
+                    aria-label="City"
+                    className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                  >
+                    <option value="all">City: All</option>
+                    {cityOptions.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                )}
                 {attractionOptions.length > 0 && (
                   <select
                     value={attraction}
@@ -281,6 +336,11 @@ export default function PseoListicle({
                 >
                   <Navigation className="w-3.5 h-3.5" /> Show distance from me
                 </button>
+                {userLoc && (
+                  <span className="flex items-center px-3 py-2 rounded-lg border border-black/10 bg-white text-xs font-bold text-emerald-600">
+                    {userLocLabel || 'Locating…'}
+                  </span>
+                )}
               </div>
               {geoError && <p className="text-red-500 text-xs mt-2">{geoError}</p>}
             </div>
@@ -321,6 +381,9 @@ export default function PseoListicle({
                         <span className="flex items-center gap-1 text-xs text-[#6B6862]">
                           <MapPin className="w-3 h-3" />{spotlight.locationLabel}
                         </span>
+                      )}
+                      {distanceLabel(spotlight) && (
+                        <span className="text-xs font-semibold text-emerald-600">{distanceLabel(spotlight)}</span>
                       )}
                     </div>
                     <p className="text-sm text-[#6B6862] leading-relaxed mb-4">{spotlight.description}</p>
@@ -380,6 +443,9 @@ export default function PseoListicle({
                         <span className="flex items-center gap-1 text-xs text-[#6B6862]">
                           <MapPin className="w-3 h-3" />{it.locationLabel}
                         </span>
+                      )}
+                      {distanceLabel(it) && (
+                        <span className="text-xs font-semibold text-emerald-600">{distanceLabel(it)}</span>
                       )}
                     </div>
                     {it.address && <p className="text-xs text-[#6B6862] mt-1">{it.address}</p>}

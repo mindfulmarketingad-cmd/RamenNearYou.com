@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
 import { getStates } from '@/lib/restaurants'
 import { getSupplementCitiesByState, getSupplementStateStats } from '@/lib/places-supplements'
 
@@ -44,6 +46,7 @@ export default function StateIndexPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <Navbar />
       {/* Header */}
       <div className="bg-[#F5F0EA] px-4 sm:px-6 pt-24 pb-8">
         <div className="max-w-5xl mx-auto">
@@ -95,6 +98,7 @@ export default function StateIndexPage() {
           </p>
         </div>
       </div>
+      <Footer />
     </main>
   )
 }
