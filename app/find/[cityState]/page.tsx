@@ -1,16 +1,18 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Star } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
-import SafeImg from '@/components/safe-img'
 import UgcFeature from '@/components/ugc-feature'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import type { Restaurant } from '@/lib/restaurants'
+import type { SupplementListing } from '@/lib/places-supplements'
 import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
 import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
 import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
@@ -278,33 +280,55 @@ export default async function CityFindPage(
     })),
   }
 
+  // Listicle is the default, SEO-crawlable view; the interactive map only
+  // mounts (fetches, loads Leaflet) once a visitor actually taps "Map" —
+  // see components/pseo-listicle.tsx's conditional render of mapSlot.
+  const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
+  const listicleItems = dbRestaurants.length > 0
+    ? restaurantsToListicleItems(ranked.slice(0, 24) as Restaurant[], { citySlug, stateSlug, verifiedSlugs })
+    : placesToListicleItems(ranked.slice(0, 24) as SupplementListing[])
+
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialCenter={{ lat, lng }}
+        regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
+        pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
+        pageDescription={`Find ramen restaurants in ${cityName}, ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="min-h-screen bg-white">
         <Navbar />
-        <ErrorBoundary fallback={null}>
-          <HomeMapHero
-            initialCenter={{ lat, lng }}
-            regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
-            pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
-            pageDescription={`Find ramen restaurants in ${cityName}, ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
-          />
-        </ErrorBoundary>
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: 'Browse Cities & States', href: '/cities' },
+            { label: stateName, href: `/${stateSlug}` },
+            { label: cityName },
+          ]}
+          title={count > 0 ? `${count} Ramen Restaurant${count === 1 ? '' : 's'} in ${cityName}, ${stateCode}` : `Ramen in ${cityName}, ${stateCode}`}
+          subtitle={
+            count > 0
+              ? `Every ramen restaurant we track in ${cityName}, ranked by rating and review volume. Search by name, filter by feature, or switch to the map. Always confirm hours before you go.`
+              : `We don't have ramen listings for ${cityName} yet — switch to the map to find the nearest ramen restaurants.`
+          }
+          items={listicleItems}
+          noun="ramen restaurant"
+          nounPlural="ramen restaurants"
+          searchPlaceholder="Search by name..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
+          mapSlot={mapSlot}
+        />
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-
-            {/* Breadcrumb anchor text */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
-              <span>/</span>
-              <Link href="/cities" className="hover:text-[#96602F] transition-colors">Browse Cities &amp; States</Link>
-              <span>/</span>
-              <Link href={`/${stateSlug}`} className="hover:text-[#96602F] transition-colors">Ramen in {stateName}</Link>
-              <span>/</span>
-              <span className="text-[#6B6862]">{cityName}</span>
-            </nav>
 
             <div className="mb-6">
               <AdUnitInArticle />
@@ -315,107 +339,14 @@ export default async function CityFindPage(
               <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
             )}
 
-            {/* DB listings */}
-            {dbRestaurants.length > 0 && (
-              <>
-                <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-                  Ramen Restaurants in {cityName}, {stateCode}
-                </h2>
-                <p className="text-[#6B6862] text-sm mb-6">
-                  {dbRestaurants.length} ramen {dbRestaurants.length === 1 ? 'restaurant' : 'restaurants'} in our directory.
-                </p>
-                <div className="space-y-3 mb-10">
-                  {dbRestaurants
-                    .slice()
-                    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-                    .slice(0, 20)
-                    .map((r, i) => (
-                      <div key={r.slug}>
-                        <Link
-                          href={`/${citySlug}/${stateSlug}/${r.slug}`}
-                          className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                        >
-                          <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                          <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
-                            {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
-                            <div className="flex items-center gap-2 mt-1">
-                              {r.rating && (
-                                <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                                  <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                                  {r.rating.toFixed(1)}
-                                  {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
-                                </span>
-                              )}
-                              {r.priceRange && <span className="text-xs text-[#6B6862]">{r.priceRange}</span>}
-                            </div>
-                          </div>
-                        </Link>
-                        {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
-                      </div>
-                    ))}
-                </div>
-              </>
-            )}
-
-            {/* Google Places listings (capitals with no DB data) */}
-            {placesResults.length > 0 && (
-              <>
-                <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-                  Ramen Restaurants in {cityName}, {stateCode}
-                </h2>
-                <p className="text-[#6B6862] text-sm mb-6">
-                  {placesResults.length} ramen spots near {cityName}.
-                </p>
-                <div className="space-y-3 mb-10">
-                  {placesResults.slice(0, 20).map((r, i) => (
-                    <div key={r.placeId}>
-                      <Link
-                        href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                        className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                      >
-                        <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
-                          {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
-                          <div className="flex items-center gap-2 mt-1">
-                            {r.rating && (
-                              <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                                <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                                {r.rating.toFixed(1)}
-                                {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
-                              </span>
-                            )}
-                            {r.priceLevel && <span className="text-xs text-[#6B6862]">{'$'.repeat(r.priceLevel)}</span>}
-                          </div>
-                        </div>
-                      </Link>
-                      {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {count === 0 && (
-              <div className="mb-10">
-                <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-3">
-                  Ramen in {cityName}, {stateCode}
-                </h2>
-                <p className="text-[#6B6862] text-sm">
-                  We don&apos;t have ramen listings for {cityName} yet. Use the map above to find the nearest ramen restaurants.
-                </p>
-              </div>
-            )}
-
             {/* SEO content — first-person, data-driven so each city reads uniquely */}
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
               Finding Great Ramen in {cityName}, {stateName}
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              Whenever I am hunting for a bowl in {cityName}, I start with the map above — it shows every
-              ramen spot I can find near {cityName}, {stateCode}, and once you drop in your ZIP or tap
-              &quot;Use my location,&quot; it sorts them by distance so the closest bowl is right at the top.
+              Whenever I am hunting for a bowl in {cityName}, I start with the list above — it shows every
+              ramen spot I can find near {cityName}, {stateCode}, and you can tap &quot;Show distance from me&quot;
+              or switch to the map to sort by distance so the closest bowl is right at the top.
               {count > 0
                 ? ` Right now I am tracking ${count} ramen ${count === 1 ? 'spot' : 'spots'} in and around ${cityName}, so there is plenty to work with.`
                 : ` ${cityName} is still filling in, so I have the map pull in the nearest ramen spots around it too.`}

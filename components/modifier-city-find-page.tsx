@@ -6,13 +6,18 @@ import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
-import { Loader2 } from 'lucide-react'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import { restaurantMatchesModifier } from '@/lib/modifier-match'
+import { getRestaurantsByCity } from '@/lib/restaurants'
+import { getSupplementListings } from '@/lib/places-supplements'
 import type { ResolvedCity } from '@/lib/find-city'
 import type { FindModifier } from '@/lib/find-modifiers'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 
-export default function ModifierCityFindPage({
+export default async function ModifierCityFindPage({
   modifier,
   city,
   cityState,
@@ -28,6 +33,19 @@ export default function ModifierCityFindPage({
     : modifier.about
   const cityGuideSlug = CITY_GUIDE_CONTENT_SOURCE[cityState]
   const cityGuidePost = cityGuideSlug ? getBlogPost(cityGuideSlug) : undefined
+
+  // Filter DB restaurants against the modifier's flags/bowls/prices/query so
+  // the listicle actually shows matching spots, not just every restaurant in
+  // the city — see lib/modifier-match.ts for the shared matching logic.
+  const dbRestaurants = getRestaurantsByCity(city.citySlug, city.stateSlug).filter(r => restaurantMatchesModifier(r, modifier.filter))
+  const placesResults = dbRestaurants.length === 0 ? getSupplementListings(city.citySlug, city.stateCode) : []
+  const ranked = [...dbRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
+  const listicleItems = dbRestaurants.length > 0
+    ? restaurantsToListicleItems(ranked.slice(0, 24), { citySlug: city.citySlug, stateSlug: city.stateSlug, verifiedSlugs })
+    : placesToListicleItems(placesResults.slice(0, 24))
+  const count = dbRestaurants.length > 0 ? dbRestaurants.length : placesResults.length
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -38,45 +56,47 @@ export default function ModifierCityFindPage({
     })),
   }
 
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialBowls={modifier.filter.initialBowls}
+        initialFlags={modifier.filter.initialFlags}
+        initialPrices={modifier.filter.initialPrices}
+        initialQuery={modifier.filter.initialQuery}
+        initialCenter={{ lat: city.lat, lng: city.lng }}
+        regionBoundary={{ cityName: city.cityName, stateName: city.stateName, citySlug: city.citySlug, stateSlug: city.stateSlug }}
+        pageTitle={title}
+        pageDescription={`Showing ${modifier.metaNoun} in ${city.cityName}. Enter your ZIP or use your location to sort by distance.`}
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="min-h-screen bg-white">
         <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialBowls={modifier.filter.initialBowls}
-            initialFlags={modifier.filter.initialFlags}
-            initialPrices={modifier.filter.initialPrices}
-            initialQuery={modifier.filter.initialQuery}
-            initialCenter={{ lat: city.lat, lng: city.lng }}
-            regionBoundary={{ cityName: city.cityName, stateName: city.stateName, citySlug: city.citySlug, stateSlug: city.stateSlug }}
-            pageTitle={title}
-            pageDescription={`Showing ${modifier.metaNoun} in ${city.cityName}. Enter your ZIP or use your location to sort by distance.`}
-          />
-        </ErrorBoundary>
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: modifier.hubLabel, href: modifier.hubHref },
+            { label: `Ramen in ${city.stateName}`, href: `/${city.stateSlug}` },
+            { label: city.cityName },
+          ]}
+          title={count > 0 ? `${title} — ${count} Spot${count === 1 ? '' : 's'}` : title}
+          subtitle={`Every spot we track for ${modifier.metaNoun} in ${city.cityName}, ranked by rating and review volume. Search by name, or switch to the map.`}
+          items={listicleItems}
+          noun="restaurant"
+          nounPlural="restaurants"
+          searchPlaceholder="Search by name..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
+          mapSlot={mapSlot}
+        />
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            {/* Breadcrumb anchor text */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
-              <span>/</span>
-              <Link href={modifier.hubHref} className="hover:text-[#96602F] transition-colors">{modifier.hubLabel}</Link>
-              <span>/</span>
-              <Link href={`/${city.stateSlug}`} className="hover:text-[#96602F] transition-colors">Ramen in {city.stateName}</Link>
-              <span>/</span>
-              <span className="text-[#6B6862]">{city.cityName}</span>
-            </nav>
-
             <div className="mb-6">
               <AdUnitInArticle />
             </div>
@@ -89,11 +109,10 @@ export default function ModifierCityFindPage({
               {title}
             </h2>
             <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-              When I am after {modifier.metaNoun} in {city.cityName}, the map above is where I start. It is
-              already filtered toward {modifier.metaNoun}, so the moment you drop in your ZIP code or tap
-              &quot;Use my location,&quot; the closest options around {city.cityName}, {city.stateCode} sort
-              straight to the top. From there it is easy to compare ratings, hours, and photos and pick the
-              bowl you actually want.
+              When I am after {modifier.metaNoun} in {city.cityName}, the list above is where I start. It is
+              already filtered toward {modifier.metaNoun}, so it is easy to compare ratings, hours, and photos
+              and pick the bowl you actually want — or switch to the map and tap &quot;Use my location&quot; to
+              sort the same list by distance.
             </p>
 
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">

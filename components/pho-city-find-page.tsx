@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Star } from 'lucide-react'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
@@ -7,9 +6,8 @@ import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
-import RestaurantImage from '@/components/restaurant-image'
-import { Loader2 } from 'lucide-react'
+import PseoListicle from '@/components/pseo-listicle'
+import { phoToListicleItems } from '@/lib/listicle-items'
 import type { PhoCity } from '@/lib/pho'
 import { phoCityParam } from '@/lib/pho'
 import { buildPhoCitySections } from '@/lib/pho-city-content'
@@ -54,79 +52,47 @@ export default function PhoCityFindPage({
     })),
   }
 
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialCenter={{ lat: listings[0]?.latitude ?? 39.5, lng: listings[0]?.longitude ?? -98.35 }}
+        initialFlags={['pho']}
+        regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
+        pageTitle={`Pho Restaurants in ${cityName} ${stateCode}`}
+        pageDescription={`There are ${count} pho restaurants in ${cityName} ${stateName}.`}
+      />
+    </ErrorBoundary>
+  )
+
+  const listicleItems = phoToListicleItems(listings.slice(0, 24))
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="min-h-screen bg-white">
         <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialCenter={{ lat: listings[0]?.latitude ?? 39.5, lng: listings[0]?.longitude ?? -98.35 }}
-            initialFlags={['pho']}
-            regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
-            pageTitle={`Pho Restaurants in ${cityName} ${stateCode}`}
-            pageDescription={`There are ${count} pho restaurants in ${cityName} ${stateName}.`}
-          />
-        </ErrorBoundary>
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: 'Pho Restaurants', href: '/find/pho-restaurants' },
+            { label: `${cityName}, ${stateCode}` },
+          ]}
+          title={`${count} Pho Restaurant${count === 1 ? '' : 's'} in ${cityName}, ${stateCode}`}
+          subtitle={`Every pho restaurant we track in ${cityName}, ranked by rating and review volume. Search by name, or switch to the map.`}
+          items={listicleItems}
+          noun="pho restaurant"
+          nounPlural="pho restaurants"
+          searchPlaceholder="Search by name..."
+          filterLabel="Highlight"
+          primaryCtaLabel="View details"
+          mapSlot={mapSlot}
+        />
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            {/* Breadcrumb */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
-              <span>/</span>
-              <Link href="/find/pho-restaurants" className="hover:text-[#96602F] transition-colors">Pho Restaurants</Link>
-              <span>/</span>
-              <span className="text-[#6B6862]">{cityName}, {stateCode}</span>
-            </nav>
-
             <div className="mb-6">
               <AdUnitInArticle />
-            </div>
-
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
-              Pho Restaurants in {cityName} {stateCode}
-            </h2>
-            <p className="text-[#6B6862] text-sm mb-8">
-              There are {count} pho {count === 1 ? 'restaurant' : 'restaurants'} in {cityName} {stateName}.
-            </p>
-
-            {/* Listing preview */}
-            <div className="space-y-3 mb-10">
-              {listings.slice(0, 20).map((p, i) => (
-                <div key={p.slug}>
-                  <Link
-                    href={`/partners/${p.slug}`}
-                    className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#16a34a]/40 transition-colors group"
-                  >
-                    <span className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-[#ECEAE4]">
-                      <RestaurantImage src={p.photo} alt={p.name} fill className="object-cover" sizes="56px" />
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#16a34a] transition-colors truncate">{p.name}</p>
-                      {p.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{p.address}</p>}
-                      <div className="flex items-center gap-2 mt-1">
-                        {p.rating != null && (
-                          <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                            <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                            {p.rating.toFixed(1)}
-                            {p.reviewCount > 0 && <span className="text-[#6B6862]"> ({p.reviewCount.toLocaleString()})</span>}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                  {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
-                </div>
-              ))}
             </div>
 
             {/* SEO content */}

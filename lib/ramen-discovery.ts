@@ -110,7 +110,7 @@ function phoMapPoints(): MapPoint[] {
     })
 }
 
-function txt(r: Restaurant): string {
+export function txt(r: Restaurant): string {
   return `${r.name} ${r.description ?? ''} ${r.subtypes ?? ''}`.toLowerCase()
 }
 
@@ -119,7 +119,7 @@ function isUpscale(r: Restaurant): boolean {
 }
 
 // Bowl matchers, keyed to BOWL_META.
-const BOWL_MATCH: Record<string, (r: Restaurant) => boolean> = {
+export const BOWL_MATCH: Record<string, (r: Restaurant) => boolean> = {
   'tonkotsu': r => getBrothTypes(r).includes('Tonkotsu') || /tonkotsu|pork bone|hakata/.test(txt(r)),
   'spicy-miso': r => getBrothTypes(r).includes('Spicy') || /spicy/.test(txt(r)),
   'miso': r => getBrothTypes(r).includes('Miso') || /miso ramen|miso broth/.test(txt(r)),

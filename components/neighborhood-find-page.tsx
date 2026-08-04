@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Star } from 'lucide-react'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
@@ -7,14 +6,14 @@ import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
-import SafeImg from '@/components/safe-img'
-import { Loader2 } from 'lucide-react'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import type { NeighborhoodDef } from '@/lib/neighborhoods'
 import { getNeighborhoodRestaurants, getSiblingNeighborhoods, neighborhoodParam, neighborhoodStateSlug, neighborhoodStateName } from '@/lib/neighborhoods'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 
-export default function NeighborhoodFindPage({ hood }: { hood: NeighborhoodDef }) {
+export default async function NeighborhoodFindPage({ hood }: { hood: NeighborhoodDef }) {
   const stateSlug = neighborhoodStateSlug(hood)
   const stateName = neighborhoodStateName(hood)
   const cityHref = `/find/${hood.citySlug}-${hood.stateCode.toLowerCase()}`
@@ -59,80 +58,48 @@ export default function NeighborhoodFindPage({ hood }: { hood: NeighborhoodDef }
     })),
   }
 
+  const verifiedSlugs = count > 0 ? await getAllVerifiedSlugs() : undefined
+  const listicleItems = restaurantsToListicleItems(list.slice(0, 24), { citySlug: hood.citySlug, stateSlug, verifiedSlugs })
+
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialCenter={{ lat: hood.lat, lng: hood.lng }}
+        regionBoundary={{ cityName: hood.cityName, stateName, citySlug: hood.citySlug, stateSlug }}
+        pageTitle={title}
+        pageDescription={`Showing ramen restaurants in and around ${hood.name}, ${hood.cityName}. Enter your ZIP or use your location to sort by distance.`}
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="min-h-screen bg-white">
         <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero
-            initialCenter={{ lat: hood.lat, lng: hood.lng }}
-            regionBoundary={{ cityName: hood.cityName, stateName, citySlug: hood.citySlug, stateSlug }}
-            pageTitle={title}
-            pageDescription={`Showing ramen restaurants in and around ${hood.name}, ${hood.cityName}. Enter your ZIP or use your location to sort by distance.`}
-          />
-        </ErrorBoundary>
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: `Ramen in ${hood.cityName}, ${hood.stateCode}`, href: cityHref },
+            { label: hood.name },
+          ]}
+          title={count > 0 ? `${count} Ramen Restaurant${count === 1 ? '' : 's'} in ${hood.name}` : `Ramen in ${hood.name}`}
+          subtitle={`Every ramen restaurant within about ${hood.radiusMi} miles of ${hood.name}'s center, ranked by rating and review volume. Search by name, or switch to the map.`}
+          items={listicleItems}
+          noun="ramen restaurant"
+          nounPlural="ramen restaurants"
+          searchPlaceholder="Search by name..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
+          mapSlot={mapSlot}
+        />
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            {/* Breadcrumb anchor text */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
-              <span>/</span>
-              <Link href={cityHref} className="hover:text-[#96602F] transition-colors">Ramen in {hood.cityName}, {hood.stateCode}</Link>
-              <span>/</span>
-              <span className="text-[#6B6862]">{hood.name}</span>
-            </nav>
-
             <div className="mb-6">
               <AdUnitInArticle />
             </div>
-
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
-              Ramen Restaurants in {hood.name}
-            </h2>
-            <p className="text-[#6B6862] text-sm mb-8">
-              There are {count} ramen {count === 1 ? 'restaurant' : 'restaurants'} in {hood.name}, {stateName}.
-            </p>
-
-            {/* Listing preview */}
-            {count > 0 && (
-              <div className="space-y-3 mb-10">
-                {list.slice(0, 20).map((r, i) => (
-                  <div key={r.slug}>
-                    <Link
-                      href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                      className="flex items-start gap-3 p-4 bg-[#FAFAF9] border border-black/8 rounded-xl hover:border-[#B57F50]/40 transition-colors group"
-                    >
-                      <SafeImg src={r.photo} alt={r.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">{r.name}</p>
-                        {r.address && <p className="text-xs text-[#6B6862] mt-0.5 truncate">{r.address}</p>}
-                        <div className="flex items-center gap-2 mt-1">
-                          {r.rating != null && (
-                            <span className="flex items-center gap-0.5 text-xs text-[#6B6862]">
-                              <Star className="w-3 h-3 fill-[#B57F50] text-[#96602F]" />
-                              {r.rating.toFixed(1)}
-                              {r.reviewCount > 0 && <span className="text-[#6B6862]"> ({r.reviewCount.toLocaleString()})</span>}
-                            </span>
-                          )}
-                          {r.priceRange && <span className="text-xs text-[#6B6862]">{r.priceRange}</span>}
-                        </div>
-                      </div>
-                    </Link>
-                    {i === 3 && <div className="mt-3"><AdUnitInFeed /></div>}
-                  </div>
-                ))}
-              </div>
-            )}
 
             {/* SEO content — neighborhood-specific, first-person */}
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
