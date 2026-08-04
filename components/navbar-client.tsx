@@ -14,7 +14,7 @@ const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/search', label: 'Search' },
-  { href: '/find', label: 'Find' },
+  { href: '/state', label: 'By State' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/recipes', label: 'Recipes' },
   { href: '/blog', label: 'Blog' },

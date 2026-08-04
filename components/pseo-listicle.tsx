@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
@@ -77,6 +77,10 @@ interface Props {
    *  /find/ramen-near-me-within-N-mi pages. Meaningless before that, since
    *  there's no server-side location to filter by. */
   maxDistanceMiles?: number
+  /** When set, only this many ranked items (plus the spotlight) render
+   *  initially, with a "Show more" button revealing another batch at a
+   *  time — for pages listing thousands of items (e.g. /partners). */
+  pageSize?: number
 }
 
 export default function PseoListicle({
@@ -94,6 +98,7 @@ export default function PseoListicle({
   mapSlot,
   headerExtra,
   maxDistanceMiles,
+  pageSize,
 }: Props) {
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
@@ -101,6 +106,11 @@ export default function PseoListicle({
   const [sort, setSort] = useState<SortKey>(initialSort)
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
   const [geoError, setGeoError] = useState('')
+  const [visibleCount, setVisibleCount] = useState(pageSize ? pageSize - 1 : Infinity)
+
+  useEffect(() => {
+    setVisibleCount(pageSize ? pageSize - 1 : Infinity)
+  }, [query, attraction, sort, userLoc, pageSize])
 
   const attractionOptions = useMemo(() => {
     const set = new Set<string>()
@@ -157,6 +167,8 @@ export default function PseoListicle({
 
   const spotlight = view === 'list' ? filtered[0] : undefined
   const rest = view === 'list' ? filtered.slice(1) : []
+  const pagedRest = rest.slice(0, visibleCount)
+  const remaining = rest.length - pagedRest.length
 
   const resolvedSortOptions: { value: SortKey; label: string }[] = sortOptions ?? [
     { value: 'rating', label: 'Top rated' },
@@ -291,9 +303,11 @@ export default function PseoListicle({
                     <RestaurantImage src={spotlight.photo} alt={spotlight.name} fill className="object-cover" sizes="256px" />
                   </div>
                   <div className="p-5 flex-1 min-w-0">
-                    <Link href={spotlight.href} className="font-serif text-xl font-bold text-[#1E2026] hover:text-[#96602F] transition-colors">
-                      {spotlight.name}
-                    </Link>
+                    <h2 className="font-serif text-xl font-bold text-[#1E2026] leading-tight">
+                      <Link href={spotlight.href} className="hover:text-[#96602F] transition-colors">
+                        {spotlight.name}
+                      </Link>
+                    </h2>
                     <div className="flex items-center gap-2 flex-wrap mt-1.5 mb-2">
                       {spotlight.rating != null && (
                         <>
@@ -338,7 +352,7 @@ export default function PseoListicle({
 
             {/* Ranked list */}
             <div className="space-y-3">
-              {rest.map((it, i) => (
+              {pagedRest.map((it, i) => (
                 <div key={it.key} className="bg-white border border-black/8 rounded-xl p-4 flex gap-3">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#B57F50] text-white text-xs font-bold shrink-0 mt-0.5">
                     {i + 1}
@@ -347,9 +361,11 @@ export default function PseoListicle({
                     <RestaurantImage src={it.photo} alt={it.name} fill className="object-cover" sizes="64px" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <Link href={it.href} className="font-bold text-sm text-[#1E2026] hover:text-[#96602F] transition-colors">
-                      {it.name}
-                    </Link>
+                    <h2 className="font-bold text-sm text-[#1E2026] leading-tight">
+                      <Link href={it.href} className="hover:text-[#96602F] transition-colors">
+                        {it.name}
+                      </Link>
+                    </h2>
                     <div className="flex items-center gap-2 flex-wrap mt-1">
                       {it.rating != null && (
                         <>
@@ -403,6 +419,18 @@ export default function PseoListicle({
                 </div>
               ))}
             </div>
+
+            {remaining > 0 && (
+              <div className="flex justify-center mt-6">
+                <button
+                  type="button"
+                  onClick={() => setVisibleCount(v => v + (pageSize ?? 50))}
+                  className="px-6 py-3 rounded-full bg-white border border-black/12 text-sm font-semibold text-[#1E2026] hover:border-[#B57F50]/50 transition-colors"
+                >
+                  Show more ({remaining.toLocaleString()} more)
+                </button>
+              </div>
+            )}
           </>
         )}
 
