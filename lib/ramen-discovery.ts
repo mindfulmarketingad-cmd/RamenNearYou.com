@@ -134,7 +134,7 @@ export const BOWL_MATCH: Record<string, (r: Restaurant) => boolean> = {
 }
 
 // Mood matchers, keyed to MOOD_META.
-const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
+export const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
   'rich-creamy':    r => getBrothTypes(r).includes('Tonkotsu') || /paitan|creamy|rich broth|velvety/.test(txt(r)),
   'light-clean':    r => getBrothTypes(r).includes('Shoyu') || /shio|clear broth|light broth|delicate broth/.test(txt(r)),
   'extra-spicy':    r => getBrothTypes(r).includes('Spicy'),

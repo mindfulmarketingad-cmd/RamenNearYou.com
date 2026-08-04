@@ -5,13 +5,16 @@ import {
   getSupplementCitiesByState,
   getSupplementOnlyStateSlugs,
   getSupplementStateName,
+  getSupplementListings,
 } from '@/lib/places-supplements'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BrothStyleLinks from '@/components/broth-style-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
-import PseoListicle, { type ListicleItem } from '@/components/pseo-listicle'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 export async function generateStaticParams() {
   const dbStates = getStates()
@@ -76,7 +79,6 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
     const stateName = getSupplementStateName(stateSlug)
     const stateCode = STATE_SLUG_TO_CODE[stateSlug] ?? ''
-    const stateCodeLower = stateCode.toLowerCase()
     const total = supplementCities.reduce((s, c) => s + c.count, 0)
     const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
 
@@ -89,15 +91,12 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
       ],
     }
 
-    const cityItems: ListicleItem[] = supplementCities.map((c) => ({
-      key: c.citySlug,
-      href: `/find/${c.citySlug}-${stateCodeLower}`,
-      photo: null,
-      name: c.city,
-      reviewCount: c.count,
-      locationLabel: stateName,
-      description: `${c.count} ramen ${c.count === 1 ? 'restaurant' : 'restaurants'} tracked in ${c.city}.`,
-    }))
+    // No DB rows for this state — pull every Google Places supplement listing
+    // across its cities so the listicle is individual restaurants, same as
+    // the DB-backed branch below, not just a city index.
+    const allPlaces = supplementCities.flatMap(c => getSupplementListings(c.citySlug, stateCode))
+    const rankedPlaces = [...allPlaces].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+    const listicleItems = placesToListicleItems(rankedPlaces.slice(0, 48))
 
     const mapSlot = (
       <ErrorBoundary fallback={null}>
@@ -122,17 +121,13 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             { label: stateName },
           ]}
           title={`${total} Ramen Restaurants in ${stateName}`}
-          subtitle={`Every ramen restaurant we track in ${stateName}, grouped by town across ${supplementCities.length} ${supplementCities.length === 1 ? 'city' : 'cities'}. Search by town, or switch to the map.`}
-          items={cityItems}
-          noun="city"
-          nounPlural="cities"
-          searchPlaceholder="Search by town..."
-          sortOptions={[
-            { value: 'reviews', label: 'Most restaurants' },
-            { value: 'name', label: 'Name (A–Z)' },
-          ]}
-          initialSort="reviews"
-          primaryCtaLabel="View restaurants"
+          subtitle={`Every ramen restaurant we track across ${stateName}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
+          items={listicleItems}
+          noun="ramen restaurant"
+          nounPlural="ramen restaurants"
+          searchPlaceholder="Search by name or town..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
           mapSlot={mapSlot}
         />
 
@@ -142,29 +137,8 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     )
   }
 
-  const { state, stateCode } = allRestaurants[0]
-  const stateCodeLower = (STATE_SLUG_TO_CODE[stateSlug] ?? stateCode).toLowerCase()
-
-  // Build city index sorted alphabetically
-  const cityGroups = new Map<string, { city: string; citySlug: string; count: number }>()
-  for (const r of allRestaurants) {
-    const entry = cityGroups.get(r.citySlug)
-    if (entry) entry.count++
-    else cityGroups.set(r.citySlug, { city: r.city, citySlug: r.citySlug, count: 1 })
-  }
-  // Merge in Google Places supplement cities for this state — cities that have
-  // fetched listings but few/no DB rows. Without this, a state with even one DB
-  // restaurant would hide all of its supplement cities (e.g. Utah).
-  for (const sc of getSupplementCitiesByState(stateSlug)) {
-    if (!cityGroups.has(sc.citySlug)) {
-      cityGroups.set(sc.citySlug, { city: sc.city, citySlug: sc.citySlug, count: sc.count })
-    }
-  }
-  // Exclude single-restaurant cities — those don't have their own city page.
-  const cities = Array.from(cityGroups.values()).filter((c) => c.count >= 2).sort((a, b) => a.city.localeCompare(b.city))
-  // Total across the cities shown (DB + supplement), so the header counts match
-  // the grid rather than only counting DB rows.
-  const totalListings = cities.reduce((s, c) => s + c.count, 0)
+  const { state } = allRestaurants[0]
+  const cityCount = new Set(allRestaurants.map(r => r.citySlug)).size
 
   // Rough center so the map doesn't flash a full-USA view before the state
   // boundary fetch resolves and fits the real outline.
@@ -187,15 +161,9 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     ],
   }
 
-  const cityItems: ListicleItem[] = cities.map((c) => ({
-    key: c.citySlug,
-    href: `/find/${c.citySlug}-${stateCodeLower}`,
-    photo: null,
-    name: c.city,
-    reviewCount: c.count,
-    locationLabel: state,
-    description: `${c.count} ramen ${c.count === 1 ? 'restaurant' : 'restaurants'} tracked in ${c.city}.`,
-  }))
+  const ranked = [...allRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const verifiedSlugs = await getAllVerifiedSlugs()
+  const listicleItems = restaurantsToListicleItems(ranked.slice(0, 48), { verifiedSlugs })
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>
@@ -220,18 +188,14 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           { label: 'Browse Cities & States', href: '/cities' },
           { label: state },
         ]}
-        title={`${totalListings} Ramen Restaurants in ${state}`}
-        subtitle={`Every ramen restaurant we track in ${state}, grouped by town across ${cities.length} ${cities.length === 1 ? 'city' : 'cities'}. Search by town, or switch to the map.`}
-        items={cityItems}
-        noun="city"
-        nounPlural="cities"
-        searchPlaceholder="Search by town..."
-        sortOptions={[
-          { value: 'reviews', label: 'Most restaurants' },
-          { value: 'name', label: 'Name (A–Z)' },
-        ]}
-        initialSort="reviews"
-        primaryCtaLabel="View restaurants"
+        title={`${allRestaurants.length} Ramen Restaurants in ${state}`}
+        subtitle={`Every ramen restaurant we track across ${state}'s ${cityCount} ${cityCount === 1 ? 'city' : 'cities'}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
+        items={listicleItems}
+        noun="ramen restaurant"
+        nounPlural="ramen restaurants"
+        searchPlaceholder="Search by name or town..."
+        filterLabel="Feature"
+        primaryCtaLabel="View details"
         mapSlot={mapSlot}
       />
 

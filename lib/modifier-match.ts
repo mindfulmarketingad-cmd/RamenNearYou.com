@@ -7,12 +7,18 @@
 import type { Restaurant } from './restaurants'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from './hours'
 import { FEATURE_AMENITY_FIELD } from './ramen-taxonomy'
-import { BOWL_MATCH, txt } from './ramen-discovery'
+import { BOWL_MATCH, MOOD_MATCH, txt } from './ramen-discovery'
 import type { ModifierFilter } from './find-modifiers'
 
-export function restaurantMatchesModifier(r: Restaurant, filter: ModifierFilter): boolean {
+// Superset of ModifierFilter — the standalone nationwide /find/* pages (open
+// now, tonkotsu, date-night, etc.) also use initialMoods, which per-city
+// modifier pages never do.
+export type NationwideFilter = ModifierFilter & { initialMoods?: string[] }
+
+export function restaurantMatchesModifier(r: Restaurant, filter: NationwideFilter): boolean {
   const flags = new Set(filter.initialFlags ?? [])
   const bowls = new Set(filter.initialBowls ?? [])
+  const moods = new Set(filter.initialMoods ?? [])
   const prices = new Set(filter.initialPrices ?? [])
   const query = filter.initialQuery?.toLowerCase().trim()
 
@@ -51,6 +57,8 @@ export function restaurantMatchesModifier(r: Restaurant, filter: ModifierFilter)
     const nameMatchesMiso = bowls.has('miso') && /miso/i.test(r.name)
     if (!matchesBowl && !nameMatchesMiso) return false
   }
+
+  if (moods.size > 0 && ![...moods].some(k => MOOD_MATCH[k]?.(r))) return false
 
   if (prices.size > 0) {
     const budget = r.priceRange === '$' || r.priceRange === '$$'

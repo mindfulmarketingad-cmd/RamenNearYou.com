@@ -4,6 +4,11 @@ import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurants } from '@/lib/restaurants'
+import { restaurantMatchesModifier } from '@/lib/modifier-match'
+import { restaurantsToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 export const metadata: Metadata = {
   title: 'New Ramen Places Near Me | Newly Opened Ramen Spots | RamenNearYou',
@@ -18,25 +23,47 @@ export const metadata: Metadata = {
   },
 }
 
-export default function NewRamenPage() {
+export default async function NewRamenPage() {
+  const NATIONWIDE_FILTER = { initialFlags: ["new-ramen"] }
+  const matched = restaurants.filter(r => restaurantMatchesModifier(r, NATIONWIDE_FILTER))
+  const ranked = [...matched].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const verifiedSlugs = await getAllVerifiedSlugs()
+  const listicleItems = restaurantsToListicleItems(ranked.slice(0, 48), { verifiedSlugs })
+  const count = matched.length
+
+  const mapSlot = (
+    <ErrorBoundary
+      fallback={
+        <section className="pt-16 bg-[#F5F4F0]">
+          <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+          </div>
+        </section>
+      }
+    >
+      <HomeMapHero
+        initialFlags={['new-ramen']}
+        pageTitle="New Ramen Places Near Me"
+        pageDescription="Showing newer ramen spots near you — recently opened shops that are still building a following. Enter your ZIP or use your location to find one nearby."
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      <ErrorBoundary
-        fallback={
-          <section className="pt-16 bg-[#F5F4F0]">
-            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-            </div>
-          </section>
-        }
-      >
-        <HomeMapHero
-          initialFlags={['new-ramen']}
-          pageTitle="New Ramen Places Near Me"
-          pageDescription="Showing newer ramen spots near you — recently opened shops that are still building a following. Enter your ZIP or use your location to find one nearby."
-        />
-      </ErrorBoundary>
+      <PseoListicle
+        breadcrumb={[{ label: 'Ramen Near You', href: '/' }, { label: 'Find Ramen', href: '/find' }, { label: "New Ramen Places Near Me" }]}
+        title={`New Ramen Places Near Me — ${count} Spot${count === 1 ? '' : 's'}`}
+        subtitle={"Every ramen restaurant we track that matches this, ranked by rating and review volume. Search by name or city, or switch to the map."}
+        items={listicleItems}
+        noun="ramen restaurant"
+        nounPlural="ramen restaurants"
+        searchPlaceholder="Search by name or city..."
+        filterLabel="Feature"
+        primaryCtaLabel="View details"
+        mapSlot={mapSlot}
+      />
 
       <FindPageContent
         currentHref="/find/new-ramen-near-me"

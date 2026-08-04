@@ -72,6 +72,11 @@ interface Props {
   primaryCtaLabel?: string
   mapSlot: React.ReactNode
   headerExtra?: React.ReactNode
+  /** When set, items farther than this are dropped once the visitor's
+   *  location is known (via "Show distance from me") — used by the
+   *  /find/ramen-near-me-within-N-mi pages. Meaningless before that, since
+   *  there's no server-side location to filter by. */
+  maxDistanceMiles?: number
 }
 
 export default function PseoListicle({
@@ -88,6 +93,7 @@ export default function PseoListicle({
   primaryCtaLabel = 'View details',
   mapSlot,
   headerExtra,
+  maxDistanceMiles,
 }: Props) {
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
@@ -106,6 +112,10 @@ export default function PseoListicle({
     const q = query.trim().toLowerCase()
     let list = items.filter(it => {
       if (attraction !== 'all' && !(it.tags ?? []).includes(attraction)) return false
+      if (maxDistanceMiles != null && userLoc) {
+        if (it.lat == null || it.lng == null) return false
+        if (distanceMiles(userLoc.lat, userLoc.lng, it.lat, it.lng) > maxDistanceMiles) return false
+      }
       if (!q) return true
       return it.name.toLowerCase().includes(q) || (it.locationLabel ?? '').toLowerCase().includes(q)
     })
@@ -120,7 +130,7 @@ export default function PseoListicle({
       return (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
     })
     return list
-  }, [items, query, attraction, sort, userLoc])
+  }, [items, query, attraction, sort, userLoc, maxDistanceMiles])
 
   function handleReset() {
     setQuery('')

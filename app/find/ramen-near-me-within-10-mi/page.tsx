@@ -4,6 +4,11 @@ import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
 import { Loader2 } from 'lucide-react'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurants } from '@/lib/restaurants'
+import { restaurantMatchesModifier } from '@/lib/modifier-match'
+import { restaurantsToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 export const metadata: Metadata = {
   title: 'Ramen Near Me Within 10 Mis | RamenNearYou',
@@ -18,25 +23,48 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RamenWithin10MiPage() {
+export default async function RamenWithin10MiPage() {
+  const NATIONWIDE_FILTER = {  }
+  const matched = restaurants.filter(r => restaurantMatchesModifier(r, NATIONWIDE_FILTER))
+  const ranked = [...matched].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const verifiedSlugs = await getAllVerifiedSlugs()
+  const listicleItems = restaurantsToListicleItems(ranked.slice(0, 48), { verifiedSlugs })
+  const count = matched.length
+
+  const mapSlot = (
+    <ErrorBoundary
+      fallback={
+        <section className="pt-16 bg-[#F5F4F0]">
+          <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+          </div>
+        </section>
+      }
+    >
+      <HomeMapHero
+        maxDistanceMiles={10}
+        pageTitle="Ramen Near Me Within 10 Mis"
+        pageDescription="Showing ramen restaurants within 10 miles of you. Enter your ZIP or use your location — the map filters out anything farther than 10 miles."
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      <ErrorBoundary
-        fallback={
-          <section className="pt-16 bg-[#F5F4F0]">
-            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-            </div>
-          </section>
-        }
-      >
-        <HomeMapHero
-          maxDistanceMiles={10}
-          pageTitle="Ramen Near Me Within 10 Mis"
-          pageDescription="Showing ramen restaurants within 10 miles of you. Enter your ZIP or use your location — the map filters out anything farther than 10 miles."
-        />
-      </ErrorBoundary>
+      <PseoListicle
+        breadcrumb={[{ label: 'Ramen Near You', href: '/' }, { label: 'Find Ramen', href: '/find' }, { label: "Ramen Near Me Within 10 Mis" }]}
+        title={`Ramen Near Me Within 10 Mis — ${count} Spot${count === 1 ? '' : 's'}`}
+        subtitle={"Every ramen restaurant we track, ranked by rating. Tap \"Show distance from me\" to filter to spots within 10 miles of you, or switch to the map."}
+        items={listicleItems}
+        noun="ramen restaurant"
+        nounPlural="ramen restaurants"
+        searchPlaceholder="Search by name or city..."
+        filterLabel="Feature"
+        primaryCtaLabel="View details"
+        mapSlot={mapSlot}
+        maxDistanceMiles={10}
+      />
 
       <FindPageContent
         currentHref="/find/ramen-near-me-within-10-mi"

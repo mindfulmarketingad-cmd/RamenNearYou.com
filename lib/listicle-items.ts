@@ -28,13 +28,13 @@ function oneLinerDescription(r: Restaurant, rank: number): string {
 
 export function restaurantsToListicleItems(
   restaurants: Restaurant[],
-  opts: { citySlug: string; stateSlug: string; verifiedSlugs?: Set<string> },
+  opts: { verifiedSlugs?: Set<string> } = {},
 ): ListicleItem[] {
   return restaurants.map((r, i) => {
     const status = getOpenStatus(r.hours)
     return {
       key: r.slug,
-      href: `/${opts.citySlug}/${opts.stateSlug}/${r.slug}`,
+      href: `/${r.citySlug}/${r.stateSlug}/${r.slug}`,
       photo: r.photo,
       name: r.name,
       rating: r.rating,
@@ -49,7 +49,7 @@ export function restaurantsToListicleItems(
       tags: tagsFromAmenities(r),
       lat: r.latitude,
       lng: r.longitude,
-      claimHref: `/claim/${opts.citySlug}/${opts.stateSlug}/${r.slug}`,
+      claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
       isClaimed: opts.verifiedSlugs?.has(r.slug) ?? false,
     }
   })

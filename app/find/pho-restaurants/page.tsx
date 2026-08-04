@@ -5,7 +5,9 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
-import { getPhoStats, getPhoCities, phoCityParam } from '@/lib/pho'
+import PseoListicle from '@/components/pseo-listicle'
+import { phoToListicleItems } from '@/lib/listicle-items'
+import { getPhoStats, getPhoCities, phoCityParam, phoRestaurants } from '@/lib/pho'
 
 export const metadata: Metadata = {
   title: 'Pho Restaurants Near Me | Ramen Near You',
@@ -25,24 +27,47 @@ export default function PhoFindPage() {
   const stats = getPhoStats()
   const topCities = getPhoCities().slice(0, 10)
 
+  const ranked = [...phoRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const listicleItems = phoToListicleItems(ranked.slice(0, 48))
+
+  const mapSlot = (
+    <ErrorBoundary
+      fallback={
+        <section className="pt-16 bg-[#F5F4F0]">
+          <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
+            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+          </div>
+        </section>
+      }
+    >
+      <HomeMapHero
+        initialFlags={['pho']}
+        pageTitle="Pho Restaurants Near Me"
+        pageDescription={`Showing ${stats.restaurants} pho restaurants across ${stats.states} states. Enter your ZIP or use your location to sort by distance.`}
+      />
+    </ErrorBoundary>
+  )
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      <ErrorBoundary
-        fallback={
-          <section className="pt-16 bg-[#F5F4F0]">
-            <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
-            </div>
-          </section>
-        }
-      >
-        <HomeMapHero
-          initialFlags={['pho']}
-          pageTitle="Pho Restaurants Near Me"
-          pageDescription={`Showing ${stats.restaurants} pho restaurants across ${stats.states} states. Enter your ZIP or use your location to sort by distance.`}
-        />
-      </ErrorBoundary>
+
+      <PseoListicle
+        breadcrumb={[
+          { label: 'Ramen Near You', href: '/' },
+          { label: 'Find Ramen', href: '/find' },
+          { label: 'Pho Restaurants Near Me' },
+        ]}
+        title={`Pho Restaurants Near Me — ${stats.restaurants} Spots`}
+        subtitle={`Every pho restaurant we track across ${stats.cities} cities and ${stats.states} states, ranked by rating and review volume. Search by name or city, or switch to the map.`}
+        items={listicleItems}
+        noun="pho restaurant"
+        nounPlural="pho restaurants"
+        searchPlaceholder="Search by name or city..."
+        filterLabel="Highlight"
+        primaryCtaLabel="View details"
+        mapSlot={mapSlot}
+      />
 
       <FindPageContent
         currentHref="/find/pho-restaurants"
