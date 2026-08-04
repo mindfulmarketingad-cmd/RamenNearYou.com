@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
 // Reverse-geocoding (Nominatim) returns a full state name — map it back to
@@ -85,9 +84,9 @@ interface Props {
    *  /find/ramen-near-me-within-N-mi pages. Meaningless before that, since
    *  there's no server-side location to filter by. */
   maxDistanceMiles?: number
-  /** When set, only this many ranked items (plus the spotlight) render
-   *  initially, with a "Show more" button revealing another batch at a
-   *  time — for pages listing thousands of items (e.g. /partners). */
+  /** When set, only this many ranked items render initially, with a
+   *  "Show more" button revealing another batch at a time — for pages
+   *  listing thousands of items (e.g. /partners). */
   pageSize?: number
 }
 
@@ -116,10 +115,10 @@ export default function PseoListicle({
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
   const [userLocLabel, setUserLocLabel] = useState('')
   const [geoError, setGeoError] = useState('')
-  const [visibleCount, setVisibleCount] = useState(pageSize ? pageSize - 1 : Infinity)
+  const [visibleCount, setVisibleCount] = useState(pageSize ?? Infinity)
 
   useEffect(() => {
-    setVisibleCount(pageSize ? pageSize - 1 : Infinity)
+    setVisibleCount(pageSize ?? Infinity)
   }, [query, attraction, sort, userLoc, pageSize])
 
   const attractionOptions = useMemo(() => {
@@ -210,8 +209,7 @@ export default function PseoListicle({
     return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi away`
   }
 
-  const spotlight = view === 'list' ? filtered[0] : undefined
-  const rest = view === 'list' ? filtered.slice(1) : []
+  const rest = view === 'list' ? filtered : []
   const pagedRest = rest.slice(0, visibleCount)
   const remaining = rest.length - pagedRest.length
 
@@ -353,67 +351,6 @@ export default function PseoListicle({
               </div>
             )}
 
-            {/* Spotlight — the top-ranked result gets a bigger, photo-led card */}
-            {spotlight && (
-              <div className="bg-white border border-black/8 rounded-2xl overflow-hidden mb-4 shadow-sm">
-                <div className="sm:flex">
-                  <div className="relative w-full sm:w-64 h-48 sm:h-auto shrink-0 bg-[#F5F4F0]">
-                    <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold uppercase tracking-widest">
-                      Spotlight
-                    </span>
-                    <RestaurantImage src={spotlight.photo} alt={spotlight.name} fill className="object-cover" sizes="256px" />
-                  </div>
-                  <div className="p-5 flex-1 min-w-0">
-                    <h2 className="font-serif text-xl font-bold text-[#1E2026] leading-tight">
-                      <Link href={spotlight.href} className="hover:text-[#96602F] transition-colors">
-                        {spotlight.name}
-                      </Link>
-                    </h2>
-                    <div className="flex items-center gap-2 flex-wrap mt-1.5 mb-2">
-                      {spotlight.rating != null && (
-                        <>
-                          <StarRating rating={spotlight.rating} />
-                          <span className="text-sm font-semibold text-[#1E2026]">{spotlight.rating.toFixed(1)}</span>
-                          {!!spotlight.reviewCount && <span className="text-xs text-[#6B6862]">{spotlight.reviewCount.toLocaleString()} reviews</span>}
-                        </>
-                      )}
-                      {spotlight.locationLabel && (
-                        <span className="flex items-center gap-1 text-xs text-[#6B6862]">
-                          <MapPin className="w-3 h-3" />{spotlight.locationLabel}
-                        </span>
-                      )}
-                      {distanceLabel(spotlight) && (
-                        <span className="text-xs font-semibold text-emerald-600">{distanceLabel(spotlight)}</span>
-                      )}
-                    </div>
-                    <p className="text-sm text-[#6B6862] leading-relaxed mb-4">{spotlight.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      <Link
-                        href={spotlight.href}
-                        className="px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
-                      >
-                        {primaryCtaLabel}
-                      </Link>
-                      {spotlight.claimHref && !spotlight.isClaimed && (
-                        <Link
-                          href={spotlight.claimHref}
-                          className="px-4 py-2 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 transition-colors"
-                        >
-                          Is this your {noun}? Claim it
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {spotlight && (
-              <div className="my-4">
-                <AdUnitVertical />
-              </div>
-            )}
-
             {/* Ranked list */}
             <div className="space-y-3">
               {pagedRest.map((it, i) => (
@@ -487,7 +424,7 @@ export default function PseoListicle({
                 </div>
                 {(i === 0 || i === 1) && (
                   <div className="my-3">
-                    <AdUnitInFeed />
+                    <AdUnitVertical />
                   </div>
                 )}
                 </Fragment>
