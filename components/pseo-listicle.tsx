@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 
 export type ListicleItem = {
   key: string
@@ -316,6 +317,12 @@ export default function PseoListicle({
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {spotlight && (
+              <div className="my-4">
+                <AdUnitVertical />
               </div>
             )}
 
