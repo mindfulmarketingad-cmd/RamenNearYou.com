@@ -31,7 +31,7 @@ export default async function TonkotsuRamenPage() {
   const matched = restaurants.filter(r => restaurantMatchesModifier(r, NATIONWIDE_FILTER))
   const ranked = [...matched].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   const verifiedSlugs = await getAllVerifiedSlugs()
-  const listicleItems = restaurantsToListicleItems(ranked.slice(0, 48), { verifiedSlugs })
+  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs })
   const count = matched.length
 
   const mapSlot = (

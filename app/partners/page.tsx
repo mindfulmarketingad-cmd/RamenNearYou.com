@@ -82,7 +82,6 @@ export default async function PartnersPage() {
         filterLabel="Feature"
         primaryCtaLabel="View details"
         mapSlot={mapSlot}
-        pageSize={50}
       />
 
       <div className="pt-4 pb-16 px-4 sm:px-6">

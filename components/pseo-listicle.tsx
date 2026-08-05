@@ -343,6 +343,10 @@ export default function PseoListicle({
               {geoError && <p className="text-red-500 text-xs mt-2">{geoError}</p>}
             </div>
 
+            <div className="mb-4">
+              <AdUnitVertical />
+            </div>
+
             <p className="text-xs text-[#6B6862] mb-4">{filtered.length} {filtered.length === 1 ? noun : nounPlural}</p>
 
             {filtered.length === 0 && (
@@ -422,7 +426,7 @@ export default function PseoListicle({
                     )}
                   </div>
                 </div>
-                {(i === 0 || i === 1) && (
+                {i === 0 && (
                   <div className="my-3">
                     <AdUnitVertical />
                   </div>

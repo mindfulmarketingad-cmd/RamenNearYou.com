@@ -28,7 +28,7 @@ export default function PhoFindPage() {
   const topCities = getPhoCities().slice(0, 10)
 
   const ranked = [...phoRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-  const listicleItems = phoToListicleItems(ranked.slice(0, 48))
+  const listicleItems = phoToListicleItems(ranked)
 
   const mapSlot = (
     <ErrorBoundary

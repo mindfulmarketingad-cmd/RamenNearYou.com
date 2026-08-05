@@ -59,7 +59,7 @@ export default async function NeighborhoodFindPage({ hood }: { hood: Neighborhoo
   }
 
   const verifiedSlugs = count > 0 ? await getAllVerifiedSlugs() : undefined
-  const listicleItems = restaurantsToListicleItems(list.slice(0, 24), { verifiedSlugs })
+  const listicleItems = restaurantsToListicleItems(list, { verifiedSlugs })
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>

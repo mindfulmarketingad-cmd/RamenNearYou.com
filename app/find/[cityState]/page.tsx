@@ -285,8 +285,8 @@ export default async function CityFindPage(
   // see components/pseo-listicle.tsx's conditional render of mapSlot.
   const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
   const listicleItems = dbRestaurants.length > 0
-    ? restaurantsToListicleItems(ranked.slice(0, 24) as Restaurant[], { verifiedSlugs })
-    : placesToListicleItems(ranked.slice(0, 24) as SupplementListing[])
+    ? restaurantsToListicleItems(ranked as Restaurant[], { verifiedSlugs })
+    : placesToListicleItems(ranked as SupplementListing[])
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>

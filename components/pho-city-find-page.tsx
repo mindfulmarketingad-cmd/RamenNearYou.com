@@ -64,7 +64,7 @@ export default function PhoCityFindPage({
     </ErrorBoundary>
   )
 
-  const listicleItems = phoToListicleItems(listings.slice(0, 24))
+  const listicleItems = phoToListicleItems(listings)
 
   return (
     <>

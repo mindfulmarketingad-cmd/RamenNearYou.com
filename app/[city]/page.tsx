@@ -96,7 +96,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     // the DB-backed branch below, not just a city index.
     const allPlaces = supplementCities.flatMap(c => getSupplementListings(c.citySlug, stateCode))
     const rankedPlaces = [...allPlaces].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-    const listicleItems = placesToListicleItems(rankedPlaces.slice(0, 48))
+    const listicleItems = placesToListicleItems(rankedPlaces)
 
     const mapSlot = (
       <ErrorBoundary fallback={null}>
@@ -163,7 +163,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
   const ranked = [...allRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   const verifiedSlugs = await getAllVerifiedSlugs()
-  const listicleItems = restaurantsToListicleItems(ranked.slice(0, 48), { verifiedSlugs })
+  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs })
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>

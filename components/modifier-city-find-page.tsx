@@ -42,8 +42,8 @@ export default async function ModifierCityFindPage({
   const ranked = [...dbRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
   const listicleItems = dbRestaurants.length > 0
-    ? restaurantsToListicleItems(ranked.slice(0, 24), { verifiedSlugs })
-    : placesToListicleItems(placesResults.slice(0, 24))
+    ? restaurantsToListicleItems(ranked, { verifiedSlugs })
+    : placesToListicleItems(placesResults)
   const count = dbRestaurants.length > 0 ? dbRestaurants.length : placesResults.length
 
   const faqSchema = {
