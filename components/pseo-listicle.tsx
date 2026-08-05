@@ -27,6 +27,11 @@ function stateName(code: string): string {
   return STATE_CODE_TO_NAME[code] ?? code
 }
 
+// Ad cadence: one under the filter bar, then one after every 5th listing,
+// stopping at 4 in-list units so a page never carries more than 5 total.
+const LISTINGS_PER_AD = 5
+const IN_LIST_ADS = 4
+
 export type ListicleTag = { label: string; href?: string }
 
 export type ListicleItem = {
@@ -534,7 +539,10 @@ export default function PseoListicle({
                     )}
                   </div>
                 </div>
-                {i === 0 && (
+                {/* One ad after every 5th listing. Combined with the one
+                    under the filter bar that's 5 per page, which is the
+                    cap — beyond that the run of cards is mostly ads. */}
+                {(i + 1) % LISTINGS_PER_AD === 0 && (i + 1) / LISTINGS_PER_AD <= IN_LIST_ADS && (
                   <div className="my-3">
                     <AdUnitVertical />
                   </div>
