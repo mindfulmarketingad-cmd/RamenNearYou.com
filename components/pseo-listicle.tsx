@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Star, MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
+import { MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
@@ -13,6 +13,8 @@ const STATE_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
   Object.entries(STATE_CODE_TO_NAME).map(([code, name]) => [name, code])
 )
 
+export type ListicleTag = { label: string; href?: string }
+
 export type ListicleItem = {
   key: string
   href: string
@@ -20,14 +22,23 @@ export type ListicleItem = {
   name: string
   rating?: number | null
   reviewCount?: number
+  /** Internal link to this listing's /reviews/{slug} page, when one exists. */
+  reviewHref?: string | null
   locationLabel?: string | null
+  /** Internal link to that city's own /find listicle page. */
+  cityHref?: string | null
+  /** Internal link to that state's listicle page. */
+  stateHref?: string | null
   address?: string | null
+  /** Google Maps directions/search URL — same link the listing page's "Get
+   *  Directions" CTA uses, so clicking the address behaves identically. */
+  directionsUrl?: string | null
   phone?: string | null
   website?: string | null
   hoursLabel?: string | null
   hoursOpen?: boolean | null
   description: string
-  tags?: string[]
+  tags?: ListicleTag[]
   lat?: number | null
   lng?: number | null
   claimHref?: string | null
@@ -45,22 +56,42 @@ function distanceMiles(aLat: number, aLng: number, bLat: number, bLng: number): 
   return R * 2 * Math.atan2(Math.sqrt(s1), Math.sqrt(1 - s1))
 }
 
+// Unicode stars with a width-clipped overlay rather than five inline SVGs.
+// On a listicle rendering hundreds of cards, five lucide <svg> elements per
+// card accounted for ~30% of the prerendered HTML — this is the same visual
+// at roughly a hundredth of the bytes.
 function StarRating({ rating }: { rating: number | null | undefined }) {
   if (rating == null) return null
-  const full = Math.floor(rating)
-  const half = rating - full >= 0.5
+  const pct = Math.max(0, Math.min(100, (rating / 5) * 100))
   return (
-    <span className="flex items-center gap-0.5" aria-hidden="true">
-      {[1, 2, 3, 4, 5].map(i => (
-        <Star
-          key={i}
-          className={`w-3.5 h-3.5 ${
-            i <= full ? 'text-amber-400 fill-amber-400'
-              : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50'
-              : 'text-[#1E2026]/15'
-          }`}
-        />
-      ))}
+    <span
+      className="relative inline-block leading-none text-[13px] tracking-[0.05em] select-none"
+      aria-hidden="true"
+    >
+      <span className="text-[#1E2026]/15">★★★★★</span>
+      <span
+        className="absolute left-0 top-0 overflow-hidden text-amber-400 whitespace-nowrap"
+        style={{ width: `${pct}%` }}
+      >
+        ★★★★★
+      </span>
+    </span>
+  )
+}
+
+// Renders "City, ST" with each half linking to that city's/state's own
+// listicle page when we have the href for it; falls back to plain text
+// (never guesses a slug from the display label).
+function LocationLabel({ label, cityHref, stateHref }: { label: string; cityHref?: string | null; stateHref?: string | null }) {
+  const commaIdx = label.lastIndexOf(', ')
+  if (commaIdx === -1) return <>{label}</>
+  const city = label.slice(0, commaIdx)
+  const state = label.slice(commaIdx + 2)
+  return (
+    <span className="truncate">
+      {cityHref ? <Link href={cityHref} className="hover:text-[#96602F] hover:underline">{city}</Link> : city}
+      {', '}
+      {stateHref ? <Link href={stateHref} className="hover:text-[#96602F] hover:underline">{state}</Link> : state}
     </span>
   )
 }
@@ -123,7 +154,7 @@ export default function PseoListicle({
 
   const attractionOptions = useMemo(() => {
     const set = new Set<string>()
-    for (const it of items) for (const t of it.tags ?? []) set.add(t)
+    for (const it of items) for (const t of it.tags ?? []) set.add(t.label)
     return Array.from(set).sort()
   }, [items])
 
@@ -140,7 +171,7 @@ export default function PseoListicle({
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     let list = items.filter(it => {
-      if (attraction !== 'all' && !(it.tags ?? []).includes(attraction)) return false
+      if (attraction !== 'all' && !(it.tags ?? []).some(t => t.label === attraction)) return false
       if (cityFilter !== 'all' && it.locationLabel !== cityFilter) return false
       if (maxDistanceMiles != null && userLoc) {
         if (it.lat == null || it.lng == null) return false
@@ -374,22 +405,48 @@ export default function PseoListicle({
                     </h2>
                     <div className="flex items-center gap-2 flex-wrap mt-1">
                       {it.rating != null && (
-                        <>
-                          <StarRating rating={it.rating} />
-                          <span className="text-xs font-semibold text-[#1E2026]">{it.rating.toFixed(1)}</span>
-                          {!!it.reviewCount && <span className="text-xs text-[#6B6862]">{it.reviewCount.toLocaleString()} reviews</span>}
-                        </>
+                        it.reviewHref ? (
+                          <Link href={it.reviewHref} className="flex items-center gap-2 group/rating">
+                            <StarRating rating={it.rating} />
+                            <span className="text-xs font-semibold text-[#1E2026] group-hover/rating:text-[#96602F] transition-colors">{it.rating.toFixed(1)}</span>
+                            {!!it.reviewCount && (
+                              <span className="text-xs text-[#6B6862] group-hover/rating:text-[#96602F] group-hover/rating:underline transition-colors">
+                                {it.reviewCount.toLocaleString()} reviews
+                              </span>
+                            )}
+                          </Link>
+                        ) : (
+                          <span className="flex items-center gap-2">
+                            <StarRating rating={it.rating} />
+                            <span className="text-xs font-semibold text-[#1E2026]">{it.rating.toFixed(1)}</span>
+                            {!!it.reviewCount && <span className="text-xs text-[#6B6862]">{it.reviewCount.toLocaleString()} reviews</span>}
+                          </span>
+                        )
                       )}
                       {it.locationLabel && (
                         <span className="flex items-center gap-1 text-xs text-[#6B6862]">
-                          <MapPin className="w-3 h-3" />{it.locationLabel}
+                          <MapPin className="w-3 h-3 shrink-0" />
+                          <LocationLabel label={it.locationLabel} cityHref={it.cityHref} stateHref={it.stateHref} />
                         </span>
                       )}
                       {distanceLabel(it) && (
                         <span className="text-xs font-semibold text-emerald-600">{distanceLabel(it)}</span>
                       )}
                     </div>
-                    {it.address && <p className="text-xs text-[#6B6862] mt-1">{it.address}</p>}
+                    {it.address && (
+                      it.directionsUrl ? (
+                        <a
+                          href={it.directionsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-xs text-[#6B6862] hover:text-[#96602F] hover:underline mt-1"
+                        >
+                          {it.address}
+                        </a>
+                      ) : (
+                        <p className="text-xs text-[#6B6862] mt-1">{it.address}</p>
+                      )
+                    )}
                     {(it.phone || it.website) && (
                       <div className="flex items-center gap-3 mt-1">
                         {it.phone && (
@@ -413,9 +470,19 @@ export default function PseoListicle({
                     {!!it.tags?.length && (
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {it.tags.map(t => (
-                          <span key={t} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862]">
-                            {t}
-                          </span>
+                          t.href ? (
+                            <Link
+                              key={t.label}
+                              href={t.href}
+                              className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                            >
+                              {t.label}
+                            </Link>
+                          ) : (
+                            <span key={t.label} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862]">
+                              {t.label}
+                            </span>
+                          )
                         ))}
                       </div>
                     )}

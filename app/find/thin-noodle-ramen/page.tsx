@@ -7,7 +7,7 @@ import { Loader2 } from 'lucide-react'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurants } from '@/lib/restaurants'
 import { restaurantMatchesModifier } from '@/lib/modifier-match'
-import { restaurantsToListicleItems } from '@/lib/listicle-items'
+import { restaurantsToListicleItems, NATIONWIDE_LISTICLE_CAP } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default async function ThinNoodleRamenPage() {
   const matched = restaurants.filter(r => restaurantMatchesModifier(r, NATIONWIDE_FILTER))
   const ranked = [...matched].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   const verifiedSlugs = await getAllVerifiedSlugs()
-  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs })
+  const listicleItems = restaurantsToListicleItems(ranked.slice(0, NATIONWIDE_LISTICLE_CAP), { verifiedSlugs })
   const count = matched.length
 
   const mapSlot = (

@@ -5,17 +5,45 @@
 import type { Restaurant } from './restaurants'
 import type { PlacesRestaurant } from './places-supplements'
 import type { PhoRestaurant } from './pho'
-import type { ListicleItem } from '@/components/pseo-listicle'
+import type { ListicleItem, ListicleTag } from '@/components/pseo-listicle'
 import { getOpenStatus, getTodayHoursLabel } from './hours'
 import { FEATURE_META, FEATURE_AMENITY_FIELD } from './ramen-taxonomy'
+import { STATE_CODE_TO_SLUG } from './state-lookups'
+import { getReviewSlug, hasReviewPage } from './reviews'
 
-function tagsFromAmenities(r: Restaurant): string[] {
-  const tags: string[] = []
+// City/state/neighborhood listicles are naturally bounded (California's 319
+// is the kind of number these top out at) and render in full. The nationwide
+// pages are not: an unfiltered one like /find/ramen-restaurants matches all
+// ~7,900 rows, which prerendered to a 76MB HTML file per page and blew past
+// the deploy size limit. This caps only those — still far more scrolling than
+// anyone does in one sitting, at ~1/30th the page weight.
+export const NATIONWIDE_LISTICLE_CAP = 250
+
+// Feature key → the /find page that filters to exactly that feature, so a
+// listicle card's chip is a real internal link rather than inert text.
+const FEATURE_FIND_HREF: Record<string, string> = {
+  'delivers': '/find/ramen-delivery',
+  'takeout': '/find/ramen-takeout',
+  'outdoor-seating': '/find/ramen-outdoor-seating',
+  'reservations': '/find/ramen-reservations',
+  'full-bar': '/find/ramen-full-bar',
+  'family-friendly': '/find/ramen-family-friendly',
+  'vegetarian': '/find/vegetarian-ramen',
+  'wheelchair': '/find/ramen-wheelchair-accessible',
+  'free-parking': '/find/ramen-free-parking',
+}
+
+function cityHrefFor(citySlug: string, stateCode: string): string {
+  return `/find/${citySlug}-${stateCode.toLowerCase()}`
+}
+
+function tagsFromAmenities(r: Restaurant): ListicleTag[] {
+  const tags: ListicleTag[] = []
   for (const f of FEATURE_META) {
     const field = FEATURE_AMENITY_FIELD[f.key] as keyof Restaurant['amenities'] | undefined
-    if (field && r.amenities?.[field]) tags.push(f.label)
+    if (field && r.amenities?.[field]) tags.push({ label: f.label, href: FEATURE_FIND_HREF[f.key] })
   }
-  if (r.priceRange) tags.push(r.priceRange)
+  if (r.priceRange) tags.push({ label: r.priceRange })
   return tags
 }
 
@@ -39,8 +67,12 @@ export function restaurantsToListicleItems(
       name: r.name,
       rating: r.rating,
       reviewCount: r.reviewCount,
+      reviewHref: hasReviewPage(getReviewSlug(r)) ? `/reviews/${getReviewSlug(r)}` : null,
       locationLabel: `${r.city}, ${r.stateCode}`,
+      cityHref: cityHrefFor(r.citySlug, r.stateCode),
+      stateHref: `/${r.stateSlug}`,
       address: r.address || null,
+      directionsUrl: r.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`,
       phone: r.phone || null,
       website: r.website || null,
       hoursLabel: r.hours ? (status?.status === 'closed' ? `Closed — ${getTodayHoursLabel(r.hours)}` : `Open today: ${getTodayHoursLabel(r.hours)}`) : 'Hours not listed — confirm directly before you go.',
@@ -66,7 +98,10 @@ export function placesToListicleItems(
     rating: r.rating,
     reviewCount: r.reviewCount,
     locationLabel: `${r.city}, ${r.stateCode}`,
+    cityHref: cityHrefFor(r.citySlug, r.stateCode),
+    stateHref: `/${r.stateSlug}`,
     address: r.address || null,
+    directionsUrl: r.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`,
     phone: null,
     website: null,
     hoursLabel: r.openNow == null ? 'Hours not listed — confirm directly before you go.' : r.openNow ? 'Open now' : 'Closed now',
@@ -74,7 +109,7 @@ export function placesToListicleItems(
     description: i === 0
       ? `${r.name}, in ${r.city}, is our top pick${r.rating ? ` — rated ${r.rating.toFixed(1)} out of 5` : ''}.`
       : `${r.name}, in ${r.city}, is next up${r.rating ? `, rated ${r.rating.toFixed(1)} out of 5` : ''}.`,
-    tags: r.priceLevel ? ['$'.repeat(r.priceLevel)] : [],
+    tags: r.priceLevel ? [{ label: '$'.repeat(r.priceLevel) }] : [],
     lat: r.latitude,
     lng: r.longitude,
     claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
@@ -85,6 +120,7 @@ export function placesToListicleItems(
 export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
   return listings.map((p, i) => {
     const status = getOpenStatus(p.hours)
+    const stateSlug = STATE_CODE_TO_SLUG[p.stateCode] ?? p.stateCode.toLowerCase()
     return {
       key: p.slug,
       href: `/partners/${p.slug}`,
@@ -93,7 +129,10 @@ export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
       rating: p.rating,
       reviewCount: p.reviewCount,
       locationLabel: `${p.city}, ${p.stateCode}`,
+      cityHref: cityHrefFor(p.citySlug, p.stateCode),
+      stateHref: `/${stateSlug}`,
       address: p.address || null,
+      directionsUrl: p.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.city} ${p.stateCode}`)}`,
       phone: p.phone || null,
       website: p.website || null,
       hoursLabel: p.hours ? (status?.status === 'closed' ? `Closed — ${getTodayHoursLabel(p.hours)}` : `Open today: ${getTodayHoursLabel(p.hours)}`) : 'Hours not listed — confirm directly before you go.',
@@ -103,7 +142,7 @@ export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
         : i === 0
           ? `${p.name}, in ${p.city}, is our top pho pick${p.rating ? ` — rated ${p.rating.toFixed(1)} out of 5` : ''}.`
           : `${p.name}, in ${p.city}, is next up${p.rating ? `, rated ${p.rating.toFixed(1)} out of 5` : ''}.`,
-      tags: (p.reviewTags ?? []).slice(0, 3),
+      tags: (p.reviewTags ?? []).slice(0, 3).map(label => ({ label })),
       lat: p.latitude,
       lng: p.longitude,
       claimHref: `/claim/${p.citySlug}/${p.stateCode.toLowerCase()}/${p.slug}`,

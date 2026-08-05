@@ -4,7 +4,7 @@ import Footer from '@/components/footer'
 import ErrorBoundary from '@/components/error-boundary'
 import HomeMapHero from '@/components/home-map-hero'
 import PseoListicle from '@/components/pseo-listicle'
-import { restaurantsToListicleItems, phoToListicleItems } from '@/lib/listicle-items'
+import { restaurantsToListicleItems, phoToListicleItems, NATIONWIDE_LISTICLE_CAP } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import { restaurants } from '@/lib/restaurants'
 import { miscPartners, miscPartnerToPhoShape } from '@/lib/misc-partners'
@@ -51,8 +51,10 @@ export default async function PartnersPage() {
   const ramenItems = restaurantsToListicleItems(restaurants, { verifiedSlugs })
   const phoItems = phoToListicleItems(phoRestaurants)
   const miscItems = phoToListicleItems(miscPartners.map(miscPartnerToPhoShape))
+  const totalTracked = ramenItems.length + phoItems.length + miscItems.length
   const allItems = [...ramenItems, ...phoItems, ...miscItems]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+    .slice(0, NATIONWIDE_LISTICLE_CAP)
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>
@@ -73,7 +75,7 @@ export default async function PartnersPage() {
           { label: 'Ramen Near You', href: '/' },
           { label: 'Partners' },
         ]}
-        title={`Ramen Restaurant Locator — ${allItems.length.toLocaleString()} Spots`}
+        title={`Ramen Restaurant Locator — ${totalTracked.toLocaleString()} Spots`}
         subtitle="Every ramen and pho restaurant we track, ranked by rating and review volume — claimed or not. Search by name or city, then claim your listing to take control of it."
         items={allItems}
         noun="restaurant"
