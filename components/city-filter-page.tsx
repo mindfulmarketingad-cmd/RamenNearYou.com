@@ -4,6 +4,8 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import { getNearbyCities, type Restaurant } from '@/lib/restaurants'
 import { getPerfectFor } from '@/lib/perfect-for'
 import {
@@ -189,6 +191,13 @@ export default function CityFilterPage({
         </div>
       </section>
 
+      {/* These city × filter pages carried no ads at all — one above the
+          listings and one below covers the two spots a visitor actually
+          dwells on. */}
+      <section className="pt-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto"><AdUnitHorizontal /></div>
+      </section>
+
       {/* Listings */}
       <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -196,6 +205,7 @@ export default function CityFilterPage({
             {restaurants.length} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {city}, {stateCode}
           </p>
           <BlogScrollMapWrapper cards={cards} listHeading={h1} />
+          <div className="mt-8"><AdUnitVertical /></div>
         </div>
       </section>
 

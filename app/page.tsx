@@ -16,6 +16,8 @@ import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
 import AdUnitVertical from '@/components/ad-unit-vertical'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -64,6 +66,14 @@ export default function HomePage() {
           <ClaimedShowcase />
           <FilterShowcase />
           <SearchMapShowcase />
+
+          {/* First in-content slot — right below the map showcase, the point
+              where a homepage visitor has finished the hero and started
+              scrolling. */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            <AdUnitHorizontal />
+          </div>
+
           <UgcGrid />
 
           {/* Editorial image band */}
@@ -158,6 +168,11 @@ export default function HomePage() {
           </section>
 
           <CommunityCarousel />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            <AdUnitInFeed />
+          </div>
+
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />

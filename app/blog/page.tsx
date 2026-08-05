@@ -5,6 +5,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import BlogSearch from './blog-search'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import { blogPosts } from '@/lib/blog-posts'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { getCityListicleEntries, getCityPhoListicleEntries } from '@/lib/city-listicles'
@@ -97,6 +98,10 @@ export default function BlogPage() {
           groups={cityListicleGroups}
           extraSearchPages={[...cityListicles, ...phoListicles].map(({ href, label }) => ({ href, label }))}
         />
+
+        <div className="mt-10">
+          <AdUnitVertical />
+        </div>
       </div>
       <Footer />
     </main>

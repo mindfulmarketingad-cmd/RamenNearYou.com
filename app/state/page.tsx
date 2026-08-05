@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import { getStates } from '@/lib/restaurants'
 import { getSupplementCitiesByState, getSupplementStateStats } from '@/lib/places-supplements'
 
@@ -65,6 +67,10 @@ export default function StateIndexPage() {
         </div>
       </div>
 
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6">
+        <AdUnitHorizontal />
+      </div>
+
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <p className="text-sm text-[#6B6862] mb-6">
           Currently tracking <strong className="text-[#1E2026]">{totalRestaurants.toLocaleString()}</strong> ramen
@@ -83,6 +89,10 @@ export default function StateIndexPage() {
               <span className="text-xs text-[#6B6862] shrink-0">{s.count.toLocaleString()}</span>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-10">
+          <AdUnitVertical />
         </div>
 
         <div className="mt-12 pt-8 border-t border-black/8">

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
+import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
 // Reverse-geocoding (Nominatim) returns a full state name — map it back to
@@ -27,10 +29,14 @@ function stateName(code: string): string {
   return STATE_CODE_TO_NAME[code] ?? code
 }
 
-// Ad cadence: one under the filter bar, then one after every 5th listing,
-// stopping at 4 in-list units so a page never carries more than 5 total.
+// Ad cadence: a leaderboard under the H1, one under the filter bar, then one
+// after every 5th listing. In-list slots alternate in-feed and vertical —
+// AdSense fills a feed-native unit differently than a display one, so
+// alternating competes better than repeating a single slot down the page.
+// 1 + 1 + 6 = 8 here; page templates add their own in-article unit below the
+// list, which keeps every listicle comfortably under the 11-per-page ceiling.
 const LISTINGS_PER_AD = 5
-const IN_LIST_ADS = 4
+const IN_LIST_ADS = 6
 
 export type ListicleTag = { label: string; href?: string }
 
@@ -312,6 +318,13 @@ export default function PseoListicle({
         </div>
       </div>
 
+      {/* Leaderboard directly under the H1 — the only slot guaranteed to be
+          in the first viewport on every listicle, so it carries the page's
+          best viewability. */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-5">
+        <AdUnitHorizontal />
+      </div>
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         {/* Toolbar: count + List/Map */}
         <div className="flex items-center justify-between gap-3 mb-4">
@@ -539,12 +552,9 @@ export default function PseoListicle({
                     )}
                   </div>
                 </div>
-                {/* One ad after every 5th listing. Combined with the one
-                    under the filter bar that's 5 per page, which is the
-                    cap — beyond that the run of cards is mostly ads. */}
                 {(i + 1) % LISTINGS_PER_AD === 0 && (i + 1) / LISTINGS_PER_AD <= IN_LIST_ADS && (
                   <div className="my-3">
-                    <AdUnitVertical />
+                    {((i + 1) / LISTINGS_PER_AD) % 2 === 1 ? <AdUnitInFeed /> : <AdUnitVertical />}
                   </div>
                 )}
                 </Fragment>

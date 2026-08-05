@@ -8,6 +8,7 @@ import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
 import ReviewsHubSearch, { type ReviewListing } from './reviews-hub-search'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 
 const FAQS = [
   {
@@ -86,6 +87,10 @@ export default function ReviewsIndexPage() {
           </p>
 
           <ReviewsHubSearch listings={listings} total={reviewRestaurants.length} />
+
+          <div className="mt-10">
+            <AdUnitVertical />
+          </div>
 
           {/* SEO content + owner CTA */}
           <div className="mt-16 pt-12 border-t border-black/8">

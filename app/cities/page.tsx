@@ -7,6 +7,8 @@ import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import CitiesDirectory from './cities-directory'
+import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import AdUnitVertical from '@/components/ad-unit-vertical'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -80,10 +82,19 @@ export default function CitiesPage() {
         </div>
       </section>
 
+      {/* Above the fold, directly under the header — this hub had no ads at all. */}
+      <section className="px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="max-w-5xl mx-auto"><AdUnitHorizontal /></div>
+      </section>
+
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <CitiesDirectory statesWithCities={statesWithCities} />
         </div>
+      </section>
+
+      <section className="px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="max-w-5xl mx-auto"><AdUnitVertical /></div>
       </section>
 
       <Footer />
