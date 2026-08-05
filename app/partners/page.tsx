@@ -4,7 +4,7 @@ import Footer from '@/components/footer'
 import ErrorBoundary from '@/components/error-boundary'
 import HomeMapHero from '@/components/home-map-hero'
 import PseoListicle from '@/components/pseo-listicle'
-import { restaurantsToListicleItems, phoToListicleItems, NATIONWIDE_LISTICLE_CAP } from '@/lib/listicle-items'
+import { restaurantsToListicleItems, phoToListicleItems, pickNationwideSample } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import { restaurants } from '@/lib/restaurants'
 import { miscPartners, miscPartnerToPhoShape } from '@/lib/misc-partners'
@@ -54,7 +54,11 @@ export default async function PartnersPage() {
   const totalTracked = ramenItems.length + phoItems.length + miscItems.length
   const allItems = [...ramenItems, ...phoItems, ...miscItems]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-    .slice(0, NATIONWIDE_LISTICLE_CAP)
+  // These are already ListicleItems, so the state comes off the display
+  // label ("Aurora, CO") rather than a stateCode field.
+  const sampled = pickNationwideSample(allItems, {
+    stateOf: it => it.locationLabel?.slice(it.locationLabel.lastIndexOf(', ') + 2) ?? '',
+  })
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>
@@ -77,7 +81,7 @@ export default async function PartnersPage() {
         ]}
         title={`Ramen Restaurant Locator — ${totalTracked.toLocaleString()} Spots`}
         subtitle="Every ramen and pho restaurant we track, ranked by rating and review volume — claimed or not. Search by name or city, then claim your listing to take control of it."
-        items={allItems}
+        items={sampled}
         noun="restaurant"
         nounPlural="restaurants"
         searchPlaceholder="Search by name or city..."

@@ -19,6 +19,54 @@ import { getReviewSlug, hasReviewPage } from './reviews'
 // anyone does in one sitting, at ~1/30th the page weight.
 export const NATIONWIDE_LISTICLE_CAP = 250
 
+/**
+ * Picks the capped sample a nationwide listicle ships, guaranteeing every
+ * state with a match is represented.
+ *
+ * Taking a straight top-250-by-rating skews hard to a handful of big states
+ * (on /find/ramen-free-parking it covered just 25 of ~50), which makes the
+ * page's state filter useless for the rest. This instead round-robins across
+ * states — best remaining from each in turn — so every state gets a slot
+ * before any state gets a second, then returns the selection re-sorted by
+ * rating so the page still reads as a ranked list.
+ */
+export function pickNationwideSample<T>(
+  ranked: T[],
+  opts: { cap?: number; stateOf?: (r: T) => string } = {},
+): T[] {
+  const cap = opts.cap ?? NATIONWIDE_LISTICLE_CAP
+  const stateOf = opts.stateOf ?? ((r: T) => (r as { stateCode?: string }).stateCode ?? '')
+  if (ranked.length <= cap) return ranked
+
+  const byState = new Map<string, T[]>()
+  for (const r of ranked) {
+    const key = stateOf(r)
+    const bucket = byState.get(key)
+    if (bucket) bucket.push(r)
+    else byState.set(key, [r])
+  }
+
+  const queues = Array.from(byState.values())
+  const picked: T[] = []
+  let round = 0
+  while (picked.length < cap) {
+    let tookAny = false
+    for (const q of queues) {
+      if (round >= q.length) continue
+      picked.push(q[round])
+      tookAny = true
+      if (picked.length >= cap) break
+    }
+    if (!tookAny) break
+    round++
+  }
+
+  // `ranked` is already in rating order, so preserving that order across the
+  // selection keeps the list ranked without re-reading rating fields.
+  const chosen = new Set(picked)
+  return ranked.filter(r => chosen.has(r))
+}
+
 // Feature key → the /find page that filters to exactly that feature, so a
 // listicle card's chip is a real internal link rather than inert text.
 const FEATURE_FIND_HREF: Record<string, string> = {

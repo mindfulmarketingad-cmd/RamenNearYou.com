@@ -13,6 +13,20 @@ const STATE_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
   Object.entries(STATE_CODE_TO_NAME).map(([code, name]) => [name, code])
 )
 
+// Items carry location as a display string ("Aurora, CO"); the state filter
+// works off the trailing 2-letter code rather than adding a parallel field.
+function stateCodeOf(locationLabel?: string | null): string | null {
+  if (!locationLabel) return null
+  const idx = locationLabel.lastIndexOf(', ')
+  if (idx === -1) return null
+  const code = locationLabel.slice(idx + 2).trim()
+  return /^[A-Z]{2}$/.test(code) ? code : null
+}
+
+function stateName(code: string): string {
+  return STATE_CODE_TO_NAME[code] ?? code
+}
+
 export type ListicleTag = { label: string; href?: string }
 
 export type ListicleItem = {
@@ -141,6 +155,7 @@ export default function PseoListicle({
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
   const [attraction, setAttraction] = useState('all')
+  const [stateFilter, setStateFilter] = useState('all')
   const [cityFilter, setCityFilter] = useState('all')
   const [sort, setSort] = useState<SortKey>(initialSort)
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
@@ -150,7 +165,7 @@ export default function PseoListicle({
 
   useEffect(() => {
     setVisibleCount(pageSize ?? Infinity)
-  }, [query, attraction, sort, userLoc, pageSize])
+  }, [query, attraction, stateFilter, cityFilter, sort, userLoc, pageSize])
 
   const attractionOptions = useMemo(() => {
     const set = new Set<string>()
@@ -158,20 +173,34 @@ export default function PseoListicle({
     return Array.from(set).sort()
   }, [items])
 
-  // Only cities that actually have listings show up here — derived straight
-  // from the items themselves, so a state page's dropdown never lists a
-  // city with zero results. Single-city pages (city/neighborhood pages) get
-  // exactly one option, so the dropdown just doesn't render for those.
+  // Both filters are derived from the items themselves, so neither dropdown
+  // ever lists an option with zero results. They only render when there's
+  // more than one value, so a single-city page shows neither and a
+  // nationwide page shows both. City options narrow to the picked state.
+  const stateOptions = useMemo(() => {
+    const set = new Set<string>()
+    for (const it of items) {
+      const code = stateCodeOf(it.locationLabel)
+      if (code) set.add(code)
+    }
+    return Array.from(set).sort((a, b) => stateName(a).localeCompare(stateName(b)))
+  }, [items])
+
   const cityOptions = useMemo(() => {
     const set = new Set<string>()
-    for (const it of items) if (it.locationLabel) set.add(it.locationLabel)
+    for (const it of items) {
+      if (!it.locationLabel) continue
+      if (stateFilter !== 'all' && stateCodeOf(it.locationLabel) !== stateFilter) continue
+      set.add(it.locationLabel)
+    }
     return Array.from(set).sort()
-  }, [items])
+  }, [items, stateFilter])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     let list = items.filter(it => {
       if (attraction !== 'all' && !(it.tags ?? []).some(t => t.label === attraction)) return false
+      if (stateFilter !== 'all' && stateCodeOf(it.locationLabel) !== stateFilter) return false
       if (cityFilter !== 'all' && it.locationLabel !== cityFilter) return false
       if (maxDistanceMiles != null && userLoc) {
         if (it.lat == null || it.lng == null) return false
@@ -191,11 +220,12 @@ export default function PseoListicle({
       return (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
     })
     return list
-  }, [items, query, attraction, cityFilter, sort, userLoc, maxDistanceMiles])
+  }, [items, query, attraction, stateFilter, cityFilter, sort, userLoc, maxDistanceMiles])
 
   function handleReset() {
     setQuery('')
     setAttraction('all')
+    setStateFilter('all')
     setCityFilter('all')
     setSort(initialSort)
     setUserLoc(null)
@@ -320,6 +350,17 @@ export default function PseoListicle({
                 className="w-full px-3 py-2 mb-2.5 rounded-lg border border-black/10 bg-white text-sm text-[#1E2026] placeholder-[#9B9490] outline-none focus:border-[#B57F50]"
               />
               <div className="flex flex-wrap items-center gap-2">
+                {stateOptions.length > 1 && (
+                  <select
+                    value={stateFilter}
+                    onChange={(e) => { setStateFilter(e.target.value); setCityFilter('all') }}
+                    aria-label="State"
+                    className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                  >
+                    <option value="all">State: All</option>
+                    {stateOptions.map(s => <option key={s} value={s}>{stateName(s)}</option>)}
+                  </select>
+                )}
                 {cityOptions.length > 1 && (
                   <select
                     value={cityFilter}

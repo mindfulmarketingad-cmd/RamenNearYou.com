@@ -6,7 +6,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import Navbar from '@/components/navbar'
 import FindPageContent from '@/components/find-page-content'
 import PseoListicle from '@/components/pseo-listicle'
-import { phoToListicleItems, NATIONWIDE_LISTICLE_CAP } from '@/lib/listicle-items'
+import { phoToListicleItems, pickNationwideSample } from '@/lib/listicle-items'
 import { getPhoStats, getPhoCities, phoCityParam, phoRestaurants } from '@/lib/pho'
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function PhoFindPage() {
   const topCities = getPhoCities().slice(0, 10)
 
   const ranked = [...phoRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-  const listicleItems = phoToListicleItems(ranked.slice(0, NATIONWIDE_LISTICLE_CAP))
+  const listicleItems = phoToListicleItems(pickNationwideSample(ranked))
 
   const mapSlot = (
     <ErrorBoundary
