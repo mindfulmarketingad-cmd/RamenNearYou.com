@@ -1,6 +1,6 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { CheckCircle2, Zap, ShieldCheck, Gift, Crown, MapPin, Map, Home } from 'lucide-react'
+import { CheckCircle2, Zap, ShieldCheck, Gift, Crown, MapPin, Map, Home, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 import ClaimSearch from './claim-search'
 import RecentlyClaimed from './recently-claimed'
@@ -31,6 +31,48 @@ const FEATURED_SURFACES = [
   { icon: MapPin, label: 'Your city\'s search map', desc: 'Top spot when locals search your city.' },
   { icon: Map, label: 'Your state\'s search map', desc: 'Stand out across your whole state.' },
   { icon: Home, label: 'The homepage search map', desc: '#1 position seen by every visitor.' },
+]
+
+// The questions owners actually ask before paying. Answers stay factual —
+// for "does this get traffic" we point at the public /dashboard instead of
+// quoting a number we'd have to keep in sync.
+const CLAIM_FAQS = [
+  {
+    q: 'Does this site actually get traffic?',
+    a: 'Yes — and you don\'t have to take our word for it. Our traffic numbers are public and live at /dashboard: sessions, unique visitors, searches, and how many people tapped call, directions, or reviews on a listing. Check it before you subscribe, and check it again after you claim.',
+  },
+  {
+    q: 'Can I cancel anytime?',
+    a: 'Yes. It\'s a $19.99/month subscription with no contract and no cancellation fee. Cancel whenever you like and your claim stays active through the end of the period you already paid for.',
+  },
+  {
+    q: 'What do I get for $19.99 a month?',
+    a: 'A verified badge on your listing and on the search map, full control of your hours, photos, menu, and description, an owner dashboard with visit and click analytics for your listing, and an ad-free listing page so nothing competes with your restaurant.',
+  },
+  {
+    q: 'Can I see analytics for my own restaurant?',
+    a: 'Yes. Claimed owners get a dashboard with visits and clicks for their own listing. Site-wide analytics for the whole directory are public to everyone at /dashboard, so you can see the traffic your listing is sitting in front of.',
+  },
+  {
+    q: 'How long does verification take?',
+    a: 'Most claims are reviewed within a few business days. We confirm you\'re the owner or an authorized manager, then your listing gets the verified badge and edit access.',
+  },
+  {
+    q: 'What if my restaurant isn\'t in the search?',
+    a: 'Use the contact page and tell us your restaurant name and address — we\'ll add it to the directory so you can claim it.',
+  },
+  {
+    q: 'Do I need a website or a Google Business account?',
+    a: 'No. All you need is a Google account to sign in with — one tap, no password to create. Everything else is pre-filled from our listing data, so claiming takes about 30 seconds.',
+  },
+  {
+    q: 'Is Featured placement included?',
+    a: 'No — Featured is a separate optional upgrade that puts a gold crown pin at the top of your city page, state page, and the homepage search map. Your $19.99/mo claim gets you everything listed above without it.',
+  },
+  {
+    q: 'What happens if I don\'t claim my listing?',
+    a: 'Your listing stays up, but it shows whatever public data we have — which may be wrong hours, an old photo, or a missing menu. Claiming is the only way to control what diners see.',
+  },
 ]
 
 export default function ClaimYourListingPage() {
@@ -140,22 +182,73 @@ export default function ClaimYourListingPage() {
           </ol>
         </div>
 
-        <p className="text-center text-xs text-[#6B6862]/70 mt-6">
-          Unclaimed listings show whatever public data we have — claiming is the only way to control it.
-        </p>
-
         {/* Owners deciding whether the traffic is worth $19.99/mo can check
             the real numbers instead of taking our word for it. */}
-        <p className="text-center text-sm text-[#6B6862] mt-4">
-          Want to see the traffic first?{' '}
-          <Link href="/dashboard" className="text-[#96602F] font-semibold hover:underline">
-            View Site Analytics →
-          </Link>
+        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
+          <div className="flex items-start gap-3">
+            <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center shrink-0">
+              <BarChart3 className="w-5 h-5 text-[#96602F]" />
+            </div>
+            <div className="min-w-0">
+              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1.5">
+                See our traffic before you pay
+              </h2>
+              <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                Restaurant owners can view this site&apos;s analytics at{' '}
+                <Link href="/dashboard" className="text-[#96602F] font-semibold hover:underline">
+                  /dashboard
+                </Link>
+                . It&apos;s public and updates in real time — sessions, unique visitors, on-site searches,
+                and how many diners tapped call, directions, or reviews. No sign-in required.
+              </p>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#96602F] text-white text-sm font-bold transition-colors"
+              >
+                <BarChart3 className="w-4 h-4" /> View Site Analytics
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Common questions — the objections owners raise before subscribing */}
+        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
+          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">Frequently asked questions</h2>
+          <p className="text-[#6B6862] text-sm mb-5">Everything owners usually ask before claiming.</p>
+          <div className="space-y-2.5">
+            {CLAIM_FAQS.map(({ q, a }) => (
+              <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                  {q}
+                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-center text-xs text-[#6B6862]/70 mt-6">
+          Unclaimed listings show whatever public data we have — claiming is the only way to control it.
         </p>
 
         <RecentlyClaimed />
       </div>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: CLAIM_FAQS.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
+          }),
+        }}
+      />
     </main>
   )
 }
