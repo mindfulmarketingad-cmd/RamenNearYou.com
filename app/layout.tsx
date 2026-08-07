@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import { Toaster } from '@/components/ui/sonner'
 import TimedLoginPrompt from '@/components/timed-login-prompt'
+import AnalyticsTracker from '@/components/analytics-tracker'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -94,6 +95,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-white text-[#1E2026]">
+        <AnalyticsTracker />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#1E2026] focus:text-white focus:text-sm focus:font-semibold"

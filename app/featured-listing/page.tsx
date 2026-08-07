@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PlanToggle from './plan-toggle'
@@ -94,6 +95,15 @@ export default async function FeaturedListingPage({
         )}
 
         <PlanToggle />
+
+        {/* Owners weighing a plan can check the directory's real traffic
+            rather than taking the "1,000+ monthly pageviews" claim on faith. */}
+        <p className="text-center text-sm text-[#6B6862] mt-8">
+          Want the real numbers first?{' '}
+          <Link href="/dashboard" className="text-[#96602F] font-semibold hover:underline">
+            View Site Analytics →
+          </Link>
+        </p>
       </div>
       <Footer />
     </main>

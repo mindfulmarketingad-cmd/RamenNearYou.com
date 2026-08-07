@@ -9,6 +9,7 @@ import { useOwnerStatus } from '@/lib/use-owner-status'
 import { getSavedSlugs, toggleSaved } from '@/lib/saves'
 import LoginGateModal from '@/components/login-gate-modal'
 import InquireButton from '@/components/inquire-button'
+import { trackEvent } from '@/lib/analytics-client'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
@@ -73,12 +74,30 @@ export default function ListingActionRow({
 
   // Fire-and-forget click tracking for owner analytics (restaurant_visits,
   // event_type='click'). Records the click for every visitor, signed in or not.
+  // Two sinks, one handler: /api/track-click still feeds the per-listing
+  // featured-listing counters, and the destinations that count as a lead
+  // action also land in the dashboard's analytics table.
+  const DASHBOARD_EVENT: Record<string, string> = {
+    directions: 'directions_click',
+    call: 'call_click',
+    reviews: 'review_click',
+  }
+
   function trackClick(destination: string) {
     fetch('/api/track-click', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ restaurantSlug: slug, restaurantName, destination }),
     }).catch(() => {})
+
+    const event = DASHBOARD_EVENT[destination]
+    if (event) {
+      trackEvent(event, {
+        listingSlug: slug,
+        listingName: restaurantName,
+        city: displayCity && stateCode ? `${displayCity}, ${stateCode}` : undefined,
+      })
+    }
   }
 
   function handleSave(e: React.MouseEvent) {

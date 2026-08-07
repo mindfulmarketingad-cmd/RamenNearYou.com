@@ -110,7 +110,10 @@ const nextConfig = {
       { source: '/ramen-pass', destination: '/', permanent: true },
       { source: '/pass', destination: '/', permanent: true },
       { source: '/join', destination: '/', permanent: true },
-      { source: '/dashboard', destination: '/profile', permanent: true },
+      // NOTE: /dashboard used to redirect to /profile (the old owner
+      // dashboard). It is now the public site-analytics page, so the
+      // redirect is gone — the signed-in owner view still lives at /profile
+      // and /featured/dashboard.
       // Specific slug fixes
       {
         source: '/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9',

@@ -7,6 +7,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
 // Reverse-geocoding (Nominatim) returns a full state name — map it back to
@@ -177,6 +178,15 @@ export default function PseoListicle({
   useEffect(() => {
     setVisibleCount(pageSize ?? Infinity)
   }, [query, attraction, stateFilter, cityFilter, sort, userLoc, pageSize])
+
+  // Debounced so a search reports once the visitor stops typing rather than
+  // once per keystroke.
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 2) return
+    const t = setTimeout(() => trackEvent('search', { query: q }), 700)
+    return () => clearTimeout(t)
+  }, [query])
 
   const attractionOptions = useMemo(() => {
     const set = new Set<string>()
@@ -465,7 +475,11 @@ export default function PseoListicle({
                     <div className="flex items-center gap-2 flex-wrap mt-1">
                       {it.rating != null && (
                         it.reviewHref ? (
-                          <Link href={it.reviewHref} className="flex items-center gap-2 group/rating">
+                          <Link
+                            href={it.reviewHref}
+                            className="flex items-center gap-2 group/rating"
+                            onClick={() => trackEvent('review_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
+                          >
                             <StarRating rating={it.rating} />
                             <span className="text-xs font-semibold text-[#1E2026] group-hover/rating:text-[#96602F] transition-colors">{it.rating.toFixed(1)}</span>
                             {!!it.reviewCount && (
@@ -498,6 +512,7 @@ export default function PseoListicle({
                           href={it.directionsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackEvent('directions_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
                           className="block text-xs text-[#6B6862] hover:text-[#96602F] hover:underline mt-1"
                         >
                           {it.address}
@@ -509,7 +524,11 @@ export default function PseoListicle({
                     {(it.phone || it.website) && (
                       <div className="flex items-center gap-3 mt-1">
                         {it.phone && (
-                          <a href={`tel:${it.phone}`} className="flex items-center gap-1 text-xs text-[#96602F] hover:underline">
+                          <a
+                            href={`tel:${it.phone}`}
+                            className="flex items-center gap-1 text-xs text-[#96602F] hover:underline"
+                            onClick={() => trackEvent('call_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
+                          >
                             <Phone className="w-3 h-3" />{it.phone}
                           </a>
                         )}

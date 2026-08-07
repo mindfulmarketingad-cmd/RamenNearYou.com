@@ -144,6 +144,15 @@ export default function ClaimYourListingPage() {
           Unclaimed listings show whatever public data we have — claiming is the only way to control it.
         </p>
 
+        {/* Owners deciding whether the traffic is worth $19.99/mo can check
+            the real numbers instead of taking our word for it. */}
+        <p className="text-center text-sm text-[#6B6862] mt-4">
+          Want to see the traffic first?{' '}
+          <Link href="/dashboard" className="text-[#96602F] font-semibold hover:underline">
+            View Site Analytics →
+          </Link>
+        </p>
+
         <RecentlyClaimed />
       </div>
       <Footer />
