@@ -1423,9 +1423,13 @@ export default function HomeMapHero({
       </div>
 
       {/* Ad — floats directly under the filter bar, on top of the map.
-          Dismissible so it never permanently blocks the map view. */}
+          Dismissible so it never permanently blocks the map view.
+          Its width must stay explicit: the overlay is `sm:items-center`, so a
+          `sm:w-auto` container shrink-wraps to its content — and a block <ins>
+          has no intrinsic width, which collapsed this slot to 0px on desktop
+          and made AdSense discard it every time. */}
       {mapOnly && !adDismissed && (
-        <div className="relative bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+        <div className="relative bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:max-w-4xl overflow-hidden">
           <button
             onClick={() => setAdDismissed(true)}
             aria-label="Dismiss ad"

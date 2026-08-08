@@ -18,6 +18,9 @@ import Footer from '@/components/footer'
 import AdUnitVertical from '@/components/ad-unit-vertical'
 import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
+import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
+import AdSlot from '@/components/ad-slot'
+import AdAnchorMobile from '@/components/ad-anchor-mobile'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -183,10 +186,19 @@ export default function HomePage() {
 
           <HomepageAbout />
           <HomepageFAQ />
+
+          {/* Mobile only — the FAQ is the last thing most phone visitors read
+              before bouncing, so it is the last place worth a unit. Desktop
+              already has the wider slots above doing this job. */}
+          <AdSlot only="mobile" className="max-w-7xl mx-auto px-4 sm:px-6 py-6" minHeight={250}>
+            <AdUnitAutorelaxed />
+          </AdSlot>
+
           <FindCrossLinks />
           <Footer />
         </div>
       </main>
+      <AdAnchorMobile />
     </>
   )
 }

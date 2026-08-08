@@ -7,6 +7,9 @@ import RestaurantImage from '@/components/restaurant-image'
 import AdUnitVertical from '@/components/ad-unit-vertical'
 import AdUnitInFeed from '@/components/ad-unit-infeed'
 import AdUnitHorizontal from '@/components/ad-unit-horizontal'
+import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
+import AdSlot from '@/components/ad-slot'
+import AdAnchorMobile from '@/components/ad-anchor-mobile'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
@@ -30,14 +33,38 @@ function stateName(code: string): string {
   return STATE_CODE_TO_NAME[code] ?? code
 }
 
-// Ad cadence: a leaderboard under the H1, one under the filter bar, then one
-// after every 5th listing. In-list slots alternate in-feed and vertical —
-// AdSense fills a feed-native unit differently than a display one, so
-// alternating competes better than repeating a single slot down the page.
-// 1 + 1 + 6 = 8 here; page templates add their own in-article unit below the
-// list, which keeps every listicle comfortably under the 11-per-page ceiling.
-const LISTINGS_PER_AD = 5
-const IN_LIST_ADS = 6
+// Ad cadence, tuned per device because the same list reads completely
+// differently on each.
+//
+// On desktop a card is one wide row, so five of them fit inside a viewport and
+// an ad every 5th listing lands about once per screen. On mobile the same five
+// cards stack into roughly 900px — more than a full screen — so that cadence
+// leaves long ad-free runs on the device most of this site's traffic actually
+// uses. Mobile therefore breaks every 3 listings, which is about one unit per
+// screen there too.
+//
+// In-list slots rotate in-feed → vertical → square rather than repeating one
+// unit: AdSense prices a feed-native unit off a different demand pool than a
+// display one, so rotating competes better down a long page than hammering a
+// single slot.
+//
+// Per-page budget against the 11-ad ceiling. Page templates add one in-article
+// unit of their own below the list, which is counted here:
+//   mobile  — 1 leaderboard + 1 under filters + 6 in-list + 1 multiplex + 1 anchor + 1 template = 11
+//   desktop — 1 leaderboard + 1 under filters + 6 in-list + 1 template = 9
+const LISTINGS_PER_AD_DESKTOP = 5
+const LISTINGS_PER_AD_MOBILE = 3
+const IN_LIST_ADS_DESKTOP = 6
+const IN_LIST_ADS_MOBILE = 6
+
+// `n` is the 1-based position of this ad in the list, so the rotation stays
+// stable regardless of which device cadence produced it.
+function InListAd({ n }: { n: number }) {
+  const slot = n % 3
+  if (slot === 1) return <AdUnitInFeed />
+  if (slot === 2) return <AdUnitVertical />
+  return <AdUnitHorizontal />
+}
 
 export type ListicleTag = { label: string; href?: string }
 
@@ -332,7 +359,9 @@ export default function PseoListicle({
           in the first viewport on every listicle, so it carries the page's
           best viewability. */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-5">
-        <AdUnitHorizontal />
+        <div className="min-h-[100px]">
+          <AdUnitHorizontal />
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
@@ -443,7 +472,7 @@ export default function PseoListicle({
               {geoError && <p className="text-red-500 text-xs mt-2">{geoError}</p>}
             </div>
 
-            <div className="mb-4">
+            <div className="mb-4 min-h-[250px]">
               <AdUnitVertical />
             </div>
 
@@ -571,15 +600,29 @@ export default function PseoListicle({
                     )}
                   </div>
                 </div>
-                {(i + 1) % LISTINGS_PER_AD === 0 && (i + 1) / LISTINGS_PER_AD <= IN_LIST_ADS && (
-                  <div className="my-3">
-                    {((i + 1) / LISTINGS_PER_AD) % 2 === 1 ? <AdUnitInFeed /> : <AdUnitVertical />}
-                  </div>
-                )}
+                {/* Two cadences render side by side; AdSlot mounts only the
+                    one matching the viewport, so exactly one ad appears here. */}
+                {(i + 1) % LISTINGS_PER_AD_MOBILE === 0 &&
+                  (i + 1) / LISTINGS_PER_AD_MOBILE <= IN_LIST_ADS_MOBILE && (
+                    <AdSlot only="mobile" className="my-3" minHeight={250}>
+                      <InListAd n={(i + 1) / LISTINGS_PER_AD_MOBILE} />
+                    </AdSlot>
+                  )}
+                {(i + 1) % LISTINGS_PER_AD_DESKTOP === 0 &&
+                  (i + 1) / LISTINGS_PER_AD_DESKTOP <= IN_LIST_ADS_DESKTOP && (
+                    <AdSlot only="desktop" className="my-3" minHeight={100}>
+                      <InListAd n={(i + 1) / LISTINGS_PER_AD_DESKTOP} />
+                    </AdSlot>
+                  )}
                 </Fragment>
               ))}
             </div>
 
+            {/* Multiplex grid closing out the list — mobile only. A native
+                grid of related items converts far better than another display
+                banner at the point where the reader has run out of listings,
+                and it is the one format that reliably fills at the very bottom
+                of a long page. */}
             {remaining > 0 && (
               <div className="flex justify-center mt-6">
                 <button
@@ -591,11 +634,21 @@ export default function PseoListicle({
                 </button>
               </div>
             )}
+
+            {/* Sits below Show more, not above it, so nothing competes with
+                the control the reader is aiming for. */}
+            {pagedRest.length > 0 && (
+              <AdSlot only="mobile" className="mt-6" minHeight={250}>
+                <AdUnitAutorelaxed />
+              </AdSlot>
+            )}
           </>
         )}
 
         {view === 'map' && <div className="rounded-2xl overflow-hidden border border-black/8">{mapSlot}</div>}
       </div>
+
+      <AdAnchorMobile />
     </div>
   )
 }

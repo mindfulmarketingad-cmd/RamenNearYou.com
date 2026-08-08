@@ -13,6 +13,9 @@ import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import AdUnit from '@/components/ad-unit'
 import AdUnitInArticle from '@/components/ad-unit-in-article'
 import AdUnitVertical from '@/components/ad-unit-vertical'
+import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
+import AdSlot from '@/components/ad-slot'
+import AdAnchorMobile from '@/components/ad-anchor-mobile'
 import { splitHtmlForAds } from '@/lib/split-html-for-ads'
 import { extractToc } from '@/lib/blog-toc'
 import type { MapCard } from '@/components/blog-scroll-map'
@@ -274,7 +277,10 @@ export default async function BlogPostPage({ params }: Props) {
   const showToc = headings.length >= 3
 
   // Two in-article ads, spread evenly through the body copy.
-  const contentParts = splitHtmlForAds(tocHtml, 2)
+  // Three chunks rather than two: a mobile reader scrolls a post in far more
+  // screens than a desktop one, so two breaks keep an in-article unit roughly
+  // once per few screens instead of once per post.
+  const contentParts = splitHtmlForAds(tocHtml, 3)
 
   // Enrich restaurant cards with lat/lng for map layout
   const hasCards = post.restaurantCards && post.restaurantCards.length > 0
@@ -491,6 +497,14 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="mt-6">
               <AdUnitVertical />
             </div>
+
+            {/* Mobile only — stands in for the desktop side rail, which mobile
+                never sees. A multiplex grid is the strongest closer on a phone:
+                it fills reliably at the bottom of a long scroll where a plain
+                display banner often goes unsold. */}
+            <AdSlot only="mobile" className="mt-6" minHeight={250}>
+              <AdUnitAutorelaxed />
+            </AdSlot>
           </article>
 
           <div className="mt-16 pt-8 border-t border-black/8">
@@ -504,20 +518,24 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
 
-          {/* Side rail — reserved space/dimensions for a sticky sidebar ad,
-              desktop only (below lg the ad units already run inline in the
-              article body). */}
+          {/* Side rail — sticky sidebar ads, desktop only. The units inside
+              are AdSlot-gated rather than relying on the wrapper's `hidden`
+              class alone: a hidden wrapper still mounts its children, so on
+              mobile both units would push, get measured at zero width, and be
+              burned without ever rendering. Mobile gets its own units inline
+              in the article body instead. */}
           <aside className="hidden lg:block sticky top-24 w-[300px] shrink-0 space-y-6 self-start">
-            <div className="min-h-[250px]">
+            <AdSlot only="desktop" minHeight={250}>
               <AdUnit />
-            </div>
-            <div className="min-h-[600px]">
+            </AdSlot>
+            <AdSlot only="desktop" minHeight={600}>
               <AdUnit />
-            </div>
+            </AdSlot>
           </aside>
         </div>
       </main>
       <Footer />
+      <AdAnchorMobile />
     </>
   )
 }
