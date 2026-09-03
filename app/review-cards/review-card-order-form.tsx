@@ -1,14 +1,14 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Search, CheckCircle2, X } from 'lucide-react'
-import { searchRestaurants } from '@/lib/search'
 import { STRIPE_REVIEW_CARD_LINK, PRICE_LABEL } from './config'
 
 const inputClass =
   'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
 
 type Picked = { slug: string; name: string; city: string; stateCode: string }
+type SearchMatch = Picked
 
 export default function ReviewCardOrderForm({ initialPicked = null }: { initialPicked?: Picked | null }) {
   const [query, setQuery] = useState('')
@@ -19,9 +19,27 @@ export default function ReviewCardOrderForm({ initialPicked = null }: { initialP
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
-  const matches = useMemo(() => {
-    if (!query.trim()) return []
-    return searchRestaurants(query).slice(0, 50)
+  const [matches, setMatches] = useState<SearchMatch[]>([])
+
+  // Debounced server-side search — keeps the full restaurant dataset out of
+  // the client bundle (see app/claim-your-listing/claim-search.tsx).
+  useEffect(() => {
+    const trimmed = query.trim()
+    if (!trimmed) {
+      setMatches([])
+      return
+    }
+    const controller = new AbortController()
+    const timer = setTimeout(() => {
+      fetch(`/api/restaurants/search?q=${encodeURIComponent(trimmed)}`, { signal: controller.signal })
+        .then(res => res.json())
+        .then(data => setMatches(Array.isArray(data) ? data.slice(0, 50) : []))
+        .catch(() => {})
+    }, 200)
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
   }, [query])
 
   async function handleSubmit(e: React.FormEvent) {
@@ -111,7 +129,7 @@ export default function ReviewCardOrderForm({ initialPicked = null }: { initialP
               ) : (
                 matches.map(r => (
                   <button
-                    key={`${r.citySlug}-${r.slug}`}
+                    key={r.slug}
                     type="button"
                     onClick={() => { setPicked({ slug: r.slug, name: r.name, city: r.city, stateCode: r.stateCode }); setOpen(false); setQuery('') }}
                     className="block w-full text-left px-4 py-3 hover:bg-[#F5F4F0] transition-colors border-b border-black/5 last:border-b-0"

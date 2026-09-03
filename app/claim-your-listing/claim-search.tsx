@@ -1,9 +1,17 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Search, CheckCircle2 } from 'lucide-react'
-import { searchRestaurants } from '@/lib/search'
+
+interface SearchMatch {
+  slug: string
+  name: string
+  city: string
+  stateCode: string
+  citySlug: string
+  stateSlug: string
+}
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
@@ -27,9 +35,30 @@ export default function ClaimSearch() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
-  const matches = useMemo(() => {
-    if (!query.trim()) return []
-    return searchRestaurants(query).slice(0, 50)
+  const [matches, setMatches] = useState<SearchMatch[]>([])
+
+  // Debounced server-side search — the full restaurant dataset (~8,000 rows
+  // with photos, hours, and reviews) used to be searched client-side here,
+  // which meant shipping the whole thing to the browser just to power this
+  // one autocomplete box. Fetching matches from the API keeps that data
+  // server-only.
+  useEffect(() => {
+    const trimmed = query.trim()
+    if (!trimmed) {
+      setMatches([])
+      return
+    }
+    const controller = new AbortController()
+    const timer = setTimeout(() => {
+      fetch(`/api/restaurants/search?q=${encodeURIComponent(trimmed)}`, { signal: controller.signal })
+        .then(res => res.json())
+        .then(data => setMatches(Array.isArray(data) ? data.slice(0, 50) : []))
+        .catch(() => {})
+    }, 200)
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
   }, [query])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {

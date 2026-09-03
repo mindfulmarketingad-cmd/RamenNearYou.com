@@ -1,28 +1,32 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Heart, MapPin, Star } from 'lucide-react'
-import { restaurants } from '@/lib/restaurants'
-import { getSavedSlugs } from '@/lib/saves'
 import RestaurantImage from '@/components/restaurant-image'
 
+interface SavedRestaurant {
+  slug: string
+  citySlug: string
+  stateSlug: string
+  name: string
+  city: string
+  stateCode: string
+  photo: string | null
+  rating: number | null
+}
+
 export default function SavedSection() {
-  const [slugs, setSlugs] = useState<string[] | null>(null)
+  const [saved, setSaved] = useState<SavedRestaurant[] | null>(null)
 
   useEffect(() => {
-    getSavedSlugs().then(setSlugs)
+    fetch('/api/saves/restaurants')
+      .then(res => res.json())
+      .then(data => setSaved(Array.isArray(data.restaurants) ? data.restaurants : []))
+      .catch(() => setSaved([]))
   }, [])
 
-  const saved = useMemo(
-    () => (slugs ?? []).flatMap(slug => {
-      const r = restaurants.find(x => x.slug === slug)
-      return r ? [r] : []
-    }),
-    [slugs]
-  )
-
-  if (slugs === null) return null
+  if (saved === null) return null
 
   if (saved.length === 0) {
     return (
