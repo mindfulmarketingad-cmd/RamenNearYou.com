@@ -10,6 +10,7 @@ import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
 import AdSlot from '@/components/ad-slot'
 import AdAnchorMobile from '@/components/ad-anchor-mobile'
+import ProductsCarousel from '@/components/products-carousel'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
@@ -486,7 +487,13 @@ export default function PseoListicle({
 
             {/* Ranked list */}
             <div className="space-y-3">
-              {pagedRest.map((it, i) => (
+              {pagedRest.map((it, i) => {
+                // Shop-our-picks drops in once, a few listings down rather
+                // than at the very top — it reads as a natural break in the
+                // feed instead of a paywall-style interruption before anyone
+                // has seen a real result.
+                const productCarouselAt = Math.min(3, pagedRest.length)
+                return (
                 <Fragment key={it.key}>
                 <div className="bg-white border border-black/8 rounded-xl p-4 flex gap-3">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#B57F50] text-white text-xs font-bold shrink-0 mt-0.5">
@@ -614,8 +621,14 @@ export default function PseoListicle({
                       <InListAd n={(i + 1) / LISTINGS_PER_AD_DESKTOP} />
                     </AdSlot>
                   )}
+                {i + 1 === productCarouselAt && (
+                  <div className="my-3">
+                    <ProductsCarousel variant="inline" />
+                  </div>
+                )}
                 </Fragment>
-              ))}
+                )
+              })}
             </div>
 
             {/* Multiplex grid closing out the list — mobile only. A native
