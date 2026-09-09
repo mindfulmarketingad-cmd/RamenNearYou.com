@@ -11,6 +11,7 @@ import RestaurantListingPage from '@/components/restaurant-listing-page'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getApprovedListing, approvedListingToRestaurant } from '@/lib/approved-listings'
 import CityFilterPage from '@/components/city-filter-page'
+import { getListingMonthlyViews } from '@/lib/listing-stats'
 import {
   parseFilterSlug,
   getMajorCity,
@@ -165,6 +166,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           state={state}
           nearby={getRestaurantsByCity(city, state).slice(0, 6)}
           isVerified={false}
+          monthlyViews={await getListingMonthlyViews(restaurant)}
         />
       )
     }
@@ -178,6 +180,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
         city={city}
         state={state}
         nearby={nearbyListings}
+        monthlyViews={await getListingMonthlyViews(sup.slug)}
       />
     )
   }
@@ -238,6 +241,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       state={state}
       nearby={nearbyListings}
       isVerified={isVerified}
+      monthlyViews={isVerified ? null : await getListingMonthlyViews(r2.slug)}
     />
   )
 }

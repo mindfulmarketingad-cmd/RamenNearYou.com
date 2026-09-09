@@ -119,13 +119,17 @@ interface Props {
   state: string
   nearby: Restaurant[]
   isVerified?: boolean
+  /** Real pageviews on this listing in the last 30 days, for the claim
+   *  banner's traffic pitch. Null when analytics is unreachable or the
+   *  listing is verified (banner doesn't render, so it's not fetched). */
+  monthlyViews?: number | null
 }
 
 // Google-Maps-style single-restaurant listing: a scrollable details panel on
 // the left, a single-pin map on the right. Mirrors the searchmap layout.
 // Per-visitor owner state (manage button, self-link panel) resolves
 // client-side so this page can be statically cached.
-export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false }: Props) {
+export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false, monthlyViews = null }: Props) {
   const url = `https://www.ramennearyou.com/${city}/${state}/${r.slug}`
   const category = (r.subtypes?.split(',')[0] ?? 'Ramen restaurant').trim()
   const menuUrl = r.menuLink?.trim() ?? ''
@@ -304,6 +308,57 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   but their account isn't connected to it yet (client-side) */}
               <SelfLinkPanel slug={r.slug} restaurantName={r.name} />
 
+              {/* Own this business? — the site's main passive-claim lever.
+                  Placed right under the action row (above the ads, the
+                  description, everything) so an owner who lands on their own
+                  page organically — from a Google search, a shared link, a
+                  QR code — sees it without scrolling. Verified listings show
+                  the badge above instead. */}
+              {!isVerified && (
+                <div className="mt-5">
+                  <div className="rounded-xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-50 to-[#B57F50]/10 p-5 shadow-sm shadow-amber-500/10">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
+                        Unclaimed
+                      </span>
+                    </div>
+                    <p className="text-base font-bold text-[#1E2026] mb-1">Own {r.name}?</p>
+                    {monthlyViews != null && monthlyViews > 0 ? (
+                      <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
+                        This page got{' '}
+                        <strong className="text-[#1E2026]">{monthlyViews.toLocaleString()} view{monthlyViews === 1 ? '' : 's'}</strong>{' '}
+                        in the last 30 days — diners looking for a restaurant just like yours. Claim it for $19.99/mo
+                        to control what they see and get a verified badge.
+                      </p>
+                    ) : (
+                      <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
+                        This listing hasn&apos;t been claimed yet. Claiming is $19.99/mo — create an
+                        account, subscribe, submit your claim, and once our team verifies ownership you&apos;re in control.
+                      </p>
+                    )}
+                    <ul className="space-y-1.5 mb-4">
+                      {[
+                        '$19.99/mo — quick ownership review, cancel anytime',
+                        'Verified badge on this page and the search map',
+                        'Update hours, photos, menu, and description anytime',
+                        'Ad-free listing page (no ads on your dedicated listing page)',
+                      ].map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
+                          <span className="text-[#96602F] shrink-0">✓</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={`/claim/${city}/${state}/${r.slug}`}
+                      className="inline-flex items-center justify-center w-full px-4 py-3 rounded-none bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
+                    >
+                      Claim This Listing — $19.99/mo
+                    </Link>
+                  </div>
+                </div>
+              )}
+
               {/* Primary CTAs */}
               {(orderUrl || menuUrl) && (
                 <div className="flex flex-col gap-2.5 mt-5">
@@ -423,43 +478,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       Read the full {r.name} review breakdown →
                     </Link>
                   )}
-                </div>
-              )}
-
-              {/* Own this business? — claim-value strip on unclaimed listings.
-                  Verified listings show the badge instead; this is the
-                  owner-facing pitch for everything still unclaimed. */}
-              {!isVerified && (
-                <div className="mt-6 pt-5 border-t border-black/8">
-                  <div className="rounded-xl border border-[#B57F50]/30 bg-gradient-to-br from-[#B57F50]/8 to-[#B57F50]/14 p-5">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <BadgeCheck className="w-4 h-4 text-[#96602F]" />
-                      <p className="text-sm font-bold text-[#1E2026]">Own {r.name}?</p>
-                    </div>
-                    <p className="text-xs text-[#6B6862] leading-relaxed mb-3">
-                      This listing hasn&apos;t been claimed yet. Claiming is $19.99/mo — create an
-                      account, subscribe, submit your claim, and once our team verifies ownership you&apos;re in control.
-                    </p>
-                    <ul className="space-y-1.5 mb-4">
-                      {[
-                        '$19.99/mo — quick ownership review, cancel anytime',
-                        'Verified badge on this page and the search map',
-                        'Update hours, photos, menu, and description anytime',
-                        'Ad-free listing page (no ads on your dedicated listing page)',
-                      ].map((b) => (
-                        <li key={b} className="flex items-start gap-2 text-xs text-[#1E2026]">
-                          <span className="text-[#96602F] shrink-0">✓</span>
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                    <Link
-                      href={`/claim/${city}/${state}/${r.slug}`}
-                      className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
-                    >
-                      Claim This Listing — $19.99/mo
-                    </Link>
-                  </div>
                 </div>
               )}
 
