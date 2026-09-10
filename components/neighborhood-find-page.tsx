@@ -5,7 +5,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
@@ -97,10 +96,6 @@ export default async function NeighborhoodFindPage({ hood }: { hood: Neighborhoo
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <div className="mb-6">
-              <AdUnitInArticle />
-            </div>
-
             {/* SEO content — neighborhood-specific, first-person */}
             <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
               Eating Ramen in {hood.name}, {hood.cityName}

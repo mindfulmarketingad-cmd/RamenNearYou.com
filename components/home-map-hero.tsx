@@ -15,7 +15,6 @@ import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend,
 import { useCurrentUser } from '@/lib/use-current-user'
 import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
-import AdUnitHorizontal from '@/components/ad-unit-horizontal'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
@@ -284,7 +283,6 @@ export default function HomeMapHero({
   const [moods, setMoods] = useState<Set<string>>(new Set(initialMoods))
   const [prices, setPrices] = useState<Set<string>>(new Set(initialPrices))
   const [showFilters, setShowFilters] = useState(false)
-  const [adDismissed, setAdDismissed] = useState(false)
   const [zipFilter, setZipFilter] = useState('')
   // Defaults to highest-rated so listings (numbered in the list panel) lead
   // with top-rated businesses — easiest for owners/visitors to find who's on
@@ -1422,24 +1420,6 @@ export default function HomeMapHero({
         </div>
       </div>
 
-      {/* Ad — floats directly under the filter bar, on top of the map.
-          Dismissible so it never permanently blocks the map view.
-          Its width must stay explicit: the overlay is `sm:items-center`, so a
-          `sm:w-auto` container shrink-wraps to its content — and a block <ins>
-          has no intrinsic width, which collapsed this slot to 0px on desktop
-          and made AdSense discard it every time. */}
-      {mapOnly && !adDismissed && (
-        <div className="relative bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:max-w-4xl overflow-hidden">
-          <button
-            onClick={() => setAdDismissed(true)}
-            aria-label="Dismiss ad"
-            className="absolute top-1.5 right-1.5 z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white/90 border border-black/10 text-[#6B6862] hover:text-[#1E2026] hover:bg-white shadow-sm transition-colors"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
-          <AdUnitHorizontal />
-        </div>
-      )}
 
       {/* Expandable full filter panel */}
       {showFilters && (

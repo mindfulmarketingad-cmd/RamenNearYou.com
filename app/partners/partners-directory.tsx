@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Search, Star, Loader2, SlidersHorizontal, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { BOWL_META, MOOD_META, FEATURE_META, BOWL_BY_KEY, MOOD_BY_KEY, FEATURE_BY_KEY, type MapPoint } from '@/lib/ramen-taxonomy'
 import { getOpenStatus, getTodayHoursLabel } from '@/lib/hours'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
 import InquireButton from '@/components/inquire-button'
 
 const PAGE_SIZE = 25
@@ -287,13 +286,6 @@ export default function PartnersDirectory() {
                           />
                         </td>
                       </tr>
-                      {currentPage === 1 && i === 0 && (
-                        <tr className="border-b border-black/5">
-                          <td colSpan={6} className="px-4 py-3">
-                            <AdUnitInFeed />
-                          </td>
-                        </tr>
-                      )}
                     </Fragment>
                   )
                 })}

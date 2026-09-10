@@ -10,13 +10,6 @@ import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
-import AdUnit from '@/components/ad-unit'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
-import AdUnitVertical from '@/components/ad-unit-vertical'
-import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
-import AdSlot from '@/components/ad-slot'
-import AdAnchorMobile from '@/components/ad-anchor-mobile'
-import { splitHtmlForAds } from '@/lib/split-html-for-ads'
 import { extractToc } from '@/lib/blog-toc'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
@@ -277,11 +270,6 @@ export default async function BlogPostPage({ params }: Props) {
   const showToc = headings.length >= 3
 
   // Two in-article ads, spread evenly through the body copy.
-  // Three chunks rather than two: a mobile reader scrolls a post in far more
-  // screens than a desktop one, so two breaks keep an in-article unit roughly
-  // once per few screens instead of once per post.
-  const contentParts = splitHtmlForAds(tocHtml, 3)
-
   // Enrich restaurant cards with lat/lng for map layout
   const hasCards = post.restaurantCards && post.restaurantCards.length > 0
   const enrichedCards: MapCard[] = hasCards
@@ -350,7 +338,7 @@ export default async function BlogPostPage({ params }: Props) {
       )}
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
+        <div className="max-w-7xl mx-auto">
         <div className={hasCards ? '' : 'max-w-2xl'}>
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
@@ -388,13 +376,6 @@ export default async function BlogPostPage({ params }: Props) {
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
-
-              <div className="mb-5">
-                <AdUnitInArticle />
-              </div>
-              <div className="mb-5">
-                <AdUnitVertical />
-              </div>
 
               <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
@@ -452,16 +433,7 @@ export default async function BlogPostPage({ params }: Props) {
               </nav>
             )}
 
-            {contentParts.map((chunk, i) => (
-              <div key={i}>
-                <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: chunk }} />
-                {i < contentParts.length - 1 && (
-                  <div className="my-6">
-                    <AdUnitInArticle />
-                  </div>
-                )}
-              </div>
-            ))}
+            <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: tocHtml }} />
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-[#F5F4F0] border border-black/5 rounded-2xl p-6 sm:p-8">
@@ -491,20 +463,6 @@ export default async function BlogPostPage({ params }: Props) {
               />
             )}
 
-            <div className="mt-10">
-              <AdUnit />
-            </div>
-            <div className="mt-6">
-              <AdUnitVertical />
-            </div>
-
-            {/* Mobile only — stands in for the desktop side rail, which mobile
-                never sees. A multiplex grid is the strongest closer on a phone:
-                it fills reliably at the bottom of a long scroll where a plain
-                display banner often goes unsold. */}
-            <AdSlot only="mobile" className="mt-6" minHeight={250}>
-              <AdUnitAutorelaxed />
-            </AdSlot>
           </article>
 
           <div className="mt-16 pt-8 border-t border-black/8">
@@ -517,25 +475,9 @@ export default async function BlogPostPage({ params }: Props) {
             </Link>
           </div>
         </div>
-
-          {/* Side rail — sticky sidebar ads, desktop only. The units inside
-              are AdSlot-gated rather than relying on the wrapper's `hidden`
-              class alone: a hidden wrapper still mounts its children, so on
-              mobile both units would push, get measured at zero width, and be
-              burned without ever rendering. Mobile gets its own units inline
-              in the article body instead. */}
-          <aside className="hidden lg:block sticky top-24 w-[300px] shrink-0 space-y-6 self-start">
-            <AdSlot only="desktop" minHeight={250}>
-              <AdUnit />
-            </AdSlot>
-            <AdSlot only="desktop" minHeight={600}>
-              <AdUnit />
-            </AdSlot>
-          </aside>
         </div>
       </main>
       <Footer />
-      <AdAnchorMobile />
     </>
   )
 }

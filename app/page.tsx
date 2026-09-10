@@ -15,12 +15,6 @@ import HomepageAbout from '@/components/homepage-about'
 import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
-import AdUnitVertical from '@/components/ad-unit-vertical'
-import AdUnitHorizontal from '@/components/ad-unit-horizontal'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
-import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
-import AdSlot from '@/components/ad-slot'
-import AdAnchorMobile from '@/components/ad-anchor-mobile'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -70,13 +64,6 @@ export default function HomePage() {
           <FilterShowcase />
           <SearchMapShowcase />
 
-          {/* First in-content slot — right below the map showcase, the point
-              where a homepage visitor has finished the hero and started
-              scrolling. */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-            <AdUnitHorizontal />
-          </div>
-
           <UgcGrid />
 
           {/* Editorial image band */}
@@ -111,10 +98,6 @@ export default function HomePage() {
           </section>
 
           <FeaturedListings />
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-            <AdUnitVertical />
-          </div>
 
           {/* Photo grid — every bowl tells a story */}
           <section className="bg-[#F5F4F0] py-12">
@@ -170,35 +153,17 @@ export default function HomePage() {
             </div>
           </section>
 
-          <CommunityCarousel />
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-            <AdUnitInFeed />
-          </div>
-
           <HomepageReviews />
           <ServiceDirectory />
           <CityStateDirectory />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-            <AdUnitVertical />
-          </div>
-
           <HomepageAbout />
           <HomepageFAQ />
-
-          {/* Mobile only — the FAQ is the last thing most phone visitors read
-              before bouncing, so it is the last place worth a unit. Desktop
-              already has the wider slots above doing this job. */}
-          <AdSlot only="mobile" className="max-w-7xl mx-auto px-4 sm:px-6 py-6" minHeight={250}>
-            <AdUnitAutorelaxed />
-          </AdSlot>
 
           <FindCrossLinks />
           <Footer />
         </div>
       </main>
-      <AdAnchorMobile />
     </>
   )
 }

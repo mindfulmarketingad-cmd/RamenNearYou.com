@@ -3,8 +3,6 @@ import Image from 'next/image'
 import { ChevronRight, Star, Phone, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import AdUnit from '@/components/ad-unit'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
 import RestaurantImage from '@/components/restaurant-image'
 import { phoCityParam } from '@/lib/pho'
 import { pickStockPhoto } from '@/lib/stock-photos'
@@ -50,7 +48,7 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
     <>
       <Navbar />
       <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
+        <div className="max-w-3xl mx-auto">
           <div>
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
@@ -71,8 +69,6 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
                 <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
                   {title}
                 </h1>
-
-                <div className="mb-5"><AdUnitInArticle /></div>
 
                 <p className="text-[#6B6862] text-lg leading-relaxed mb-5">
                   We looked at every pho restaurant we track in {cityName}, {stateName}, and ranked the five with
@@ -182,8 +178,6 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
                 })}
               </div>
 
-              {top5.length > 2 && <div className="my-8"><AdUnitInArticle /></div>}
-
               {/* Keep exploring */}
               <section id="keep-exploring" className="scroll-mt-24 mt-10 bg-white rounded-2xl border border-black/5 p-6 sm:p-8">
                 <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">Keep Exploring</h2>
@@ -198,7 +192,6 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
                 </div>
               </section>
 
-              <div className="mt-10"><AdUnit /></div>
             </article>
 
             <div className="mt-16 pt-8 border-t border-black/8">
@@ -211,11 +204,6 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
               </Link>
             </div>
           </div>
-
-          <aside className="hidden lg:block sticky top-24 w-[300px] shrink-0 space-y-6 self-start">
-            <div className="min-h-[250px]"><AdUnit /></div>
-            <div className="min-h-[600px]"><AdUnit /></div>
-          </aside>
         </div>
       </main>
       <Footer />

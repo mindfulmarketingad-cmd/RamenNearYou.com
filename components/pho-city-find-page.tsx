@@ -5,7 +5,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
 import PseoListicle from '@/components/pseo-listicle'
 import { phoToListicleItems } from '@/lib/listicle-items'
 import type { PhoCity } from '@/lib/pho'
@@ -91,10 +90,6 @@ export default function PhoCityFindPage({
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <div className="mb-6">
-              <AdUnitInArticle />
-            </div>
-
             {/* SEO content */}
             {sections.map((s, i) => (
               <div key={s.id} className={i > 0 ? 'mt-8' : ''}>

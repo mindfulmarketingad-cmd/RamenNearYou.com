@@ -20,8 +20,6 @@ import { jsonLdString } from '@/lib/json-ld'
 import { resolveFindCity } from '@/lib/find-city'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import OwnerCtaCard from '@/components/owner-cta-card'
-import AdUnit from '@/components/ad-unit'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
 
 interface Props {
   params: Promise<{ restaurant: string }>
@@ -196,10 +194,6 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               {r.name} Reviews | Taste, Noodle Size, Bowl Size and More
             </h1>
 
-            <div className="mb-4">
-              <AdUnitInFeed />
-            </div>
-
             <a
               href={directionsUrl}
               target="_blank"
@@ -338,10 +332,6 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-5">What Diners Are Saying</h2>
             <RestaurantReviewsClient reviews={reviews} />
           </section>
-
-          <div className="mb-10">
-            <AdUnit />
-          </div>
 
           {/* More reviews — keeps every review page linked to others */}
           {related.length > 0 && (

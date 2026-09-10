@@ -5,7 +5,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import FindCrossLinks from '@/components/find-cross-links'
 import UgcFeature from '@/components/ugc-feature'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
@@ -97,10 +96,6 @@ export default async function ModifierCityFindPage({
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-            <div className="mb-6">
-              <AdUnitInArticle />
-            </div>
-
             {cityGuidePost && (
               <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
             )}

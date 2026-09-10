@@ -7,8 +7,6 @@ import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
 import ReviewsHubSearch, { type ReviewListing } from './reviews-hub-search'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
-import AdUnitVertical from '@/components/ad-unit-vertical'
 
 const FAQS = [
   {
@@ -77,20 +75,12 @@ export default function ReviewsIndexPage() {
           </div>
           <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Restaurant Reviews</h1>
 
-          <div className="mb-6">
-            <AdUnitInFeed />
-          </div>
-
           <p className="text-[#6B6862] text-sm mb-6">
             Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on
             taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
           </p>
 
           <ReviewsHubSearch listings={listings} total={reviewRestaurants.length} />
-
-          <div className="mt-10">
-            <AdUnitVertical />
-          </div>
 
           {/* SEO content + owner CTA */}
           <div className="mt-16 pt-12 border-t border-black/8">

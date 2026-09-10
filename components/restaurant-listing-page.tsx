@@ -12,11 +12,6 @@ import ListingActionRow from '@/components/listing-action-row'
 import PageViewTracker from '@/components/page-view-tracker'
 import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
-import AdUnitAutorelaxed from '@/components/ad-unit-autorelaxed'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
-import AdUnitInFeed from '@/components/ad-unit-infeed'
-import AdUnitVertical from '@/components/ad-unit-vertical'
-import AdAnchorMobile from '@/components/ad-anchor-mobile'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
 import { jsonLdString } from '@/lib/json-ld'
@@ -245,17 +240,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <Link href={`/${city}/${state}`} className="hover:text-[#96602F] transition-colors">{r.city}</Link>
               </nav>
 
-              {/* Ad-free listing pages are a claim benefit — no ads once verified. */}
-              {!isVerified && (
-                <div className="mb-3">
-                  <AdUnitInFeed />
-                </div>
-              )}
-              {!isVerified && (
-                <div className="mb-3">
-                  <AdUnitVertical />
-                </div>
-              )}
 
               {/* Name + meta */}
               <div className="flex items-center gap-2 flex-wrap">
@@ -364,7 +348,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 <div className="flex flex-col gap-2.5 mt-5">
                   {orderUrl && (
                     <>
-                      {!isVerified && <AdUnitAutorelaxed />}
                       <a href={orderUrl} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors">
                         <ShoppingBag className="w-4 h-4" /> Order Now
                       </a>
@@ -450,7 +433,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     {aboutParas.map((p, i) => (
                       <div key={i}>
                         <p className="text-[#4B4845] leading-relaxed text-[13px]">{p}</p>
-                        {i === 0 && !isVerified && <div className="mt-3"><AdUnitInArticle /></div>}
                       </div>
                     ))}
                   </div>
@@ -502,12 +484,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               <div className="mt-6 pt-5 border-t border-black/8 flex items-center gap-3">
                 <ShareButton title={r.name} url={url} />
               </div>
-
-              {!isVerified && (
-                <div className="mt-6 pt-5 border-t border-black/8">
-                  <AdUnitVertical />
-                </div>
-              )}
 
               {/* Where to go next — grouped by reason so each set of links has
                   its own motive to be clicked, instead of one flat list. */}
@@ -572,9 +548,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
 
         <Footer />
       </main>
-      {/* Ad-free listing pages stay a claim benefit — the anchor is suppressed
-          on verified listings along with every other unit. */}
-      {!isVerified && <AdAnchorMobile />}
     </>
   )
 }

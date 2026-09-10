@@ -9,8 +9,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
-import AdUnit from '@/components/ad-unit'
 import { getPhoBySlug, getAllPhoSlugs, getNearbyPho, getActiveAmenityGroups, phoRestaurants, phoCityParam } from '@/lib/pho'
 import { buildPhoSections, buildGenericPartnerSections } from '@/lib/pho-content'
 import { getMiscPartnerBySlug, getAllMiscPartnerSlugs, miscPartnerToPhoShape } from '@/lib/misc-partners'
@@ -163,7 +161,7 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
         <Navbar />
 
         <div className="pt-24 pb-16 px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
+          <div className="max-w-3xl mx-auto">
             <div>
               {/* Breadcrumb */}
               <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-5">
@@ -251,8 +249,6 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                   </div>
                 </div>
               </div>
-
-              <div className="mb-6"><AdUnitInArticle /></div>
 
               {/* Hours + rating breakdown */}
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
@@ -393,7 +389,6 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                         dangerouslySetInnerHTML={{ __html: html }}
                       />
                     ))}
-                    {i === 1 && <div className="my-6"><AdUnitInArticle /></div>}
                   </section>
                 ))}
               </article>
@@ -465,12 +460,6 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                 )}
               </div>
             </div>
-
-            {/* Side rail */}
-            <aside className="hidden lg:block sticky top-24 w-[300px] shrink-0 space-y-6 self-start">
-              <div className="min-h-[250px]"><AdUnit /></div>
-              <div className="min-h-[600px]"><AdUnit /></div>
-            </aside>
           </div>
         </div>
 

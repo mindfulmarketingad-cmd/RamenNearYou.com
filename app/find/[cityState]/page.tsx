@@ -7,7 +7,6 @@ import FindCrossLinks from '@/components/find-cross-links'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import UgcFeature from '@/components/ugc-feature'
-import AdUnitInArticle from '@/components/ad-unit-in-article'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
@@ -329,10 +328,6 @@ export default async function CityFindPage(
 
         <div className="relative z-10 bg-white">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-
-            <div className="mb-6">
-              <AdUnitInArticle />
-            </div>
 
             {/* Preserved editorial guide content, if this city has one */}
             {cityGuidePost && (
