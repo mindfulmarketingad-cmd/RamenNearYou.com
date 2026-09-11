@@ -3,7 +3,7 @@ import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import { Toaster } from '@/components/ui/sonner'
-import TimedLoginPrompt from '@/components/timed-login-prompt'
+import SalePopup from '@/components/sale-popup'
 import AnalyticsTracker from '@/components/analytics-tracker'
 import './globals.css'
 
@@ -103,7 +103,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <div id="main-content">{children}</div>
-        <TimedLoginPrompt />
+        <SalePopup />
         <Toaster position="bottom-center" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
