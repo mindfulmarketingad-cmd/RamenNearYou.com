@@ -422,6 +422,14 @@ export default function PseoListicle({
                     {userLocLabel || 'Locating…'}
                   </span>
                 )}
+                <a
+                  href="https://amzn.to/4h3lyIL"
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap bg-[#B57F50] text-white hover:bg-[#c8934f] transition-colors ml-auto"
+                >
+                  Shop Ramen Products
+                </a>
               </div>
               {geoError && <p className="text-red-500 text-xs mt-2">{geoError}</p>}
             </div>

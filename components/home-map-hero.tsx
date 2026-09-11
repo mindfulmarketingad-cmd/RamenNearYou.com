@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
-  List, Map as MapIcon, HelpCircle, ArrowUpDown, BadgeCheck,
+  List, Map as MapIcon, HelpCircle, ArrowUpDown, BadgeCheck, ShoppingBag,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -1415,6 +1415,15 @@ export default function HomeMapHero({
                 </button>
               </div>
             )}
+
+            <a
+              href="https://amzn.to/4h3lyIL"
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap bg-[#B57F50] text-white hover:bg-[#c8934f] transition-colors shrink-0"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" /> Shop Ramen Products
+            </a>
           </div>
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
         </div>
