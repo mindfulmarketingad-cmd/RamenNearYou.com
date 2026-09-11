@@ -27,16 +27,13 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
-  const [authChecked, setAuthChecked] = useState(false)
   const [isHomepage, setIsHomepage] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(true) // start hidden to avoid SSR/first-paint flash
-  const [phoBannerDismissed, setPhoBannerDismissed] = useState(true) // same pattern, own dismiss key
 
   useEffect(() => {
     setIsHomepage(window.location.pathname === '/')
-    setBannerDismissed(localStorage.getItem('promoBannerDismissed') === '1')
-    setPhoBannerDismissed(localStorage.getItem('phoBannerDismissed') === '1')
+    setBannerDismissed(localStorage.getItem('shopBannerDismissed') === '1')
     const onScroll = () => setScrolled(window.scrollY > 20)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -45,26 +42,22 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
   useEffect(() => {
     const supabase = createClient()
-    if (!supabase) { setAuthChecked(true); return }
-    supabase.auth.getUser().then(({ data }) => { setUser(data.user); setAuthChecked(true) })
+    if (!supabase) return
+    supabase.auth.getUser().then(({ data }) => { setUser(data.user) })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
     })
     return () => subscription.unsubscribe()
   }, [])
 
-  // Promo banners: stacked top strips, dismissible independently. When shown,
-  // push the page down by the combined banner height so every page's existing
-  // top padding (calibrated for the 64px navbar) still clears the now-taller
-  // fixed header. The pho banner shows to everyone; the sign-up banner stays
-  // logged-out only.
-  const showPhoBanner = !phoBannerDismissed
-  const showBanner = authChecked && !user && !bannerDismissed
-  const bannerCount = (showPhoBanner ? 1 : 0) + (showBanner ? 1 : 0)
+  // Promo banner: single top strip. When shown, push the page down by the
+  // banner height so every page's existing top padding (calibrated for the
+  // 64px navbar) still clears the now-taller fixed header.
+  const showBanner = !bannerDismissed
   useEffect(() => {
-    const extraHeight = bannerCount * BANNER_HEIGHT
+    const extraHeight = showBanner ? BANNER_HEIGHT : 0
     document.body.style.paddingTop = extraHeight ? `${extraHeight}px` : ''
-    // Full fixed-header height (banners + navbar, or just navbar), exposed so
+    // Full fixed-header height (banner + navbar, or just navbar), exposed so
     // any full-viewport-height layout (e.g. the mapOnly searchmap) can size
     // itself against the *actual* header instead of assuming just the navbar.
     document.documentElement.style.setProperty('--total-header-h', `${extraHeight + NAVBAR_HEIGHT}px`)
@@ -72,16 +65,11 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
       document.body.style.paddingTop = ''
       document.documentElement.style.removeProperty('--total-header-h')
     }
-  }, [bannerCount])
+  }, [showBanner])
 
   function dismissBanner() {
     setBannerDismissed(true)
-    try { localStorage.setItem('promoBannerDismissed', '1') } catch {}
-  }
-
-  function dismissPhoBanner() {
-    setPhoBannerDismissed(true)
-    try { localStorage.setItem('phoBannerDismissed', '1') } catch {}
+    try { localStorage.setItem('shopBannerDismissed', '1') } catch {}
   }
 
   async function handleSignOut() {
@@ -101,31 +89,18 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1200]">
-      {/* Pho announcement banner — shown to every visitor, dismissed independently
-          from the sign-up banner below it. */}
-      {showPhoBanner && (
-        <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">
-          <Link href="/find/pho-restaurants" className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-            <span>Now Including <span className="text-[#4ADE80]">Pho Restaurants</span></span>
-            <ArrowRight className="w-4 h-4 text-[#4ADE80] transition-transform group-hover:translate-x-1" />
-          </Link>
-          <button
-            onClick={dismissPhoBanner}
-            aria-label="Dismiss"
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-white/50 hover:text-white transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
-
-      {/* Promo banner */}
+      {/* Site-wide promo banner — the affiliate shop CTA. */}
       {showBanner && (
         <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">
-          <Link href="/auth/login" className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-            <span>Sign up for <span className="text-[#E0A56A]">full map access</span></span>
+          <a
+            href="https://amzn.to/4h3lyIL"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap"
+          >
+            <span><span className="text-[#E0A56A]">70% Off</span> All Ramen Products</span>
             <ArrowRight className="w-4 h-4 text-[#E0A56A] transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
           <button
             onClick={dismissBanner}
             aria-label="Dismiss"
