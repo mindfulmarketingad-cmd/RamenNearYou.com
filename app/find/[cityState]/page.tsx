@@ -323,6 +323,8 @@ export default async function CityFindPage(
           searchPlaceholder="Search by name..."
           filterLabel="Feature"
           primaryCtaLabel="View details"
+          guideCityLabel={`${cityName}, ${stateCode}`}
+          guideCitySlug={`${citySlug}-${stateCode.toLowerCase()}`}
           mapSlot={mapSlot}
         />
 

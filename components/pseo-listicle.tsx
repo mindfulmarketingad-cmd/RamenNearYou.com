@@ -8,6 +8,7 @@ import ProductsCarousel from '@/components/products-carousel'
 import AdSquare from '@/components/ad-square'
 import AdVertical from '@/components/ad-vertical'
 import AdInFeed from '@/components/ad-infeed'
+import CityGuideCta from '@/components/city-guide-cta'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
@@ -138,6 +139,10 @@ interface Props {
    *  "Show more" button revealing another batch at a time — for pages
    *  listing thousands of items (e.g. /partners). */
   pageSize?: number
+  /** "Ketchikan, AK" — when set, the city-guide CTA is personalised to it.
+   *  Left unset on pages that aren't about one city (state, nationwide). */
+  guideCityLabel?: string | null
+  guideCitySlug?: string | null
 }
 
 export default function PseoListicle({
@@ -156,6 +161,8 @@ export default function PseoListicle({
   headerExtra,
   maxDistanceMiles,
   pageSize,
+  guideCityLabel,
+  guideCitySlug,
 }: Props) {
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
@@ -595,6 +602,12 @@ export default function PseoListicle({
                 )
               })}
             </div>
+
+            {pagedRest.length > 0 && (
+              <div className="mt-6">
+                <CityGuideCta cityLabel={guideCityLabel} citySlug={guideCitySlug} />
+              </div>
+            )}
 
             {pagedRest.length > 0 && (
               <div className="mt-6 min-h-[250px]">

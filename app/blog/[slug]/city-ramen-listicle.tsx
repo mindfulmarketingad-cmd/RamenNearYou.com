@@ -4,6 +4,7 @@ import { ChevronRight, Star, Phone, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
+import CityGuideCta from '@/components/city-guide-cta'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import { phoCityParam } from '@/lib/pho'
 import { pickStockPhoto } from '@/lib/stock-photos'
@@ -188,6 +189,12 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                     </article>
                   )
                 })}
+              </div>
+
+              {/* Guide upsell — lands right after the picks, where intent
+                  peaks, rather than before anyone has read them. */}
+              <div className="mt-10">
+                <CityGuideCta cityLabel={`${cityName}, ${stateCode}`} citySlug={citySlug} />
               </div>
 
               {/* Keep exploring */}
