@@ -287,6 +287,17 @@
   animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Promo banner rotation — each deal rises in as the previous one leaves.
+   Short and small-travel so a strip that swaps every few seconds reads as
+   movement in the corner of the eye, not something demanding attention. */
+@keyframes deal-in {
+  from { transform: translateY(0.5rem); opacity: 0; }
+  to   { transform: translateY(0);      opacity: 1; }
+}
+.animate-deal-in {
+  animation: deal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ── Map entrance ────────────────────────────────────────────────────────
    The map is the whole point of the homepage, so it gets a short, deliberate
    reveal instead of just popping in: a warm veil dissolves, the tiles fade
@@ -393,7 +404,8 @@
   }
   .map-reveal-veil { display: none !important; }
   .steam-wisp,
-  .animate-pulse-soft {
+  .animate-pulse-soft,
+  .animate-deal-in {
     animation: none !important;
   }
 }

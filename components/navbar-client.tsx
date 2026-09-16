@@ -11,6 +11,18 @@ import type { User } from '@supabase/supabase-js'
 const BANNER_HEIGHT = 40 // px — keep in sync with the banner's h-10
 const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 
+const SHOP_AFFILIATE_URL = 'https://amzn.to/4h3lyIL'
+
+// Promo banner rotation. Add or edit deals here — the banner picks up the
+// whole list automatically. `discount` renders in the accent colour.
+const PROMO_DEALS = [
+  { discount: '70% Off', product: 'Ceramic Ramen Bowls' },
+  { discount: '25% Off', product: 'Stainless Steel Chopsticks' },
+  { discount: '50% Off', product: 'Ramen Making Kits' },
+  { discount: '10% Off', product: 'Wooden Chopsticks' },
+]
+const DEAL_ROTATE_MS = 4000
+
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/search', label: 'Search' },
@@ -30,6 +42,8 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
   const [isHomepage, setIsHomepage] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(true) // start hidden to avoid SSR/first-paint flash
+  const [dealIndex, setDealIndex] = useState(0)
+  const [dealPaused, setDealPaused] = useState(false)
 
   useEffect(() => {
     setIsHomepage(window.location.pathname === '/')
@@ -39,6 +53,21 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Rotate the banner deals. Paused on hover/focus so the copy can't swap out
+  // from under someone reading it, and switched off entirely for visitors who
+  // asked for reduced motion — this is exactly the kind of persistent
+  // background movement that setting exists to stop.
+  useEffect(() => {
+    if (dealPaused || PROMO_DEALS.length < 2) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const timer = setInterval(
+      () => setDealIndex(i => (i + 1) % PROMO_DEALS.length),
+      DEAL_ROTATE_MS,
+    )
+    return () => clearInterval(timer)
+  }, [dealPaused])
 
   useEffect(() => {
     const supabase = createClient()
@@ -89,16 +118,27 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1200]">
-      {/* Site-wide promo banner — the affiliate shop CTA. */}
+      {/* Site-wide promo banner — rotates through the affiliate deals. Every
+          slide points at the same link, so a rotation mid-click can never send
+          someone somewhere they didn't intend. */}
       {showBanner && (
-        <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10">
+        <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10 overflow-hidden">
           <a
-            href="https://amzn.to/4h3lyIL"
+            href={SHOP_AFFILIATE_URL}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap"
+            onMouseEnter={() => setDealPaused(true)}
+            onMouseLeave={() => setDealPaused(false)}
+            onFocus={() => setDealPaused(true)}
+            onBlur={() => setDealPaused(false)}
           >
-            <span><span className="text-[#E0A56A]">70% Off</span> All Ramen Products</span>
+            {/* Re-keyed per slide so the entrance animation replays. aria-live
+                announces each new deal without moving focus. */}
+            <span key={dealIndex} className="animate-deal-in" aria-live="polite">
+              <span className="text-[#E0A56A]">{PROMO_DEALS[dealIndex].discount}</span>{' '}
+              {PROMO_DEALS[dealIndex].product}
+            </span>
             <ArrowRight className="w-4 h-4 text-[#E0A56A] transition-transform group-hover:translate-x-1" />
           </a>
           <button
@@ -168,7 +208,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                   </Link>
                 ))}
                 <a
-                  href="https://amzn.to/4h3lyIL"
+                  href={SHOP_AFFILIATE_URL}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   className="px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5"
@@ -262,7 +302,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
               ))}
 
               <a
-                href="https://amzn.to/4h3lyIL"
+                href={SHOP_AFFILIATE_URL}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
                 className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors flex items-center gap-2"
