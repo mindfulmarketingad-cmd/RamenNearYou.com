@@ -17,6 +17,7 @@ import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
+import AdSquare from '@/components/ad-square'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -1429,6 +1430,15 @@ export default function HomeMapHero({
         </div>
       </div>
 
+      {/* Ad — directly under the map bar, still inside the floating controls
+          stack so it sits above the map tiles rather than the page content
+          below. Square format does well here on mobile, where this whole
+          toolbar is the first thing a visitor sees. */}
+      {mapOnly && (
+        <div className="bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+          <AdSquare />
+        </div>
+      )}
 
       {/* Expandable full filter panel */}
       {showFilters && (

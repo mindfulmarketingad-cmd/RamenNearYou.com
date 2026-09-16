@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { Star, MapPin, Phone, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdSquare from '@/components/ad-square'
+import AdVertical from '@/components/ad-vertical'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
@@ -399,6 +401,10 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </header>
 
+            <div className="mb-8 min-h-[250px]">
+              <AdSquare />
+            </div>
+
             {!post.imageFirst && (
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
@@ -434,6 +440,10 @@ export default async function BlogPostPage({ params }: Props) {
             )}
 
             <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: tocHtml }} />
+
+            <div className="my-8 min-h-[600px] max-w-xs mx-auto">
+              <AdVertical />
+            </div>
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-[#F5F4F0] border border-black/5 rounded-2xl p-6 sm:p-8">
