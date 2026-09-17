@@ -12,16 +12,20 @@ const BANNER_HEIGHT = 40 // px — keep in sync with the banner's h-10
 const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
 
 const SHOP_AFFILIATE_URL = 'https://amzn.to/4h3lyIL'
+const VIATOR_EXPERIENCES_URL =
+  'https://www.viator.com/searchResults/all?text=Ramen+experiences&pid=P00320180&mcid=42383&medium=link'
 
-// Promo banner rotation. Add or edit deals here — the banner picks up the
-// whole list automatically. `discount` renders in the accent colour.
+// Promo banner rotation. Add or edit slides here — the banner picks up the
+// whole list automatically. `lead` renders in the accent colour, `rest` in
+// white, and each slide carries its own destination.
 const PROMO_DEALS = [
-  { discount: '70% Off', product: 'Ceramic Ramen Bowls' },
-  { discount: '25% Off', product: 'Stainless Steel Chopsticks' },
-  { discount: '50% Off', product: 'Ramen Making Kits' },
-  { discount: '10% Off', product: 'Wooden Chopsticks' },
+  { lead: '70% Off', rest: 'Ceramic Ramen Bowls', href: SHOP_AFFILIATE_URL },
+  { lead: '25% Off', rest: 'Stainless Steel Chopsticks', href: SHOP_AFFILIATE_URL },
+  { lead: 'Book Local', rest: 'Ramen Experiences', href: VIATOR_EXPERIENCES_URL },
+  { lead: '50% Off', rest: 'Ramen Making Kits', href: SHOP_AFFILIATE_URL },
+  { lead: '10% Off', rest: 'Wooden Chopsticks', href: SHOP_AFFILIATE_URL },
 ]
-const DEAL_ROTATE_MS = 4000
+const DEAL_ROTATE_MS = 7000
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -29,6 +33,7 @@ const NAV_LINKS = [
   { href: '/state', label: 'By State' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/find', label: 'Find' },
+  { href: '/experiences', label: 'Experiences' },
   { href: '/blog', label: 'Blog' },
   { href: '/partners', label: 'Partners' },
   { href: '/about', label: 'About' },
@@ -118,13 +123,14 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1200]">
-      {/* Site-wide promo banner — rotates through the affiliate deals. Every
-          slide points at the same link, so a rotation mid-click can never send
-          someone somewhere they didn't intend. */}
+      {/* Site-wide promo banner — rotates through the affiliate slides. Slides
+          now point at different destinations (shop vs. experiences), so the
+          hover/focus pause below is what keeps a rotation from swapping the
+          link out from under someone reaching to click it. */}
       {showBanner && (
         <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10 overflow-hidden">
           <a
-            href={SHOP_AFFILIATE_URL}
+            href={PROMO_DEALS[dealIndex].href}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="group flex items-center gap-2 text-sm font-semibold whitespace-nowrap"
@@ -136,8 +142,8 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
             {/* Re-keyed per slide so the entrance animation replays. aria-live
                 announces each new deal without moving focus. */}
             <span key={dealIndex} className="animate-deal-in" aria-live="polite">
-              <span className="text-[#E0A56A]">{PROMO_DEALS[dealIndex].discount}</span>{' '}
-              {PROMO_DEALS[dealIndex].product}
+              <span className="text-[#E0A56A]">{PROMO_DEALS[dealIndex].lead}</span>{' '}
+              {PROMO_DEALS[dealIndex].rest}
             </span>
             <ArrowRight className="w-4 h-4 text-[#E0A56A] transition-transform group-hover:translate-x-1" />
           </a>

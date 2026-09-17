@@ -3,6 +3,7 @@ import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { getAllComparisons } from '@/lib/broth-comparisons'
 import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
 import { getAllRecipes } from '@/lib/recipes'
+import { experiences } from '@/lib/experiences'
 import { blogPosts } from '@/lib/blog-posts'
 import { getAllPhoSlugs } from '@/lib/pho'
 import { getAllMiscPartnerSlugs } from '@/lib/misc-partners'
@@ -103,6 +104,14 @@ export async function GET() {
     priority: 0.6,
   }))
 
+  // Individual Viator experience pages (hub is in the static list below)
+  const experiencePages: SitemapEntry[] = experiences.map((e) => ({
+    url: `${SITEMAP_BASE_URL}/experiences/${e.slug}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
   // /blog hub + individual posts (excludes posts that just permanent-redirect
   // to a city guide page)
   const blogPostPages: SitemapEntry[] = blogPosts
@@ -142,6 +151,7 @@ export async function GET() {
     { url: `${SITEMAP_BASE_URL}/catering`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/blog`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/products`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${SITEMAP_BASE_URL}/experiences`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/collections`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/recipes`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/collections/ceramic-ramen-bowls`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
@@ -169,6 +179,7 @@ export async function GET() {
     ...restaurantPages,
     ...reviewPages,
     ...recipePages,
+    ...experiencePages,
     ...blogPostPages,
     ...cityListiclePages,
     ...phoPages,
