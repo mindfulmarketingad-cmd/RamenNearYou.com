@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
-import HomeMapHero from '@/components/home-map-hero'
-import ErrorBoundary from '@/components/error-boundary'
+import HomeNearbySection from '@/components/home-nearby-section'
 import FeaturedListings from '@/components/featured-listings'
 import ClaimedShowcase from '@/components/claimed-showcase'
 import FilterShowcase from '@/components/filter-showcase'
@@ -49,17 +48,10 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <main className="min-h-screen bg-[#ffffff]">
         <Navbar />
-        <ErrorBoundary
-          fallback={
-            <section className="pt-16 bg-[#F5F4F0]">
-              <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full border-2 border-[#B57F50] border-t-transparent animate-spin" />
-              </div>
-            </section>
-          }
-        >
-          <HomeMapHero introAnimation />
-        </ErrorBoundary>
+        {/* Map, then the feed of what's inside its radius. Everything below
+            this — the SEO/editorial sections — comes after the feed, so the
+            first thing a visitor gets is ramen near them, not marketing. */}
+        <HomeNearbySection />
 
         <div className="relative z-10 bg-white">
           <ClaimedShowcase />

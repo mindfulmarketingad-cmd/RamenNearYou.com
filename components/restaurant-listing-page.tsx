@@ -9,6 +9,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
+import RestaurantVoteButtons from '@/components/restaurant-vote-buttons'
 import PageViewTracker from '@/components/page-view-tracker'
 import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
@@ -251,6 +252,9 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     <BadgeCheck className="w-3.5 h-3.5" /> Verified
                   </span>
                 )}
+                {/* Community thumbs up / down. Counts are public; casting a
+                    vote needs an account (one vote per person per listing). */}
+                <RestaurantVoteButtons slug={r.slug} restaurantName={r.name} />
               </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">

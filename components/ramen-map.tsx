@@ -175,12 +175,16 @@ interface Props {
   heatmap?: boolean
   visitedSlugs?: Set<string>
   boundary?: unknown | null   // GeoJSON Polygon/MultiPolygon — city outline (Zillow-style)
+  // Radius of the dashed "search area" circle, in miles. The circle re-centres
+  // on `userLocation` once the visitor's real position resolves, so what's
+  // drawn always matches the set of listings the page is showing.
+  radiusMiles?: number
   // Suppress the built-in Leaflet popup on marker click — used in mapOnly
   // layouts where a richer detail card renders outside the map instead.
   disablePopups?: boolean
 }
 
-export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onMarkerHover, onUserMove, onMapCenter, centerLatLng, userLocation, onLocateRequest, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false }: Props) {
+export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 11, selectedSlug, hoveredSlug, onSelect, onMarkerHover, onUserMove, onMapCenter, centerLatLng, userLocation, onLocateRequest, accentColor = '#B57F50', heatmap = false, visitedSlugs, boundary, disablePopups = false, radiusMiles = 20 }: Props) {
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<Record<string, L.Marker>>({})
@@ -322,6 +326,17 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
       }).addTo(map)
     }
   }, [ready, userLocation])
+
+  // Keep the dashed search-area circle on the visitor's real position and at
+  // the radius the page is actually filtering by. Without this it would stay
+  // wherever the map first opened, so the drawn circle and the listings shown
+  // underneath it would disagree.
+  useEffect(() => {
+    if (!ready || !userCircleRef.current) return
+    const center = userLocation ?? { lat: userLat, lng: userLng }
+    userCircleRef.current.setLatLng([center.lat, center.lng])
+    userCircleRef.current.setRadius(radiusMiles * 1609.34)
+  }, [ready, userLocation, userLat, userLng, radiusMiles])
 
   // Add restaurant markers (hidden while heatmap mode is active). No
   // clustering — every pin renders individually at every zoom level.

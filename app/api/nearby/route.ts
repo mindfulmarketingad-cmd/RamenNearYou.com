@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
+import { isOpenNow, getTodayHoursLabel } from '@/lib/hours'
 
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -58,6 +59,14 @@ export async function GET(req: NextRequest) {
       description: r.description,
       subtypes: r.subtypes,
       priceRange: r.priceRange,
+      // Feed cards show address/contact/hours inline, so send them along
+      // rather than making the client fetch each listing separately.
+      address: r.address,
+      phone: r.phone,
+      website: r.website,
+      googleMapsLink: r.googleMapsLink,
+      openNow: isOpenNow(r.hours),
+      hoursLabel: r.hours ? getTodayHoursLabel(r.hours) : null,
       dineIn: !!r.amenities.dineIn,
       takeout: !!r.amenities.takeout,
       delivery: !!r.amenities.delivery,

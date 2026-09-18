@@ -239,6 +239,20 @@ interface HomeMapHeroProps {
   // on /find pages visitors often arrive repeatedly from search, where a
   // recurring intro would wear out fast.
   introAnimation?: boolean
+  // Rendered directly under the map and above the themed discovery shelves.
+  // The homepage puts its "ramen near you" feed here so the order reads
+  // map → feed → everything else.
+  feedSlot?: ReactNode
+  // Radius (miles) of the dashed search-area circle drawn around the visitor.
+  // Kept in sync with whatever the page below the map is listing.
+  radiusMiles?: number
+  // Ask for the visitor's location as soon as the map mounts. Pages that pair
+  // the map with a location-specific feed need this; pages that want the
+  // visitor to make the first move leave it off.
+  autoLocate?: boolean
+  // Fires whenever the resolved position changes (geolocation or ZIP search),
+  // so a sibling feed can list the same area the map is showing.
+  onUserPosChange?: (pos: { lat: number; lng: number } | null) => void
   // Full-screen map-only layout: the map fills the viewport below the navbar
   // with the controls floating on top and no left-hand list panel. Defaults on
   // (homepage + all /find pages); state pages opt out to keep the list layout.
@@ -258,6 +272,10 @@ export default function HomeMapHero({
   maxDistanceMiles,
   mapOnly = true,
   introAnimation = false,
+  radiusMiles = 20,
+  autoLocate = false,
+  onUserPosChange,
+  feedSlot,
 }: HomeMapHeroProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -646,10 +664,21 @@ export default function HomeMapHero({
   //    move on the page is theirs rather than something done for them.
   useEffect(() => {
     if (regionBoundary) return
-    if (pathname === '/') return
+    // The homepage used to opt out entirely. It now opts back in via
+    // `autoLocate`, because its feed is location-specific and has nothing to
+    // show until the area is known.
+    if (pathname === '/' && !autoLocate) return
     requestLocation()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Publish the resolved position upward. ZIP/city search sets geocodedCenter
+  // rather than userPos, so a sibling feed needs to hear about both.
+  const effectivePos = userPos ?? geocodedCenter
+  useEffect(() => {
+    onUserPosChange?.(effectivePos ?? null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectivePos?.lat, effectivePos?.lng])
 
   // Reverse-geocode the detected (or ZIP-searched) position into a "City, ST"
   // label for the pill. Failure is silent — "Choose area" still works either way.
@@ -1579,6 +1608,11 @@ export default function HomeMapHero({
         <div className={mapOnly
           ? 'flex flex-col w-full bg-white overflow-hidden shrink-0 order-2'
           : `${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
+          {/* Ranked "near you" feed, immediately under the map and above the
+              map's own filtered carousel, so the first thing below the map is
+              a readable list rather than another horizontal scroller. */}
+          {feedSlot && !listView && <div className="border-b border-black/8">{feedSlot}</div>}
+
           <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
             <p className="text-[#1E2026] font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
@@ -1694,6 +1728,7 @@ export default function HomeMapHero({
               accentColor={accentColor}
               boundary={boundary}
               disablePopups={mapOnly}
+              radiusMiles={radiusMiles}
             />
           )}
 

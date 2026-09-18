@@ -2,8 +2,8 @@
 
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { MapPin, Phone, Globe, List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
-import RestaurantImage from '@/components/restaurant-image'
+import { List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
+import ListicleCard from '@/components/listicle-card'
 import ProductsCarousel from '@/components/products-carousel'
 import AdSquare from '@/components/ad-square'
 import AdVertical from '@/components/ad-vertical'
@@ -74,46 +74,6 @@ function distanceMiles(aLat: number, aLng: number, bLat: number, bLng: number): 
   const s1 = Math.sin(dLat / 2) ** 2 +
     Math.cos(aLat * Math.PI / 180) * Math.cos(bLat * Math.PI / 180) * Math.sin(dLng / 2) ** 2
   return R * 2 * Math.atan2(Math.sqrt(s1), Math.sqrt(1 - s1))
-}
-
-// Unicode stars with a width-clipped overlay rather than five inline SVGs.
-// On a listicle rendering hundreds of cards, five lucide <svg> elements per
-// card accounted for ~30% of the prerendered HTML — this is the same visual
-// at roughly a hundredth of the bytes.
-function StarRating({ rating }: { rating: number | null | undefined }) {
-  if (rating == null) return null
-  const pct = Math.max(0, Math.min(100, (rating / 5) * 100))
-  return (
-    <span
-      className="relative inline-block leading-none text-[13px] tracking-[0.05em] select-none"
-      aria-hidden="true"
-    >
-      <span className="text-[#1E2026]/15">★★★★★</span>
-      <span
-        className="absolute left-0 top-0 overflow-hidden text-amber-400 whitespace-nowrap"
-        style={{ width: `${pct}%` }}
-      >
-        ★★★★★
-      </span>
-    </span>
-  )
-}
-
-// Renders "City, ST" with each half linking to that city's/state's own
-// listicle page when we have the href for it; falls back to plain text
-// (never guesses a slug from the display label).
-function LocationLabel({ label, cityHref, stateHref }: { label: string; cityHref?: string | null; stateHref?: string | null }) {
-  const commaIdx = label.lastIndexOf(', ')
-  if (commaIdx === -1) return <>{label}</>
-  const city = label.slice(0, commaIdx)
-  const state = label.slice(commaIdx + 2)
-  return (
-    <span className="truncate">
-      {cityHref ? <Link href={cityHref} className="hover:text-[#96602F] hover:underline">{city}</Link> : city}
-      {', '}
-      {stateHref ? <Link href={stateHref} className="hover:text-[#96602F] hover:underline">{state}</Link> : state}
-    </span>
-  )
 }
 
 interface Props {
@@ -471,118 +431,7 @@ export default function PseoListicle({
                 const adAt = Math.min(9, pagedRest.length)
                 return (
                 <Fragment key={it.key}>
-                <div className="bg-white border border-black/8 rounded-xl p-4 flex gap-3">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#B57F50] text-white text-xs font-bold shrink-0 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <span className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-[#F5F4F0]">
-                    <RestaurantImage src={it.photo} alt={it.name} fill className="object-cover" sizes="64px" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <h2 className="font-bold text-sm text-[#1E2026] leading-tight">
-                      <Link href={it.href} className="hover:text-[#96602F] transition-colors">
-                        {it.name}
-                      </Link>
-                    </h2>
-                    <div className="flex items-center gap-2 flex-wrap mt-1">
-                      {it.rating != null && (
-                        it.reviewHref ? (
-                          <Link
-                            href={it.reviewHref}
-                            className="flex items-center gap-2 group/rating"
-                            onClick={() => trackEvent('review_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
-                          >
-                            <StarRating rating={it.rating} />
-                            <span className="text-xs font-semibold text-[#1E2026] group-hover/rating:text-[#96602F] transition-colors">{it.rating.toFixed(1)}</span>
-                            {!!it.reviewCount && (
-                              <span className="text-xs text-[#6B6862] group-hover/rating:text-[#96602F] group-hover/rating:underline transition-colors">
-                                {it.reviewCount.toLocaleString()} reviews
-                              </span>
-                            )}
-                          </Link>
-                        ) : (
-                          <span className="flex items-center gap-2">
-                            <StarRating rating={it.rating} />
-                            <span className="text-xs font-semibold text-[#1E2026]">{it.rating.toFixed(1)}</span>
-                            {!!it.reviewCount && <span className="text-xs text-[#6B6862]">{it.reviewCount.toLocaleString()} reviews</span>}
-                          </span>
-                        )
-                      )}
-                      {it.locationLabel && (
-                        <span className="flex items-center gap-1 text-xs text-[#6B6862]">
-                          <MapPin className="w-3 h-3 shrink-0" />
-                          <LocationLabel label={it.locationLabel} cityHref={it.cityHref} stateHref={it.stateHref} />
-                        </span>
-                      )}
-                      {distanceLabel(it) && (
-                        <span className="text-xs font-semibold text-emerald-600">{distanceLabel(it)}</span>
-                      )}
-                    </div>
-                    {it.address && (
-                      it.directionsUrl ? (
-                        <a
-                          href={it.directionsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => trackEvent('directions_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
-                          className="block text-xs text-[#6B6862] hover:text-[#96602F] hover:underline mt-1"
-                        >
-                          {it.address}
-                        </a>
-                      ) : (
-                        <p className="text-xs text-[#6B6862] mt-1">{it.address}</p>
-                      )
-                    )}
-                    {(it.phone || it.website) && (
-                      <div className="flex items-center gap-3 mt-1">
-                        {it.phone && (
-                          <a
-                            href={`tel:${it.phone}`}
-                            className="flex items-center gap-1 text-xs text-[#96602F] hover:underline"
-                            onClick={() => trackEvent('call_click', { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })}
-                          >
-                            <Phone className="w-3 h-3" />{it.phone}
-                          </a>
-                        )}
-                        {it.website && (
-                          <a href={it.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-[#96602F] hover:underline">
-                            <Globe className="w-3 h-3" />Visit website
-                          </a>
-                        )}
-                      </div>
-                    )}
-                    {it.hoursLabel && (
-                      <p className={`text-xs mt-1 font-medium ${it.hoursOpen ? 'text-emerald-600' : 'text-[#9B9490]'}`}>
-                        {it.hoursLabel}
-                      </p>
-                    )}
-                    <p className="text-xs text-[#1E2026] mt-1.5 leading-relaxed">{it.description}</p>
-                    {!!it.tags?.length && (
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        {it.tags.map(t => (
-                          t.href ? (
-                            <Link
-                              key={t.label}
-                              href={t.href}
-                              className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
-                            >
-                              {t.label}
-                            </Link>
-                          ) : (
-                            <span key={t.label} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862]">
-                              {t.label}
-                            </span>
-                          )
-                        ))}
-                      </div>
-                    )}
-                    {it.claimHref && !it.isClaimed && (
-                      <Link href={it.claimHref} className="inline-block mt-2 text-xs font-semibold text-[#96602F] hover:underline">
-                        Is this your {noun}? Claim it →
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                <ListicleCard item={it} rank={i + 1} distanceLabel={distanceLabel(it)} noun={noun} />
                 {i + 1 === productCarouselAt && (
                   <div className="my-3">
                     <ProductsCarousel variant="inline" />

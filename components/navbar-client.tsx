@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
-import { Menu, X, Utensils, ArrowRight, Flame, Store } from 'lucide-react'
+import { Menu, X, Utensils, ArrowRight, Flame } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -235,24 +235,16 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 )}
               </nav>
 
-              {/* Main site CTA — restaurant owners claiming/paying for their
-                  listing is the primary business action, so it gets the
-                  boldest treatment in the header, ahead of Sign In. */}
-              <Link
-                href="/claim-your-listing"
-                className="hidden lg:flex items-center gap-1.5 px-3 xl:px-4 py-2.5 rounded-none bg-[#1E2026] hover:bg-black text-white text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
-              >
-                <Store className="w-3.5 h-3.5 xl:w-4 xl:h-4 shrink-0" />
-                Restaurant Owners
-              </Link>
-
+              {/* Single header CTA. Restaurant owners reach /claim-your-listing
+                  through the footer now — the header keeps one action so the
+                  nav reads as a feed app rather than a sales page. */}
               {!user && (
                 <Link
                   href="/auth/login"
                   className="hidden lg:flex items-center gap-1.5 xl:gap-2 px-4 xl:px-6 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm xl:text-base font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
                 >
                   <Utensils className="w-4 h-4" />
-                  Sign In
+                  Log In
                 </Link>
               )}
 
@@ -272,23 +264,14 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
         {menuOpen && (
           <div id="mobile-nav-menu" className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
-            <Link
-              href="/claim-your-listing"
-              className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#1E2026] text-white text-sm font-bold"
-              onClick={() => setMenuOpen(false)}
-            >
-              <Store className="w-4 h-4" />
-              Restaurant Owners
-            </Link>
-
             {!user && (
               <Link
                 href="/auth/login"
-                className="sm:hidden flex items-center justify-center gap-2 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
+                className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
                 onClick={() => setMenuOpen(false)}
               >
                 <Utensils className="w-4 h-4" />
-                Sign In
+                Log In
               </Link>
             )}
 
