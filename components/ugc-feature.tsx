@@ -18,10 +18,10 @@ export default function UgcFeature({ seed }: { seed: string }) {
   const video = UGC_VIDEOS[pickVideoIndex(seed)]
 
   return (
-    <section className="py-12 px-4 sm:px-6 bg-[#F5F4F0] border-t border-black/5">
+    <section className="py-12 px-4 sm:px-6 bg-sunken border-t border-line/5">
       <div className="max-w-3xl mx-auto">
-        <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">See ramen in the wild</h2>
+        <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-6">See ramen in the wild</h2>
         <div className="max-w-[280px]">
           <VideoTile video={video} />
         </div>

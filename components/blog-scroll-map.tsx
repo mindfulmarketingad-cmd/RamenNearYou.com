@@ -37,7 +37,7 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <span className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-[#1E2026]/20'}`} />
+        <Star key={i} className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-ink/20'}`} />
       ))}
     </span>
   )
@@ -135,7 +135,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
       marker.bindPopup(`
         <div style="min-width:180px;font-family:sans-serif">
           ${card.photo ? `<img src="${card.photo}" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:8px;" />` : ''}
-          <div style="font-weight:700;font-size:13px;color:#1E2026;margin-bottom:2px;">${card.name}</div>
+          <div style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:2px;">${card.name}</div>
           <div style="font-size:11px;color:#6B6862;">${card.address}</div>
         </div>
       `, { maxWidth: 220 })
@@ -205,7 +205,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
       {/* Left: scrollable list — full width on mobile, flex-1 on desktop */}
       <div className="lg:flex-1 lg:min-w-0 lg:px-8">
         {listHeading && (
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mt-10 mb-6">
             {listHeading}
           </h2>
         )}
@@ -215,7 +215,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
         {!isDesktop && findMapHref && withCoords.length > 0 && (
           <Link
             href={findMapHref}
-            className="lg:hidden flex items-center justify-center gap-2 mb-6 px-4 py-3 rounded-xl bg-[#1E2026] hover:bg-black text-white text-sm font-semibold transition-colors"
+            className="lg:hidden flex items-center justify-center gap-2 mb-6 px-4 py-3 rounded-xl bg-contrast hover:bg-contrast-hi text-white text-sm font-semibold transition-colors"
           >
             <MapIcon className="w-4 h-4" /> View these spots on the interactive map
           </Link>
@@ -225,23 +225,23 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
             <article
               key={card.slug}
               ref={setCardRef(card.rank)}
-              className={`flex flex-col bg-[#ffffff] rounded-xl border overflow-hidden transition-all duration-300 ${
+              className={`flex flex-col bg-surface rounded-xl border overflow-hidden transition-all duration-300 ${
                 card.rank === activeRank
-                  ? 'border-[#B57F50]/60 shadow-lg shadow-black/20'
-                  : 'border-black/5 hover:border-[#B57F50]/30'
+                  ? 'border-brand/60 shadow-lg shadow-black/20'
+                  : 'border-line/5 hover:border-brand/30'
               }`}
             >
               {/* Photo + rank */}
-              <div className="relative w-full h-48 sm:h-52 bg-[#F5F4F0] shrink-0">
+              <div className="relative w-full h-48 sm:h-52 bg-sunken shrink-0">
                 <RestaurantImage src={card.photo} alt={card.name} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 560px" />
                 {/* Number badge */}
                 <div className={`absolute top-3 left-3 w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold font-serif shadow-lg border-2 border-white transition-colors ${
-                  card.rank === activeRank ? 'bg-[#B57F50]' : 'bg-[#1E2026]'
+                  card.rank === activeRank ? 'bg-brand' : 'bg-contrast'
                 }`}>
                   {card.rank}
                 </div>
                 {card.featured && (
-                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-[11px] font-bold shadow-md">
+                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand text-white text-[11px] font-bold shadow-md">
                     <BadgeCheck className="w-3 h-3" /> Featured
                   </div>
                 )}
@@ -254,13 +254,13 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                     <h2 className="font-semibold text-lg leading-snug">
                       <Link
                         href={`/${card.citySlug}/${card.stateSlug}/${card.slug}`}
-                        className="text-[#1E2026] hover:text-[#96602F] hover:underline transition-colors"
+                        className="text-ink hover:text-brand-ink hover:underline transition-colors"
                       >
                         {card.name}
                       </Link>
                     </h2>
                     {card.featured && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50]/15 border border-[#B57F50]/40 text-[#96602F] text-xs font-semibold shrink-0">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand/15 border border-brand/40 text-brand-ink text-xs font-semibold shrink-0">
                         <BadgeCheck className="w-3 h-3" /> Verified
                       </span>
                     )}
@@ -268,41 +268,41 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                   <div className="flex flex-wrap items-center gap-2">
                     <StarRating rating={card.rating} />
                     {card.reviewSlug ? (
-                      <Link href={`/reviews/${card.reviewSlug}`} className="text-[#1E2026]/70 hover:text-[#96602F] hover:underline text-xs">
+                      <Link href={`/reviews/${card.reviewSlug}`} className="text-ink/70 hover:text-brand-ink hover:underline text-xs">
                         {card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)
                       </Link>
                     ) : (
-                      <span className="text-[#1E2026]/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
+                      <span className="text-ink/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
                     )}
-                    <span className="text-[#1E2026]/20 text-xs">·</span>
+                    <span className="text-ink/20 text-xs">·</span>
                     {card.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#96602F] text-xs font-medium">{tag}</span>
+                      <span key={tag} className="px-2 py-0.5 rounded-full bg-brand/15 text-brand-ink text-xs font-medium">{tag}</span>
                     ))}
                   </div>
                 </div>
 
-                <p className="text-[#6B6862] text-sm leading-relaxed">{card.description}</p>
+                <p className="text-ink-soft text-sm leading-relaxed">{card.description}</p>
 
                 {card.perfectFor && card.perfectFor.length > 0 && (
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[#1E2026] text-xs font-semibold">Perfect for:</span>
+                    <span className="text-ink text-xs font-semibold">Perfect for:</span>
                     {card.perfectFor.map((p) => (
-                      <span key={p} className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-100">
+                      <span key={p} className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-medium border border-emerald-100">
                         {p}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <div className="flex flex-col gap-1 text-xs text-[#6B6862]/70">
+                <div className="flex flex-col gap-1 text-xs text-ink-soft/70">
                   {card.phone && (
                     <span className="flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                      <Phone className="w-3.5 h-3.5 text-brand-ink shrink-0" />
                       {card.phone}
                     </span>
                   )}
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
                     {card.address}
                   </span>
                 </div>
@@ -312,14 +312,14 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 <div className="mt-auto pt-1 flex flex-wrap gap-2">
                   <Link
                     href={`/${card.citySlug}/${card.stateSlug}/${card.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-semibold transition-colors border border-[#B57F50]/20"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-hi text-xs font-semibold transition-colors border border-brand/20"
                   >
                     View Listing <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
                   {card.reviewSlug && (
                     <Link
                       href={`/reviews/${card.reviewSlug}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] text-xs font-semibold transition-colors"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-line/12 text-ink hover:border-brand hover:text-brand-ink text-xs font-semibold transition-colors"
                     >
                       Read Reviews <ChevronRight className="w-3.5 h-3.5" />
                     </Link>
@@ -335,7 +335,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
       {isDesktop && withCoords.length > 0 && (
         <div className="hidden lg:block w-[480px] xl:w-[560px] shrink-0 relative">
           <div className="sticky top-20 h-[calc(100vh-5rem)]">
-            <div ref={mapContainerRef} className="w-full h-full rounded-xl overflow-hidden border border-black/8 shadow-md" />
+            <div ref={mapContainerRef} className="w-full h-full rounded-xl overflow-hidden border border-line/8 shadow-md" />
           </div>
         </div>
       )}

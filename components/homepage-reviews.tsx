@@ -49,7 +49,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: count }).map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-[#B57F50] text-[#96602F]" />
+        <Star key={i} className="w-4 h-4 fill-brand text-brand-ink" />
       ))}
     </div>
   )
@@ -57,14 +57,14 @@ function Stars({ count }: { count: number }) {
 
 export default function HomepageReviews() {
   return (
-    <section className="py-16 sm:py-20 bg-white border-t border-black/5">
+    <section className="py-16 sm:py-20 bg-surface border-t border-line/5">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-[#96602F] text-sm font-semibold uppercase tracking-widest mb-2">What People Are Saying</p>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
+          <p className="text-brand-ink text-sm font-semibold uppercase tracking-widest mb-2">What People Are Saying</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink">
             Real Ramen Lovers, Real Results
           </h2>
-          <p className="text-[#6B6862] text-base mt-3 max-w-xl mx-auto">
+          <p className="text-ink-soft text-base mt-3 max-w-xl mx-auto">
             Thousands of ramen fans have used our quiz to find their perfect bowl. Here's what they had to say.
           </p>
         </div>
@@ -73,16 +73,16 @@ export default function HomepageReviews() {
           {REVIEWS.map((r) => (
             <div
               key={r.name}
-              className="bg-[#F5F4F0] rounded-2xl p-6 flex flex-col gap-3 border border-black/5"
+              className="bg-sunken rounded-2xl p-6 flex flex-col gap-3 border border-line/5"
             >
               <Stars count={r.rating} />
-              <p className="text-[#1E2026] text-sm leading-relaxed flex-1">"{r.text}"</p>
-              <div className="flex items-center justify-between pt-1 border-t border-black/8">
+              <p className="text-ink text-sm leading-relaxed flex-1">"{r.text}"</p>
+              <div className="flex items-center justify-between pt-1 border-t border-line/8">
                 <div>
-                  <p className="text-sm font-semibold text-[#1E2026]">{r.name}</p>
-                  <p className="text-xs text-[#6B6862]">{r.location}</p>
+                  <p className="text-sm font-semibold text-ink">{r.name}</p>
+                  <p className="text-xs text-ink-soft">{r.location}</p>
                 </div>
-                <span className="text-xs font-medium text-[#96602F] bg-[#B57F50]/10 px-2.5 py-1 rounded-full">
+                <span className="text-xs font-medium text-brand-ink bg-brand/10 px-2.5 py-1 rounded-full">
                   {r.bowl}
                 </span>
               </div>

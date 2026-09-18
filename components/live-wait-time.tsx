@@ -79,13 +79,13 @@ export default function LiveWaitTime({ hours }: Props) {
   }, [hours])
 
   const colorMap: Record<BusyLevel, string> = {
-    low: 'text-emerald-700 bg-emerald-50 border-emerald-200',
-    moderate: 'text-amber-700 bg-amber-50 border-amber-200',
-    high: 'text-red-700 bg-red-50 border-red-200',
-    closed: 'text-[#6B6862] bg-[#F5F4F0] border-black/8',
+    low: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30',
+    moderate: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/30',
+    high: 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/30',
+    closed: 'text-ink-soft bg-sunken border-line/8',
   }
 
-  if (!estimate) return <div className="h-20 rounded-xl bg-[#F5F4F0] animate-pulse" />
+  if (!estimate) return <div className="h-20 rounded-xl bg-sunken animate-pulse" />
 
   return (
     <div className={`rounded-xl border p-4 ${colorMap[estimate.busy]}`}>

@@ -46,14 +46,14 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-      <main className="min-h-screen bg-[#ffffff]">
+      <main className="min-h-screen bg-surface">
         <Navbar />
         {/* Map, then the feed of what's inside its radius. Everything below
             this — the SEO/editorial sections — comes after the feed, so the
             first thing a visitor gets is ramen near them, not marketing. */}
         <HomeNearbySection />
 
-        <div className="relative z-10 bg-white">
+        <div className="relative z-10 bg-surface">
           <ClaimedShowcase />
           <FilterShowcase />
           <SearchMapShowcase />
@@ -61,7 +61,7 @@ export default function HomePage() {
           <UgcGrid />
 
           {/* Editorial image band */}
-          <section className="bg-white">
+          <section className="bg-surface">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
               <div className="relative rounded-3xl overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -81,7 +81,7 @@ export default function HomePage() {
                     </p>
                     <Link
                       href="/find"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors"
                     >
                       Explore ramen near you →
                     </Link>
@@ -98,10 +98,10 @@ export default function HomePage() {
           </div>
 
           {/* Photo grid — every bowl tells a story */}
-          <section className="bg-[#F5F4F0] py-12">
+          <section className="bg-sunken py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">Every bowl tells a story</h2>
-              <p className="text-[#6B6862] text-sm mb-8">Discover the ramen style that speaks to you.</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">Every bowl tells a story</h2>
+              <p className="text-ink-soft text-sm mb-8">Discover the ramen style that speaks to you.</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <Link href="/find/vegetarian-ramen" className="group relative rounded-2xl overflow-hidden block aspect-square">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

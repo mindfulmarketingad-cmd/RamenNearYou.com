@@ -18,9 +18,9 @@ export interface ListingEdit {
 type Tab = 'all' | 'pending' | 'approved' | 'rejected'
 
 function typeBadge(type: string) {
-  if (type === 'info') return { label: 'Info Edit', icon: <FileEdit className="w-3 h-3" />, cls: 'bg-sky-50 text-sky-700 border-sky-200' }
-  if (type === 'photo') return { label: 'Photo', icon: <ImageIcon className="w-3 h-3" />, cls: 'bg-purple-50 text-purple-700 border-purple-200' }
-  if (type === 'review_response') return { label: 'Review Response', icon: <MessageSquare className="w-3 h-3" />, cls: 'bg-amber-50 text-amber-700 border-amber-200' }
+  if (type === 'info') return { label: 'Info Edit', icon: <FileEdit className="w-3 h-3" />, cls: 'bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-500/30' }
+  if (type === 'photo') return { label: 'Photo', icon: <ImageIcon className="w-3 h-3" />, cls: 'bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-500/30' }
+  if (type === 'review_response') return { label: 'Review Response', icon: <MessageSquare className="w-3 h-3" />, cls: 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-500/30' }
   return { label: type, icon: null, cls: 'bg-gray-50 text-gray-700 border-gray-200' }
 }
 
@@ -31,17 +31,17 @@ function PayloadDisplay({ type, payload }: { type: string; payload: Record<strin
     const new_value = payload.new_value as string
     return (
       <div className="mt-2 text-sm space-y-1">
-        <p className="font-medium text-[#1E2026] capitalize">{field.replace(/_/g, ' ')}</p>
+        <p className="font-medium text-ink capitalize">{field.replace(/_/g, ' ')}</p>
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <p className="text-[#6B6862] text-xs mb-0.5">Current</p>
-            <p className="text-[#6B6862] bg-red-50 border border-red-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
+            <p className="text-ink-soft text-xs mb-0.5">Current</p>
+            <p className="text-ink-soft bg-red-50 dark:bg-red-500/10 border border-red-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
               {old_value || <span className="italic">(empty)</span>}
             </p>
           </div>
           <div>
-            <p className="text-[#6B6862] text-xs mb-0.5">Requested</p>
-            <p className="text-[#1E2026] bg-green-50 border border-green-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
+            <p className="text-ink-soft text-xs mb-0.5">Requested</p>
+            <p className="text-ink bg-green-50 dark:bg-green-500/10 border border-green-100 rounded px-2 py-1 text-xs break-words max-h-20 overflow-y-auto">
               {new_value || <span className="italic">(empty)</span>}
             </p>
           </div>
@@ -59,10 +59,10 @@ function PayloadDisplay({ type, payload }: { type: string; payload: Record<strin
           <img
             src={url}
             alt="Submitted photo"
-            className="max-w-[180px] rounded-lg border border-black/10 object-cover"
+            className="max-w-[180px] rounded-lg border border-line/10 object-cover"
           />
         )}
-        {caption && <p className="text-xs text-[#6B6862] mt-1">{caption}</p>}
+        {caption && <p className="text-xs text-ink-soft mt-1">{caption}</p>}
       </div>
     )
   }
@@ -74,19 +74,19 @@ function PayloadDisplay({ type, payload }: { type: string; payload: Record<strin
       <div className="mt-2 text-sm space-y-2">
         {review_body && (
           <div>
-            <p className="text-[#6B6862] text-xs mb-0.5">Customer review</p>
-            <p className="text-[#6B6862] bg-[#F5F4F0] rounded px-2 py-1 text-xs italic">{review_body}</p>
+            <p className="text-ink-soft text-xs mb-0.5">Customer review</p>
+            <p className="text-ink-soft bg-sunken rounded px-2 py-1 text-xs italic">{review_body}</p>
           </div>
         )}
         <div>
-          <p className="text-[#6B6862] text-xs mb-0.5">Owner response</p>
-          <p className="text-[#1E2026] bg-sky-50 border border-sky-100 rounded px-2 py-1 text-xs">{response}</p>
+          <p className="text-ink-soft text-xs mb-0.5">Owner response</p>
+          <p className="text-ink bg-sky-50 dark:bg-sky-500/10 border border-sky-100 rounded px-2 py-1 text-xs">{response}</p>
         </div>
       </div>
     )
   }
 
-  return <pre className="text-xs mt-2 text-[#6B6862]">{JSON.stringify(payload, null, 2)}</pre>
+  return <pre className="text-xs mt-2 text-ink-soft">{JSON.stringify(payload, null, 2)}</pre>
 }
 
 export default function ListingEditsList({ initial }: { initial: Record<string, unknown>[] }) {
@@ -132,7 +132,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-full text-sm font-semibold capitalize transition-colors ${
-              tab === t ? 'bg-[#1E2026] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'
+              tab === t ? 'bg-contrast text-white' : 'bg-surface text-ink-soft hover:bg-black/5'
             }`}
           >
             {t} ({counts[t]})
@@ -141,7 +141,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} listing edits.</p>
+        <p className="text-ink-soft text-sm py-12 text-center">No {tab === 'all' ? '' : tab} listing edits.</p>
       ) : (
         <div className="space-y-3">
           {filtered.map(edit => {
@@ -149,18 +149,18 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
             return (
               <div
                 key={edit.id}
-                className="bg-white rounded-xl border border-black/5 p-5"
+                className="bg-surface rounded-xl border border-line/5 p-5"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <span className="font-semibold text-[#1E2026] text-sm">{edit.restaurant_slug}</span>
+                      <span className="font-semibold text-ink text-sm">{edit.restaurant_slug}</span>
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-xs font-medium ${badge.cls}`}>
                         {badge.icon}
                         {badge.label}
                       </span>
                     </div>
-                    <p className="text-[#6B6862] text-xs">
+                    <p className="text-ink-soft text-xs">
                       {new Date(edit.created_at).toLocaleString()}
                       {edit.reviewed_at && (
                         <span className="ml-2">· Reviewed {new Date(edit.reviewed_at).toLocaleString()}</span>
@@ -168,7 +168,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
                     </p>
                     <PayloadDisplay type={edit.type} payload={edit.payload} />
                     {edit.admin_note && (
-                      <p className="mt-2 text-xs text-[#6B6862] italic">Note: {edit.admin_note}</p>
+                      <p className="mt-2 text-xs text-ink-soft italic">Note: {edit.admin_note}</p>
                     )}
                   </div>
 
@@ -186,7 +186,7 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
                         <button
                           onClick={() => act(edit.id, 'reject')}
                           disabled={busy === edit.id}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-black/10 hover:bg-black/5 text-[#1E2026] text-xs font-bold transition-colors disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-line/10 hover:bg-black/5 text-ink text-xs font-bold transition-colors disabled:opacity-50"
                         >
                           <X className="w-3.5 h-3.5" />
                           Reject
@@ -196,8 +196,8 @@ export default function ListingEditsList({ initial }: { initial: Record<string, 
                       <span
                         className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${
                           edit.status === 'rejected'
-                            ? 'bg-red-50 text-red-600'
-                            : 'bg-emerald-50 text-emerald-600'
+                            ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400'
+                            : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                         }`}
                       >
                         {edit.status}

@@ -66,22 +66,22 @@ export default function CityGuideCta({ cityLabel, citySlug }: Props) {
   }
 
   return (
-    <section className="rounded-2xl border-2 border-[#B57F50]/40 bg-gradient-to-br from-[#F5F0EA] to-white p-6 sm:p-8">
+    <section className="rounded-2xl border-2 border-brand/40 bg-gradient-to-br from-sunken to-white p-6 sm:p-8">
       <div className="flex items-center gap-2 mb-3">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold uppercase tracking-widest">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand text-white text-[10px] font-bold uppercase tracking-widest">
           <BookOpen className="w-3 h-3" /> Digital Guide
         </span>
       </div>
 
-      <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">{heading}</h2>
+      <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">{heading}</h2>
 
       {recentCount >= SOCIAL_PROOF_MIN && (
-        <p className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 mb-2">
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300 mb-2">
           <TrendingUp className="w-3.5 h-3.5" />
           {recentCount.toLocaleString()} downloaded in the last 30 days
         </p>
       )}
-      <p className="text-[#6B6862] text-sm leading-relaxed mb-5">
+      <p className="text-ink-soft text-sm leading-relaxed mb-5">
         A curated PDF you can keep on your phone — everything worth eating
         {place ? ` in ${place}` : ''}, hand-picked and written up by us. Delivered to your
         inbox after checkout.
@@ -89,8 +89,8 @@ export default function CityGuideCta({ cityLabel, citySlug }: Props) {
 
       <ul className="space-y-2 mb-6">
         {CITY_GUIDE_INCLUDES.map((item) => (
-          <li key={item} className="flex items-start gap-2.5 text-sm text-[#1E2026]">
-            <Check className="w-4 h-4 text-[#96602F] shrink-0 mt-0.5" />
+          <li key={item} className="flex items-start gap-2.5 text-sm text-ink">
+            <Check className="w-4 h-4 text-brand-ink shrink-0 mt-0.5" />
             {item}
           </li>
         ))}
@@ -104,12 +104,12 @@ export default function CityGuideCta({ cityLabel, citySlug }: Props) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           aria-label="Your email"
-          className="flex-1 px-4 py-3 rounded-lg border border-black/10 bg-white text-sm text-[#1E2026] placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors"
+          className="flex-1 px-4 py-3 rounded-lg border border-line/10 bg-surface text-sm text-ink placeholder-ink-faint outline-none focus:border-brand transition-colors"
         />
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold whitespace-nowrap transition-colors disabled:opacity-60"
+          className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-brand hover:bg-brand-hi text-white text-sm font-bold whitespace-nowrap transition-colors disabled:opacity-60"
         >
           {status === 'sending'
             ? <><Loader2 className="w-4 h-4 animate-spin" /> One sec…</>
@@ -119,7 +119,7 @@ export default function CityGuideCta({ cityLabel, citySlug }: Props) {
 
       {status === 'error' && <p className="text-red-500 text-xs mt-2">{errorMsg}</p>}
 
-      <p className="text-[11px] text-[#6B6862]/80 mt-3">
+      <p className="text-[11px] text-ink-soft/80 mt-3">
         Secure checkout via Stripe. We&apos;ll email your guide once payment clears.
       </p>
     </section>

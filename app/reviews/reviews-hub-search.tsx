@@ -67,14 +67,14 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
     return (
       <Link
         href={l.href}
-        className="flex items-center justify-between gap-2 text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+        className="flex items-center justify-between gap-2 text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
       >
         <span className="truncate">{l.name} — {l.city}, {l.stateCode}</span>
         {l.rating != null && (
-          <span className="flex items-center gap-1 shrink-0 text-xs text-[#6B6862] no-underline">
+          <span className="flex items-center gap-1 shrink-0 text-xs text-ink-soft no-underline">
             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
             {l.rating.toFixed(1)}
-            <span className="text-[#6B6862]/60">({l.reviewCount.toLocaleString()})</span>
+            <span className="text-ink-soft/60">({l.reviewCount.toLocaleString()})</span>
           </span>
         )}
       </Link>
@@ -85,20 +85,20 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
     <>
       {/* Search bar */}
       <div className="relative mb-3">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-soft" />
         <input
           type="text"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={`Search ${total.toLocaleString()} restaurant reviews — name or city…`}
           aria-label="Search restaurant reviews"
-          className="w-full pl-10 pr-10 py-3 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+          className="w-full pl-10 pr-10 py-3 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
         />
         {q && (
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink"
           >
             <X className="w-4 h-4" />
           </button>
@@ -111,7 +111,7 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
           value={stateFilter}
           onChange={(e) => setStateFilter(e.target.value)}
           aria-label="Filter by state"
-          className="px-3 py-2.5 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] focus:border-[#B57F50] transition-colors"
+          className="px-3 py-2.5 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink focus:border-brand transition-colors"
         >
           <option value="">All States</option>
           {stateOptions.map((code) => (
@@ -122,7 +122,7 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
           value={sort}
           onChange={(e) => setSort(e.target.value as SortOption)}
           aria-label="Sort reviews"
-          className="px-3 py-2.5 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] focus:border-[#B57F50] transition-colors"
+          className="px-3 py-2.5 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink focus:border-brand transition-colors"
         >
           <option value="name">Sort: Name A–Z</option>
           <option value="rating">Sort: Highest Rated</option>
@@ -132,7 +132,7 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
 
       {isFiltering ? (
         filtered.length === 0 ? (
-          <p className="text-sm text-[#6B6862]">
+          <p className="text-sm text-ink-soft">
             No matches{q ? ` for “${q}”` : ''}{stateFilter ? ` in ${stateFilter}` : ''}. Try a different search, state, or clear your filters.
           </p>
         ) : (
@@ -145,7 +145,7 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
               ))}
             </ul>
             {filtered.length > RESULT_CAP && (
-              <p className="text-xs text-[#6B6862] mt-3">
+              <p className="text-xs text-ink-soft mt-3">
                 Showing the first {RESULT_CAP} of {filtered.length.toLocaleString()} matches — narrow your search or state to see more.
               </p>
             )}
@@ -155,7 +155,7 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
         <div className="space-y-8">
           {groups!.map((g) => (
             <div key={g.letter}>
-              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
                 {g.letter}
               </h2>
               <ul className="columns-1 sm:columns-2 gap-x-6 space-y-1">

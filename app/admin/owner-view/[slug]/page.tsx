@@ -51,16 +51,16 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
   }
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-20">
 
         {/* Admin banner */}
-        <div className="flex items-start gap-3 mb-6 px-4 py-3 rounded-xl bg-amber-50 border border-amber-300">
-          <ShieldAlert className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+        <div className="flex items-start gap-3 mb-6 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/40">
+          <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
           <div className="text-sm">
-            <p className="font-semibold text-amber-800">Admin preview — owner dashboard</p>
-            <p className="text-amber-700 text-xs mt-0.5">
+            <p className="font-semibold text-amber-800 dark:text-amber-300">Admin preview — owner dashboard</p>
+            <p className="text-amber-700 dark:text-amber-300 text-xs mt-0.5">
               You are viewing this as an admin. Any edits submitted here will be attributed to your admin account.
               {claim
                 ? ` Claimed by ${claim.contact_name ?? 'unknown'} (${claim.contact_email ?? claim.user_id.slice(0, 8) + '…'})`
@@ -69,33 +69,33 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
           </div>
         </div>
 
-        <Link href="/admin/claims" className="inline-flex items-center gap-1 text-[#6B6862] hover:text-[#1E2026] text-sm mb-6 transition-colors">
+        <Link href="/admin/claims" className="inline-flex items-center gap-1 text-ink-soft hover:text-ink text-sm mb-6 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Back to claims
         </Link>
 
         {/* Restaurant header — matches owner dashboard style */}
-        <div className="bg-[#F5F4F0] border border-black/8 rounded-2xl p-5 mb-6">
+        <div className="bg-sunken border border-line/8 rounded-2xl p-5 mb-6">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
-                <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">{base.name}</h1>
+                <h1 className="font-serif text-2xl sm:text-3xl font-bold text-ink">{base.name}</h1>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
                   <BadgeCheck className="w-3 h-3" /> Verified
                 </span>
               </div>
-              <p className="text-[#6B6862] text-sm flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-[#96602F]" /> {base.address}
+              <p className="text-ink-soft text-sm flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-brand-ink" /> {base.address}
               </p>
             </div>
             <Link
               href={`/${base.citySlug}/${base.stateSlug}/${base.slug}`}
-              className="shrink-0 px-3 py-2 rounded-lg bg-black/5 hover:bg-black/8 text-[#6B6862] hover:text-[#1E2026] text-xs font-medium transition-colors"
+              className="shrink-0 px-3 py-2 rounded-lg bg-black/5 hover:bg-black/8 text-ink-soft hover:text-ink text-xs font-medium transition-colors"
             >
               View Public Page
             </Link>
           </div>
 
-          <div className="border-t border-black/6 my-4" />
+          <div className="border-t border-line/6 my-4" />
 
           {/* Visit analytics */}
           <VisitStatsCard slug={base.slug} restaurantName={base.name} />
@@ -103,10 +103,10 @@ export default async function AdminOwnerViewPage({ params }: { params: Promise<{
 
         {/* Edit form section */}
         <div className="flex items-center gap-2 mb-4">
-          <Edit3 className="w-4 h-4 text-[#96602F]" />
-          <h2 className="font-semibold text-[#1E2026]">Edit Listing Content</h2>
+          <Edit3 className="w-4 h-4 text-brand-ink" />
+          <h2 className="font-semibold text-ink">Edit Listing Content</h2>
         </div>
-        <p className="text-[#6B6862] text-sm mb-6 leading-relaxed">
+        <p className="text-ink-soft text-sm mb-6 leading-relaxed">
           Changes submitted here will be attributed to your admin account. Use this to fix or update listing content on behalf of the owner.
         </p>
 

@@ -3,7 +3,51 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ---------------------------------------------------------------------------
+   Theme tokens.
+
+   The site's palette is small and was previously written as literal hexes in
+   Tailwind arbitrary values (bg-[#1E2026] and friends), which can't respond to
+   a theme. These tokens replace them, and every one is redefined under .dark
+   below, so a single class works in both themes.
+
+   Two pairs are worth understanding before adding to this list:
+
+   - `ink` vs `contrast`. Both were #1E2026, but they play opposite roles: ink
+     is body text, contrast is a deliberately dark surface (the black buttons,
+     the promo bar). Flipping ink to near-white in dark mode is correct;
+     flipping contrast would turn every dark button into a light one with
+     white text on it. So contrast becomes a *lighter* dark instead — still
+     raised against the page, still readable with white text.
+
+   - `line` is a raw black/white, meant to be used with an opacity modifier
+     (border-line/8). That's what lets one class produce a dark hairline on a
+     light page and a light one on a dark page.
+   --------------------------------------------------------------------------- */
 :root {
+  /* Text */
+  --ink: #1E2026;
+  --ink-mid: #3F3D39;
+  --ink-deep: #4B4845;
+  --ink-soft: #6B6862;
+  --ink-faint: #9B9490;
+
+  /* Brand */
+  --brand: #B57F50;
+  --brand-hi: #c8934f;
+  --brand-ink: #96602F;
+
+  /* Surfaces */
+  --surface: #ffffff;
+  --page: #ECEAE4;
+  --sunken: #F5F4F0;
+  --raised: #FAFAF9;
+  --contrast: #1E2026;
+  --contrast-hi: #000000;
+
+  /* Hairlines — always used with an opacity modifier. */
+  --line: #000000;
+
   --background: #ffffff;
   --foreground: #1E2026;
   --card: #F5F4F0;
@@ -32,6 +76,61 @@
   --sidebar-accent-foreground: #1E2026;
   --sidebar-border: rgba(0,0,0,0.08);
   --sidebar-ring: #B57F50;
+}
+
+.dark {
+  /* Text — not pure white; a slightly warm off-white matches the brand and is
+     easier to read for long stretches than #fff on near-black. */
+  --ink: #EDEBE6;
+  --ink-mid: #C9C5BD;
+  --ink-deep: #BFBBB3;
+  --ink-soft: #A29D95;
+  --ink-faint: #938E86;
+
+  /* Brand — lifted, because #B57F50 and especially #96602F don't carry enough
+     contrast against a dark page. brand-ink was the "darker brand" used for
+     links on light backgrounds, so in dark mode it has to go lighter, not
+     darker, to keep playing the same role. */
+  --brand: #B57F50;
+  --brand-hi: #C08A5A;
+  --brand-ink: #D9A971;
+
+  /* Surfaces — page is the darkest, then each step lifts slightly, so the
+     light theme's stacking order survives. */
+  --page: #101216;
+  --surface: #191C22;
+  --sunken: #212429;
+  --raised: #1D2026;
+  --contrast: #343841;
+  --contrast-hi: #3F444E;
+
+  --line: #ffffff;
+
+  --background: #101216;
+  --foreground: #EDEBE6;
+  --card: #191C22;
+  --card-foreground: #EDEBE6;
+  --popover: #191C22;
+  --popover-foreground: #EDEBE6;
+  --primary: #C9955F;
+  --primary-foreground: #101216;
+  --secondary: #212429;
+  --secondary-foreground: #EDEBE6;
+  --muted: #212429;
+  --muted-foreground: #A29D95;
+  --accent: #C9955F;
+  --accent-foreground: #101216;
+  --border: rgba(255,255,255,0.10);
+  --input: rgba(255,255,255,0.10);
+  --ring: #C9955F;
+  --sidebar: #191C22;
+  --sidebar-foreground: #EDEBE6;
+  --sidebar-primary: #C9955F;
+  --sidebar-primary-foreground: #101216;
+  --sidebar-accent: #212429;
+  --sidebar-accent-foreground: #EDEBE6;
+  --sidebar-border: rgba(255,255,255,0.10);
+  --sidebar-ring: #C9955F;
 }
 
 @theme inline {
@@ -73,6 +172,24 @@
   --color-copper: #B57F50;
   --color-card-light: #F5F4F0;
   --color-secondary-text: #6B6862;
+
+  /* Theme tokens as Tailwind colors, so `text-ink`, `bg-surface` and opacity
+     modifiers like `border-line/8` all work as normal utilities. */
+  --color-ink: var(--ink);
+  --color-ink-mid: var(--ink-mid);
+  --color-ink-deep: var(--ink-deep);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-brand: var(--brand);
+  --color-brand-hi: var(--brand-hi);
+  --color-brand-ink: var(--brand-ink);
+  --color-surface: var(--surface);
+  --color-page: var(--page);
+  --color-sunken: var(--sunken);
+  --color-raised: var(--raised);
+  --color-contrast: var(--contrast);
+  --color-contrast-hi: var(--contrast-hi);
+  --color-line: var(--line);
 }
 
 @layer base {
@@ -90,7 +207,7 @@
      nothing. */
   ::selection {
     background: rgba(181, 127, 80, 0.25);
-    color: #1E2026;
+    color: var(--ink);
   }
 }
 
@@ -444,4 +561,40 @@
 }
 .broth-stack > section.broth-carousel-section:nth-child(even) .broth-carousel-skeleton {
   background-color: rgba(255,255,255,0.1);
+}
+
+/* Leaflet ships its own unlayered stylesheet, so these overrides have to be
+   unlayered too — a rule inside @layer always loses to an unlayered one no
+   matter how specific it is. */
+/* Leaflet paints its own background behind the tiles (and in the gaps while
+   they load). Left alone that's a pale grey slab on a dark page, so it
+   follows the theme too — and so do the popups and controls, which Leaflet
+   hard-codes to white. */
+.dark .leaflet-container {
+  background: var(--sunken);
+}
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip,
+.dark .leaflet-control-zoom a,
+.dark .leaflet-bar a {
+  background: var(--surface);
+  color: var(--ink);
+}
+.dark .leaflet-control-zoom a:hover,
+.dark .leaflet-bar a:hover {
+  background: var(--sunken);
+}
+html.dark .leaflet-control-attribution {
+  background: rgba(25, 28, 34, 0.8);
+  color: var(--ink-soft);
+}
+html.dark .leaflet-control-attribution a {
+  color: var(--brand-ink);
+}
+html.dark .leaflet-container a.leaflet-popup-close-button {
+  color: var(--ink-soft);
+}
+html.dark .leaflet-container a.leaflet-popup-close-button:hover,
+html.dark .leaflet-container a.leaflet-popup-close-button:focus {
+  color: var(--ink);
 }

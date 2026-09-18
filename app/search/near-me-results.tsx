@@ -67,28 +67,28 @@ export default function NearMeResults({ phoOnly = false }: { phoOnly?: boolean }
   const label = phoOnly ? 'pho' : 'ramen'
 
   return (
-    <section className="mb-10 rounded-2xl border border-[#B57F50]/30 bg-gradient-to-br from-[#B57F50]/8 to-[#B57F50]/14 p-5 sm:p-6">
+    <section className="mb-10 rounded-2xl border border-brand/30 bg-gradient-to-br from-brand/8 to-brand/14 p-5 sm:p-6">
       <div className="flex items-center gap-2 mb-1">
-        <Navigation className="w-4 h-4 text-[#96602F]" />
-        <h2 className="font-serif text-lg font-bold text-[#1E2026]">Closest to you</h2>
+        <Navigation className="w-4 h-4 text-brand-ink" />
+        <h2 className="font-serif text-lg font-bold text-ink">Closest to you</h2>
       </div>
 
       {(state === 'idle' || state === 'locating' || state === 'loading') && (
-        <p className="flex items-center gap-2 text-sm text-[#6B6862] mt-2">
-          <Loader2 className="w-4 h-4 animate-spin text-[#96602F]" />
+        <p className="flex items-center gap-2 text-sm text-ink-soft mt-2">
+          <Loader2 className="w-4 h-4 animate-spin text-brand-ink" />
           {state === 'loading' ? `Finding the ${label} nearest you…` : 'Getting your location…'}
         </p>
       )}
 
       {state === 'denied' && (
         <div className="mt-2">
-          <p className="text-sm text-[#6B6862] mb-3">
+          <p className="text-sm text-ink-soft mb-3">
             Location is blocked in your browser, so we can&apos;t sort by distance. You can still
             browse everything below, or search by city name instead.
           </p>
           <button
             onClick={locate}
-            className="px-4 py-2 rounded-full bg-[#1E2026] hover:bg-black text-white text-xs font-semibold transition-colors"
+            className="px-4 py-2 rounded-full bg-contrast hover:bg-contrast-hi text-white text-xs font-semibold transition-colors"
           >
             Try again
           </button>
@@ -96,18 +96,18 @@ export default function NearMeResults({ phoOnly = false }: { phoOnly?: boolean }
       )}
 
       {state === 'error' && (
-        <p className="text-sm text-[#6B6862] mt-2">
+        <p className="text-sm text-ink-soft mt-2">
           We couldn&apos;t work out your location. The results below are still sorted by rating.
         </p>
       )}
 
       {state === 'ready' && results.length === 0 && (
-        <p className="text-sm text-[#6B6862] mt-2">No {label} spots found near you.</p>
+        <p className="text-sm text-ink-soft mt-2">No {label} spots found near you.</p>
       )}
 
       {state === 'ready' && results.length > 0 && (
         <>
-          <p className="text-xs text-[#6B6862] mb-4">
+          <p className="text-xs text-ink-soft mb-4">
             The {results.length} closest {label} spots to where you are right now.
           </p>
           <ol className="space-y-2">
@@ -115,17 +115,17 @@ export default function NearMeResults({ phoOnly = false }: { phoOnly?: boolean }
               <li key={`${r.slug}-${i}`}>
                 <Link
                   href={r.pho ? `/partners/${r.slug}` : `/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white border border-black/8 hover:border-[#B57F50]/50 transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-line/8 hover:border-brand/50 transition-colors group"
                 >
-                  <span className="w-6 h-6 shrink-0 rounded-full bg-[#B57F50] text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 shrink-0 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">
+                    <span className="block font-semibold text-sm text-ink group-hover:text-brand-ink transition-colors truncate">
                       {r.name}
                       {r.pho && <span className="ml-1.5 text-[10px] font-bold uppercase text-[#16a34a]">Pho</span>}
                     </span>
-                    <span className="flex items-center gap-2 text-xs text-[#6B6862] mt-0.5">
+                    <span className="flex items-center gap-2 text-xs text-ink-soft mt-0.5">
                       <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{r.city}, {r.stateCode}</span>
                       {r.rating != null && (
                         <span className="flex items-center gap-0.5">
@@ -134,7 +134,7 @@ export default function NearMeResults({ phoOnly = false }: { phoOnly?: boolean }
                       )}
                     </span>
                   </span>
-                  <span className="shrink-0 text-xs font-semibold text-[#96602F] tabular-nums">
+                  <span className="shrink-0 text-xs font-semibold text-brand-ink tabular-nums">
                     {r.dist < 10 ? r.dist.toFixed(1) : Math.round(r.dist)} mi
                   </span>
                 </Link>

@@ -29,7 +29,7 @@ function StarDisplay({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map(i => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i <= rating ? 'text-amber-400 fill-amber-400' : 'text-[#1E2026]/20'}`}
+          className={`w-3.5 h-3.5 ${i <= rating ? 'text-amber-400 fill-amber-400' : 'text-ink/20'}`}
         />
       ))}
     </span>
@@ -100,20 +100,20 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
       {/* Section header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026]">
+          <h2 className="font-serif text-xl font-bold text-ink">
             Community Reviews
           </h2>
           {avgRating && (
             <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
               <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
               <span className="text-amber-400 text-xs font-semibold">{avgRating.toFixed(1)}</span>
-              <span className="text-[#1E2026]/40 text-xs">({reviews.length})</span>
+              <span className="text-ink/40 text-xs">({reviews.length})</span>
             </span>
           )}
         </div>
         <button
           onClick={handleWriteReview}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] transition-colors border border-[#B57F50]/20"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-brand/15 hover:bg-brand/25 text-brand-hi transition-colors border border-brand/20"
         >
           {userId ? (
             <><PenLine className="w-3.5 h-3.5" /> Write a Review</>
@@ -125,13 +125,13 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
 
       {/* Review cards */}
       {loading ? (
-        <div className="text-[#6B6862] text-sm">Loading reviews…</div>
+        <div className="text-ink-soft text-sm">Loading reviews…</div>
       ) : reviews.length === 0 ? (
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8 text-center">
-          <p className="text-[#6B6862] text-sm mb-3">No reviews yet. Be the first!</p>
+        <div className="bg-sunken rounded-xl border border-line/5 p-8 text-center">
+          <p className="text-ink-soft text-sm mb-3">No reviews yet. Be the first!</p>
           <button
             onClick={handleWriteReview}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-none transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-brand hover:bg-brand-hi text-white text-sm font-medium rounded-none transition-colors"
           >
             <PenLine className="w-4 h-4" />
             Write a Review
@@ -146,10 +146,10 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
             <article
               key={review.id}
               id={`review-${review.id}`}
-              className={`rounded-xl border p-5 transition-colors ${isHighlighted ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-300/50' : 'bg-[#F5F4F0] border-black/5'}`}
+              className={`rounded-xl border p-5 transition-colors ${isHighlighted ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-300 dark:border-amber-500/40 ring-2 ring-amber-300/50' : 'bg-sunken border-line/5'}`}
             >
               {isHighlighted && (
-                <p className="text-amber-700 text-xs font-medium mb-3 flex items-center gap-1.5">
+                <p className="text-amber-700 dark:text-amber-300 text-xs font-medium mb-3 flex items-center gap-1.5">
                   <span>You already reviewed this restaurant.</span>
                   <span className="text-amber-500">Delete your review below to write a new one.</span>
                 </p>
@@ -162,19 +162,19 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                     <img
                       src={review.avatar_url}
                       alt={review.user_display_name}
-                      className="w-8 h-8 rounded-full object-cover shrink-0 border border-black/8"
+                      className="w-8 h-8 rounded-full object-cover shrink-0 border border-line/8"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-[#B57F50]/20 border border-[#B57F50]/30 flex items-center justify-center shrink-0 text-xs font-bold text-[#96602F]">
+                    <div className="w-8 h-8 rounded-full bg-brand/20 border border-brand/30 flex items-center justify-center shrink-0 text-xs font-bold text-brand-ink">
                       {initial}
                     </div>
                   )}
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
+                      <span className="text-ink text-sm font-medium">{review.user_display_name}</span>
                       <StarDisplay rating={review.rating} />
                     </div>
-                    <p className="text-[#1E2026]/30 text-xs">
+                    <p className="text-ink/30 text-xs">
                       {new Date(review.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                   </div>
@@ -182,7 +182,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                 {userId === review.user_id && (
                   <button
                     onClick={() => handleDelete(review.id)}
-                    className="p-1.5 text-[#1E2026]/20 hover:text-red-400 transition-colors rounded"
+                    className="p-1.5 text-ink/20 hover:text-red-400 transition-colors rounded"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -190,7 +190,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
               </div>
 
               {review.body && (
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-3">{review.body}</p>
+                <p className="text-ink-soft text-sm leading-relaxed mb-3">{review.body}</p>
               )}
 
               {review.photos.length > 0 && (
@@ -199,13 +199,13 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
                     <button
                       key={i}
                       onClick={() => setLightbox(src)}
-                      className="relative w-20 h-20 rounded-lg overflow-hidden bg-[#ffffff] hover:opacity-80 transition-opacity"
+                      className="relative w-20 h-20 rounded-lg overflow-hidden bg-surface hover:opacity-80 transition-opacity"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={src} alt="" className="w-full h-full object-cover" />
                       {i === 0 && review.photos.length > 1 && (
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                          <ImageIcon className="w-4 h-4 text-[#1E2026]/70" />
+                          <ImageIcon className="w-4 h-4 text-ink/70" />
                         </div>
                       )}
                     </button>
@@ -218,7 +218,7 @@ export default function ReviewSection({ restaurantSlug, restaurantName }: Props)
           {reviews.length > 3 && !showAll && (
             <button
               onClick={() => setShowAll(true)}
-              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[#6B6862] hover:text-[#1E2026] text-sm transition-colors border border-black/5 rounded-xl hover:bg-black/5"
+              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-ink-soft hover:text-ink text-sm transition-colors border border-line/5 rounded-xl hover:bg-black/5"
             >
               <ChevronDown className="w-4 h-4" />
               Show all {reviews.length} reviews

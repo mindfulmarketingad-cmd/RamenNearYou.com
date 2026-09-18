@@ -65,7 +65,7 @@ export default function RamenPassCheckoutButton({ className, children }: Props) 
       <button onClick={subscribe} disabled={loading} className={className}>
         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : children ?? 'Get Ramen Pass'}
       </button>
-      {error && <p className="text-red-600 text-xs">{error}</p>}
+      {error && <p className="text-red-600 dark:text-red-400 text-xs">{error}</p>}
     </div>
   )
 }

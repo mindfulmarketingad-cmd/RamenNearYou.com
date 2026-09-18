@@ -68,14 +68,14 @@ export default function ReviewsIndexPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
-      <main className="min-h-screen bg-[#F5F4F0] pt-24 pb-20 px-4 sm:px-6">
+      <main className="min-h-screen bg-sunken pt-24 pb-20 px-4 sm:px-6">
         <div className="max-w-2xl mx-auto">
           <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
             <RestaurantImage src={pickStockPhoto('reviews-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
           </div>
-          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Restaurant Reviews</h1>
+          <h1 className="font-serif text-3xl font-bold text-ink mb-2">Ramen Restaurant Reviews</h1>
 
-          <p className="text-[#6B6862] text-sm mb-6">
+          <p className="text-ink-soft text-sm mb-6">
             Reviews for all {reviewRestaurants.length.toLocaleString()} ramen restaurants in our directory — rated on
             taste, noodle size, bowl size, broth, and value. Pick a restaurant to read what diners are saying.
           </p>
@@ -83,11 +83,11 @@ export default function ReviewsIndexPage() {
           <ReviewsHubSearch listings={listings} total={reviewRestaurants.length} />
 
           {/* SEO content + owner CTA */}
-          <div className="mt-16 pt-12 border-t border-black/8">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
+          <div className="mt-16 pt-12 border-t border-line/8">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">
               How to Read Ramen Reviews the Right Way
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               A single star average hides a lot of useful information. Two restaurants can both sit at 4.6 stars
               and still be completely different experiences — one built on a rich, hours-simmered broth and huge
               portions, the other known for speed and a smaller bowl. That is why every restaurant page here
@@ -95,16 +95,16 @@ export default function ReviewsIndexPage() {
               single number. Skim the aspect breakdown before you go, not just the star count, and you will end
               up ordering somewhere that actually matches what you are craving that night.
             </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-10">
+            <p className="text-ink-soft text-sm leading-relaxed mb-10">
               I also always check the most recent reviews first rather than the top-voted ones. A kitchen can
               slip or improve over time, and the last few weeks of feedback tell you far more about what to
               expect tonight than a glowing review from two years ago.
             </p>
 
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">
               Own a Ramen Restaurant? Your Reviews Are Costing You Customers
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               Every one of the {reviewRestaurants.length.toLocaleString()} restaurants listed on this page is
               being judged, right now, by diners scrolling past on a rating and a review count before they ever
               walk through the door. A restaurant stuck at 40 reviews from three years ago reads as an unknown —
@@ -112,47 +112,47 @@ export default function ReviewsIndexPage() {
               count and recency are themselves a signal, both to diners comparing you to the restaurant next
               door and to Google's own local search and Maps rankings.
             </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
+            <p className="text-ink-soft text-sm leading-relaxed mb-6">
               The problem is rarely food quality — it is that almost nobody thinks to leave a review by the time
               they get to their car. Asking verbally works occasionally, but it depends on staff remembering to
               ask and customers remembering to follow through later. The fix is removing every bit of friction
               between "that was a great bowl" and an actual five-star review landing on your listing.
             </p>
 
-            <div className="bg-white rounded-2xl border border-[#B57F50]/20 p-6 sm:p-8 mb-10">
+            <div className="bg-surface rounded-2xl border border-brand/20 p-6 sm:p-8 mb-10">
               <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <div className="flex items-start gap-2.5">
-                  <QrCode className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
-                  <p className="text-sm text-[#1E2026]"><strong>One scan.</strong> Opens your Google review popup directly — no searching, no typing your name.</p>
+                  <QrCode className="w-5 h-5 text-brand-ink shrink-0 mt-0.5" />
+                  <p className="text-sm text-ink"><strong>One scan.</strong> Opens your Google review popup directly — no searching, no typing your name.</p>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <Printer className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
-                  <p className="text-sm text-[#1E2026]"><strong>Print-ready kit.</strong> Table tents, counter cards, and stickers — ready for every table and the register.</p>
+                  <Printer className="w-5 h-5 text-brand-ink shrink-0 mt-0.5" />
+                  <p className="text-sm text-ink"><strong>Print-ready kit.</strong> Table tents, counter cards, and stickers — ready for every table and the register.</p>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <TrendingUp className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
-                  <p className="text-sm text-[#1E2026]"><strong>Scan tracking.</strong> We track every scan, so you can see the QR working without reprinting a thing.</p>
+                  <TrendingUp className="w-5 h-5 text-brand-ink shrink-0 mt-0.5" />
+                  <p className="text-sm text-ink"><strong>Scan tracking.</strong> We track every scan, so you can see the QR working without reprinting a thing.</p>
                 </div>
               </div>
               <Link
                 href="/review-cards"
-                className="flex w-full sm:w-auto sm:inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+                className="flex w-full sm:w-auto sm:inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
               >
                 <Star className="w-4 h-4" /> Get Your Google Review Cards
               </Link>
             </div>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
+            <h2 className="font-serif text-xl font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
               {FAQS.map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden bg-white">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                <details key={q} className="group border border-line/8 rounded-xl overflow-hidden bg-surface">
+                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                     {q}
-                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                  <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
                 </details>
               ))}
             </div>

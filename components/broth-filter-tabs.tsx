@@ -35,8 +35,8 @@ export default function BrothFilterTabs({ selected, counts }: Props) {
         onClick={() => select(null)}
         className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
           !selected
-            ? 'bg-[#B57F50] border-[#B57F50] text-white'
-            : 'border-black/8 text-[#6B6862] hover:text-[#1E2026]'
+            ? 'bg-brand border-brand text-white'
+            : 'border-line/8 text-ink-soft hover:text-ink'
         }`}
       >
         All ({counts.All?.toLocaleString()})
@@ -47,8 +47,8 @@ export default function BrothFilterTabs({ selected, counts }: Props) {
           onClick={() => select(selected === type ? null : type)}
           className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
             selected === type
-              ? 'bg-[#B57F50] border-[#B57F50] text-white'
-              : 'border-black/8 text-[#6B6862] hover:text-[#1E2026]'
+              ? 'bg-brand border-brand text-white'
+              : 'border-line/8 text-ink-soft hover:text-ink'
           }`}
         >
           {brothMeta[type].label} ({counts[type]?.toLocaleString()})

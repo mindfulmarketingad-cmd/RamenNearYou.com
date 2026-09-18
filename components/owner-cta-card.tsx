@@ -23,14 +23,14 @@ export default function OwnerCtaCard({ slug, citySlug, stateSlug, restaurantName
     return (
       <Link
         href={`/owner/${slug}`}
-        className="flex items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 p-4 hover:bg-sky-100 transition-colors"
+        className="flex items-center gap-3 rounded-xl border border-sky-200 dark:border-sky-500/30 bg-sky-50 dark:bg-sky-500/10 p-4 hover:bg-sky-100 transition-colors"
       >
         <span className="w-10 h-10 rounded-full bg-sky-500/15 flex items-center justify-center shrink-0">
-          <Edit3 className="w-5 h-5 text-sky-600" />
+          <Edit3 className="w-5 h-5 text-sky-600 dark:text-sky-400" />
         </span>
         <span className="min-w-0">
-          <span className="block text-sm font-bold text-[#1E2026]">Manage Your Listing</span>
-          <span className="block text-xs text-[#6B6862]">Update hours, photos, and info</span>
+          <span className="block text-sm font-bold text-ink">Manage Your Listing</span>
+          <span className="block text-xs text-ink-soft">Update hours, photos, and info</span>
         </span>
       </Link>
     )
@@ -38,13 +38,13 @@ export default function OwnerCtaCard({ slug, citySlug, stateSlug, restaurantName
 
   if (isVerified) {
     return (
-      <div className="flex items-center gap-3 rounded-xl border border-black/8 bg-[#F5F4F0] p-4">
+      <div className="flex items-center gap-3 rounded-xl border border-line/8 bg-sunken p-4">
         <span className="w-10 h-10 rounded-full bg-sky-500/15 flex items-center justify-center shrink-0">
           <BadgeCheck className="w-5 h-5 text-sky-500" />
         </span>
         <span className="min-w-0">
-          <span className="block text-sm font-bold text-[#1E2026]">Verified Listing</span>
-          <span className="block text-xs text-[#6B6862]">This business has already been claimed</span>
+          <span className="block text-sm font-bold text-ink">Verified Listing</span>
+          <span className="block text-xs text-ink-soft">This business has already been claimed</span>
         </span>
       </div>
     )
@@ -53,14 +53,14 @@ export default function OwnerCtaCard({ slug, citySlug, stateSlug, restaurantName
   return (
     <Link
       href={`/claim/${citySlug}/${stateSlug}/${slug}`}
-      className="flex items-center gap-3 rounded-xl border border-black/8 bg-white p-4 hover:border-[#B57F50]/40 transition-colors"
+      className="flex items-center gap-3 rounded-xl border border-line/8 bg-surface p-4 hover:border-brand/40 transition-colors"
     >
-      <span className="w-10 h-10 rounded-full bg-[#1E2026]/8 flex items-center justify-center shrink-0">
-        <Store className="w-5 h-5 text-[#1E2026]" />
+      <span className="w-10 h-10 rounded-full bg-contrast/8 flex items-center justify-center shrink-0">
+        <Store className="w-5 h-5 text-ink" />
       </span>
       <span className="min-w-0">
-        <span className="block text-sm font-bold text-[#1E2026]">Own This Business?</span>
-        <span className="block text-xs text-[#6B6862]">Claim and manage the {restaurantName} listing</span>
+        <span className="block text-sm font-bold text-ink">Own This Business?</span>
+        <span className="block text-xs text-ink-soft">Claim and manage the {restaurantName} listing</span>
       </span>
     </Link>
   )

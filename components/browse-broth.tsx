@@ -58,11 +58,11 @@ export default function BrowseBroth() {
   }, [])
 
   return (
-    <section id="broth" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]" ref={sectionRef}>
+    <section id="broth" className="py-20 px-4 sm:px-6 lg:px-8 bg-sunken" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 fade-up">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Explore the Bowl</p>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] text-balance">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Explore the Bowl</p>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-ink text-balance">
             Find Ramen by Broth Type
           </h2>
         </div>
@@ -72,10 +72,10 @@ export default function BrowseBroth() {
             <Link
               key={broth.href}
               href={broth.href}
-              className="fade-up group flex flex-col gap-3 p-6 rounded-xl bg-[#ffffff] border border-black/5 hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20"
+              className="fade-up group flex flex-col gap-3 p-6 rounded-xl bg-surface border border-line/5 hover:border-brand/40 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20"
             >
-              <p className="font-semibold text-[#1E2026]">{broth.name}</p>
-              <p className="text-[#6B6862] text-xs leading-relaxed">{broth.description}</p>
+              <p className="font-semibold text-ink">{broth.name}</p>
+              <p className="text-ink-soft text-xs leading-relaxed">{broth.description}</p>
             </Link>
           ))}
         </div>

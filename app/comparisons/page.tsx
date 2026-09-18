@@ -27,11 +27,11 @@ export default function ComparisonsIndexPage() {
   const categories = getCategories()
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
-        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Broth Comparisons</h1>
-        <p className="text-[#6B6862] text-sm mb-8">
+        <h1 className="font-serif text-3xl font-bold text-ink mb-2">Ramen Broth Comparisons</h1>
+        <p className="text-ink-soft text-sm mb-8">
           Tonkotsu, shoyu, miso, shio, spicy or vegan — compare any two broth types side by side and
           know exactly what to order.
         </p>

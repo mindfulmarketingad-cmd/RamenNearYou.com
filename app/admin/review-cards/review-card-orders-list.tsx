@@ -86,7 +86,7 @@ export default function ReviewCardOrdersList({
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-full text-sm font-semibold capitalize transition-colors ${
-              tab === t ? 'bg-[#1E2026] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'
+              tab === t ? 'bg-contrast text-white' : 'bg-surface text-ink-soft hover:bg-black/5'
             }`}
           >
             {t} ({counts[t]})
@@ -95,27 +95,27 @@ export default function ReviewCardOrdersList({
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab === 'all' ? '' : tab} review card orders.</p>
+        <p className="text-ink-soft text-sm py-12 text-center">No {tab === 'all' ? '' : tab} review card orders.</p>
       ) : (
         <div className="space-y-3">
           {filtered.map(o => (
-            <div key={o.id} className="bg-white rounded-xl border border-black/5 p-5">
+            <div key={o.id} className="bg-surface rounded-xl border border-line/5 p-5">
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="font-semibold text-[#1E2026] text-sm">{o.restaurant_name}</span>
+                    <span className="font-semibold text-ink text-sm">{o.restaurant_name}</span>
                     {(o.city || o.state_code) && (
-                      <span className="text-xs text-[#6B6862]">{[o.city, o.state_code].filter(Boolean).join(', ')}</span>
+                      <span className="text-xs text-ink-soft">{[o.city, o.state_code].filter(Boolean).join(', ')}</span>
                     )}
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-xs font-medium bg-[#B57F50]/10 text-[#96602F] border-[#B57F50]/20">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-xs font-medium bg-brand/10 text-brand-ink border-brand/20">
                       <QrCode className="w-3 h-3" />
                       {scanCounts[o.restaurant_slug] ?? 0} scans
                     </span>
                   </div>
-                  <p className="text-[#6B6862] text-sm">
+                  <p className="text-ink-soft text-sm">
                     {o.buyer_name ? `${o.buyer_name} — ` : ''}{o.buyer_email}
                   </p>
-                  <p className="text-[#6B6862] text-xs mt-0.5">
+                  <p className="text-ink-soft text-xs mt-0.5">
                     Ordered {new Date(o.created_at).toLocaleString()}
                     {o.fulfilled_at && <span className="ml-2">· Fulfilled {new Date(o.fulfilled_at).toLocaleString()}</span>}
                   </p>
@@ -125,13 +125,13 @@ export default function ReviewCardOrdersList({
                       href={`/review-cards/print/${o.restaurant_slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line/10 text-ink text-xs font-semibold hover:border-brand hover:text-brand-ink transition-colors"
                     >
                       <Printer className="w-3.5 h-3.5" /> Print page
                     </a>
                     <a
                       href={fulfillmentMailto(o)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line/10 text-ink text-xs font-semibold hover:border-brand hover:text-brand-ink transition-colors"
                     >
                       <Mail className="w-3.5 h-3.5" /> Email kit to buyer
                     </a>
@@ -152,7 +152,7 @@ export default function ReviewCardOrdersList({
                       <button
                         onClick={() => act(o.id, 'cancel')}
                         disabled={busy === o.id}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-black/10 hover:bg-black/5 text-[#1E2026] text-xs font-bold transition-colors disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-line/10 hover:bg-black/5 text-ink text-xs font-bold transition-colors disabled:opacity-50"
                       >
                         <X className="w-3.5 h-3.5" />
                         Cancel
@@ -161,7 +161,7 @@ export default function ReviewCardOrdersList({
                   ) : (
                     <div className="flex items-center gap-2">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${
-                        o.status === 'cancelled' ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'
+                        o.status === 'cancelled' ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400' : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                       }`}>
                         {o.status}
                       </span>
@@ -169,7 +169,7 @@ export default function ReviewCardOrdersList({
                         onClick={() => act(o.id, 'reopen')}
                         disabled={busy === o.id}
                         title="Reopen as pending"
-                        className="p-1.5 rounded-lg border border-black/10 text-[#6B6862] hover:text-[#1E2026] transition-colors disabled:opacity-50"
+                        className="p-1.5 rounded-lg border border-line/10 text-ink-soft hover:text-ink transition-colors disabled:opacity-50"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
                       </button>

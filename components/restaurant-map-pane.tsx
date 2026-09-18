@@ -73,8 +73,8 @@ export default function RestaurantMapPane({ lat, lng, name, address }: Props) {
       .addTo(map)
       .bindPopup(
         `<div style="min-width:150px;font-family:sans-serif">
-          <strong style="font-size:13px;color:#1E2026">${name}</strong>
-          <p style="font-size:11px;color:#666;margin:4px 0 0">${address}</p>
+          <strong style="font-size:13px;color:var(--ink)">${name}</strong>
+          <p style="font-size:11px;color:var(--ink-soft);margin:4px 0 0">${address}</p>
         </div>`,
         { offset: [0, -12] }
       )

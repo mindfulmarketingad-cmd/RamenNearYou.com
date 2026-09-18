@@ -33,9 +33,9 @@ export default function PhoFindPage() {
   const mapSlot = (
     <ErrorBoundary
       fallback={
-        <section className="pt-16 bg-[#F5F4F0]">
+        <section className="pt-16 bg-sunken">
           <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+            <Loader2 className="w-8 h-8 text-brand-ink animate-spin" />
           </div>
         </section>
       }
@@ -49,7 +49,7 @@ export default function PhoFindPage() {
   )
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
       <PseoListicle
@@ -117,16 +117,16 @@ export default function PhoFindPage() {
                 noodles in a richer broth seasoned with a concentrated tare, and arrives composed. Pho generally
                 runs lighter; ramen&apos;s richer styles carry more fat. Both can be high in sodium. If you want the
                 detail, see{' '}
-                <Link href="/blog/is-ramen-healthier-than-pasta" className="text-[#96602F] hover:underline">
+                <Link href="/blog/is-ramen-healthier-than-pasta" className="text-brand-ink hover:underline">
                   is ramen healthier than pasta
                 </Link>{' '}
                 and{' '}
-                <Link href="/blog/what-are-ramen-noodles-made-of" className="text-[#96602F] hover:underline">
+                <Link href="/blog/what-are-ramen-noodles-made-of" className="text-brand-ink hover:underline">
                   what ramen noodles are made of
                 </Link>
                 . If pho is your baseline, the ramen styles closest in weight are{' '}
-                <Link href="/blog/what-is-shio-ramen" className="text-[#96602F] hover:underline">shio</Link> and{' '}
-                <Link href="/blog/what-is-shoyu-ramen" className="text-[#96602F] hover:underline">shoyu</Link>.
+                <Link href="/blog/what-is-shio-ramen" className="text-brand-ink hover:underline">shio</Link> and{' '}
+                <Link href="/blog/what-is-shoyu-ramen" className="text-brand-ink hover:underline">shoyu</Link>.
               </p>
             ),
           },
@@ -138,7 +138,7 @@ export default function PhoFindPage() {
                 in hot broth, so a kitchen that cares packs the broth, noodles, meat, and herbs separately for
                 you to assemble at home. If it arrives pre-combined, eat it immediately — reheating will not
                 bring the texture back. Same problem ramen has, and the same fix; I cover it on the{' '}
-                <Link href="/find/ramen-takeout" className="text-[#96602F] hover:underline">ramen takeout</Link>{' '}
+                <Link href="/find/ramen-takeout" className="text-brand-ink hover:underline">ramen takeout</Link>{' '}
                 page.
               </p>
             ),
@@ -156,7 +156,7 @@ export default function PhoFindPage() {
                     <Link
                       key={`${c.citySlug}-${c.stateCode}`}
                       href={`/find/${phoCityParam(c.citySlug, c.stateCode)}`}
-                      className="text-[#96602F] hover:underline"
+                      className="text-brand-ink hover:underline"
                     >
                       {c.city}, {c.stateCode} ({c.count})
                     </Link>
@@ -164,7 +164,7 @@ export default function PhoFindPage() {
                 </div>
                 <p className="mt-3">
                   You can also browse every pho listing on the{' '}
-                  <Link href="/partners" className="text-[#96602F] hover:underline">partners directory</Link>.
+                  <Link href="/partners" className="text-brand-ink hover:underline">partners directory</Link>.
                 </p>
               </>
             ),

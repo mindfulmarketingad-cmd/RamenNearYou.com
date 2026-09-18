@@ -66,8 +66,8 @@ const HOURS_QUALITY_META = [
 const RamenMap = dynamic(() => import('@/components/ramen-map'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-      <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+    <div className="w-full h-full flex items-center justify-center bg-sunken">
+      <Loader2 className="w-8 h-8 text-brand-ink animate-spin" />
     </div>
   ),
 })
@@ -127,9 +127,9 @@ function Chip({
       style={active && hex ? { backgroundColor: hex, borderColor: hex, color: '#fff' } : undefined}
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
         active && !hex
-          ? 'bg-[#1E2026] text-white border-[#1E2026]'
+          ? 'bg-contrast text-white border-contrast'
           : !active
-            ? 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+            ? 'bg-surface text-ink border-line/12 hover:border-line/30'
             : ''
       }`}
     >
@@ -148,9 +148,9 @@ function FilterSectionHeading({
   return (
     <div className="flex items-center gap-1.5 mb-2">
       {icon}
-      <span className="text-[11px] font-bold uppercase tracking-wide text-[#6B6862]">{label}</span>
+      <span className="text-[11px] font-bold uppercase tracking-wide text-ink-soft">{label}</span>
       {count > 0 && (
-        <span className="inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{count}</span>
+        <span className="inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-brand text-white text-[10px] font-bold">{count}</span>
       )}
     </div>
   )
@@ -161,16 +161,16 @@ function OpenStatusTag({ hours }: { hours: Record<string, string[]> | null | und
   const s = getOpenStatus(hours)
   if (!s) return null
   if (s.status === 'closed') {
-    return <span className="px-1.5 py-0.5 rounded bg-red-50 text-red-600 text-[10px] font-semibold">Closed</span>
+    return <span className="px-1.5 py-0.5 rounded bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-[10px] font-semibold">Closed</span>
   }
   if (s.status === 'closing-soon') {
     return (
-      <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold">
+      <span className="px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-[10px] font-semibold">
         Closes soon · {s.closesAt}
       </span>
     )
   }
-  return <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">Open</span>
+  return <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[10px] font-semibold">Open</span>
 }
 
 // ── Color-coded badges showing which active filter(s) a card matched ────────
@@ -215,7 +215,7 @@ function PriceScale({ priceRange }: { priceRange: string }) {
   return (
     <span className="inline-flex items-center text-sm font-semibold" aria-label={`Price level ${level} of 4`}>
       {[1, 2, 3, 4].map(i => (
-        <span key={i} className={i <= level ? 'text-[#1E2026]' : 'text-[#1E2026]/25'}>$</span>
+        <span key={i} className={i <= level ? 'text-ink' : 'text-ink/25'}>$</span>
       ))}
     </span>
   )
@@ -1084,7 +1084,7 @@ export default function HomeMapHero({
     ) : null
 
     const titleRow = (
-      <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-[#c8934f]' : 'text-[#1E2026]'}`}>
+      <p className={`flex items-center gap-1 font-semibold truncate ${r.featured ? 'text-base' : 'text-sm'} ${active ? 'text-brand-hi' : 'text-ink'}`}>
         <span className="truncate">{r.name}</span>
         {r.claimed && !r.featured && <BadgeCheck className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
       </p>
@@ -1097,24 +1097,24 @@ export default function HomeMapHero({
             <Link
               href={`/reviews/${rSlugReview}`}
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-0.5 text-xs text-[#1E2026]/60 hover:text-[#96602F] hover:underline"
+              className="flex items-center gap-0.5 text-xs text-ink/60 hover:text-brand-ink hover:underline"
             >
               <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
             </Link>
           ) : (
-            <span className="flex items-center gap-0.5 text-xs text-[#1E2026]/60">
+            <span className="flex items-center gap-0.5 text-xs text-ink/60">
               <Star className="w-3 h-3 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
             </span>
           )
         )}
-        {priceRangeLabel(r.priceRange) && <span className="text-xs text-[#1E2026]/60">{priceRangeLabel(r.priceRange)}</span>}
+        {priceRangeLabel(r.priceRange) && <span className="text-xs text-ink/60">{priceRangeLabel(r.priceRange)}</span>}
         <OpenStatusTag hours={r.hours} />
-        {showDist && r.distKm > 0 && <span className="text-[#96602F] text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
+        {showDist && r.distKm > 0 && <span className="text-brand-ink text-xs font-medium">{kmToMiles(r.distKm).toFixed(1)} mi</span>}
       </div>
     )
 
     const serviceLine = (
-      <p className="text-[#1E2026]/50 text-xs mt-0.5 truncate">
+      <p className="text-ink/50 text-xs mt-0.5 truncate">
         Dine-in{r.amenities?.includes('delivers') ? ' · Delivery' : ''}
       </p>
     )
@@ -1126,7 +1126,7 @@ export default function HomeMapHero({
           target="_blank"
           rel="noopener noreferrer"
           onClick={e => e.stopPropagation()}
-          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-[#B57F50] text-white border border-[#B57F50] hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full bg-brand text-white border border-brand hover:bg-brand-hi transition-colors whitespace-nowrap"
         >
           Order Online
         </a>
@@ -1135,7 +1135,7 @@ export default function HomeMapHero({
           target="_blank"
           rel="noopener noreferrer"
           onClick={e => e.stopPropagation()}
-          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-black/12 text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors whitespace-nowrap"
+          className="flex items-center gap-1 px-2 py-1 text-[10px] font-semibold rounded-full border border-line/12 text-ink hover:border-brand hover:text-brand-ink transition-colors whitespace-nowrap"
         >
           Reserve A Table
         </a>
@@ -1145,10 +1145,10 @@ export default function HomeMapHero({
     const saveBtn = !isSupp ? (
       <button
         onClick={(e) => handleToggleSave(e, r.slug)}
-        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/8 hover:border-[#B57F50]/40 transition-colors"
+        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-surface/90 shadow-sm border border-line/8 hover:border-brand/40 transition-colors"
         aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
       >
-        <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
+        <Heart className={`w-3.5 h-3.5 transition-colors ${saves.has(r.slug) ? 'fill-brand text-brand-ink' : 'text-ink-soft'}`} />
       </button>
     ) : null
 
@@ -1164,10 +1164,10 @@ export default function HomeMapHero({
             layout === 'grid' ? 'w-full' : 'shrink-0 w-56 snap-start'
           } ${
             r.featured
-              ? 'border-[#f5b301] bg-amber-50/60'
+              ? 'border-[#f5b301] bg-amber-50 dark:bg-amber-500/10/60'
               : active
-                ? 'border-[#B57F50] bg-[#B57F50]/10'
-                : 'border-black/8 bg-white hover:border-[#B57F50]/40'
+                ? 'border-brand bg-brand/10'
+                : 'border-line/8 bg-surface hover:border-brand/40'
           }`}
         >
           <div
@@ -1177,7 +1177,7 @@ export default function HomeMapHero({
             onKeyDown={(e) => { if (e.key === 'Enter') open() }}
             className="cursor-pointer"
           >
-            <div className={`relative w-full bg-[#F5F4F0] ${layout === 'grid' ? 'h-44' : 'h-28'}`}>
+            <div className={`relative w-full bg-sunken ${layout === 'grid' ? 'h-44' : 'h-28'}`}>
               <RestaurantImage
                 src={r.photo}
                 alt={r.name}
@@ -1185,14 +1185,14 @@ export default function HomeMapHero({
                 className="object-cover"
                 sizes={layout === 'grid' ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw' : '224px'}
               />
-              <span className="absolute top-1.5 left-1.5 w-5 h-5 rounded-full bg-white/90 shadow-sm flex items-center justify-center text-[#96602F] font-bold text-[11px] tabular-nums">
+              <span className="absolute top-1.5 left-1.5 w-5 h-5 rounded-full bg-surface/90 shadow-sm flex items-center justify-center text-brand-ink font-bold text-[11px] tabular-nums">
                 {i + 1}
               </span>
             </div>
             <div className="px-2.5 pt-2">
               {featuredBadge}
               {titleRow}
-              <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+              <p className="text-ink-soft text-xs truncate">{r.city}, {r.stateCode}</p>
               {metaRow}
               {serviceLine}
               <MatchedChips chips={r.matchedChips} />
@@ -1213,8 +1213,8 @@ export default function HomeMapHero({
         onMouseLeave={() => setHoveredSlug(null)}
         className={`relative transition-colors ${
           r.featured
-            ? 'bg-amber-50/60 border-l-[3px] border-[#f5b301]'
-            : active ? 'bg-[#B57F50]/10 border-l-2 border-[#B57F50]' : 'hover:bg-black/5'
+            ? 'bg-amber-50 dark:bg-amber-500/10/60 border-l-[3px] border-[#f5b301]'
+            : active ? 'bg-brand/10 border-l-2 border-brand' : 'hover:bg-black/5'
         }`}
       >
         <div
@@ -1224,16 +1224,16 @@ export default function HomeMapHero({
           onKeyDown={(e) => { if (e.key === 'Enter') open() }}
           className={`flex gap-3 pr-10 cursor-pointer ${r.featured ? 'p-4 pb-2' : 'p-3 pb-1.5'}`}
         >
-          <span className="self-center shrink-0 w-5 text-center text-[#96602F] font-bold text-sm tabular-nums">
+          <span className="self-center shrink-0 w-5 text-center text-brand-ink font-bold text-sm tabular-nums">
             {i + 1}
           </span>
-          <div className={`relative rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
+          <div className={`relative rounded-lg overflow-hidden bg-sunken shrink-0 ${r.featured ? 'w-20 h-20' : 'w-14 h-14'}`}>
             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes={r.featured ? '80px' : '56px'} />
           </div>
           <div className="flex-1 min-w-0">
             {featuredBadge}
             {titleRow}
-            <p className="text-[#6B6862] text-xs truncate">{r.city}, {r.stateCode}</p>
+            <p className="text-ink-soft text-xs truncate">{r.city}, {r.stateCode}</p>
             {metaRow}
             {serviceLine}
             <MatchedChips chips={r.matchedChips} />
@@ -1248,15 +1248,15 @@ export default function HomeMapHero({
   return (
     <section
       data-intro={introPhase ?? undefined}
-      className={mapOnly ? 'pt-16 bg-[#F5F4F0] relative' : 'pt-16 bg-[#F5F4F0]'}
+      className={mapOnly ? 'pt-16 bg-sunken relative' : 'pt-16 bg-sunken'}
     >
       {/* SEO heading + intro — kept in the DOM for SEO; visually hidden in the
           full-screen map-only layout so the map owns the whole viewport. */}
       <div className={mapOnly ? 'sr-only' : 'max-w-7xl mx-auto px-4 sm:px-6 pt-2.5 sm:pt-5 pb-2 sm:pb-3'}>
-        <h1 className="font-serif text-lg sm:text-3xl font-bold text-[#1E2026] truncate sm:overflow-visible sm:whitespace-normal">
+        <h1 className="font-serif text-lg sm:text-3xl font-bold text-ink truncate sm:overflow-visible sm:whitespace-normal">
           {pageTitle}
         </h1>
-        <p className="hidden sm:block text-[#6B6862] text-sm mt-1">
+        <p className="hidden sm:block text-ink-soft text-sm mt-1">
           {pageDescription}
         </p>
       </div>
@@ -1271,7 +1271,7 @@ export default function HomeMapHero({
       {/* Top filter bar — one horizontally scrollable pill strip on mobile
           (AllTrails-style); on sm+ the location/help/save controls stay pinned
           with only the middle section scrolling. */}
-      <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl' : 'border-t border-black/8 bg-white'}>
+      <div className={mapOnly ? 'bg-surface/95 backdrop-blur rounded-2xl shadow-lg border border-line/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl' : 'border-t border-line/8 bg-surface'}>
         <div className={mapOnly ? 'px-3 sm:px-4 py-2.5' : 'max-w-7xl mx-auto px-4 sm:px-6 py-2.5'}>
           <div
             // `overflow-x-auto` clips vertical overflow too (per the CSS spec,
@@ -1287,7 +1287,7 @@ export default function HomeMapHero({
             {selectedRegion ? (
               <button
                 onClick={clearRegion}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-[#1E2026] text-white border-[#1E2026] shrink-0"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-contrast text-white border-contrast shrink-0"
                 title="Remove filter to see more results"
               >
                 <MapPin className="w-3.5 h-3.5" />
@@ -1295,7 +1295,7 @@ export default function HomeMapHero({
                 {/* How many spots the chosen area currently has (respects any
                     other active filters, so it matches the list heading). */}
                 {!dataLoading && (
-                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-white/25 text-white text-[10px] font-bold tabular-nums">
+                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-surface/25 text-white text-[10px] font-bold tabular-nums">
                     {displayList.length}
                   </span>
                 )}
@@ -1303,11 +1303,11 @@ export default function HomeMapHero({
               </button>
             ) : (
               <div className="relative shrink-0">
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap border border-black/12 bg-white">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap border border-line/12 bg-surface">
                   {geoState === 'loading' && !detectedArea ? (
                     <>
-                      <span className="w-2 h-2 rounded-full bg-[#9B9490] animate-pulse shrink-0" />
-                      <span className="text-[#6B6862] font-medium">Locating…</span>
+                      <span className="w-2 h-2 rounded-full bg-ink-faint animate-pulse shrink-0" />
+                      <span className="text-ink-soft font-medium">Locating…</span>
                     </>
                   ) : detectedArea ? (
                     <>
@@ -1315,22 +1315,22 @@ export default function HomeMapHero({
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
                       </span>
-                      <span className="font-bold text-[#1E2026]">{detectedArea.cityName}, {detectedArea.stateCode}</span>
+                      <span className="font-bold text-ink">{detectedArea.cityName}, {detectedArea.stateCode}</span>
                     </>
                   ) : (
                     <>
-                      <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
                       {/* No location yet (the homepage never auto-locates) —
                           prompt for the pick instead of showing a bare "·". */}
-                      <span className="text-[#6B6862] font-medium">Where to?</span>
+                      <span className="text-ink-soft font-medium">Where to?</span>
                     </>
                   )}
-                  <span className="text-[#6B6862]">·</span>
+                  <span className="text-ink-soft">·</span>
                   <button
                     onClick={() => setShowRegionDropdown(v => !v)}
                     aria-haspopup="dialog"
                     aria-expanded={showRegionDropdown}
-                    className="text-blue-600 font-semibold hover:underline"
+                    className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
                   >
                     Choose area
                   </button>
@@ -1343,11 +1343,11 @@ export default function HomeMapHero({
                     <div
                       role="dialog"
                       aria-label="Choose an area"
-                      className="absolute z-[1300] left-0 top-full mt-2 w-72 max-w-[85vw] bg-white border border-black/8 rounded-xl shadow-xl p-3"
+                      className="absolute z-[1300] left-0 top-full mt-2 w-72 max-w-[85vw] bg-surface border border-line/8 rounded-xl shadow-xl p-3"
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#6B6862] mb-2 px-0.5">Search by city</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-soft mb-2 px-0.5">Search by city</p>
                       <div className="relative mb-2">
-                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#6B6862]" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-ink-soft" />
                         <input
                           autoFocus
                           type="text"
@@ -1355,12 +1355,12 @@ export default function HomeMapHero({
                           onChange={e => setRegionQuery(e.target.value)}
                           placeholder="City, State"
                           aria-label="Search by city and state"
-                          className="w-full pl-8 pr-2 py-2 text-xs bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                          className="w-full pl-8 pr-2 py-2 text-xs bg-sunken border border-line/8 rounded-lg outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
                         />
                       </div>
-                      <div className="max-h-40 overflow-y-auto mb-3 border border-black/6 rounded-lg divide-y divide-black/5">
+                      <div className="max-h-40 overflow-y-auto mb-3 border border-line/6 rounded-lg divide-y divide-line/5">
                         {regionMatches.length === 0 ? (
-                          <p className="p-2.5 text-xs text-[#6B6862]">
+                          <p className="p-2.5 text-xs text-ink-soft">
                             {dataLoading ? 'Loading cities…' : 'No matching city.'}
                           </p>
                         ) : (
@@ -1369,7 +1369,7 @@ export default function HomeMapHero({
                               key={`${opt.citySlug}-${opt.stateSlug}`}
                               type="button"
                               onClick={() => { selectRegion(opt); setShowRegionDropdown(false) }}
-                              className="block w-full text-left px-2.5 py-2 text-xs text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+                              className="block w-full text-left px-2.5 py-2 text-xs text-ink hover:bg-sunken transition-colors"
                             >
                               {opt.cityName}, {opt.stateCode}
                             </button>
@@ -1377,7 +1377,7 @@ export default function HomeMapHero({
                         )}
                       </div>
 
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-[#6B6862] mb-2 px-0.5">Or search by ZIP</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-soft mb-2 px-0.5">Or search by ZIP</p>
                       <form
                         onSubmit={e => { e.preventDefault(); geocodeLocation(locationSearch); setShowRegionDropdown(false) }}
                         className="relative mb-2"
@@ -1390,12 +1390,12 @@ export default function HomeMapHero({
                           onChange={e => { const v = e.target.value.replace(/\D/g, ''); setLocationSearch(v); setGeocodeError(''); if (!v) setZipFilter('') }}
                           placeholder="ZIP code"
                           aria-label="Search by ZIP code"
-                          className="w-full pl-3 pr-14 py-2 text-xs bg-[#F5F4F0] border border-black/8 rounded-lg outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+                          className="w-full pl-3 pr-14 py-2 text-xs bg-sunken border border-line/8 rounded-lg outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
                         />
                         <button
                           type="submit"
                           disabled={geocoding}
-                          className="absolute right-1 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#B57F50] hover:bg-[#c8934f] text-white text-[11px] font-semibold rounded-md transition-colors disabled:opacity-60"
+                          className="absolute right-1 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-brand hover:bg-brand-hi text-white text-[11px] font-semibold rounded-md transition-colors disabled:opacity-60"
                         >
                           {geocoding ? '…' : 'Go'}
                         </button>
@@ -1404,9 +1404,9 @@ export default function HomeMapHero({
 
                       <button
                         onClick={() => { requestLocation(); setShowRegionDropdown(false) }}
-                        className="flex items-center justify-center gap-1.5 w-full px-2.5 py-2 rounded-lg border border-black/10 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] transition-colors"
+                        className="flex items-center justify-center gap-1.5 w-full px-2.5 py-2 rounded-lg border border-line/10 text-xs font-semibold text-ink hover:border-brand transition-colors"
                       >
-                        <Navigation className="w-3.5 h-3.5 text-[#96602F]" /> Use my current location
+                        <Navigation className="w-3.5 h-3.5 text-brand-ink" /> Use my current location
                       </button>
                     </div>
                   </>
@@ -1424,31 +1424,31 @@ export default function HomeMapHero({
                 setShowFilters(true)
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
-                showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+                showFilters ? 'bg-contrast text-white border-contrast' : 'bg-surface text-ink border-line/12 hover:border-line/30'
               }`}
             >
               {filterGate.unlocked
                 ? <SlidersHorizontal className="w-3.5 h-3.5" />
-                : <Lock className="w-3.5 h-3.5 text-[#96602F]" />} Filters
+                : <Lock className="w-3.5 h-3.5 text-brand-ink" />} Filters
               {activeCount > 0 && (
-                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-brand text-white text-[10px] font-bold">{activeCount}</span>
               )}
             </button>
 
             <ShareButton
               url={`https://www.ramennearyou.com${pathname}`}
               title={pageTitle}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-white text-[#1E2026] border-black/12 hover:border-black/30 transition-colors shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border bg-surface text-ink border-line/12 hover:border-line/30 transition-colors shrink-0"
             />
 
             {/* Map / List view toggle — segmented control */}
             {mapOnly && (
-              <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-[#F5F4F0] border border-black/12 shrink-0">
+              <div className="flex items-center gap-0.5 p-0.5 rounded-full bg-sunken border border-line/12 shrink-0">
                 <button
                   onClick={() => setViewMode('map')}
                   aria-pressed={viewMode === 'map'}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold transition-colors ${
-                    viewMode === 'map' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                    viewMode === 'map' ? 'bg-contrast text-white' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   <MapIcon className="w-3.5 h-3.5" /> Map
@@ -1457,7 +1457,7 @@ export default function HomeMapHero({
                   onClick={() => setViewMode('list')}
                   aria-pressed={viewMode === 'list'}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold transition-colors ${
-                    viewMode === 'list' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                    viewMode === 'list' ? 'bg-contrast text-white' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   <List className="w-3.5 h-3.5" /> List
@@ -1469,7 +1469,7 @@ export default function HomeMapHero({
               href="https://amzn.to/4h3lyIL"
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap bg-[#B57F50] text-white hover:bg-[#c8934f] transition-colors shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand text-white hover:bg-brand-hi transition-colors shrink-0"
             >
               <ShoppingBag className="w-3.5 h-3.5" /> Shop Ramen Products
             </a>
@@ -1483,31 +1483,31 @@ export default function HomeMapHero({
           below. Square format does well here on mobile, where this whole
           toolbar is the first thing a visitor sees. */}
       {mapOnly && (
-        <div className="bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
+        <div className="bg-surface/95 backdrop-blur rounded-2xl shadow-lg border border-line/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden">
           <AdSquare />
         </div>
       )}
 
       {/* Expandable full filter panel */}
       {showFilters && (
-        <div className={mapOnly ? 'bg-white/95 backdrop-blur rounded-2xl shadow-lg border border-black/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl lg:max-w-5xl max-h-[calc(100dvh-12rem)] overflow-y-auto' : 'border-t border-black/8 bg-white'}>
+        <div className={mapOnly ? 'bg-surface/95 backdrop-blur rounded-2xl shadow-lg border border-line/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl lg:max-w-5xl max-h-[calc(100dvh-12rem)] overflow-y-auto' : 'border-t border-line/8 bg-surface'}>
           <div className={mapOnly ? 'px-3 sm:px-4 py-4' : 'max-w-7xl mx-auto px-4 sm:px-6 py-4'}>
             {/* Panel header */}
-            <div className="flex items-center justify-between pb-3 mb-1 border-b border-black/8">
+            <div className="flex items-center justify-between pb-3 mb-1 border-b border-line/8">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-[#96602F]" />
-                <h3 className="text-sm font-bold text-[#1E2026]">Filters</h3>
+                <SlidersHorizontal className="w-4 h-4 text-brand-ink" />
+                <h3 className="text-sm font-bold text-ink">Filters</h3>
                 {activeCount > 0 && (
-                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
+                  <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-brand text-white text-[10px] font-bold">{activeCount}</span>
                 )}
               </div>
               <div className="flex items-center gap-1">
                 {activeCount > 0 && (
-                  <button onClick={clearAll} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#6B6862] hover:text-[#1E2026] transition-colors">
+                  <button onClick={clearAll} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-ink-soft hover:text-ink transition-colors">
                     <X className="w-3.5 h-3.5" /> Clear all
                   </button>
                 )}
-                <button onClick={() => setShowFilters(false)} className="px-3 py-1.5 rounded-full bg-[#1E2026] text-white text-xs font-semibold hover:bg-black transition-colors">
+                <button onClick={() => setShowFilters(false)} className="px-3 py-1.5 rounded-full bg-contrast text-white text-xs font-semibold hover:bg-contrast-hi transition-colors">
                   Done
                 </button>
               </div>
@@ -1516,16 +1516,16 @@ export default function HomeMapHero({
             {/* Grouped filter sections — a single scrolling list on mobile;
                 a clean 2/3-column card grid on desktop so related filters
                 sit side by side instead of one long vertical scroll. */}
-            <div className="divide-y divide-black/8 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 sm:items-start">
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
-                <FilterSectionHeading icon={<ArrowUpDown className="w-3.5 h-3.5 text-[#96602F]" />} label="Sort" count={0} />
+            <div className="divide-y divide-line/8 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 sm:items-start">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
+                <FilterSectionHeading icon={<ArrowUpDown className="w-3.5 h-3.5 text-brand-ink" />} label="Sort" count={0} />
                 <div className="relative">
-                  <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#96602F] pointer-events-none" />
+                  <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-ink pointer-events-none" />
                   <select
                     value={sortBy}
                     onChange={e => { setSortBy(e.target.value as SortOption); setSortTouched(true) }}
                     aria-label="Sort results"
-                    className="w-full appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-white border border-black/12 rounded-full outline-none text-[#1E2026] hover:border-black/30 focus:border-[#B57F50] transition-colors cursor-pointer"
+                    className="w-full appearance-none pl-7 pr-6 py-1.5 text-xs font-semibold bg-surface border border-line/12 rounded-full outline-none text-ink hover:border-line/30 focus:border-brand transition-colors cursor-pointer"
                   >
                     {SORT_OPTIONS.map(opt => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -1534,8 +1534,8 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
-                <FilterSectionHeading icon={<Utensils className="w-3.5 h-3.5 text-[#96602F]" />} label="Instant Bowl Finder" count={bowls.size} />
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
+                <FilterSectionHeading icon={<Utensils className="w-3.5 h-3.5 text-brand-ink" />} label="Instant Bowl Finder" count={bowls.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {BOWL_META.map(b => (
                     <Chip key={b.key} active={bowls.has(b.key)} hex={b.hex} emoji={b.emoji} label={b.label} onClick={() => toggleBowl(b.key)} />
@@ -1543,8 +1543,8 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
-                <FilterSectionHeading icon={<Sparkles className="w-3.5 h-3.5 text-[#96602F]" />} label="Mood" count={moods.size} />
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
+                <FilterSectionHeading icon={<Sparkles className="w-3.5 h-3.5 text-brand-ink" />} label="Mood" count={moods.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {MOOD_META.map(m => (
                     <Chip key={m.key} active={moods.has(m.key)} hex={m.hex} emoji={m.emoji} label={m.label} onClick={() => toggleMood(m.key)} />
@@ -1552,9 +1552,9 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
                 <FilterSectionHeading
-                  icon={<Utensils className="w-3.5 h-3.5 text-[#96602F]" />}
+                  icon={<Utensils className="w-3.5 h-3.5 text-brand-ink" />}
                   label="Cuisine & Dietary"
                   count={CUISINE_DIETARY_META.filter(c => flags.has(c.key)).length}
                 />
@@ -1565,9 +1565,9 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
                 <FilterSectionHeading
-                  icon={<Clock className="w-3.5 h-3.5 text-[#96602F]" />}
+                  icon={<Clock className="w-3.5 h-3.5 text-brand-ink" />}
                   label="Hours & Quality"
                   count={HOURS_QUALITY_META.filter(h => flags.has(h.key)).length}
                 />
@@ -1578,8 +1578,8 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
-                <FilterSectionHeading icon={<span className="text-[#96602F] text-xs font-bold w-3.5 text-center">$</span>} label="Price" count={prices.size} />
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
+                <FilterSectionHeading icon={<span className="text-brand-ink text-xs font-bold w-3.5 text-center">$</span>} label="Price" count={prices.size} />
                 <div className="flex flex-wrap gap-1.5">
                   {PRICE_META.map(p => (
                     <Chip key={p.key} active={prices.has(p.key)} label={p.label} onClick={() => togglePrice(p.key)} />
@@ -1587,16 +1587,16 @@ export default function HomeMapHero({
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
-                <FilterSectionHeading icon={<BadgeCheck className="w-3.5 h-3.5 text-[#96602F]" />} label="Ownership" count={flags.has('verified') ? 1 : 0} />
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
+                <FilterSectionHeading icon={<BadgeCheck className="w-3.5 h-3.5 text-brand-ink" />} label="Ownership" count={flags.has('verified') ? 1 : 0} />
                 <div className="flex flex-wrap gap-1.5">
                   <Chip active={flags.has('verified')} emoji="✅" label="Verified Listings" onClick={() => toggleFlag('verified')} />
                 </div>
               </section>
 
-              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-[#F5F4F0] sm:rounded-xl">
+              <section className="py-3.5 sm:py-3.5 sm:px-3.5 sm:bg-sunken sm:rounded-xl">
                 <FilterSectionHeading
-                  icon={<Heart className="w-3.5 h-3.5 text-[#96602F]" />}
+                  icon={<Heart className="w-3.5 h-3.5 text-brand-ink" />}
                   label="Features & Amenities"
                   count={FEATURE_META.filter(f => flags.has(f.key)).length}
                 />
@@ -1620,24 +1620,24 @@ export default function HomeMapHero({
           desktop, toggle between the two on mobile. */}
       <div className={mapOnly
         ? 'relative flex flex-col'
-        : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-black/8 overflow-hidden'}>
+        : 'relative h-[calc(100dvh-13rem)] sm:h-[68vh] min-h-[460px] flex border-t border-line/8 overflow-hidden'}>
         {/* Left list panel — always shown for the classic layout (mobile via
             its own toggle, desktop always); in mapOnly it's always visible
             below the map, at every breakpoint. */}
         <div className={mapOnly
-          ? 'flex flex-col w-full bg-white overflow-hidden shrink-0 order-2'
-          : `${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-white border-r border-black/8 flex-col overflow-hidden shrink-0`}>
+          ? 'flex flex-col w-full bg-surface overflow-hidden shrink-0 order-2'
+          : `${mobileView === 'list' ? 'flex' : 'hidden'} sm:flex absolute inset-0 z-[1100] sm:static sm:inset-auto sm:z-auto w-full sm:w-80 lg:w-96 bg-surface border-r border-line/8 flex-col overflow-hidden shrink-0`}>
           {/* Ranked "near you" feed, immediately under the map and above the
               map's own filtered carousel, so the first thing below the map is
               a readable list rather than another horizontal scroller. */}
-          {feedSlot && !listView && <div className="border-b border-black/8">{feedSlot}</div>}
+          {feedSlot && !listView && <div className="border-b border-line/8">{feedSlot}</div>}
 
-          <div className="px-3 py-2.5 border-b border-black/8 flex items-center justify-between gap-2">
-            <p className="text-[#1E2026] font-semibold text-sm">
+          <div className="px-3 py-2.5 border-b border-line/8 flex items-center justify-between gap-2">
+            <p className="text-ink font-semibold text-sm">
               {dataLoading ? 'Loading ramen spots…' : (
                 <>
                   {displayList.length} ramen spot{displayList.length !== 1 ? 's' : ''}
-                  {(activeCount > 0 || selectedRegion) && <span className="text-[#6B6862] font-normal"> (filtered)</span>}
+                  {(activeCount > 0 || selectedRegion) && <span className="text-ink-soft font-normal"> (filtered)</span>}
                 </>
               )}
             </p>
@@ -1650,7 +1650,7 @@ export default function HomeMapHero({
           {!mapOnly && (
             <button
               onClick={() => setMobileView('map')}
-              className="flex sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
+              className="flex sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 items-center gap-2 px-6 py-3 rounded-full bg-brand text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
             >
               <MapIcon className="w-5 h-5" /> Map
             </button>
@@ -1659,32 +1659,32 @@ export default function HomeMapHero({
           <div className="flex-1 overflow-y-auto">
             {dataLoading ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Loader2 className="w-7 h-7 text-[#96602F] animate-spin" />
-                <p className="text-[#6B6862] text-sm">Loading the ramen map…</p>
+                <Loader2 className="w-7 h-7 text-brand-ink animate-spin" />
+                <p className="text-ink-soft text-sm">Loading the ramen map…</p>
               </div>
             ) : dataError ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Utensils className="w-8 h-8 text-[#96602F]/30" />
-                <p className="text-[#1E2026] font-semibold text-sm">Couldn&apos;t load the map</p>
-                <button onClick={() => location.reload()} className="text-xs text-[#96602F] font-medium">Retry →</button>
+                <Utensils className="w-8 h-8 text-brand-ink/30" />
+                <p className="text-ink font-semibold text-sm">Couldn&apos;t load the map</p>
+                <button onClick={() => location.reload()} className="text-xs text-brand-ink font-medium">Retry →</button>
               </div>
             ) : displayList.length === 0 ? (
               <div className="p-6 flex flex-col items-center text-center gap-3">
-                <Utensils className="w-8 h-8 text-[#96602F]/30" />
-                <p className="text-[#1E2026] font-semibold text-sm">No ramen spots found</p>
-                <p className="text-[#6B6862] text-xs">
+                <Utensils className="w-8 h-8 text-brand-ink/30" />
+                <p className="text-ink font-semibold text-sm">No ramen spots found</p>
+                <p className="text-ink-soft text-xs">
                   {selectedRegion
                     ? `Try removing the ${selectedRegion.cityName} filter to see more results, or clear your other filters.`
                     : 'Try clearing your filters or searching a different ZIP.'}
                 </p>
                 <div className="flex items-center gap-3">
                   {selectedRegion && (
-                    <button onClick={clearRegion} className="text-xs text-[#96602F] font-medium">
+                    <button onClick={clearRegion} className="text-xs text-brand-ink font-medium">
                       Remove {selectedRegion.cityName} filter →
                     </button>
                   )}
                   {activeCount > 0 && (
-                    <button onClick={clearAll} className="text-xs text-[#96602F] font-medium">Clear all filters →</button>
+                    <button onClick={clearAll} className="text-xs text-brand-ink font-medium">Clear all filters →</button>
                   )}
                 </div>
               </div>
@@ -1693,7 +1693,7 @@ export default function HomeMapHero({
                 ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 sm:px-4 py-4 max-w-7xl mx-auto w-full'
                 : mapOnly
                   ? 'flex gap-3 overflow-x-auto scrollbar-hide px-3 py-3 snap-x snap-mandatory'
-                  : 'divide-y divide-black/5'}>
+                  : 'divide-y divide-line/5'}>
                 {displayList.map((r, i) => renderResultCard(r, i, listView ? 'grid' : mapOnly ? 'carousel' : 'row'))}
               </div>
             )}
@@ -1703,10 +1703,10 @@ export default function HomeMapHero({
                 using the same result card as the main list. Map view only;
                 list view is the 3-column grid instead. */}
             {mapOnly && !listView && !dataLoading && shelves.map((shelf) => (
-              <div key={shelf.key} className="border-t border-black/8 pt-3 pb-1">
+              <div key={shelf.key} className="border-t border-line/8 pt-3 pb-1">
                 <div className="px-3 mb-2.5">
-                  <h3 className="font-serif text-lg font-bold text-[#1E2026]">{shelf.title}</h3>
-                  <p className="text-[#6B6862] text-xs">{shelf.subtitle}</p>
+                  <h3 className="font-serif text-lg font-bold text-ink">{shelf.title}</h3>
+                  <p className="text-ink-soft text-xs">{shelf.subtitle}</p>
                 </div>
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide px-3 pb-3 snap-x snap-mandatory">
                   {shelf.items.map((r, i) => renderResultCard(r, i, 'carousel', `${shelf.key}-`))}
@@ -1726,8 +1726,8 @@ export default function HomeMapHero({
             introPhase ? ' map-reveal-target' : ''}`}>
           {introPhase && <div className="map-reveal-veil" aria-hidden="true" />}
           {!showMap ? null : dataLoading ? (
-            <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-              <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+            <div className="w-full h-full flex items-center justify-center bg-sunken">
+              <Loader2 className="w-8 h-8 text-brand-ink animate-spin" />
             </div>
           ) : (
             <RamenMap
@@ -1762,17 +1762,17 @@ export default function HomeMapHero({
             const rSlugReview = mapPointReviewSlug(r)
             return (
               <div className="absolute inset-x-0 bottom-0 sm:bottom-6 sm:left-4 sm:inset-x-auto z-[1300] px-2 pb-2 sm:px-0 sm:pb-0 pointer-events-none">
-                <div className="pointer-events-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-black/10 w-full sm:w-96 max-h-[70vh] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto">
+                <div className="pointer-events-auto bg-surface rounded-t-2xl sm:rounded-2xl shadow-2xl border border-line/10 w-full sm:w-96 max-h-[70vh] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto">
                   <div className="relative">
-                    <div className="relative w-full h-36 sm:h-40 bg-[#F5F4F0]">
+                    <div className="relative w-full h-36 sm:h-40 bg-sunken">
                       <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="384px" />
                     </div>
                     <button
                       onClick={() => setSelectedSlug(null)}
-                      className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 shadow-sm border border-black/10 hover:bg-white transition-colors"
+                      className="absolute top-2 right-2 p-1.5 rounded-full bg-surface/90 shadow-sm border border-line/10 hover:bg-surface transition-colors"
                       aria-label="Close details"
                     >
-                      <X className="w-4 h-4 text-[#1E2026]" />
+                      <X className="w-4 h-4 text-ink" />
                     </button>
                     {r.featured && (
                       <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[10px] font-bold uppercase tracking-wide shadow-sm">
@@ -1781,22 +1781,22 @@ export default function HomeMapHero({
                     )}
                   </div>
                   <div className="p-4">
-                    <Link href={internalUrl} className="font-serif text-lg font-bold text-[#1E2026] hover:text-[#96602F] transition-colors leading-tight">
+                    <Link href={internalUrl} className="font-serif text-lg font-bold text-ink hover:text-brand-ink transition-colors leading-tight">
                       {r.name}
                     </Link>
-                    <p className="text-[#6B6862] text-sm mt-0.5">{r.city}, {r.stateCode}</p>
+                    <p className="text-ink-soft text-sm mt-0.5">{r.city}, {r.stateCode}</p>
                     <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                       {r.rating != null && (
                         rSlugReview ? (
                           <Link
                             href={`/reviews/${rSlugReview}`}
-                            className="flex items-center gap-1 text-sm text-[#1E2026]/70 hover:text-[#96602F] hover:underline"
+                            className="flex items-center gap-1 text-sm text-ink/70 hover:text-brand-ink hover:underline"
                           >
                             <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                             {r.rating.toFixed(1)}{r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}
                           </Link>
                         ) : (
-                          <span className="flex items-center gap-1 text-sm text-[#1E2026]/70">
+                          <span className="flex items-center gap-1 text-sm text-ink/70">
                             <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />{r.rating.toFixed(1)}
                           </span>
                         )
@@ -1812,30 +1812,30 @@ export default function HomeMapHero({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => requireAuth(e)}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-brand text-white text-xs font-semibold hover:bg-brand-hi transition-colors"
                       >
                         <Navigation className="w-3.5 h-3.5" /> Get Directions
                       </a>
                       <Link
                         href={internalUrl}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-line/12 text-ink text-xs font-semibold hover:border-brand hover:text-brand-ink transition-colors"
                       >
                         View Details
                       </Link>
                       {!isSupp && (
                         <button
                           onClick={(e) => handleToggleSave(e, r.slug)}
-                          className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-line/12 text-xs font-semibold text-ink hover:border-brand transition-colors"
                           aria-label={saves.has(r.slug) ? 'Unsave restaurant' : 'Save restaurant'}
                         >
-                          <Heart className={`w-3.5 h-3.5 ${saves.has(r.slug) ? 'fill-[#B57F50] text-[#96602F]' : 'text-[#6B6862]'}`} />
+                          <Heart className={`w-3.5 h-3.5 ${saves.has(r.slug) ? 'fill-brand text-brand-ink' : 'text-ink-soft'}`} />
                           {saves.has(r.slug) ? 'Saved' : 'Save'}
                         </button>
                       )}
                       <InquireButton
                         restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
                         source="find"
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/12 text-xs font-semibold text-[#1E2026] hover:border-[#B57F50] hover:text-[#96602F] transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-line/12 text-xs font-semibold text-ink hover:border-brand hover:text-brand-ink transition-colors"
                       />
                     </div>
                   </div>
@@ -1846,7 +1846,7 @@ export default function HomeMapHero({
 
           {/* "Update results as I move the map" toggle — top-left of the map */}
           {showMap && !dataLoading && (
-            <label className="absolute top-3 left-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-full bg-white/95 shadow-md border border-black/10 cursor-pointer select-none">
+            <label className="absolute top-3 left-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-full bg-surface/95 shadow-md border border-line/10 cursor-pointer select-none">
               <span className="relative inline-flex items-center">
                 <input
                   type="checkbox"
@@ -1857,10 +1857,10 @@ export default function HomeMapHero({
                     if (e.target.checked) setShowSearchAreaBtn(false)
                   }}
                 />
-                <span className="w-9 h-5 rounded-full bg-black/15 peer-checked:bg-[#B57F50] transition-colors" />
-                <span className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4" />
+                <span className="w-9 h-5 rounded-full bg-black/15 peer-checked:bg-brand transition-colors" />
+                <span className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-surface shadow transition-transform peer-checked:translate-x-4" />
               </span>
-              <span className="text-xs font-semibold text-[#1E2026] whitespace-nowrap">Update as map moves</span>
+              <span className="text-xs font-semibold text-ink whitespace-nowrap">Update as map moves</span>
             </label>
           )}
 
@@ -1869,11 +1869,11 @@ export default function HomeMapHero({
               <button
                 onClick={handleSearchArea}
                 disabled={searchingArea}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-[#F5F4F0] text-[#1E2026] text-sm font-semibold shadow-lg shadow-black/25 border border-black/10 transition-colors disabled:opacity-70"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface hover:bg-sunken text-ink text-sm font-semibold shadow-lg shadow-black/25 border border-line/10 transition-colors disabled:opacity-70"
               >
                 {searchingArea
-                  ? <><Loader2 className="w-4 h-4 animate-spin text-[#96602F]" /> Searching…</>
-                  : <><Search className="w-4 h-4 text-[#96602F]" /> Search this area</>}
+                  ? <><Loader2 className="w-4 h-4 animate-spin text-brand-ink" /> Searching…</>
+                  : <><Search className="w-4 h-4 text-brand-ink" /> Search this area</>}
               </button>
             </div>
           )}
@@ -1882,7 +1882,7 @@ export default function HomeMapHero({
             <div className={`absolute left-1/2 -translate-x-1/2 z-[1000] ${mapOnly ? 'bottom-6' : 'top-4'}`}>
               <button
                 onClick={requestLocation}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-brand hover:bg-brand-hi text-white text-sm font-semibold shadow-lg shadow-black/30 transition-colors"
               >
                 <Navigation className="w-4 h-4" /> Use my location
               </button>
@@ -1894,12 +1894,12 @@ export default function HomeMapHero({
           {!mapOnly && (
           <button
             onClick={() => setMobileView('list')}
-            className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 px-6 py-3 rounded-full bg-[#B57F50] text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
+            className="sm:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white text-sm font-bold shadow-lg shadow-black/30 active:scale-95 transition-transform"
             aria-label={`Show list of ${displayList.length} ramen spots`}
           >
             <List className="w-5 h-5" /> List
             {displayList.length > 0 && (
-              <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-white/25 text-white text-[11px] font-bold">
+              <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-surface/25 text-white text-[11px] font-bold">
                 {displayList.length > 99 ? '99+' : displayList.length}
               </span>
             )}
@@ -1920,13 +1920,13 @@ export default function HomeMapHero({
           aria-modal="true"
           aria-label="How to use the Ramen Map"
         >
-          <div ref={helpPanelRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto outline-none">
+          <div ref={helpPanelRef} tabIndex={-1} className="bg-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto outline-none">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-black/8">
-              <h2 className="font-serif text-xl font-bold text-[#1E2026]">How to use the Ramen Map</h2>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-line/8">
+              <h2 className="font-serif text-xl font-bold text-ink">How to use the Ramen Map</h2>
               <button
                 onClick={() => setHelpOpen(false)}
-                className="p-1.5 rounded-full hover:bg-black/5 text-[#6B6862] hover:text-[#1E2026] transition-colors"
+                className="p-1.5 rounded-full hover:bg-black/5 text-ink-soft hover:text-ink transition-colors"
                 aria-label="Close help"
               >
                 <X className="w-5 h-5" />
@@ -1934,12 +1934,12 @@ export default function HomeMapHero({
             </div>
 
             {/* Body */}
-            <div className="px-6 py-5 space-y-5 text-sm text-[#1E2026]">
+            <div className="px-6 py-5 space-y-5 text-sm text-ink">
               <div className="flex gap-3">
                 <span className="text-2xl leading-none mt-0.5">📍</span>
                 <div>
                   <p className="font-semibold mb-1">Find ramen near you</p>
-                  <p className="text-[#6B6862]">Type your ZIP code into the search bar and press <strong>Go</strong>, or tap <strong>Use my location</strong> (the arrow icon) to automatically center the map on where you are. The list on the left sorts by distance.</p>
+                  <p className="text-ink-soft">Type your ZIP code into the search bar and press <strong>Go</strong>, or tap <strong>Use my location</strong> (the arrow icon) to automatically center the map on where you are. The list on the left sorts by distance.</p>
                 </div>
               </div>
 
@@ -1947,7 +1947,7 @@ export default function HomeMapHero({
                 <span className="text-2xl leading-none mt-0.5">🔍</span>
                 <div>
                   <p className="font-semibold mb-1">Filter by broth, mood, or features</p>
-                  <p className="text-[#6B6862]">Tap <strong>Filters</strong> to open the filter panel. Pick a broth style (tonkotsu, miso, shoyu…), a vibe (date night, late night, hidden gems…), or features like outdoor seating or a full bar. Filters stack — combine as many as you like.</p>
+                  <p className="text-ink-soft">Tap <strong>Filters</strong> to open the filter panel. Pick a broth style (tonkotsu, miso, shoyu…), a vibe (date night, late night, hidden gems…), or features like outdoor seating or a full bar. Filters stack — combine as many as you like.</p>
                 </div>
               </div>
 
@@ -1955,7 +1955,7 @@ export default function HomeMapHero({
                 <span className="text-2xl leading-none mt-0.5">🗺️</span>
                 <div>
                   <p className="font-semibold mb-1">Browse the map</p>
-                  <p className="text-[#6B6862]">Click any pin on the map to highlight that restaurant in the list. Pan or zoom the map and tap <strong>Search this area</strong> to reload results for the visible region. On mobile, use the List / Map button at the bottom of the screen to switch between map and list view.</p>
+                  <p className="text-ink-soft">Click any pin on the map to highlight that restaurant in the list. Pan or zoom the map and tap <strong>Search this area</strong> to reload results for the visible region. On mobile, use the List / Map button at the bottom of the screen to switch between map and list view.</p>
                 </div>
               </div>
 
@@ -1963,7 +1963,7 @@ export default function HomeMapHero({
                 <span className="text-2xl leading-none mt-0.5">⭐</span>
                 <div>
                   <p className="font-semibold mb-1">Read ratings and reviews</p>
-                  <p className="text-[#6B6862]">Each card shows the star rating and review count. Click a card to open the full restaurant page with address, hours, phone number, and a link to get directions.</p>
+                  <p className="text-ink-soft">Each card shows the star rating and review count. Click a card to open the full restaurant page with address, hours, phone number, and a link to get directions.</p>
                 </div>
               </div>
 
@@ -1971,16 +1971,16 @@ export default function HomeMapHero({
                 <span className="text-2xl leading-none mt-0.5">🔖</span>
                 <div>
                   <p className="font-semibold mb-1">Save your search</p>
-                  <p className="text-[#6B6862]">Tap <strong>Save Search</strong> to bookmark your current filters and location so you can come back to the same view later.</p>
+                  <p className="text-ink-soft">Tap <strong>Save Search</strong> to bookmark your current filters and location so you can come back to the same view later.</p>
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-black/8 bg-[#F5F4F0] rounded-b-2xl">
+            <div className="px-6 py-4 border-t border-line/8 bg-sunken rounded-b-2xl">
               <button
                 onClick={() => setHelpOpen(false)}
-                className="w-full py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="w-full py-2.5 rounded-full bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
               >
                 Got it — start searching
               </button>

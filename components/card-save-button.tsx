@@ -96,8 +96,8 @@ export default function CardSaveButton({ slug, restaurantName }: Props) {
       aria-label={saved ? `Remove ${restaurantName} from saved` : `Save ${restaurantName}`}
       className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md z-10 ${
         saved
-          ? 'bg-white text-red-500'
-          : 'bg-white/80 backdrop-blur-sm text-[#6B6862] hover:bg-white hover:text-red-400'
+          ? 'bg-surface text-red-500'
+          : 'bg-surface/80 backdrop-blur-sm text-ink-soft hover:bg-surface hover:text-red-400'
       } ${loading ? 'opacity-60' : ''}`}
     >
       <Heart className={`w-4 h-4 transition-all ${saved ? 'fill-red-500' : ''}`} />

@@ -81,30 +81,30 @@ export default async function ComparisonPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/comparisons" className="hover:text-[#1E2026] transition-colors">Comparisons</Link>
+            <Link href="/comparisons" className="hover:text-ink transition-colors">Comparisons</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{cmp.h1}</span>
+            <span className="text-ink">{cmp.h1}</span>
           </nav>
 
           <article className="mt-4">
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#96602F]">
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-brand/20 text-brand-ink">
                   Broth Comparison
                 </span>
-                <span className="text-xs text-[#6B6862]/60">8 min read</span>
+                <span className="text-xs text-ink-soft/60">8 min read</span>
               </div>
 
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-4">
                 {cmp.h1}
               </h1>
-              <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{cmp.description}</p>
+              <p className="text-ink-soft text-lg leading-relaxed mb-5">{cmp.description}</p>
 
               <Link
                 href={`/authors/${slugifyAuthor(cmp.author.name)}`}
@@ -115,12 +115,12 @@ export default async function ComparisonPage({ params }: Props) {
                   alt={cmp.author.name}
                   width={36}
                   height={36}
-                  className="rounded-full border border-black/8"
+                  className="rounded-full border border-line/8"
                   unoptimized
                 />
                 <div>
-                  <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#96602F] transition-colors">{cmp.author.name}</p>
-                  <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
+                  <p className="text-sm font-medium text-ink group-hover:text-brand-ink transition-colors">{cmp.author.name}</p>
+                  <p className="text-xs text-ink-soft/60">Contributor profile →</p>
                 </div>
               </Link>
 
@@ -143,18 +143,18 @@ export default async function ComparisonPage({ params }: Props) {
             />
           </article>
 
-          <div className="mt-16 pt-8 border-t border-black/8">
-            <p className="text-[#6B6862] text-sm mb-4">Hungry yet? Find your next bowl near you.</p>
+          <div className="mt-16 pt-8 border-t border-line/8">
+            <p className="text-ink-soft text-sm mb-4">Hungry yet? Find your next bowl near you.</p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href={cmp.a.nearMePath}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-none bg-[#B57F50] text-white font-medium text-sm hover:bg-[#c8934f] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-none bg-brand text-white font-medium text-sm hover:bg-brand-hi transition-colors"
               >
                 {cmp.a.name} Ramen Near Me →
               </Link>
               <Link
                 href={cmp.b.nearMePath}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-none bg-[#1E2026] text-white font-medium text-sm hover:bg-black transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-none bg-contrast text-white font-medium text-sm hover:bg-contrast-hi transition-colors"
               >
                 {cmp.b.name} Ramen Near Me →
               </Link>

@@ -9,7 +9,7 @@ import ContactForm from './contact-form'
 // 'use client' page imports Navbar/Footer directly.
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <ContactForm />
       <Footer />

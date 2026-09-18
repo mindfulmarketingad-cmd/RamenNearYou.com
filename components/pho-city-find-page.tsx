@@ -68,7 +68,7 @@ export default function PhoCityFindPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
 
         <PseoListicle
@@ -88,58 +88,58 @@ export default function PhoCityFindPage({
           mapSlot={mapSlot}
         />
 
-        <div className="relative z-10 bg-white">
+        <div className="relative z-10 bg-surface">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
             {/* SEO content */}
             {sections.map((s, i) => (
               <div key={s.id} className={i > 0 ? 'mt-8' : ''}>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">{s.heading}</h2>
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">{s.heading}</h2>
                 {s.paragraphs.map((html, j) => (
-                  <p key={j} className="text-[#6B6862] text-sm leading-relaxed mb-3.5" dangerouslySetInnerHTML={{ __html: html }} />
+                  <p key={j} className="text-ink-soft text-sm leading-relaxed mb-3.5" dangerouslySetInnerHTML={{ __html: html }} />
                 ))}
               </div>
             ))}
 
-            <p className="text-[#6B6862] text-sm leading-relaxed mt-8 mb-8">
+            <p className="text-ink-soft text-sm leading-relaxed mt-8 mb-8">
               Ready to look outside {cityName}? Browse{' '}
-              <Link href={ramenCityHref} className="text-[#96602F] hover:underline">
+              <Link href={ramenCityHref} className="text-brand-ink hover:underline">
                 ramen restaurants in {cityName}, {stateCode}
               </Link>{' '}
               or every{' '}
-              <Link href={`/${stateSlug}`} className="text-[#96602F] hover:underline">
+              <Link href={`/${stateSlug}`} className="text-brand-ink hover:underline">
                 ramen restaurant in {stateName}
               </Link>.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
+            <h2 className="font-serif text-xl font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
               {faqs.map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                     {q}
-                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                  <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
                 </details>
               ))}
             </div>
 
-            <div className="mt-10 pt-8 border-t border-black/8">
-              <p className="text-xs text-[#6B6862]">
+            <div className="mt-10 pt-8 border-t border-line/8">
+              <p className="text-xs text-ink-soft">
                 Also browsing:{' '}
-                <Link href={ramenCityHref} className="hover:text-[#96602F] underline">
+                <Link href={ramenCityHref} className="hover:text-brand-ink underline">
                   Ramen in {cityName}, {stateCode}
                 </Link>
                 {' · '}
-                <Link href={`/${stateSlug}`} className="hover:text-[#96602F] underline">
+                <Link href={`/${stateSlug}`} className="hover:text-brand-ink underline">
                   Ramen in {stateName}
                 </Link>
                 {' · '}
-                <Link href="/find/pho-restaurants" className="hover:text-[#96602F] underline">Pho Restaurants Near Me</Link>
+                <Link href="/find/pho-restaurants" className="hover:text-brand-ink underline">Pho Restaurants Near Me</Link>
                 {' · '}
-                <Link href="/partners" className="hover:text-[#96602F] underline">Partners Directory</Link>
+                <Link href="/partners" className="hover:text-brand-ink underline">Partners Directory</Link>
               </p>
             </div>
           </section>

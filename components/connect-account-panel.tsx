@@ -38,27 +38,27 @@ export default function ConnectAccountPanel({ slug, restaurantName }: Props) {
 
   if (status === 'success') {
     return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+      <div className="rounded-2xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-5">
         <div className="flex items-center gap-2 mb-2">
-          <BadgeCheck className="w-5 h-5 text-emerald-600" />
-          <p className="font-bold text-emerald-800 text-sm">Account connected!</p>
+          <BadgeCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+          <p className="font-bold text-emerald-800 dark:text-emerald-300 text-sm">Account connected!</p>
         </div>
-        <p className="text-emerald-700 text-xs">Reloading your listing…</p>
+        <p className="text-emerald-700 dark:text-emerald-300 text-xs">Reloading your listing…</p>
       </div>
     )
   }
 
   return (
-    <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 space-y-3">
+    <div className="rounded-2xl border border-sky-200 dark:border-sky-500/30 bg-sky-50 dark:bg-sky-500/10 p-5 space-y-3">
       <div className="flex items-center gap-2">
         <BadgeCheck className="w-5 h-5 text-sky-500" />
-        <p className="font-bold text-[#1E2026] text-sm">Connect your owner account</p>
+        <p className="font-bold text-ink text-sm">Connect your owner account</p>
       </div>
-      <p className="text-[#6B6862] text-xs leading-relaxed">
+      <p className="text-ink-soft text-xs leading-relaxed">
         Your email matches the approved claim for <strong>{restaurantName}</strong>. Connect your account to start editing your listing.
       </p>
       {status === 'error' && (
-        <p className="text-red-600 text-xs">{errorMsg}</p>
+        <p className="text-red-600 dark:text-red-400 text-xs">{errorMsg}</p>
       )}
       <button
         onClick={handleConnect}

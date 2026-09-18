@@ -239,24 +239,24 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
   const progress = phase === 'results' ? 100 : ((step + (phase === 'loading' ? 1 : 0)) / total) * 100
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col bg-[#F5F4F0]">
+    <div className="fixed inset-0 z-[100] flex flex-col bg-sunken">
       {/* Top bar */}
-      <div className="shrink-0 border-b border-black/8 bg-white">
+      <div className="shrink-0 border-b border-line/8 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           <button
             onClick={back}
-            className="inline-flex items-center gap-1 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
+            className="inline-flex items-center gap-1 text-sm text-ink-soft hover:text-ink transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             Back
           </button>
-          <span className="font-serif font-bold text-[#1E2026] text-sm">Find Ramen</span>
-          <button onClick={onClose} aria-label="Close" className="p-1.5 rounded-lg text-[#6B6862] hover:bg-black/5 transition-colors">
+          <span className="font-serif font-bold text-ink text-sm">Find Ramen</span>
+          <button onClick={onClose} aria-label="Close" className="p-1.5 rounded-lg text-ink-soft hover:bg-black/5 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
         <div className="h-0.5 bg-black/5">
-          <div className="h-full bg-[#B57F50] transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-brand transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
@@ -270,10 +270,10 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
               className="transition-all duration-200 ease-out"
               style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)' }}
             >
-              <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-3">
                 {step + 1} / {total}
               </p>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-7">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-7">
                 {current.question}
               </h2>
 
@@ -285,15 +285,15 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                       <button
                         key={c.label}
                         onClick={() => selectChoice(c.value)}
-                        className={`flex items-start text-left px-5 py-4 rounded-none border bg-white transition-all duration-150 hover:shadow-sm ${
+                        className={`flex items-start text-left px-5 py-4 rounded-none border bg-surface transition-all duration-150 hover:shadow-sm ${
                           selected
-                            ? 'border-[#B57F50] ring-2 ring-[#B57F50]/20 shadow-sm'
-                            : 'border-black/8 hover:border-[#B57F50]/40'
+                            ? 'border-brand ring-2 ring-brand/20 shadow-sm'
+                            : 'border-line/8 hover:border-brand/40'
                         }`}
                       >
                         <span className="min-w-0">
-                          <span className="block font-semibold text-[#1E2026] text-sm">{c.label}</span>
-                          {c.sublabel && <span className="block text-[#6B6862] text-xs mt-0.5">{c.sublabel}</span>}
+                          <span className="block font-semibold text-ink text-sm">{c.label}</span>
+                          {c.sublabel && <span className="block text-ink-soft text-xs mt-0.5">{c.sublabel}</span>}
                         </span>
                       </button>
                     )
@@ -304,8 +304,8 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
               {current.kind === 'zip' && (
                 <div className="max-w-sm">
                   <form onSubmit={(e) => { e.preventDefault(); submitZip() }}>
-                    <div className="flex items-center bg-white rounded-xl border border-black/10 overflow-hidden focus-within:border-[#B57F50] focus-within:ring-2 focus-within:ring-[#B57F50]/20 transition-all">
-                      <MapPin className="w-4 h-4 text-[#96602F] shrink-0 ml-4" />
+                    <div className="flex items-center bg-surface rounded-xl border border-line/10 overflow-hidden focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20 transition-all">
+                      <MapPin className="w-4 h-4 text-brand-ink shrink-0 ml-4" />
                       <input
                         type="text"
                         inputMode="numeric"
@@ -314,12 +314,12 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                         placeholder="Enter ZIP code"
                         value={zip}
                         onChange={(e) => { setZip(e.target.value.replace(/\D/g, '')); setErrorMsg('') }}
-                        className="flex-1 px-3 py-3.5 text-[#1E2026] text-sm font-medium outline-none bg-transparent placeholder:text-[#6B6862]"
+                        className="flex-1 px-3 py-3.5 text-ink text-sm font-medium outline-none bg-transparent placeholder:text-ink-soft"
                       />
                       <button
                         type="submit"
                         disabled={zip.length !== 5}
-                        className="flex items-center gap-1.5 px-5 py-3.5 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors shrink-0"
+                        className="flex items-center gap-1.5 px-5 py-3.5 bg-brand hover:bg-brand-hi disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors shrink-0"
                       >
                         <Search className="w-3.5 h-3.5" />
                         Search
@@ -328,7 +328,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                   </form>
                   <button
                     onClick={useMyLocation}
-                    className="mt-3 inline-flex items-center gap-1.5 text-sm text-[#96602F] hover:text-[#c8934f] font-medium transition-colors"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-ink hover:text-brand-hi font-medium transition-colors"
                   >
                     <Navigation className="w-3.5 h-3.5" />
                     Use my current location
@@ -343,19 +343,19 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
           {/* ── Loading ── */}
           {phase === 'loading' && (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <Loader2 className="w-9 h-9 text-[#96602F] animate-spin mb-4" />
-              <p className="font-serif text-xl font-bold text-[#1E2026] mb-1">Finding your ramen</p>
-              <p className="text-[#6B6862] text-sm">Searching nearby spots...</p>
+              <Loader2 className="w-9 h-9 text-brand-ink animate-spin mb-4" />
+              <p className="font-serif text-xl font-bold text-ink mb-1">Finding your ramen</p>
+              <p className="text-ink-soft text-sm">Searching nearby spots...</p>
             </div>
           )}
 
           {/* ── Error ── */}
           {phase === 'error' && (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <p className="font-serif text-xl font-bold text-[#1E2026] mb-4">{errorMsg}</p>
+              <p className="font-serif text-xl font-bold text-ink mb-4">{errorMsg}</p>
               <button
                 onClick={restart}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
                 Start over
@@ -366,8 +366,8 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
           {/* ── Results ── */}
           {phase === 'results' && (
             <div>
-              <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">Your matches</p>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
+              <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-2">Your matches</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-6">
                 {results.length > 0
                   ? `${results.length} spot${results.length === 1 ? '' : 's'} near ${answers.zip || 'you'}`
                   : 'No exact matches found'}
@@ -381,10 +381,10 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-[#6B6862] mb-4">Try widening your distance or choosing a different broth type.</p>
+                  <p className="text-ink-soft mb-4">Try widening your distance or choosing a different broth type.</p>
                   <button
                     onClick={restart}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
                   >
                     <RotateCcw className="w-4 h-4" />
                     Start over
@@ -393,10 +393,10 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
               )}
 
               {results.length > 0 && (
-                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-black/8">
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-line/8">
                   <button
                     onClick={restart}
-                    className="inline-flex items-center gap-1.5 text-sm text-[#6B6862] hover:text-[#1E2026] font-medium transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm text-ink-soft hover:text-ink font-medium transition-colors"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     Retake the quiz
@@ -404,7 +404,7 @@ export default function RamenQuiz({ onClose }: { onClose: () => void }) {
                   <Link
                     href={`/searchmap${answers.zip ? `?zip=${answers.zip}` : ''}`}
                     onClick={onClose}
-                    className="inline-flex items-center gap-1.5 text-sm text-[#6B6862] hover:text-[#1E2026] font-medium transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm text-ink-soft hover:text-ink font-medium transition-colors"
                   >
                     <MapPin className="w-3.5 h-3.5" />
                     See all on the map
@@ -431,9 +431,9 @@ function getOrderUrl(r: QuizResult): string | null {
 function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }) {
   const orderUrl = getOrderUrl(r)
   return (
-    <div className="flex flex-col bg-white rounded-2xl border border-black/8 overflow-hidden">
+    <div className="flex flex-col bg-surface rounded-2xl border border-line/8 overflow-hidden">
       {/* Photo */}
-      <div className="relative h-40 bg-[#F5F4F0] shrink-0">
+      <div className="relative h-40 bg-sunken shrink-0">
         {safePhotoSrc(r.photo) ? (
           <Image
             src={safePhotoSrc(r.photo)!}
@@ -445,14 +445,14 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Utensils className="w-8 h-8 text-[#96602F]/30" />
+            <Utensils className="w-8 h-8 text-brand-ink/30" />
           </div>
         )}
-        <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#1E2026] shadow-sm">
+        <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-surface/90 backdrop-blur-sm text-[10px] font-semibold text-ink shadow-sm">
           {r.distanceMiles < 1 ? 'Under 1 mi' : `${r.distanceMiles.toFixed(1)} mi`}
         </div>
         {r.priceRange && (
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#6B6862] shadow-sm">
+          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-surface/90 backdrop-blur-sm text-[10px] font-semibold text-ink-soft shadow-sm">
             {r.priceRange}
           </div>
         )}
@@ -460,13 +460,13 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
 
       {/* Info */}
       <div className="p-4 flex flex-col flex-1 gap-1">
-        <p className="font-semibold text-[#1E2026] text-sm leading-snug line-clamp-1">{r.name}</p>
-        <p className="text-[#6B6862] text-xs">{r.city}, {r.stateCode}</p>
+        <p className="font-semibold text-ink text-sm leading-snug line-clamp-1">{r.name}</p>
+        <p className="text-ink-soft text-xs">{r.city}, {r.stateCode}</p>
         {r.rating != null && r.rating > 0 && (
           <div className="flex items-center gap-1.5">
             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-            <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#6B6862] text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
+            <span className="text-ink text-xs font-semibold">{r.rating.toFixed(1)}</span>
+            <span className="text-ink-soft text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
       </div>
@@ -476,7 +476,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
         <Link
           href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
           onClick={onNavigate}
-          className="flex-1 text-center py-2 rounded-lg border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+          className="flex-1 text-center py-2 rounded-lg border border-line/10 text-ink text-xs font-semibold hover:border-brand/50 hover:text-brand-ink transition-colors"
         >
           View details
         </Link>
@@ -485,7 +485,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
             href={orderUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-brand hover:bg-brand-hi text-white text-xs font-semibold transition-colors"
           >
             <ExternalLink className="w-3 h-3" />
             Order now
@@ -494,7 +494,7 @@ function ResultCard({ r, onNavigate }: { r: QuizResult; onNavigate: () => void }
           <Link
             href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
             onClick={onNavigate}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none bg-brand hover:bg-brand-hi text-white text-xs font-semibold transition-colors"
           >
             Order now
           </Link>

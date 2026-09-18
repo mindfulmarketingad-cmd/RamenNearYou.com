@@ -27,13 +27,13 @@ export default function OpenNowBadge({
 
   if (variant === 'pill') {
     return (
-      <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${open ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+      <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${open ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-500/10' : 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10'}`}>
         {open ? 'Open' : 'Closed'}
       </span>
     )
   }
   return (
-    <span className={`font-semibold ${open ? 'text-emerald-600' : 'text-red-500'}`}>
+    <span className={`font-semibold ${open ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
       · {open ? 'Open now' : 'Closed'}
     </span>
   )

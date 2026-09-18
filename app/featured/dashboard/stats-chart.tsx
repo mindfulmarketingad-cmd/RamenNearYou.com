@@ -54,7 +54,7 @@ export default function StatsChart({ listingId, restaurantName }: { listingId: s
 
   if (error || !stats) {
     return (
-      <div className="p-6 rounded-xl bg-[#F5F4F0] border border-black/8 text-center text-[#6B6862] text-sm">
+      <div className="p-6 rounded-xl bg-sunken border border-line/8 text-center text-ink-soft text-sm">
         Could not load analytics. Make sure the <code className="text-xs bg-black/8 px-1 rounded">listing_analytics</code> table exists in Supabase.
       </div>
     )
@@ -68,8 +68,8 @@ export default function StatsChart({ listingId, restaurantName }: { listingId: s
       label: 'Total Views',
       value: stats.totalViews.toLocaleString(),
       icon: Eye,
-      color: 'text-[#96602F]',
-      bg: 'bg-[#B57F50]/10',
+      color: 'text-brand-ink',
+      bg: 'bg-brand/10',
     },
     {
       label: 'Total Clicks',
@@ -112,56 +112,56 @@ export default function StatsChart({ listingId, restaurantName }: { listingId: s
     <div className="space-y-8">
       {/* Listing header */}
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center shrink-0">
-          <Crown className="w-4 h-4 text-[#96602F]" />
+        <div className="w-9 h-9 rounded-lg bg-brand/15 flex items-center justify-center shrink-0">
+          <Crown className="w-4 h-4 text-brand-ink" />
         </div>
         <div>
-          <p className="text-[#1E2026] font-semibold">{restaurantName}</p>
-          <p className="text-[#6B6862] text-xs">Featured listing · analytics</p>
+          <p className="text-ink font-semibold">{restaurantName}</p>
+          <p className="text-ink-soft text-xs">Featured listing · analytics</p>
         </div>
       </div>
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {statCards.map(({ label, value, icon: Icon, color, bg }) => (
-          <div key={label} className="bg-[#F5F4F0] border border-black/5 rounded-xl p-4">
+          <div key={label} className="bg-sunken border border-line/5 rounded-xl p-4">
             <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center mb-3`}>
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
-            <p className="text-[#1E2026] text-2xl font-bold">{value}</p>
-            <p className="text-[#6B6862] text-xs mt-0.5">{label}</p>
+            <p className="text-ink text-2xl font-bold">{value}</p>
+            <p className="text-ink-soft text-xs mt-0.5">{label}</p>
           </div>
         ))}
       </div>
 
       {/* 14-day view bar chart */}
-      <div className="bg-[#F5F4F0] border border-black/5 rounded-xl p-5">
-        <p className="text-[#1E2026] text-sm font-semibold mb-1">Daily Views — Last 14 Days</p>
-        <p className="text-[#6B6862] text-xs mb-5">Each bar = one day</p>
+      <div className="bg-sunken border border-line/5 rounded-xl p-5">
+        <p className="text-ink text-sm font-semibold mb-1">Daily Views — Last 14 Days</p>
+        <p className="text-ink-soft text-xs mb-5">Each bar = one day</p>
         <div className="flex items-end gap-1" style={{ height: 60 }}>
           {last14.map((d) => (
             <div key={d.date} className="flex-1 flex flex-col items-center gap-1 group relative">
               <MiniBar value={d.views} max={maxViews} color="#B57F50" />
               {/* Tooltip on hover */}
-              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 bg-[#1E2026] text-white text-[10px] rounded px-2 py-1 whitespace-nowrap pointer-events-none">
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 bg-contrast text-white text-[10px] rounded px-2 py-1 whitespace-nowrap pointer-events-none">
                 {d.date.slice(5)}: {d.views}v {d.clicks}c
               </div>
             </div>
           ))}
         </div>
         <div className="flex justify-between mt-2">
-          <span className="text-[#6B6862]/50 text-[10px]">{last14[0]?.date.slice(5)}</span>
-          <span className="text-[#6B6862]/50 text-[10px]">{last14[last14.length - 1]?.date.slice(5)}</span>
+          <span className="text-ink-soft/50 text-[10px]">{last14[0]?.date.slice(5)}</span>
+          <span className="text-ink-soft/50 text-[10px]">{last14[last14.length - 1]?.date.slice(5)}</span>
         </div>
-        <div className="flex items-center gap-4 mt-4 pt-4 border-t border-black/5">
-          <span className="flex items-center gap-1.5 text-xs text-[#6B6862]">
-            <span className="inline-block w-3 h-2 rounded-sm bg-[#B57F50]" /> Views
+        <div className="flex items-center gap-4 mt-4 pt-4 border-t border-line/5">
+          <span className="flex items-center gap-1.5 text-xs text-ink-soft">
+            <span className="inline-block w-3 h-2 rounded-sm bg-brand" /> Views
           </span>
         </div>
       </div>
 
       {stats.totalViews === 0 && (
-        <div className="text-center py-4 text-[#6B6862] text-sm">
+        <div className="text-center py-4 text-ink-soft text-sm">
           No views recorded yet — data will appear once visitors see your featured listing.
         </div>
       )}

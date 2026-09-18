@@ -10,7 +10,7 @@ interface Props {
 }
 
 const DEFAULT_BUTTON_CLASS =
-  'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:border-[#B57F50] hover:text-[#96602F] transition-colors'
+  'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-line/10 text-ink text-sm font-medium hover:border-brand hover:text-brand-ink transition-colors'
 
 export default function ShareButton({ url, title, className }: Props) {
   const [open, setOpen] = useState(false)
@@ -70,16 +70,16 @@ export default function ShareButton({ url, title, className }: Props) {
 
       {open && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div ref={modalRef} className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
+          <div ref={modalRef} className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
             <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors"
             >
-              <X className="w-4 h-4 text-[#1E2026]" />
+              <X className="w-4 h-4 text-ink" />
             </button>
 
-            <p className="font-bold text-[#96602F] text-xl mb-1">Share This</p>
-            <p className="text-[#6B6862] text-sm mb-6">Share this page with your family and friends</p>
+            <p className="font-bold text-brand-ink text-xl mb-1">Share This</p>
+            <p className="text-ink-soft text-sm mb-6">Share this page with your family and friends</p>
 
             <div className="flex flex-col gap-3">
               {/* Facebook */}
@@ -116,17 +116,17 @@ export default function ShareButton({ url, title, className }: Props) {
 
               <div className="flex items-center gap-3 my-1">
                 <div className="flex-1 h-px bg-black/10" />
-                <span className="text-[#6B6862] text-xs">Or</span>
+                <span className="text-ink-soft text-xs">Or</span>
                 <div className="flex-1 h-px bg-black/10" />
               </div>
 
               {/* Copy Link */}
               <button
                 onClick={copyLink}
-                className="flex items-center justify-center gap-3 w-full px-5 py-3 rounded-none bg-white border border-black/10 hover:border-[#B57F50] text-[#1E2026] text-sm font-medium transition-colors"
+                className="flex items-center justify-center gap-3 w-full px-5 py-3 rounded-none bg-surface border border-line/10 hover:border-brand text-ink text-sm font-medium transition-colors"
               >
                 {copied ? (
-                  <><Check className="w-4 h-4 text-green-500" /><span className="text-green-600">Copied!</span></>
+                  <><Check className="w-4 h-4 text-green-500" /><span className="text-green-600 dark:text-green-400">Copied!</span></>
                 ) : (
                   <><Copy className="w-4 h-4" />Copy Link</>
                 )}

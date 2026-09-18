@@ -155,7 +155,7 @@ export default function PersonalFeed() {
 
   if (!resolved) {
     return (
-      <div className="flex items-center justify-center gap-2 py-24 text-sm text-[#6B6862]">
+      <div className="flex items-center justify-center gap-2 py-24 text-sm text-ink-soft">
         <Loader2 className="w-4 h-4 animate-spin" /> Loading your feed…
       </div>
     )
@@ -170,12 +170,12 @@ export default function PersonalFeed() {
   return (
     <>
       {/* ZIP manager */}
-      <div className="bg-white border border-black/8 rounded-2xl p-4 mb-5">
+      <div className="bg-surface border border-line/8 rounded-2xl p-4 mb-5">
         <div className="flex items-center gap-2 mb-2.5">
-          <MapPin className="w-4 h-4 text-[#96602F]" />
-          <h2 className="font-bold text-sm text-[#1E2026]">Your ZIP codes</h2>
+          <MapPin className="w-4 h-4 text-brand-ink" />
+          <h2 className="font-bold text-sm text-ink">Your ZIP codes</h2>
           {zips.length > 0 && (
-            <span className="text-xs text-[#6B6862]">
+            <span className="text-xs text-ink-soft">
               {total.toLocaleString()} {total === 1 ? 'spot' : 'spots'} in your feed
             </span>
           )}
@@ -188,33 +188,33 @@ export default function PersonalFeed() {
             inputMode="numeric"
             placeholder="Add a ZIP code…"
             aria-label="Add a ZIP code to your feed"
-            className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-black/10 bg-white text-sm text-[#1E2026] placeholder-[#9B9490] outline-none focus:border-[#B57F50] tabular-nums"
+            className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-line/10 bg-surface text-sm text-ink placeholder-ink-faint outline-none focus:border-brand tabular-nums"
           />
           <button
             type="submit"
             disabled={adding}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1E2026] hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-contrast hover:bg-contrast-hi text-white text-sm font-semibold transition-colors disabled:opacity-60"
           >
             {adding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
             Follow
           </button>
         </form>
-        {zipError && <p className="text-xs text-red-600 mt-1.5">{zipError}</p>}
+        {zipError && <p className="text-xs text-red-600 dark:text-red-400 mt-1.5">{zipError}</p>}
 
         {zips.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-3">
             {zips.map((z) => (
               <span
                 key={z.zip}
-                className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/30 text-xs font-semibold text-[#96602F]"
+                className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full bg-brand/10 border border-brand/30 text-xs font-semibold text-brand-ink"
               >
                 <span className="tabular-nums">{z.zip}</span>
-                {z.label && <span className="font-normal text-[#6B6862]">{z.label}</span>}
+                {z.label && <span className="font-normal text-ink-soft">{z.label}</span>}
                 <button
                   type="button"
                   onClick={() => removeZip(z.zip)}
                   aria-label={`Stop following ${z.zip}`}
-                  className="inline-flex items-center justify-center w-4 h-4 rounded-full hover:bg-[#B57F50]/25 transition-colors"
+                  className="inline-flex items-center justify-center w-4 h-4 rounded-full hover:bg-brand/25 transition-colors"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -226,10 +226,10 @@ export default function PersonalFeed() {
 
       {/* Empty state — no ZIPs followed yet */}
       {zipsLoaded && zips.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-black/12 bg-[#FAFAF9] px-4 py-14 text-center">
-          <Rss className="w-6 h-6 text-[#B57F50] mx-auto mb-3" />
-          <p className="font-serif text-lg font-bold text-[#1E2026]">Your feed is empty</p>
-          <p className="text-sm text-[#6B6862] mt-1.5 max-w-sm mx-auto leading-relaxed">
+        <div className="rounded-2xl border border-dashed border-line/12 bg-raised px-4 py-14 text-center">
+          <Rss className="w-6 h-6 text-brand mx-auto mb-3" />
+          <p className="font-serif text-lg font-bold text-ink">Your feed is empty</p>
+          <p className="text-sm text-ink-soft mt-1.5 max-w-sm mx-auto leading-relaxed">
             Follow a ZIP code above and every ramen shop in it lands here. Add your
             neighbourhood, your office, and anywhere you travel often.
           </p>
@@ -254,13 +254,13 @@ export default function PersonalFeed() {
       <div ref={sentinelRef} className="h-px" aria-hidden="true" />
 
       {loading && (
-        <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#6B6862]">
+        <div className="flex items-center justify-center gap-2 py-8 text-sm text-ink-soft">
           <Loader2 className="w-4 h-4 animate-spin" /> Loading more…
         </div>
       )}
 
       {firstLoadDone && !loading && nextOffset === null && posts.length > 0 && (
-        <p className="text-center text-xs text-[#6B6862] py-8">
+        <p className="text-center text-xs text-ink-soft py-8">
           That&apos;s every ramen spot in your ZIP codes. Follow another to see more.
         </p>
       )}
@@ -270,19 +270,19 @@ export default function PersonalFeed() {
 
 function FeedUpsell({ needsAccount }: { needsAccount: boolean }) {
   return (
-    <div className="bg-white border border-black/8 rounded-2xl p-7 sm:p-9 text-center">
-      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#B57F50]/20 to-[#B57F50]/5 flex items-center justify-center mx-auto mb-4">
-        <Lock className="w-6 h-6 text-[#96602F]" />
+    <div className="bg-surface border border-line/8 rounded-2xl p-7 sm:p-9 text-center">
+      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-brand/20 to-brand/5 flex items-center justify-center mx-auto mb-4">
+        <Lock className="w-6 h-6 text-brand-ink" />
       </div>
 
-      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/25 text-[#96602F] text-xs font-semibold mb-3">
+      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/10 border border-brand/25 text-brand-ink text-xs font-semibold mb-3">
         RamenNearYou+ — $2.99/month
       </div>
 
-      <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
+      <h2 className="font-serif text-2xl font-bold text-ink mb-2">
         Your own ramen feed
       </h2>
-      <p className="text-[#6B6862] text-sm leading-relaxed mb-5 max-w-md mx-auto">
+      <p className="text-ink-soft text-sm leading-relaxed mb-5 max-w-md mx-auto">
         Follow the ZIP codes you actually eat in and scroll every ramen shop in them —
         your neighbourhood, your office, anywhere you travel.
       </p>
@@ -294,7 +294,7 @@ function FeedUpsell({ needsAccount }: { needsAccount: boolean }) {
           'Vote, save and get directions without leaving the feed',
           'All map and feed filters unlocked too',
         ].map((item) => (
-          <li key={item} className="flex items-start gap-2 text-sm text-[#1E2026]">
+          <li key={item} className="flex items-start gap-2 text-sm text-ink">
             <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
             {item}
           </li>
@@ -306,13 +306,13 @@ function FeedUpsell({ needsAccount }: { needsAccount: boolean }) {
           <>
             <Link
               href="/auth/signup?redirectTo=%2Ffeed"
-              className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+              className="w-full px-5 py-3 rounded-xl bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
             >
               Create a free account
             </Link>
             <Link
               href="/auth/login?redirectTo=%2Ffeed"
-              className="w-full px-5 py-3 rounded-xl bg-white border border-black/10 text-[#1E2026] hover:border-black/20 text-sm font-semibold transition-colors"
+              className="w-full px-5 py-3 rounded-xl bg-surface border border-line/10 text-ink hover:border-line/20 text-sm font-semibold transition-colors"
             >
               I already have an account
             </Link>
@@ -320,12 +320,12 @@ function FeedUpsell({ needsAccount }: { needsAccount: boolean }) {
         ) : (
           <a
             href={STRIPE_LINK}
-            className="w-full px-5 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
           >
             Subscribe — $2.99/month
           </a>
         )}
-        <Link href="/" className="text-xs font-semibold text-[#6B6862] hover:text-[#1E2026] pt-1">
+        <Link href="/" className="text-xs font-semibold text-ink-soft hover:text-ink pt-1">
           Browse ramen near you instead →
         </Link>
       </div>

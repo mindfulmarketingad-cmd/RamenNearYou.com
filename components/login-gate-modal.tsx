@@ -31,30 +31,30 @@ export default function LoginGateModal({
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 outline-none"
+        className="relative w-full max-w-sm bg-surface rounded-2xl shadow-xl p-6 outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 p-1 text-[#6B6862] hover:text-[#1E2026] transition-colors"
+          className="absolute top-3 right-3 p-1 text-ink-soft hover:text-ink transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
-        <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-2">Sign in to continue</h2>
-        <p className="text-sm text-[#6B6862] mb-5">
+        <h2 className="font-serif text-xl font-bold text-ink mb-2">Sign in to continue</h2>
+        <p className="text-sm text-ink-soft mb-5">
           Create a free account or sign in to get directions, call, save restaurants, and more.
         </p>
         <div className="flex flex-col gap-2">
           <button
             onClick={() => router.push(`/auth/login?redirectTo=${encodeURIComponent(redirectTo)}`)}
-            className="w-full px-4 py-2.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+            className="w-full px-4 py-2.5 rounded-full bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
           >
             Sign In
           </button>
           <button
             onClick={onClose}
-            className="w-full px-4 py-2.5 rounded-full text-[#6B6862] text-sm font-medium hover:bg-black/5 transition-colors"
+            className="w-full px-4 py-2.5 rounded-full text-ink-soft text-sm font-medium hover:bg-black/5 transition-colors"
           >
             Not now
           </button>

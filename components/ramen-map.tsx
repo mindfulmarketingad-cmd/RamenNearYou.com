@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { PHO_PIN_HEX, mapPointHref, type MatchedChip } from '@/lib/ramen-taxonomy'
@@ -204,6 +205,9 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   const overlayLayersRef = useRef<L.TileLayer[]>([])
   const [ready, setReady] = useState(false)
   const [view, setView] = useState<'standard' | 'satellite'>('standard')
+  // resolvedTheme rather than theme, so "system" resolves to a real value.
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   // Inject bounce CSS once
   useEffect(() => {
@@ -262,6 +266,11 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
   // Base map style — standard (OpenStreetMap) or satellite (Esri World Imagery
   // with a street/place-name label overlay so the hybrid view stays readable).
   // All sources are free and need no API key.
+  //
+  // In dark mode the standard layer swaps to CARTO's dark basemap. Leaving the
+  // bright OSM tiles in place would put a glowing white rectangle in the
+  // middle of a dark page — the map is the homepage hero, so it has to follow
+  // the theme. Satellite imagery is photography and stays as-is.
   useEffect(() => {
     if (!ready || !mapRef.current) return
     const map = mapRef.current
@@ -280,6 +289,15 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map),
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map),
       ]
+    } else if (isDark) {
+      baseLayerRef.current = L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 19,
+        },
+      ).addTo(map)
     } else {
       baseLayerRef.current = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -289,7 +307,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
     // Keep the base/overlays beneath markers and the boundary.
     baseLayerRef.current.setZIndex(0)
     overlayLayersRef.current.forEach(l => l.setZIndex(1))
-  }, [ready, view])
+  }, [ready, view, isDark])
 
   // Fly to geocoded location when centerLatLng changes
   useEffect(() => {
@@ -385,8 +403,8 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           .bindPopup(`
             <div style="min-width:160px">
               ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
-              <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:#1E2026;text-decoration:none;cursor:pointer" onmouseover="this.style.color='#B57F50'" onmouseout="this.style.color='#1E2026'">${r.name}</a><br/>
-              <span style="font-size:11px;color:#888">${r.city}, ${r.stateCode}</span>
+              <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;cursor:pointer" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='var(--ink)'">${r.name}</a><br/>
+              <span style="font-size:11px;color:var(--ink-soft)">${r.city}, ${r.stateCode}</span>
               ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}
               ${chipsHtml}
             </div>
@@ -530,7 +548,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
           type="button"
           onClick={() => setView(v => (v === 'standard' ? 'satellite' : 'standard'))}
           aria-pressed={view === 'satellite'}
-          className="absolute bottom-5 left-3 z-[1000] flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/95 hover:bg-white text-[#1E2026] text-xs font-semibold shadow-md border border-black/10 transition-colors"
+          className="absolute bottom-5 left-3 z-[1000] flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface/95 hover:bg-surface text-ink text-xs font-semibold shadow-md border border-line/10 transition-colors"
         >
           {view === 'standard' ? '🛰️ Satellite' : '🗺️ Standard'}
         </button>
@@ -550,7 +568,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
             }
           }}
           aria-label="Center map on my location"
-          className="absolute bottom-5 right-3 z-[1000] flex items-center justify-center w-11 h-11 rounded-full bg-white/95 hover:bg-white text-[#1E2026] shadow-md border border-black/10 transition-colors"
+          className="absolute bottom-5 right-3 z-[1000] flex items-center justify-center w-11 h-11 rounded-full bg-surface/95 hover:bg-surface text-ink shadow-md border border-line/10 transition-colors"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="3" />

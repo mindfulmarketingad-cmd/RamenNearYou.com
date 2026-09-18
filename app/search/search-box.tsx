@@ -43,10 +43,10 @@ export default function SearchBox({
       <form onSubmit={submit} role="search" className="w-full">
         <label htmlFor="site-search" className="sr-only">Search ramen restaurants, guides, and reviews</label>
         <div
-          className={`relative flex items-center w-full bg-white border border-black/12 rounded-full shadow-sm
-            focus-within:border-[#B57F50] focus-within:shadow-md transition-all ${hero ? 'h-14' : 'h-11'}`}
+          className={`relative flex items-center w-full bg-surface border border-line/12 rounded-full shadow-sm
+            focus-within:border-brand focus-within:shadow-md transition-all ${hero ? 'h-14' : 'h-11'}`}
         >
-          <Search className={`absolute left-4 text-[#9B9490] pointer-events-none ${hero ? 'w-5 h-5' : 'w-4 h-4'}`} />
+          <Search className={`absolute left-4 text-ink-faint pointer-events-none ${hero ? 'w-5 h-5' : 'w-4 h-4'}`} />
           <input
             id="site-search"
             ref={inputRef}
@@ -57,7 +57,7 @@ export default function SearchBox({
             autoFocus={autoFocus}
             autoComplete="off"
             placeholder={hero ? 'Search ramen — try “best ramen in Phoenix”' : 'Search ramen…'}
-            className={`w-full bg-transparent outline-none text-[#1E2026] placeholder-[#9B9490]
+            className={`w-full bg-transparent outline-none text-ink placeholder-ink-faint
               ${hero ? 'pl-12 pr-28 text-base' : 'pl-10 pr-24 text-sm'}`}
           />
           {q && (
@@ -65,14 +65,14 @@ export default function SearchBox({
               type="button"
               onClick={() => { setQ(''); inputRef.current?.focus() }}
               aria-label="Clear search"
-              className={`absolute text-[#9B9490] hover:text-[#1E2026] transition-colors ${hero ? 'right-24' : 'right-20'}`}
+              className={`absolute text-ink-faint hover:text-ink transition-colors ${hero ? 'right-24' : 'right-20'}`}
             >
               <X className={hero ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
             </button>
           )}
           <button
             type="submit"
-            className={`absolute right-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold
+            className={`absolute right-1.5 rounded-full bg-brand hover:bg-brand-hi text-white font-semibold
               transition-colors ${hero ? 'px-5 py-2.5 text-sm' : 'px-4 py-1.5 text-xs'}`}
           >
             Search
@@ -87,15 +87,15 @@ export default function SearchBox({
               <button
                 key={ex}
                 onClick={() => router.push(`/search?q=${encodeURIComponent(ex)}`)}
-                className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#3F3D39] text-xs
-                  hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                className="px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink-mid text-xs
+                  hover:border-brand/50 hover:text-brand-ink transition-colors"
               >
                 {ex}
               </button>
             ))}
           </div>
-          <p className="flex items-center justify-center gap-1.5 text-[#6B6862] text-xs mt-5">
-            <Navigation className="w-3.5 h-3.5 text-[#96602F]" />
+          <p className="flex items-center justify-center gap-1.5 text-ink-soft text-xs mt-5">
+            <Navigation className="w-3.5 h-3.5 text-brand-ink" />
             Ask for something &ldquo;near me&rdquo; and we&apos;ll sort by distance from your location.
           </p>
         </>

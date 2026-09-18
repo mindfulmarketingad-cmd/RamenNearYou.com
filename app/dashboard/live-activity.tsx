@@ -29,8 +29,8 @@ const DOT: Record<string, string> = {
   directions_click: 'bg-sky-500',
   review_click: 'bg-violet-500',
   search: 'bg-amber-500',
-  listing_view: 'bg-[#B57F50]',
-  pageview: 'bg-[#1E2026]/30',
+  listing_view: 'bg-brand',
+  pageview: 'bg-contrast/30',
 }
 
 function timeAgo(iso: string): string {
@@ -80,19 +80,19 @@ export default function LiveActivity() {
   }, [])
 
   return (
-    <div className="bg-white border border-black/8 rounded-2xl overflow-hidden">
-      <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-black/8">
+    <div className="bg-surface border border-line/8 rounded-2xl overflow-hidden">
+      <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-line/8">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-[#96602F]" />
-          <h2 className="font-serif text-lg font-bold text-[#1E2026]">Live Activity</h2>
+          <Activity className="w-4 h-4 text-brand-ink" />
+          <h2 className="font-serif text-lg font-bold text-ink">Live Activity</h2>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-[#6B6862]">
-            <strong className="text-[#1E2026]">{sinceOpen}</strong> since you opened this page
+          <span className="text-xs text-ink-soft">
+            <strong className="text-ink">{sinceOpen}</strong> since you opened this page
           </span>
           <span
             className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-              connected ? 'bg-emerald-500/10 text-emerald-600' : 'bg-black/5 text-[#6B6862]'
+              connected ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-black/5 text-ink-soft'
             }`}
           >
             <Radio className={`w-3 h-3 ${connected ? 'animate-pulse' : ''}`} />
@@ -103,25 +103,25 @@ export default function LiveActivity() {
 
       <div className="max-h-[420px] overflow-y-auto">
         {rows.length === 0 ? (
-          <p className="px-5 py-10 text-center text-sm text-[#6B6862]">
+          <p className="px-5 py-10 text-center text-sm text-ink-soft">
             Waiting for the next visitor event…
           </p>
         ) : (
-          <ul className="divide-y divide-black/5">
+          <ul className="divide-y divide-line/5">
             {rows.map(r => (
               <li key={r.id} className="flex items-start gap-3 px-5 py-3">
-                <span className={`w-2 h-2 rounded-full shrink-0 mt-1.5 ${DOT[r.event_type] ?? 'bg-[#1E2026]/30'}`} />
+                <span className={`w-2 h-2 rounded-full shrink-0 mt-1.5 ${DOT[r.event_type] ?? 'bg-contrast/30'}`} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-[#1E2026]">
+                  <p className="text-sm font-semibold text-ink">
                     {LABELS[r.event_type] ?? r.event_type}
-                    {r.listing_name && <span className="font-normal text-[#6B6862]"> · {r.listing_name}</span>}
+                    {r.listing_name && <span className="font-normal text-ink-soft"> · {r.listing_name}</span>}
                   </p>
-                  <p className="text-xs text-[#6B6862] truncate">
+                  <p className="text-xs text-ink-soft truncate">
                     {r.query ? `“${r.query}”` : r.path}
                     {r.city ? ` · ${r.city}` : ''}
                   </p>
                 </div>
-                <span className="text-[11px] text-[#9B9490] shrink-0">{timeAgo(r.created_at)}</span>
+                <span className="text-[11px] text-ink-faint shrink-0">{timeAgo(r.created_at)}</span>
               </li>
             ))}
           </ul>

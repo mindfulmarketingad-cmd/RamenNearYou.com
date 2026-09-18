@@ -112,37 +112,37 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
   }
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
+      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-sunken border-b border-line/5">
         <div className="max-w-7xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href={`/${stateSlug}`} className="hover:text-[#1E2026] transition-colors">{stateName}</Link>
+            <Link href={`/${stateSlug}`} className="hover:text-ink transition-colors">{stateName}</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href={`/${citySlug}/${stateSlug}`} className="hover:text-[#1E2026] transition-colors">{cityName}, {stateCode}</Link>
+            <Link href={`/${citySlug}/${stateSlug}`} className="hover:text-ink transition-colors">{cityName}, {stateCode}</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{config.broth}</span>
+            <span className="text-ink">{config.broth}</span>
           </nav>
 
           <div>
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">{config.broth} Ramen</p>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">{config.broth} Ramen</p>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-3">
               {config.broth} Ramen in {cityName}, {stateCode}
             </h1>
-            <p className="text-[#6B6862] text-lg mb-4">{config.tagline.replace('{{city}}', cityName).replace('{{stateCode}}', stateCode)}</p>
+            <p className="text-ink-soft text-lg mb-4">{config.tagline.replace('{{city}}', cityName).replace('{{stateCode}}', stateCode)}</p>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-[#6B6862]/60 text-sm">
+              <span className="text-ink-soft/60 text-sm">
                 {restaurants.length} {config.broth.toLowerCase()} restaurant{restaurants.length !== 1 ? 's' : ''} · {stateName}
               </span>
               <Link
                 href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-xs font-medium transition-colors border border-[#B57F50]/20"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-ink text-xs font-medium transition-colors border border-brand/20"
               >
                 <Map className="w-3.5 h-3.5" />
                 View on Map
@@ -157,7 +157,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
         <div className="max-w-7xl mx-auto">
           <Link
             href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
-            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-semibold text-sm shadow-md shadow-[#B57F50]/25 transition-all duration-200"
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-none bg-brand hover:bg-brand-hi text-white font-semibold text-sm shadow-md shadow-brand/25 transition-all duration-200"
           >
             <Navigation className="w-4 h-4" />
             Find {config.broth} Ramen in {cityName}, {stateCode}
@@ -168,7 +168,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       {/* Listings */}
       <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[#1E2026] font-semibold text-sm mb-2">
+          <p className="text-ink font-semibold text-sm mb-2">
             {restaurants.length} {config.broth.toLowerCase()} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {cityName}, {stateCode}
           </p>
           <BlogScrollMapWrapper
@@ -179,17 +179,17 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       </section>
 
       {/* What is X ramen */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5 bg-[#F5F4F0]">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5 bg-sunken">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
             What Is {config.broth} Ramen?
           </h2>
-          <p className="text-[#6B6862] leading-relaxed mb-6">
+          <p className="text-ink-soft leading-relaxed mb-6">
             {config.whatIs.replace('{{city}}', cityName).replace('{{stateCode}}', stateCode)}
           </p>
           <Link
             href={`/${config.nearMeSlug}`}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-ink hover:text-brand-hi transition-colors"
           >
             Explore {config.broth.toLowerCase()} ramen nationwide
             <ChevronRight className="w-4 h-4" />
@@ -198,13 +198,13 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       </section>
 
       {/* First-person guidance + FAQ (unique per broth + city) */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
             How I find the best {brothLower} ramen in {cityName}
           </h2>
-          <p className="text-[#6B6862] leading-relaxed mb-4">
+          <p className="text-ink-soft leading-relaxed mb-4">
             When I want {brothLower} ramen in {cityName}, I start with the map above — it is focused on{' '}
             {brothLower} bowls and sorts the closest ones to the top once you drop in your ZIP or use your
             location.{' '}
@@ -212,7 +212,7 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
               ? `Right now ${topSpot.name} is one of the highest-rated picks${topSpot.rating ? ` at ${topSpot.rating.toFixed(1)} stars` : ''}, but I still open a couple of listings and read the latest reviews before deciding.`
               : `I open a couple of listings and read the latest reviews and photos before deciding.`}
           </p>
-          <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">My quick checklist</h3>
+          <h3 className="text-ink font-semibold text-base mb-2 mt-6">My quick checklist</h3>
           <ul className="space-y-2.5 mb-4">
             {[
               `Favor shops that specialize in ${brothLower} ramen — focus usually means a better bowl.`,
@@ -220,22 +220,22 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
               'Skim the most recent reviews and photos; the bowl that looks carefully made usually is.',
               'Set your location to sort by distance so you never trade quality for a long drive.',
             ].map((t) => (
-              <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
+              <li key={t} className="flex items-start gap-2.5 text-ink-soft text-sm leading-relaxed">
+                <span className="text-brand-ink shrink-0 mt-0.5">•</span>
                 <span>{t}</span>
               </li>
             ))}
           </ul>
 
-          <h3 className="font-serif text-xl font-bold text-[#1E2026] mb-4 mt-8">Frequently asked questions</h3>
+          <h3 className="font-serif text-xl font-bold text-ink mb-4 mt-8">Frequently asked questions</h3>
           <div className="space-y-4">
             {faqs.map(({ q, a }) => (
-              <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+              <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                   {q}
-                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
               </details>
             ))}
           </div>
@@ -244,24 +244,24 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
 
       {/* Nearby cities */}
       {nearbyCities.length > 0 && (
-        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5">
           <div className="max-w-7xl mx-auto">
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
-            <p className="text-[#1E2026] font-semibold text-lg mb-6">More ramen near {cityName}</p>
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-ink font-semibold text-lg mb-6">More ramen near {cityName}</p>
             <div className="flex flex-wrap gap-3">
               {nearbyCities.map((c) => (
-                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 transition-colors group bg-[#F5F4F0]">
+                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-line/5 hover:border-brand/40 transition-colors group bg-sunken">
                   <Link href={`/${c.citySlug}/${c.stateSlug}`} className="flex items-center gap-2 px-4 py-2.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
                     <span>
-                      <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">{c.city}, {c.stateCode}</span>
-                      <span className="text-[#6B6862]/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
+                      <span className="text-ink text-sm font-medium group-hover:text-brand-ink transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-ink-soft/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
                     </span>
                   </Link>
                   <Link
                     href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
                     title="View on map"
-                    className="flex items-center px-3 border-l border-black/5 text-[#6B6862]/50 hover:text-[#96602F] hover:bg-[#B57F50]/10 transition-colors"
+                    className="flex items-center px-3 border-l border-line/5 text-ink-soft/50 hover:text-brand-ink hover:bg-brand/10 transition-colors"
                   >
                     <Map className="w-3.5 h-3.5" />
                   </Link>
@@ -273,16 +273,16 @@ export default function BrothCityPage({ config, cityName, stateName, stateCode, 
       )}
 
       {/* Back to city */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-black/5">
+      <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-line/5">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">See all ramen in {cityName}</h2>
-          <p className="text-[#6B6862] text-sm mb-5 max-w-xl mx-auto">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-3">See all ramen in {cityName}</h2>
+          <p className="text-ink-soft text-sm mb-5 max-w-xl mx-auto">
             Browse every ramen restaurant in {cityName}, {stateCode} — all styles, all broth types.
           </p>
           <Link
             href={`/${citySlug}/${stateSlug}`}
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
           >
             All ramen in {cityName}, {stateCode} →
           </Link>

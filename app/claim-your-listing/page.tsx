@@ -77,33 +77,33 @@ const CLAIM_FAQS = [
 
 export default function ClaimYourListingPage() {
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
       <div className="max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-20">
         {/* Compact, enticing header — the search form is the first thing on screen */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-3">
-            <span className="text-[#96602F] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 mb-3">
+            <span className="text-brand-ink text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">
             Claim Your Restaurant — $19.99/mo
           </h1>
-          <p className="text-[#6B6862] text-sm leading-relaxed max-w-md mx-auto">
+          <p className="text-ink-soft text-sm leading-relaxed max-w-md mx-auto">
             Thousands of diners use RamenNearYou to decide where to eat tonight.
-            Put <strong className="text-[#1E2026]">your</strong> hours, photos, and menu in front of them —
+            Put <strong className="text-ink">your</strong> hours, photos, and menu in front of them —
             and get found first.
           </p>
 
           {/* Trust chips — reinforce how effortless and low-friction it is */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-semibold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-xs font-semibold">
               <Gift className="w-3.5 h-3.5" /> $19.99/mo
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#1E2026] text-xs font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#96602F]" /> Cancel anytime
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink text-xs font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-ink" /> Cancel anytime
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#1E2026] text-xs font-semibold">
-              <Zap className="w-3.5 h-3.5 text-[#96602F]" /> ~30 seconds
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink text-xs font-semibold">
+              <Zap className="w-3.5 h-3.5 text-brand-ink" /> ~30 seconds
             </span>
           </div>
         </div>
@@ -112,29 +112,29 @@ export default function ClaimYourListingPage() {
 
         {/* Featured upsell — mentioned right after the claim action, framed as
             an optional bonus so it never muddies the "claiming is free" message */}
-        <div className="mt-6 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 to-white p-6 sm:p-8">
+        <div className="mt-6 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 dark:from-amber-500/10 to-white p-6 sm:p-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
               <Crown className="w-3 h-3" /> Optional Upgrade
             </span>
           </div>
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1.5">
+          <h2 className="font-serif text-xl font-bold text-ink mb-1.5">
             Want to be impossible to miss?
           </h2>
-          <p className="text-[#6B6862] text-sm leading-relaxed mb-5">
+          <p className="text-ink-soft text-sm leading-relaxed mb-5">
             Claiming is $19.99/mo. Once you&apos;ve claimed, you can choose to also get{' '}
-            <strong className="text-[#1E2026]">Featured</strong> — a stand-out gold crown pin that puts you at the
+            <strong className="text-ink">Featured</strong> — a stand-out gold crown pin that puts you at the
             very top of the search map on three levels:
           </p>
           <div className="space-y-3 mb-5">
             {FEATURED_SURFACES.map(({ icon: Icon, label, desc }) => (
               <div key={label} className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-amber-600" />
+                  <Icon className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-[#1E2026]">{label}</p>
-                  <p className="text-xs text-[#6B6862] leading-snug">{desc}</p>
+                  <p className="text-sm font-semibold text-ink">{label}</p>
+                  <p className="text-xs text-ink-soft leading-snug">{desc}</p>
                 </div>
               </div>
             ))}
@@ -145,18 +145,18 @@ export default function ClaimYourListingPage() {
           >
             <Crown className="w-4 h-4" /> See Featured plans
           </Link>
-          <p className="text-xs text-[#6B6862]/70 mt-3">
+          <p className="text-xs text-ink-soft/70 mt-3">
             Totally optional — your $19.99/mo claim already gets you everything below.
           </p>
         </div>
 
         {/* What a paid claim gets you */}
-        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-4">What you get for $19.99/mo</h2>
+        <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
+          <h2 className="font-serif text-xl font-bold text-ink mb-4">What you get for $19.99/mo</h2>
           <ul className="space-y-3">
             {BENEFITS.map((text) => (
-              <li key={text} className="flex items-start gap-3 text-sm text-[#1E2026]">
-                <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0 mt-0.5" />
+              <li key={text} className="flex items-start gap-3 text-sm text-ink">
+                <CheckCircle2 className="w-4 h-4 text-brand-ink shrink-0 mt-0.5" />
                 {text}
               </li>
             ))}
@@ -164,18 +164,18 @@ export default function ClaimYourListingPage() {
         </div>
 
         {/* How it works — 3 dead-simple steps */}
-        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">How it works</h2>
-          <p className="text-[#6B6862] text-sm mb-5">One-click claiming. No form to fill out.</p>
+        <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
+          <h2 className="font-serif text-xl font-bold text-ink mb-1">How it works</h2>
+          <p className="text-ink-soft text-sm mb-5">One-click claiming. No form to fill out.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#B57F50] text-white text-sm font-bold shrink-0">
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-brand text-white text-sm font-bold shrink-0">
                   {i + 1}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-[#1E2026]">{step.title}</p>
-                  <p className="text-sm text-[#6B6862] leading-relaxed">{step.text}</p>
+                  <p className="text-sm font-semibold text-ink">{step.title}</p>
+                  <p className="text-sm text-ink-soft leading-relaxed">{step.text}</p>
                 </div>
               </li>
             ))}
@@ -184,18 +184,18 @@ export default function ClaimYourListingPage() {
 
         {/* Owners deciding whether the traffic is worth $19.99/mo can check
             the real numbers instead of taking our word for it. */}
-        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
+        <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#B57F50]/15 flex items-center justify-center shrink-0">
-              <BarChart3 className="w-5 h-5 text-[#96602F]" />
+            <div className="w-9 h-9 rounded-lg bg-brand/15 flex items-center justify-center shrink-0">
+              <BarChart3 className="w-5 h-5 text-brand-ink" />
             </div>
             <div className="min-w-0">
-              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1.5">
+              <h2 className="font-serif text-xl font-bold text-ink mb-1.5">
                 See our traffic before you pay
               </h2>
-              <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              <p className="text-ink-soft text-sm leading-relaxed mb-4">
                 Restaurant owners can view this site&apos;s analytics at{' '}
-                <Link href="/dashboard" className="text-[#96602F] font-semibold hover:underline">
+                <Link href="/dashboard" className="text-brand-ink font-semibold hover:underline">
                   /dashboard
                 </Link>
                 . It&apos;s public and updates in real time — sessions, unique visitors, on-site searches,
@@ -203,7 +203,7 @@ export default function ClaimYourListingPage() {
               </p>
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#96602F] text-white text-sm font-bold transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-brand hover:bg-brand-ink text-white text-sm font-bold transition-colors"
               >
                 <BarChart3 className="w-4 h-4" /> View Site Analytics
               </Link>
@@ -212,23 +212,23 @@ export default function ClaimYourListingPage() {
         </div>
 
         {/* Common questions — the objections owners raise before subscribing */}
-        <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">Frequently asked questions</h2>
-          <p className="text-[#6B6862] text-sm mb-5">Everything owners usually ask before claiming.</p>
+        <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
+          <h2 className="font-serif text-xl font-bold text-ink mb-1">Frequently asked questions</h2>
+          <p className="text-ink-soft text-sm mb-5">Everything owners usually ask before claiming.</p>
           <div className="space-y-2.5">
             {CLAIM_FAQS.map(({ q, a }) => (
-              <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+              <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                   {q}
-                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
               </details>
             ))}
           </div>
         </div>
 
-        <p className="text-center text-xs text-[#6B6862]/70 mt-6">
+        <p className="text-center text-xs text-ink-soft/70 mt-6">
           Unclaimed listings show whatever public data we have — claiming is the only way to control it.
         </p>
 

@@ -40,7 +40,7 @@ function StatusBadge({ status }: { status: string }) {
     rejected: 'bg-red-500/20 text-red-400 border-red-500/30',
   }
   return (
-    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${map[status] ?? 'bg-black/8 text-[#1E2026]/60 border-black/8'}`}>
+    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${map[status] ?? 'bg-black/8 text-ink/60 border-line/8'}`}>
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   )
@@ -64,68 +64,68 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
   }
 
   return (
-    <div className="bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden">
+    <div className="bg-sunken rounded-xl border border-line/5 overflow-hidden">
       <div className="p-5 flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
-            <h3 className="font-semibold text-[#1E2026] truncate">{claim.restaurant_name}</h3>
+            <h3 className="font-semibold text-ink truncate">{claim.restaurant_name}</h3>
             <StatusBadge status={claim.status} />
           </div>
-          <p className="text-[#6B6862] text-sm">
+          <p className="text-ink-soft text-sm">
             {claim.contact_name} &mdash; {claim.contact_email}
-            {parsed.role && <span className="text-[#6B6862]/60"> ({parsed.role})</span>}
+            {parsed.role && <span className="text-ink-soft/60"> ({parsed.role})</span>}
           </p>
-          <p className="text-[#6B6862]/50 text-xs mt-1">
+          <p className="text-ink-soft/50 text-xs mt-1">
             {claim.restaurant_city} · {new Date(claim.created_at).toLocaleDateString()}
           </p>
         </div>
         <button
           onClick={() => setExpanded(!expanded)}
-          className="flex-shrink-0 p-2 rounded-lg hover:bg-black/5 text-[#6B6862] transition-colors"
+          className="flex-shrink-0 p-2 rounded-lg hover:bg-black/5 text-ink-soft transition-colors"
         >
           {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
       </div>
 
       {expanded && (
-        <div className="px-5 pb-5 space-y-4 border-t border-black/5 pt-4">
+        <div className="px-5 pb-5 space-y-4 border-t border-line/5 pt-4">
           {parsed.corrections && (
             <div>
-              <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-2">Submitted Corrections</p>
-              <div className="bg-[#ffffff] rounded-lg p-4 space-y-2 text-sm">
+              <p className="text-xs text-ink-soft/60 uppercase tracking-wide mb-2">Submitted Corrections</p>
+              <div className="bg-surface rounded-lg p-4 space-y-2 text-sm">
                 {parsed.corrections.name && (
                   <div className="flex gap-2">
-                    <span className="text-[#6B6862]/60 w-24 flex-shrink-0">Name</span>
-                    <span className="text-[#1E2026]">{parsed.corrections.name}</span>
+                    <span className="text-ink-soft/60 w-24 flex-shrink-0">Name</span>
+                    <span className="text-ink">{parsed.corrections.name}</span>
                   </div>
                 )}
                 {parsed.corrections.phone && (
                   <div className="flex gap-2">
-                    <span className="text-[#6B6862]/60 w-24 flex-shrink-0">Phone</span>
-                    <span className="text-[#1E2026]">{parsed.corrections.phone}</span>
+                    <span className="text-ink-soft/60 w-24 flex-shrink-0">Phone</span>
+                    <span className="text-ink">{parsed.corrections.phone}</span>
                   </div>
                 )}
                 {parsed.corrections.website && (
                   <div className="flex gap-2">
-                    <span className="text-[#6B6862]/60 w-24 flex-shrink-0">Website</span>
-                    <span className="text-[#1E2026]">{parsed.corrections.website}</span>
+                    <span className="text-ink-soft/60 w-24 flex-shrink-0">Website</span>
+                    <span className="text-ink">{parsed.corrections.website}</span>
                   </div>
                 )}
                 {parsed.corrections.description && (
                   <div className="flex gap-2">
-                    <span className="text-[#6B6862]/60 w-24 flex-shrink-0">Description</span>
-                    <span className="text-[#1E2026]">{parsed.corrections.description}</span>
+                    <span className="text-ink-soft/60 w-24 flex-shrink-0">Description</span>
+                    <span className="text-ink">{parsed.corrections.description}</span>
                   </div>
                 )}
                 {parsed.corrections.hours && Object.keys(parsed.corrections.hours).length > 0 && (
                   <div>
-                    <p className="text-[#6B6862]/60 mb-1">Hours</p>
+                    <p className="text-ink-soft/60 mb-1">Hours</p>
                     <div className="pl-2 space-y-0.5">
                       {Object.entries(parsed.corrections.hours).map(([day, hrs]) => (
                         hrs ? (
                           <div key={day} className="flex gap-2">
-                            <span className="text-[#6B6862]/60 w-24">{day}</span>
-                            <span className="text-[#1E2026]">{hrs}</span>
+                            <span className="text-ink-soft/60 w-24">{day}</span>
+                            <span className="text-ink">{hrs}</span>
                           </div>
                         ) : null
                       ))}
@@ -138,7 +138,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
 
           {claim.status === 'pending' && (
             <div>
-              <label className="block text-xs text-[#6B6862]/60 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs text-ink-soft/60 uppercase tracking-wide mb-1.5">
                 Admin Note (optional — sent with decision)
               </label>
               <textarea
@@ -146,15 +146,15 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Reason for approval or rejection…"
-                className="w-full px-3 py-2 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/40 text-sm outline-none focus:border-[#B57F50] transition-colors resize-none"
+                className="w-full px-3 py-2 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/40 text-sm outline-none focus:border-brand transition-colors resize-none"
               />
             </div>
           )}
 
           {claim.admin_note && claim.status !== 'pending' && (
             <div>
-              <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-1">Admin Note</p>
-              <p className="text-sm text-[#6B6862] bg-[#ffffff] rounded-lg px-4 py-3">{claim.admin_note}</p>
+              <p className="text-xs text-ink-soft/60 uppercase tracking-wide mb-1">Admin Note</p>
+              <p className="text-sm text-ink-soft bg-surface rounded-lg px-4 py-3">{claim.admin_note}</p>
             </div>
           )}
 
@@ -163,7 +163,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
               <button
                 onClick={() => act('approved')}
                 disabled={loading !== null}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-[#1E2026] text-sm font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-ink text-sm font-medium transition-colors disabled:opacity-50"
               >
                 <CheckCircle className="w-4 h-4" />
                 {loading === 'approve' ? 'Approving…' : 'Approve'}
@@ -171,7 +171,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
               <button
                 onClick={() => act('rejected')}
                 disabled={loading !== null}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/80 hover:bg-red-500 text-[#1E2026] text-sm font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/80 hover:bg-red-500 text-ink text-sm font-medium transition-colors disabled:opacity-50"
               >
                 <XCircle className="w-4 h-4" />
                 {loading === 'reject' ? 'Rejecting…' : 'Reject'}
@@ -184,7 +184,7 @@ function ClaimCard({ claim, onUpdate }: { claim: Claim; onUpdate: (id: string, s
               <div className="flex gap-3 flex-wrap">
                 <Link
                   href={`/admin/owner-view/${claim.restaurant_slug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#96602F] text-sm font-medium transition-colors border border-[#B57F50]/30"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-ink text-sm font-medium transition-colors border border-brand/30"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   Preview Dashboard
@@ -220,14 +220,14 @@ function LinkOwnerPanel({ claimId, currentUserId }: { claimId: string; currentUs
   }
 
   return (
-    <div className="border-t border-black/5 pt-3">
-      <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+    <div className="border-t border-line/5 pt-3">
+      <p className="text-xs text-ink-soft/60 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
         <Link2 className="w-3.5 h-3.5" /> Link Owner Account
       </p>
       {currentUserId && (
-        <p className="text-xs text-[#6B6862] mb-2">Current user_id: <code className="bg-black/5 px-1 rounded">{currentUserId}</code></p>
+        <p className="text-xs text-ink-soft mb-2">Current user_id: <code className="bg-black/5 px-1 rounded">{currentUserId}</code></p>
       )}
-      <p className="text-[#6B6862] text-xs mb-2">
+      <p className="text-ink-soft text-xs mb-2">
         Enter the owner&apos;s Supabase user_id (from Dashboard → Authentication → Users) to link their account. This lets them edit the listing immediately.
       </p>
       <div className="flex gap-2">
@@ -235,7 +235,7 @@ function LinkOwnerPanel({ claimId, currentUserId }: { claimId: string; currentUs
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-          className="flex-1 px-3 py-2 bg-white border border-black/8 rounded-lg text-sm text-[#1E2026] placeholder-[#9B9490]/40 font-mono outline-none focus:border-sky-400 transition-colors"
+          className="flex-1 px-3 py-2 bg-surface border border-line/8 rounded-lg text-sm text-ink placeholder-ink-faint/40 font-mono outline-none focus:border-sky-400 transition-colors"
         />
         <button
           onClick={submit}
@@ -246,7 +246,7 @@ function LinkOwnerPanel({ claimId, currentUserId }: { claimId: string; currentUs
         </button>
       </div>
       {result && (
-        <p className={`mt-1.5 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600'}`}>
+        <p className={`mt-1.5 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600 dark:text-emerald-400'}`}>
           {result}
         </p>
       )}
@@ -279,11 +279,11 @@ function RegisterClaimPanel() {
   }
 
   return (
-    <div className="mt-8 pt-6 border-t border-black/8">
-      <p className="text-xs text-[#6B6862]/60 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+    <div className="mt-8 pt-6 border-t border-line/8">
+      <p className="text-xs text-ink-soft/60 uppercase tracking-wide mb-2 flex items-center gap-1.5">
         <PlusCircle className="w-3.5 h-3.5" /> Manually Register a Claim
       </p>
-      <p className="text-[#6B6862] text-xs mb-3">
+      <p className="text-ink-soft text-xs mb-3">
         If a restaurant is verified on its public page but not appearing here, enter its slug to register or repair the claim record.
       </p>
       <div className="flex gap-2">
@@ -291,18 +291,18 @@ function RegisterClaimPanel() {
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           placeholder="restaurant-slug (e.g. ikedo-ramen)"
-          className="flex-1 px-3 py-2 bg-white border border-black/8 rounded-lg text-sm text-[#1E2026] placeholder-[#9B9490]/40 outline-none focus:border-[#B57F50] transition-colors"
+          className="flex-1 px-3 py-2 bg-surface border border-line/8 rounded-lg text-sm text-ink placeholder-ink-faint/40 outline-none focus:border-brand transition-colors"
         />
         <button
           onClick={submit}
           disabled={loading || !slug.trim()}
-          className="px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors disabled:opacity-50"
+          className="px-4 py-2 rounded-lg bg-brand hover:bg-brand-hi text-white text-sm font-medium transition-colors disabled:opacity-50"
         >
           {loading ? 'Working…' : 'Register'}
         </button>
       </div>
       {result && (
-        <p className={`mt-2 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600'}`}>
+        <p className={`mt-2 text-xs ${result.startsWith('Error') ? 'text-red-500' : 'text-emerald-600 dark:text-emerald-400'}`}>
           {result}
         </p>
       )}
@@ -334,8 +334,8 @@ export default function ClaimsList({ initialClaims }: { initialClaims: Claim[] }
             onClick={() => setFilter(f)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
               filter === f
-                ? 'bg-[#B57F50] text-white'
-                : 'bg-[#ffffff] text-[#6B6862] hover:text-[#1E2026]'
+                ? 'bg-brand text-white'
+                : 'bg-surface text-ink-soft hover:text-ink'
             }`}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -346,7 +346,7 @@ export default function ClaimsList({ initialClaims }: { initialClaims: Claim[] }
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16 text-[#6B6862]/50">
+        <div className="text-center py-16 text-ink-soft/50">
           No {filter === 'all' ? '' : filter} claims yet.
         </div>
       ) : (

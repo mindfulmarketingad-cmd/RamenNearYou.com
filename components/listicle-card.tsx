@@ -49,7 +49,7 @@ export function StarRating({ rating }: { rating: number | null | undefined }) {
       className="relative inline-block leading-none text-[13px] tracking-[0.05em] select-none"
       aria-hidden="true"
     >
-      <span className="text-[#1E2026]/15">★★★★★</span>
+      <span className="text-ink/15">★★★★★</span>
       <span
         className="absolute left-0 top-0 overflow-hidden text-amber-400 whitespace-nowrap"
         style={{ width: `${pct}%` }}
@@ -67,9 +67,9 @@ function LocationLabel({ label, cityHref, stateHref }: { label: string; cityHref
   const state = label.slice(commaIdx + 2)
   return (
     <span className="truncate">
-      {cityHref ? <Link href={cityHref} className="hover:text-[#96602F] hover:underline">{city}</Link> : city}
+      {cityHref ? <Link href={cityHref} className="hover:text-brand-ink hover:underline">{city}</Link> : city}
       {', '}
-      {stateHref ? <Link href={stateHref} className="hover:text-[#96602F] hover:underline">{state}</Link> : state}
+      {stateHref ? <Link href={stateHref} className="hover:text-brand-ink hover:underline">{state}</Link> : state}
     </span>
   )
 }
@@ -89,22 +89,22 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
     trackEvent(event, { listingSlug: it.key, listingName: it.name, city: it.locationLabel ?? undefined })
 
   return (
-    <article className="group relative bg-white border border-black/8 rounded-xl hover:border-[#B57F50]/45 hover:shadow-[0_2px_12px_rgba(30,32,38,0.06)] transition-all">
+    <article className="group relative bg-surface border border-line/8 rounded-xl hover:border-brand/45 hover:shadow-[0_2px_12px_rgba(30,32,38,0.06)] transition-all">
       <div className="flex items-stretch gap-3 p-3 sm:p-4">
         {/* Thumbnail with the rank badged onto it — one fixed block, so every
             title starts on the same vertical line and no row has dead space
             beside a short entry. */}
-        <div className="relative shrink-0 w-[68px] h-[68px] sm:w-[84px] sm:h-[84px] rounded-lg overflow-hidden bg-[#F5F4F0]">
+        <div className="relative shrink-0 w-[68px] h-[68px] sm:w-[84px] sm:h-[84px] rounded-lg overflow-hidden bg-sunken">
           <RestaurantImage src={it.photo} alt={it.name} fill className="object-cover" sizes="84px" />
-          <span className="absolute top-1 left-1 flex items-center justify-center w-5 h-5 rounded-full bg-[#1E2026]/85 text-white text-[10px] font-bold tabular-nums">
+          <span className="absolute top-1 left-1 flex items-center justify-center w-5 h-5 rounded-full bg-contrast/85 text-white text-[10px] font-bold tabular-nums">
             {rank}
           </span>
         </div>
 
         {/* Main column. Each block below is a fixed-height slot. */}
         <div className="min-w-0 flex-1 flex flex-col">
-          <h3 className="font-bold text-sm text-[#1E2026] leading-snug truncate">
-            <Link href={it.href} className="hover:text-[#96602F] transition-colors">
+          <h3 className="font-bold text-sm text-ink leading-snug truncate">
+            <Link href={it.href} className="hover:text-brand-ink transition-colors">
               {it.name}
             </Link>
           </h3>
@@ -115,9 +115,9 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
               it.reviewHref ? (
                 <Link href={it.reviewHref} className="flex items-center gap-1.5 shrink-0 group/rating" onClick={() => track('review_click')}>
                   <StarRating rating={it.rating} />
-                  <span className="text-xs font-semibold text-[#1E2026] group-hover/rating:text-[#96602F] transition-colors tabular-nums">{it.rating.toFixed(1)}</span>
+                  <span className="text-xs font-semibold text-ink group-hover/rating:text-brand-ink transition-colors tabular-nums">{it.rating.toFixed(1)}</span>
                   {!!it.reviewCount && (
-                    <span className="text-xs text-[#6B6862] group-hover/rating:text-[#96602F] group-hover/rating:underline transition-colors tabular-nums">
+                    <span className="text-xs text-ink-soft group-hover/rating:text-brand-ink group-hover/rating:underline transition-colors tabular-nums">
                       ({it.reviewCount.toLocaleString()})
                     </span>
                   )}
@@ -125,16 +125,16 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
               ) : (
                 <span className="flex items-center gap-1.5 shrink-0">
                   <StarRating rating={it.rating} />
-                  <span className="text-xs font-semibold text-[#1E2026] tabular-nums">{it.rating.toFixed(1)}</span>
-                  {!!it.reviewCount && <span className="text-xs text-[#6B6862] tabular-nums">({it.reviewCount.toLocaleString()})</span>}
+                  <span className="text-xs font-semibold text-ink tabular-nums">{it.rating.toFixed(1)}</span>
+                  {!!it.reviewCount && <span className="text-xs text-ink-soft tabular-nums">({it.reviewCount.toLocaleString()})</span>}
                 </span>
               )
             ) : (
-              <span className="text-xs text-[#9B9490]">Not yet rated</span>
+              <span className="text-xs text-ink-faint">Not yet rated</span>
             )}
             {it.locationLabel && (
-              <span className="flex items-center gap-1 text-xs text-[#6B6862] min-w-0">
-                <span className="text-[#1E2026]/20">·</span>
+              <span className="flex items-center gap-1 text-xs text-ink-soft min-w-0">
+                <span className="text-ink/20">·</span>
                 <MapPin className="w-3 h-3 shrink-0" />
                 <LocationLabel label={it.locationLabel} cityHref={it.cityHref} stateHref={it.stateHref} />
               </span>
@@ -143,7 +143,7 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
 
           {/* Description — hard-clamped to two lines so a chatty entry can't
               make its row twice as tall as its neighbours. */}
-          <p className="text-xs text-[#3F3D39] mt-1.5 leading-snug line-clamp-2 h-[33px] overflow-hidden">
+          <p className="text-xs text-ink-mid mt-1.5 leading-snug line-clamp-2 h-[33px] overflow-hidden">
             {it.description}
           </p>
 
@@ -151,17 +151,17 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
               it's the thing people scan for. */}
           <div className="flex items-center gap-3 mt-1.5 h-[18px] overflow-hidden">
             {it.hoursLabel && (
-              <span className={`text-xs font-semibold shrink-0 ${it.hoursOpen ? 'text-emerald-600' : 'text-[#9B9490]'}`}>
+              <span className={`text-xs font-semibold shrink-0 ${it.hoursOpen ? 'text-emerald-600 dark:text-emerald-400' : 'text-ink-faint'}`}>
                 {it.hoursLabel}
               </span>
             )}
             {it.phone && (
-              <a href={`tel:${it.phone}`} onClick={() => track('call_click')} className="hidden sm:flex items-center gap-1 text-xs text-[#96602F] hover:underline shrink-0">
+              <a href={`tel:${it.phone}`} onClick={() => track('call_click')} className="hidden sm:flex items-center gap-1 text-xs text-brand-ink hover:underline shrink-0">
                 <Phone className="w-3 h-3" />{it.phone}
               </a>
             )}
             {it.website && (
-              <a href={it.website} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1 text-xs text-[#96602F] hover:underline shrink-0">
+              <a href={it.website} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1 text-xs text-brand-ink hover:underline shrink-0">
                 <Globe className="w-3 h-3" />Website
               </a>
             )}
@@ -172,12 +172,12 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track('directions_click')}
-                  className="text-xs text-[#6B6862] hover:text-[#96602F] hover:underline truncate min-w-0"
+                  className="text-xs text-ink-soft hover:text-brand-ink hover:underline truncate min-w-0"
                 >
                   {it.address}
                 </a>
               ) : (
-                <span className="text-xs text-[#6B6862] truncate min-w-0">{it.address}</span>
+                <span className="text-xs text-ink-soft truncate min-w-0">{it.address}</span>
               )
             )}
           </div>
@@ -190,7 +190,7 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
             {it.claimHref && !it.isClaimed && (
               <Link
                 href={it.claimHref}
-                className="px-2 py-0.5 rounded-full border border-[#B57F50]/40 bg-[#B57F50]/8 text-[10px] font-semibold text-[#96602F] whitespace-nowrap hover:bg-[#B57F50]/15 transition-colors"
+                className="px-2 py-0.5 rounded-full border border-brand/40 bg-brand/8 text-[10px] font-semibold text-brand-ink whitespace-nowrap hover:bg-brand/15 transition-colors"
               >
                 Own this {noun}? Claim it
               </Link>
@@ -200,12 +200,12 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
                 <Link
                   key={t.label}
                   href={t.href}
-                  className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862] whitespace-nowrap hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                  className="px-2 py-0.5 rounded-full bg-sunken border border-line/8 text-[10px] font-medium text-ink-soft whitespace-nowrap hover:border-brand/50 hover:text-brand-ink transition-colors"
                 >
                   {t.label}
                 </Link>
               ) : (
-                <span key={t.label} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862] whitespace-nowrap">
+                <span key={t.label} className="px-2 py-0.5 rounded-full bg-sunken border border-line/8 text-[10px] font-medium text-ink-soft whitespace-nowrap">
                   {t.label}
                 </span>
               )
@@ -217,7 +217,7 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
             column so the CTAs form a straight edge down the page. Hidden on
             the narrowest screens where there's no room for a third column. */}
         <div className="hidden sm:flex flex-col items-end justify-between shrink-0 w-[92px] pl-1">
-          <span className="text-xs font-bold text-emerald-600 tabular-nums h-[18px]">
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tabular-nums h-[18px]">
             {distanceLabel ?? ''}
           </span>
           <div className="flex flex-col items-end gap-1.5">
@@ -227,14 +227,14 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track('directions_click')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-black/10 text-[11px] font-semibold text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-line/10 text-[11px] font-semibold text-ink-soft hover:border-brand/50 hover:text-brand-ink transition-colors"
               >
                 <Navigation className="w-3 h-3" />Directions
               </a>
             )}
             <Link
               href={it.href}
-              className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-[11px] font-bold hover:bg-[#c8934f] transition-colors"
+              className="inline-flex items-center px-2.5 py-1 rounded-full bg-brand text-white text-[11px] font-bold hover:bg-brand-hi transition-colors"
             >
               View
             </Link>

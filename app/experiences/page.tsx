@@ -49,20 +49,20 @@ export default function ExperiencesPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
 
-        <div className="bg-[#F5F0EA] px-4 sm:px-6 pt-24 pb-8">
+        <div className="bg-sunken px-4 sm:px-6 pt-24 pb-8">
           <div className="max-w-4xl mx-auto">
-            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-4">
-              <Link href="/" className="hover:text-[#96602F] transition-colors">Ramen Near You</Link>
+            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-ink-soft mb-4">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Ramen Near You</Link>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-[#1E2026]">Experiences</span>
+              <span className="text-ink">Experiences</span>
             </nav>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
               Ramen Experiences
             </h1>
-            <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">
+            <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">
               Cooking classes, food tours, and tastings for people who want to do more than eat a
               bowl — make one from scratch, or eat your way through a city with someone who knows
               it. Booked through Viator, with free cancellation on most experiences.
@@ -81,7 +81,7 @@ export default function ExperiencesPage() {
             <AdSquare />
           </div>
 
-          <p className="text-[11px] text-[#6B6862]/80 mt-8">
+          <p className="text-[11px] text-ink-soft/80 mt-8">
             Experiences are booked through Viator. We may earn a commission at no extra cost to you.
           </p>
         </div>

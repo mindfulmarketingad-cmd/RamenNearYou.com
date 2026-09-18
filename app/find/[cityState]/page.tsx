@@ -301,7 +301,7 @@ export default async function CityFindPage(
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
 
         <PseoListicle
@@ -328,19 +328,19 @@ export default async function CityFindPage(
           mapSlot={mapSlot}
         />
 
-        <div className="relative z-10 bg-white">
+        <div className="relative z-10 bg-surface">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
 
             {/* Preserved editorial guide content, if this city has one */}
             {cityGuidePost && (
-              <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
             )}
 
             {/* SEO content — first-person, data-driven so each city reads uniquely */}
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">
               Finding Great Ramen in {cityName}, {stateName}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               Whenever I am hunting for a bowl in {cityName}, I start with the list above — it shows every
               ramen spot I can find near {cityName}, {stateCode}, and you can tap &quot;Show distance from me&quot;
               or switch to the map to sort by distance so the closest bowl is right at the top.
@@ -349,7 +349,7 @@ export default async function CityFindPage(
                 : ` ${cityName} is still filling in, so I have the map pull in the nearest ramen spots around it too.`}
             </p>
             {topName && (
-              <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+              <p className="text-ink-soft text-sm leading-relaxed mb-4">
                 If you just want my quick steer, {topName}
                 {topRating ? ` is the highest-rated ramen in ${cityName} right now at ${topRating.toFixed(1)} stars` : ` is one of the best-reviewed spots in ${cityName}`}
                 {runnerUp ? `, with ${runnerUp} close behind` : ''}. That said, I always check a couple of
@@ -357,43 +357,43 @@ export default async function CityFindPage(
                 made usually is.
               </p>
             )}
-            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">How I pick a ramen spot in {cityName}</h3>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <h3 className="text-ink font-semibold text-base mb-2 mt-6">How I pick a ramen spot in {cityName}</h3>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               My rule of thumb is to favor shops that focus on one or two broths and do them obsessively well,
               and to trust a strong rating that holds up across a lot of reviews over a perfect score from only
               a handful. Then I match the bowl to the moment — something rich and creamy when it is cold out,
               something light and clean for lunch. You can do the same right on the map: filter by broth style
               like{' '}
-              <Link href="/find/tonkotsu-ramen" className="text-[#96602F] hover:underline">tonkotsu</Link>,{' '}
-              <Link href="/find/miso-ramen" className="text-[#96602F] hover:underline">miso</Link>,{' '}
-              <Link href="/find/shoyu-ramen" className="text-[#96602F] hover:underline">shoyu</Link>, or{' '}
-              <Link href="/find/shio-ramen" className="text-[#96602F] hover:underline">shio</Link>, then layer on
+              <Link href="/find/tonkotsu-ramen" className="text-brand-ink hover:underline">tonkotsu</Link>,{' '}
+              <Link href="/find/miso-ramen" className="text-brand-ink hover:underline">miso</Link>,{' '}
+              <Link href="/find/shoyu-ramen" className="text-brand-ink hover:underline">shoyu</Link>, or{' '}
+              <Link href="/find/shio-ramen" className="text-brand-ink hover:underline">shio</Link>, then layer on
               what matters that day.
             </p>
-            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">Narrowing down what you are craving</h3>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <h3 className="text-ink font-semibold text-base mb-2 mt-6">Narrowing down what you are craving</h3>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               Some nights I just need a bowl that is open this minute; other times I am planning ahead. The
               filters handle both. In {cityName} you can jump straight to{' '}
-              <Link href="/find/ramen-open-now" className="text-[#96602F] hover:underline">ramen open now</Link>,{' '}
-              <Link href="/find/ramen-open-late" className="text-[#96602F] hover:underline">ramen open late</Link>,{' '}
-              <Link href="/find/spicy-ramen" className="text-[#96602F] hover:underline">spicy ramen</Link>,{' '}
-              <Link href="/find/vegan-ramen" className="text-[#96602F] hover:underline">vegan ramen</Link>, or the{' '}
-              <Link href="/find/top-rated-ramen" className="text-[#96602F] hover:underline">top-rated ramen near you</Link>.
+              <Link href="/find/ramen-open-now" className="text-brand-ink hover:underline">ramen open now</Link>,{' '}
+              <Link href="/find/ramen-open-late" className="text-brand-ink hover:underline">ramen open late</Link>,{' '}
+              <Link href="/find/spicy-ramen" className="text-brand-ink hover:underline">spicy ramen</Link>,{' '}
+              <Link href="/find/vegan-ramen" className="text-brand-ink hover:underline">vegan ramen</Link>, or the{' '}
+              <Link href="/find/top-rated-ramen" className="text-brand-ink hover:underline">top-rated ramen near you</Link>.
               If you are driving in, the &quot;Free Parking&quot; and &quot;Delivers&quot; filters save a lot of hassle too.
             </p>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               When you have exhausted {cityName}, it is easy to keep going — explore{' '}
-              <Link href={`/${stateSlug}`} className="text-[#96602F] hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
-              <Link href="/cities" className="text-[#96602F] hover:underline">browse every city and state</Link> in the directory.
+              <Link href={`/${stateSlug}`} className="text-brand-ink hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
+              <Link href="/cities" className="text-brand-ink hover:underline">browse every city and state</Link> in the directory.
             </p>
 
             {/* Nearby cities — keyword-rich internal links */}
             {nearbyCities.length > 0 && (
               <div className="mb-10">
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
                   More Ramen Near {cityName} in {stateName}
                 </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
                   Browse ramen restaurants in other {stateName} cities near {cityName}:
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -401,7 +401,7 @@ export default async function CityFindPage(
                     <Link
                       key={c.citySlug}
                       href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
-                      className="text-sm text-[#96602F] hover:underline"
+                      className="text-sm text-brand-ink hover:underline"
                     >
                       Ramen in {c.city}, {c.stateCode}
                     </Link>
@@ -413,16 +413,16 @@ export default async function CityFindPage(
             {/* City-filter pages (major cities only) — broth & diet type links */}
             {filterLinks.length > 0 && (
               <div className="mb-10">
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
                   Ramen in {cityName} by Type &amp; Diet
                 </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
                   Narrow down what you&apos;re craving in {cityName} with these focused guides:
                 </p>
                 {brothFilterLinks.length > 0 && (
                   <div className="flex flex-wrap gap-x-4 gap-y-2 mb-3">
                     {brothFilterLinks.map(l => (
-                      <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
+                      <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
                         {l.label} in {cityName}
                       </Link>
                     ))}
@@ -431,7 +431,7 @@ export default async function CityFindPage(
                 {dietFilterLinks.length > 0 && (
                   <div className="flex flex-wrap gap-x-4 gap-y-2">
                     {dietFilterLinks.map(l => (
-                      <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
+                      <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
                         {l.label} in {cityName}
                       </Link>
                     ))}
@@ -443,10 +443,10 @@ export default async function CityFindPage(
             {/* Curated neighborhood pages for this city */}
             {cityNeighborhoods.length > 0 && (
               <div className="mb-10">
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
                   Ramen by Neighborhood in {cityName}
                 </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
                   Looking for something closer to a specific part of town? These neighborhood pages only show
                   restaurants actually near that area:
                 </p>
@@ -455,7 +455,7 @@ export default async function CityFindPage(
                     <Link
                       key={n.slug}
                       href={`/find/${neighborhoodParam(n)}`}
-                      className="text-sm text-[#96602F] hover:underline"
+                      className="text-sm text-brand-ink hover:underline"
                     >
                       Ramen in {n.name}
                     </Link>
@@ -467,12 +467,12 @@ export default async function CityFindPage(
             {/* Pho page for this city, if we track any pho restaurants here */}
             {cityPhoParam && (
               <div className="mb-10">
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
                   Looking for Pho Instead?
                 </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
                   We also track pho restaurants in {cityName} on a separate map —{' '}
-                  <Link href={`/find/${cityPhoParam}`} className="text-[#96602F] hover:underline">
+                  <Link href={`/find/${cityPhoParam}`} className="text-brand-ink hover:underline">
                     pho restaurants in {cityName}, {stateCode}
                   </Link>.
                 </p>
@@ -481,12 +481,12 @@ export default async function CityFindPage(
 
             {/* Modifier variants (open now, tonkotsu-in-city, etc.) for this city */}
             <div className="mb-10">
-              <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+              <h2 className="font-serif text-xl font-bold text-ink mb-3">
                 More Ramen Searches in {cityName}
               </h2>
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {modifierLinks.map(l => (
-                  <Link key={l.href} href={l.href} className="text-sm text-[#96602F] hover:underline">
+                  <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
                     {l.label}
                   </Link>
                 ))}
@@ -497,17 +497,17 @@ export default async function CityFindPage(
               <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
             )}
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
+            <h2 className="font-serif text-xl font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
               {faqs.map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                     {q}
-                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                  <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
                 </details>
               ))}
             </div>

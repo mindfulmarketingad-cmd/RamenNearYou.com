@@ -78,9 +78,9 @@ export default function InquireButton({ restaurant, source, className, label = '
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); setOpen(true) }}
-          className={className ?? 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'}
+          className={className ?? 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'}
         >
-          <span className="w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors">
+          <span className="w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors">
             <CalendarCheck className="w-5 h-5" />
           </span>
           {label}
@@ -89,7 +89,7 @@ export default function InquireButton({ restaurant, source, className, label = '
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); setOpen(true) }}
-          className={className ?? 'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-black/12 bg-white text-[#6B6862] hover:border-[#B57F50] hover:text-[#96602F] transition-colors'}
+          className={className ?? 'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-line/12 bg-surface text-ink-soft hover:border-brand hover:text-brand-ink transition-colors'}
         >
           <CalendarCheck className="w-3.5 h-3.5" />
           {label}
@@ -109,12 +109,12 @@ export default function InquireButton({ restaurant, source, className, label = '
             aria-label={`Inquire about ${restaurant.name}`}
             onClick={(e) => e.stopPropagation()}
             tabIndex={-1}
-            className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-md bg-surface rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
           >
             <button
               onClick={close}
               aria-label="Close"
-              className="absolute top-3 right-3 p-1.5 rounded-full text-[#6B6862] hover:bg-black/5 transition-colors"
+              className="absolute top-3 right-3 p-1.5 rounded-full text-ink-soft hover:bg-black/5 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -124,22 +124,22 @@ export default function InquireButton({ restaurant, source, className, label = '
                 <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-7 h-7 text-emerald-500" />
                 </div>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-2">Inquiry sent!</h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
+                <h2 className="font-serif text-xl font-bold text-ink mb-2">Inquiry sent!</h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-6">
                   {restaurant.name} will reach out to confirm your booking.
                 </p>
                 <button
                   onClick={close}
-                  className="px-5 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                  className="px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
                 >
                   Done
                 </button>
               </div>
             ) : (
               <div className="p-6 sm:p-8">
-                <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-1">Booking Inquiry</p>
-                <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">{restaurant.name}</h2>
-                <p className="text-[#6B6862] text-sm mb-5">
+                <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-1">Booking Inquiry</p>
+                <h2 className="font-serif text-xl font-bold text-ink mb-1">{restaurant.name}</h2>
+                <p className="text-ink-soft text-sm mb-5">
                   Send a booking request — the restaurant will follow up to confirm.
                 </p>
 
@@ -152,30 +152,30 @@ export default function InquireButton({ restaurant, source, className, label = '
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="reservationDate">Date</label>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="reservationDate">Date</label>
                       <input
                         id="reservationDate"
                         name="reservationDate"
                         type="date"
                         required
                         min={new Date().toISOString().slice(0, 10)}
-                        className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="reservationTime">Arrival time</label>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="reservationTime">Arrival time</label>
                       <input
                         id="reservationTime"
                         name="reservationTime"
                         type="time"
                         required
-                        className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="partySize">Party size</label>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="partySize">Party size</label>
                     <input
                       id="partySize"
                       name="partySize"
@@ -184,58 +184,58 @@ export default function InquireButton({ restaurant, source, className, label = '
                       max={50}
                       required
                       defaultValue={2}
-                      className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="customerName">Your name</label>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerName">Your name</label>
                     <input
                       id="customerName"
                       name="customerName"
                       type="text"
                       required
-                      className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="customerEmail">Email</label>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerEmail">Email</label>
                       <input
                         id="customerEmail"
                         name="customerEmail"
                         type="email"
-                        className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="customerPhone">Phone</label>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerPhone">Phone</label>
                       <input
                         id="customerPhone"
                         name="customerPhone"
                         type="tel"
-                        className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
                       />
                     </div>
                   </div>
-                  <p className="text-[10px] text-[#6B6862] -mt-1.5">Provide at least an email or phone number.</p>
+                  <p className="text-[10px] text-ink-soft -mt-1.5">Provide at least an email or phone number.</p>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1E2026] mb-1" htmlFor="notes">Notes (optional)</label>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="notes">Notes (optional)</label>
                     <textarea
                       id="notes"
                       name="notes"
                       rows={2}
                       placeholder="Special occasion, dietary needs, seating preference…"
-                      className="w-full px-3 py-2.5 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none placeholder-[#9B9490] focus:border-[#B57F50] transition-colors resize-none"
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none placeholder-ink-faint focus:border-brand transition-colors resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors disabled:opacity-60"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors disabled:opacity-60"
                   >
                     {status === 'submitting' ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                     {status === 'submitting' ? 'Sending…' : 'Send Inquiry'}

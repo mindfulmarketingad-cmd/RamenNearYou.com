@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { Toaster } from '@/components/ui/sonner'
 import SalePopup from '@/components/sale-popup'
 import AnalyticsTracker from '@/components/analytics-tracker'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -59,7 +60,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} bg-white`}>
+    /* suppressHydrationWarning: next-themes writes the theme class onto
+       <html> from an inline script before React hydrates, so server and client
+       markup legitimately differ on this one element. */
+    <html lang="en" suppressHydrationWarning className={`${playfair.variable} ${dmSans.variable} bg-surface`}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-9332749804326149" />
         <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
@@ -94,11 +98,12 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="font-sans antialiased bg-white text-[#1E2026]">
+      <body className="font-sans antialiased bg-surface text-ink">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
         <AnalyticsTracker />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#1E2026] focus:text-white focus:text-sm focus:font-semibold"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-contrast focus:text-white focus:text-sm focus:font-semibold"
         >
           Skip to main content
         </a>
@@ -106,6 +111,7 @@ export default function RootLayout({
         <SalePopup />
         <Toaster position="bottom-center" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )

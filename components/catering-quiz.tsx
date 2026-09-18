@@ -148,14 +148,14 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
 
   const progress = (step / TOTAL_STEPS) * 100
 
-  const input = 'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors'
-  const btn   = 'w-full py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
+  const input = 'w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors'
+  const btn   = 'w-full py-3 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
 
   function card(selected: boolean) {
     return `p-4 rounded-xl border-2 text-left transition-all cursor-pointer ${
       selected
-        ? 'border-[#B57F50] bg-[#B57F50]/8'
-        : 'border-black/8 bg-[#F5F4F0] hover:border-[#B57F50]/50'
+        ? 'border-brand bg-brand/8'
+        : 'border-line/8 bg-sunken hover:border-brand/50'
     }`
   }
 
@@ -172,21 +172,21 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="relative z-10 bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[93vh] flex flex-col outline-none"
+        className="relative z-10 bg-surface w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[93vh] flex flex-col outline-none"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-black/5 flex-shrink-0">
+        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-line/5 flex-shrink-0">
           <div>
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest">
               {done ? 'Catering Request' : `Step ${step} of ${TOTAL_STEPS}`}
             </p>
-            <h2 className="font-serif text-xl font-bold text-[#1E2026]">
+            <h2 className="font-serif text-xl font-bold text-ink">
               {done ? "You're all set!" : STEP_TITLES[step]}
             </h2>
           </div>
           <button onClick={onClose} aria-label="Close" className="p-2 rounded-lg hover:bg-black/5 transition-colors">
-            <X className="w-5 h-5 text-[#6B6862]" />
+            <X className="w-5 h-5 text-ink-soft" />
           </button>
         </div>
 
@@ -194,7 +194,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
         {!done && (
           <div className="h-1 bg-black/5 flex-shrink-0">
             <div
-              className="h-full bg-[#B57F50] transition-all duration-300"
+              className="h-full bg-brand transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -213,15 +213,15 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── DONE ─────────────────────────────────────────── */}
             {done && (
               <div className="text-center py-6">
-                <div className="w-16 h-16 rounded-full bg-[#B57F50]/15 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-[#96602F]" />
+                <div className="w-16 h-16 rounded-full bg-brand/15 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-brand-ink" />
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Request received!</h3>
-                <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
+                <h3 className="font-serif text-2xl font-bold text-ink mb-2">Request received!</h3>
+                <p className="text-ink-soft text-sm leading-relaxed mb-6">
                   We&apos;ll review your event details and personally match you with ramen caterers
                   {data.city ? ` in ${data.city}` : ' in your area'}.
                   Expect to hear back within 1 business day at{' '}
-                  <span className="text-[#1E2026] font-medium">{data.email}</span>.
+                  <span className="text-ink font-medium">{data.email}</span>.
                 </p>
                 <button onClick={onClose} className={btn}>Done</button>
               </div>
@@ -230,9 +230,9 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 1 — Location ────────────────────────────── */}
             {!done && step === 1 && (
               <div className="space-y-4">
-                <p className="text-[#6B6862] text-sm">Where is your event taking place?</p>
+                <p className="text-ink-soft text-sm">Where is your event taking place?</p>
                 <div>
-                  <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">City</label>
+                  <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">City</label>
                   <input
                     autoFocus
                     value={data.city}
@@ -243,7 +243,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">State</label>
+                  <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">State</label>
                   <select
                     value={data.state}
                     onChange={e => pick('state', e.target.value)}
@@ -262,7 +262,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 2 — Event Type ──────────────────────────── */}
             {!done && step === 2 && (
               <div className="space-y-3">
-                <p className="text-[#6B6862] text-sm">What kind of event are you planning?</p>
+                <p className="text-ink-soft text-sm">What kind of event are you planning?</p>
                 <div className="grid grid-cols-2 gap-2.5">
                   {EVENT_TYPES.map(et => (
                     <button
@@ -270,8 +270,8 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                       onClick={() => { pick('eventType', et.label); setTimeout(() => advance(3), 130) }}
                       className={card(data.eventType === et.label)}
                     >
-                      <p className="text-sm font-semibold text-[#1E2026]">{et.label}</p>
-                      <p className="text-xs text-[#6B6862] mt-0.5 leading-snug">{et.sub}</p>
+                      <p className="text-sm font-semibold text-ink">{et.label}</p>
+                      <p className="text-xs text-ink-soft mt-0.5 leading-snug">{et.sub}</p>
                     </button>
                   ))}
                 </div>
@@ -281,9 +281,9 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 3 — Date & Time ─────────────────────────── */}
             {!done && step === 3 && (
               <div className="space-y-5">
-                <p className="text-[#6B6862] text-sm">When do you need catering?</p>
+                <p className="text-ink-soft text-sm">When do you need catering?</p>
                 <div>
-                  <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Event Date</label>
+                  <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Event Date</label>
                   <input
                     type="date"
                     value={data.eventDate}
@@ -293,7 +293,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#6B6862] mb-2 uppercase tracking-wide">Time of Day</label>
+                  <label className="block text-xs text-ink-soft mb-2 uppercase tracking-wide">Time of Day</label>
                   <div className="flex flex-col gap-2">
                     {TIME_OPTIONS.map(t => (
                       <button
@@ -301,8 +301,8 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                         onClick={() => pick('eventTime', t)}
                         className={`px-4 py-3 rounded-lg border-2 text-left text-sm font-medium transition-all ${
                           data.eventTime === t
-                            ? 'border-[#B57F50] bg-[#B57F50]/8 text-[#96602F]'
-                            : 'border-black/8 text-[#1E2026] hover:border-[#B57F50]/50'
+                            ? 'border-brand bg-brand/8 text-brand-ink'
+                            : 'border-line/8 text-ink hover:border-brand/50'
                         }`}
                       >
                         {t}
@@ -319,7 +319,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 4 — Guest Count ─────────────────────────── */}
             {!done && step === 4 && (
               <div className="space-y-3">
-                <p className="text-[#6B6862] text-sm">How many guests are you expecting?</p>
+                <p className="text-ink-soft text-sm">How many guests are you expecting?</p>
                 <div className="grid grid-cols-2 gap-2.5">
                   {GUEST_COUNTS.map(g => (
                     <button
@@ -327,8 +327,8 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                       onClick={() => { pick('guestCount', g.label); setTimeout(() => advance(5), 130) }}
                       className={card(data.guestCount === g.label)}
                     >
-                      <p className="text-sm font-semibold text-[#1E2026]">{g.label}</p>
-                      <p className="text-xs text-[#6B6862] mt-0.5">{g.sub}</p>
+                      <p className="text-sm font-semibold text-ink">{g.label}</p>
+                      <p className="text-xs text-ink-soft mt-0.5">{g.sub}</p>
                     </button>
                   ))}
                 </div>
@@ -338,7 +338,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 5 — Budget ──────────────────────────────── */}
             {!done && step === 5 && (
               <div className="space-y-3">
-                <p className="text-[#6B6862] text-sm">What&apos;s your approximate budget?</p>
+                <p className="text-ink-soft text-sm">What&apos;s your approximate budget?</p>
                 <div className="flex flex-col gap-2">
                   {BUDGETS.map(b => (
                     <button
@@ -346,12 +346,12 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                       onClick={() => { pick('budget', b.label); setTimeout(() => advance(6), 130) }}
                       className={`px-4 py-3 rounded-xl border-2 text-left transition-all ${
                         data.budget === b.label
-                          ? 'border-[#B57F50] bg-[#B57F50]/8'
-                          : 'border-black/8 bg-[#F5F4F0] hover:border-[#B57F50]/50'
+                          ? 'border-brand bg-brand/8'
+                          : 'border-line/8 bg-sunken hover:border-brand/50'
                       }`}
                     >
-                      <span className="text-sm font-semibold text-[#1E2026]">{b.label}</span>
-                      <span className="text-xs text-[#6B6862] ml-2">{b.sub}</span>
+                      <span className="text-sm font-semibold text-ink">{b.label}</span>
+                      <span className="text-xs text-ink-soft ml-2">{b.sub}</span>
                     </button>
                   ))}
                 </div>
@@ -361,7 +361,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 6 — Dietary Needs ───────────────────────── */}
             {!done && step === 6 && (
               <div className="space-y-4">
-                <p className="text-[#6B6862] text-sm">Any dietary requirements? Select all that apply.</p>
+                <p className="text-ink-soft text-sm">Any dietary requirements? Select all that apply.</p>
                 <div className="flex flex-wrap gap-2">
                   {DIETARY_OPTIONS.map(opt => (
                     <button
@@ -369,8 +369,8 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                       onClick={() => toggleDietary(opt)}
                       className={`px-4 py-2 rounded-full border-2 text-sm font-medium transition-all ${
                         data.dietaryNeeds.includes(opt)
-                          ? 'border-[#B57F50] bg-[#B57F50]/10 text-[#96602F]'
-                          : 'border-black/8 text-[#1E2026] hover:border-[#B57F50]/40'
+                          ? 'border-brand bg-brand/10 text-brand-ink'
+                          : 'border-line/8 text-ink hover:border-brand/40'
                       }`}
                     >
                       {opt}
@@ -390,7 +390,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
             {/* ─── STEP 7 — Contact Info ────────────────────────── */}
             {!done && step === 7 && (
               <div className="space-y-4">
-                <p className="text-[#6B6862] text-sm">
+                <p className="text-ink-soft text-sm">
                   Last step — where should we send your catering matches?
                 </p>
                 {error && (
@@ -400,7 +400,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                 )}
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">
+                    <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">
                       Full Name <span className="text-red-400">*</span>
                     </label>
                     <input
@@ -412,7 +412,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">
+                    <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">
                       Email <span className="text-red-400">*</span>
                     </label>
                     <input
@@ -424,7 +424,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Phone</label>
+                    <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Phone</label>
                     <input
                       type="tel"
                       value={data.phone}
@@ -434,7 +434,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">
+                    <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">
                       Anything else?
                     </label>
                     <textarea
@@ -449,7 +449,7 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
                 <button className={btn} disabled={submitting} onClick={submit}>
                   {submitting ? 'Sending…' : 'Get My Catering Quotes'}
                 </button>
-                <p className="text-center text-xs text-[#6B6862]/50">
+                <p className="text-center text-xs text-ink-soft/50">
                   Free service. No commitment. We&apos;ll match you and you choose.
                 </p>
               </div>
@@ -460,10 +460,10 @@ export default function CateringQuiz({ onClose }: { onClose: () => void }) {
 
         {/* Back button */}
         {!done && step > 1 && (
-          <div className="px-6 pb-5 flex-shrink-0 border-t border-black/5 pt-4">
+          <div className="px-6 pb-5 flex-shrink-0 border-t border-line/5 pt-4">
             <button
               onClick={() => advance(step - 1)}
-              className="text-xs text-[#6B6862] hover:text-[#1E2026] transition-colors"
+              className="text-xs text-ink-soft hover:text-ink transition-colors"
             >
               ← Back
             </button>

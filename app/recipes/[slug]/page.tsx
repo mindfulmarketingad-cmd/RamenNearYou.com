@@ -122,23 +122,23 @@ export default async function RecipePage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(recipeSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <main className="min-h-screen bg-[#F5F4F0]">
+      <main className="min-h-screen bg-sunken">
         <div className="print:hidden">
           <Navbar />
         </div>
 
         <div className="pt-24 pb-16 max-w-3xl mx-auto px-4 sm:px-6 print:pt-0 print:max-w-none">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap print:hidden">
-            <Link href="/" className="hover:text-[#96602F] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap print:hidden">
+            <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/recipes" className="hover:text-[#96602F] transition-colors">Recipes</Link>
+            <Link href="/recipes" className="hover:text-brand-ink transition-colors">Recipes</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{recipe.cardTitle}</span>
+            <span className="text-ink">{recipe.cardTitle}</span>
           </nav>
 
           {/* Title */}
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-4 print:hidden">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-4 print:hidden">
             {recipe.title}
           </h1>
 
@@ -150,14 +150,14 @@ export default async function RecipePage({ params }: Props) {
                 alt={recipe.author.name}
                 width={36}
                 height={36}
-                className="rounded-full border border-black/8 shrink-0"
+                className="rounded-full border border-line/8 shrink-0"
                 unoptimized
               />
               <div>
-                <p className="text-sm font-medium text-[#1E2026]">By {recipe.author.name}</p>
+                <p className="text-sm font-medium text-ink">By {recipe.author.name}</p>
                 <div className="flex items-center gap-1.5">
                   <StarRow rating={recipe.rating} />
-                  <span className="text-xs text-[#6B6862]">{recipe.rating.toFixed(1)} ({recipe.reviewCount.toLocaleString()} reviews)</span>
+                  <span className="text-xs text-ink-soft">{recipe.rating.toFixed(1)} ({recipe.reviewCount.toLocaleString()} reviews)</span>
                 </div>
               </div>
             </div>
@@ -165,12 +165,12 @@ export default async function RecipePage({ params }: Props) {
           </div>
 
           {/* Brief description */}
-          <p className="text-[#4B4845] text-base leading-relaxed mb-6 print:hidden">
+          <p className="text-ink-deep text-base leading-relaxed mb-6 print:hidden">
             {recipe.description}
           </p>
 
           {/* Featured image */}
-          <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-[#EFEDE6] mb-10 print:hidden">
+          <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-sunken mb-10 print:hidden">
             <RestaurantImage
               src={recipe.image}
               alt={recipe.cardTitle}
@@ -185,7 +185,7 @@ export default async function RecipePage({ params }: Props) {
           {recipe.gallery && recipe.gallery.length > 0 && (
             <div className="grid grid-cols-2 gap-3 mb-10 print:hidden">
               {recipe.gallery.map((src, i) => (
-                <div key={i} className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-[#EFEDE6]">
+                <div key={i} className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-sunken">
                   <RestaurantImage
                     src={src}
                     alt={`${recipe.cardTitle} photo ${i + 1}`}
@@ -199,12 +199,12 @@ export default async function RecipePage({ params }: Props) {
           )}
 
           {/* Why you'll love this recipe */}
-          <section className="mb-10 print:hidden rounded-2xl border-2 border-[#B57F50]/30 bg-white p-6 sm:p-8">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">Why You&apos;ll Love This Recipe</h2>
+          <section className="mb-10 print:hidden rounded-2xl border-2 border-brand/30 bg-surface p-6 sm:p-8">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">Why You&apos;ll Love This Recipe</h2>
             <ul className="space-y-3">
               {recipe.whyYoullLoveIt.map((point, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-[#1E2026]">
-                  <CheckCircle2 className="w-4 h-4 text-[#96602F] shrink-0 mt-0.5" />
+                <li key={i} className="flex items-start gap-3 text-sm text-ink">
+                  <CheckCircle2 className="w-4 h-4 text-brand-ink shrink-0 mt-0.5" />
                   {point}
                 </li>
               ))}
@@ -212,13 +212,13 @@ export default async function RecipePage({ params }: Props) {
           </section>
 
           {/* Ingredients needed */}
-          <section className="mb-10 print:hidden rounded-2xl bg-[#EFEDE6] p-6 sm:p-8">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">Ingredients Needed</h2>
+          <section className="mb-10 print:hidden rounded-2xl bg-sunken p-6 sm:p-8">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">Ingredients Needed</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
               {recipe.ingredients.map((ing, i) => (
-                <li key={i} className="text-[#1E2026] text-sm leading-relaxed">
+                <li key={i} className="text-ink text-sm leading-relaxed">
                   <strong>{ing.amount} {ing.unit}</strong> {ing.item}
-                  {ing.note && <span className="text-[#6B6862] italic"> ({ing.note})</span>}
+                  {ing.note && <span className="text-ink-soft italic"> ({ing.note})</span>}
                 </li>
               ))}
             </ul>
@@ -226,11 +226,11 @@ export default async function RecipePage({ params }: Props) {
 
           {/* How to make */}
           <section className="mb-10 print:hidden">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">How to Make {recipe.cardTitle}</h2>
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">How to Make {recipe.cardTitle}</h2>
             <ol className="space-y-4">
               {recipe.steps.map((step, i) => (
-                <li key={i} className="flex gap-4 text-[#1E2026] text-sm leading-relaxed">
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-[#B57F50]/15 text-[#96602F] text-sm font-bold flex items-center justify-center">
+                <li key={i} className="flex gap-4 text-ink text-sm leading-relaxed">
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-brand/15 text-brand-ink text-sm font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <span className="pt-0.5">{step.text}</span>
@@ -241,15 +241,15 @@ export default async function RecipePage({ params }: Props) {
 
           {/* What to add */}
           <section className="mb-12 print:hidden">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">What to Add</h2>
-            <p className="text-[#6B6862] text-sm mb-4">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">What to Add</h2>
+            <p className="text-ink-soft text-sm mb-4">
               Make it your own — here are a few ways to customize this bowl.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {recipe.whatToAdd.map((item, i) => (
-                <div key={i} className="rounded-xl border border-black/8 bg-white p-4">
-                  <p className="font-semibold text-[#1E2026] text-sm mb-1">{item.title}</p>
-                  <p className="text-[#6B6862] text-sm leading-relaxed">{item.text}</p>
+                <div key={i} className="rounded-xl border border-line/8 bg-surface p-4">
+                  <p className="font-semibold text-ink text-sm mb-1">{item.title}</p>
+                  <p className="text-ink-soft text-sm leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -258,21 +258,21 @@ export default async function RecipePage({ params }: Props) {
           {/* Reviews */}
           <section className="mb-12 print:hidden">
             <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
-              <h2 className="font-serif text-2xl font-bold text-[#1E2026]">Reviews</h2>
+              <h2 className="font-serif text-2xl font-bold text-ink">Reviews</h2>
               <div className="flex items-center gap-1.5">
                 <StarRow rating={recipe.rating} />
-                <span className="text-sm text-[#6B6862]">{recipe.rating.toFixed(1)} ({recipe.reviewCount.toLocaleString()} reviews)</span>
+                <span className="text-sm text-ink-soft">{recipe.rating.toFixed(1)} ({recipe.reviewCount.toLocaleString()} reviews)</span>
               </div>
             </div>
             <div className="space-y-4">
               {recipe.reviews.map((review, i) => (
-                <div key={i} className="rounded-xl border border-black/8 bg-white p-4">
+                <div key={i} className="rounded-xl border border-line/8 bg-surface p-4">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <p className="font-semibold text-[#1E2026] text-sm">{review.name}</p>
-                    <span className="text-xs text-[#6B6862]/70">{review.date}</span>
+                    <p className="font-semibold text-ink text-sm">{review.name}</p>
+                    <span className="text-xs text-ink-soft/70">{review.date}</span>
                   </div>
                   <StarRow rating={review.rating} />
-                  <p className="text-[#6B6862] text-sm leading-relaxed mt-2">{review.text}</p>
+                  <p className="text-ink-soft text-sm leading-relaxed mt-2">{review.text}</p>
                 </div>
               ))}
             </div>
@@ -280,7 +280,7 @@ export default async function RecipePage({ params }: Props) {
 
           {/* Printable summary card */}
           <section>
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4 print:hidden">Printable Recipe Card</h2>
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4 print:hidden">Printable Recipe Card</h2>
             <RecipeCard recipe={recipe} pageUrl={url} />
           </section>
         </div>

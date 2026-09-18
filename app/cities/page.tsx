@@ -55,26 +55,26 @@ export default function CitiesPage() {
   const totalRestaurants = statesWithCities.reduce((s, st) => s + st.cities.reduce((c, ci) => c + ci.count, 0), 0)
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
       {/* Header */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
+      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-sunken border-b border-line/5">
         <div className="max-w-5xl mx-auto">
-          <nav className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav className="flex items-center gap-1.5 text-xs text-ink-soft mb-6">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Browse by City &amp; State</span>
+            <span className="text-ink">Browse by City &amp; State</span>
           </nav>
           <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
             <RestaurantImage src={pickStockPhoto('cities-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="1024px" priority />
           </div>
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Restaurants by City &amp; State</h1>
-          <p className="text-[#6B6862] text-lg">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-3">Ramen Restaurants by City &amp; State</h1>
+          <p className="text-ink-soft text-lg">
             Find ramen spots and restaurants near you by browsing every city and state in our directory.
           </p>
-          <p className="text-[#6B6862] text-sm mt-2">
+          <p className="text-ink-soft text-sm mt-2">
             {statesWithCities.length} states · {totalCities.toLocaleString()} cities · {totalRestaurants.toLocaleString()} restaurants
           </p>
         </div>

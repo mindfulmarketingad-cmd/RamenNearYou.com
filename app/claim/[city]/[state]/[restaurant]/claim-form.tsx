@@ -12,7 +12,7 @@ interface ClaimFormProps {
 }
 
 function fieldClass() {
-  return 'w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors'
+  return 'w-full px-4 py-3 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors'
 }
 
 export default function ClaimForm({ userEmail, userDisplayName, restaurant }: ClaimFormProps) {
@@ -93,18 +93,18 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
     const claimedName = mode === 'confirm' ? restaurant.name : businessName
     const claimedEmail = mode === 'confirm' ? userEmail : contact.email
     return (
-      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8 text-center">
-        <div className="w-14 h-14 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-7 h-7 text-[#96602F]" />
+      <div className="bg-sunken rounded-xl border border-line/5 p-8 text-center">
+        <div className="w-14 h-14 rounded-full bg-brand/20 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="w-7 h-7 text-brand-ink" />
         </div>
-        <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Claim Submitted!</h2>
-        <p className="text-[#6B6862] leading-relaxed">
-          Your claim for <span className="text-[#1E2026]">{claimedName}</span> is under review.
-          We&apos;ll be in touch at <span className="text-[#1E2026]">{claimedEmail}</span> within 2–3 business days.
+        <h2 className="font-serif text-2xl font-bold text-ink mb-2">Claim Submitted!</h2>
+        <p className="text-ink-soft leading-relaxed">
+          Your claim for <span className="text-ink">{claimedName}</span> is under review.
+          We&apos;ll be in touch at <span className="text-ink">{claimedEmail}</span> within 2–3 business days.
         </p>
         <Link
           href={`/${restaurant.citySlug}/${restaurant.stateSlug}/${restaurant.slug}`}
-          className="inline-block mt-6 px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors"
+          className="inline-block mt-6 px-4 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand/80 transition-colors"
         >
           Back to Listing
         </Link>
@@ -122,40 +122,40 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
           </div>
         )}
 
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
+        <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-4">
           <div className="flex items-center gap-2 mb-1">
-            <ShieldCheck className="w-4 h-4 text-[#96602F]" />
-            <h2 className="font-serif text-lg font-bold text-[#1E2026]">Confirm Your Claim</h2>
+            <ShieldCheck className="w-4 h-4 text-brand-ink" />
+            <h2 className="font-serif text-lg font-bold text-ink">Confirm Your Claim</h2>
           </div>
 
           <div className="flex items-center justify-between gap-3 py-1">
-            <span className="text-xs text-[#6B6862] uppercase tracking-wide flex items-center gap-1.5">
+            <span className="text-xs text-ink-soft uppercase tracking-wide flex items-center gap-1.5">
               <Building2 className="w-3.5 h-3.5" /> Business
             </span>
-            <span className="text-sm font-medium text-[#1E2026] text-right">{restaurant.name}</span>
+            <span className="text-sm font-medium text-ink text-right">{restaurant.name}</span>
           </div>
-          <div className="flex items-center justify-between gap-3 py-1 border-t border-black/5 pt-3">
-            <span className="text-xs text-[#6B6862] uppercase tracking-wide flex items-center gap-1.5">
+          <div className="flex items-center justify-between gap-3 py-1 border-t border-line/5 pt-3">
+            <span className="text-xs text-ink-soft uppercase tracking-wide flex items-center gap-1.5">
               <User className="w-3.5 h-3.5" /> Claiming as
             </span>
-            <span className="text-sm font-medium text-[#1E2026] text-right">{userDisplayName}</span>
+            <span className="text-sm font-medium text-ink text-right">{userDisplayName}</span>
           </div>
-          <div className="flex items-center justify-between gap-3 py-1 border-t border-black/5 pt-3">
-            <span className="text-xs text-[#6B6862] uppercase tracking-wide">Email</span>
-            <span className="text-sm font-medium text-[#1E2026] text-right">{userEmail}</span>
+          <div className="flex items-center justify-between gap-3 py-1 border-t border-line/5 pt-3">
+            <span className="text-xs text-ink-soft uppercase tracking-wide">Email</span>
+            <span className="text-sm font-medium text-ink text-right">{userEmail}</span>
           </div>
         </div>
 
-        <p className="text-xs text-[#6B6862]/70 leading-relaxed">
+        <p className="text-xs text-ink-soft/70 leading-relaxed">
           By clicking below, you confirm you are the owner or an authorized representative of{' '}
-          <strong className="text-[#1E2026]/80">{restaurant.name}</strong> and that the information above is accurate.
+          <strong className="text-ink/80">{restaurant.name}</strong> and that the information above is accurate.
         </p>
 
         <button
           type="button"
           onClick={handleOneClickClaim}
           disabled={loading}
-          className="w-full px-4 py-3.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3.5 rounded-none bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? 'Submitting claim…' : 'Complete My Claim'}
         </button>
@@ -163,12 +163,12 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         <button
           type="button"
           onClick={() => setMode('edit')}
-          className="w-full flex items-center justify-center gap-1.5 text-xs text-[#6B6862] hover:text-[#1E2026] transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 text-xs text-ink-soft hover:text-ink transition-colors"
         >
           <Pencil className="w-3 h-3" /> Business phone wrong, or claiming under a different name? Edit details
         </button>
 
-        <p className="text-center text-xs text-[#6B6862]/50">
+        <p className="text-center text-xs text-ink-soft/50">
           Claims are reviewed within 2–3 business days. One claim per restaurant is accepted.
         </p>
       </div>
@@ -184,17 +184,17 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         </div>
       )}
 
-      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
+      <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
-          <User className="w-4 h-4 text-[#96602F]" />
-          <h2 className="font-serif text-lg font-bold text-[#1E2026]">Claim This Listing</h2>
+          <User className="w-4 h-4 text-brand-ink" />
+          <h2 className="font-serif text-lg font-bold text-ink">Claim This Listing</h2>
         </div>
-        <p className="text-[#6B6862] text-xs leading-relaxed">
+        <p className="text-ink-soft text-xs leading-relaxed">
           Just a few details so we can verify you&apos;re the owner or authorized representative.
         </p>
 
         <div>
-          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">
+          <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">
             <Building2 className="w-3 h-3 inline mr-1" />Business Name <span className="text-red-400">*</span>
           </label>
           <input
@@ -206,7 +206,7 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         </div>
 
         <div>
-          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">
+          <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">
             <Phone className="w-3 h-3 inline mr-1" />Phone Number <span className="text-red-400">*</span>
           </label>
           <input
@@ -220,7 +220,7 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         </div>
 
         <div>
-          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Your Full Name <span className="text-red-400">*</span></label>
+          <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Your Full Name <span className="text-red-400">*</span></label>
           <input
             value={contact.name}
             onChange={(e) => setContact((prev) => ({ ...prev, name: e.target.value }))}
@@ -231,7 +231,7 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         </div>
 
         <div>
-          <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Your Email <span className="text-red-400">*</span></label>
+          <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Your Email <span className="text-red-400">*</span></label>
           <input
             type="email"
             value={contact.email}
@@ -251,25 +251,25 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
             className="sr-only"
           />
           <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-            confirmed ? 'bg-[#B57F50] border-[#B57F50]' : 'border-black/12 group-hover:border-[#B57F50]/50'
+            confirmed ? 'bg-brand border-brand' : 'border-line/12 group-hover:border-brand/50'
           }`}>
             {confirmed && (
-              <svg className="w-3 h-3 text-[#1E2026]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <svg className="w-3 h-3 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             )}
           </div>
         </div>
-        <span className="text-sm text-[#6B6862] leading-relaxed">
+        <span className="text-sm text-ink-soft leading-relaxed">
           I confirm that I am the owner or authorized representative of{' '}
-          <strong className="text-[#1E2026]">{businessName}</strong> and that the information I&apos;ve provided is accurate.
+          <strong className="text-ink">{businessName}</strong> and that the information I&apos;ve provided is accurate.
         </span>
       </label>
 
       <button
         type="submit"
         disabled={loading || !confirmed}
-        className="w-full px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full px-4 py-3 rounded-none bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {loading ? 'Submitting claim…' : 'Submit Claim'}
       </button>
@@ -278,13 +278,13 @@ export default function ClaimForm({ userEmail, userDisplayName, restaurant }: Cl
         <button
           type="button"
           onClick={() => setMode('confirm')}
-          className="w-full text-xs text-[#6B6862] hover:text-[#1E2026] transition-colors"
+          className="w-full text-xs text-ink-soft hover:text-ink transition-colors"
         >
           ← Back to one-click claim
         </button>
       )}
 
-      <p className="text-center text-xs text-[#6B6862]/50">
+      <p className="text-center text-xs text-ink-soft/50">
         Claims are reviewed within 2–3 business days. One claim per restaurant is accepted.
       </p>
     </form>

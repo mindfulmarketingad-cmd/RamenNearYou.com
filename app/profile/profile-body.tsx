@@ -13,7 +13,7 @@ import CitiesSection from './cities-section'
 import type { User } from '@supabase/supabase-js'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm outline-none focus:border-[#B57F50] transition-colors'
+  'w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors'
 
 const brothOptions = ['Tonkotsu', 'Miso', 'Shoyu', 'Shio', 'Tsukemen', 'Chicken', 'All of them!']
 
@@ -181,7 +181,7 @@ export default function ProfileBody() {
   if (!authChecked) {
     return (
       <main className="flex-1 flex items-center justify-center">
-        <p className="text-[#6B6862] text-sm">Loading&hellip;</p>
+        <p className="text-ink-soft text-sm">Loading&hellip;</p>
       </main>
     )
   }
@@ -191,11 +191,11 @@ export default function ProfileBody() {
   return (
     <main className="flex-1 pt-24 pb-16">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-8">My Profile</h1>
+        <h1 className="font-serif text-3xl font-bold text-ink mb-8">My Profile</h1>
 
         <form onSubmit={handleSave} className="space-y-6">
-          <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6">
-            <h2 className="text-[#1E2026] font-semibold text-sm mb-4 uppercase tracking-wider">Photo</h2>
+          <div className="bg-sunken border border-line/8 rounded-xl p-6">
+            <h2 className="text-ink font-semibold text-sm mb-4 uppercase tracking-wider">Photo</h2>
             <div className="flex items-center gap-5">
               <div className="relative flex-shrink-0">
                 {avatarUrl ? (
@@ -204,10 +204,10 @@ export default function ProfileBody() {
                     alt="Avatar"
                     width={80}
                     height={80}
-                    className="w-20 h-20 rounded-full object-cover border-2 border-black/8"
+                    className="w-20 h-20 rounded-full object-cover border-2 border-line/8"
                   />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-[#B57F50]/20 border-2 border-[#B57F50]/30 flex items-center justify-center text-2xl font-bold text-[#96602F]">
+                  <div className="w-20 h-20 rounded-full bg-brand/20 border-2 border-brand/30 flex items-center justify-center text-2xl font-bold text-brand-ink">
                     {userInitial}
                   </div>
                 )}
@@ -217,12 +217,12 @@ export default function ProfileBody() {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploadingPhoto}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/5 border border-black/8 text-[#1E2026] text-sm hover:bg-black/8 transition-colors disabled:opacity-60"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/5 border border-line/8 text-ink text-sm hover:bg-black/8 transition-colors disabled:opacity-60"
                 >
                   <Camera className="w-4 h-4" />
                   {uploadingPhoto ? 'Uploading…' : 'Change photo'}
                 </button>
-                <p className="text-[#6B6862] text-xs mt-1.5">JPG, PNG or GIF, max 8 MB</p>
+                <p className="text-ink-soft text-xs mt-1.5">JPG, PNG or GIF, max 8 MB</p>
                 {uploadError && <p className="text-red-400 text-xs mt-1.5">{uploadError}</p>}
               </div>
               <input
@@ -235,11 +235,11 @@ export default function ProfileBody() {
             </div>
           </div>
 
-          <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6 space-y-5">
-            <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider">Profile Info</h2>
+          <div className="bg-sunken border border-line/8 rounded-xl p-6 space-y-5">
+            <h2 className="text-ink font-semibold text-sm uppercase tracking-wider">Profile Info</h2>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">Display Name</label>
+              <label className="text-ink text-sm font-medium">Display Name</label>
               <input
                 type="text"
                 value={displayName}
@@ -251,8 +251,8 @@ export default function ProfileBody() {
 
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-[#1E2026] text-sm font-medium">Bio</label>
-                <span className="text-[#6B6862] text-xs">{bio.length}/200</span>
+                <label className="text-ink text-sm font-medium">Bio</label>
+                <span className="text-ink-soft text-xs">{bio.length}/200</span>
               </div>
               <textarea
                 rows={3}
@@ -265,7 +265,7 @@ export default function ProfileBody() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">Favorite Broth</label>
+              <label className="text-ink text-sm font-medium">Favorite Broth</label>
               <select
                 value={favoriteBroth}
                 onChange={(e) => setFavoriteBroth(e.target.value)}
@@ -279,7 +279,7 @@ export default function ProfileBody() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">Ramen Restaurants Visited</label>
+              <label className="text-ink text-sm font-medium">Ramen Restaurants Visited</label>
               <input
                 type="number"
                 min={0}
@@ -291,13 +291,13 @@ export default function ProfileBody() {
             </div>
           </div>
 
-          <div className="bg-[#F5F4F0] border border-black/8 rounded-xl p-6 space-y-5">
-            <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider">Social Links</h2>
+          <div className="bg-sunken border border-line/8 rounded-xl p-6 space-y-5">
+            <h2 className="text-ink font-semibold text-sm uppercase tracking-wider">Social Links</h2>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">Instagram</label>
+              <label className="text-ink text-sm font-medium">Instagram</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">@</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft text-sm select-none">@</span>
                 <input
                   type="text"
                   value={instagram}
@@ -309,9 +309,9 @@ export default function ProfileBody() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">TikTok</label>
+              <label className="text-ink text-sm font-medium">TikTok</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">T@</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft text-sm select-none">T@</span>
                 <input
                   type="text"
                   value={tiktok}
@@ -323,9 +323,9 @@ export default function ProfileBody() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[#1E2026] text-sm font-medium">Twitter / X</label>
+              <label className="text-ink text-sm font-medium">Twitter / X</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6862] text-sm select-none">@</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft text-sm select-none">@</span>
                 <input
                   type="text"
                   value={twitter}
@@ -343,32 +343,32 @@ export default function ProfileBody() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full px-6 py-3 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand-hi transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {saving ? 'Saving…' : 'Save Profile'}
           </button>
         </form>
 
-        <div className="mt-6 bg-[#F5F4F0] border border-black/8 rounded-xl p-6">
-          <h2 className="text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">Stats</h2>
+        <div className="mt-6 bg-sunken border border-line/8 rounded-xl p-6">
+          <h2 className="text-ink font-semibold text-sm uppercase tracking-wider mb-4">Stats</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-[#1E2026]">{savesCount ?? '—'}</p>
-              <p className="text-[#6B6862] text-xs mt-1">Saved</p>
+              <p className="text-2xl font-bold text-ink">{savesCount ?? '—'}</p>
+              <p className="text-ink-soft text-xs mt-1">Saved</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-[#1E2026]">{visitsCount ?? '—'}</p>
-              <p className="text-[#6B6862] text-xs mt-1">Visited</p>
+              <p className="text-2xl font-bold text-ink">{visitsCount ?? '—'}</p>
+              <p className="text-ink-soft text-xs mt-1">Visited</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-[#1E2026]">{followsCount ?? '—'}</p>
-              <p className="text-[#6B6862] text-xs mt-1">Cities Followed</p>
+              <p className="text-2xl font-bold text-ink">{followsCount ?? '—'}</p>
+              <p className="text-ink-soft text-xs mt-1">Cities Followed</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1E2026] leading-snug pt-1.5">
+              <p className="text-sm font-semibold text-ink leading-snug pt-1.5">
                 {user.created_at ? formatMemberSince(user.created_at) : '—'}
               </p>
-              <p className="text-[#6B6862] text-xs mt-1">Member Since</p>
+              <p className="text-ink-soft text-xs mt-1">Member Since</p>
             </div>
           </div>
         </div>
@@ -383,8 +383,8 @@ export default function ProfileBody() {
                 <BadgeCheck className="w-5 h-5 text-sky-400" />
               </div>
               <div>
-                <p className="text-[#1E2026] font-semibold text-sm">Own a ramen shop?</p>
-                <p className="text-[#6B6862] text-xs">Manage your verified listings and edit content.</p>
+                <p className="text-ink font-semibold text-sm">Own a ramen shop?</p>
+                <p className="text-ink-soft text-xs">Manage your verified listings and edit content.</p>
               </div>
             </div>
             <span className="text-sky-400 text-sm font-semibold group-hover:underline">Owner Dashboard →</span>
@@ -392,7 +392,7 @@ export default function ProfileBody() {
         </section>
 
         <section className="mt-8">
-          <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
+          <h2 className="flex items-center gap-2 text-ink font-semibold text-sm uppercase tracking-wider mb-4">
             <Heart className="w-4 h-4 text-red-400 fill-red-400" />
             Saved Restaurants
           </h2>
@@ -400,20 +400,20 @@ export default function ProfileBody() {
         </section>
 
         <section className="mt-8">
-          <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
-            <MapPin className="w-4 h-4 text-[#96602F]" />
+          <h2 className="flex items-center gap-2 text-ink font-semibold text-sm uppercase tracking-wider mb-4">
+            <MapPin className="w-4 h-4 text-brand-ink" />
             Cities You Follow
           </h2>
           <CitiesSection />
         </section>
 
         <section className="mt-8">
-          <h2 className="flex items-center gap-2 text-[#1E2026] font-semibold text-sm uppercase tracking-wider mb-4">
+          <h2 className="flex items-center gap-2 text-ink font-semibold text-sm uppercase tracking-wider mb-4">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             Visited Restaurants
           </h2>
-          <p className="text-[#6B6862] text-xs mb-2">
-            You&apos;ve marked <span className="text-[#1E2026] font-semibold">{visitsCount ?? 0}</span> restaurant{visitsCount === 1 ? '' : 's'} as visited.
+          <p className="text-ink-soft text-xs mb-2">
+            You&apos;ve marked <span className="text-ink font-semibold">{visitsCount ?? 0}</span> restaurant{visitsCount === 1 ? '' : 's'} as visited.
           </p>
         </section>
       </div>

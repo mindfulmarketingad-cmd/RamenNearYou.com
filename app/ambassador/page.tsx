@@ -7,7 +7,7 @@ import AmbassadorBody from './ambassador-body'
 // client bundle.
 export default function AmbassadorPage() {
   return (
-    <div className="min-h-screen bg-[#ffffff] flex flex-col">
+    <div className="min-h-screen bg-surface flex flex-col">
       <Navbar />
       <AmbassadorBody />
       <Footer />

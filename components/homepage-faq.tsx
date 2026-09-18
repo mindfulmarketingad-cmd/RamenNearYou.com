@@ -28,17 +28,17 @@ const FAQS = [
 export default function HomepageFAQ() {
   return (
     <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">
+      <h2 className="font-serif text-2xl font-bold text-ink mb-6">
         Frequently Asked Questions
       </h2>
       <div className="space-y-3">
         {FAQS.map(({ q, a }) => (
-          <details key={q} className="group border border-black/8 rounded-xl overflow-hidden bg-white">
-            <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+          <details key={q} className="group border border-line/8 rounded-xl overflow-hidden bg-surface">
+            <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
               {q}
-              <span className="text-[#96602F] shrink-0 text-lg leading-none group-open:rotate-45 transition-transform duration-150">+</span>
+              <span className="text-brand-ink shrink-0 text-lg leading-none group-open:rotate-45 transition-transform duration-150">+</span>
             </summary>
-            <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+            <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
           </details>
         ))}
       </div>

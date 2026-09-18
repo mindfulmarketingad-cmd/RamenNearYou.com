@@ -110,7 +110,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     )
 
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         <Navbar />
 
@@ -178,7 +178,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   )
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 

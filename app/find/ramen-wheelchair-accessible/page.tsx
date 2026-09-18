@@ -34,9 +34,9 @@ export default async function RamenWheelchairAccessiblePage() {
   const mapSlot = (
     <ErrorBoundary
       fallback={
-        <section className="pt-16 bg-[#F5F4F0]">
+        <section className="pt-16 bg-sunken">
           <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+            <Loader2 className="w-8 h-8 text-brand-ink animate-spin" />
           </div>
         </section>
       }
@@ -50,7 +50,7 @@ export default async function RamenWheelchairAccessiblePage() {
   )
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <PseoListicle
         breadcrumb={[{ label: 'Ramen Near You', href: '/' }, { label: 'Find Ramen', href: '/find' }, { label: "Wheelchair Accessible Ramen Near Me" }]}

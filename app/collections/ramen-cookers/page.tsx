@@ -13,33 +13,33 @@ export const metadata = {
 
 export default function RamenCookersPage() {
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 bg-[#F5F4F0] border-b border-black/5">
+      <section className="pt-28 pb-12 px-4 sm:px-6 bg-sunken border-b border-line/5">
         <div className="max-w-5xl mx-auto">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav className="flex items-center gap-1.5 text-xs text-ink-soft mb-6">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/products" className="hover:text-[#1E2026] transition-colors">Products</Link>
+            <Link href="/products" className="hover:text-ink transition-colors">Products</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Ramen Cookers</span>
+            <span className="text-ink">Ramen Cookers</span>
           </nav>
 
           <div className="flex items-center gap-2 mb-3">
-            <ShoppingBag className="w-4 h-4 text-[#96602F]" />
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest">Ramen Equipment</p>
+            <ShoppingBag className="w-4 h-4 text-brand-ink" />
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest">Ramen Equipment</p>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
             Ramen Cookers
           </h1>
-          <p className="text-[#6B6862] text-lg max-w-2xl leading-relaxed">
+          <p className="text-ink-soft text-lg max-w-2xl leading-relaxed">
             The right cooker makes all the difference between decent home ramen and a bowl that tastes like the real thing. These hand-picked electric ramen pots and hot pots give you precise heat control, enough capacity for a proper serving, and easy cleanup — everything you need to make restaurant-quality ramen at home.
           </p>
 
-          <p className="text-[#6B6862] text-xs mt-4">
+          <p className="text-ink-soft text-xs mt-4">
             {ramenCookers.length} product{ramenCookers.length !== 1 ? 's' : ''} · Links go to Amazon. As an Amazon Associate we earn from qualifying purchases.
           </p>
         </div>
@@ -55,10 +55,10 @@ export default function RamenCookersPage() {
                 href={product.affiliateUrl}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-black/5 hover:border-[#B57F50]/40 hover:shadow-lg hover:shadow-black/10 transition-all duration-200"
+                className="group flex flex-col bg-surface rounded-2xl overflow-hidden border border-line/5 hover:border-brand/40 hover:shadow-lg hover:shadow-black/10 transition-all duration-200"
               >
                 {/* Image */}
-                <div className="relative w-full aspect-square bg-[#F5F4F0] overflow-hidden">
+                <div className="relative w-full aspect-square bg-sunken overflow-hidden">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -68,7 +68,7 @@ export default function RamenCookersPage() {
                     unoptimized
                   />
                   {product.badge && (
-                    <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-[#B57F50] text-white text-[11px] font-semibold shadow-sm">
+                    <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-brand text-white text-[11px] font-semibold shadow-sm">
                       {product.badge}
                     </span>
                   )}
@@ -78,16 +78,16 @@ export default function RamenCookersPage() {
                 <div className="flex flex-col flex-1 p-4 gap-3">
                   <div className="flex flex-wrap gap-1">
                     {product.tags?.map(tag => (
-                      <span key={tag} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] text-[#6B6862] text-[11px] font-medium">
+                      <span key={tag} className="px-2 py-0.5 rounded-full bg-sunken text-ink-soft text-[11px] font-medium">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <p className="text-[#1E2026] text-sm font-semibold leading-snug group-hover:text-[#96602F] transition-colors">
+                  <p className="text-ink text-sm font-semibold leading-snug group-hover:text-brand-ink transition-colors">
                     {product.name}
                   </p>
                   <div className="mt-auto">
-                    <span className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2 rounded-none bg-[#B57F50] group-hover:bg-[#c8934f] text-white text-xs font-bold transition-colors">
+                    <span className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2 rounded-none bg-brand group-hover:bg-brand-hi text-white text-xs font-bold transition-colors">
                       Check Price <ExternalLink className="w-3 h-3" />
                     </span>
                   </div>
@@ -97,28 +97,28 @@ export default function RamenCookersPage() {
           </div>
 
           {/* Buying guide */}
-          <div className="mt-16 bg-white rounded-2xl border border-black/5 p-8">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">What to Look for in a Ramen Cooker</h2>
-            <div className="grid sm:grid-cols-3 gap-6 text-sm text-[#6B6862] leading-relaxed">
+          <div className="mt-16 bg-surface rounded-2xl border border-line/5 p-8">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">What to Look for in a Ramen Cooker</h2>
+            <div className="grid sm:grid-cols-3 gap-6 text-sm text-ink-soft leading-relaxed">
               <div>
-                <p className="font-semibold text-[#1E2026] mb-1">Capacity</p>
+                <p className="font-semibold text-ink mb-1">Capacity</p>
                 <p>A single serving of ramen needs at least 2–3 cups of broth plus noodles and toppings. Look for a pot with at least 1.5–2 liters of capacity. If you cook for two, go for 3 liters or more so you have room to simmer without boiling over.</p>
               </div>
               <div>
-                <p className="font-semibold text-[#1E2026] mb-1">Temperature Control</p>
+                <p className="font-semibold text-ink mb-1">Temperature Control</p>
                 <p>Precise heat control is everything for ramen broth. Tonkotsu needs a rolling boil to emulsify fats into a creamy broth; miso and shoyu need a gentler simmer. A cooker with adjustable settings lets you dial in the right heat for each style.</p>
               </div>
               <div>
-                <p className="font-semibold text-[#1E2026] mb-1">Material</p>
+                <p className="font-semibold text-ink mb-1">Material</p>
                 <p>Stainless steel is durable and easy to clean. Nonstick interiors are convenient but require more care with utensils. Cast iron retains heat beautifully but is heavy. For most home ramen cooks, stainless or a quality nonstick electric pot is the easiest starting point.</p>
               </div>
             </div>
           </div>
 
           {/* FAQ */}
-          <div id="faq" className="mt-12 bg-white rounded-2xl border border-black/5 p-8">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">Frequently Asked Questions</h2>
-            <div className="divide-y divide-black/5">
+          <div id="faq" className="mt-12 bg-surface rounded-2xl border border-line/5 p-8">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-8">Frequently Asked Questions</h2>
+            <div className="divide-y divide-line/5">
               {[
                 {
                   q: 'What is the best pot for making ramen at home?',
@@ -142,21 +142,21 @@ export default function RamenCookersPage() {
                 },
               ].map(({ q, a }, i) => (
                 <details key={i} className="group py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                  <summary className="flex items-center justify-between gap-4 font-semibold text-[#1E2026] text-sm sm:text-base select-none">
+                  <summary className="flex items-center justify-between gap-4 font-semibold text-ink text-sm sm:text-base select-none">
                     {q}
-                    <ChevronDown className="w-4 h-4 text-[#96602F] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                    <ChevronDown className="w-4 h-4 text-brand-ink shrink-0 transition-transform duration-200 group-open:rotate-180" />
                   </summary>
-                  <p className="mt-3 text-[#6B6862] text-sm leading-relaxed">{a}</p>
+                  <p className="mt-3 text-ink-soft text-sm leading-relaxed">{a}</p>
                 </details>
               ))}
             </div>
           </div>
 
           {/* Internal links */}
-          <div className="mt-8 p-5 rounded-2xl bg-[#B57F50]/8 border border-[#B57F50]/20">
-            <p className="text-[#1E2026] text-sm font-semibold mb-2">Ready to cook your first bowl?</p>
-            <p className="text-[#6B6862] text-sm">
-              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-[#96602F] underline font-medium">the 4 types of ramen</Link> to choose your first broth style — or pair your new cooker with a set of <Link href="/collections/ceramic-ramen-bowls" className="text-[#96602F] underline font-medium">ceramic ramen bowls</Link>. Want to taste the real thing first? Find the best <Link href="/find/tonkotsu-ramen" className="text-[#96602F] underline font-medium">tonkotsu ramen near you</Link> or <Link href="/find/miso-ramen" className="text-[#96602F] underline font-medium">miso ramen near you</Link>.
+          <div className="mt-8 p-5 rounded-2xl bg-brand/8 border border-brand/20">
+            <p className="text-ink text-sm font-semibold mb-2">Ready to cook your first bowl?</p>
+            <p className="text-ink-soft text-sm">
+              Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-brand-ink underline font-medium">the 4 types of ramen</Link> to choose your first broth style — or pair your new cooker with a set of <Link href="/collections/ceramic-ramen-bowls" className="text-brand-ink underline font-medium">ceramic ramen bowls</Link>. Want to taste the real thing first? Find the best <Link href="/find/tonkotsu-ramen" className="text-brand-ink underline font-medium">tonkotsu ramen near you</Link> or <Link href="/find/miso-ramen" className="text-brand-ink underline font-medium">miso ramen near you</Link>.
             </p>
           </div>
         </div>

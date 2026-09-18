@@ -89,17 +89,17 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
       aria-modal="true"
       aria-label={`Write a review for ${restaurantName}`}
     >
-      <div ref={panelRef} tabIndex={-1} className="w-full sm:max-w-lg bg-[#F5F4F0] rounded-t-2xl sm:rounded-2xl border border-black/8 shadow-2xl overflow-hidden outline-none">
+      <div ref={panelRef} tabIndex={-1} className="w-full sm:max-w-lg bg-sunken rounded-t-2xl sm:rounded-2xl border border-line/8 shadow-2xl overflow-hidden outline-none">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-black/5">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-line/5">
           <div>
-            <h2 className="text-[#1E2026] font-semibold">Write a Review</h2>
-            <p className="text-[#6B6862] text-xs mt-0.5 truncate">{restaurantName}</p>
+            <h2 className="text-ink font-semibold">Write a Review</h2>
+            <p className="text-ink-soft text-xs mt-0.5 truncate">{restaurantName}</p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-1.5 rounded-lg text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5 transition-colors"
+            className="p-1.5 rounded-lg text-ink-soft hover:text-ink hover:bg-black/5 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -108,7 +108,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
         <form onSubmit={handleSubmit} className="px-5 py-5 space-y-5">
           {/* Star rating */}
           <div>
-            <label className="text-[#6B6862] text-xs font-medium mb-2 block">Your Rating *</label>
+            <label className="text-ink-soft text-xs font-medium mb-2 block">Your Rating *</label>
             <div className="flex gap-1.5">
               {[1, 2, 3, 4, 5].map((s) => (
                 <button
@@ -125,7 +125,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                     className={`w-8 h-8 transition-colors ${
                       s <= (hoverRating || rating)
                         ? 'text-amber-400 fill-amber-400'
-                        : 'text-[#1E2026]/20'
+                        : 'text-ink/20'
                     }`}
                   />
                 </button>
@@ -135,8 +135,8 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
 
           {/* Review text */}
           <div>
-            <label className="text-[#6B6862] text-xs font-medium mb-2 block">
-              Your Review <span className="text-[#1E2026]/30">(optional)</span>
+            <label className="text-ink-soft text-xs font-medium mb-2 block">
+              Your Review <span className="text-ink/30">(optional)</span>
             </label>
             <textarea
               value={body}
@@ -144,19 +144,19 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
               placeholder="Share your experience — broth, noodles, service, atmosphere…"
               rows={4}
               maxLength={1000}
-              className="w-full bg-[#ffffff] border border-black/8 rounded-lg px-4 py-3 text-[#1E2026] text-sm placeholder-[#9B9490]/40 outline-none focus:border-[#B57F50]/50 resize-none"
+              className="w-full bg-surface border border-line/8 rounded-lg px-4 py-3 text-ink text-sm placeholder-ink-faint/40 outline-none focus:border-brand/50 resize-none"
             />
-            <p className="text-[#1E2026]/30 text-xs text-right mt-1">{body.length}/1000</p>
+            <p className="text-ink/30 text-xs text-right mt-1">{body.length}/1000</p>
           </div>
 
           {/* Photo upload */}
           <div>
-            <label className="text-[#6B6862] text-xs font-medium mb-2 block">
-              Photos <span className="text-[#1E2026]/30">(up to 5)</span>
+            <label className="text-ink-soft text-xs font-medium mb-2 block">
+              Photos <span className="text-ink/30">(up to 5)</span>
             </label>
             <div className="flex flex-wrap gap-2">
               {previews.map((src, i) => (
-                <div key={i} className="relative w-16 h-16 rounded-lg overflow-hidden bg-[#ffffff] shrink-0">
+                <div key={i} className="relative w-16 h-16 rounded-lg overflow-hidden bg-surface shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt="" className="w-full h-full object-cover" />
                   <button
@@ -164,7 +164,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                     onClick={() => removePhoto(i)}
                     className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
                   >
-                    <Trash2 className="w-4 h-4 text-[#1E2026]" />
+                    <Trash2 className="w-4 h-4 text-ink" />
                   </button>
                 </div>
               ))}
@@ -172,7 +172,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-16 h-16 rounded-lg border border-dashed border-black/12 hover:border-[#B57F50]/50 flex flex-col items-center justify-center gap-1 text-[#6B6862] hover:text-[#96602F] transition-colors"
+                  className="w-16 h-16 rounded-lg border border-dashed border-line/12 hover:border-brand/50 flex flex-col items-center justify-center gap-1 text-ink-soft hover:text-brand-ink transition-colors"
                 >
                   <ImagePlus className="w-5 h-5" />
                   <span className="text-[10px]">Add</span>
@@ -196,7 +196,7 @@ export default function ReviewModal({ restaurantSlug, restaurantName, onClose, o
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 bg-[#B57F50] hover:bg-[#c8934f] disabled:opacity-50 disabled:cursor-not-allowed text-[#1E2026] font-semibold text-sm rounded-none transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-brand hover:bg-brand-hi disabled:opacity-50 disabled:cursor-not-allowed text-ink font-semibold text-sm rounded-none transition-colors flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
             {submitting ? 'Submitting…' : 'Submit Review'}

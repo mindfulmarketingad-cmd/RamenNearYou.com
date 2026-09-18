@@ -188,17 +188,17 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" onClick={onClose} />
 
         {/* Panel */}
-        <div className="relative z-10 ml-auto w-full max-w-md h-full bg-white shadow-2xl flex flex-col overflow-hidden">
+        <div className="relative z-10 ml-auto w-full max-w-md h-full bg-surface shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="flex items-center gap-2.5 px-4 py-3.5 border-b border-black/8 bg-gradient-to-r from-[#1E2026] to-[#2a2e38] shrink-0">
-            <div className="w-7 h-7 rounded-full bg-[#B57F50]/20 flex items-center justify-center shrink-0">
+          <div className="flex items-center gap-2.5 px-4 py-3.5 border-b border-line/8 bg-gradient-to-r from-contrast to-[#2a2e38] shrink-0">
+            <div className="w-7 h-7 rounded-full bg-brand/20 flex items-center justify-center shrink-0">
               <Sparkles className="w-3.5 h-3.5 text-[#d6a25e]" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white font-semibold text-sm leading-tight">Ramen Near Me AI</p>
-              <p className="text-[#6B6862] text-[11px]">Describe what you&apos;re craving</p>
+              <p className="text-ink-soft text-[11px]">Describe what you&apos;re craving</p>
             </div>
-            <button onClick={onClose} aria-label="Close" className="text-[#6B6862] hover:text-white transition-colors shrink-0">
+            <button onClick={onClose} aria-label="Close" className="text-ink-soft hover:text-white transition-colors shrink-0">
               <X className="w-4.5 h-4.5" />
             </button>
           </div>
@@ -206,7 +206,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
           {/* Body */}
           <div className="flex-1 overflow-y-auto">
             {/* Input area */}
-            <div className="p-4 border-b border-black/8 bg-[#FAFAF9]">
+            <div className="p-4 border-b border-line/8 bg-raised">
               <form onSubmit={handleSubmit} className="space-y-2.5">
                 <div className="relative">
                   <textarea
@@ -219,12 +219,12 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                     placeholder="e.g. Spicy tonkotsu under $15, open now, within 5 miles…"
                     rows={2}
                     disabled={streaming}
-                    className="w-full px-3.5 py-2.5 pr-11 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors resize-none disabled:opacity-60"
+                    className="w-full px-3.5 py-2.5 pr-11 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors resize-none disabled:opacity-60"
                   />
                   <button
                     type="submit"
                     disabled={streaming || !query.trim()}
-                    className="absolute right-2.5 bottom-2.5 w-7 h-7 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="absolute right-2.5 bottom-2.5 w-7 h-7 rounded-lg bg-brand hover:bg-brand-hi text-white flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {streaming ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                   </button>
@@ -237,7 +237,7 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                         key={p}
                         type="button"
                         onClick={() => handleExample(p)}
-                        className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white border border-black/10 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                        className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-surface border border-line/10 text-ink-soft hover:border-brand/50 hover:text-brand-ink transition-colors"
                       >
                         {p}
                       </button>
@@ -251,11 +251,11 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
             {streaming && !parsed && (
               <div className="p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <Loader2 className="w-3.5 h-3.5 text-[#96602F] animate-spin shrink-0" />
-                  <p className="text-xs text-[#6B6862]">Finding your best bowl…</p>
+                  <Loader2 className="w-3.5 h-3.5 text-brand-ink animate-spin shrink-0" />
+                  <p className="text-xs text-ink-soft">Finding your best bowl…</p>
                 </div>
                 {rawText && (
-                  <p className="text-[11px] text-[#6B6862] font-mono whitespace-pre-wrap leading-relaxed">{rawText}</p>
+                  <p className="text-[11px] text-ink-soft font-mono whitespace-pre-wrap leading-relaxed">{rawText}</p>
                 )}
               </div>
             )}
@@ -263,10 +263,10 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
             {/* Error state */}
             {error && (
               <div className="p-4">
-                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-red-50 border border-red-200">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30">
+                  <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
                 </div>
-                <button onClick={reset} className="mt-3 flex items-center gap-1.5 text-xs text-[#96602F] font-medium hover:underline">
+                <button onClick={reset} className="mt-3 flex items-center gap-1.5 text-xs text-brand-ink font-medium hover:underline">
                   <RotateCcw className="w-3 h-3" /> Try again
                 </button>
               </div>
@@ -277,9 +277,9 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
               <div className="p-4 space-y-4">
                 {/* Reasoning */}
                 {parsed.reasoning && (
-                  <div className="flex gap-2.5 p-3 rounded-xl bg-[#B57F50]/8 border border-[#B57F50]/15">
-                    <Sparkles className="w-3.5 h-3.5 text-[#96602F] shrink-0 mt-0.5" />
-                    <p className="text-xs text-[#6B6862] leading-relaxed">{parsed.reasoning}</p>
+                  <div className="flex gap-2.5 p-3 rounded-xl bg-brand/8 border border-brand/15">
+                    <Sparkles className="w-3.5 h-3.5 text-brand-ink shrink-0 mt-0.5" />
+                    <p className="text-xs text-ink-soft leading-relaxed">{parsed.reasoning}</p>
                   </div>
                 )}
 
@@ -292,33 +292,33 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
                         <Link
                           href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
                           onClick={() => onSelectSlug?.(r.slug)}
-                          className="flex gap-3 p-3 rounded-xl border border-black/8 bg-white hover:border-[#B57F50]/40 hover:bg-[#B57F50]/4 transition-all"
+                          className="flex gap-3 p-3 rounded-xl border border-line/8 bg-surface hover:border-brand/40 hover:bg-brand/4 transition-all"
                         >
-                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#B57F50] text-white text-[11px] font-bold shrink-0 mt-0.5">
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-brand text-white text-[11px] font-bold shrink-0 mt-0.5">
                             {i + 1}
                           </div>
-                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-[#F5F4F0] shrink-0">
+                          <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-sunken shrink-0">
                             <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="56px" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-sm text-[#1E2026] truncate group-hover:text-[#c8934f] transition-colors">{r.name}</p>
+                            <p className="font-semibold text-sm text-ink truncate group-hover:text-brand-hi transition-colors">{r.name}</p>
                             <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
-                              <span className="flex items-center gap-0.5 text-[#6B6862] text-[11px]">
+                              <span className="flex items-center gap-0.5 text-ink-soft text-[11px]">
                                 <MapPin className="w-2.5 h-2.5" />{r.city}, {r.stateCode}
                               </span>
                               {r.rating && (
-                                <span className="flex items-center gap-0.5 text-[11px] text-[#6B6862]">
+                                <span className="flex items-center gap-0.5 text-[11px] text-ink-soft">
                                   <Star className="w-2.5 h-2.5 text-amber-400 fill-amber-400" />
                                   {r.rating.toFixed(1)}
                                 </span>
                               )}
-                              {r.priceRange && <span className="text-[11px] text-[#6B6862]">{r.priceRange}</span>}
-                              {openNow && <span className="text-[11px] text-emerald-600 font-medium">Open</span>}
+                              {r.priceRange && <span className="text-[11px] text-ink-soft">{r.priceRange}</span>}
+                              {openNow && <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Open</span>}
                               {r.distKm !== undefined && (
-                                <span className="text-[11px] text-[#96602F] font-medium">{(r.distKm * 0.621371).toFixed(1)} mi</span>
+                                <span className="text-[11px] text-brand-ink font-medium">{(r.distKm * 0.621371).toFixed(1)} mi</span>
                               )}
                             </div>
-                            <p className="text-[11px] text-[#6B6862] mt-1 leading-snug">{reason}</p>
+                            <p className="text-[11px] text-ink-soft mt-1 leading-snug">{reason}</p>
                           </div>
                         </Link>
                       </div>
@@ -328,16 +328,16 @@ export default function AiRamenSearchPanel({ onClose, allRestaurants, userLat, u
 
                 {/* Tip */}
                 {parsed.tip && (
-                  <div className="p-3 rounded-xl bg-[#F5F4F0] border border-black/6">
-                    <p className="text-xs text-[#6B6862] leading-relaxed">
-                      <span className="font-semibold text-[#1E2026]">Tip: </span>{parsed.tip}
+                  <div className="p-3 rounded-xl bg-sunken border border-line/6">
+                    <p className="text-xs text-ink-soft leading-relaxed">
+                      <span className="font-semibold text-ink">Tip: </span>{parsed.tip}
                     </p>
                   </div>
                 )}
 
                 <button
                   onClick={reset}
-                  className="flex items-center gap-1.5 text-xs text-[#96602F] font-medium hover:underline"
+                  className="flex items-center gap-1.5 text-xs text-brand-ink font-medium hover:underline"
                 >
                   <RotateCcw className="w-3 h-3" /> Search again
                 </button>

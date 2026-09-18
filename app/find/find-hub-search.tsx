@@ -62,20 +62,20 @@ export default function FindHubSearch({
     <>
       {/* Search bar */}
       <div className="relative mb-10">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-soft" />
         <input
           type="text"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search ramen pages and cities — e.g. tonkotsu, open late, Austin…"
           aria-label="Search Find pages"
-          className="w-full pl-10 pr-10 py-3 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+          className="w-full pl-10 pr-10 py-3 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
         />
         {q && (
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink"
           >
             <X className="w-4 h-4" />
           </button>
@@ -86,14 +86,14 @@ export default function FindHubSearch({
         /* ── Filtered results ── */
         <div className="space-y-8">
           {results.filterMatches.length === 0 && results.cityMatches.length === 0 && results.phoCityMatches.length === 0 && (
-            <p className="text-sm text-[#6B6862]">
+            <p className="text-sm text-ink-soft">
               No matches for &ldquo;{q}&rdquo;. Try a broth (tonkotsu, miso), a feature (open late, delivery), or a city.
             </p>
           )}
 
           {results.filterMatches.length > 0 && (
             <div>
-              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
                 Filters &amp; Styles
               </h2>
               <ul className="space-y-1">
@@ -101,7 +101,7 @@ export default function FindHubSearch({
                   <li key={p.href}>
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                      className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>
@@ -113,7 +113,7 @@ export default function FindHubSearch({
 
           {results.cityMatches.length > 0 && (
             <div>
-              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
                 Cities
               </h2>
               <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
@@ -121,7 +121,7 @@ export default function FindHubSearch({
                   <li key={p.href} className="break-inside-avoid">
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                      className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>
@@ -129,7 +129,7 @@ export default function FindHubSearch({
                 ))}
               </ul>
               {results.cityMatches.length >= CITY_RESULT_CAP && (
-                <p className="text-xs text-[#6B6862] mt-3">
+                <p className="text-xs text-ink-soft mt-3">
                   Showing the first {CITY_RESULT_CAP} cities — keep typing to narrow it down.
                 </p>
               )}
@@ -146,7 +146,7 @@ export default function FindHubSearch({
                   <li key={p.href} className="break-inside-avoid">
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#16a34a] hover:underline py-1 transition-colors"
+                      className="block text-sm text-ink hover:text-[#16a34a] hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>
@@ -162,7 +162,7 @@ export default function FindHubSearch({
           <div className="space-y-8">
             {categories.map((cat) => (
               <div key={cat.heading}>
-                <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+                <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
                   {cat.heading}
                 </h2>
                 <ul className="space-y-1">
@@ -170,7 +170,7 @@ export default function FindHubSearch({
                     <li key={p.href}>
                       <Link
                         href={p.href}
-                        className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                        className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                       >
                         {p.label}
                       </Link>
@@ -182,17 +182,17 @@ export default function FindHubSearch({
           </div>
 
           {/* All city pages, grouped by state */}
-          <div className="mt-14 pt-10 border-t border-black/10">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-1">Ramen by City</h2>
-            <p className="text-[#6B6862] text-sm mb-8">
+          <div className="mt-14 pt-10 border-t border-line/10">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-1">Ramen by City</h2>
+            <p className="text-ink-soft text-sm mb-8">
               Browse all {totalCityPages.toLocaleString()} city pages across {cityPagesByState.length} states.
             </p>
 
             <div className="space-y-8">
               {cityPagesByState.map((state) => (
                 <div key={state.stateCode}>
-                  <h3 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
-                    <Link href={stateHref(state.stateName, state.stateCode)} className="hover:text-[#96602F] transition-colors">
+                  <h3 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
+                    <Link href={stateHref(state.stateName, state.stateCode)} className="hover:text-brand-ink transition-colors">
                       {state.stateName}
                     </Link>
                   </h3>
@@ -201,7 +201,7 @@ export default function FindHubSearch({
                       <li key={c.param} className="break-inside-avoid">
                         <Link
                           href={`/find/${c.param}`}
-                          className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                          className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                         >
                           {c.city}, {state.stateCode}
                         </Link>
@@ -214,9 +214,9 @@ export default function FindHubSearch({
           </div>
 
           {phoCityPages.length > 0 && (
-            <div className="mt-14 pt-10 border-t border-black/10">
-              <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-1">Pho by City</h2>
-              <p className="text-[#6B6862] text-sm mb-8">
+            <div className="mt-14 pt-10 border-t border-line/10">
+              <h2 className="font-serif text-2xl font-bold text-ink mb-1">Pho by City</h2>
+              <p className="text-ink-soft text-sm mb-8">
                 Browse pho restaurants city by city — {phoCityPages.length} cities covered.
               </p>
               <ul className="columns-2 sm:columns-3 gap-x-6 space-y-1">
@@ -224,7 +224,7 @@ export default function FindHubSearch({
                   <li key={p.href} className="break-inside-avoid">
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#16a34a] hover:underline py-1 transition-colors"
+                      className="block text-sm text-ink hover:text-[#16a34a] hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>

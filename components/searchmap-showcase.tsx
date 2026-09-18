@@ -34,7 +34,7 @@ const PINS = [
 function Pin({ r, top, left }: { r: string; top: string; left: string }) {
   return (
     <span
-      className="absolute -translate-x-1/2 -translate-y-1/2 inline-flex items-center gap-0.5 px-2 py-1 rounded-full bg-[#B57F50] text-white text-[11px] font-bold shadow-md ring-2 ring-white whitespace-nowrap"
+      className="absolute -translate-x-1/2 -translate-y-1/2 inline-flex items-center gap-0.5 px-2 py-1 rounded-full bg-brand text-white text-[11px] font-bold shadow-md ring-2 ring-white whitespace-nowrap"
       style={{ top, left }}
     >
       <span className="text-[9px] leading-none">★</span>{r}
@@ -44,7 +44,7 @@ function Pin({ r, top, left }: { r: string; top: string; left: string }) {
 
 function ListingCard({ l }: { l: typeof LISTINGS[number] }) {
   return (
-    <div className={`p-3 ${l.featured ? 'bg-[#FCF7EF] border-b border-[#B57F50]/20' : 'border-b border-black/5'}`}>
+    <div className={`p-3 ${l.featured ? 'bg-raised border-b border-brand/20' : 'border-b border-line/5'}`}>
       <div className="flex gap-3">
         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#2a2722] to-[#0f0d0b] flex-shrink-0 flex items-center justify-center text-lg">🍜</div>
         <div className="flex-1 min-w-0">
@@ -53,23 +53,23 @@ function ListingCard({ l }: { l: typeof LISTINGS[number] }) {
               👑 Featured
             </span>
           )}
-          <div className="font-bold text-sm text-[#1E2026] truncate">{l.name}</div>
-          <div className="text-[11px] text-[#6B6862]">{l.city}</div>
+          <div className="font-bold text-sm text-ink truncate">{l.name}</div>
+          <div className="text-[11px] text-ink-soft">{l.city}</div>
           <div className="flex items-center gap-1.5 text-[11px] mt-0.5">
             <span className="text-[#F4C430]">★</span>
-            <span className="font-semibold text-[#1E2026]">{l.rating}</span>
-            <span className="text-[#6B6862]">{l.price}</span>
-            {l.open && <span className="text-green-600 font-semibold">Open</span>}
-            {l.dist && <span className="text-[#6B6862]">{l.dist}</span>}
+            <span className="font-semibold text-ink">{l.rating}</span>
+            <span className="text-ink-soft">{l.price}</span>
+            {l.open && <span className="text-green-600 dark:text-green-400 font-semibold">Open</span>}
+            {l.dist && <span className="text-ink-soft">{l.dist}</span>}
           </div>
         </div>
         <Heart className="w-4 h-4 text-[#C9C4BD] flex-shrink-0" />
       </div>
       <div className="flex flex-wrap gap-1.5 mt-2 pl-[60px]">
-        <span className="text-[10px] text-[#6B6862] border border-black/10 rounded-full px-2 py-0.5">View Menu</span>
-        <span className="text-[10px] text-[#6B6862] border border-black/10 rounded-full px-2 py-0.5">Get Directions</span>
-        <span className="text-[10px] text-white bg-[#B57F50] rounded-full px-2 py-0.5">Order Now</span>
-        <span className="text-[10px] text-[#6B6862] border border-black/10 rounded-full px-2 py-0.5">Claim Listing</span>
+        <span className="text-[10px] text-ink-soft border border-line/10 rounded-full px-2 py-0.5">View Menu</span>
+        <span className="text-[10px] text-ink-soft border border-line/10 rounded-full px-2 py-0.5">Get Directions</span>
+        <span className="text-[10px] text-white bg-brand rounded-full px-2 py-0.5">Order Now</span>
+        <span className="text-[10px] text-ink-soft border border-line/10 rounded-full px-2 py-0.5">Claim Listing</span>
       </div>
     </div>
   )
@@ -77,39 +77,39 @@ function ListingCard({ l }: { l: typeof LISTINGS[number] }) {
 
 export default function SearchMapShowcase() {
   return (
-    <section className="bg-[#F5F4F0]">
+    <section className="bg-sunken">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
-          <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-1">Live Interactive Map</p>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
+          <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-1">Live Interactive Map</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">
             Search ramen on the map
           </h2>
-          <p className="text-[#6B6862] text-sm max-w-xl">
+          <p className="text-ink-soft text-sm max-w-xl">
             Pan the map, filter by what you crave, and see top-rated bowls near you in real time — complete with ratings, hours, menus, and directions.
           </p>
         </div>
 
         {/* Search map preview card */}
-        <div className="rounded-2xl border border-black/8 shadow-lg overflow-hidden bg-white">
+        <div className="rounded-2xl border border-line/8 shadow-lg overflow-hidden bg-surface">
           {/* Top toolbar */}
-          <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-black/8 bg-white">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-line/8 bg-surface">
             <div className="flex items-center gap-2 flex-1 max-w-sm">
-              <div className="flex items-center gap-2 flex-1 rounded-full border border-black/10 px-3 py-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#96602F]" />
-                <span className="text-xs text-[#6B6862]">ZIP code</span>
-                <span className="ml-auto text-[10px] font-bold text-white bg-[#B57F50] rounded-full px-2 py-0.5">Go</span>
+              <div className="flex items-center gap-2 flex-1 rounded-full border border-line/10 px-3 py-1.5">
+                <MapPin className="w-3.5 h-3.5 text-brand-ink" />
+                <span className="text-xs text-ink-soft">ZIP code</span>
+                <span className="ml-auto text-[10px] font-bold text-white bg-brand rounded-full px-2 py-0.5">Go</span>
               </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-black/10 px-3 py-1.5">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#1E2026]" />
-                <span className="text-xs font-semibold text-[#1E2026]">Filters</span>
+              <div className="flex items-center gap-1.5 rounded-full border border-line/10 px-3 py-1.5">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-ink" />
+                <span className="text-xs font-semibold text-ink">Filters</span>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-3">
-              <span className="flex items-center gap-1.5 text-xs text-[#6B6862]">
+              <span className="flex items-center gap-1.5 text-xs text-ink-soft">
                 <span className="w-2 h-2 rounded-full bg-green-500" />
-                <span className="font-semibold text-[#1E2026]">21</span> members searching now
+                <span className="font-semibold text-ink">21</span> members searching now
               </span>
-              <span className="flex items-center gap-1.5 text-xs font-semibold text-[#1E2026] border border-black/10 rounded-full px-3 py-1.5">
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-ink border border-line/10 rounded-full px-3 py-1.5">
                 <Bookmark className="w-3.5 h-3.5" /> Save Search
               </span>
             </div>
@@ -117,13 +117,13 @@ export default function SearchMapShowcase() {
 
           <div className="flex h-[460px]">
             {/* Sidebar */}
-            <div className="w-[300px] flex-shrink-0 border-r border-black/8 flex flex-col bg-white">
-              <div className="p-3 border-b border-black/8">
-                <div className="flex items-center gap-2 rounded-lg border border-black/10 px-3 py-2">
-                  <Search className="w-3.5 h-3.5 text-[#6B6862]" />
-                  <span className="text-xs text-[#6B6862]">Search restaurants…</span>
+            <div className="w-[300px] flex-shrink-0 border-r border-line/8 flex flex-col bg-surface">
+              <div className="p-3 border-b border-line/8">
+                <div className="flex items-center gap-2 rounded-lg border border-line/10 px-3 py-2">
+                  <Search className="w-3.5 h-3.5 text-ink-soft" />
+                  <span className="text-xs text-ink-soft">Search restaurants…</span>
                 </div>
-                <p className="text-sm font-bold text-[#1E2026] mt-3">300 ramen spots</p>
+                <p className="text-sm font-bold text-ink mt-3">300 ramen spots</p>
               </div>
               <div className="flex-1 overflow-hidden">
                 {LISTINGS.map((l, i) => <ListingCard key={i} l={l} />)}
@@ -150,18 +150,18 @@ export default function SearchMapShowcase() {
               </div>
 
               {/* zoom controls */}
-              <div className="absolute top-3 left-3 flex flex-col rounded-lg overflow-hidden shadow border border-black/10 bg-white">
-                <span className="p-1.5 border-b border-black/10"><Plus className="w-3.5 h-3.5 text-[#1E2026]" /></span>
-                <span className="p-1.5"><Minus className="w-3.5 h-3.5 text-[#1E2026]" /></span>
+              <div className="absolute top-3 left-3 flex flex-col rounded-lg overflow-hidden shadow border border-line/10 bg-surface">
+                <span className="p-1.5 border-b border-line/10"><Plus className="w-3.5 h-3.5 text-ink" /></span>
+                <span className="p-1.5"><Minus className="w-3.5 h-3.5 text-ink" /></span>
               </div>
 
               {/* use my location */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-[#B57F50] text-white text-xs font-semibold px-3 py-1.5 shadow">
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-brand text-white text-xs font-semibold px-3 py-1.5 shadow">
                 <Navigation className="w-3.5 h-3.5" /> Use my location
               </div>
 
               {/* satellite toggle */}
-              <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white text-xs font-semibold text-[#1E2026] px-3 py-1.5 shadow border border-black/10">
+              <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-surface text-xs font-semibold text-ink px-3 py-1.5 shadow border border-line/10">
                 <Layers className="w-3.5 h-3.5" /> Satellite
               </div>
 
@@ -174,13 +174,13 @@ export default function SearchMapShowcase() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-8">
           <Link
             href="/#map"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors"
           >
             Open the live map →
           </Link>
           <Link
             href="/find"
-            className="text-sm text-[#6B6862] hover:text-[#96602F] transition-colors"
+            className="text-sm text-ink-soft hover:text-brand-ink transition-colors"
           >
             Browse all ramen pages →
           </Link>

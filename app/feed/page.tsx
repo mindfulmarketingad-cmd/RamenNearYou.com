@@ -14,15 +14,15 @@ export const metadata: Metadata = {
 
 export default function FeedPage() {
   return (
-    <main className="min-h-screen bg-[#ECEAE4]">
+    <main className="min-h-screen bg-page">
       <Navbar />
 
       <div className="max-w-xl mx-auto px-4 sm:px-6 pt-24 pb-16">
         <header className="mb-5">
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink leading-tight">
             My Feed
           </h1>
-          <p className="text-sm text-[#6B6862] mt-1.5">
+          <p className="text-sm text-ink-soft mt-1.5">
             Every ramen shop in the ZIP codes you follow.
           </p>
         </header>

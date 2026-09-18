@@ -73,7 +73,7 @@ export default async function ModifierCityFindPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-surface">
         <Navbar />
 
         <PseoListicle
@@ -94,38 +94,38 @@ export default async function ModifierCityFindPage({
           mapSlot={mapSlot}
         />
 
-        <div className="relative z-10 bg-white">
+        <div className="relative z-10 bg-surface">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
             {cityGuidePost && (
-              <div className="prose-ramen mb-10 pb-8 border-b border-black/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
             )}
 
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-4">
+            <h2 className="font-serif text-2xl font-bold text-ink mb-4">
               {title}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               When I am after {modifier.metaNoun} in {city.cityName}, the list above is where I start. It is
               already filtered toward {modifier.metaNoun}, so it is easy to compare ratings, hours, and photos
               and pick the bowl you actually want — or switch to the map and tap &quot;Use my location&quot; to
               sort the same list by distance.
             </p>
 
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-ink mb-3">
               What makes great {modifier.metaNoun}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-6">{about}</p>
+            <p className="text-ink-soft text-sm leading-relaxed mb-6">{about}</p>
 
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-ink mb-3">
               How I find the best {modifier.metaNoun} in {city.cityName}
             </h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
               My approach is simple: I favor shops that specialize rather than do a little of everything, and I
               trust a strong rating that holds up across plenty of reviews over a perfect score from just a
               few. In {city.cityName}, I open a couple of listings, skim the most recent reviews and the
               photos, and go with the bowl that looks carefully made. The map keeps everything sorted by
               distance, so you are never trading quality for a long drive.
             </p>
-            <h3 className="text-[#1E2026] font-semibold text-base mb-2 mt-6">
+            <h3 className="text-ink font-semibold text-base mb-2 mt-6">
               Tips for ordering {modifier.metaNoun}
             </h3>
             <ul className="space-y-2.5 mb-6">
@@ -135,19 +135,19 @@ export default async function ModifierCityFindPage({
                 'Use the Filters button to stack on what matters: open now, price, or dietary needs.',
                 'Ask the shop for noodle firmness and spice level so the bowl arrives exactly how you like it.',
               ].map((t) => (
-                <li key={t} className="flex gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
+                <li key={t} className="flex gap-2.5 text-ink-soft text-sm leading-relaxed">
+                  <span className="text-brand-ink shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Prefer to widen the search? You can browse all{' '}
-              <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="text-[#96602F] hover:underline">
+              <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="text-brand-ink hover:underline">
                 ramen in {city.cityName}, {city.stateCode}
               </Link>{' '}
               or jump to{' '}
-              <Link href={modifier.hubHref} className="text-[#96602F] hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
+              <Link href={modifier.hubHref} className="text-brand-ink hover:underline">{modifier.hubLabel.toLowerCase()} near you</Link>{' '}
               nationwide.
             </p>
 
@@ -155,31 +155,31 @@ export default async function ModifierCityFindPage({
               <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
             )}
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-5">
+            <h2 className="font-serif text-xl font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
               {faqs.map(({ q, a }) => (
-                <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+                <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                     {q}
-                    <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                   </summary>
-                  <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                  <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
                 </details>
               ))}
             </div>
 
-            <div className="mt-10 pt-8 border-t border-black/8">
-              <p className="text-xs text-[#6B6862]">
+            <div className="mt-10 pt-8 border-t border-line/8">
+              <p className="text-xs text-ink-soft">
                 Also browsing:{' '}
-                <Link href={modifier.hubHref} className="hover:text-[#96602F] underline">{modifier.hubLabel} Near Me</Link>
+                <Link href={modifier.hubHref} className="hover:text-brand-ink underline">{modifier.hubLabel} Near Me</Link>
                 {' · '}
-                <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="hover:text-[#96602F] underline">
+                <Link href={`/find/${city.citySlug}-${city.stateCode.toLowerCase()}`} className="hover:text-brand-ink underline">
                   Ramen in {city.cityName}, {city.stateCode}
                 </Link>
                 {' · '}
-                <Link href={`/${city.stateSlug}`} className="hover:text-[#96602F] underline">
+                <Link href={`/${city.stateSlug}`} className="hover:text-brand-ink underline">
                   Ramen in {city.stateName}
                 </Link>
               </p>

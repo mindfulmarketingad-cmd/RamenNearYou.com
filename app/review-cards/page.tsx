@@ -34,39 +34,39 @@ export default async function ReviewCardsPage({
     : null
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-28 pb-20">
         <div className="text-center mb-10">
           <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
             <RestaurantImage src={pickStockPhoto('review-cards')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 mb-4">
-            <span className="text-[#96602F] text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 mb-4">
+            <span className="text-brand-ink text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
             Google Review Cards
           </h1>
-          <p className="text-[#6B6862] leading-relaxed max-w-md mx-auto">
+          <p className="text-ink-soft leading-relaxed max-w-md mx-auto">
             More Google reviews, without awkward asks. A print-ready QR kit that takes your
-            customers straight to your review page — <strong className="text-[#1E2026]">{PRICE_LABEL}</strong>, one-time.
+            customers straight to your review page — <strong className="text-ink">{PRICE_LABEL}</strong>, one-time.
           </p>
         </div>
 
         {/* How it works */}
         <div className="grid sm:grid-cols-2 gap-4 mb-10">
           {STEPS.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="bg-white rounded-2xl border border-black/8 p-5">
-              <Icon className="w-6 h-6 text-[#96602F] mb-3" />
-              <p className="font-semibold text-[#1E2026] text-sm mb-1">{title}</p>
-              <p className="text-[#6B6862] text-xs leading-relaxed">{text}</p>
+            <div key={title} className="bg-surface rounded-2xl border border-line/8 p-5">
+              <Icon className="w-6 h-6 text-brand-ink mb-3" />
+              <p className="font-semibold text-ink text-sm mb-1">{title}</p>
+              <p className="text-ink-soft text-xs leading-relaxed">{text}</p>
             </div>
           ))}
         </div>
 
         <ReviewCardOrderForm initialPicked={initialPicked} />
 
-        <p className="text-center text-xs text-[#6B6862] mt-6 max-w-md mx-auto">
+        <p className="text-center text-xs text-ink-soft mt-6 max-w-md mx-auto">
           Every card sends every customer to the same public Google review page — no filtering,
           no gating, fully within Google&apos;s review policies.
         </p>

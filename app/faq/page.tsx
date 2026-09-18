@@ -133,15 +133,15 @@ const faqs = faqSchema.mainEntity
 function FaqItem({ question, answer, index }: { question: string; answer: string; index: number }) {
   return (
     <details
-      className="group border border-black/5 rounded-xl bg-[#F5F4F0] overflow-hidden"
+      className="group border border-line/5 rounded-xl bg-sunken overflow-hidden"
       open={index === 0}
     >
-      <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none hover:bg-white/[0.03] transition-colors">
-        <h2 className="font-semibold text-[#1E2026] text-base leading-snug">{question}</h2>
-        <ChevronDown className="w-4 h-4 text-[#96602F] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+      <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none hover:bg-surface/[0.03] transition-colors">
+        <h2 className="font-semibold text-ink text-base leading-snug">{question}</h2>
+        <ChevronDown className="w-4 h-4 text-brand-ink shrink-0 transition-transform duration-200 group-open:rotate-180" />
       </summary>
       <div className="px-6 pb-5">
-        <p className="text-[#6B6862] text-sm leading-relaxed">{answer}</p>
+        <p className="text-ink-soft text-sm leading-relaxed">{answer}</p>
       </div>
     </details>
   )
@@ -154,7 +154,7 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="min-h-screen bg-[#ffffff]">
+      <main className="min-h-screen bg-surface">
         <Navbar />
 
         {/* Header */}
@@ -162,11 +162,11 @@ export default function FaqPage() {
           <div className="relative w-full max-w-xl mx-auto h-40 sm:h-48 rounded-2xl overflow-hidden mb-8">
             <RestaurantImage src={pickStockPhoto('faq')} alt="A bowl of ramen" fill className="object-cover" sizes="576px" priority />
           </div>
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Learn</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
             Ramen FAQ
           </h1>
-          <p className="text-[#6B6862] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-ink-soft text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Everything you want to know about ramen — broth styles, toppings, ordering tips, and where to find a great bowl near you.
           </p>
         </section>
@@ -187,23 +187,23 @@ export default function FaqPage() {
 
         {/* CTA */}
         <section className="px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="max-w-3xl mx-auto text-center bg-[#F5F4F0] border border-black/5 rounded-2xl px-8 py-12">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-3">
+          <div className="max-w-3xl mx-auto text-center bg-sunken border border-line/5 rounded-2xl px-8 py-12">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-3">
               Ready to find your next bowl?
             </h2>
-            <p className="text-[#6B6862] text-sm mb-6">
+            <p className="text-ink-soft text-sm mb-6">
               Browse top-rated ramen restaurants near you — filtered by city or broth type.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/cities"
-                className="px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors"
+                className="px-5 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand-hi transition-colors"
               >
                 Browse by City
               </Link>
               <Link
                 href="/broth"
-                className="px-5 py-2.5 rounded-lg border border-black/8 text-[#6B6862] text-sm font-medium hover:border-black/15 hover:text-[#1E2026] transition-colors"
+                className="px-5 py-2.5 rounded-lg border border-line/8 text-ink-soft text-sm font-medium hover:border-line/15 hover:text-ink transition-colors"
               >
                 Browse by Broth Type
               </Link>

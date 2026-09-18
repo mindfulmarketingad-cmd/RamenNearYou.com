@@ -15,13 +15,13 @@ const BLURB: Record<string, string> = {
 
 export default function ServiceDirectory() {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-sunken border-t border-line/5">
       <div className="max-w-7xl mx-auto">
-        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Browse by Style</p>
-        <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
+        <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Browse by Style</p>
+        <h2 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
           Find Ramen by Broth &amp; Style
         </h2>
-        <p className="text-[#6B6862] text-sm sm:text-base max-w-xl leading-relaxed mb-10">
+        <p className="text-ink-soft text-sm sm:text-base max-w-xl leading-relaxed mb-10">
           From rich tonkotsu to plant-based bowls — explore every style of ramen near you.
         </p>
 
@@ -30,15 +30,15 @@ export default function ServiceDirectory() {
             <Link
               key={s.href}
               href={s.href}
-              className="group flex items-center justify-between gap-3 px-5 py-4 rounded-none bg-white border border-black/5 hover:border-[#B57F50]/40 transition-colors"
+              className="group flex items-center justify-between gap-3 px-5 py-4 rounded-none bg-surface border border-line/5 hover:border-brand/40 transition-colors"
             >
               <span>
-                <span className="block text-[#1E2026] font-semibold text-sm group-hover:text-[#96602F] transition-colors">
+                <span className="block text-ink font-semibold text-sm group-hover:text-brand-ink transition-colors">
                   {s.label} Near Me
                 </span>
-                <span className="block text-[#6B6862] text-xs mt-0.5">{BLURB[s.broth]}</span>
+                <span className="block text-ink-soft text-xs mt-0.5">{BLURB[s.broth]}</span>
               </span>
-              <ChevronRight className="w-4 h-4 text-[#96602F]/50 group-hover:text-[#96602F] shrink-0 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-brand-ink/50 group-hover:text-brand-ink shrink-0 transition-colors" />
             </Link>
           ))}
         </div>

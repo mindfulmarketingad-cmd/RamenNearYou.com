@@ -35,9 +35,9 @@ export default async function JinyaRamenPage() {
   const mapSlot = (
     <ErrorBoundary
       fallback={
-        <section className="pt-16 bg-[#F5F4F0]">
+        <section className="pt-16 bg-sunken">
           <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#96602F] animate-spin" />
+            <Loader2 className="w-8 h-8 text-brand-ink animate-spin" />
           </div>
         </section>
       }
@@ -51,7 +51,7 @@ export default async function JinyaRamenPage() {
   )
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <PseoListicle
         breadcrumb={[{ label: 'Ramen Near You', href: '/' }, { label: 'Find Ramen', href: '/find' }, { label: "JINYA Ramen Bar Near Me" }]}
@@ -122,7 +122,7 @@ export default async function JinyaRamenPage() {
             body: (
               <p>
                 Want to see every bowl, side, and drink before you go? Check out the{' '}
-                <Link href="/menu/jinya-ramen-bar-menu" className="text-[#96602F] hover:underline">
+                <Link href="/menu/jinya-ramen-bar-menu" className="text-brand-ink hover:underline">
                   full JINYA Ramen Bar menu with prices
                 </Link>{' '}
                 so you can plan your order ahead of time.

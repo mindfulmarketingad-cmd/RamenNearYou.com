@@ -26,16 +26,16 @@ function Card({ qrSvg, name, size }: { qrSvg: string; name: string; size: 'large
   }[size]
 
   return (
-    <div className={`${dims.w} ${dims.pad} bg-white border-2 border-[#1E2026] rounded-2xl flex flex-col items-center text-center break-inside-avoid`}>
-      <p className={`${dims.sub} font-semibold uppercase tracking-widest text-[#96602F] mb-1`}>Enjoyed your bowl?</p>
-      <p className={`font-serif ${dims.title} font-bold text-[#1E2026] leading-tight mb-3`}>
+    <div className={`${dims.w} ${dims.pad} bg-surface border-2 border-contrast rounded-2xl flex flex-col items-center text-center break-inside-avoid`}>
+      <p className={`${dims.sub} font-semibold uppercase tracking-widest text-brand-ink mb-1`}>Enjoyed your bowl?</p>
+      <p className={`font-serif ${dims.title} font-bold text-ink leading-tight mb-3`}>
         Review us on Google <span aria-hidden>⭐</span>
       </p>
       <div className={`${dims.qr} shrink-0`} dangerouslySetInnerHTML={{ __html: qrSvg }} />
-      <p className={`${dims.sub} text-[#6B6862] mt-3 leading-snug`}>
+      <p className={`${dims.sub} text-ink-soft mt-3 leading-snug`}>
         Scan with your phone camera —<br />it takes 20 seconds and means the world to us.
       </p>
-      <p className={`${dims.sub} font-semibold text-[#1E2026] mt-2`}>{name}</p>
+      <p className={`${dims.sub} font-semibold text-ink mt-2`}>{name}</p>
     </div>
   )
 }
@@ -59,12 +59,12 @@ export default async function ReviewCardPrintPage({ params }: Props) {
   const qrSvgResponsive = qrSvg.replace('<svg ', '<svg style="width:100%;height:100%" ')
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0] print:bg-white">
+    <main className="min-h-screen bg-sunken print:bg-surface">
       {/* Screen-only header */}
       <div className="max-w-3xl mx-auto px-6 pt-10 pb-6 text-center print:hidden">
-        <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Google Review Card Kit</p>
-        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">{r.name}</h1>
-        <p className="text-[#6B6862] text-sm max-w-md mx-auto mb-5">
+        <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Google Review Card Kit</p>
+        <h1 className="font-serif text-3xl font-bold text-ink mb-2">{r.name}</h1>
+        <p className="text-ink-soft text-sm max-w-md mx-auto mb-5">
           Print this page (or save it as a PDF) on cardstock. Cut along the card edges — you get a
           table tent card, a counter card, and four takeout-bag stickers. The QR opens your Google
           review page instantly.

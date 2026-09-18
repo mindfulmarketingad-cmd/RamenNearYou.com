@@ -9,7 +9,7 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <div className="w-full bg-[#1E2026] py-5 px-4">
+    <div className="w-full bg-contrast py-5 px-4">
       <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-y-5 gap-x-4">
         {stats.map(({ icon: Icon, value, label }, i) => (
           <div
@@ -20,8 +20,8 @@ export default function StatsBar() {
                 : ''
             }`}
           >
-            <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#B57F50]/20 flex items-center justify-center">
-              <Icon className="w-4 h-4 text-[#96602F]" />
+            <div className="flex-shrink-0 w-9 h-9 rounded-full bg-brand/20 flex items-center justify-center">
+              <Icon className="w-4 h-4 text-brand-ink" />
             </div>
             <div>
               <p className="text-white font-bold text-lg leading-none">{value}</p>

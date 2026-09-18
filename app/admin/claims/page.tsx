@@ -34,12 +34,12 @@ export default async function AdminClaimsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">Restaurant Claims</h1>
-            <p className="text-[#6B6862]">Review, approve, or reject ownership claims submitted by restaurant owners.</p>
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">Restaurant Claims</h1>
+            <p className="text-ink-soft">Review, approve, or reject ownership claims submitted by restaurant owners.</p>
           </div>
 
           <ClaimsList initialClaims={claims as Parameters<typeof ClaimsList>[0]['initialClaims']} />

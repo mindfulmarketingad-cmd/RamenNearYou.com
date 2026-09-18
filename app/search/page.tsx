@@ -40,7 +40,7 @@ function StarRating({ rating }: { rating: number | null }) {
           className={`w-3 h-3 ${
             i <= full ? 'text-amber-400 fill-amber-400'
               : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50'
-              : 'text-[#1E2026]/20'
+              : 'text-ink/20'
           }`}
         />
       ))}
@@ -52,7 +52,7 @@ function SectionHeading({ icon: Icon, children, accent = '#96602F' }: {
   icon: typeof MapIcon; children: React.ReactNode; accent?: string
 }) {
   return (
-    <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-[#1E2026] mb-4">
+    <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-ink mb-4">
       <Icon className="w-4 h-4" style={{ color: accent }} />
       {children}
     </h2>
@@ -66,14 +66,14 @@ function LinkList({ hits, accent = '#96602F' }: { hits: SearchHit[]; accent?: st
         <li key={h.href}>
           <Link
             href={h.href}
-            className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-black/8 hover:border-[#B57F50]/50 transition-colors group"
+            className="flex items-center justify-between gap-3 p-3 rounded-xl bg-surface border border-line/8 hover:border-brand/50 transition-colors group"
           >
             <span className="min-w-0">
-              <span className="block text-sm font-semibold text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">
+              <span className="block text-sm font-semibold text-ink group-hover:text-brand-ink transition-colors truncate">
                 {h.title}
               </span>
               {(h.subtitle || h.meta) && (
-                <span className="block text-xs text-[#6B6862] mt-0.5 truncate">
+                <span className="block text-xs text-ink-soft mt-0.5 truncate">
                   {[h.subtitle, h.meta].filter(Boolean).join(' · ')}
                 </span>
               )}
@@ -97,17 +97,17 @@ export default async function SearchPage({
   // ── Landing state: one search bar, Google-homepage style ────────────────
   if (!query) {
     return (
-      <main className="min-h-screen bg-[#F5F4F0]">
+      <main className="min-h-screen bg-sunken">
         <Navbar />
         {/* The bar still owns the first screenful; the link hub sits below the
             fold so browsing is one scroll away without competing with it. */}
         <div className="flex flex-col items-center justify-center px-4 sm:px-6 min-h-[calc(100vh-14rem)] py-16">
           <div className="w-full max-w-2xl text-center">
             <div className="text-5xl mb-5" aria-hidden="true">🍜</div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
               Search Ramen Near You
             </h1>
-            <p className="text-[#6B6862] text-sm sm:text-base mb-8 max-w-lg mx-auto">
+            <p className="text-ink-soft text-sm sm:text-base mb-8 max-w-lg mx-auto">
               Ask in plain English. We&apos;ll pull matching restaurants, pho listings, guides,
               reviews, and map searches from across the site.
             </p>
@@ -127,24 +127,24 @@ export default async function SearchPage({
   const cityLabel = intent.city ? `${intent.city.city}, ${intent.city.stateCode}` : null
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
 
-      <div className="pt-24 pb-6 px-4 sm:px-6 bg-white border-b border-black/8">
+      <div className="pt-24 pb-6 px-4 sm:px-6 bg-surface border-b border-line/8">
         <div className="max-w-4xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-4">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-4">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/search" className="hover:text-[#1E2026] transition-colors">Search</Link>
+            <Link href="/search" className="hover:text-ink transition-colors">Search</Link>
           </nav>
           <SearchBox initialQuery={query} size="compact" />
           {/* Say out loud how the query was read — if we picked the wrong city
               or missed a "near me", the visitor can see why and rephrase. */}
-          <p className="text-xs text-[#6B6862] mt-3">
+          <p className="text-xs text-ink-soft mt-3">
             {r.total > 0
-              ? <>Results for <span className="text-[#1E2026] font-semibold">&ldquo;{query}&rdquo;</span></>
-              : <>No matches for <span className="text-[#1E2026] font-semibold">&ldquo;{query}&rdquo;</span></>}
-            {cityLabel && <> · reading this as <span className="text-[#96602F] font-semibold">{cityLabel}</span></>}
+              ? <>Results for <span className="text-ink font-semibold">&ldquo;{query}&rdquo;</span></>
+              : <>No matches for <span className="text-ink font-semibold">&ldquo;{query}&rdquo;</span></>}
+            {cityLabel && <> · reading this as <span className="text-brand-ink font-semibold">{cityLabel}</span></>}
             {intent.nearMe && <> · sorting by distance from you</>}
           </p>
         </div>
@@ -170,35 +170,35 @@ export default async function SearchPage({
                 <Link
                   key={`${x.citySlug}-${x.slug}`}
                   href={`/${x.citySlug}/${x.stateSlug}/${x.slug}`}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white border border-black/8 hover:border-[#B57F50]/50 transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-line/8 hover:border-brand/50 transition-colors group"
                 >
-                  <span className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-[#ECEAE4]">
+                  <span className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-page">
                     <RestaurantImage src={x.photo} alt={x.name} fill className="object-cover" sizes="56px" />
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block font-semibold text-sm text-[#1E2026] group-hover:text-[#96602F] transition-colors truncate">
+                    <span className="block font-semibold text-sm text-ink group-hover:text-brand-ink transition-colors truncate">
                       {x.name}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5 truncate">
+                    <span className="flex items-center gap-1 text-xs text-ink-soft mt-0.5 truncate">
                       <MapPin className="w-3 h-3 shrink-0" />{x.city}, {x.stateCode}
                     </span>
                     {x.rating != null && (
                       <span className="flex items-center gap-1.5 mt-1">
                         <StarRating rating={x.rating} />
-                        <span className="text-xs text-[#6B6862]">
+                        <span className="text-xs text-ink-soft">
                           {x.rating.toFixed(1)}{x.reviewCount ? ` (${x.reviewCount.toLocaleString()})` : ''}
                         </span>
                       </span>
                     )}
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#96602F] shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-brand-ink shrink-0" />
                 </Link>
               ))}
             </div>
             {r.restaurants.length > 10 && intent.city && (
               <Link
                 href={`/find/${intent.city.citySlug}-${intent.city.stateCode.toLowerCase()}`}
-                className="inline-block mt-3 text-sm text-[#96602F] hover:underline"
+                className="inline-block mt-3 text-sm text-brand-ink hover:underline"
               >
                 See all {r.restaurants.length}+ in {cityLabel} on the map →
               </Link>
@@ -216,22 +216,22 @@ export default async function SearchPage({
                 <Link
                   key={p.slug}
                   href={`/partners/${p.slug}`}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white border border-black/8 hover:border-[#16a34a]/50 transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-line/8 hover:border-[#16a34a]/50 transition-colors group"
                 >
-                  <span className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-[#ECEAE4]">
+                  <span className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-page">
                     <RestaurantImage src={p.photo} alt={p.name} fill className="object-cover" sizes="56px" />
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block font-semibold text-sm text-[#1E2026] group-hover:text-[#16a34a] transition-colors truncate">
+                    <span className="block font-semibold text-sm text-ink group-hover:text-[#16a34a] transition-colors truncate">
                       {p.name}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5 truncate">
+                    <span className="flex items-center gap-1 text-xs text-ink-soft mt-0.5 truncate">
                       <MapPin className="w-3 h-3 shrink-0" />{p.city}, {p.stateCode}
                     </span>
                     {p.rating != null && (
                       <span className="flex items-center gap-1.5 mt-1">
                         <StarRating rating={p.rating} />
-                        <span className="text-xs text-[#6B6862]">
+                        <span className="text-xs text-ink-soft">
                           {p.rating.toFixed(1)} ({p.reviewCount.toLocaleString()})
                         </span>
                       </span>
@@ -267,19 +267,19 @@ export default async function SearchPage({
 
         {!hasAnything && (
           <div className="text-center py-12">
-            <p className="text-[#1E2026] font-semibold mb-2">Nothing matched that search.</p>
-            <p className="text-[#6B6862] text-sm mb-6 max-w-md mx-auto">
+            <p className="text-ink font-semibold mb-2">Nothing matched that search.</p>
+            <p className="text-ink-soft text-sm mb-6 max-w-md mx-auto">
               Try a city (&ldquo;ramen in Chicago&rdquo;), a broth style (&ldquo;tonkotsu&rdquo;),
               a restaurant name, or a ZIP code.
             </p>
             <div className="flex flex-wrap justify-center gap-2">
-              <Link href="/find" className="px-4 py-2 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-semibold transition-colors">
+              <Link href="/find" className="px-4 py-2 rounded-full bg-brand hover:bg-brand-hi text-white text-xs font-semibold transition-colors">
                 Browse the map
               </Link>
-              <Link href="/cities" className="px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 transition-colors">
+              <Link href="/cities" className="px-4 py-2 rounded-full bg-surface border border-line/10 text-ink text-xs font-semibold hover:border-brand/50 transition-colors">
                 Browse by city
               </Link>
-              <Link href="/blog" className="px-4 py-2 rounded-full bg-white border border-black/10 text-[#1E2026] text-xs font-semibold hover:border-[#B57F50]/50 transition-colors">
+              <Link href="/blog" className="px-4 py-2 rounded-full bg-surface border border-line/10 text-ink text-xs font-semibold hover:border-brand/50 transition-colors">
                 Read the blog
               </Link>
             </div>

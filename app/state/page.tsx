@@ -45,20 +45,20 @@ export default function StateIndexPage() {
   const totalTowns = allStates.reduce((s, st) => s + st.cityCount, 0)
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       {/* Header */}
-      <div className="bg-[#F5F0EA] px-4 sm:px-6 pt-24 pb-8">
+      <div className="bg-sunken px-4 sm:px-6 pt-24 pb-8">
         <div className="max-w-5xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-4">
-            <Link href="/" className="hover:text-[#96602F] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-4">
+            <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-[#1E2026]">By State</span>
+            <span className="text-ink">By State</span>
           </nav>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
             Ramen Restaurants by State
           </h1>
-          <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">
+          <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">
             Every state we track ramen restaurants in, with how many we currently have listed.
             Pick a state to see its full, ranked directory.
           </p>
@@ -66,10 +66,10 @@ export default function StateIndexPage() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-        <p className="text-sm text-[#6B6862] mb-6">
-          Currently tracking <strong className="text-[#1E2026]">{totalRestaurants.toLocaleString()}</strong> ramen
-          restaurants across <strong className="text-[#1E2026]">{allStates.length}</strong> states and{' '}
-          <strong className="text-[#1E2026]">{totalTowns.toLocaleString()}</strong> towns.
+        <p className="text-sm text-ink-soft mb-6">
+          Currently tracking <strong className="text-ink">{totalRestaurants.toLocaleString()}</strong> ramen
+          restaurants across <strong className="text-ink">{allStates.length}</strong> states and{' '}
+          <strong className="text-ink">{totalTowns.toLocaleString()}</strong> towns.
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -77,24 +77,24 @@ export default function StateIndexPage() {
             <Link
               key={s.stateSlug}
               href={`/${s.stateSlug}`}
-              className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-black/10 bg-white hover:border-[#B57F50]/50 hover:bg-[#FAFAF9] transition-colors"
+              className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-line/10 bg-surface hover:border-brand/50 hover:bg-raised transition-colors"
             >
-              <span className="text-sm font-medium text-[#1E2026]">{s.state}</span>
-              <span className="text-xs text-[#6B6862] shrink-0">{s.count.toLocaleString()}</span>
+              <span className="text-sm font-medium text-ink">{s.state}</span>
+              <span className="text-xs text-ink-soft shrink-0">{s.count.toLocaleString()}</span>
             </Link>
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-black/8">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">
+        <div className="mt-12 pt-8 border-t border-line/8">
+          <h2 className="font-serif text-xl font-bold text-ink mb-3">
             Looking for something more specific?
           </h2>
-          <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">
+          <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">
             Each state page lists every ramen restaurant we track there, ranked by rating, with search and
             filter by city or feature. If you&apos;d rather search by name, ZIP code, or feature across the
             whole directory instead of browsing state by state, use{' '}
-            <Link href="/search" className="text-[#96602F] hover:underline">Search Ramen Near You</Link> or{' '}
-            <Link href="/find" className="text-[#96602F] hover:underline">search the live map</Link>.
+            <Link href="/search" className="text-brand-ink hover:underline">Search Ramen Near You</Link> or{' '}
+            <Link href="/find" className="text-brand-ink hover:underline">search the live map</Link>.
           </p>
         </div>
       </div>

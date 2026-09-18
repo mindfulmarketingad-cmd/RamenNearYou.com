@@ -94,16 +94,16 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
+      <main className="min-h-screen bg-surface flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
-          <div className="w-16 h-16 rounded-full bg-[#B57F50]/20 flex items-center justify-center mx-auto mb-6">
-            <UtensilsCrossed className="w-7 h-7 text-[#96602F]" />
+          <div className="w-16 h-16 rounded-full bg-brand/20 flex items-center justify-center mx-auto mb-6">
+            <UtensilsCrossed className="w-7 h-7 text-brand-ink" />
           </div>
-          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-3">Check your email</h1>
-          <p className="text-[#6B6862] leading-relaxed mb-6">
-            We&apos;ve sent a confirmation link to <span className="text-[#1E2026]">{email}</span>. Click it to activate your free account — then you&apos;re ready to explore the map, menus, and ordering.
+          <h1 className="font-serif text-3xl font-bold text-ink mb-3">Check your email</h1>
+          <p className="text-ink-soft leading-relaxed mb-6">
+            We&apos;ve sent a confirmation link to <span className="text-ink">{email}</span>. Click it to activate your free account — then you&apos;re ready to explore the map, menus, and ordering.
           </p>
-          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors">
+          <Link href="/auth/login" className="inline-block px-4 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand/80 transition-colors">
             Back to sign in
           </Link>
         </div>
@@ -112,19 +112,19 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-surface flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-9 h-9 rounded-full bg-[#B57F50] flex items-center justify-center">
-              <UtensilsCrossed className="w-4 h-4 text-[#1E2026]" />
+            <div className="w-9 h-9 rounded-full bg-brand flex items-center justify-center">
+              <UtensilsCrossed className="w-4 h-4 text-ink" />
             </div>
-            <span className="font-serif text-xl font-bold text-[#1E2026]">RamenNearYou</span>
+            <span className="font-serif text-xl font-bold text-ink">RamenNearYou</span>
           </Link>
-          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Create your account</h1>
-          <p className="text-[#6B6862] text-sm">List and manage your ramen restaurant</p>
+          <h1 className="font-serif text-3xl font-bold text-ink mb-2">Create your account</h1>
+          <p className="text-ink-soft text-sm">List and manage your ramen restaurant</p>
         </div>
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8">
+        <div className="bg-sunken rounded-xl border border-line/5 p-8">
           <div className="space-y-4">
             {errors.form && (
               <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
@@ -136,7 +136,7 @@ export default function SignupPage() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={googleLoading || loading}
-              className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-surface border border-line/10 text-ink text-sm font-medium hover:bg-sunken transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <GoogleIcon />
               {googleLoading ? 'Redirecting…' : 'Continue with Google'}
@@ -144,57 +144,57 @@ export default function SignupPage() {
 
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-black/8" />
-              <span className="text-xs text-[#6B6862]">or</span>
+              <span className="text-xs text-ink-soft">or</span>
               <div className="flex-1 h-px bg-black/8" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm text-[#6B6862] mb-1.5">Email</label>
+                <label className="block text-sm text-ink-soft mb-1.5">Email</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+                  className="w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors"
                 />
                 {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
               </div>
               <div>
-                <label className="block text-sm text-[#6B6862] mb-1.5">Password</label>
+                <label className="block text-sm text-ink-soft mb-1.5">Password</label>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Minimum 8 characters"
-                  className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+                  className="w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors"
                 />
                 {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password}</p>}
               </div>
               <div>
-                <label className="block text-sm text-[#6B6862] mb-1.5">Confirm Password</label>
+                <label className="block text-sm text-ink-soft mb-1.5">Confirm Password</label>
                 <input
                   type="password"
                   required
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter your password"
-                  className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+                  className="w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors"
                 />
                 {errors.confirmPassword && <p className="mt-1 text-xs text-red-400">{errors.confirmPassword}</p>}
               </div>
               <button
                 type="submit"
                 disabled={loading || googleLoading}
-                className="w-full px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating account…' : 'Create account'}
               </button>
-              <p className="text-center text-sm text-[#6B6862]">
+              <p className="text-center text-sm text-ink-soft">
                 Already have an account?{' '}
-                <Link href="/auth/login" className="text-[#96602F] hover:text-[#96602F]/80 transition-colors">
+                <Link href="/auth/login" className="text-brand-ink hover:text-brand-ink/80 transition-colors">
                   Sign in
                 </Link>
               </p>

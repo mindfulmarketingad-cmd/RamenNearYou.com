@@ -264,24 +264,24 @@ export default function PseoListicle({
   return (
     <div>
       {/* Header */}
-      <div className="bg-[#F5F0EA] px-4 sm:px-6 pt-24 pb-8">
+      <div className="bg-sunken px-4 sm:px-6 pt-24 pb-8">
         <div className="max-w-4xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B6862] mb-4">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-ink-soft mb-4">
             {breadcrumb.map((b, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && <span>/</span>}
                 {b.href ? (
-                  <Link href={b.href} className="hover:text-[#96602F] transition-colors">{b.label}</Link>
+                  <Link href={b.href} className="hover:text-brand-ink transition-colors">{b.label}</Link>
                 ) : (
-                  <span className="text-[#1E2026]">{b.label}</span>
+                  <span className="text-ink">{b.label}</span>
                 )}
               </span>
             ))}
           </nav>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">{title}</h1>
-              <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">{subtitle}</p>
+              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">{title}</h1>
+              <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">{subtitle}</p>
             </div>
             {headerExtra && <div className="shrink-0">{headerExtra}</div>}
           </div>
@@ -291,16 +291,16 @@ export default function PseoListicle({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         {/* Toolbar: count + List/Map */}
         <div className="flex items-center justify-between gap-3 mb-4">
-          <p className="text-sm text-[#6B6862]">
+          <p className="text-sm text-ink-soft">
             {filtered.length} {filtered.length === 1 ? noun : nounPlural} on this page
           </p>
-          <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-[#F5F4F0] border border-black/10 shrink-0">
+          <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-sunken border border-line/10 shrink-0">
             <button
               type="button"
               onClick={() => setView('list')}
               aria-pressed={view === 'list'}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                view === 'list' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                view === 'list' ? 'bg-brand text-white' : 'text-ink-soft hover:text-ink'
               }`}
             >
               <ListIcon className="w-3.5 h-3.5" /> List
@@ -310,7 +310,7 @@ export default function PseoListicle({
               onClick={() => setView('map')}
               aria-pressed={view === 'map'}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                view === 'map' ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                view === 'map' ? 'bg-brand text-white' : 'text-ink-soft hover:text-ink'
               }`}
             >
               <MapIcon className="w-3.5 h-3.5" /> Map
@@ -321,14 +321,14 @@ export default function PseoListicle({
         {view === 'list' && (
           <>
             {/* Search + filter + sort bar */}
-            <div className="bg-[#FAFAF9] border border-black/8 rounded-xl p-3 mb-4">
+            <div className="bg-raised border border-line/8 rounded-xl p-3 mb-4">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={searchPlaceholder ?? `Search by name or town...`}
                 aria-label="Search"
-                className="w-full px-3 py-2 mb-2.5 rounded-lg border border-black/10 bg-white text-sm text-[#1E2026] placeholder-[#9B9490] outline-none focus:border-[#B57F50]"
+                className="w-full px-3 py-2 mb-2.5 rounded-lg border border-line/10 bg-surface text-sm text-ink placeholder-ink-faint outline-none focus:border-brand"
               />
               <div className="flex flex-wrap items-center gap-2">
                 {stateOptions.length > 1 && (
@@ -336,7 +336,7 @@ export default function PseoListicle({
                     value={stateFilter}
                     onChange={(e) => { setStateFilter(e.target.value); setCityFilter('all') }}
                     aria-label="State"
-                    className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                    className="px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs text-ink outline-none focus:border-brand"
                   >
                     <option value="all">State: All</option>
                     {stateOptions.map(s => <option key={s} value={s}>{stateName(s)}</option>)}
@@ -347,7 +347,7 @@ export default function PseoListicle({
                     value={cityFilter}
                     onChange={(e) => setCityFilter(e.target.value)}
                     aria-label="City"
-                    className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                    className="px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs text-ink outline-none focus:border-brand"
                   >
                     <option value="all">City: All</option>
                     {cityOptions.map(c => <option key={c} value={c}>{c}</option>)}
@@ -358,7 +358,7 @@ export default function PseoListicle({
                     value={attraction}
                     onChange={(e) => setAttraction(e.target.value)}
                     aria-label={filterLabel}
-                    className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                    className="px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs text-ink outline-none focus:border-brand"
                   >
                     <option value="all">{filterLabel}: All</option>
                     {attractionOptions.map(a => <option key={a} value={a}>{a}</option>)}
@@ -368,7 +368,7 @@ export default function PseoListicle({
                   value={sort}
                   onChange={(e) => setSort(e.target.value as SortKey)}
                   aria-label="Sort"
-                  className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs text-[#1E2026] outline-none focus:border-[#B57F50]"
+                  className="px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs text-ink outline-none focus:border-brand"
                 >
                   {resolvedSortOptions.map(o => <option key={o.value} value={o.value}>Sort: {o.label}</option>)}
                   {userLoc && <option value="distance">Sort: Nearest</option>}
@@ -376,19 +376,19 @@ export default function PseoListicle({
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-3 py-2 rounded-lg border border-black/10 bg-white text-xs font-semibold text-[#1E2026] hover:border-black/25 transition-colors"
+                  className="px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs font-semibold text-ink hover:border-line/25 transition-colors"
                 >
                   Reset
                 </button>
                 <button
                   type="button"
                   onClick={handleDistance}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-black/10 bg-white text-xs font-semibold text-[#1E2026] hover:border-black/25 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs font-semibold text-ink hover:border-line/25 transition-colors"
                 >
                   <Navigation className="w-3.5 h-3.5" /> Show distance from me
                 </button>
                 {userLoc && (
-                  <span className="flex items-center px-3 py-2 rounded-lg border border-black/10 bg-white text-xs font-bold text-emerald-600">
+                  <span className="flex items-center px-3 py-2 rounded-lg border border-line/10 bg-surface text-xs font-bold text-emerald-600 dark:text-emerald-400">
                     {userLocLabel || 'Locating…'}
                   </span>
                 )}
@@ -396,7 +396,7 @@ export default function PseoListicle({
                   href="https://amzn.to/4h3lyIL"
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap bg-[#B57F50] text-white hover:bg-[#c8934f] transition-colors ml-auto"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap bg-brand text-white hover:bg-brand-hi transition-colors ml-auto"
                 >
                   Shop Ramen Products
                 </a>
@@ -408,10 +408,10 @@ export default function PseoListicle({
               <AdSquare />
             </div>
 
-            <p className="text-xs text-[#6B6862] mb-4">{filtered.length} {filtered.length === 1 ? noun : nounPlural}</p>
+            <p className="text-xs text-ink-soft mb-4">{filtered.length} {filtered.length === 1 ? noun : nounPlural}</p>
 
             {filtered.length === 0 && (
-              <div className="text-center py-16 text-sm text-[#6B6862]">
+              <div className="text-center py-16 text-sm text-ink-soft">
                 No {nounPlural} match your search. Try a different name or town.
               </div>
             )}
@@ -469,7 +469,7 @@ export default function PseoListicle({
                 <button
                   type="button"
                   onClick={() => setVisibleCount(v => v + (pageSize ?? 50))}
-                  className="px-6 py-3 rounded-full bg-white border border-black/12 text-sm font-semibold text-[#1E2026] hover:border-[#B57F50]/50 transition-colors"
+                  className="px-6 py-3 rounded-full bg-surface border border-line/12 text-sm font-semibold text-ink hover:border-brand/50 transition-colors"
                 >
                   Show more ({remaining.toLocaleString()} more)
                 </button>
@@ -479,7 +479,7 @@ export default function PseoListicle({
           </>
         )}
 
-        {view === 'map' && <div className="rounded-2xl overflow-hidden border border-black/8">{mapSlot}</div>}
+        {view === 'map' && <div className="rounded-2xl overflow-hidden border border-line/8">{mapSlot}</div>}
       </div>
     </div>
   )

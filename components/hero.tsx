@@ -65,7 +65,7 @@ export default function Hero() {
             {/* Primary CTA */}
             <button
               onClick={handleOrderRamen}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-none bg-brand hover:bg-brand-hi text-white text-base sm:text-lg font-bold shadow-xl shadow-black/30 transition-all duration-200 hover:-translate-y-0.5"
             >
               <Utensils className="w-5 h-5" />
               Order Ramen Now
@@ -77,7 +77,7 @@ export default function Hero() {
                 onClick={() => setCateringOpen(true)}
                 className="inline-flex items-center gap-1.5 text-white/75 hover:text-white text-sm font-medium transition-colors group"
               >
-                <ChefHat className="w-4 h-4 text-[#96602F] group-hover:text-white transition-colors" />
+                <ChefHat className="w-4 h-4 text-brand-ink group-hover:text-white transition-colors" />
                 Order Catering
               </button>
             </div>

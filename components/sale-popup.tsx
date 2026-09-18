@@ -37,28 +37,28 @@ export default function SalePopup() {
       aria-modal="true"
       aria-label="Ramen products sale"
     >
-      <div ref={panelRef} tabIndex={-1} className="relative w-full max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden outline-none text-center">
+      <div ref={panelRef} tabIndex={-1} className="relative w-full max-w-sm bg-surface rounded-2xl shadow-2xl overflow-hidden outline-none text-center">
         <button
           onClick={() => setOpen(false)}
           aria-label="Close"
-          className="absolute right-4 top-4 z-10 p-1.5 rounded-full bg-black/5 hover:bg-black/10 text-[#1E2026] transition-colors"
+          className="absolute right-4 top-4 z-10 p-1.5 rounded-full bg-black/5 hover:bg-black/10 text-ink transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
 
         <div className="px-6 pt-10 pb-8">
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/30 text-[#96602F] text-xs font-bold uppercase tracking-widest mb-4">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand/10 border border-brand/30 text-brand-ink text-xs font-bold uppercase tracking-widest mb-4">
             Limited Time
           </span>
-          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">70% Off All Ramen Products</h2>
-          <p className="text-[#6B6862] text-sm mb-6">Stock up on bowls, chopsticks, and more before the sale ends.</p>
+          <h2 className="font-serif text-3xl font-bold text-ink mb-2">70% Off All Ramen Products</h2>
+          <p className="text-ink-soft text-sm mb-6">Stock up on bowls, chopsticks, and more before the sale ends.</p>
 
           <a
             href={AFFILIATE_URL}
             target="_blank"
             rel="noopener noreferrer sponsored"
             onClick={() => setOpen(false)}
-            className="block w-full px-4 py-3 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-bold transition-colors"
+            className="block w-full px-4 py-3 rounded-full bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
           >
             Shop Now
           </a>

@@ -7,7 +7,7 @@ import PlusBody from './plus-body'
 // client bundle.
 export default function PlusPage() {
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
       <PlusBody />
       <Footer />

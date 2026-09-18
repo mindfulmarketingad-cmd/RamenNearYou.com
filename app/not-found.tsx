@@ -53,29 +53,29 @@ const SITEMAP = [
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
-      <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-black/5">
+      <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-line/5">
         <div className="max-w-2xl mx-auto">
-          <p className="font-serif text-8xl font-bold text-[#96602F] mb-4">404</p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">
+          <p className="font-serif text-8xl font-bold text-brand-ink mb-4">404</p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
             Page not found
           </h1>
-          <p className="text-[#6B6862] text-base leading-relaxed mb-8">
+          <p className="text-ink-soft text-base leading-relaxed mb-8">
             The page you&apos;re looking for doesn&apos;t exist or may have moved.
             Here&apos;s a map of everything on the site.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               href="/"
-              className="px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+              className="px-5 py-2.5 rounded-none bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors"
             >
               Go Home
             </Link>
             <Link
               href="/search"
-              className="px-5 py-2.5 rounded-lg border border-black/8 text-[#6B6862] text-sm font-medium hover:text-[#1E2026] hover:border-black/15 transition-colors"
+              className="px-5 py-2.5 rounded-lg border border-line/8 text-ink-soft text-sm font-medium hover:text-ink hover:border-line/15 transition-colors"
             >
               Search Restaurants
             </Link>
@@ -85,13 +85,13 @@ export default function NotFound() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-[#1E2026] text-sm font-semibold uppercase tracking-widest mb-8 text-center">
+          <h2 className="text-ink text-sm font-semibold uppercase tracking-widest mb-8 text-center">
             Site Map
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
             {SITEMAP.map((section) => (
               <div key={section.heading}>
-                <h3 className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-3">
+                <h3 className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-3">
                   {section.heading}
                 </h3>
                 <ul className="space-y-2">
@@ -99,9 +99,9 @@ export default function NotFound() {
                     <li key={link.label + link.href}>
                       <Link
                         href={link.href}
-                        className="flex items-center gap-1 text-[#6B6862] text-sm hover:text-[#1E2026] transition-colors group"
+                        className="flex items-center gap-1 text-ink-soft text-sm hover:text-ink transition-colors group"
                       >
-                        <ChevronRight className="w-3 h-3 text-[#96602F]/50 group-hover:text-[#96602F] transition-colors shrink-0" />
+                        <ChevronRight className="w-3 h-3 text-brand-ink/50 group-hover:text-brand-ink transition-colors shrink-0" />
                         {link.label}
                       </Link>
                     </li>

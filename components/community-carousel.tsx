@@ -15,38 +15,38 @@ interface CommunityProfile {
 }
 
 const BROTH_COLORS: Record<string, string> = {
-  Tonkotsu:   'bg-amber-100 text-amber-800 border-amber-200',
-  Miso:       'bg-yellow-100 text-yellow-800 border-yellow-200',
-  Shoyu:      'bg-orange-100 text-orange-800 border-orange-200',
-  Shio:       'bg-sky-100 text-sky-800 border-sky-200',
-  Tsukemen:   'bg-purple-100 text-purple-800 border-purple-200',
-  Chicken:    'bg-lime-100 text-lime-800 border-lime-200',
-  'All of them!': 'bg-rose-100 text-rose-800 border-rose-200',
+  Tonkotsu:   'bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30',
+  Miso:       'bg-yellow-100 dark:bg-yellow-500/15 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-500/30',
+  Shoyu:      'bg-orange-100 dark:bg-orange-500/15 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-500/30',
+  Shio:       'bg-sky-100 dark:bg-sky-500/15 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-500/30',
+  Tsukemen:   'bg-purple-100 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-500/30',
+  Chicken:    'bg-lime-100 dark:bg-lime-500/15 text-lime-800 dark:text-lime-300 border-lime-200 dark:border-lime-500/30',
+  'All of them!': 'bg-rose-100 dark:bg-rose-500/15 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-500/30',
 }
 
 function ProfileCard({ p }: { p: CommunityProfile }) {
-  const brothClass = p.favorite_broth ? (BROTH_COLORS[p.favorite_broth] ?? 'bg-[#B57F50]/15 text-[#96602F] border-[#B57F50]/20') : ''
+  const brothClass = p.favorite_broth ? (BROTH_COLORS[p.favorite_broth] ?? 'bg-brand/15 text-brand-ink border-brand/20') : ''
 
   return (
     <div className="flex flex-col items-center gap-3 w-44 shrink-0 select-none">
-      <div className="relative w-40 h-40 rounded-2xl overflow-hidden bg-[#F5F4F0] border border-black/8 shadow-sm">
+      <div className="relative w-40 h-40 rounded-2xl overflow-hidden bg-sunken border border-line/8 shadow-sm">
         {p.avatar_url ? (
           <Image src={p.avatar_url} alt={p.display_name} fill className="object-cover" unoptimized />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-[#F5F4F0]">
-            <User className="w-12 h-12 text-[#96602F]/30" />
+          <div className="w-full h-full flex items-center justify-center bg-sunken">
+            <User className="w-12 h-12 text-brand-ink/30" />
           </div>
         )}
       </div>
       <div className="text-center">
-        <p className="font-semibold text-[#1E2026] text-sm leading-tight mb-1 line-clamp-1">{p.display_name}</p>
+        <p className="font-semibold text-ink text-sm leading-tight mb-1 line-clamp-1">{p.display_name}</p>
         {p.favorite_broth && (
           <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border ${brothClass}`}>
             {p.favorite_broth}
           </span>
         )}
         {p.ramen_count != null && p.ramen_count > 0 && (
-          <p className="text-[#6B6862] text-[10px] mt-1">{p.ramen_count} bowls</p>
+          <p className="text-ink-soft text-[10px] mt-1">{p.ramen_count} bowls</p>
         )}
       </div>
     </div>
@@ -91,13 +91,13 @@ export default function CommunityCarousel() {
   if (!loading && profiles.length === 0) return null
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-sunken border-t border-line/5">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">Meet the Community</h2>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink">Meet the Community</h2>
           <Link
             href="/auth/login"
-            className="flex items-center gap-1 text-sm font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
+            className="flex items-center gap-1 text-sm font-semibold text-brand-ink hover:text-brand-hi transition-colors"
           >
             View all <ChevronRight className="w-4 h-4" />
           </Link>
@@ -109,7 +109,7 @@ export default function CommunityCarousel() {
             <button
               onClick={() => scroll('left')}
               aria-label="Scroll left"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-4 w-9 h-9 rounded-full bg-white border border-black/10 shadow-md flex items-center justify-center text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-4 w-9 h-9 rounded-full bg-surface border border-line/10 shadow-md flex items-center justify-center text-ink hover:bg-sunken transition-colors"
             >
               <ChevronRight className="w-4 h-4 rotate-180" />
             </button>
@@ -119,8 +119,8 @@ export default function CommunityCarousel() {
             <div className="flex gap-6 overflow-hidden">
               {Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="flex flex-col items-center gap-3 w-44 shrink-0">
-                  <div className="w-40 h-40 rounded-2xl bg-[#E8E6E0] animate-pulse" />
-                  <div className="h-3 w-24 rounded bg-[#E8E6E0] animate-pulse" />
+                  <div className="w-40 h-40 rounded-2xl bg-page animate-pulse" />
+                  <div className="h-3 w-24 rounded bg-page animate-pulse" />
                 </div>
               ))}
             </div>
@@ -141,15 +141,15 @@ export default function CommunityCarousel() {
             <button
               onClick={() => scroll('right')}
               aria-label="Scroll right"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-4 w-9 h-9 rounded-full bg-white border border-black/10 shadow-md flex items-center justify-center text-[#1E2026] hover:bg-[#F5F4F0] transition-colors"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-4 w-9 h-9 rounded-full bg-surface border border-line/10 shadow-md flex items-center justify-center text-ink hover:bg-sunken transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        <p className="text-center text-xs text-[#6B6862] mt-6">
-          <Link href="/auth/login" className="text-[#96602F] hover:underline font-medium">Create your profile</Link>
+        <p className="text-center text-xs text-ink-soft mt-6">
+          <Link href="/auth/login" className="text-brand-ink hover:underline font-medium">Create your profile</Link>
           {' '}to appear in the community
         </p>
       </div>

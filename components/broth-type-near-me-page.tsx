@@ -54,22 +54,22 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4]">
+      <main className="min-h-screen bg-page">
 
         {/* Hero */}
-        <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-b border-black/5">
+        <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-surface border-b border-line/5">
           <div className="max-w-4xl mx-auto grid sm:grid-cols-[1fr_auto] gap-8 items-center">
             <div>
-              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-                <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6">
+                <Link href="/" className="hover:text-ink transition-colors">Home</Link>
                 <ChevronRight className="w-3 h-3" />
-                <span className="text-[#1E2026]">{broth.headline}</span>
+                <span className="text-ink">{broth.headline}</span>
               </nav>
-              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E2026] leading-tight mb-4">
+              <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Local Ramen Guide</p>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ink leading-tight mb-4">
                 {broth.headline}
               </h1>
-              <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl">
+              <p className="text-ink-soft text-lg leading-relaxed max-w-2xl">
                 {broth.subhead}
               </p>
             </div>
@@ -103,10 +103,10 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
 
         {/* Browse this broth by city (service > service+city links) */}
         {cityLinks.length > 0 && (
-          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
+          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-surface border-t border-line/5">
             <div className="max-w-7xl mx-auto">
-              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">
+              <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Browse by City</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-6">
                 {broth.type} Ramen by City
               </h2>
               <div className="flex flex-wrap gap-2.5">
@@ -114,11 +114,11 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                   <Link
                     key={c.href}
                     href={c.href}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sunken border border-line/8 text-ink text-sm font-medium hover:border-brand/50 hover:text-brand-ink transition-colors"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#96602F] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
                     {broth.type} Ramen in {c.city}, {c.stateCode}
-                    <span className="text-[#6B6862]/60 text-xs">{c.count}</span>
+                    <span className="text-ink-soft/60 text-xs">{c.count}</span>
                   </Link>
                 ))}
               </div>
@@ -127,16 +127,16 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
         )}
 
         {/* What is this broth type */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#ffffff] border-t border-black/5">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-surface border-t border-line/5">
           <div className="max-w-3xl mx-auto">
-            <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">What Is {broth.type} Ramen?</h2>
-            <p className="text-[#6B6862] leading-relaxed mb-6">{broth.whatIs}</p>
-            <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6">
-              <h3 className="text-[#1E2026] font-semibold mb-3">What to expect</h3>
+            <h2 className="font-serif text-3xl font-bold text-ink mb-4">What Is {broth.type} Ramen?</h2>
+            <p className="text-ink-soft leading-relaxed mb-6">{broth.whatIs}</p>
+            <div className="bg-sunken rounded-xl border border-line/5 p-6">
+              <h3 className="text-ink font-semibold mb-3">What to expect</h3>
               <ul className="space-y-2">
                 {broth.characteristics.map((c) => (
-                  <li key={c} className="flex items-start gap-2 text-[#6B6862] text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B57F50] mt-2 flex-shrink-0" />
+                  <li key={c} className="flex items-start gap-2 text-ink-soft text-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 flex-shrink-0" />
                     {c}
                   </li>
                 ))}
@@ -144,10 +144,10 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
             </div>
 
             {/* First-person guidance — finding and ordering this broth */}
-            <h3 className="font-serif text-2xl font-bold text-[#1E2026] mt-12 mb-3">
+            <h3 className="font-serif text-2xl font-bold text-ink mt-12 mb-3">
               How I find the best {broth.type} ramen near me
             </h3>
-            <p className="text-[#6B6862] leading-relaxed mb-4">
+            <p className="text-ink-soft leading-relaxed mb-4">
               When I am chasing a great bowl of {broth.type.toLowerCase()} ramen, I lean on a couple of habits.
               First, I favor shops that specialize — a kitchen that builds its name on {broth.type.toLowerCase()}
               broth almost always makes it better than a place trying to do every style at once. Second, I trust
@@ -155,10 +155,10 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
               The list above is sorted by rating and distance, so you can spot the standouts fast — then I open a
               few listings and skim the most recent reviews and photos before committing.
             </p>
-            <h3 className="font-serif text-2xl font-bold text-[#1E2026] mt-8 mb-3">
+            <h3 className="font-serif text-2xl font-bold text-ink mt-8 mb-3">
               How I order {broth.type} ramen
             </h3>
-            <p className="text-[#6B6862] leading-relaxed mb-4">
+            <p className="text-ink-soft leading-relaxed mb-4">
               Half the bowl is in how you order it. Here is what I do to get the most out of a
               {' '}{broth.type.toLowerCase()} bowl every time:
             </p>
@@ -169,18 +169,18 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
                 'Skim the most recent reviews and photos before you go — fresh, specific praise is the best signal.',
                 'Use your ZIP code or location above to sort by distance so you never trade quality for a long drive.',
               ].map((t) => (
-                <li key={t} className="flex items-start gap-2.5 text-[#6B6862] text-sm leading-relaxed">
-                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
+                <li key={t} className="flex items-start gap-2.5 text-ink-soft text-sm leading-relaxed">
+                  <span className="text-brand-ink shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-[#B57F50]/40 text-[#96602F] text-sm font-medium hover:bg-[#B57F50]/10 transition-colors">
+              <Link href="/broth" className="px-4 py-2.5 rounded-lg border border-brand/40 text-brand-ink text-sm font-medium hover:bg-brand/10 transition-colors">
                 Browse All Broth Types
               </Link>
-              <Link href="/cities" className="px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#c8934f] transition-colors">
+              <Link href="/cities" className="px-4 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand-hi transition-colors">
                 Browse All Cities
               </Link>
             </div>
@@ -188,15 +188,15 @@ export default function BrothTypeNearMePage({ broth, restaurants }: Props) {
         </section>
 
         {/* Cross-links to sibling ramen style pages */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-sunken border-t border-line/5">
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">Explore More Ramen Styles Near You</h2>
+            <h2 className="font-serif text-2xl font-bold text-ink mb-6">Explore More Ramen Styles Near You</h2>
             <div className="flex flex-wrap gap-2.5">
               {SERVICE_PAGES.filter((s) => s.broth !== broth.type).map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-[#ffffff] border border-black/8 text-[#1E2026] text-sm font-medium hover:border-[#B57F50]/50 hover:text-[#96602F] transition-colors"
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-surface border border-line/8 text-ink text-sm font-medium hover:border-brand/50 hover:text-brand-ink transition-colors"
                 >
                   {s.label} Near Me
                 </Link>

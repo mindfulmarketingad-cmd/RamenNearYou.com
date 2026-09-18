@@ -11,8 +11,8 @@ import LoginGateModal from '@/components/login-gate-modal'
 import InquireButton from '@/components/inquire-button'
 import { trackEvent } from '@/lib/analytics-client'
 
-const iconBtn = 'flex flex-col items-center gap-1 text-[#96602F] text-[11px] font-medium shrink-0'
-const iconCircle = 'w-11 h-11 rounded-full bg-[#B57F50]/10 flex items-center justify-center hover:bg-[#B57F50]/20 transition-colors'
+const iconBtn = 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'
+const iconCircle = 'w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors'
 
 // Order Pickup/Delivery point to Uber Eats' general search rather than a
 // restaurant-specific page — the site doesn't have per-listing Uber Eats IDs,
@@ -113,11 +113,11 @@ export default function ListingActionRow({
 
   return (
     <>
-      <div className="flex items-center gap-5 mt-5 pb-5 border-b border-black/8 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-5 mt-5 pb-5 border-b border-line/8 overflow-x-auto scrollbar-hide">
         {!isOwner && !isVerified && (
           <button type="button" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
             <span className="relative">
-              <span className="absolute inset-0 rounded-full bg-[#B57F50] animate-ping opacity-60" />
+              <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-60" />
               <span className={`relative ${iconCircle}`}><Store className="w-5 h-5" /></span>
             </span>
             Claim
@@ -164,7 +164,7 @@ export default function ListingActionRow({
           </a>
         )}
         <button onClick={handleSave} disabled={busy} className={`${iconBtn} disabled:opacity-60`}>
-          <span className={iconCircle}><Heart className={`w-5 h-5 transition-all ${saved ? 'fill-[#B57F50]' : ''}`} /></span>
+          <span className={iconCircle}><Heart className={`w-5 h-5 transition-all ${saved ? 'fill-brand' : ''}`} /></span>
           {saved ? 'Saved' : 'Save'}
         </button>
         {menuUrl && (

@@ -167,16 +167,16 @@ export default function HomeNearbySection() {
   }
 
   const feed = (
-    <section className="bg-white">
+    <section className="bg-surface">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
           {/* Feed header — says plainly what's being listed and over what area,
               so the list and the circle on the map read as one thing. */}
           <div className="flex items-end justify-between gap-3 flex-wrap mb-4">
             <div className="min-w-0">
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] leading-tight">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink leading-tight">
                 Ramen near you
               </h2>
-              <p className="text-sm text-[#6B6862] mt-1 flex items-center gap-1.5">
+              <p className="text-sm text-ink-soft mt-1 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 shrink-0" />
                 {pos
                   ? `${results.length} ${results.length === 1 ? 'spot' : 'spots'} inside the ${radius}-mile circle on the map`
@@ -185,9 +185,9 @@ export default function HomeNearbySection() {
             </div>
 
             <div className="flex items-center gap-1.5 shrink-0">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#6B6862]" aria-hidden="true" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-ink-soft" aria-hidden="true" />
               <span className="sr-only" id="radius-label">Search radius</span>
-              <div role="group" aria-labelledby="radius-label" className="flex items-center gap-0.5 p-0.5 rounded-lg bg-[#F5F4F0] border border-black/10">
+              <div role="group" aria-labelledby="radius-label" className="flex items-center gap-0.5 p-0.5 rounded-lg bg-sunken border border-line/10">
                 {RADIUS_CHOICES.map((m) => (
                   <button
                     key={m}
@@ -195,7 +195,7 @@ export default function HomeNearbySection() {
                     onClick={() => setRadius(m)}
                     aria-pressed={radius === m}
                     className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
-                      radius === m ? 'bg-[#B57F50] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                      radius === m ? 'bg-brand text-white' : 'text-ink-soft hover:text-ink'
                     }`}
                   >
                     {m} mi
@@ -207,9 +207,9 @@ export default function HomeNearbySection() {
 
           {/* Sort (free) + Filters (RamenNearYou+). */}
           <div className="flex items-center gap-2 flex-wrap mb-3">
-            <ArrowUpDown className="w-3.5 h-3.5 text-[#6B6862] shrink-0" aria-hidden="true" />
+            <ArrowUpDown className="w-3.5 h-3.5 text-ink-soft shrink-0" aria-hidden="true" />
             <span className="sr-only" id="feed-sort-label">Sort results</span>
-            <div role="group" aria-labelledby="feed-sort-label" className="flex items-center gap-0.5 p-0.5 rounded-lg bg-[#F5F4F0] border border-black/10">
+            <div role="group" aria-labelledby="feed-sort-label" className="flex items-center gap-0.5 p-0.5 rounded-lg bg-sunken border border-line/10">
               {SORT_OPTIONS.map((o) => (
                 <button
                   key={o.value}
@@ -217,7 +217,7 @@ export default function HomeNearbySection() {
                   onClick={() => setSort(o.value)}
                   aria-pressed={sort === o.value}
                   className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${
-                    sort === o.value ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                    sort === o.value ? 'bg-contrast text-white' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   {o.label}
@@ -231,23 +231,23 @@ export default function HomeNearbySection() {
               aria-expanded={showFilters}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                 showFilters
-                  ? 'bg-[#1E2026] text-white border-[#1E2026]'
-                  : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+                  ? 'bg-contrast text-white border-contrast'
+                  : 'bg-surface text-ink border-line/12 hover:border-line/30'
               }`}
             >
               {gate.unlocked
                 ? <SlidersHorizontal className="w-3.5 h-3.5" />
-                : <Lock className="w-3.5 h-3.5 text-[#96602F]" />}
+                : <Lock className="w-3.5 h-3.5 text-brand-ink" />}
               Filters
               {active.length > 0 && (
-                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">
+                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-brand text-white text-[10px] font-bold">
                   {active.length}
                 </span>
               )}
             </button>
 
             {!gate.unlocked && (
-              <span className="text-[11px] text-[#6B6862]">
+              <span className="text-[11px] text-ink-soft">
                 Filters are part of RamenNearYou+ — $2.99/mo
               </span>
             )}
@@ -262,7 +262,7 @@ export default function HomeNearbySection() {
                   key={k}
                   type="button"
                   onClick={() => toggleFilter(k)}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50]/12 border border-[#B57F50]/35 text-[11px] font-semibold text-[#96602F] hover:bg-[#B57F50]/20 transition-colors"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand/12 border border-brand/35 text-[11px] font-semibold text-brand-ink hover:bg-brand/20 transition-colors"
                 >
                   {CHIP_LABEL[k] ?? k}
                   <X className="w-3 h-3" />
@@ -271,7 +271,7 @@ export default function HomeNearbySection() {
               <button
                 type="button"
                 onClick={() => setActive([])}
-                className="text-[11px] font-semibold text-[#6B6862] hover:text-[#1E2026] px-1"
+                className="text-[11px] font-semibold text-ink-soft hover:text-ink px-1"
               >
                 Clear all
               </button>
@@ -279,10 +279,10 @@ export default function HomeNearbySection() {
           )}
 
           {showFilters && (
-            <div className="rounded-xl border border-black/10 bg-[#FAFAF9] p-4 mb-4 space-y-4">
+            <div className="rounded-xl border border-line/10 bg-raised p-4 mb-4 space-y-4">
               {FILTER_GROUPS.map((group) => (
                 <div key={group.label}>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#96602F] mb-2">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-brand-ink mb-2">
                     {group.label}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -296,8 +296,8 @@ export default function HomeNearbySection() {
                           aria-pressed={on}
                           className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-colors ${
                             on
-                              ? 'bg-[#1E2026] text-white border-[#1E2026]'
-                              : 'bg-white text-[#3F3D39] border-black/10 hover:border-[#B57F50]/50'
+                              ? 'bg-contrast text-white border-contrast'
+                              : 'bg-surface text-ink-mid border-line/10 hover:border-brand/50'
                           }`}
                         >
                           <span aria-hidden="true">{c.emoji}</span> {c.label}
@@ -313,16 +313,16 @@ export default function HomeNearbySection() {
           {/* Waiting on location. The map above has its own "use my location"
               control, so this is a status line rather than a second prompt. */}
           {!pos && (
-            <div className="rounded-xl border border-dashed border-black/12 bg-[#FAFAF9] px-4 py-10 text-center">
-              <Navigation className="w-5 h-5 text-[#B57F50] mx-auto mb-2" />
-              <p className="text-sm font-semibold text-[#1E2026]">Waiting for your location</p>
-              <p className="text-xs text-[#6B6862] mt-1 max-w-sm mx-auto leading-relaxed">
+            <div className="rounded-xl border border-dashed border-line/12 bg-raised px-4 py-10 text-center">
+              <Navigation className="w-5 h-5 text-brand mx-auto mb-2" />
+              <p className="text-sm font-semibold text-ink">Waiting for your location</p>
+              <p className="text-xs text-ink-soft mt-1 max-w-sm mx-auto leading-relaxed">
                 Allow location access, or search a city or ZIP on the map above, and this feed fills
                 with the ramen closest to you.
               </p>
               <Link
                 href="/find/best-ramen-near-me"
-                className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline"
+                className="inline-block mt-4 text-xs font-semibold text-brand-ink hover:underline"
               >
                 Or browse every ramen spot →
               </Link>
@@ -330,19 +330,19 @@ export default function HomeNearbySection() {
           )}
 
           {pos && loading && !loadedOnce && (
-            <div className="flex items-center justify-center gap-2 py-16 text-sm text-[#6B6862]">
+            <div className="flex items-center justify-center gap-2 py-16 text-sm text-ink-soft">
               <Loader2 className="w-4 h-4 animate-spin" /> Finding ramen near you…
             </div>
           )}
 
           {pos && loadedOnce && results.length === 0 && (
-            <div className="rounded-xl border border-dashed border-black/12 bg-[#FAFAF9] px-4 py-10 text-center">
-              <p className="text-sm font-semibold text-[#1E2026]">
+            <div className="rounded-xl border border-dashed border-line/12 bg-raised px-4 py-10 text-center">
+              <p className="text-sm font-semibold text-ink">
                 {active.length > 0
                   ? `No ramen within ${radius} miles matches those filters`
                   : `No ramen within ${radius} miles`}
               </p>
-              <p className="text-xs text-[#6B6862] mt-1">
+              <p className="text-xs text-ink-soft mt-1">
                 {active.length > 0
                   ? 'Try removing a filter or widening the radius.'
                   : 'Try a wider radius, or browse by city.'}
@@ -351,12 +351,12 @@ export default function HomeNearbySection() {
                 <button
                   type="button"
                   onClick={() => setActive([])}
-                  className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline"
+                  className="inline-block mt-4 text-xs font-semibold text-brand-ink hover:underline"
                 >
                   Clear all filters →
                 </button>
               ) : (
-                <Link href="/cities" className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline">
+                <Link href="/cities" className="inline-block mt-4 text-xs font-semibold text-brand-ink hover:underline">
                   Browse ramen by city →
                 </Link>
               )}
@@ -384,7 +384,7 @@ export default function HomeNearbySection() {
             <div className="flex justify-center mt-6">
               <Link
                 href="/find/best-ramen-near-me"
-                className="px-6 py-3 rounded-full bg-white border border-black/12 text-sm font-semibold text-[#1E2026] hover:border-[#B57F50]/50 transition-colors"
+                className="px-6 py-3 rounded-full bg-surface border border-line/12 text-sm font-semibold text-ink hover:border-brand/50 transition-colors"
               >
                 See more ramen near you →
               </Link>
@@ -398,9 +398,9 @@ export default function HomeNearbySection() {
     <>
     <ErrorBoundary
       fallback={
-        <section className="pt-16 bg-[#F5F4F0]">
+        <section className="pt-16 bg-sunken">
           <div className="h-[68vh] min-h-[460px] flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full border-2 border-[#B57F50] border-t-transparent animate-spin" />
+            <div className="w-8 h-8 rounded-full border-2 border-brand border-t-transparent animate-spin" />
           </div>
         </section>
       }

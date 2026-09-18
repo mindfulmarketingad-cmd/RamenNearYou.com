@@ -229,67 +229,67 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
           </div>
         )}
 
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-          <h2 className="font-serif text-lg font-bold text-[#1E2026]">Listing Content</h2>
+        <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-4">
+          <h2 className="font-serif text-lg font-bold text-ink">Listing Content</h2>
 
           <div>
-            <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Description</label>
+            <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Description</label>
             <textarea
               rows={4}
               value={description}
               onChange={e => setDescription(e.target.value)}
               placeholder="Tell customers what makes your ramen special…"
-              className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
+              className="w-full px-4 py-3 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Phone</label>
+              <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Phone</label>
               <input
                 type="tel"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
                 placeholder="+1 555-123-4567"
-                className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Website</label>
+              <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Website</label>
               <input
                 type="url"
                 value={website}
                 onChange={e => setWebsite(e.target.value)}
                 placeholder="https://yourrestaurant.com"
-                className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs text-[#6B6862] mb-1.5 uppercase tracking-wide">Menu Link</label>
+            <label className="block text-xs text-ink-soft mb-1.5 uppercase tracking-wide">Menu Link</label>
             <input
               type="url"
               value={menuLink}
               onChange={e => setMenuLink(e.target.value)}
               placeholder="https://yourrestaurant.com/menu"
-              className="w-full px-4 py-3 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors"
+              className="w-full px-4 py-3 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-sky-500 transition-colors"
             />
           </div>
         </div>
 
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-3">
-          <h2 className="font-serif text-lg font-bold text-[#1E2026]">Business Hours</h2>
-          <p className="text-[#6B6862] text-xs">Format: <span className="text-[#1E2026]">11AM-10PM</span> or use <span className="text-[#1E2026]">Closed</span>. Separate multiple shifts with <span className="text-[#1E2026]">·</span></p>
+        <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-3">
+          <h2 className="font-serif text-lg font-bold text-ink">Business Hours</h2>
+          <p className="text-ink-soft text-xs">Format: <span className="text-ink">11AM-10PM</span> or use <span className="text-ink">Closed</span>. Separate multiple shifts with <span className="text-ink">·</span></p>
           <div className="space-y-2 pt-1">
             {DAY_ORDER.map(day => (
               <div key={day} className="flex items-center gap-3">
-                <span className="text-[#6B6862] text-sm w-24 flex-shrink-0">{day}</span>
+                <span className="text-ink-soft text-sm w-24 flex-shrink-0">{day}</span>
                 <input
                   value={hours[day]}
                   onChange={e => setHours(prev => ({ ...prev, [day]: e.target.value }))}
                   placeholder="11AM-10PM"
-                  className="flex-1 px-3 py-2 bg-[#ffffff] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/40 text-sm outline-none focus:border-sky-500 transition-colors"
+                  className="flex-1 px-3 py-2 bg-surface border border-line/8 rounded-lg text-ink placeholder-ink-faint/40 text-sm outline-none focus:border-sky-500 transition-colors"
                 />
               </div>
             ))}
@@ -306,9 +306,9 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
       </form>
 
       {/* Photos section */}
-      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-        <h2 className="font-serif text-lg font-bold text-[#1E2026]">Photos</h2>
-        <p className="text-[#6B6862] text-xs">Upload photos to showcase your restaurant. Photos are reviewed by our team before going live.</p>
+      <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-4">
+        <h2 className="font-serif text-lg font-bold text-ink">Photos</h2>
+        <p className="text-ink-soft text-xs">Upload photos to showcase your restaurant. Photos are reviewed by our team before going live.</p>
 
         {photoError && (
           <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">{photoError}</div>
@@ -319,7 +319,7 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
           </div>
         )}
 
-        <label className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 border-dashed border-black/15 bg-white cursor-pointer hover:border-sky-400 transition-colors ${photoUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+        <label className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 border-dashed border-line/15 bg-surface cursor-pointer hover:border-sky-400 transition-colors ${photoUploading ? 'opacity-50 pointer-events-none' : ''}`}>
           <input
             ref={fileInputRef}
             type="file"
@@ -332,57 +332,57 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
           {photoUploading ? (
             <Loader2 className="w-4 h-4 animate-spin text-sky-500" />
           ) : (
-            <Upload className="w-4 h-4 text-[#6B6862]" />
+            <Upload className="w-4 h-4 text-ink-soft" />
           )}
-          <span className="text-sm text-[#6B6862]">
+          <span className="text-sm text-ink-soft">
             {photoUploading ? 'Uploading…' : 'Choose photos to upload (max 8)'}
           </span>
         </label>
       </div>
 
       {/* Review Responses section */}
-      <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-6 space-y-4">
-        <h2 className="font-serif text-lg font-bold text-[#1E2026]">Review Responses</h2>
-        <p className="text-[#6B6862] text-xs">Respond to customer reviews. Responses are reviewed by our team before going live.</p>
+      <div className="bg-sunken rounded-xl border border-line/5 p-6 space-y-4">
+        <h2 className="font-serif text-lg font-bold text-ink">Review Responses</h2>
+        <p className="text-ink-soft text-xs">Respond to customer reviews. Responses are reviewed by our team before going live.</p>
 
         {reviewsLoading && (
-          <div className="flex items-center gap-2 text-[#6B6862] text-sm py-4">
+          <div className="flex items-center gap-2 text-ink-soft text-sm py-4">
             <Loader2 className="w-4 h-4 animate-spin" /> Loading reviews…
           </div>
         )}
 
         {!reviewsLoading && reviews.length === 0 && (
-          <p className="text-[#6B6862] text-sm py-4">No reviews yet.</p>
+          <p className="text-ink-soft text-sm py-4">No reviews yet.</p>
         )}
 
         <div className="space-y-4">
           {reviews.map(review => (
-            <div key={review.id} className="bg-white rounded-lg border border-black/5 p-4">
+            <div key={review.id} className="bg-surface rounded-lg border border-line/5 p-4">
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
                     <StarRating rating={review.rating} />
-                    <span className="text-[#1E2026] text-sm font-medium">{review.user_display_name}</span>
+                    <span className="text-ink text-sm font-medium">{review.user_display_name}</span>
                   </div>
-                  <p className="text-[#6B6862] text-xs">{new Date(review.created_at).toLocaleDateString()}</p>
+                  <p className="text-ink-soft text-xs">{new Date(review.created_at).toLocaleDateString()}</p>
                 </div>
               </div>
 
               {review.body && (
-                <p className="text-[#1E2026] text-sm mb-3">{review.body}</p>
+                <p className="text-ink text-sm mb-3">{review.body}</p>
               )}
 
               {review.approvedResponse && (
-                <div className="mt-2 border-l-2 border-sky-300 pl-3">
-                  <p className="text-[#6B6862] text-xs mb-0.5">Your response</p>
-                  <p className="text-[#1E2026] text-sm">{review.approvedResponse}</p>
+                <div className="mt-2 border-l-2 border-sky-300 dark:border-sky-500/40 pl-3">
+                  <p className="text-ink-soft text-xs mb-0.5">Your response</p>
+                  <p className="text-ink text-sm">{review.approvedResponse}</p>
                 </div>
               )}
 
               {review.pendingResponse && !review.approvedResponse && (
-                <div className="mt-2 border-l-2 border-amber-300 pl-3">
-                  <p className="text-amber-600 text-xs font-medium">Response pending approval</p>
-                  <p className="text-[#6B6862] text-sm italic">{review.pendingResponse}</p>
+                <div className="mt-2 border-l-2 border-amber-300 dark:border-amber-500/40 pl-3">
+                  <p className="text-amber-600 dark:text-amber-400 text-xs font-medium">Response pending approval</p>
+                  <p className="text-ink-soft text-sm italic">{review.pendingResponse}</p>
                 </div>
               )}
 
@@ -395,10 +395,10 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
                         value={responseDrafts[review.id] ?? ''}
                         onChange={e => setResponseDrafts(prev => ({ ...prev, [review.id]: e.target.value }))}
                         placeholder="Write your response to this review…"
-                        className="w-full px-3 py-2 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
+                        className="w-full px-3 py-2 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-sky-500 transition-colors resize-none"
                       />
                       {responseMessages[review.id] && (
-                        <p className="text-sm text-emerald-600">{responseMessages[review.id]}</p>
+                        <p className="text-sm text-emerald-600 dark:text-emerald-400">{responseMessages[review.id]}</p>
                       )}
                       <div className="flex gap-2">
                         <button
@@ -413,7 +413,7 @@ export default function OwnerEditForm({ slug, restaurantName, initial }: Props) 
                         <button
                           type="button"
                           onClick={() => setOpenResponseId(null)}
-                          className="px-4 py-1.5 rounded-lg border border-black/10 hover:bg-black/5 text-[#6B6862] text-xs font-bold transition-colors"
+                          className="px-4 py-1.5 rounded-lg border border-line/10 hover:bg-black/5 text-ink-soft text-xs font-bold transition-colors"
                         >
                           Cancel
                         </button>

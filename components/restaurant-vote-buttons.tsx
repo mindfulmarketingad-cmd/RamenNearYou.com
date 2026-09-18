@@ -103,8 +103,8 @@ export default function RestaurantVoteButtons({ slug, restaurantName, size = 'md
         aria-label={`Thumbs up ${restaurantName} (${up} ${up === 1 ? 'vote' : 'votes'})`}
         className={`inline-flex items-center rounded-full border font-semibold transition-colors ${pad} ${text} ${
           myVote === 1
-            ? 'bg-emerald-50 border-emerald-500 text-emerald-700'
-            : 'bg-white border-black/10 text-[#6B6862] hover:border-emerald-400 hover:text-emerald-700'
+            ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-500 text-emerald-700 dark:text-emerald-300'
+            : 'bg-surface border-line/10 text-ink-soft hover:border-emerald-400 hover:text-emerald-700'
         } ${busy ? 'opacity-60' : ''}`}
       >
         <ThumbsUp className={`${icon} ${myVote === 1 ? 'fill-emerald-500/20' : ''}`} />
@@ -119,8 +119,8 @@ export default function RestaurantVoteButtons({ slug, restaurantName, size = 'md
         aria-label={`Thumbs down ${restaurantName} (${down} ${down === 1 ? 'vote' : 'votes'})`}
         className={`inline-flex items-center rounded-full border font-semibold transition-colors ${pad} ${text} ${
           myVote === -1
-            ? 'bg-rose-50 border-rose-500 text-rose-700'
-            : 'bg-white border-black/10 text-[#6B6862] hover:border-rose-400 hover:text-rose-700'
+            ? 'bg-rose-50 dark:bg-rose-500/10 border-rose-500 text-rose-700 dark:text-rose-300'
+            : 'bg-surface border-line/10 text-ink-soft hover:border-rose-400 hover:text-rose-700'
         } ${busy ? 'opacity-60' : ''}`}
       >
         <ThumbsDown className={`${icon} ${myVote === -1 ? 'fill-rose-500/20' : ''}`} />

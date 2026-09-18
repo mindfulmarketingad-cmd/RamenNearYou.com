@@ -31,12 +31,12 @@ function StarRating({ rating, count }: { rating: number; count: number }) {
                 ? 'text-amber-400 fill-amber-400'
                 : i === full + 1 && half
                 ? 'text-amber-400 fill-amber-400/50'
-                : 'text-[#1E2026]/20'
+                : 'text-ink/20'
             }`}
           />
         ))}
       </span>
-      <span className="text-xs text-[#6B6862]">{rating.toFixed(1)} ({count.toLocaleString()})</span>
+      <span className="text-xs text-ink-soft">{rating.toFixed(1)} ({count.toLocaleString()})</span>
     </div>
   )
 }
@@ -45,20 +45,20 @@ export default function ProductsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
 
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-8 pt-2">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-8 pt-2">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Products</span>
+            <span className="text-ink">Products</span>
           </nav>
 
           {/* Header */}
           <div className="mb-10">
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">Ramen Products and Accessories | Soup Packets, Chopsticks and Bowls</h1>
-            <p className="text-[#6B6862] text-lg max-w-2xl">
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-3">Ramen Products and Accessories | Soup Packets, Chopsticks and Bowls</h1>
+            <p className="text-ink-soft text-lg max-w-2xl">
               Everything you need for a proper ramen night at home — soup packets, chopsticks, bowls, and more. All hand-picked and affiliate-supported.
             </p>
           </div>
@@ -66,9 +66,9 @@ export default function ProductsPage() {
           {/* Product grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <article key={product.slug} className="flex flex-col bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-[#B57F50]/30 transition-colors group">
+              <article key={product.slug} className="flex flex-col bg-surface rounded-2xl border border-line/5 overflow-hidden hover:border-brand/30 transition-colors group">
                 {/* Image */}
-                <div className="relative w-full aspect-[4/3] bg-[#F5F4F0]">
+                <div className="relative w-full aspect-[4/3] bg-sunken">
                   <Image
                     src={product.images[0]}
                     alt={product.name}
@@ -77,7 +77,7 @@ export default function ProductsPage() {
                     unoptimized
                   />
                   {product.badge && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#B57F50] text-white text-xs font-bold">
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-brand text-white text-xs font-bold">
                       {product.badge}
                     </span>
                   )}
@@ -86,18 +86,18 @@ export default function ProductsPage() {
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-5 gap-3">
                   <div>
-                    <p className="text-[10px] font-semibold text-[#96602F] uppercase tracking-widest mb-1">{product.category}</p>
-                    <h2 className="font-semibold text-[#1E2026] text-base leading-snug">{product.name}</h2>
+                    <p className="text-[10px] font-semibold text-brand-ink uppercase tracking-widest mb-1">{product.category}</p>
+                    <h2 className="font-semibold text-ink text-base leading-snug">{product.name}</h2>
                   </div>
 
                   <StarRating rating={product.rating} count={product.reviewCount} />
 
-                  <p className="text-[#6B6862] text-sm leading-relaxed line-clamp-2 flex-1">{product.description}</p>
+                  <p className="text-ink-soft text-sm leading-relaxed line-clamp-2 flex-1">{product.description}</p>
 
                   <div className="flex items-center justify-between pt-1">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="text-xs font-semibold text-[#96602F] hover:text-[#c8934f] transition-colors"
+                      className="text-xs font-semibold text-brand-ink hover:text-brand-hi transition-colors"
                     >
                       View details →
                     </Link>
@@ -107,7 +107,7 @@ export default function ProductsPage() {
                     href={product.affiliateUrl}
                     target="_blank"
                     rel="noopener noreferrer sponsored"
-                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
                   >
                     CHECK PRICE
                   </a>
@@ -118,13 +118,13 @@ export default function ProductsPage() {
 
           {/* Shop by collection */}
           <section className="mt-16">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">Shop by Collection</h2>
-            <p className="text-[#6B6862] mb-6">Curated picks for everything you need at the ramen table.</p>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">Shop by Collection</h2>
+            <p className="text-ink-soft mb-6">Curated picks for everything you need at the ramen table.</p>
             <Link
               href="/collections/ceramic-ramen-bowls"
-              className="group flex flex-col sm:flex-row items-stretch bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-[#B57F50]/30 transition-colors"
+              className="group flex flex-col sm:flex-row items-stretch bg-surface rounded-2xl border border-line/5 overflow-hidden hover:border-brand/30 transition-colors"
             >
-              <div className="relative w-full sm:w-64 aspect-[4/3] sm:aspect-auto bg-[#F5F4F0] shrink-0">
+              <div className="relative w-full sm:w-64 aspect-[4/3] sm:aspect-auto bg-sunken shrink-0">
                 <Image
                   src="https://m.media-amazon.com/images/I/81TftH6jeQL._AC_SL1500_.jpg"
                   alt="Ceramic ramen bowls collection"
@@ -134,19 +134,19 @@ export default function ProductsPage() {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 gap-2">
-                <p className="text-[10px] font-semibold text-[#96602F] uppercase tracking-widest">Ramen Accessories</p>
-                <h3 className="font-semibold text-[#1E2026] text-xl">Ceramic Ramen Bowls</h3>
-                <p className="text-[#6B6862] text-sm leading-relaxed">
+                <p className="text-[10px] font-semibold text-brand-ink uppercase tracking-widest">Ramen Accessories</p>
+                <h3 className="font-semibold text-ink text-xl">Ceramic Ramen Bowls</h3>
+                <p className="text-ink-soft text-sm leading-relaxed">
                   Hand-picked Japanese-style ceramic bowls — deep enough for a proper portion and built to retain heat. Perfect for tonkotsu, miso, and shoyu ramen at home.
                 </p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#96602F] group-hover:text-[#c8934f] transition-colors mt-1">
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-ink group-hover:text-brand-hi transition-colors mt-1">
                   View collection <ChevronRight className="w-4 h-4" />
                 </span>
               </div>
             </Link>
           </section>
 
-          <p className="text-center text-xs text-[#6B6862] mt-10">
+          <p className="text-center text-xs text-ink-soft mt-10">
             * Links are affiliate links. We may earn a small commission at no extra cost to you.
           </p>
         </div>

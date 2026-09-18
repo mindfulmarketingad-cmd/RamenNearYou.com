@@ -71,18 +71,18 @@ export default function PlanToggle() {
 
   return (
     <div>
-      <p className="text-center text-amber-600 text-xs font-bold uppercase tracking-widest mb-4">
+      <p className="text-center text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-widest mb-4">
         14-Day Free Trial on Every Plan
       </p>
 
       {/* Monthly / Yearly toggle — applies to all 3 tiers at once */}
       <div className="flex items-center justify-center mb-8">
-        <div className="inline-flex p-1 rounded-full bg-[#F5F4F0] border border-black/8">
+        <div className="inline-flex p-1 rounded-full bg-sunken border border-line/8">
           <button
             type="button"
             onClick={() => setBilling('monthly')}
             className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
-              billing === 'monthly' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+              billing === 'monthly' ? 'bg-contrast text-white' : 'text-ink-soft hover:text-ink'
             }`}
           >
             Monthly
@@ -91,7 +91,7 @@ export default function PlanToggle() {
             type="button"
             onClick={() => setBilling('yearly')}
             className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
-              billing === 'yearly' ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+              billing === 'yearly' ? 'bg-contrast text-white' : 'text-ink-soft hover:text-ink'
             }`}
           >
             Yearly
@@ -110,32 +110,32 @@ export default function PlanToggle() {
           return (
             <div
               key={tier.id}
-              className={`flex flex-col rounded-2xl overflow-hidden bg-[#F5F4F0] ${
-                tier.highlight ? 'border-2 border-amber-400/60' : 'border border-black/8'
+              className={`flex flex-col rounded-2xl overflow-hidden bg-sunken ${
+                tier.highlight ? 'border-2 border-amber-400/60' : 'border border-line/8'
               }`}
             >
-              <div className={`px-5 pb-5 text-center border-b ${tier.highlight ? 'bg-amber-500/10 border-amber-400/30 pt-3' : 'border-black/8 pt-5'}`}>
+              <div className={`px-5 pb-5 text-center border-b ${tier.highlight ? 'bg-amber-500/10 border-amber-400/30 pt-3' : 'border-line/8 pt-5'}`}>
                 {tier.badge && (
                   <div className="flex justify-center mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-[#1E2026] text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-ink text-[9px] font-bold uppercase tracking-widest whitespace-nowrap">
                       {tier.badge}
                     </span>
                   </div>
                 )}
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 text-[10px] font-bold uppercase tracking-widest mb-3">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-3">
                   <Crown className="w-3 h-3" /> {tier.label}
                 </div>
                 <div className="flex items-baseline justify-center gap-1.5">
-                  <span className="font-serif text-3xl font-bold text-[#1E2026]">{price}</span>
-                  <span className="text-[#6B6862] text-xs">{period}</span>
+                  <span className="font-serif text-3xl font-bold text-ink">{price}</span>
+                  <span className="text-ink-soft text-xs">{period}</span>
                 </div>
               </div>
 
               <div className="flex flex-col flex-1 p-5">
-                <p className="text-[#6B6862] text-xs leading-relaxed mb-4">{tier.description}</p>
+                <p className="text-ink-soft text-xs leading-relaxed mb-4">{tier.description}</p>
                 <ul className="space-y-2.5 mb-5 flex-1">
                   {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1E2026]">
+                    <li key={f} className="flex items-start gap-2 text-sm text-ink">
                       <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" strokeWidth={2.5} />
                       {f}
                     </li>
@@ -144,7 +144,7 @@ export default function PlanToggle() {
 
                 <a
                   href={checkoutUrl}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-none bg-brand hover:bg-brand-hi text-white text-xs font-bold transition-colors"
                 >
                   <Crown className="w-3.5 h-3.5" />
                   Get Featured
@@ -155,7 +155,7 @@ export default function PlanToggle() {
         })}
       </div>
 
-      <p className="text-center text-[#1E2026]/30 text-xs mt-6">14-day free trial · Secure payment via Stripe · Cancel anytime</p>
+      <p className="text-center text-ink/30 text-xs mt-6">14-day free trial · Secure payment via Stripe · Cancel anytime</p>
     </div>
   )
 }

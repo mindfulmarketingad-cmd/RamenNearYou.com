@@ -24,20 +24,20 @@ export default function CollectionsSearch({ collections }: { collections: ColGro
     <>
       {/* Search bar */}
       <div className="relative mb-10">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B6862]" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-soft" />
         <input
           type="text"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search collections — e.g. bowls, cookers…"
           aria-label="Search collections"
-          className="w-full pl-10 pr-10 py-3 text-sm bg-white border border-black/12 rounded-xl outline-none text-[#1E2026] placeholder-[#9B9490] focus:border-[#B57F50] transition-colors"
+          className="w-full pl-10 pr-10 py-3 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
         />
         {q && (
           <button
             onClick={() => setQ('')}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6862] hover:text-[#1E2026]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink"
           >
             <X className="w-4 h-4" />
           </button>
@@ -47,7 +47,7 @@ export default function CollectionsSearch({ collections }: { collections: ColGro
       {results ? (
         <div>
           {results.length === 0 ? (
-            <p className="text-sm text-[#6B6862]">
+            <p className="text-sm text-ink-soft">
               No matches for &ldquo;{q}&rdquo;. Try searching for bowls or cookers.
             </p>
           ) : (
@@ -56,7 +56,7 @@ export default function CollectionsSearch({ collections }: { collections: ColGro
                 <li key={p.href}>
                   <Link
                     href={p.href}
-                    className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                    className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                   >
                     {p.label}
                   </Link>
@@ -69,7 +69,7 @@ export default function CollectionsSearch({ collections }: { collections: ColGro
         <div className="space-y-8">
           {collections.map((col) => (
             <div key={col.heading}>
-              <h2 className="text-xs font-semibold tracking-widest uppercase text-[#6B6862] mb-3">
+              <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
                 {col.heading}
               </h2>
               <ul className="space-y-1">
@@ -77,7 +77,7 @@ export default function CollectionsSearch({ collections }: { collections: ColGro
                   <li key={p.href}>
                     <Link
                       href={p.href}
-                      className="block text-sm text-[#1E2026] hover:text-[#96602F] hover:underline py-1 transition-colors"
+                      className="block text-sm text-ink hover:text-brand-ink hover:underline py-1 transition-colors"
                     >
                       {p.label}
                     </Link>

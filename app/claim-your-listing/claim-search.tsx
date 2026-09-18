@@ -21,7 +21,7 @@ const US_STATES = [
 ]
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] text-sm placeholder-[#9B9490] outline-none focus:border-[#B57F50] transition-colors'
+  'w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink text-sm placeholder-ink-faint outline-none focus:border-brand transition-colors'
 
 export default function ClaimSearch() {
   const [query, setQuery] = useState('')
@@ -88,26 +88,26 @@ export default function ClaimSearch() {
 
   if (status === 'success') {
     return (
-      <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8 sm:p-10 text-center">
+      <div className="bg-surface rounded-2xl border border-line/8 p-8 sm:p-10 text-center">
         <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
           <CheckCircle2 className="w-7 h-7 text-emerald-500" />
         </div>
-        <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">Submission Received!</h2>
-        <p className="text-[#6B6862] leading-relaxed max-w-sm mx-auto mb-6">
+        <h2 className="font-serif text-2xl font-bold text-ink mb-2">Submission Received!</h2>
+        <p className="text-ink-soft leading-relaxed max-w-sm mx-auto mb-6">
           Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}.
           We&apos;ll add it to the directory and email you at{' '}
           {form.ownerEmail.trim() ? <strong>{form.ownerEmail.trim()}</strong> : 'your email'} with next steps
           to claim it for $19.99/mo.
         </p>
 
-        <p className="text-sm text-[#6B6862] mb-4">
+        <p className="text-sm text-ink-soft mb-4">
           Want more Google reviews too?{' '}
-          <Link href="/review-cards" className="text-[#96602F] font-semibold hover:underline">
+          <Link href="/review-cards" className="text-brand-ink font-semibold hover:underline">
             Get QR review cards for your tables →
           </Link>
         </p>
 
-        <Link href="/" className="inline-block text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors">
+        <Link href="/" className="inline-block text-sm text-ink-soft hover:text-ink transition-colors">
           Maybe later — back to home
         </Link>
       </div>
@@ -115,19 +115,19 @@ export default function ClaimSearch() {
   }
 
   return (
-    <div className="bg-[#ffffff] rounded-2xl border border-black/8 p-8">
+    <div className="bg-surface rounded-2xl border border-line/8 p-8">
       {!manual ? (
         <>
           {/* Search — the very first action on the page */}
           <div className="flex items-center justify-between mb-3">
-            <p className="text-base font-bold text-[#1E2026]">Start here — find your restaurant 👇</p>
-            <span className="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 text-xs font-semibold whitespace-nowrap">
+            <p className="text-base font-bold text-ink">Start here — find your restaurant 👇</p>
+            <span className="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 text-xs font-semibold whitespace-nowrap">
               $19.99/mo
             </span>
           </div>
           <div className="relative">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1E2026]/30" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30" />
               <input
                 type="text"
                 value={query}
@@ -135,18 +135,18 @@ export default function ClaimSearch() {
                 onFocus={() => setOpen(true)}
                 placeholder="Search by restaurant name..."
                 aria-label="Search by restaurant name"
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/8 text-[#1E2026] text-sm placeholder-[#9B9490] focus:outline-none focus:border-[#B57F50]/50"
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-sunken border border-line/8 text-ink text-sm placeholder-ink-faint focus:outline-none focus:border-brand/50"
               />
             </div>
 
             {open && (
-              <div className="absolute z-10 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-[#ffffff] border border-black/8 rounded-xl shadow-xl">
+              <div className="absolute z-10 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-surface border border-line/8 rounded-xl shadow-xl">
                 {!query.trim() ? (
-                  <div className="p-4 text-sm text-[#6B6862]">Type your restaurant name to search…</div>
+                  <div className="p-4 text-sm text-ink-soft">Type your restaurant name to search…</div>
                 ) : matches.length === 0 ? (
-                  <div className="p-4 text-sm text-[#6B6862]">
+                  <div className="p-4 text-sm text-ink-soft">
                     No restaurants found for &ldquo;{query}&rdquo;.
-                    <button onClick={() => setManual(true)} className="block mt-2 text-[#96602F] font-semibold hover:underline">
+                    <button onClick={() => setManual(true)} className="block mt-2 text-brand-ink font-semibold hover:underline">
                       Add it manually →
                     </button>
                   </div>
@@ -155,11 +155,11 @@ export default function ClaimSearch() {
                     <Link
                       key={r.slug}
                       href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                      className="block px-4 py-3 hover:bg-[#F5F4F0] transition-colors border-b border-black/5 last:border-b-0"
+                      className="block px-4 py-3 hover:bg-sunken transition-colors border-b border-line/5 last:border-b-0"
                       onClick={() => setOpen(false)}
                     >
-                      <div className="text-sm text-[#1E2026] font-medium">{r.name}</div>
-                      <div className="text-xs text-[#6B6862]">{r.city}, {r.stateCode}</div>
+                      <div className="text-sm text-ink font-medium">{r.name}</div>
+                      <div className="text-xs text-ink-soft">{r.city}, {r.stateCode}</div>
                     </Link>
                   ))
                 )}
@@ -167,9 +167,9 @@ export default function ClaimSearch() {
             )}
           </div>
 
-          <p className="text-center text-sm text-[#6B6862] mt-4">
+          <p className="text-center text-sm text-ink-soft mt-4">
             Can&apos;t find your restaurant?{' '}
-            <button onClick={() => setManual(true)} className="text-[#96602F] font-semibold hover:underline">
+            <button onClick={() => setManual(true)} className="text-brand-ink font-semibold hover:underline">
               Add it manually
             </button>
           </p>
@@ -178,8 +178,8 @@ export default function ClaimSearch() {
         <>
           {/* Manual entry */}
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold text-[#1E2026]">Add your restaurant</p>
-            <button onClick={() => setManual(false)} className="text-xs text-[#6B6862] hover:text-[#1E2026]">
+            <p className="text-sm font-semibold text-ink">Add your restaurant</p>
+            <button onClick={() => setManual(false)} className="text-xs text-ink-soft hover:text-ink">
               ← Back to search
             </button>
           </div>
@@ -212,11 +212,11 @@ export default function ClaimSearch() {
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="w-full py-3.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors disabled:opacity-50"
+              className="w-full py-3.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors disabled:opacity-50"
             >
               {status === 'submitting' ? 'Submitting…' : 'Submit Restaurant'}
             </button>
-            <p className="text-center text-xs text-[#6B6862]">
+            <p className="text-center text-xs text-ink-soft">
               We&apos;ll add your restaurant and email you to finish claiming it for $19.99/mo.
             </p>
           </form>

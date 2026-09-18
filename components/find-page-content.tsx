@@ -54,7 +54,7 @@ export default function FindPageContent({
   }
 
   return (
-    <div className="relative z-10 bg-white">
+    <div className="relative z-10 bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
@@ -64,27 +64,27 @@ export default function FindPageContent({
         </div>
 
         {/* Intro */}
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-4">{heading}</h2>
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">{heading}</h2>
 
         {intro.map((p, i) => (
-          <p key={i} className="text-[#6B6862] text-[15px] leading-relaxed mb-4">{p}</p>
+          <p key={i} className="text-ink-soft text-[15px] leading-relaxed mb-4">{p}</p>
         ))}
 
         {/* Related in-depth guide — internal link from the map page into the blog */}
         {guideLink && (
           <Link
             href={guideLink.href}
-            className="group flex items-start gap-3 mt-6 p-4 rounded-xl border border-[#B57F50]/25 bg-[#F5F4F0] hover:border-[#B57F50]/50 transition-colors"
+            className="group flex items-start gap-3 mt-6 p-4 rounded-xl border border-brand/25 bg-sunken hover:border-brand/50 transition-colors"
           >
-            <BookOpen className="w-5 h-5 text-[#96602F] shrink-0 mt-0.5" />
+            <BookOpen className="w-5 h-5 text-brand-ink shrink-0 mt-0.5" />
             <span className="min-w-0">
-              <span className="block text-[10px] font-bold uppercase tracking-widest text-[#96602F] mb-1">
+              <span className="block text-[10px] font-bold uppercase tracking-widest text-brand-ink mb-1">
                 Read the guide
               </span>
-              <span className="block text-[#1E2026] font-semibold text-[15px] group-hover:text-[#96602F] transition-colors">
+              <span className="block text-ink font-semibold text-[15px] group-hover:text-brand-ink transition-colors">
                 {guideLink.title}
               </span>
-              <span className="block text-[#6B6862] text-[13px] leading-snug mt-0.5">{guideLink.blurb}</span>
+              <span className="block text-ink-soft text-[13px] leading-snug mt-0.5">{guideLink.blurb}</span>
             </span>
           </Link>
         )}
@@ -92,14 +92,14 @@ export default function FindPageContent({
         {/* Deep-dive sections */}
         {sections.map((s) => (
           <section key={s.h2} className="mt-10">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-3">{s.h2}</h2>
-            <div className="text-[#6B6862] text-[15px] leading-relaxed space-y-4">{s.body}</div>
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-ink mb-3">{s.h2}</h2>
+            <div className="text-ink-soft text-[15px] leading-relaxed space-y-4">{s.body}</div>
             {s.points && s.points.length > 0 && (
               <div className="mt-5 space-y-4">
                 {s.points.map((pt) => (
                   <div key={pt.h3}>
-                    <h3 className="text-[#1E2026] font-semibold text-base mb-1">{pt.h3}</h3>
-                    <p className="text-[#6B6862] text-[15px] leading-relaxed">{pt.text}</p>
+                    <h3 className="text-ink font-semibold text-base mb-1">{pt.h3}</h3>
+                    <p className="text-ink-soft text-[15px] leading-relaxed">{pt.text}</p>
                   </div>
                 ))}
               </div>
@@ -110,13 +110,13 @@ export default function FindPageContent({
         {/* Tips list */}
         {tips && tips.length > 0 && (
           <section className="mt-10">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-4">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-ink mb-4">
               {tipsHeading ?? 'My quick tips'}
             </h2>
             <ul className="space-y-2.5">
               {tips.map((t, i) => (
-                <li key={i} className="flex gap-2.5 text-[#6B6862] text-[15px] leading-relaxed">
-                  <span className="text-[#96602F] shrink-0 mt-0.5">•</span>
+                <li key={i} className="flex gap-2.5 text-ink-soft text-[15px] leading-relaxed">
+                  <span className="text-brand-ink shrink-0 mt-0.5">•</span>
                   <span>{t}</span>
                 </li>
               ))}
@@ -126,17 +126,17 @@ export default function FindPageContent({
 
         {/* FAQ */}
         <section className="mt-12">
-          <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1E2026] mb-5">
+          <h2 className="font-serif text-xl sm:text-2xl font-bold text-ink mb-5">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
             {faqs.map(({ q, a }) => (
-              <details key={q} className="group border border-black/8 rounded-xl overflow-hidden">
-                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-[#1E2026] list-none">
+              <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
                   {q}
-                  <span className="text-[#96602F] shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="px-4 pb-4 text-sm text-[#6B6862] leading-relaxed">{a}</p>
+                <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
               </details>
             ))}
           </div>

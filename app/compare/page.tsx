@@ -33,20 +33,20 @@ export default async function ComparePage({
     : null
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
 
       <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">
               Compare
             </p>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
               Compare Ramen Restaurants
             </h1>
-            <p className="text-[#6B6862] text-base max-w-xl mx-auto">
+            <p className="text-ink-soft text-base max-w-xl mx-auto">
               Pick two restaurants to see a full side-by-side breakdown — ratings, hours, amenities, and every detail we have.
             </p>
           </div>

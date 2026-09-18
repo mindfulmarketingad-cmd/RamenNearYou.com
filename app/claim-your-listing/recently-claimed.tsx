@@ -63,9 +63,9 @@ export default function RecentlyClaimed() {
   if (!entries) return null
 
   return (
-    <div className="mt-6 bg-[#ffffff] rounded-2xl border border-black/8 p-6 sm:p-8">
-      <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-1">Owners are claiming their listings</h2>
-      <p className="text-[#6B6862] text-xs mb-4">A few restaurants that recently claimed their listing.</p>
+    <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
+      <h2 className="font-serif text-xl font-bold text-ink mb-1">Owners are claiming their listings</h2>
+      <p className="text-ink-soft text-xs mb-4">A few restaurants that recently claimed their listing.</p>
       <ul className="space-y-3">
         {entries.map((e) => (
           <li key={e.name} className="flex items-center gap-3">
@@ -73,10 +73,10 @@ export default function RecentlyClaimed() {
               <BadgeCheck className="w-4 h-4 text-emerald-500" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-[#1E2026] truncate">{e.name}</p>
-              <p className="text-xs text-[#6B6862]">{e.city}, {e.state}</p>
+              <p className="text-sm font-semibold text-ink truncate">{e.name}</p>
+              <p className="text-xs text-ink-soft">{e.city}, {e.state}</p>
             </div>
-            <span className="text-xs text-[#6B6862]/70 shrink-0">Claimed {e.when}</span>
+            <span className="text-xs text-ink-soft/70 shrink-0">Claimed {e.when}</span>
           </li>
         ))}
       </ul>

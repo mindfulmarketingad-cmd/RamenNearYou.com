@@ -25,25 +25,25 @@ interface Props {
 
 export default function BrothStyleLinks({ place }: Props) {
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-black/5 bg-[#F5F4F0]">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5 bg-sunken">
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
+        <h2 className="font-serif text-2xl font-bold text-ink mb-2">
           Find Ramen by Broth &amp; Style Near You
         </h2>
-        <p className="text-[#6B6862] text-sm mb-8">
+        <p className="text-ink-soft text-sm mb-8">
           {place
             ? `Craving a specific bowl in ${place}? Jump straight to the broth or style you want, ranked by rating with maps and hours.`
             : 'Craving a specific bowl? Jump straight to the broth or style you want, ranked by rating with maps and hours.'}
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-0 border-t border-l border-line/10">
           {BROTH_STYLE_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="flex items-center gap-2.5 px-5 py-4 border-b border-r border-black/10 hover:bg-white transition-colors group"
+              className="flex items-center gap-2.5 px-5 py-4 border-b border-r border-line/10 hover:bg-surface transition-colors group"
             >
               <span aria-hidden className="text-base">{l.emoji}</span>
-              <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#96602F] transition-colors">
+              <span className="text-ink text-sm font-medium group-hover:text-brand-ink transition-colors">
                 {l.label} Near Me
               </span>
             </Link>

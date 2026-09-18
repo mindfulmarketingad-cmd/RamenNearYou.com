@@ -63,7 +63,7 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-full text-sm font-semibold capitalize transition-colors ${
-              tab === t ? 'bg-[#1E2026] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'
+              tab === t ? 'bg-contrast text-white' : 'bg-surface text-ink-soft hover:bg-black/5'
             }`}
           >
             {t} ({counts[t]})
@@ -72,20 +72,20 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-[#6B6862] text-sm py-12 text-center">No {tab} contributions.</p>
+        <p className="text-ink-soft text-sm py-12 text-center">No {tab} contributions.</p>
       ) : (
         <div className="space-y-2">
           {filtered.map(c => (
             <div
               key={c.id}
-              className="flex items-center justify-between gap-4 bg-white rounded-xl border border-black/5 p-4"
+              className="flex items-center justify-between gap-4 bg-surface rounded-xl border border-line/5 p-4"
             >
               <div className="min-w-0">
-                <p className="font-semibold text-[#1E2026] text-sm">
+                <p className="font-semibold text-ink text-sm">
                   {CONTRIBUTION_LABELS[c.type as ContributionType] ?? c.type}
-                  <span className="ml-2 text-[#96602F]">${c.amount.toFixed(2)}</span>
+                  <span className="ml-2 text-brand-ink">${c.amount.toFixed(2)}</span>
                 </p>
-                <p className="text-[#6B6862] text-xs truncate">
+                <p className="text-ink-soft text-xs truncate">
                   {c.display_name ?? c.user_id.slice(0, 8)} ·{' '}
                   {c.reference_id ?? '—'} · {new Date(c.created_at).toLocaleDateString()}
                 </p>
@@ -104,7 +104,7 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
                   <button
                     onClick={() => act(c.id, 'reject')}
                     disabled={busy === c.id}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-white border border-black/10 hover:bg-black/5 text-[#1E2026] text-xs font-bold transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-surface border border-line/10 hover:bg-black/5 text-ink text-xs font-bold transition-colors disabled:opacity-50"
                   >
                     <X className="w-3.5 h-3.5" />
                     Reject
@@ -114,8 +114,8 @@ export default function ContributionsList({ initial }: { initial: AdminContribut
                 <span
                   className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${
                     c.status === 'rejected'
-                      ? 'bg-red-50 text-red-600'
-                      : 'bg-emerald-50 text-emerald-600'
+                      ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400'
+                      : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                   }`}
                 >
                   {c.status}

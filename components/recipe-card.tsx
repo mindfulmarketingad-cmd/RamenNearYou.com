@@ -74,15 +74,15 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
   const scaledServings = toFraction(recipe.baseServings * scale)
 
   return (
-    <div id="recipe-card" className="rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white max-w-2xl mx-auto print:shadow-none print:border-black/20">
+    <div id="recipe-card" className="rounded-2xl overflow-hidden border border-line/10 shadow-sm bg-surface max-w-2xl mx-auto print:shadow-none print:border-line/20">
       {/* Header */}
-      <div className="relative bg-[#1E2026] pt-16 pb-8 px-6 text-center">
+      <div className="relative bg-contrast pt-16 pb-8 px-6 text-center">
         <div className="absolute left-6 top-4 flex flex-col gap-1">
-          <span className="block w-1 h-5 bg-[#B57F50] rounded-full" />
+          <span className="block w-1 h-5 bg-brand rounded-full" />
         </div>
         <div className="absolute left-24 sm:left-32 top-8 w-1.5 h-1.5 bg-amber-400 rounded-full" />
 
-        <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-28 h-28 rounded-full overflow-hidden border-4 border-[#1E2026] shadow-lg bg-[#F5F4F0]">
+        <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-28 h-28 rounded-full overflow-hidden border-4 border-contrast shadow-lg bg-sunken">
           <RestaurantImage src={recipe.image} alt={recipe.cardTitle} fill className="object-cover" sizes="112px" />
         </div>
 
@@ -95,11 +95,11 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
 
         <div className="flex items-center justify-center gap-6 mt-5 pt-5 border-t border-white/15 text-xs text-white/80">
           <span className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-[#96602F]" />
+            <Clock className="w-3.5 h-3.5 text-brand-ink" />
             <span className="font-semibold">Total Time:</span> {recipe.totalTime}
           </span>
           <span className="flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5 text-[#96602F]" />
+            <Users className="w-3.5 h-3.5 text-brand-ink" />
             <span className="font-semibold">Yield:</span> makes {scaledServings} {recipe.servingsLabel}
             <span className="ml-1 px-1.5 py-0.5 rounded border border-white/25 text-[10px] font-bold">{scale}x</span>
           </span>
@@ -107,10 +107,10 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
       </div>
 
       {/* Print / Pin */}
-      <div className="grid grid-cols-2 gap-3 p-5 border-b border-black/8 print:hidden">
+      <div className="grid grid-cols-2 gap-3 p-5 border-b border-line/8 print:hidden">
         <button
           onClick={() => window.print()}
-          className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-semibold transition-colors"
+          className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-sunken hover:bg-page text-ink text-sm font-semibold transition-colors"
         >
           <Printer className="w-4 h-4" /> Print
         </button>
@@ -118,42 +118,42 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
           href={pinUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#F5F4F0] hover:bg-[#eae9e5] text-[#1E2026] text-sm font-semibold transition-colors"
+          className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-sunken hover:bg-page text-ink text-sm font-semibold transition-colors"
         >
           <PinterestIcon className="w-4 h-4 text-[#E60023]" /> Pin
         </a>
       </div>
 
       {/* Description */}
-      <div className="px-6 py-5 border-b border-black/8">
-        <p className="text-[#4B4845] text-sm leading-relaxed">{recipe.description}</p>
+      <div className="px-6 py-5 border-b border-line/8">
+        <p className="text-ink-deep text-sm leading-relaxed">{recipe.description}</p>
       </div>
 
       {/* Ingredients */}
-      <div className="px-6 py-5 border-b border-black/8">
+      <div className="px-6 py-5 border-b border-line/8">
         <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-          <h3 className="font-serif text-lg font-bold text-[#1E2026]">Ingredients</h3>
+          <h3 className="font-serif text-lg font-bold text-ink">Ingredients</h3>
           <div className="flex items-center gap-3 print:hidden">
-            <div className="flex items-center rounded-full border border-black/12 overflow-hidden text-xs font-semibold">
+            <div className="flex items-center rounded-full border border-line/12 overflow-hidden text-xs font-semibold">
               <button
                 onClick={() => setUnits('us')}
-                className={`px-3 py-1.5 transition-colors ${units === 'us' ? 'bg-[#1E2026] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'}`}
+                className={`px-3 py-1.5 transition-colors ${units === 'us' ? 'bg-contrast text-white' : 'bg-surface text-ink-soft hover:bg-black/5'}`}
               >
                 US
               </button>
               <button
                 onClick={() => setUnits('metric')}
-                className={`px-3 py-1.5 transition-colors ${units === 'metric' ? 'bg-[#1E2026] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'}`}
+                className={`px-3 py-1.5 transition-colors ${units === 'metric' ? 'bg-contrast text-white' : 'bg-surface text-ink-soft hover:bg-black/5'}`}
               >
                 Metric
               </button>
             </div>
-            <div className="flex items-center rounded-full border border-black/12 overflow-hidden text-xs font-semibold">
+            <div className="flex items-center rounded-full border border-line/12 overflow-hidden text-xs font-semibold">
               {SCALE_OPTIONS.map((opt) => (
                 <button
                   key={opt.label}
                   onClick={() => setScale(opt.factor)}
-                  className={`px-3 py-1.5 transition-colors ${scale === opt.factor ? 'bg-[#B57F50] text-white' : 'bg-white text-[#6B6862] hover:bg-black/5'}`}
+                  className={`px-3 py-1.5 transition-colors ${scale === opt.factor ? 'bg-brand text-white' : 'bg-surface text-ink-soft hover:bg-black/5'}`}
                 >
                   {opt.label}
                 </button>
@@ -173,13 +173,13 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
                   type="checkbox"
                   checked={checked.has(i)}
                   onChange={() => toggleChecked(i)}
-                  className="mt-0.5 w-4 h-4 shrink-0 accent-[#B57F50] print:hidden"
+                  className="mt-0.5 w-4 h-4 shrink-0 accent-brand print:hidden"
                 />
-                <span className={`leading-snug ${checked.has(i) ? 'line-through text-[#6B6862]' : 'text-[#1E2026]'}`}>
+                <span className={`leading-snug ${checked.has(i) ? 'line-through text-ink-soft' : 'text-ink'}`}>
                   {displayAmount && <strong>{displayAmount} </strong>}
                   {unit && <strong>{unit} </strong>}
                   {ing.item}
-                  {ing.note && <span className="italic text-[#6B6862]"> ({ing.note})</span>}
+                  {ing.note && <span className="italic text-ink-soft"> ({ing.note})</span>}
                 </span>
               </li>
             )
@@ -188,12 +188,12 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
       </div>
 
       {/* Instructions */}
-      <div className="px-6 py-5 border-b border-black/8">
-        <h3 className="font-serif text-lg font-bold text-[#1E2026] mb-4">Instructions</h3>
+      <div className="px-6 py-5 border-b border-line/8">
+        <h3 className="font-serif text-lg font-bold text-ink mb-4">Instructions</h3>
         <ol className="space-y-3.5">
           {recipe.steps.map((step, i) => (
-            <li key={i} className="flex gap-3 text-sm text-[#1E2026] leading-relaxed">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-[#B57F50]/15 text-[#96602F] text-xs font-bold flex items-center justify-center">
+            <li key={i} className="flex gap-3 text-sm text-ink leading-relaxed">
+              <span className="shrink-0 w-6 h-6 rounded-full bg-brand/15 text-brand-ink text-xs font-bold flex items-center justify-center">
                 {i + 1}
               </span>
               <span>{step.text}</span>
@@ -204,14 +204,14 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
 
       {/* Nutrition facts */}
       <div className="px-6 py-5">
-        <h3 className="font-serif text-lg font-bold text-[#1E2026] mb-3">Nutrition Facts</h3>
-        <div className="rounded-xl border-2 border-[#1E2026] overflow-hidden">
-          <p className="px-4 py-2 bg-[#1E2026] text-white text-xs font-bold uppercase tracking-wide">Per Serving</p>
-          <div className="px-4 py-3 flex items-baseline justify-between border-b border-black/10">
-            <span className="font-bold text-[#1E2026]">Calories</span>
-            <span className="font-bold text-2xl text-[#1E2026]">{recipe.nutrition.calories}</span>
+        <h3 className="font-serif text-lg font-bold text-ink mb-3">Nutrition Facts</h3>
+        <div className="rounded-xl border-2 border-contrast overflow-hidden">
+          <p className="px-4 py-2 bg-contrast text-white text-xs font-bold uppercase tracking-wide">Per Serving</p>
+          <div className="px-4 py-3 flex items-baseline justify-between border-b border-line/10">
+            <span className="font-bold text-ink">Calories</span>
+            <span className="font-bold text-2xl text-ink">{recipe.nutrition.calories}</span>
           </div>
-          <div className="divide-y divide-black/8">
+          <div className="divide-y divide-line/8">
             {[
               ['Protein', recipe.nutrition.protein],
               ['Carbohydrates', recipe.nutrition.carbs],
@@ -221,13 +221,13 @@ export default function RecipeCard({ recipe, pageUrl }: { recipe: Recipe; pageUr
               ['Sodium', recipe.nutrition.sodium],
             ].map(([label, value]) => (
               <div key={label} className="px-4 py-2 flex items-center justify-between text-sm">
-                <span className="text-[#4B4845]">{label}</span>
-                <span className="font-semibold text-[#1E2026]">{value}</span>
+                <span className="text-ink-deep">{label}</span>
+                <span className="font-semibold text-ink">{value}</span>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-[10px] text-[#6B6862] mt-2">Nutrition is an estimate and will vary based on the exact ingredients and brands used.</p>
+        <p className="text-[10px] text-ink-soft mt-2">Nutrition is an estimate and will vary based on the exact ingredients and brands used.</p>
       </div>
     </div>
   )

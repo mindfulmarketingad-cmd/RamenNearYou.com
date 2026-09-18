@@ -13,17 +13,17 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
+      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-sunken border-b border-line/5">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Our Story</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-5">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Our Story</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-5">
             The Ramen Directory Built for Ramen Lovers
           </h1>
-          <p className="text-[#6B6862] text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-ink-soft text-lg leading-relaxed max-w-2xl mx-auto">
             I built RamenNearYou to be the most comprehensive directory of ramen restaurants in the United States —
             helping food lovers like me find their perfect bowl, one city at a time.
           </p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div className="relative aspect-[3/2] rounded-2xl overflow-hidden border border-black/5 shadow-sm">
+            <div className="relative aspect-[3/2] rounded-2xl overflow-hidden border border-line/5 shadow-sm">
               <Image
                 src="/images/john-jackson.jpg"
                 alt="John Jackson, founder of RamenNearYou"
@@ -45,16 +45,16 @@ export default function AboutPage() {
               />
             </div>
             <div>
-              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Meet the Author</p>
-              <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">
+              <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Meet the Author</p>
+              <h2 className="font-serif text-3xl font-bold text-ink mb-4">
                 Hi, I&apos;m John Jackson
               </h2>
-              <p className="text-[#6B6862] leading-relaxed mb-4">
+              <p className="text-ink-soft leading-relaxed mb-4">
                 I&apos;m the founder and author behind RamenNearYou. My obsession with ramen started years ago,
                 slurping my way through tiny shops and big-city institutions — and getting frustrated every time
                 I landed in a new town and couldn&apos;t quickly find a great bowl.
               </p>
-              <p className="text-[#6B6862] leading-relaxed">
+              <p className="text-ink-soft leading-relaxed">
                 So I decided to build the resource I always wished existed. Everything you read on this site,
                 I write and curate myself — from the city guides to the broth breakdowns to the recipes on the blog.
                 If ramen is your thing too, you&apos;re in good company.
@@ -69,16 +69,16 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Our Mission</p>
-              <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">
+              <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Our Mission</p>
+              <h2 className="font-serif text-3xl font-bold text-ink mb-4">
                 Every city has great ramen. We help you find it.
               </h2>
-              <p className="text-[#6B6862] leading-relaxed mb-4">
+              <p className="text-ink-soft leading-relaxed mb-4">
                 To me, ramen is more than a meal — it&apos;s an experience. Whether you&apos;re chasing a perfectly rich tonkotsu
                 broth, a spicy tantanmen that hits every note, or a vegan bowl that surprises you at every sip,
                 the right bowl is out there.
               </p>
-              <p className="text-[#6B6862] leading-relaxed">
+              <p className="text-ink-soft leading-relaxed">
                 I built RamenNearYou to cut through the noise. No generic food blogs. No outdated lists.
                 Just a clean, focused directory of real ramen restaurants — organized by city, broth type,
                 amenities, and ratings — so you can find what you&apos;re looking for fast.
@@ -91,10 +91,10 @@ export default function AboutPage() {
                 { icon: Star, label: 'Reviews Indexed', value: '50K+' },
                 { icon: Phone, label: 'Catering Requests', value: 'Growing' },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="bg-[#F5F4F0] rounded-xl border border-black/5 p-5 text-center">
-                  <Icon className="w-6 h-6 text-[#96602F] mx-auto mb-2" />
-                  <p className="text-[#1E2026] font-bold text-xl font-serif">{value}</p>
-                  <p className="text-[#6B6862] text-xs mt-1">{label}</p>
+                <div key={label} className="bg-sunken rounded-xl border border-line/5 p-5 text-center">
+                  <Icon className="w-6 h-6 text-brand-ink mx-auto mb-2" />
+                  <p className="text-ink font-bold text-xl font-serif">{value}</p>
+                  <p className="text-ink-soft text-xs mt-1">{label}</p>
                 </div>
               ))}
             </div>
@@ -103,10 +103,10 @@ export default function AboutPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-y border-black/5">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-sunken border-y border-line/5">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3 text-center">How It Works</p>
-          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-10 text-center">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3 text-center">How It Works</p>
+          <h2 className="font-serif text-3xl font-bold text-ink mb-10 text-center">
             Finding great ramen near you is simple
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -128,9 +128,9 @@ export default function AboutPage() {
               },
             ].map(({ step, title, description }) => (
               <div key={step} className="flex flex-col gap-3">
-                <span className="text-[#96602F] font-serif text-4xl font-bold opacity-60">{step}</span>
-                <h3 className="text-[#1E2026] font-semibold text-lg">{title}</h3>
-                <p className="text-[#6B6862] text-sm leading-relaxed">{description}</p>
+                <span className="text-brand-ink font-serif text-4xl font-bold opacity-60">{step}</span>
+                <h3 className="text-ink font-semibold text-lg">{title}</h3>
+                <p className="text-ink-soft text-sm leading-relaxed">{description}</p>
               </div>
             ))}
           </div>
@@ -140,36 +140,36 @@ export default function AboutPage() {
       {/* Data disclaimer */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-3">Data &amp; Accuracy</p>
-          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">Our Data</h2>
-          <p className="text-[#6B6862] leading-relaxed mb-4">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Data &amp; Accuracy</p>
+          <h2 className="font-serif text-3xl font-bold text-ink mb-4">Our Data</h2>
+          <p className="text-ink-soft leading-relaxed mb-4">
             I compile restaurant information on RamenNearYou from publicly available sources and verified
             owner submissions. I work hard to keep listings accurate, but hours, menus, and contact details
             can change — so I always recommend confirming directly with the restaurant before your visit.
           </p>
-          <p className="text-[#6B6862] leading-relaxed">
+          <p className="text-ink-soft leading-relaxed">
             Restaurant owners can{' '}
-            <Link href="/cities" className="text-[#96602F] hover:underline">claim their listing</Link>
+            <Link href="/cities" className="text-brand-ink hover:underline">claim their listing</Link>
             {' '}to update their information, add photos, and keep their page current at no cost.
           </p>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-t border-black/5">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-sunken border-t border-line/5">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-3xl font-bold text-[#1E2026] mb-4">Ready to find your next bowl?</h2>
-          <p className="text-[#6B6862] mb-8">Browse ramen restaurants near you across the United States.</p>
+          <h2 className="font-serif text-3xl font-bold text-ink mb-4">Ready to find your next bowl?</h2>
+          <p className="text-ink-soft mb-8">Browse ramen restaurants near you across the United States.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/cities"
-              className="px-6 py-3 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white font-medium text-sm transition-colors"
+              className="px-6 py-3 rounded-none bg-brand hover:bg-brand-hi text-white font-medium text-sm transition-colors"
             >
               Browse by City
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-lg border border-black/8 hover:border-[#B57F50]/40 text-[#6B6862] hover:text-[#1E2026] font-medium text-sm transition-colors"
+              className="px-6 py-3 rounded-lg border border-line/8 hover:border-brand/40 text-ink-soft hover:text-ink font-medium text-sm transition-colors"
             >
               Contact Us
             </Link>

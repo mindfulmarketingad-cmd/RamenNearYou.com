@@ -15,7 +15,7 @@ const TOOLTIP_STYLE = {
 
 export function ActionBreakdownChart({ data }: { data: { label: string; value: number }[] }) {
   if (data.length === 0) {
-    return <p className="text-sm text-[#6B6862] py-12 text-center">No events in this range yet.</p>
+    return <p className="text-sm text-ink-soft py-12 text-center">No events in this range yet.</p>
   }
   return (
     <ResponsiveContainer width="100%" height={Math.max(200, data.length * 44)}>
@@ -32,7 +32,7 @@ export function ActionBreakdownChart({ data }: { data: { label: string; value: n
 
 export function DailyTrendChart({ data }: { data: { date: string; pageviews: number; leadActions: number }[] }) {
   if (data.length === 0) {
-    return <p className="text-sm text-[#6B6862] py-12 text-center">No events in this range yet.</p>
+    return <p className="text-sm text-ink-soft py-12 text-center">No events in this range yet.</p>
   }
   return (
     <ResponsiveContainer width="100%" height={280}>

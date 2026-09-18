@@ -71,7 +71,7 @@ export default async function PartnersPage() {
   )
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
 
       <PseoListicle
@@ -96,42 +96,42 @@ export default async function PartnersPage() {
               claim and featured-placement flows actually work — not generic
               filler, since these are the exact questions an owner searching
               for their restaurant has. */}
-          <section className="mt-16 pt-12 border-t border-black/10 max-w-3xl">
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">How Do I Find My Ramen Restaurant on This Page?</h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+          <section className="mt-16 pt-12 border-t border-line/10 max-w-3xl">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Find My Ramen Restaurant on This Page?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Use the search bar above to look up your restaurant by name or city. Every ramen restaurant we
               track is searchable here, whether or not it&apos;s been claimed yet. If it doesn&apos;t come up,
               it may be listed under a slightly different name or spelling — try just the city, or see the
               FAQ below for what to do if it isn&apos;t listed at all.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">How Do I Claim My Restaurant Listing for Free?</h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Claim My Restaurant Listing for Free?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Open your restaurant&apos;s listing page and look for the &ldquo;Own this business?&rdquo;
               section. Create a free account, submit your claim, and our team reviews it to verify ownership.
               There&apos;s no cost and no card required — claiming just gives you control over your own
               listing.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">What Happens After I Submit a Claim?</h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">What Happens After I Submit a Claim?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Your claim goes into a review queue while our team verifies you&apos;re actually associated with
               the business. Once approved, you get a verified badge on your listing and the search map, your
               page runs ad-free, and you can update your hours, photos, menu, and description whenever
               something changes.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">How Do I Get My Restaurant Featured on the Map?</h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed mb-8">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured on the Map?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Featured placement is a separate, paid upgrade from claiming — it puts your restaurant at the
               top of your city page, state page, and the homepage with a gold pin on the search map. Plans
               start at $19.99/month; see{' '}
-              <Link href="/featured-listing" className="text-[#96602F] hover:underline">our featured listing page</Link>{' '}
+              <Link href="/featured-listing" className="text-brand-ink hover:underline">our featured listing page</Link>{' '}
               for full details and to get started.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-[#1E2026] mb-3">Can I List a Pho Restaurant Here Too?</h2>
-            <p className="text-[#6B6862] text-sm leading-relaxed">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">Can I List a Pho Restaurant Here Too?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed">
               Yes. Pho restaurants get their own profile pages under this same directory, and the claim
               process works identically — search for your restaurant, open its listing, and claim it for
               free. See the pho section below for our current pho coverage.
@@ -140,26 +140,26 @@ export default async function PartnersPage() {
 
           {/* Pho partner listings — a separate cuisine from the ramen directory
               above, with their own detail pages under /partners/{slug}. */}
-          <section className="mt-16 pt-12 border-t border-black/10">
+          <section className="mt-16 pt-12 border-t border-line/10">
             <p className="text-[#16a34a] text-xs font-semibold uppercase tracking-widest mb-2">Pho Restaurants</p>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-2">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">
               Pho Restaurants Near You
             </h2>
-            <p className="text-[#6B6862] text-sm max-w-2xl mb-8">
+            <p className="text-ink-soft text-sm max-w-2xl mb-8">
               We list {phoStats.restaurants} pho restaurants across {phoStats.cities} cities and{' '}
               {phoStats.states} states. Each has a full profile with hours, amenities, ratings, and
               what to order. Pho spots show as{' '}
               <span className="text-[#16a34a] font-semibold">green pins</span> on the{' '}
-              <Link href="/find" className="text-[#96602F] hover:underline">search map</Link>.
+              <Link href="/find" className="text-brand-ink hover:underline">search map</Link>.
             </p>
 
-            <h3 className="text-[#1E2026] font-semibold text-sm mb-3">Pho by city</h3>
+            <h3 className="text-ink font-semibold text-sm mb-3">Pho by city</h3>
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               {phoCities.map(c => (
                 <Link
                   key={`${c.citySlug}-${c.stateCode}`}
                   href={`/find/${phoCityParam(c.citySlug, c.stateCode)}`}
-                  className="text-sm text-[#96602F] hover:underline"
+                  className="text-sm text-brand-ink hover:underline"
                 >
                   {c.city}, {c.stateCode} ({c.count})
                 </Link>
@@ -168,13 +168,13 @@ export default async function PartnersPage() {
           </section>
 
           {/* FAQ */}
-          <section className="mt-16 pt-12 border-t border-black/10 max-w-3xl">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mb-6">Frequently Asked Questions</h2>
+          <section className="mt-16 pt-12 border-t border-line/10 max-w-3xl">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-6">Frequently Asked Questions</h2>
             <div className="space-y-6">
               {partnersFaqs.map(({ q, a }) => (
                 <div key={q}>
-                  <h3 className="text-[#1E2026] font-semibold text-base mb-1.5">{q}</h3>
-                  <p className="text-[#6B6862] text-sm leading-relaxed">{a}</p>
+                  <h3 className="text-ink font-semibold text-base mb-1.5">{q}</h3>
+                  <p className="text-ink-soft text-sm leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>

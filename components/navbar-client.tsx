@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import { Menu, X, Utensils, ArrowRight, Flame, Rss } from 'lucide-react'
+import ThemeToggle from '@/components/theme-toggle'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -128,7 +129,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
           hover/focus pause below is what keeps a rotation from swapping the
           link out from under someone reaching to click it. */}
       {showBanner && (
-        <div className="relative h-10 bg-[#1E2026] text-white flex items-center justify-center px-10 overflow-hidden">
+        <div className="relative h-10 bg-contrast text-white flex items-center justify-center px-10 overflow-hidden">
           <a
             href={PROMO_DEALS[dealIndex].href}
             target="_blank"
@@ -160,7 +161,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
       {/* Nav bar — shadow deepens slightly once the page is scrolled, so the
           header reads as "floating above" content instead of a flat static
           bar sitting on top of it. */}
-      <div className={`bg-white border-b border-black/5 transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
+      <div className={`bg-surface border-b border-line/5 transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
@@ -169,19 +170,19 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 {/* Signature touch: a few soft steam wisps drifting off the
                     bowl mark — subtle enough to be a detail, not a distraction. */}
                 <span aria-hidden="true" className="absolute -top-1 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
-                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/40 block" />
-                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/30 block" />
-                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-[#B57F50]/40 block" />
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-brand/40 block" />
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-brand/30 block" />
+                  <span className="steam-wisp w-[3px] h-2 rounded-full bg-brand/40 block" />
                 </span>
               </span>
-              <span className="font-serif text-lg font-bold tracking-tight transition-colors text-[#1E2026] group-hover:text-[#96602F]">
+              <span className="font-serif text-lg font-bold tracking-tight transition-colors text-ink group-hover:text-brand-ink">
                 RamenNearYou
               </span>
               {/* Real-data trust badge — quietly signals scale/authority
                   without touching page content. Hidden on smaller screens
                   where nav space is tight. */}
               {typeof restaurantCount === 'number' && restaurantCount > 0 && (
-                <span className="hidden 2xl:inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[#96602F] text-[11px] font-semibold whitespace-nowrap">
+                <span className="hidden 2xl:inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-sunken border border-line/8 text-brand-ink text-[11px] font-semibold whitespace-nowrap">
                   <Flame className="w-3 h-3" />
                   {restaurantCount.toLocaleString()} Ramen Spots
                 </span>
@@ -206,8 +207,8 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                     href={link.href}
                     className={`px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors ${
                       isActive(link.href)
-                        ? 'text-[#1E2026] font-semibold bg-[#B57F50]/10'
-                        : 'text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5'
+                        ? 'text-ink font-semibold bg-brand/10'
+                        : 'text-ink-soft hover:text-ink hover:bg-black/5'
                     }`}
                   >
                     {link.label}
@@ -217,7 +218,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                   href={SHOP_AFFILIATE_URL}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5"
+                  className="px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors text-ink-soft hover:text-ink hover:bg-black/5"
                 >
                   Shop
                 </a>
@@ -229,23 +230,25 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                       href="/feed"
                       className={`flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors ${
                         isActive('/feed')
-                          ? 'text-[#1E2026] font-semibold bg-[#B57F50]/10'
-                          : 'text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5'
+                          ? 'text-ink font-semibold bg-brand/10'
+                          : 'text-ink-soft hover:text-ink hover:bg-black/5'
                       }`}
                     >
                       <Rss className="w-3.5 h-3.5" /> My Feed
                     </Link>
-                    <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
-                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#96602F]">
+                    <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-ink-soft hover:text-ink transition-colors rounded-lg hover:bg-black/5">
+                      <span className="w-6 h-6 rounded-full bg-brand/30 border border-brand/50 flex items-center justify-center text-xs font-bold text-brand-ink">
                         {userInitial}
                       </span>
                     </Link>
-                    <button onClick={handleSignOut} className="px-3 py-2 text-sm text-[#96602F] hover:text-[#96602F]/80 transition-colors rounded-lg hover:bg-black/5">
+                    <button onClick={handleSignOut} className="px-3 py-2 text-sm text-brand-ink hover:text-brand-ink/80 transition-colors rounded-lg hover:bg-black/5">
                       Sign Out
                     </button>
                   </>
                 )}
               </nav>
+
+              <ThemeToggle />
 
               {/* Single header CTA. Restaurant owners reach /claim-your-listing
                   through the footer now — the header keeps one action so the
@@ -253,7 +256,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
               {!user && (
                 <Link
                   href="/auth/login"
-                  className="hidden lg:flex items-center gap-1.5 xl:gap-2 px-4 xl:px-6 py-2.5 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm xl:text-base font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+                  className="hidden lg:flex items-center gap-1.5 xl:gap-2 px-4 xl:px-6 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm xl:text-base font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
                 >
                   <Utensils className="w-4 h-4" />
                   Log In
@@ -262,7 +265,7 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
               {/* Mobile hamburger only */}
               <button
-                className="lg:hidden p-2 rounded-lg transition-colors text-[#1E2026] hover:bg-black/5"
+                className="lg:hidden p-2 rounded-lg transition-colors text-ink hover:bg-black/5"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
                 aria-expanded={menuOpen}
@@ -275,11 +278,11 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
         </div>
 
         {menuOpen && (
-          <div id="mobile-nav-menu" className="bg-[#ffffff] border-t border-black/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
+          <div id="mobile-nav-menu" className="bg-surface border-t border-line/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
             {!user && (
               <Link
                 href="/auth/login"
-                className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-[#B57F50] text-white text-sm font-semibold"
+                className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-brand text-white text-sm font-semibold"
                 onClick={() => setMenuOpen(false)}
               >
                 <Utensils className="w-4 h-4" />
@@ -293,11 +296,11 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                   key={link.href}
                   href={link.href}
                   className={`py-2 text-sm transition-colors flex items-center gap-2 ${
-                    isActive(link.href) ? 'text-[#1E2026] font-semibold' : 'text-[#6B6862] hover:text-[#1E2026]'
+                    isActive(link.href) ? 'text-ink font-semibold' : 'text-ink-soft hover:text-ink'
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
-                  {isActive(link.href) && <span className="w-1.5 h-1.5 rounded-full bg-[#B57F50]" />}
+                  {isActive(link.href) && <span className="w-1.5 h-1.5 rounded-full bg-brand" />}
                   {link.label}
                 </Link>
               ))}
@@ -306,36 +309,38 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 href={SHOP_AFFILIATE_URL}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors flex items-center gap-2"
+                className="py-2 text-sm text-ink-soft hover:text-ink transition-colors flex items-center gap-2"
                 onClick={() => setMenuOpen(false)}
               >
                 Shop
               </a>
 
+              <ThemeToggle variant="row" />
+
               {typeof restaurantCount === 'number' && restaurantCount > 0 && (
-                <p className="flex items-center gap-1.5 pt-2 mt-1 border-t border-black/5 text-[11px] text-[#96602F] font-semibold">
+                <p className="flex items-center gap-1.5 pt-2 mt-1 border-t border-line/5 text-[11px] text-brand-ink font-semibold">
                   <Flame className="w-3 h-3" /> {restaurantCount.toLocaleString()} ramen spots and counting
                 </p>
               )}
 
               {user && (
                 <div className="mt-2 flex flex-col gap-1">
-                  <Link href="/feed" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors flex items-center gap-2" onClick={() => setMenuOpen(false)}>
+                  <Link href="/feed" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors flex items-center gap-2" onClick={() => setMenuOpen(false)}>
                     <Rss className="w-3.5 h-3.5" /> My Feed
                   </Link>
-                  <Link href="/saved" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                  <Link href="/saved" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors" onClick={() => setMenuOpen(false)}>
                     Saved Restaurants
                   </Link>
-                  <Link href="/profile" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
+                  <Link href="/profile" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors" onClick={() => setMenuOpen(false)}>
                     <span className="inline-flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#96602F]">
+                      <span className="w-6 h-6 rounded-full bg-brand/30 border border-brand/50 flex items-center justify-center text-xs font-bold text-brand-ink">
                         {userInitial}
                       </span>
                       {user.email}
                     </span>
                   </Link>
-                  <div className="border-t border-black/5 pt-2">
-                    <button onClick={handleSignOut} className="py-2 text-sm text-[#96602F] hover:text-[#96602F]/80 transition-colors">
+                  <div className="border-t border-line/5 pt-2">
+                    <button onClick={handleSignOut} className="py-2 text-sm text-brand-ink hover:text-brand-ink/80 transition-colors">
                       Sign Out
                     </button>
                   </div>

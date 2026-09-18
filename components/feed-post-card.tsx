@@ -45,8 +45,8 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
     .split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
 
   return (
-    <article className="bg-white border border-black/8 rounded-2xl overflow-hidden hover:border-[#B57F50]/40 transition-colors">
-      <div className="relative aspect-[16/10] bg-[#F5F4F0]">
+    <article className="bg-surface border border-line/8 rounded-2xl overflow-hidden hover:border-brand/40 transition-colors">
+      <div className="relative aspect-[16/10] bg-sunken">
         <Link href={href} className="block absolute inset-0">
           <RestaurantImage
             src={p.photo}
@@ -72,40 +72,40 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="font-serif text-lg font-bold text-[#1E2026] leading-tight">
-              <Link href={href} className="hover:text-[#96602F] transition-colors">{p.name}</Link>
+            <h2 className="font-serif text-lg font-bold text-ink leading-tight">
+              <Link href={href} className="hover:text-brand-ink transition-colors">{p.name}</Link>
             </h2>
-            <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
+            <p className="flex items-center gap-1 text-xs text-ink-soft mt-0.5">
               <MapPin className="w-3 h-3 shrink-0" />
               {p.city}, {p.stateCode}
-              {p.zip && <span className="text-[#1E2026]/25">·</span>}
+              {p.zip && <span className="text-ink/25">·</span>}
               {p.zip && <span className="tabular-nums">{p.zip}</span>}
             </p>
           </div>
           {p.rating != null && (
             <span className="flex flex-col items-end shrink-0">
               <StarRating rating={p.rating} />
-              <span className="text-xs text-[#6B6862] mt-0.5 tabular-nums">
-                <strong className="text-[#1E2026]">{p.rating.toFixed(1)}</strong>
+              <span className="text-xs text-ink-soft mt-0.5 tabular-nums">
+                <strong className="text-ink">{p.rating.toFixed(1)}</strong>
                 {!!p.reviewCount && ` (${p.reviewCount.toLocaleString()})`}
               </span>
             </span>
           )}
         </div>
 
-        <p className="text-sm text-[#3F3D39] leading-relaxed mt-2.5 line-clamp-3">
+        <p className="text-sm text-ink-mid leading-relaxed mt-2.5 line-clamp-3">
           {p.description || `Ramen in ${p.city}, ${p.stateCode}.`}
         </p>
 
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-3">
             {p.priceRange && (
-              <span className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862]">
+              <span className="px-2 py-0.5 rounded-full bg-sunken border border-line/8 text-[10px] font-medium text-ink-soft">
                 {p.priceRange}
               </span>
             )}
             {tags.map((t) => (
-              <span key={t} className="px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-black/8 text-[10px] font-medium text-[#6B6862]">
+              <span key={t} className="px-2 py-0.5 rounded-full bg-sunken border border-line/8 text-[10px] font-medium text-ink-soft">
                 {t}
               </span>
             ))}
@@ -114,7 +114,7 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
 
         {/* Action row — votes lead, because that's the part that makes the
             feed feel like other people are in it too. */}
-        <div className="flex items-center justify-between gap-2 mt-3.5 pt-3.5 border-t border-black/8">
+        <div className="flex items-center justify-between gap-2 mt-3.5 pt-3.5 border-t border-line/8">
           <RestaurantVoteButtons slug={p.slug} restaurantName={p.name} size="sm" />
 
           <div className="flex items-center gap-1.5">
@@ -123,7 +123,7 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
                 href={`tel:${p.phone}`}
                 onClick={() => trackEvent('call_click', { listingSlug: p.slug, listingName: p.name, city: `${p.city}, ${p.stateCode}` })}
                 aria-label={`Call ${p.name}`}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-black/10 text-[#6B6862] hover:text-[#96602F] hover:border-[#B57F50]/50 transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-line/10 text-ink-soft hover:text-brand-ink hover:border-brand/50 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
               </a>
@@ -134,7 +134,7 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${p.name} website`}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-black/10 text-[#6B6862] hover:text-[#96602F] hover:border-[#B57F50]/50 transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-line/10 text-ink-soft hover:text-brand-ink hover:border-brand/50 transition-colors"
               >
                 <Globe className="w-3.5 h-3.5" />
               </a>
@@ -144,7 +144,7 @@ export default function FeedPostCard({ post: p }: { post: FeedPost }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('directions_click', { listingSlug: p.slug, listingName: p.name, city: `${p.city}, ${p.stateCode}` })}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand hover:bg-brand-hi text-white text-xs font-bold transition-colors"
             >
               <Navigation className="w-3.5 h-3.5" /> Directions
             </a>

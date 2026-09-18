@@ -46,26 +46,26 @@ export default async function OwnerDashboardPage() {
   const slugMap = new Map(ALL_RESTAURANTS.map(r => [r.slug, r]))
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-20">
 
         {/* Header */}
         <div className="mb-8">
-          <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Owner Dashboard</p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">My Restaurants</h1>
-          <p className="text-[#6B6862] text-sm">Manage your listings, track visits, and keep your info accurate.</p>
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Owner Dashboard</p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">My Restaurants</h1>
+          <p className="text-ink-soft text-sm">Manage your listings, track visits, and keep your info accurate.</p>
         </div>
 
         {/* No claims at all — show benefits + CTA */}
         {approved.length === 0 && pending.length === 0 && (
           <>
-            <div className="bg-[#F5F4F0] border border-black/8 rounded-2xl p-8 text-center mb-8">
-              <p className="text-[#1E2026] font-medium mb-2">You haven&apos;t claimed any restaurants yet.</p>
-              <p className="text-[#6B6862] text-sm mb-5">Find your restaurant and submit a claim to start managing its listing.</p>
+            <div className="bg-sunken border border-line/8 rounded-2xl p-8 text-center mb-8">
+              <p className="text-ink font-medium mb-2">You haven&apos;t claimed any restaurants yet.</p>
+              <p className="text-ink-soft text-sm mb-5">Find your restaurant and submit a claim to start managing its listing.</p>
               <Link
                 href="/claim-your-listing"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors"
               >
                 Claim Your Listing <ChevronRight className="w-4 h-4" />
               </Link>
@@ -77,14 +77,14 @@ export default async function OwnerDashboardPage() {
         {/* Pending claims */}
         {pending.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-[#1E2026] text-sm font-semibold uppercase tracking-wide mb-3">Pending Review</h2>
+            <h2 className="text-ink text-sm font-semibold uppercase tracking-wide mb-3">Pending Review</h2>
             <div className="space-y-3">
               {pending.map(c => (
-                <div key={c.restaurant_slug} className="bg-[#F5F4F0] border border-amber-500/20 rounded-xl p-5 flex items-start justify-between gap-4">
+                <div key={c.restaurant_slug} className="bg-sunken border border-amber-500/20 rounded-xl p-5 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[#1E2026] font-medium truncate">{c.restaurant_name}</p>
-                    <p className="text-[#6B6862] text-xs flex items-center gap-1 mt-1">
-                      <MapPin className="w-3 h-3 text-[#96602F]" /> {c.restaurant_city}
+                    <p className="text-ink font-medium truncate">{c.restaurant_name}</p>
+                    <p className="text-ink-soft text-xs flex items-center gap-1 mt-1">
+                      <MapPin className="w-3 h-3 text-brand-ink" /> {c.restaurant_city}
                     </p>
                   </div>
                   <span className="shrink-0 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-medium flex items-center gap-1">
@@ -99,37 +99,37 @@ export default async function OwnerDashboardPage() {
         {/* Approved claims with analytics */}
         {approved.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-[#1E2026] text-sm font-semibold uppercase tracking-wide mb-3">Verified Restaurants</h2>
+            <h2 className="text-ink text-sm font-semibold uppercase tracking-wide mb-3">Verified Restaurants</h2>
             <div className="space-y-6">
               {approved.map(c => {
                 const r = slugMap.get(c.restaurant_slug)
                 return (
-                  <div key={c.restaurant_slug} className="bg-[#F5F4F0] border border-black/8 rounded-2xl p-5">
+                  <div key={c.restaurant_slug} className="bg-sunken border border-line/8 rounded-2xl p-5">
                     {/* Restaurant header row */}
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <p className="text-[#1E2026] font-semibold text-base">{c.restaurant_name}</p>
+                          <p className="text-ink font-semibold text-base">{c.restaurant_name}</p>
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-500 text-xs font-semibold">
                             <BadgeCheck className="w-3 h-3" /> Verified Owner
                           </span>
                         </div>
-                        <p className="text-[#6B6862] text-xs flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#96602F]" /> {c.restaurant_city}
+                        <p className="text-ink-soft text-xs flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-brand-ink" /> {c.restaurant_city}
                         </p>
                       </div>
                       <div className="flex gap-2 shrink-0">
                         {r && (
                           <Link
                             href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                            className="px-3 py-2 rounded-lg bg-black/5 hover:bg-black/8 text-[#6B6862] hover:text-[#1E2026] text-xs font-medium transition-colors"
+                            className="px-3 py-2 rounded-lg bg-black/5 hover:bg-black/8 text-ink-soft hover:text-ink text-xs font-medium transition-colors"
                           >
                             View
                           </Link>
                         )}
                         <Link
                           href={`/owner/${c.restaurant_slug}`}
-                          className="flex items-center gap-1.5 px-3 py-2 rounded-none bg-[#B57F50] hover:bg-[#c8934f] text-white text-xs font-bold transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-none bg-brand hover:bg-brand-hi text-white text-xs font-bold transition-colors"
                         >
                           <Edit3 className="w-3 h-3" /> Edit Listing
                         </Link>
@@ -137,7 +137,7 @@ export default async function OwnerDashboardPage() {
                     </div>
 
                     {/* Divider */}
-                    <div className="border-t border-black/6 my-4" />
+                    <div className="border-t border-line/6 my-4" />
 
                     {/* Visit analytics */}
                     <VisitStatsCard slug={c.restaurant_slug} restaurantName={c.restaurant_name} />
@@ -146,7 +146,7 @@ export default async function OwnerDashboardPage() {
                     <div className="mt-4 flex items-center justify-between gap-3 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
                       <div className="flex items-center gap-2.5 min-w-0">
                         <Crown className="w-4 h-4 text-amber-500 shrink-0" />
-                        <p className="text-[#1E2026] text-xs leading-snug">
+                        <p className="text-ink text-xs leading-snug">
                           <span className="font-semibold">Get featured</span> — appear at the top of your city page and reach more ramen lovers.
                         </p>
                       </div>
@@ -167,18 +167,18 @@ export default async function OwnerDashboardPage() {
         {/* Benefits list (shown after approved listings too) */}
         {(approved.length > 0 || pending.length > 0) && (
           <section className="mt-6">
-            <h2 className="text-[#1E2026] text-sm font-semibold uppercase tracking-wide mb-4">Your Subscription Includes</h2>
+            <h2 className="text-ink text-sm font-semibold uppercase tracking-wide mb-4">Your Subscription Includes</h2>
             <BenefitsList />
           </section>
         )}
 
         {/* Claim another CTA */}
         {(approved.length > 0 || pending.length > 0) && (
-          <div className="mt-8 pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[#6B6862] text-sm">Own another ramen restaurant?</p>
+          <div className="mt-8 pt-6 border-t border-line/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-ink-soft text-sm">Own another ramen restaurant?</p>
             <Link
               href="/claim-your-listing"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#B57F50]/30 text-[#96602F] text-sm font-medium hover:bg-[#B57F50]/5 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-brand/30 text-brand-ink text-sm font-medium hover:bg-brand/5 transition-colors"
             >
               Claim Another Listing <ChevronRight className="w-4 h-4" />
             </Link>
@@ -196,14 +196,14 @@ function BenefitsList() {
       {BENEFITS.map(({ icon: Icon, label, desc, cta }) => (
         <div
           key={label}
-          className={`flex gap-3 p-4 rounded-xl border ${cta ? 'bg-amber-500/5 border-amber-500/20' : 'bg-[#F5F4F0] border-black/6'}`}
+          className={`flex gap-3 p-4 rounded-xl border ${cta ? 'bg-amber-500/5 border-amber-500/20' : 'bg-sunken border-line/6'}`}
         >
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${cta ? 'bg-amber-500/15' : 'bg-[#B57F50]/10'}`}>
-            <Icon className={`w-4 h-4 ${cta ? 'text-amber-500' : 'text-[#96602F]'}`} />
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${cta ? 'bg-amber-500/15' : 'bg-brand/10'}`}>
+            <Icon className={`w-4 h-4 ${cta ? 'text-amber-500' : 'text-brand-ink'}`} />
           </div>
           <div className="min-w-0">
-            <p className="text-[#1E2026] text-sm font-semibold">{label}</p>
-            <p className="text-[#6B6862] text-xs mt-0.5 leading-snug">{desc}</p>
+            <p className="text-ink text-sm font-semibold">{label}</p>
+            <p className="text-ink-soft text-xs mt-0.5 leading-snug">{desc}</p>
             {cta && (
               <Link
                 href="/featured-listing"

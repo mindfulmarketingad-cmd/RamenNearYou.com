@@ -31,14 +31,14 @@ export default function RecipesHubPage() {
   ].filter((g) => g.recipes.length > 0)
 
   return (
-    <main className="min-h-screen bg-[#F5F4F0]">
+    <main className="min-h-screen bg-sunken">
       <Navbar />
       <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
         <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
           <RestaurantImage src={pickStockPhoto('recipes-hub')} alt="A bowl of homemade ramen" fill className="object-cover" sizes="672px" priority />
         </div>
-        <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Ramen Recipes</h1>
-        <p className="text-[#6B6862] text-sm mb-6">
+        <h1 className="font-serif text-3xl font-bold text-ink mb-2">Ramen Recipes</h1>
+        <p className="text-ink-soft text-sm mb-6">
           Make real ramen at home — every recipe includes step-by-step instructions and a printable
           recipe card with ingredients, directions, and nutrition facts.
         </p>

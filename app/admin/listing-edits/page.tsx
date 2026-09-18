@@ -29,24 +29,24 @@ export default async function AdminListingEditsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <p className="text-[#96602F] text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">Listing Edits</h1>
-            <p className="text-[#6B6862] mb-4">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">Listing Edits</h1>
+            <p className="text-ink-soft mb-4">
               Review and approve owner-submitted edits, photos, and review responses.
             </p>
             <div className="flex gap-3 flex-wrap text-sm">
-              <Link href="/admin/claims" className="text-[#96602F] hover:underline">Claims</Link>
-              <span className="text-[#6B6862]">·</span>
-              <Link href="/admin/listings" className="text-[#96602F] hover:underline">Listings</Link>
-              <span className="text-[#6B6862]">·</span>
-              <Link href="/admin/contributions" className="text-[#96602F] hover:underline">Contributions</Link>
-              <span className="text-[#6B6862]">·</span>
-              <span className="text-[#1E2026] font-semibold">Listing Edits</span>
-              <span className="text-[#6B6862]">·</span>
-              <Link href="/admin/review-cards" className="text-[#96602F] hover:underline">Review Cards</Link>
+              <Link href="/admin/claims" className="text-brand-ink hover:underline">Claims</Link>
+              <span className="text-ink-soft">·</span>
+              <Link href="/admin/listings" className="text-brand-ink hover:underline">Listings</Link>
+              <span className="text-ink-soft">·</span>
+              <Link href="/admin/contributions" className="text-brand-ink hover:underline">Contributions</Link>
+              <span className="text-ink-soft">·</span>
+              <span className="text-ink font-semibold">Listing Edits</span>
+              <span className="text-ink-soft">·</span>
+              <Link href="/admin/review-cards" className="text-brand-ink hover:underline">Review Cards</Link>
             </div>
           </div>
           <ListingEditsList initial={edits} />

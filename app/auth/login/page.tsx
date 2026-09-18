@@ -83,7 +83,7 @@ function LoginForm() {
         type="button"
         onClick={handleGoogleSignIn}
         disabled={googleLoading || loading}
-        className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-white border border-black/10 text-[#1E2026] text-sm font-medium hover:bg-[#F5F4F0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-none bg-surface border border-line/10 text-ink text-sm font-medium hover:bg-sunken transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <GoogleIcon />
         {googleLoading ? 'Redirecting…' : 'Continue with Google'}
@@ -91,43 +91,43 @@ function LoginForm() {
 
       <div className="flex items-center gap-3">
         <div className="flex-1 h-px bg-black/8" />
-        <span className="text-xs text-[#6B6862]">or</span>
+        <span className="text-xs text-ink-soft">or</span>
         <div className="flex-1 h-px bg-black/8" />
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm text-[#6B6862] mb-1.5">Email</label>
+          <label className="block text-sm text-ink-soft mb-1.5">Email</label>
           <input
             type="email"
             required
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+            className="w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors"
           />
         </div>
         <div>
-          <label className="block text-sm text-[#6B6862] mb-1.5">Password</label>
+          <label className="block text-sm text-ink-soft mb-1.5">Password</label>
           <input
             type="password"
             required
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full px-4 py-3 bg-[#F5F4F0] border border-black/8 rounded-lg text-[#1E2026] placeholder-[#9B9490]/60 text-sm outline-none focus:border-[#B57F50] transition-colors"
+            className="w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink placeholder-ink-faint/60 text-sm outline-none focus:border-brand transition-colors"
           />
         </div>
         <button
           type="submit"
           disabled={loading || googleLoading}
-          className="w-full px-4 py-2.5 rounded-none bg-[#B57F50] text-white text-sm font-medium hover:bg-[#B57F50]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-2.5 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
-        <p className="text-center text-sm text-[#6B6862]">
+        <p className="text-center text-sm text-ink-soft">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/signup" className="text-[#96602F] hover:text-[#96602F]/80 transition-colors">
+          <Link href="/auth/signup" className="text-brand-ink hover:text-brand-ink/80 transition-colors">
             Create one
           </Link>
         </p>
@@ -138,20 +138,20 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-[#ffffff] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-surface flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-9 h-9 rounded-full bg-[#B57F50] flex items-center justify-center">
-              <UtensilsCrossed className="w-4 h-4 text-[#1E2026]" />
+            <div className="w-9 h-9 rounded-full bg-brand flex items-center justify-center">
+              <UtensilsCrossed className="w-4 h-4 text-ink" />
             </div>
-            <span className="font-serif text-xl font-bold text-[#1E2026]">RamenNearYou</span>
+            <span className="font-serif text-xl font-bold text-ink">RamenNearYou</span>
           </Link>
-          <h1 className="font-serif text-3xl font-bold text-[#1E2026] mb-2">Welcome back</h1>
-          <p className="text-[#6B6862] text-sm">Sign in to view menus, place orders, and claim or manage your restaurant listing</p>
+          <h1 className="font-serif text-3xl font-bold text-ink mb-2">Welcome back</h1>
+          <p className="text-ink-soft text-sm">Sign in to view menus, place orders, and claim or manage your restaurant listing</p>
         </div>
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8">
-          <Suspense fallback={<div className="text-[#6B6862] text-sm text-center">Loading…</div>}>
+        <div className="bg-sunken rounded-xl border border-line/5 p-8">
+          <Suspense fallback={<div className="text-ink-soft text-sm text-center">Loading…</div>}>
             <LoginForm />
           </Suspense>
         </div>

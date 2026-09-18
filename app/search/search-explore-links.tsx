@@ -51,7 +51,7 @@ const GUIDES = [
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="text-[10px] font-bold uppercase tracking-widest text-[#96602F] mb-3">{title}</h3>
+      <h3 className="text-[10px] font-bold uppercase tracking-widest text-brand-ink mb-3">{title}</h3>
       {children}
     </div>
   )
@@ -64,10 +64,10 @@ function Chips({ items, accent = false }: { items: { href: string; label: string
         <Link
           key={i.href}
           href={i.href}
-          className={`px-3 py-1.5 rounded-full bg-white border text-xs transition-colors ${
+          className={`px-3 py-1.5 rounded-full bg-surface border text-xs transition-colors ${
             accent
               ? 'border-[#16a34a]/25 text-[#16a34a] hover:border-[#16a34a]/60'
-              : 'border-black/8 text-[#3F3D39] hover:border-[#B57F50]/50 hover:text-[#96602F]'
+              : 'border-line/8 text-ink-mid hover:border-brand/50 hover:text-brand-ink'
           }`}
         >
           {i.label}
@@ -82,7 +82,7 @@ function Links({ items }: { items: { href: string; label: string }[] }) {
     <ul className="space-y-1.5">
       {items.map(i => (
         <li key={i.href}>
-          <Link href={i.href} className="text-sm text-[#3F3D39] hover:text-[#96602F] hover:underline">
+          <Link href={i.href} className="text-sm text-ink-mid hover:text-brand-ink hover:underline">
             {i.label}
           </Link>
         </li>
@@ -98,10 +98,10 @@ export default function SearchExploreLinks() {
   const topListicles = getCityListicleEntries().slice(0, 10)
 
   return (
-    <section aria-label="Browse the site" className="border-t border-black/8 bg-white">
+    <section aria-label="Browse the site" className="border-t border-line/8 bg-surface">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-1">Or just browse</h2>
-        <p className="text-[#6B6862] text-sm mb-10">
+        <h2 className="font-serif text-2xl font-bold text-ink mb-1">Or just browse</h2>
+        <p className="text-ink-soft text-sm mb-10">
           Every one of these is a live page — no search required.
         </p>
 
@@ -120,12 +120,12 @@ export default function SearchExploreLinks() {
                 <Link
                   key={`${c.citySlug}-${c.stateCode}`}
                   href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
-                  className="text-sm text-[#3F3D39] hover:text-[#96602F] hover:underline"
+                  className="text-sm text-ink-mid hover:text-brand-ink hover:underline"
                 >
                   {c.city}, {c.stateCode}
                 </Link>
               ))}
-              <Link href="/cities" className="text-sm font-semibold text-[#96602F] hover:underline">
+              <Link href="/cities" className="text-sm font-semibold text-brand-ink hover:underline">
                 All cities →
               </Link>
             </div>
@@ -135,11 +135,11 @@ export default function SearchExploreLinks() {
             <Group title="Best ramen roundups">
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {topListicles.map(l => (
-                  <Link key={l.href} href={l.href} className="text-sm text-[#3F3D39] hover:text-[#96602F] hover:underline">
+                  <Link key={l.href} href={l.href} className="text-sm text-ink-mid hover:text-brand-ink hover:underline">
                     {l.label.replace('5 Best Ramen Restaurants in ', '')}
                   </Link>
                 ))}
-                <Link href="/blog" className="text-sm font-semibold text-[#96602F] hover:underline">
+                <Link href="/blog" className="text-sm font-semibold text-brand-ink hover:underline">
                   All guides →
                 </Link>
               </div>

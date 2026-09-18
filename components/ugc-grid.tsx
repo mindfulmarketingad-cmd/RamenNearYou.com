@@ -69,7 +69,7 @@ export function VideoTile({ video }: { video: UgcVideo }) {
   return (
     <button
       onClick={handleClick}
-      className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-[#1E2026] block w-full text-left"
+      className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-contrast block w-full text-left"
     >
       {thumbnail ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -80,7 +80,7 @@ export function VideoTile({ video }: { video: UgcVideo }) {
           loading="lazy"
         />
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#B57F50]/30 to-[#1E2026]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/30 to-contrast" />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
@@ -92,8 +92,8 @@ export function VideoTile({ video }: { video: UgcVideo }) {
 
       {/* Play button */}
       <span className="absolute inset-0 flex items-center justify-center">
-        <span className="flex items-center justify-center w-14 h-14 rounded-full bg-white/90 shadow-lg group-hover:scale-110 group-hover:bg-white transition-all">
-          <Play className="w-6 h-6 text-[#1E2026] fill-[#1E2026] ml-0.5" />
+        <span className="flex items-center justify-center w-14 h-14 rounded-full bg-surface/90 shadow-lg group-hover:scale-110 group-hover:bg-surface transition-all">
+          <Play className="w-6 h-6 text-ink fill-ink ml-0.5" />
         </span>
       </span>
 
@@ -108,11 +108,11 @@ export default function UgcGrid() {
   if (UGC_VIDEOS.length === 0) return null
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-black/5">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-surface border-t border-line/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <p className="text-[#96602F] text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">Ramen Near You, in the wild</h2>
+          <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-2">From the community</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink">Ramen Near You, in the wild</h2>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
