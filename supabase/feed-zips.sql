@@ -1,8 +1,9 @@
 -- Run this in the Supabase SQL Editor to enable the personal /feed page.
 --
--- One row per ZIP a member follows. The feed is just "every ramen shop in
--- these ZIPs", newest-to-oldest by the ordering the API applies, so the only
--- thing we need to store is the list itself.
+-- One row per ZIP a member follows. The feed itself isn't stored: it's
+-- computed per request as "every ramen shop in these ZIPs", ranked by rating
+-- then review count then slug. So the only thing that needs a table is the
+-- list of ZIPs.
 
 create table if not exists feed_zips (
   id         uuid primary key default gen_random_uuid(),
