@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
 import { isOpenNow, getTodayHoursLabel } from '@/lib/hours'
+import { matchesAllFilters } from '@/lib/restaurant-filters'
+
+type SortKey = 'closest' | 'rating' | 'reviews'
 
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -38,6 +41,17 @@ export async function GET(req: NextRequest) {
   const dining = searchParams.get('dining') ?? ''
   const radius = Math.min(parseFloat(searchParams.get('radius') ?? '50') || 50, 50)
 
+  // Taxonomy keys shared with the map's filter chips. AND-ed together.
+  const filters = (searchParams.get('filters') ?? '')
+    .split(',')
+    .map((f) => f.trim())
+    .filter(Boolean)
+    .slice(0, 30)
+
+  const sortParam = searchParams.get('sort')
+  const sort: SortKey =
+    sortParam === 'rating' || sortParam === 'reviews' ? sortParam : 'closest'
+
   if (isNaN(lat) || isNaN(lng)) {
     return NextResponse.json({ error: 'lat and lng required' }, { status: 400 })
   }
@@ -46,6 +60,7 @@ export async function GET(req: NextRequest) {
     .filter((r) => r.latitude != null && r.longitude != null && r.businessStatus === 'OPERATIONAL')
     .filter((r) => !broth || matchesBroth(r, broth))
     .filter((r) => matchesDining(r, dining))
+    .filter((r) => filters.length === 0 || matchesAllFilters(r, filters))
     .map((r) => ({
       slug: r.slug,
       citySlug: r.citySlug,
@@ -73,8 +88,19 @@ export async function GET(req: NextRequest) {
       distanceMiles: haversine(lat, lng, r.latitude!, r.longitude!),
     }))
     .filter((r) => r.distanceMiles <= radius)
-    .sort((a, b) => a.distanceMiles - b.distanceMiles)
-    .slice(0, limit)
+    // Distance is the tiebreak for the other two sorts, so equally-rated spots
+    // still come back nearest-first rather than in dataset order.
+    .sort((a, b) => {
+      if (sort === 'rating') {
+        return (b.rating ?? 0) - (a.rating ?? 0) ||
+          (b.reviewCount ?? 0) - (a.reviewCount ?? 0) ||
+          a.distanceMiles - b.distanceMiles
+      }
+      if (sort === 'reviews') {
+        return (b.reviewCount ?? 0) - (a.reviewCount ?? 0) || a.distanceMiles - b.distanceMiles
+      }
+      return a.distanceMiles - b.distanceMiles
+    })
 
-  return NextResponse.json({ results: nearby })
+  return NextResponse.json({ results: nearby.slice(0, limit), total: nearby.length })
 }

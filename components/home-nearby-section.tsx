@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { MapPin, Loader2, Navigation, SlidersHorizontal } from 'lucide-react'
+import { MapPin, Loader2, Navigation, SlidersHorizontal, Lock, ArrowUpDown, X } from 'lucide-react'
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import ListicleCard, { type ListicleCardData } from '@/components/listicle-card'
 import AdInFeed from '@/components/ad-infeed'
 import ProductsCarousel from '@/components/products-carousel'
+import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
+import { BOWL_META, MOOD_META, FEATURE_META, MISC_FLAG_BY_KEY } from '@/lib/ramen-taxonomy'
 
 // The homepage's feed: the map on top, then the ramen actually inside the
 // radius drawn on it. The two share one position, so what the circle covers
@@ -16,6 +18,44 @@ import ProductsCarousel from '@/components/products-carousel'
 const FEED_LIMIT = 20
 const RADIUS_CHOICES = [5, 10, 25, 50] as const
 const DEFAULT_RADIUS = 25
+
+// Sorting is free for everyone; the filter chips below are not.
+type SortKey = 'closest' | 'rating' | 'reviews'
+const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: 'closest', label: 'Closest' },
+  { value: 'rating', label: 'Top Rated' },
+  { value: 'reviews', label: 'Most Reviews' },
+]
+
+// Filter groups, drawn from the same taxonomy the map's filter panel uses, so
+// a chip means exactly the same thing in both places. Hours & quality is
+// listed first because "Open Now" is what people reach for.
+const HOURS_QUALITY_KEYS = [
+  'open-now', 'open-late', 'open-midnight', 'open-early',
+  'open-weekends', 'top-rated', 'hidden-gems', 'new-ramen',
+]
+const CUISINE_KEYS = [
+  'pho', 'ramen-sushi', 'sushi', 'lo-mein', 'fish-ramen',
+  'korean-style', 'japanese-fusion', 'halal', 'gluten-free',
+]
+
+const FILTER_GROUPS: { label: string; chips: { key: string; label: string; emoji: string }[] }[] = [
+  {
+    label: 'Hours & Quality',
+    chips: HOURS_QUALITY_KEYS.map((k) => MISC_FLAG_BY_KEY[k]).filter(Boolean),
+  },
+  { label: 'Bowl', chips: BOWL_META },
+  { label: 'Mood', chips: MOOD_META },
+  { label: 'Features & Amenities', chips: FEATURE_META },
+  {
+    label: 'Cuisine & Dietary',
+    chips: CUISINE_KEYS.map((k) => MISC_FLAG_BY_KEY[k]).filter(Boolean),
+  },
+]
+
+const CHIP_LABEL: Record<string, string> = Object.fromEntries(
+  FILTER_GROUPS.flatMap((g) => g.chips.map((c) => [c.key, c.label]))
+)
 
 interface NearbyResult {
   slug: string
@@ -75,17 +115,34 @@ export default function HomeNearbySection() {
   const [results, setResults] = useState<NearbyResult[]>([])
   const [loading, setLoading] = useState(false)
   const [loadedOnce, setLoadedOnce] = useState(false)
+  const [sort, setSort] = useState<SortKey>('closest')
+  const [active, setActive] = useState<string[]>([])
+  const [showFilters, setShowFilters] = useState(false)
+
+  const gate = useFilterGate()
 
   // Stable identity so HomeMapHero's effect doesn't re-fire every render.
   const handlePos = useCallback((p: { lat: number; lng: number } | null) => {
     setPos((prev) => (prev && p && prev.lat === p.lat && prev.lng === p.lng ? prev : p))
   }, [])
 
+  // Joined rather than passed as an array so the effect doesn't re-run on
+  // every render just because a new array identity was created.
+  const filterParam = active.join(',')
+
   useEffect(() => {
     if (!pos) return
     let cancelled = false
     setLoading(true)
-    fetch(`/api/nearby?lat=${pos.lat}&lng=${pos.lng}&radius=${radius}&limit=${FEED_LIMIT}`)
+    const qs = new URLSearchParams({
+      lat: String(pos.lat),
+      lng: String(pos.lng),
+      radius: String(radius),
+      limit: String(FEED_LIMIT),
+      sort,
+    })
+    if (filterParam) qs.set('filters', filterParam)
+    fetch(`/api/nearby?${qs}`)
       .then((r) => r.json())
       .then((d) => {
         if (cancelled) return
@@ -95,7 +152,19 @@ export default function HomeNearbySection() {
       .catch(() => { if (!cancelled) setLoadedOnce(true) })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [pos, radius])
+  }, [pos, radius, sort, filterParam])
+
+  function toggleFilter(key: string) {
+    if (!gate.requireAccess()) return
+    setActive((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]))
+  }
+
+  function openFilters() {
+    // Closing is always allowed; opening is what costs a subscription.
+    if (showFilters) { setShowFilters(false); return }
+    if (!gate.requireAccess()) return
+    setShowFilters(true)
+  }
 
   const feed = (
     <section className="bg-white">
@@ -110,7 +179,7 @@ export default function HomeNearbySection() {
               <p className="text-sm text-[#6B6862] mt-1 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 shrink-0" />
                 {pos
-                  ? `The ${results.length} closest ${results.length === 1 ? 'spot' : 'spots'} inside the ${radius}-mile circle on the map`
+                  ? `${results.length} ${results.length === 1 ? 'spot' : 'spots'} inside the ${radius}-mile circle on the map`
                   : 'Share your location to see the closest bowls first'}
               </p>
             </div>
@@ -136,6 +205,111 @@ export default function HomeNearbySection() {
             </div>
           </div>
 
+          {/* Sort (free) + Filters (RamenNearYou+). */}
+          <div className="flex items-center gap-2 flex-wrap mb-3">
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#6B6862] shrink-0" aria-hidden="true" />
+            <span className="sr-only" id="feed-sort-label">Sort results</span>
+            <div role="group" aria-labelledby="feed-sort-label" className="flex items-center gap-0.5 p-0.5 rounded-lg bg-[#F5F4F0] border border-black/10">
+              {SORT_OPTIONS.map((o) => (
+                <button
+                  key={o.value}
+                  type="button"
+                  onClick={() => setSort(o.value)}
+                  aria-pressed={sort === o.value}
+                  className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${
+                    sort === o.value ? 'bg-[#1E2026] text-white' : 'text-[#6B6862] hover:text-[#1E2026]'
+                  }`}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={openFilters}
+              aria-expanded={showFilters}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                showFilters
+                  ? 'bg-[#1E2026] text-white border-[#1E2026]'
+                  : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
+              }`}
+            >
+              {gate.unlocked
+                ? <SlidersHorizontal className="w-3.5 h-3.5" />
+                : <Lock className="w-3.5 h-3.5 text-[#96602F]" />}
+              Filters
+              {active.length > 0 && (
+                <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">
+                  {active.length}
+                </span>
+              )}
+            </button>
+
+            {!gate.unlocked && (
+              <span className="text-[11px] text-[#6B6862]">
+                Filters are part of RamenNearYou+ — $2.99/mo
+              </span>
+            )}
+          </div>
+
+          {/* Active filters stay visible with the panel closed, so it's always
+              clear why the list is as short as it is. */}
+          {active.length > 0 && (
+            <div className="flex items-center gap-1.5 flex-wrap mb-3">
+              {active.map((k) => (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => toggleFilter(k)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#B57F50]/12 border border-[#B57F50]/35 text-[11px] font-semibold text-[#96602F] hover:bg-[#B57F50]/20 transition-colors"
+                >
+                  {CHIP_LABEL[k] ?? k}
+                  <X className="w-3 h-3" />
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setActive([])}
+                className="text-[11px] font-semibold text-[#6B6862] hover:text-[#1E2026] px-1"
+              >
+                Clear all
+              </button>
+            </div>
+          )}
+
+          {showFilters && (
+            <div className="rounded-xl border border-black/10 bg-[#FAFAF9] p-4 mb-4 space-y-4">
+              {FILTER_GROUPS.map((group) => (
+                <div key={group.label}>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#96602F] mb-2">
+                    {group.label}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.chips.map((c) => {
+                      const on = active.includes(c.key)
+                      return (
+                        <button
+                          key={c.key}
+                          type="button"
+                          onClick={() => toggleFilter(c.key)}
+                          aria-pressed={on}
+                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-colors ${
+                            on
+                              ? 'bg-[#1E2026] text-white border-[#1E2026]'
+                              : 'bg-white text-[#3F3D39] border-black/10 hover:border-[#B57F50]/50'
+                          }`}
+                        >
+                          <span aria-hidden="true">{c.emoji}</span> {c.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Waiting on location. The map above has its own "use my location"
               control, so this is a status line rather than a second prompt. */}
           {!pos && (
@@ -147,7 +321,7 @@ export default function HomeNearbySection() {
                 with the ramen closest to you.
               </p>
               <Link
-                href="/find/ramen-near-me"
+                href="/find/best-ramen-near-me"
                 className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline"
               >
                 Or browse every ramen spot →
@@ -163,11 +337,29 @@ export default function HomeNearbySection() {
 
           {pos && loadedOnce && results.length === 0 && (
             <div className="rounded-xl border border-dashed border-black/12 bg-[#FAFAF9] px-4 py-10 text-center">
-              <p className="text-sm font-semibold text-[#1E2026]">No ramen within {radius} miles</p>
-              <p className="text-xs text-[#6B6862] mt-1">Try a wider radius, or browse by city.</p>
-              <Link href="/cities" className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline">
-                Browse ramen by city →
-              </Link>
+              <p className="text-sm font-semibold text-[#1E2026]">
+                {active.length > 0
+                  ? `No ramen within ${radius} miles matches those filters`
+                  : `No ramen within ${radius} miles`}
+              </p>
+              <p className="text-xs text-[#6B6862] mt-1">
+                {active.length > 0
+                  ? 'Try removing a filter or widening the radius.'
+                  : 'Try a wider radius, or browse by city.'}
+              </p>
+              {active.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setActive([])}
+                  className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline"
+                >
+                  Clear all filters →
+                </button>
+              ) : (
+                <Link href="/cities" className="inline-block mt-4 text-xs font-semibold text-[#96602F] hover:underline">
+                  Browse ramen by city →
+                </Link>
+              )}
             </div>
           )}
 
@@ -191,7 +383,7 @@ export default function HomeNearbySection() {
           {results.length > 0 && (
             <div className="flex justify-center mt-6">
               <Link
-                href="/find/ramen-near-me"
+                href="/find/best-ramen-near-me"
                 className="px-6 py-3 rounded-full bg-white border border-black/12 text-sm font-semibold text-[#1E2026] hover:border-[#B57F50]/50 transition-colors"
               >
                 See more ramen near you →
@@ -203,6 +395,7 @@ export default function HomeNearbySection() {
   )
 
   return (
+    <>
     <ErrorBoundary
       fallback={
         <section className="pt-16 bg-[#F5F4F0]">
@@ -220,5 +413,7 @@ export default function HomeNearbySection() {
         feedSlot={feed}
       />
     </ErrorBoundary>
+    <FilterGateModals gate={gate.gate} onClose={() => gate.setGate(null)} redirectTo="/" />
+    </>
   )
 }

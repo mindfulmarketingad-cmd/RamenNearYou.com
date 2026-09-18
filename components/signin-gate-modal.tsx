@@ -5,11 +5,13 @@ import { X, UtensilsCrossed } from 'lucide-react'
 interface Props {
   onClose: () => void
   redirectTo?: string
+  /** Overrides the body copy so the modal names the feature that was clicked. */
+  body?: React.ReactNode
 }
 
 // Shown to signed-out visitors when they try to use a members-only feature
 // (searchmap, ordering, full menus). Free account — no payment here.
-export default function SigninGateModal({ onClose, redirectTo = '/' }: Props) {
+export default function SigninGateModal({ onClose, redirectTo = '/', body }: Props) {
   const next = encodeURIComponent(redirectTo)
   return (
     <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -35,8 +37,12 @@ export default function SigninGateModal({ onClose, redirectTo = '/' }: Props) {
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-6">
-          The map, full menus, and ordering are for members. Create a
-          <strong> free account</strong> to unlock them — no payment required.
+          {body ?? (
+            <>
+              The map, full menus, and ordering are for members. Create a
+              <strong> free account</strong> to unlock them — no payment required.
+            </>
+          )}
         </p>
 
         <div className="flex flex-col gap-2.5">

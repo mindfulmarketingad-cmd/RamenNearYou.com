@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import {
   MapPin, Star, Navigation, Loader2, Utensils, ChevronRight,
   X, Search, Sparkles, Clock, SlidersHorizontal, Heart, Bookmark,
-  List, Map as MapIcon, HelpCircle, ArrowUpDown, BadgeCheck, ShoppingBag,
+  List, Map as MapIcon, HelpCircle, ArrowUpDown, BadgeCheck, ShoppingBag, Lock,
 } from 'lucide-react'
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
@@ -15,6 +15,7 @@ import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend,
 import { useCurrentUser } from '@/lib/use-current-user'
 import { useModalA11y } from '@/lib/use-modal-a11y'
 import LoginGateModal from '@/components/login-gate-modal'
+import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
 import AdSquare from '@/components/ad-square'
@@ -348,6 +349,10 @@ export default function HomeMapHero({
   // open this modal instead of following the link.
   const { user, authChecked } = useCurrentUser()
   const [gateOpen, setGateOpen] = useState(false)
+
+  // Filters are the paid feature. Sorting, search and the map itself stay
+  // free — only the chips below are behind RamenNearYou+.
+  const filterGate = useFilterGate()
   function requireAuth(e: React.MouseEvent): boolean {
     if (!authChecked || !user) {
       e.preventDefault()
@@ -732,10 +737,17 @@ export default function HomeMapHero({
       return next
     })
 
-  const toggleFlag = toggleIn(setFlags)
-  const toggleBowl = toggleIn(setBowls)
-  const toggleMood = toggleIn(setMoods)
-  const togglePrice = toggleIn(setPrices)
+  // Every chip goes through the paywall check first, so it holds even if a
+  // chip is ever rendered outside the gated filter panel.
+  const gated = (fn: (key: string) => void) => (key: string) => {
+    if (!filterGate.requireAccess()) return
+    fn(key)
+  }
+
+  const toggleFlag = gated(toggleIn(setFlags))
+  const toggleBowl = gated(toggleIn(setBowls))
+  const toggleMood = gated(toggleIn(setMoods))
+  const togglePrice = gated(toggleIn(setPrices))
 
   // Fallback center: most-reviewed spot in the dataset, until geo/ZIP resolves.
   const fallbackCenter = useMemo(() => {
@@ -1405,12 +1417,19 @@ export default function HomeMapHero({
             <div className="hidden sm:block h-5 w-px bg-black/10 shrink-0" />
 
             <button
-              onClick={() => setShowFilters(v => !v)}
+              onClick={() => {
+                // Closing never needs a subscription — only opening does.
+                if (showFilters) { setShowFilters(false); return }
+                if (!filterGate.requireAccess()) return
+                setShowFilters(true)
+              }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border transition-colors shrink-0 ${
                 showFilters ? 'bg-[#1E2026] text-white border-[#1E2026]' : 'bg-white text-[#1E2026] border-black/12 hover:border-black/30'
               }`}
             >
-              <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+              {filterGate.unlocked
+                ? <SlidersHorizontal className="w-3.5 h-3.5" />
+                : <Lock className="w-3.5 h-3.5 text-[#96602F]" />} Filters
               {activeCount > 0 && (
                 <span className="ml-0.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-[#B57F50] text-white text-[10px] font-bold">{activeCount}</span>
               )}
@@ -1971,6 +1990,7 @@ export default function HomeMapHero({
       )}
 
       <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />
+      <FilterGateModals gate={filterGate.gate} onClose={() => filterGate.setGate(null)} redirectTo={pathname} />
     </section>
   )
 }
