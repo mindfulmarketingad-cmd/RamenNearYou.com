@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
-import { Menu, X, Utensils, ArrowRight, Flame } from 'lucide-react'
+import { Menu, X, Utensils, ArrowRight, Flame, Rss } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
@@ -223,6 +223,18 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 </a>
                 {user && (
                   <>
+                    {/* Members-only, so it's only worth showing once we know
+                        someone is signed in. */}
+                    <Link
+                      href="/feed"
+                      className={`flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors ${
+                        isActive('/feed')
+                          ? 'text-[#1E2026] font-semibold bg-[#B57F50]/10'
+                          : 'text-[#6B6862] hover:text-[#1E2026] hover:bg-black/5'
+                      }`}
+                    >
+                      <Rss className="w-3.5 h-3.5" /> My Feed
+                    </Link>
                     <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors rounded-lg hover:bg-black/5">
                       <span className="w-6 h-6 rounded-full bg-[#B57F50]/30 border border-[#B57F50]/50 flex items-center justify-center text-xs font-bold text-[#96602F]">
                         {userInitial}
@@ -308,6 +320,9 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
               {user && (
                 <div className="mt-2 flex flex-col gap-1">
+                  <Link href="/feed" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors flex items-center gap-2" onClick={() => setMenuOpen(false)}>
+                    <Rss className="w-3.5 h-3.5" /> My Feed
+                  </Link>
                   <Link href="/saved" className="py-2 text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors" onClick={() => setMenuOpen(false)}>
                     Saved Restaurants
                   </Link>

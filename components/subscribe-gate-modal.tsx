@@ -44,15 +44,16 @@ export default function SubscribeGateModal({ onClose, featureName = 'Filters' }:
         </div>
 
         <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-2">
-          Unlock All Filters
+          Unlock Filters &amp; Your Feed
         </h2>
 
         <p className="text-[#6B6862] text-sm leading-relaxed mb-4">
-          Filter by bowl type, mood, price, and hours to find exactly the ramen you&apos;re craving — just $2.99/month, cancel anytime.
+          Filter by bowl type, mood, price, and hours to find exactly the ramen you&apos;re craving — and get a feed of your own ZIP codes. Just $2.99/month, cancel anytime.
         </p>
 
         <ul className="text-left space-y-2 mb-6">
           {[
+            'Your own feed — follow up to 25 ZIP codes and scroll every shop in them',
             '11 bowl types — Tonkotsu, Miso, Shoyu, Shio, Tsukemen & more',
             '12 mood filters — Cozy & Intimate, Izakaya Vibe, Date Night & more',
             'Dietary & cuisine — Halal, Gluten-Free, Korean-Style, Japanese Fusion',
