@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
@@ -24,6 +25,10 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
 // Body: { query: string; userLat?: number; userLng?: number }
 // Auth: must be signed in AND have active ramen_pass_subscriptions row
 export async function POST(req: NextRequest) {
+  // Rate limited: LLM-backed, so every call costs real money.
+  const limited = checkRateLimit(req, 'ai-search', 10, 600000)
+  if (limited) return limited
+
   // 1. Auth
   const supabase = await createClient()
   const { data: { user } } = supabase

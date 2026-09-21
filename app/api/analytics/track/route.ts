@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { ANALYTICS_TABLE, classifyListingPath, isAnalyticsEvent } from '@/lib/analytics'
 
@@ -12,6 +13,10 @@ function str(v: unknown, max = 500): string | null {
 }
 
 export async function POST(request: Request) {
+  // Rate limited: unauthenticated DB writes; high ceiling so real browsing is unaffected.
+  const limited = checkRateLimit(request, 'analytics-track', 120, 60000)
+  if (limited) return limited
+
   try {
     const body = await request.json().catch(() => null)
     if (!body || !isAnalyticsEvent(body.eventType)) {

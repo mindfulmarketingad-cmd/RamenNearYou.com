@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 // Collector for Content-Security-Policy-Report-Only violation reports (set via
 // the `report-uri` directive in next.config.mjs). While the CSP is in
@@ -6,6 +7,10 @@ import { NextResponse } from 'next/server'
 // for each thing the target policy *would* have blocked, so we can see what a
 // real enforced policy needs to allow before switching it on.
 export async function POST(request: Request) {
+  // Rate limited: unauthenticated and public; caps log flooding.
+  const limited = checkRateLimit(request, 'csp-report', 30, 60000)
+  if (limited) return limited
+
   try {
     const body = await request.json()
     const report = body?.['csp-report'] ?? body

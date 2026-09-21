@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { applyContributionReward, hasActiveRamenPass } from '@/lib/rewards'
@@ -42,6 +43,10 @@ export async function GET(request: Request) {
 
 // POST /api/reviews — submit a review (auth required)
 export async function POST(request: Request) {
+  // Rate limited: writes publicly visible content.
+  const limited = checkRateLimit(request, 'reviews', 10, 600000)
+  if (limited) return limited
+
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
 import { requireFeedAccess, feedAccessStatus } from '@/lib/feed-access'
@@ -29,6 +30,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Rate limited: per-account writes.
+  const limited = checkRateLimit(request, 'feed-zips', 20, 600000)
+  if (limited) return limited
+
   const access = await requireFeedAccess()
   if (!access.ok) {
     return NextResponse.json({ error: access.reason }, { status: feedAccessStatus(access.reason) })

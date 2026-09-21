@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -9,6 +10,10 @@ import { createClient } from '@/lib/supabase/server'
 // The row is written before checkout on purpose — someone who bails at the
 // Stripe page is still a captured lead, separated from buyers by `status`.
 export async function POST(request: Request) {
+  // Rate limited: sends an admin email per submission.
+  const limited = checkRateLimit(request, 'city-guide', 5, 600000)
+  if (limited) return limited
+
   const body = await request.json()
   const { email, citySlug, cityLabel, sourcePath } = body as {
     email?: string; citySlug?: string; cityLabel?: string; sourcePath?: string

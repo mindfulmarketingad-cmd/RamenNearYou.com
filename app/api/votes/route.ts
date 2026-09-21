@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createClient } from '@/lib/supabase/server'
 
 // Thumbs up / down on a restaurant listing.
@@ -63,6 +64,10 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  // Rate limited: public counters; generous because changing your mind is normal.
+  const limited = checkRateLimit(request, 'votes', 60, 60000)
+  if (limited) return limited
+
   const supabase = await createClient()
   if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 

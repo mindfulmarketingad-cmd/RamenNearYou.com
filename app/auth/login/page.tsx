@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { UtensilsCrossed } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { safeRedirectPath } from '@/lib/safe-redirect'
 
 function GoogleIcon() {
   return (
@@ -20,7 +21,10 @@ function GoogleIcon() {
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectTo = searchParams.get('redirectTo') || '/'
+  // Never trust this straight from the query string — it ends up in
+  // router.push() and in the OAuth callback's `next`, both of which would
+  // happily navigate off-site.
+  const redirectTo = safeRedirectPath(searchParams.get('redirectTo'))
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
