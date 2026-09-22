@@ -69,14 +69,39 @@ export default function RootLayout({
         <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
         {/* Crazy Egg */}
         <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0133/3789.js" async></script>
+        {/* Google Consent Mode defaults, set before any tag runs.
+
+            These have to be DENIED in the EEA, the UK and Switzerland. The
+            consent signal a CMP produces is an *update* to these defaults, so
+            defaulting everything to 'granted' declares consent the visitor
+            never gave and lets tags fire in the window before the CMP has
+            even asked — which is exactly the state AdSense flags as a missing
+            TC string, CMP installed or not.
+
+            Region-scoped so it costs nothing elsewhere: US traffic (almost
+            all of this site's) still gets fully personalised ads immediately,
+            while EEA/UK/CH waits for the CMP to answer. `wait_for_update`
+            holds tags briefly so they don't fire before that answer lands. */}
         <Script id="gtag-consent-default" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('consent', 'default', {
-            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+            wait_for_update: 500,
+            region: [
+              'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU',
+              'IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES',
+              'SE','IS','LI','NO','GB','CH'
+            ],
+          });
+          gtag('consent', 'default', {
             ad_storage: 'granted',
             ad_user_data: 'granted',
             ad_personalization: 'granted',
+            analytics_storage: 'granted',
           });
         `}</Script>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
