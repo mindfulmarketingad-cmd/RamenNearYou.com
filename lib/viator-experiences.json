@@ -1,5 +1,8 @@
 {
   "syncedAt": null,
-  "query": "ramen",
+  "terms": [
+    "ramen"
+  ],
+  "maxPerState": 50,
   "experiences": []
 }

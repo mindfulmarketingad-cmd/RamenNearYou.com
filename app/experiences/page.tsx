@@ -5,18 +5,18 @@ import { MapPin, ChevronRight, Ticket } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdSquare from '@/components/ad-square'
-import { stateGroups, totalExperiences, experienceImage } from '@/lib/experiences'
+import { stateGroups, totalExperiences, totalRamenExperiences, experienceImage } from '@/lib/experiences'
 
 const URL = 'https://www.ramennearyou.com/experiences'
 
 export const metadata: Metadata = {
-  title: 'Ramen Experiences by State | Ramen Cooking Classes & Food Tours',
+  title: 'Ramen & Food Experiences by State | Classes, Tours & Tastings',
   description:
-    'Book ramen making classes, noodle workshops and Japanese food tours across the US. Browse ramen experiences by state.',
+    'Book ramen making classes, noodle workshops, food tours and tastings across the US. Browse experiences by state.',
   alternates: { canonical: URL },
   openGraph: {
-    title: 'Ramen Experiences by State',
-    description: 'Ramen making classes, noodle workshops and food tours across the US.',
+    title: 'Ramen & Food Experiences by State',
+    description: 'Ramen classes, noodle workshops, food tours and tastings across the US.',
     url: URL,
   },
 }
@@ -29,10 +29,10 @@ export default function ExperiencesHubPage() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Ramen Experiences by State',
+    name: 'Ramen & Food Experiences by State',
     url: URL,
     description:
-      'Ramen making classes, noodle workshops and Japanese food tours across the United States.',
+      'Ramen making classes, noodle workshops, food tours and tastings across the United States.',
   }
 
   return (
@@ -50,12 +50,12 @@ export default function ExperiencesHubPage() {
 
           <header className="mb-8">
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink leading-tight mb-3">
-              Ramen Experiences by State
+              Ramen &amp; Food Experiences by State
             </h1>
             <p className="text-ink-soft text-[15px] leading-relaxed max-w-2xl">
-              Ramen making classes, noodle workshops and Japanese food tours you can book
-              today. {totalExperiences > 0
-                ? `${totalExperiences.toLocaleString()} experiences across ${stateGroups.length} state${stateGroups.length === 1 ? '' : 's'}.`
+              Ramen making classes and noodle workshops first, then the best food tours,
+              tastings and cooking classes in each state. {totalExperiences > 0
+                ? `${totalExperiences.toLocaleString()} experiences across ${stateGroups.length} state${stateGroups.length === 1 ? '' : 's'}, ${totalRamenExperiences.toLocaleString()} of them ramen.`
                 : 'Pick a state to see what’s on.'}
             </p>
           </header>
@@ -65,8 +65,8 @@ export default function ExperiencesHubPage() {
               <Ticket className="w-6 h-6 text-brand mx-auto mb-3" />
               <p className="font-serif text-lg font-bold text-ink">No experiences loaded yet</p>
               <p className="text-sm text-ink-soft mt-1.5 max-w-md mx-auto leading-relaxed">
-                Run the Viator sync to populate this page — it pulls every ramen experience
-                and groups it by state.
+                Run the Viator sync to populate this page — it pulls ramen classes and
+                general food experiences and groups them by state.
               </p>
               <a
                 href="https://www.viator.com/searchResults/all?text=Ramen+experiences&pid=P00320180&mcid=42383&medium=link"
@@ -101,6 +101,7 @@ export default function ExperiencesHubPage() {
                       <p className="font-serif text-lg font-bold text-white leading-tight">{g.stateName}</p>
                       <p className="text-white/80 text-xs">
                         {g.count} experience{g.count === 1 ? '' : 's'}
+                        {g.ramenCount > 0 && ` · ${g.ramenCount} ramen`}
                       </p>
                     </div>
                   </div>

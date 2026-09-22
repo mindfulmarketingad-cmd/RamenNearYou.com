@@ -126,6 +126,11 @@ export default async function ExperiencePage({ params }: Props) {
           </h1>
 
           <div className="flex items-center gap-2.5 flex-wrap mb-5">
+            {e.category === 'ramen' && (
+              <span className="px-2 py-0.5 rounded-full bg-brand/12 border border-brand/30 text-[10px] font-bold text-brand-ink">
+                RAMEN
+              </span>
+            )}
             {e.rating != null && (
               <span className="flex items-center gap-1.5">
                 <span className="flex items-center gap-0.5">

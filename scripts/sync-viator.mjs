@@ -36,9 +36,36 @@ const flag = (name, fallback) => {
   const i = args.indexOf(`--${name}`)
   return i !== -1 && args[i + 1] ? args[i + 1] : fallback
 }
-const QUERY = flag('query', 'ramen')
-const PER_STATE = Number(flag('per-state', '30'))
+// Each state is searched for ramen first, then general food & drink. Ramen is
+// what this site is about, so those results outrank everything else and are
+// listed separately; the food terms are what stop a state page from being
+// empty in the ~40 states with no ramen class at all.
+const SEARCH_TERMS = [
+  { term: 'ramen', category: 'ramen' },
+  { term: 'ramen cooking class', category: 'ramen' },
+  { term: 'japanese cooking class', category: 'ramen' },
+  { term: 'noodle making class', category: 'ramen' },
+  { term: 'food tour', category: 'food' },
+  { term: 'cooking class', category: 'food' },
+  { term: 'food and drink', category: 'food' },
+  { term: 'food tasting', category: 'food' },
+]
+
+/** Hard ceiling per state, after merging every term and ranking. */
+const MAX_PER_STATE = Number(flag('max-per-state', '50'))
+/** How many rows to pull per individual search before merging. */
+const PER_SEARCH = Number(flag('per-search', '30'))
 const DRY_RUN = args.includes('--dry-run')
+
+// A single --query overrides the term list, for one-off runs.
+const QUERY_OVERRIDE = flag('query', null)
+const TERMS = QUERY_OVERRIDE
+  ? [{ term: QUERY_OVERRIDE, category: 'ramen' }]
+  : SEARCH_TERMS
+
+// Products whose own text mentions ramen count as ramen even when a generic
+// food search surfaced them.
+const RAMEN_RE = /\bramen\b|\btsukemen\b|\bnoodle(s)?\b|\budon\b|\bsoba\b/i
 
 const API_KEY = process.env.VIATOR_API_KEY
 if (!API_KEY) {
@@ -200,9 +227,9 @@ async function buildStateIndex() {
 // ---------------------------------------------------------------------------
 // 2. Search each state for the query term
 // ---------------------------------------------------------------------------
-async function searchState(destinationId, count) {
+async function searchState(destinationId, term, count) {
   const body = {
-    searchTerm: QUERY,
+    searchTerm: term,
     searchTypes: [{ searchType: 'PRODUCTS', pagination: { start: 1, count } }],
     currency: 'USD',
     productFiltering: { destination: String(destinationId) },
@@ -220,73 +247,123 @@ async function main() {
   const seen = new Map() // productCode → experience
   const states = [...stateIdToCode.entries()]
 
-  console.log(`\nSearching "${QUERY}" across ${states.length} states…`)
+  console.log(`\nSearching ${TERMS.length} term(s) across ${states.length} states…`)
+  console.log(`  terms: ${TERMS.map((t) => t.term).join(', ')}`)
+  console.log(`  cap:   ${MAX_PER_STATE} per state\n`)
+
   for (const [destId, code] of states) {
     const name = byId.get(destId)?.name ?? code
-    let results = []
-    try {
-      results = await searchState(destId, PER_STATE)
-    } catch (e) {
-      console.warn(`  ${code} ${name}: FAILED — ${e.message}`)
-      continue
+    let ramen = 0
+    let food = 0
+
+    for (const { term, category } of TERMS) {
+      let results = []
+      try {
+        results = await searchState(destId, term, PER_SEARCH)
+      } catch (e) {
+        console.warn(`  ${code} ${name} "${term}": FAILED — ${e.message}`)
+        continue
+      }
+
+      for (const p of results) {
+        if (!p?.productCode || !p?.title) continue
+
+        // Classify from the product's own text first — a generic "food tour"
+        // search often surfaces a ramen class, and it should still rank as
+        // ramen. Falls back to the term that found it.
+        const text = `${p.title} ${p.description ?? ''}`
+        const resolvedCategory = RAMEN_RE.test(text) ? 'ramen' : category
+
+        // Already collected? Only upgrade food → ramen, never the reverse.
+        const existing = seen.get(p.productCode)
+        if (existing) {
+          if (existing.category === 'food' && resolvedCategory === 'ramen') {
+            existing.category = 'ramen'
+          }
+          continue
+        }
+
+        // A product can list several destinations; prefer the primary one, and
+        // fall back to whichever first resolves to a state.
+        const refs = (p.destinations ?? []).map((d) => String(d.ref))
+        const primary = (p.destinations ?? []).find((d) => d.primary)
+        const resolved =
+          (primary && stateCodeFor(primary.ref)) ||
+          refs.map(stateCodeFor).find(Boolean) ||
+          code
+
+        const cityRef = primary?.ref ?? refs[0]
+        const cityName = cityRef ? (byId.get(String(cityRef))?.name ?? null) : null
+
+        seen.set(p.productCode, {
+          slug: `${slugify(p.title)}-${p.productCode.toLowerCase()}`,
+          productCode: p.productCode,
+          title: p.title,
+          description: (p.description ?? '').trim(),
+          category: resolvedCategory,
+          stateCode: resolved,
+          cityName,
+          priceFrom: p.pricing?.summary?.fromPrice ?? null,
+          currency: p.pricing?.currency ?? 'USD',
+          rating: p.reviews?.combinedAverageRating ?? null,
+          reviewCount: p.reviews?.totalReviews ?? 0,
+          durationMinutes: durationOf(p.duration),
+          image: pickImage(p.images),
+          gallery: galleryImages(p.images),
+          affiliateUrl: affiliateUrl(p.productUrl ?? `https://www.viator.com/tours/${p.productCode}`),
+          flags: p.flags ?? [],
+        })
+        if (resolvedCategory === 'ramen') ramen++
+        else food++
+      }
+
+      // Space out calls within a state too — this is now 8 searches per state.
+      await sleep(250)
     }
 
-    let added = 0
-    for (const p of results) {
-      if (!p?.productCode || !p?.title) continue
-      if (seen.has(p.productCode)) continue
-
-      // A product can list several destinations; prefer the primary one, and
-      // fall back to whichever first resolves to a state.
-      const refs = (p.destinations ?? []).map((d) => String(d.ref))
-      const primary = (p.destinations ?? []).find((d) => d.primary)
-      const resolved =
-        (primary && stateCodeFor(primary.ref)) ||
-        refs.map(stateCodeFor).find(Boolean) ||
-        code
-
-      const cityRef = primary?.ref ?? refs[0]
-      const cityName = cityRef ? (byId.get(String(cityRef))?.name ?? null) : null
-
-      seen.set(p.productCode, {
-        slug: `${slugify(p.title)}-${p.productCode.toLowerCase()}`,
-        productCode: p.productCode,
-        title: p.title,
-        description: (p.description ?? '').trim(),
-        stateCode: resolved,
-        cityName,
-        priceFrom: p.pricing?.summary?.fromPrice ?? null,
-        currency: p.pricing?.currency ?? 'USD',
-        rating: p.reviews?.combinedAverageRating ?? null,
-        reviewCount: p.reviews?.totalReviews ?? 0,
-        durationMinutes: durationOf(p.duration),
-        image: pickImage(p.images),
-        gallery: galleryImages(p.images),
-        affiliateUrl: affiliateUrl(p.productUrl ?? `https://www.viator.com/tours/${p.productCode}`),
-        flags: p.flags ?? [],
-      })
-      added++
-    }
-    if (added) console.log(`  ${code} ${name}: +${added}`)
+    if (ramen + food > 0) console.log(`  ${code} ${name}: +${ramen + food} (${ramen} ramen, ${food} food)`)
 
     // Be polite: the affiliate tier is rate limited and a 429 storm just
     // makes the whole sync slower.
     await sleep(350)
   }
 
-  const experiences = [...seen.values()].sort(
-    (a, b) =>
-      a.stateCode.localeCompare(b.stateCode) ||
-      (b.rating ?? 0) - (a.rating ?? 0) ||
-      (b.reviewCount ?? 0) - (a.reviewCount ?? 0) ||
-      a.title.localeCompare(b.title)
-  )
+  // Rank within each state, then trim to the cap. Ramen outranks general food
+  // regardless of rating — this is a ramen site, and a 4.9 brewery tour should
+  // not push the one ramen class in the state off the page. Ties break on
+  // rating, then reviews, then title: a total order, so a re-run with
+  // unchanged data produces an identical file and no noise commit.
+  const perState = new Map()
+  for (const e of seen.values()) {
+    const list = perState.get(e.stateCode)
+    if (list) list.push(e)
+    else perState.set(e.stateCode, [e])
+  }
+
+  const rank = (a, b) =>
+    (a.category === b.category ? 0 : a.category === 'ramen' ? -1 : 1) ||
+    (b.rating ?? 0) - (a.rating ?? 0) ||
+    (b.reviewCount ?? 0) - (a.reviewCount ?? 0) ||
+    a.title.localeCompare(b.title)
+
+  let trimmed = 0
+  const experiences = []
+  for (const code of [...perState.keys()].sort()) {
+    const list = perState.get(code).sort(rank)
+    if (list.length > MAX_PER_STATE) trimmed += list.length - MAX_PER_STATE
+    experiences.push(...list.slice(0, MAX_PER_STATE))
+  }
 
   const withImages = experiences.filter((e) => e.image).length
+  const ramenCount = experiences.filter((e) => e.category === 'ramen').length
   const byStateCount = experiences.reduce((m, e) => m.set(e.stateCode, (m.get(e.stateCode) ?? 0) + 1), new Map())
+  const biggest = [...byStateCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5)
 
-  console.log(`\n${experiences.length} unique experiences across ${byStateCount.size} states`)
-  console.log(`${withImages}/${experiences.length} have a Viator image`)
+  console.log(`\n${experiences.length} experiences across ${byStateCount.size} states`)
+  console.log(`  ${ramenCount} ramen, ${experiences.length - ramenCount} general food`)
+  console.log(`  ${withImages}/${experiences.length} have a Viator image`)
+  if (trimmed) console.log(`  ${trimmed} trimmed by the ${MAX_PER_STATE}/state cap`)
+  console.log(`  largest: ${biggest.map(([c, n]) => `${c} ${n}`).join(', ')}`)
 
   if (DRY_RUN) {
     console.log('\n--dry-run: not writing. Sample:')
@@ -308,7 +385,8 @@ async function main() {
 
   writeFileSync(OUT, JSON.stringify({
     syncedAt: new Date().toISOString(),
-    query: QUERY,
+    terms: TERMS.map((t) => t.term),
+    maxPerState: MAX_PER_STATE,
     experiences,
   }, null, 2) + '\n')
   console.log(`\nWrote ${OUT}`)

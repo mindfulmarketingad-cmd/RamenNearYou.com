@@ -4,6 +4,10 @@ name: Sync Viator experiences
 # it. This is the only place VIATOR_API_KEY is used — the site renders from the
 # committed snapshot, so Vercel never needs the key and the pages stay static.
 #
+# Run it by hand the first time: Actions → "Sync Viator experiences" → Run
+# workflow. Once the commit lands, the data lives in the repo and the site
+# works whether or not this job ever runs again.
+#
 # Prices and review counts move, so this runs nightly. Pushing the commit
 # triggers the usual Vercel deploy.
 
@@ -14,10 +18,10 @@ on:
     - cron: '15 9 * * *'
   workflow_dispatch:
     inputs:
-      query:
-        description: 'Search term to sync'
+      max_per_state:
+        description: 'Max experiences kept per state'
         required: false
-        default: 'ramen'
+        default: '50'
 
 permissions:
   contents: write
@@ -39,7 +43,9 @@ jobs:
       - name: Fetch experiences from Viator
         env:
           VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
-        run: node scripts/sync-viator.mjs --query "${{ github.event.inputs.query || 'ramen' }}"
+        # No --query here on purpose: passing one collapses the script's eight
+        # search terms down to that single term.
+        run: node scripts/sync-viator.mjs --max-per-state "${{ github.event.inputs.max_per_state || '50' }}"
 
       - name: Commit if the snapshot changed
         run: |
