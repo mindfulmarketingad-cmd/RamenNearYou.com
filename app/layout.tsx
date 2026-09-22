@@ -65,24 +65,44 @@ export default function RootLayout({
        markup legitimately differ on this one element. */
     <html lang="en" suppressHydrationWarning className={`${playfair.variable} ${dmSans.variable} bg-surface`}>
       <head>
-        <meta name="google-adsense-account" content="ca-pub-9332749804326149" />
-        <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
-        {/* Crazy Egg */}
-        <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0133/3789.js" async></script>
-        {/* Google Consent Mode defaults, set before any tag runs.
+        {/* Google Consent Mode defaults.
+
+            On ordering: React/Float hoists external `async` scripts (Crazy Egg,
+            Mediavine, Next's own chunks) to the top of the rendered <head> and
+            leaves inline scripts below them, and neither next/script's
+            `beforeInteractive` nor plain source order overrides that — both
+            were measured landing below the Mediavine tag in the built HTML. It
+            still wins in practice, because this block executes while the parser
+            is reading the head, whereas the tags above it are network fetches
+            that execute on arrival. GA4 and the Ads tag are `afterInteractive`,
+            so they are strictly later and never race at all.
+
+            That leaves only Mediavine's own tag as a theoretical race, and it is
+            not one worth contorting the markup over: Mediavine's CMP is the
+            authoritative consent source here and sets its own signal. Don't
+            "fix" the ordering by wrapping Mediavine's tag in this script —
+            support expects the literal tag they issued.
 
             These have to be DENIED in the EEA, the UK and Switzerland. The
             consent signal a CMP produces is an *update* to these defaults, so
             defaulting everything to 'granted' declares consent the visitor
             never gave and lets tags fire in the window before the CMP has
-            even asked — which is exactly the state AdSense flags as a missing
-            TC string, CMP installed or not.
+            even asked.
+
+            Mediavine ships its own certified CMP, and it is now the only one
+            on the site — Google's Funding Choices used to load off the back of
+            the AdSense tag, which is gone. These defaults still matter, and are
+            still Google-shaped: GA4, the Google Ads conversion tag and
+            Mediavine's Google demand partners all read Consent Mode, and
+            Mediavine's CMP is what sends the update that unblocks them.
 
             Region-scoped so it costs nothing elsewhere: US traffic (almost
             all of this site's) still gets fully personalised ads immediately,
             while EEA/UK/CH waits for the CMP to answer. `wait_for_update`
             holds tags briefly so they don't fire before that answer lands. */}
-        <Script id="gtag-consent-default" strategy="beforeInteractive">{`
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('consent', 'default', {
@@ -103,7 +123,12 @@ export default function RootLayout({
             ad_personalization: 'granted',
             analytics_storage: 'granted',
           });
-        `}</Script>
+        `,
+          }}
+        />
+        <meta name="msvalidate.01" content="99617846F44D5C6A9420F9E39DE802A1" />
+        {/* Crazy Egg */}
+        <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0133/3789.js" async></script>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-S6L1KWFRC8" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`
           gtag('js', new Date());
@@ -115,13 +140,19 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18266125976');
         `}</Script>
-        {/* AdSense (ca-pub-9332749804326149) — loaded site-wide via the root layout */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9332749804326149"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        {/* Mediavine. A raw <script> rather than next/script so the tag reaches
+            the browser byte-for-byte as Mediavine specified it — their script
+            auto-injects ad placements and reads its own attributes, and it has
+            to be last in <head>. (data-noptimize / data-cfasync are inert on
+            Vercel; they tell Autoptimize and Cloudflare Rocket Loader to leave
+            the tag alone, and Mediavine asks for them regardless of host.) */}
+        <script
+          type="text/javascript"
+          async={true}
+          data-noptimize="1"
+          data-cfasync="false"
+          src="//scripts.scriptwrapper.com/tags/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71.js"
+        ></script>
       </head>
       <body className="font-sans antialiased bg-surface text-ink">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>

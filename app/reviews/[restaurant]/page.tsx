@@ -20,8 +20,6 @@ import { jsonLdString } from '@/lib/json-ld'
 import { resolveFindCity } from '@/lib/find-city'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import OwnerCtaCard from '@/components/owner-cta-card'
-import AdSquare from '@/components/ad-square'
-import AdVertical from '@/components/ad-vertical'
 
 interface Props {
   params: Promise<{ restaurant: string }>
@@ -208,10 +206,6 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             </a>
           </header>
 
-          <div className="mb-8 min-h-[250px]">
-            <AdSquare />
-          </div>
-
           {/* Rating summary card */}
           <section className="bg-surface rounded-2xl border border-line/5 p-6 sm:p-8 mb-8">
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-8 items-center">
@@ -338,10 +332,6 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             <h2 className="font-serif text-2xl font-bold text-ink mb-5">What Diners Are Saying</h2>
             <RestaurantReviewsClient reviews={reviews} />
           </section>
-
-          <div className="mb-10 min-h-[600px] max-w-xs mx-auto">
-            <AdVertical />
-          </div>
 
           {/* More reviews — keeps every review page linked to others */}
           {related.length > 0 && (

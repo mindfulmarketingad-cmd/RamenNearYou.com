@@ -6,7 +6,6 @@ import { MapPin, Loader2, Navigation, SlidersHorizontal, Lock, ArrowUpDown, X } 
 import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import ListicleCard, { type ListicleCardData } from '@/components/listicle-card'
-import AdInFeed from '@/components/ad-infeed'
 import ProductsCarousel from '@/components/products-carousel'
 import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
 import { BOWL_META, MOOD_META, FEATURE_META, MISC_FLAG_BY_KEY } from '@/lib/ramen-taxonomy'
@@ -374,7 +373,6 @@ export default function HomeNearbySection() {
                   />
                   {/* Same in-feed break rhythm as the /find listicles. */}
                   {i === 4 && <div className="my-3"><ProductsCarousel variant="inline" /></div>}
-                  {i === 11 && <div className="my-3"><AdInFeed /></div>}
                 </div>
               ))}
             </div>

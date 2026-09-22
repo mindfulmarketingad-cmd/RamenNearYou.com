@@ -6,7 +6,7 @@ const nextConfig = {
   // Don't advertise the framework to attackers.
   poweredByHeader: false,
   // Baseline security headers applied to every response. Intentionally NOT a
-  // strict Content-Security-Policy — the site loads AdSense, Stripe, Google
+  // strict Content-Security-Policy — the site loads Mediavine, Stripe, Google
   // Maps tiles, Supabase, and OpenStreetMap/Nominatim, so a locked-down CSP
   // would need careful per-source allow-listing before it could ship without
   // breaking those. These headers cover the high-value, zero-risk protections
@@ -14,8 +14,10 @@ const nextConfig = {
   async headers() {
     // Target Content-Security-Policy, shipped in REPORT-ONLY mode: it blocks
     // nothing. Sources below cover the site's known third parties: Google
-    // AdSense/Analytics/Tag Manager, Google's CMP (Funding Choices), Stripe,
-    // Supabase, Crazy Egg, and OpenStreetMap tiles.
+    // Analytics/Tag Manager, Stripe, Supabase, Crazy Egg, Mediavine (whose ads
+    // still serve through the Google ad stack, so the googlesyndication /
+    // doubleclick / googleadservices entries below are load-bearing), and
+    // OpenStreetMap tiles.
     //
     // `report-uri` is deliberately NOT set. Report-only mode makes the browser
     // POST a report for every would-be violation on every page load, and each
@@ -31,12 +33,12 @@ const nextConfig = {
       "object-src 'none'",
       "frame-ancestors 'self'",
       "form-action 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://scripts.scriptwrapper.com https://*.mediavine.com https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https:",
-      "connect-src 'self' https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://nominatim.openstreetmap.org https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com",
-      "frame-src https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net",
+      "connect-src 'self' https://scripts.scriptwrapper.com https://*.mediavine.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://nominatim.openstreetmap.org https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com",
+      "frame-src https://*.mediavine.com https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net",
       "worker-src 'self' blob:",
     ].join('; ')
 

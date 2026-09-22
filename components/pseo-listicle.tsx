@@ -5,9 +5,6 @@ import Link from 'next/link'
 import { List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import ListicleCard from '@/components/listicle-card'
 import ProductsCarousel from '@/components/products-carousel'
-import AdSquare from '@/components/ad-square'
-import AdVertical from '@/components/ad-vertical'
-import AdInFeed from '@/components/ad-infeed'
 import CityGuideCta from '@/components/city-guide-cta'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
@@ -404,10 +401,6 @@ export default function PseoListicle({
               {geoError && <p className="text-red-500 text-xs mt-2">{geoError}</p>}
             </div>
 
-            <div className="mb-4 min-h-[250px]">
-              <AdSquare />
-            </div>
-
             <p className="text-xs text-ink-soft mb-4">{filtered.length} {filtered.length === 1 ? noun : nounPlural}</p>
 
             {filtered.length === 0 && (
@@ -424,27 +417,12 @@ export default function PseoListicle({
                 // feed instead of a paywall-style interruption before anyone
                 // has seen a real result.
                 const productCarouselAt = Math.min(3, pagedRest.length)
-                // Two more breaks further down, spaced clear of the product
-                // carousel and each other — long listicles scroll for a
-                // while, so one ad slot isn't enough to keep it in view.
-                const inFeedAdAt = Math.min(6, pagedRest.length)
-                const adAt = Math.min(9, pagedRest.length)
                 return (
                 <Fragment key={it.key}>
                 <ListicleCard item={it} rank={i + 1} distanceLabel={distanceLabel(it)} noun={noun} />
                 {i + 1 === productCarouselAt && (
                   <div className="my-3">
                     <ProductsCarousel variant="inline" />
-                  </div>
-                )}
-                {i + 1 === inFeedAdAt && inFeedAdAt !== productCarouselAt && (
-                  <div className="my-3">
-                    <AdInFeed />
-                  </div>
-                )}
-                {i + 1 === adAt && adAt !== inFeedAdAt && (
-                  <div className="my-3 min-h-[600px] max-w-xs mx-auto">
-                    <AdVertical />
                   </div>
                 )}
                 </Fragment>
@@ -455,12 +433,6 @@ export default function PseoListicle({
             {pagedRest.length > 0 && (
               <div className="mt-6">
                 <CityGuideCta cityLabel={guideCityLabel} citySlug={guideCitySlug} />
-              </div>
-            )}
-
-            {pagedRest.length > 0 && (
-              <div className="mt-6 min-h-[250px]">
-                <AdSquare />
               </div>
             )}
 

@@ -1,9 +1,11 @@
 # RamenNearYou — Project Notes
 
-## AdSense compliance — REQUIRED footer links
+## Ad network compliance — REQUIRED footer links
 
-To keep Google AdSense approval, the footer (`components/footer.tsx`) **must always**
-include these links. Do not remove them:
+The site's ads are served by **Mediavine** (it moved off Google AdSense; the AdSense
+loader and ad units are gone). Mediavine requires the same set of policy pages AdSense
+did, so this requirement is unchanged: the footer (`components/footer.tsx`) **must
+always** include these links. Do not remove them:
 
 - Home → `/`
 - About → `/about`

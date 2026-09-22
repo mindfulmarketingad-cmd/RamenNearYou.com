@@ -5,8 +5,6 @@ import Image from 'next/image'
 import { Star, MapPin, ChevronRight, Ticket, Clock, Check } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import AdSquare from '@/components/ad-square'
-import AdVertical from '@/components/ad-vertical'
 import {
   allExperienceParams,
   getStateGroup,
@@ -266,10 +264,6 @@ export default async function ExperiencePage({ params }: Props) {
             </div>
           )}
 
-          <div className="mb-6 min-h-[250px]">
-            <AdSquare />
-          </div>
-
           <div className="bg-surface rounded-2xl border border-line/8 p-6 text-center mb-6">
             <p className="font-serif text-lg font-bold text-ink mb-1">Ready to book?</p>
             <p className="text-sm text-ink-soft mb-4">Check live dates and availability on Viator.</p>
@@ -306,10 +300,6 @@ export default async function ExperiencePage({ params }: Props) {
               </div>
             </section>
           )}
-
-          <div className="mb-6 min-h-[600px] max-w-xs mx-auto">
-            <AdVertical />
-          </div>
 
           <Link href={`/experiences/${state}`} className="inline-flex items-center gap-1 text-sm font-semibold text-brand-ink hover:underline">
             ← All {group.stateName} experiences

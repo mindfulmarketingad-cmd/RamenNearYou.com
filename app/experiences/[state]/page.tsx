@@ -5,8 +5,6 @@ import Image from 'next/image'
 import { Star, MapPin, ChevronRight, Ticket, Clock } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import AdSquare from '@/components/ad-square'
-import AdInFeed from '@/components/ad-infeed'
 import {
   stateGroups,
   getStateGroup,
@@ -191,10 +189,7 @@ export default async function StateExperiencesPage({ params }: Props) {
               )}
               <div className="space-y-3">
                 {ramen.map((e, i) => (
-                  <div key={e.slug}>
-                    <ExperienceRow e={e} rank={i + 1} stateSlug={group.stateSlug} />
-                    {i === 4 && <div className="my-3"><AdInFeed /></div>}
-                  </div>
+                  <ExperienceRow key={e.slug} e={e} rank={i + 1} stateSlug={group.stateSlug} />
                 ))}
               </div>
             </section>
@@ -214,18 +209,11 @@ export default async function StateExperiencesPage({ params }: Props) {
               )}
               <div className="space-y-3">
                 {food.map((e, i) => (
-                  <div key={e.slug}>
-                    <ExperienceRow e={e} rank={i + 1} stateSlug={group.stateSlug} />
-                    {ramen.length === 0 && i === 4 && <div className="my-3"><AdInFeed /></div>}
-                  </div>
+                  <ExperienceRow key={e.slug} e={e} rank={i + 1} stateSlug={group.stateSlug} />
                 ))}
               </div>
             </section>
           )}
-
-          <div className="my-8 min-h-[250px]">
-            <AdSquare />
-          </div>
 
           <Link href="/experiences" className="inline-flex items-center gap-1 text-sm font-semibold text-brand-ink hover:underline">
             ← All states

@@ -51,7 +51,7 @@ export default function CookieConsent() {
         <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">
           We use cookies to analyze site traffic and display personalized ads via{' '}
           <strong className="text-ink">Google Analytics</strong> and{' '}
-          <strong className="text-ink">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
+          <strong className="text-ink">Mediavine</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
           use of cookies.{' '}
           <Link href="/privacy-policy" className="text-brand-ink hover:underline">
             Privacy Policy

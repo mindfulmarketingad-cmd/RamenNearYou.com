@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Plus, X, Loader2, MapPin, Lock, Check, Rss } from 'lucide-react'
 import FeedPostCard, { type FeedPost } from '@/components/feed-post-card'
-import AdInFeed from '@/components/ad-infeed'
 import ProductsCarousel from '@/components/products-carousel'
 import { useGate } from '@/lib/use-gate'
 
@@ -17,8 +16,6 @@ import { useGate } from '@/lib/use-gate'
 
 const STRIPE_LINK = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
 const PAGE_SIZE = 10
-/** Break the scroll every N posts, the same rhythm the other feeds use. */
-const AD_EVERY = 8
 const CAROUSEL_AT = 4
 
 interface FollowedZip {
@@ -243,7 +240,6 @@ export default function PersonalFeed() {
             <div key={p.slug}>
               <FeedPostCard post={p} />
               {i === CAROUSEL_AT && <div className="mt-4"><ProductsCarousel variant="inline" /></div>}
-              {i > 0 && (i + 1) % AD_EVERY === 0 && <div className="mt-4"><AdInFeed /></div>}
             </div>
           ))}
         </div>

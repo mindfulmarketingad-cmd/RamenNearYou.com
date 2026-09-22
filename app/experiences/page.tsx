@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { MapPin, ChevronRight, Ticket } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import AdSquare from '@/components/ad-square'
 import { stateGroups, totalExperiences, totalRamenExperiences, experienceImage } from '@/lib/experiences'
 
 const URL = 'https://www.ramennearyou.com/experiences'
@@ -121,10 +120,6 @@ export default function ExperiencesHubPage() {
               ))}
             </div>
           )}
-
-          <div className="my-8 min-h-[250px]">
-            <AdSquare />
-          </div>
 
           <p className="text-[11px] text-ink-soft/80">
             Experiences are booked through Viator. We may earn a commission at no extra cost to you.

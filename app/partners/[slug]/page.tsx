@@ -8,8 +8,6 @@ import {
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RestaurantImage from '@/components/restaurant-image'
-import AdSquare from '@/components/ad-square'
-import AdVertical from '@/components/ad-vertical'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import { getPhoBySlug, getAllPhoSlugs, getNearbyPho, getActiveAmenityGroups, phoRestaurants, phoCityParam } from '@/lib/pho'
 import { buildPhoSections, buildGenericPartnerSections } from '@/lib/pho-content'
@@ -252,10 +250,6 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                 </div>
               </div>
 
-              <div className="mb-6 min-h-[250px]">
-                <AdSquare />
-              </div>
-
               {/* Hours + rating breakdown */}
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 {p.hours && (
@@ -398,10 +392,6 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                   </section>
                 ))}
               </article>
-
-              <div className="mb-6 min-h-[600px] max-w-xs mx-auto">
-                <AdVertical />
-              </div>
 
               {/* Nearby pho — only meaningful for actual pho listings */}
               {isPho && nearby.length > 0 && (

@@ -18,8 +18,6 @@ import LoginGateModal from '@/components/login-gate-modal'
 import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
-import AdSquare from '@/components/ad-square'
-import DismissibleAd from '@/components/dismissible-ad'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 import { FIND_MODIFIERS } from '@/lib/find-modifiers'
 import {
@@ -1478,24 +1476,6 @@ export default function HomeMapHero({
           {geocodeError && <p className="text-red-500 text-xs mt-1.5">{geocodeError}</p>}
         </div>
       </div>
-
-      {/* Ad — directly under the map bar, still inside the floating controls
-          stack so it sits above the map tiles rather than the page content
-          below. Square format does well here on mobile, where this whole
-          toolbar is the first thing a visitor sees.
-
-          It floats over the map, so it has to be closeable: on a phone the
-          unit can fill most of the map viewport, and an overlay you can't
-          dismiss is both a bad first impression and the kind of thing AdSense
-          flags as interfering with content. */}
-      {mapOnly && (
-        <DismissibleAd
-          storageKey="map-overlay"
-          className="bg-surface/95 backdrop-blur rounded-2xl shadow-lg border border-line/10 pointer-events-auto w-full sm:w-auto sm:max-w-4xl overflow-hidden"
-        >
-          <AdSquare />
-        </DismissibleAd>
-      )}
 
       {/* Expandable full filter panel */}
       {showFilters && (

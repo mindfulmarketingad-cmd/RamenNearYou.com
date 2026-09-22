@@ -13,8 +13,6 @@ import RestaurantVoteButtons from '@/components/restaurant-vote-buttons'
 import PageViewTracker from '@/components/page-view-tracker'
 import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
-import AdSquare from '@/components/ad-square'
-import AdVertical from '@/components/ad-vertical'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
 import { jsonLdString } from '@/lib/json-ld'
@@ -367,12 +365,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 </div>
               )}
 
-              {!isVerified && (
-                <div className="mt-6 min-h-[250px]">
-                  <AdSquare />
-                </div>
-              )}
-
               {/* Contact & address */}
               <div className="mt-6 space-y-3.5">
                 {r.address && (
@@ -496,12 +488,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               <div className="mt-6 pt-5 border-t border-line/8 flex items-center gap-3">
                 <ShareButton title={r.name} url={url} />
               </div>
-
-              {!isVerified && (
-                <div className="mt-6 pt-5 border-t border-line/8 min-h-[600px] max-w-xs mx-auto">
-                  <AdVertical />
-                </div>
-              )}
 
               {/* Where to go next — grouped by reason so each set of links has
                   its own motive to be clicked, instead of one flat list. */}

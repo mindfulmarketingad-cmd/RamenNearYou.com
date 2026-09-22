@@ -78,7 +78,7 @@ export default function DisclaimerPage() {
               <p>
                 The Site may display advertisements and contain affiliate links, meaning we may earn a commission
                 if you click a link or make a purchase, at no additional cost to you. Advertisements served through
-                third-party networks such as Google AdSense are not endorsements of the advertised products or
+                third-party networks, managed by our advertising partner Mediavine, are not endorsements of the advertised products or
                 services.
               </p>
             </section>

@@ -117,7 +117,7 @@ export default function TermsOfServicePage() {
               <h2 className="text-ink text-xl font-semibold mb-3">8. Third-Party Links &amp; Advertising</h2>
               <p>
                 The Site may contain links to third-party websites and display advertisements from third-party
-                advertising networks including Google AdSense. We are not responsible for the content, privacy
+                advertising networks, managed by our advertising partner Mediavine. We are not responsible for the content, privacy
                 practices, or terms of any third-party sites. The display of advertisements does not constitute
                 endorsement of the advertiser or their products.
               </p>
