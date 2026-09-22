@@ -19,12 +19,25 @@ const STATE_SLUG_TO_CODE: Record<string, string> = {
   'wisconsin': 'wi', 'wyoming': 'wy', 'district-of-columbia': 'dc',
 }
 
+// Top-level app sections. The /{city}/{state} rule below matches any two-
+// segment path whose second segment is a state slug, which would also swallow
+// real routes like /experiences/california (it was rewriting that to
+// /find/experiences-ca). Anything with its own directory under app/ and a
+// state-shaped child belongs here.
+const RESERVED_SECTIONS = new Set([
+  'experiences', 'find', 'blog', 'reviews', 'recipes', 'partners', 'collections',
+  'comparisons', 'compare', 'menu', 'claim', 'claim-your-listing', 'admin', 'api',
+  'auth', 'owner', 'list', 'state', 'search', 'profile', 'dashboard', 'feed',
+  'saved', 'products', 'featured', 'featured-listing', 'cities', 'broth', 'authors',
+  'ambassador', 'plus', 'catering', 'faq', 'about', 'contact', 'review-cards', 'r',
+])
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const parts = pathname.split('/').filter(Boolean)
 
   // Redirect /{city}/{state} → /find/{city}-{stateCode}
-  if (parts.length === 2) {
+  if (parts.length === 2 && !RESERVED_SECTIONS.has(parts[0])) {
     const [citySlug, stateSlug] = parts
     const stateCode = STATE_SLUG_TO_CODE[stateSlug]
     if (stateCode) {

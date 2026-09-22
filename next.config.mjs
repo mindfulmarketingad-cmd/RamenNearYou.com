@@ -52,6 +52,16 @@ const nextConfig = {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
   async redirects() {
+    // The first Viator experience shipped at a flat /experiences/{slug}. That
+    // shape now belongs to /experiences/{state}, so the old URL would resolve
+    // to a non-existent state and 404. It's in the live sitemap, so send it to
+    // the hub rather than dropping it.
+    const legacyExperience = [{
+      source: '/experiences/authentic-ramen-making-experience-kyoto',
+      destination: '/experiences',
+      permanent: true,
+    }]
+
     // Old 2-letter state code → full state name slug
     const stateMap = {
       al: 'alabama',
@@ -94,6 +104,7 @@ const nextConfig = {
     ])
 
     return [
+      ...legacyExperience,
       // Broth-type service pages → /find searchmap equivalents
       { source: '/tonkotsu-ramen-near-me', destination: '/find/tonkotsu-ramen', permanent: true },
       { source: '/spicy-ramen-near-me', destination: '/find/spicy-ramen', permanent: true },

@@ -1,87 +1,140 @@
+import snapshot from './viator-experiences.json'
+import { STATE_CODE_TO_NAME, STATE_CODE_TO_SLUG } from './state-lookups'
 import { pickStockPhoto } from './stock-photos'
 
-// Viator affiliate experiences surfaced at /experiences and /experiences/{slug}.
+// Viator experiences, grouped by US state.
 //
-// Every field here should come from the experience's own Viator listing —
-// price, rating, and review count are claims shown to buyers, so they need to
-// match the live listing rather than being estimated. `priceFrom` is the
-// "From $X per person" figure Viator displays, which moves; re-check it when
-// you touch a listing.
+// Everything here is read from lib/viator-experiences.json — a snapshot written
+// by `npm run sync:viator` (and by the nightly GitHub Action, which is where
+// the VIATOR_API_KEY secret lives). Nothing in the request path talks to
+// Viator, so the pages are fully static and don't need the key on Vercel.
+//
+// Re-run the sync when you want fresh prices: `fromPrice` and the review
+// counts are claims shown to buyers, and they move.
+
 export interface Experience {
+  /** URL segment under /experiences/{state}/ — includes the Viator product code. */
   slug: string
-  name: string
-  /** One-line hook used on the listicle card. */
-  tagline: string
+  productCode: string
+  title: string
   description: string
-  city: string
-  country: string
-  /** Filter facet — keep consistent across experiences in the same place. */
-  destination: string
-  /** Filter facet — e.g. "Cooking Class", "Food Tour". */
-  category: string
-  /** "From $130.28" figure on the Viator listing. */
-  priceFrom: string
-  rating: number
+  /** Two-letter state code, e.g. "CA". */
+  stateCode: string
+  /** Viator destination name for this product, e.g. "Los Angeles". */
+  cityName: string | null
+  priceFrom: number | null
+  currency: string
+  rating: number | null
   reviewCount: number
-  /** Real listing photography. Falls back to a stock ramen shot when unset. */
-  image?: string
+  durationMinutes: number | null
+  /** Cover photo from Viator, already size-selected. */
+  image: string | null
+  /** Extra photos for the detail page. */
+  gallery: string[]
+  /** Viator product URL with our affiliate params already applied. */
   affiliateUrl: string
-  highlights: string[]
-  /** Booking perks Viator lists (free cancellation, pay later, …). */
-  perks: string[]
-  metaTitle: string
-  metaDescription: string
+  flags: string[]
 }
 
-export const experiences: Experience[] = [
-  {
-    slug: 'authentic-ramen-making-experience-kyoto',
-    name: 'Award-Winning Authentic Ramen Making Experience in Kyoto',
-    tagline: 'Make ramen from scratch — noodles, broth, and all — at Ramen Factory Kyoto.',
-    description:
-      'Build a full bowl of ramen from scratch in Kyoto: mix and cut your own noodles, prepare the broth and toppings, then sit down and eat what you made. Run by Ramen Factory Kyoto, rated five stars by thousands of travelers and recommended by 100% of them. Instruction is hands-on and beginner-friendly, so no cooking experience is needed.',
-    city: 'Kyoto',
-    country: 'Japan',
-    destination: 'Kyoto, Japan',
-    category: 'Cooking Class',
-    priceFrom: '$130.28',
-    rating: 5,
-    reviewCount: 2635,
-    // No `image` yet — falls back to a stock ramen shot. Set it to the Viator
-    // listing photo (and allow that hostname in next.config.mjs) when you have
-    // one you're licensed to use.
-    affiliateUrl:
-      'https://www.viator.com/tours/Kyoto/Making-Ramen-from-scratch-and-Japanese-Souvenir-by-Ramen-Factory-Kyoto/d332-60659P1?pid=P00320180&mcid=42383&medium=link',
-    highlights: [
-      'Make noodles from scratch — mix, press, and cut your own',
-      'Prepare the broth and toppings for your own bowl',
-      'Eat what you cook, in the shop where you made it',
-      'Beginner-friendly: no cooking experience needed',
-      'Take home a Japanese souvenir from the class',
-    ],
-    perks: [
-      'Free cancellation up to 24 hours before the experience starts',
-      'Reserve now and pay later — secure your spot while staying flexible',
-      'Discounted rates for children',
-    ],
-    metaTitle: 'Ramen Making Class in Kyoto | Award-Winning Authentic Experience',
-    metaDescription:
-      'Make ramen from scratch in Kyoto — noodles, broth, and toppings — at the award-winning Ramen Factory Kyoto. 5 stars from 2,635 reviews. Free cancellation up to 24 hours before.',
-  },
-]
-
-export function getExperience(slug: string): Experience | undefined {
-  return experiences.find((e) => e.slug === slug)
+interface Snapshot {
+  /** ISO timestamp of the last successful sync. */
+  syncedAt: string | null
+  /** Search term the snapshot was built from. */
+  query: string
+  experiences: Experience[]
 }
 
-/** Listing photo when we have one, otherwise a stable stock shot. */
+const data = snapshot as Snapshot
+
+export const experiences: Experience[] = data.experiences ?? []
+export const syncedAt: string | null = data.syncedAt ?? null
+
+export interface StateGroup {
+  stateCode: string
+  stateName: string
+  stateSlug: string
+  count: number
+  /** Best-rated experience in the state — used for the hub card's thumbnail. */
+  cover: Experience | null
+}
+
+/** Highest rated first, then most-reviewed, then title — a total order, so
+ *  page ordering is stable between builds. */
+function rank(a: Experience, b: Experience): number {
+  return (
+    (b.rating ?? 0) - (a.rating ?? 0) ||
+    (b.reviewCount ?? 0) - (a.reviewCount ?? 0) ||
+    a.title.localeCompare(b.title)
+  )
+}
+
+const byState = new Map<string, Experience[]>()
+for (const e of experiences) {
+  const list = byState.get(e.stateCode)
+  if (list) list.push(e)
+  else byState.set(e.stateCode, [e])
+}
+for (const list of byState.values()) list.sort(rank)
+
+/** Only states that actually have experiences — no empty pages. */
+export const stateGroups: StateGroup[] = [...byState.entries()]
+  .filter(([code]) => STATE_CODE_TO_NAME[code] && STATE_CODE_TO_SLUG[code])
+  .map(([code, list]) => ({
+    stateCode: code,
+    stateName: STATE_CODE_TO_NAME[code],
+    stateSlug: STATE_CODE_TO_SLUG[code],
+    count: list.length,
+    cover: list[0] ?? null,
+  }))
+  .sort((a, b) => b.count - a.count || a.stateName.localeCompare(b.stateName))
+
+const groupBySlug = new Map(stateGroups.map((g) => [g.stateSlug, g]))
+
+export function getStateGroup(stateSlug: string): StateGroup | undefined {
+  return groupBySlug.get(stateSlug)
+}
+
+export function getStateExperiences(stateSlug: string): Experience[] {
+  const g = groupBySlug.get(stateSlug)
+  return g ? (byState.get(g.stateCode) ?? []) : []
+}
+
+export function getExperience(stateSlug: string, slug: string): Experience | undefined {
+  return getStateExperiences(stateSlug).find((e) => e.slug === slug)
+}
+
+/** Every (state, experience) pair, for generateStaticParams. */
+export function allExperienceParams(): { state: string; experience: string }[] {
+  return stateGroups.flatMap((g) =>
+    getStateExperiences(g.stateSlug).map((e) => ({ state: g.stateSlug, experience: e.slug }))
+  )
+}
+
+export const totalExperiences = experiences.length
+
+/** Listing photo when Viator gave us one, otherwise a stable stock shot. */
 export function experienceImage(e: Experience): string {
   return e.image ?? pickStockPhoto(e.slug)
 }
 
-/** Facet values present in the data, for the /experiences filters. */
-export function getExperienceFacets() {
-  const destinations = [...new Set(experiences.map((e) => e.destination))].sort()
-  const categories = [...new Set(experiences.map((e) => e.category))].sort()
-  return { destinations, categories }
+export function formatPrice(e: Experience): string | null {
+  if (e.priceFrom == null) return null
+  const currency = e.currency || 'USD'
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 2,
+    }).format(e.priceFrom)
+  } catch {
+    return `${currency} ${e.priceFrom.toFixed(2)}`
+  }
+}
+
+export function formatDuration(minutes: number | null): string | null {
+  if (!minutes || minutes <= 0) return null
+  if (minutes < 60) return `${minutes} min`
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  return m === 0 ? `${h} hour${h === 1 ? '' : 's'}` : `${h}h ${m}m`
 }

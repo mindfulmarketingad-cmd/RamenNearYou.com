@@ -1,0 +1,55 @@
+name: Sync Viator experiences
+
+# Refreshes lib/viator-experiences.json from the Viator Partner API and commits
+# it. This is the only place VIATOR_API_KEY is used — the site renders from the
+# committed snapshot, so Vercel never needs the key and the pages stay static.
+#
+# Prices and review counts move, so this runs nightly. Pushing the commit
+# triggers the usual Vercel deploy.
+
+on:
+  schedule:
+    # 09:15 UTC daily — off the hour so it isn't competing with everyone else's
+    # cron for Viator's rate limit.
+    - cron: '15 9 * * *'
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'Search term to sync'
+        required: false
+        default: 'ramen'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-viator
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch experiences from Viator
+        env:
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+        run: node scripts/sync-viator.mjs --query "${{ github.event.inputs.query || 'ramen' }}"
+
+      - name: Commit if the snapshot changed
+        run: |
+          if git diff --quiet -- lib/viator-experiences.json; then
+            echo "No change — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/viator-experiences.json
+          COUNT=$(node -e "console.log(require('./lib/viator-experiences.json').experiences.length)")
+          git commit -m "Sync Viator experiences ($COUNT products)"
+          git push
