@@ -111,7 +111,26 @@ const nextConfig = {
       { source: `/:city/${code}/:restaurant`, destination: `/:city/${full}/:restaurant`, permanent: true },
     ])
 
+    // ads.txt is hosted by Mediavine so their partner list stays current
+    // without us redeploying. The local public/ads.txt is gone — it listed the
+    // old AdSense pub IDs, and leaving a stale copy in the repo is how you end
+    // up serving it again by accident.
+    //
+    // statusCode: 301 rather than `permanent: true`, which emits a 308. The two
+    // are semantically equivalent, but Mediavine asks for a 301 and the IAB
+    // ads.txt crawlers that read this are old and literal-minded — no reason to
+    // hand them a status code they might not follow.
+    //
+    // Next resolves redirects() BEFORE the public/ filesystem check, so this
+    // would win even if the old file came back.
+    const adsTxt = [{
+      source: '/ads.txt',
+      destination: 'https://adstxt.journeymv.com/sites/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71/ads.txt',
+      statusCode: 301,
+    }]
+
     return [
+      ...adsTxt,
       ...legacyExperience,
       // Broth-type service pages → /find searchmap equivalents
       { source: '/tonkotsu-ramen-near-me', destination: '/find/tonkotsu-ramen', permanent: true },
