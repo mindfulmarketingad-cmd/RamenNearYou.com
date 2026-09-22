@@ -63,9 +63,35 @@ const TERMS = QUERY_OVERRIDE
   ? [{ term: QUERY_OVERRIDE, category: 'ramen' }]
   : SEARCH_TERMS
 
-// Products whose own text mentions ramen count as ramen even when a generic
-// food search surfaced them.
-const RAMEN_RE = /\bramen\b|\btsukemen\b|\bnoodle(s)?\b|\budon\b|\bsoba\b/i
+// Category comes from the product's own TITLE, never from the term that found
+// it. Viator's freetext search pads thin destinations with loosely-related
+// filler — searching "noodle making class" in Alaska returns glacier cruises —
+// so trusting the search term labelled 696 of 726 results "ramen" on the first
+// live run, including a metal art class and a whitewater rafting trip.
+//
+// Title only, not description: descriptions are templated and mention noodles
+// in prose often enough to badge a pub crawl as ramen.
+//
+// Word boundaries are load-bearing on \bramen\b — "Sacramento" contains
+// "ramen", so a bare /ramen/ marks every product in the city.
+const RAMEN_RE = /\bramen\b|\btsukemen\b|\bnoodles?\b|\budon\b|\bsoba\b|\bizakaya\b/i
+
+// Relevance gate. Same filler problem: without this the feed fills with hikes,
+// golf, glacier cruises and escape rooms, none of which are food. A product
+// has to look like food or drink in its title to be kept at all.
+const FOOD_RE = new RegExp([
+  'food', 'foodie', 'culinary', 'cuisine', 'cook(ing|ery)?', 'chef', 'tasting',
+  'taste of', 'dining', 'dinner', 'lunch', 'brunch', 'breakfast', 'restaurant',
+  'eat(s|ing)?', 'gastronom', 'market tour', 'street ?food', 'wine', 'winery',
+  'vineyard', 'brewery', 'brew', 'beer', 'distiller', 'whiskey', 'whisky',
+  'bourbon', 'cocktail', 'spirits', 'sake', 'coffee', 'espresso', 'chocolate',
+  'dessert', 'pastry', 'bakery', 'baking', 'cheese', 'bbq', 'barbecue', 'sushi',
+  'pizza', 'pasta', 'taco', 'tapas', 'dumpling', 'farm.to.table',
+  'farmers.market', 'mixology', 'tequila', 'margarita', 'charcuterie', 'oyster',
+  'seafood', 'supper', 'feast', 'bites', 'pub crawl', 'bar crawl', 'drinks?',
+  // Ramen terms belong here too, so a ramen class always clears the gate.
+  'ramen', 'noodles?', 'udon', 'soba', 'izakaya', 'tsukemen',
+].join('|'), 'i')
 
 const API_KEY = process.env.VIATOR_API_KEY
 if (!API_KEY) {
@@ -255,8 +281,9 @@ async function main() {
     const name = byId.get(destId)?.name ?? code
     let ramen = 0
     let food = 0
+    let skipped = 0
 
-    for (const { term, category } of TERMS) {
+    for (const { term } of TERMS) {
       let results = []
       try {
         results = await searchState(destId, term, PER_SEARCH)
@@ -268,11 +295,11 @@ async function main() {
       for (const p of results) {
         if (!p?.productCode || !p?.title) continue
 
-        // Classify from the product's own text first — a generic "food tour"
-        // search often surfaces a ramen class, and it should still rank as
-        // ramen. Falls back to the term that found it.
-        const text = `${p.title} ${p.description ?? ''}`
-        const resolvedCategory = RAMEN_RE.test(text) ? 'ramen' : category
+        // Drop anything that isn't food or drink. The search term is not
+        // evidence of relevance — see FOOD_RE.
+        if (!FOOD_RE.test(p.title)) { skipped++; continue }
+
+        const resolvedCategory = RAMEN_RE.test(p.title) ? 'ramen' : 'food'
 
         // Already collected? Only upgrade food → ramen, never the reverse.
         const existing = seen.get(p.productCode)
@@ -321,7 +348,10 @@ async function main() {
       await sleep(250)
     }
 
-    if (ramen + food > 0) console.log(`  ${code} ${name}: +${ramen + food} (${ramen} ramen, ${food} food)`)
+    if (ramen + food > 0) {
+      console.log(`  ${code} ${name}: +${ramen + food} (${ramen} ramen, ${food} food)` +
+        (skipped ? `  [${skipped} non-food skipped]` : ''))
+    }
 
     // Be polite: the affiliate tier is rate limited and a 429 storm just
     // makes the whole sync slower.
