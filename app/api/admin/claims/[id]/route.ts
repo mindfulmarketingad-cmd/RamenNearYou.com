@@ -50,8 +50,10 @@ export async function PATCH(
   // literal `[city]/[state]` template with only the slug substituted, which
   // never matched any real rendered path and silently did nothing, so a
   // newly-approved claim's Verified badge/ad removal could stay stale for
-  // up to the page's full revalidate window (1 hour for the listing page,
-  // 24 hours for its reviews page).
+  // up to the page's full revalidate window (24 hours for both the listing
+  // page and its reviews page). Those windows are deliberately long to keep
+  // ISR writes down, which makes this on-demand call the thing that actually
+  // delivers freshness here — it is load-bearing, not an optimisation.
   if (claim?.restaurant_slug) {
     const restaurant = getRestaurantBySlug(claim.restaurant_slug)
     if (restaurant) {

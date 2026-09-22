@@ -13,26 +13,31 @@ const nextConfig = {
   // (clickjacking, MIME sniffing, referrer leakage, transport security).
   async headers() {
     // Target Content-Security-Policy, shipped in REPORT-ONLY mode: it blocks
-    // nothing, but browsers POST a report to /api/csp-report for anything it
-    // *would* block. Watch those reports (function logs), widen the allow-lists
-    // until they go quiet, then switch the header key to 'Content-Security-Policy'
-    // to enforce. Sources below cover the site's known third parties: Google
+    // nothing. Sources below cover the site's known third parties: Google
     // AdSense/Analytics/Tag Manager, Google's CMP (Funding Choices), Stripe,
-    // Supabase, and OpenStreetMap tiles.
+    // Supabase, Crazy Egg, and OpenStreetMap tiles.
+    //
+    // `report-uri` is deliberately NOT set. Report-only mode makes the browser
+    // POST a report for every would-be violation on every page load, and each
+    // of those is a serverless invocation plus a log line — on a site this size
+    // that was the single largest source of Vercel observability events, all of
+    // it re-reporting the same handful of hosts. The allow-lists below were
+    // widened from those reports; to collect fresh ones, add
+    // "report-uri /api/csp-report" back temporarily, read the logs, then remove
+    // it again.
     const csp = [
       "default-src 'self'",
       "base-uri 'self'",
       "object-src 'none'",
       "frame-ancestors 'self'",
       "form-action 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https:",
-      "connect-src 'self' https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://nominatim.openstreetmap.org https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com",
+      "connect-src 'self' https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://nominatim.openstreetmap.org https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com",
       "frame-src https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net",
       "worker-src 'self' blob:",
-      "report-uri /api/csp-report",
     ].join('; ')
 
     const securityHeaders = [

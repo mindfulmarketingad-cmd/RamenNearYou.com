@@ -21,9 +21,13 @@ export const metadata: Metadata = {
   },
 }
 
-// Snapshot is refreshed by the nightly sync; a day of staleness is fine and
-// keeps these pages static.
-export const revalidate = 86400
+// The snapshot these pages render from is a build-time JSON import, so their
+// output cannot change without a deploy — and a deploy invalidates everything
+// anyway. A timed window would only buy ISR cache writes that re-render
+// identical HTML, so there is no window: cache until the next deploy.
+// (lib/viator-experiences.json is refreshed by the nightly sync workflow, which
+// commits it and therefore triggers that deploy.)
+export const revalidate = false
 
 export default function ExperiencesHubPage() {
   const schema = {

@@ -32,9 +32,18 @@ export const dynamicParams = true
 // per-visitor owner status. That per-visitor state now resolves client-side
 // (/api/owner/listing-status via useOwnerStatus), and the remaining Supabase
 // reads (owner overrides, claim/verified status) are per-restaurant and go
-// through the cookie-free admin client — so pages render once, cache at the
-// CDN, and revalidate hourly.
-export const revalidate = 3600
+// through the cookie-free admin client — so pages render once and cache at the
+// CDN.
+//
+// The window is a DAY, not an hour. At ~12k listings an hourly window is up to
+// 12k ISR cache writes an hour just to re-render pages whose inputs didn't
+// change; the underlying data (owner overrides, claim/verified status) changes
+// a handful of times a week. The two mutations that actually need to show up
+// immediately already call revalidatePath() for the exact listing —
+// app/api/admin/claims/[id] on claim approval and app/api/admin/listing-edits/[id]
+// on an approved edit — so the timer is only a backstop, and freshness where it
+// matters does not depend on it.
+export const revalidate = 86400
 
 export async function generateStaticParams() {
   // Every restaurant (DB or Places-supplement) renders on demand via

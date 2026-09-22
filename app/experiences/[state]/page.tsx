@@ -22,7 +22,13 @@ interface Props {
   params: Promise<{ state: string }>
 }
 
-export const revalidate = 86400
+// The snapshot these pages render from is a build-time JSON import, so their
+// output cannot change without a deploy — and a deploy invalidates everything
+// anyway. A timed window would only buy ISR cache writes that re-render
+// identical HTML, so there is no window: cache until the next deploy.
+// (lib/viator-experiences.json is refreshed by the nightly sync workflow, which
+// commits it and therefore triggers that deploy.)
+export const revalidate = false
 // dynamicParams must stay true. With it false, an unknown state (say
 // /experiences/wyoming, which has no ramen experiences) doesn't match this
 // route at all and falls through to the /[city]/[state] catch-all, which
