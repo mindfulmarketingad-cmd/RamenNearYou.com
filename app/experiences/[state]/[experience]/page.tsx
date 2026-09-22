@@ -16,6 +16,7 @@ import {
   formatPrice,
   formatDuration,
 } from '@/lib/experiences'
+import { parseDescription, factBullets } from '@/lib/experience-description'
 
 interface Props {
   params: Promise<{ state: string; experience: string }>
@@ -105,6 +106,11 @@ export default async function ExperiencePage({ params }: Props) {
   }
 
   const others = getStateExperiences(state).filter((o) => o.slug !== e.slug).slice(0, 4)
+
+  const blocks = parseDescription(e.description)
+  // Only fall back to fact bullets when the supplier didn't supply their own —
+  // otherwise the two lists say overlapping things right next to each other.
+  const bullets = blocks.some((b) => b.type === 'ul') ? [] : factBullets(e)
 
   return (
     <>
@@ -217,10 +223,40 @@ export default async function ExperiencePage({ params }: Props) {
             )}
           </div>
 
-          {e.description && (
+          {/* Overview — prose, then a bulleted list, the way Viator lays out
+              its own product pages. Bullets come from the supplier's own
+              highlight lines where the description has them; where it doesn't,
+              they're facts restated from the product data rather than copy we
+              made up about someone else's tour. */}
+          {(blocks.length > 0 || bullets.length > 0) && (
             <div className="bg-surface rounded-2xl border border-line/8 p-6 sm:p-8 mb-6">
-              <h2 className="font-serif text-xl font-bold text-ink mb-3">About this experience</h2>
-              <p className="text-ink-mid text-[15px] leading-relaxed whitespace-pre-line">{e.description}</p>
+              <h2 className="font-serif text-2xl font-bold text-ink mb-4">Overview</h2>
+
+              {blocks.map((b, i) =>
+                b.type === 'p' ? (
+                  <p key={i} className="text-ink-mid text-[15px] leading-relaxed mb-4 last:mb-0">
+                    {b.text}
+                  </p>
+                ) : (
+                  <ul key={i} className="list-disc pl-5 space-y-2 mb-4 last:mb-0 marker:text-ink-faint">
+                    {b.items.map((item) => (
+                      <li key={item} className="text-ink-mid text-[15px] leading-relaxed pl-1">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )
+              )}
+
+              {bullets.length > 0 && (
+                <ul className="list-disc pl-5 space-y-2 mt-4 marker:text-ink-faint">
+                  {bullets.map((b) => (
+                    <li key={b} className="text-ink-mid text-[15px] leading-relaxed pl-1">
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 
