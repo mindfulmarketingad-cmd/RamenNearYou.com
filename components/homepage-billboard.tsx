@@ -7,7 +7,8 @@ import { MapPin, ArrowUpRight, Megaphone } from 'lucide-react'
 import type { BillboardSlot } from '@/lib/homepage-billboard'
 
 // The paid hero at the top of the homepage. One business at a time, full
-// bleed, with the "Use This Space" bar underneath selling the empty slots.
+// bleed, with the "Get Your Restaurant Featured" bar underneath selling the
+// empty slots.
 
 const ROTATE_MS = 7000
 
@@ -15,16 +16,12 @@ interface Props {
   slots: BillboardSlot[]
   spotsLeft: number
   totalSlots: number
-  price: string
-  period: string
 }
 
 export default function HomepageBillboard({
   slots,
   spotsLeft,
   totalSlots,
-  price,
-  period,
 }: Props) {
   const [index, setIndex] = useState(0)
 
@@ -147,7 +144,7 @@ export default function HomepageBillboard({
         </div>
       </div>
 
-      {/* "Use This Space" — the sales bar for the slots nobody has bought. */}
+      {/* The sales bar for the slots nobody has bought. */}
       {spotsLeft > 0 && (
         <Link
           href="/featured-listing"
@@ -156,11 +153,11 @@ export default function HomepageBillboard({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center">
             <span className="inline-flex items-center gap-1.5 text-white text-sm font-bold">
               <Megaphone className="w-4 h-4 text-amber-400" />
-              Use This Space
+              Get Your Restaurant Featured
             </span>
             <span className="text-white/70 text-sm">
               — <span className="text-amber-400 font-semibold">{spotsLeft} of {totalSlots} spots left</span>
-              {' '}on this billboard · {price}/{period}.
+              {' '}on this billboard.
             </span>
             <span className="inline-flex items-center gap-1 text-white text-sm font-semibold underline underline-offset-4 decoration-white/40 group-hover:decoration-white">
               Claim yours

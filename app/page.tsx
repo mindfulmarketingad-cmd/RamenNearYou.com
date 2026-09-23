@@ -19,8 +19,6 @@ import {
   getBillboardSlots,
   billboardSpotsLeft,
   BILLBOARD_SLOTS,
-  BILLBOARD_PRICE,
-  BILLBOARD_PERIOD,
 } from '@/lib/homepage-billboard'
 
 const organizationSchema = {
@@ -64,8 +62,6 @@ export default function HomePage() {
           slots={billboardSlots}
           spotsLeft={billboardSpotsLeft(billboardSlots.length)}
           totalSlots={BILLBOARD_SLOTS}
-          price={BILLBOARD_PRICE}
-          period={BILLBOARD_PERIOD}
         />
         {/* Map, then the feed of what's inside its radius. Everything below
             this — the SEO/editorial sections — comes after the feed, so the

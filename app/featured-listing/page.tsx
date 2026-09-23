@@ -4,8 +4,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BillboardDiagram from '@/components/billboard-diagram'
 import {
-  getBillboardSlots,
-  billboardSpotsLeft,
   BILLBOARD_SLOTS,
   BILLBOARD_PRICE,
   BILLBOARD_PERIOD,
@@ -33,8 +31,6 @@ export default async function FeaturedListingPage({
   searchParams: Promise<{ cancelled?: string }>
 }) {
   const { cancelled } = await searchParams
-  const spotsLeft = billboardSpotsLeft(getBillboardSlots().length)
-  const soldOut = spotsLeft === 0
 
   return (
     <main className="min-h-screen bg-surface">
@@ -114,11 +110,6 @@ export default async function FeaturedListingPage({
               </span>
               <span className="text-ink-soft text-sm">/ {BILLBOARD_PERIOD}</span>
             </div>
-            <p className="text-ink-soft text-xs mt-2">
-              {soldOut
-                ? 'All slots are currently taken — subscribe to join the waiting list.'
-                : `${spotsLeft} of ${BILLBOARD_SLOTS} ${spotsLeft === 1 ? 'spot' : 'spots'} open right now.`}
-            </p>
           </div>
 
           <div className="p-6">

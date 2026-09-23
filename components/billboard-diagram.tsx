@@ -68,11 +68,11 @@ export default function BillboardDiagram({
           </p>
         </div>
 
-        {/* The "Use This Space" bar, shown greyed because it is what your slot
-            replaces. */}
+        {/* The sales bar, shown greyed because it is what your slot replaces.
+            Keep this label in sync with the real one in homepage-billboard. */}
         <div className="bg-[#111827] px-4 py-2.5 text-center">
           <span className="inline-flex items-center gap-1.5 text-white/35 text-[10px] sm:text-xs font-semibold line-through">
-            <Megaphone className="w-3 h-3" /> Use This Space
+            <Megaphone className="w-3 h-3" /> Get Your Restaurant Featured
           </span>
           <span className="ml-2 text-[10px] sm:text-xs text-white/35">
             — the sales bar visitors see on an empty slot
