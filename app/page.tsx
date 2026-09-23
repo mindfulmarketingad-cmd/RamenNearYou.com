@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
+import HomepageBillboard from '@/components/homepage-billboard'
 import HomeNearbySection from '@/components/home-nearby-section'
 import FeaturedListings from '@/components/featured-listings'
 import ClaimedShowcase from '@/components/claimed-showcase'
@@ -14,6 +15,13 @@ import HomepageAbout from '@/components/homepage-about'
 import HomepageFAQ from '@/components/homepage-faq'
 import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
+import {
+  getBillboardSlots,
+  billboardSpotsLeft,
+  BILLBOARD_SLOTS,
+  BILLBOARD_PRICE,
+  BILLBOARD_PERIOD,
+} from '@/lib/homepage-billboard'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -40,15 +48,34 @@ const websiteSchema = {
 }
 
 export default function HomePage() {
+  const billboardSlots = getBillboardSlots()
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <main className="min-h-screen bg-surface">
         <Navbar />
+        {/* Paid billboard, then the map. It sits above the map because that
+            placement is the product being sold — but it is one screen deep, so
+            the map and the nearby feed are still the next thing a visitor
+            scrolls into rather than being pushed far down the page. */}
+        <HomepageBillboard
+          slots={billboardSlots}
+          spotsLeft={billboardSpotsLeft(billboardSlots.length)}
+          totalSlots={BILLBOARD_SLOTS}
+          price={BILLBOARD_PRICE}
+          period={BILLBOARD_PERIOD}
+        />
         {/* Map, then the feed of what's inside its radius. Everything below
             this — the SEO/editorial sections — comes after the feed, so the
-            first thing a visitor gets is ramen near them, not marketing. */}
+            first thing a visitor gets is ramen near them, not marketing.
+
+            The map hero carries its own pt-16 (it clears the fixed navbar on
+            the ~100 /find pages where it is the top element), which here just
+            reads as breathing room under the billboard's sales bar. Don't try
+            to cancel it with a negative margin — that pulls the map up over
+            the bar and hides it. */}
         <HomeNearbySection />
 
         <div className="relative z-10 bg-surface">

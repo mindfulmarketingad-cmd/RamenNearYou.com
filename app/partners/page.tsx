@@ -34,8 +34,8 @@ const partnersFaqs = [
     a: "Yes. Once your claim is approved, your restaurant's dedicated listing page runs ad-free — one of the perks of verifying ownership.",
   },
   {
-    q: 'How do I get my restaurant featured on the map?',
-    a: 'Featured placement is a separate, paid option from claiming — it puts your restaurant at the top of your city page, state page, and homepage with a gold pin on the map. Plans start at $19.99/month; see /featured-listing for details.',
+    q: 'How do I get my restaurant featured on the homepage?',
+    a: 'Featured placement is a separate, paid option from claiming — it puts your restaurant on the billboard at the very top of the homepage, above the map, with your own photo and buttons for directions and online ordering. It is $99/month and you can cancel anytime; see /featured-listing for details.',
   },
 ]
 
@@ -121,11 +121,11 @@ export default async function PartnersPage() {
               something changes.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured on the Map?</h2>
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured on the Homepage?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
-              Featured placement is a separate, paid upgrade from claiming — it puts your restaurant at the
-              top of your city page, state page, and the homepage with a gold pin on the search map. Plans
-              start at $19.99/month; see{' '}
+              Featured placement is a separate, paid upgrade from claiming — it puts your restaurant on the
+              billboard at the very top of the homepage, above the map, with your own photo and buttons for
+              directions and online ordering. It&apos;s $99/month, cancel anytime; see{' '}
               <Link href="/featured-listing" className="text-brand-ink hover:underline">our featured listing page</Link>{' '}
               for full details and to get started.
             </p>
