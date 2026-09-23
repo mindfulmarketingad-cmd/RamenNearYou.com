@@ -23,7 +23,7 @@ const INCLUDED = [
   'The full-width billboard at the very top of the homepage — above the map and every listing',
   'Your own photo, full bleed, as the background',
   'A "Get Directions" button that opens Google Maps at your door',
-  'An "Order Now" button pointing straight at your website',
+  'A second button straight to your site — "Order Now" when you give us an online ordering link, "View Menu & Hours" otherwise',
   'Your slot stays live for as long as your subscription does',
 ]
 

@@ -11,16 +11,29 @@ export const BILLBOARD_PRICE = '$99'
 export const BILLBOARD_PERIOD = 'month'
 export const BILLBOARD_CHECKOUT_URL = 'https://buy.stripe.com/5kQ8wQciu9oYd6SdFYfrW0n'
 
+type OccupiedSlot = {
+  slug: string
+  /**
+   * Overrides the restaurant's dataset photo. A subscriber supplying their own
+   * shot is the normal case — the Google Places photo is only a stand-in, and
+   * it is cropped for a card, not for a full-bleed hero.
+   */
+  image?: string
+}
+
 /**
- * Slugs currently occupying the billboard, in display order.
+ * Who currently occupies the billboard, in display order.
  *
  * Kept as a hand-edited list rather than read from `featured_listings` on
  * purpose: the homepage is statically rendered, and a DB read here would make
- * every homepage request dynamic. Adding a slug plus a deploy is the whole
+ * every homepage request dynamic. Adding an entry plus a deploy is the whole
  * fulfilment step when someone subscribes.
  */
-const OCCUPIED_SLUGS: string[] = [
-  'kasabi-canton-japanese-hibachi-sushi-and-ramen',
+const OCCUPIED: OccupiedSlot[] = [
+  {
+    slug: 'shibuya-ramen-atlanta',
+    image: '/images/featured-shibuya-ramen-atlanta.webp',
+  },
 ]
 
 export type BillboardSlot = {
@@ -32,12 +45,15 @@ export type BillboardSlot = {
   /** The business's own page on this site. */
   listingUrl: string
   directionsUrl: string
+  /** Where the second CTA points — their site when we have one, ours if not. */
+  orderUrl: string
+  /** False when orderUrl is our own listing page, so the link stays internal. */
+  orderIsExternal: boolean
   /**
-   * Where "Order Now" points. Null when we hold no website or order link for
-   * the business — the component falls back to the listing page and relabels
-   * the button rather than sending people to a dead "order" click.
+   * "Order Now" is only honest when we hold a real ordering link. A general
+   * website gets "View Menu & Hours", which is what that click actually does.
    */
-  orderUrl: string | null
+  orderLabel: 'Order Now' | 'View Menu & Hours'
 }
 
 /** First usable http(s) URL out of a field that may hold several, comma or space separated. */
@@ -59,27 +75,34 @@ function buildDirectionsUrl(r: Restaurant): string {
   return r.placeId ? `${base}&destination_place_id=${encodeURIComponent(r.placeId)}` : base
 }
 
-function toSlot(r: Restaurant): BillboardSlot {
+function toSlot(r: Restaurant, override?: OccupiedSlot): BillboardSlot {
+  const listingUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+  const orderLink = firstUrl(r.orderLinks)
+  const site = firstUrl(r.website)
+  const external = orderLink ?? site
+
   return {
     slug: r.slug,
     name: r.name,
     city: r.city,
     stateCode: r.stateCode,
-    photo: r.photo,
-    listingUrl: `/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+    photo: override?.image ?? r.photo,
+    listingUrl,
     directionsUrl: buildDirectionsUrl(r),
-    orderUrl: firstUrl(r.orderLinks) ?? firstUrl(r.website),
+    orderUrl: external ?? listingUrl,
+    orderIsExternal: external !== null,
+    orderLabel: orderLink ? 'Order Now' : 'View Menu & Hours',
   }
 }
 
 /** The filled slots, in order. Unknown slugs are skipped rather than rendered blank. */
 export function getBillboardSlots(): BillboardSlot[] {
   const out: BillboardSlot[] = []
-  for (const slug of OCCUPIED_SLUGS) {
-    const r = getRestaurantBySlug(slug)
+  for (const entry of OCCUPIED) {
+    const r = getRestaurantBySlug(entry.slug)
     // A photo is the whole billboard — a slot without one would render as a
     // grey box, so it is better left out until the image is sorted.
-    if (r && r.photo) out.push(toSlot(r))
+    if (r && (entry.image || r.photo)) out.push(toSlot(r, entry))
   }
   return out
 }

@@ -54,10 +54,10 @@ export default function BillboardDiagram({
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-md bg-white/15 border border-white/25 text-white text-[10px] sm:text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg bg-white/15 border border-white/30 text-white text-[10px] sm:text-xs font-bold">
               <MapPin className="w-3 h-3" /> Get Directions
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-md bg-emerald-700 text-white text-[10px] sm:text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg bg-brand text-white text-[10px] sm:text-xs font-bold">
               Order Now <ArrowUpRight className="w-3 h-3" />
             </span>
           </div>

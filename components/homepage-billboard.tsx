@@ -41,9 +41,6 @@ export default function HomepageBillboard({
   if (slots.length === 0) return null
 
   const active = slots[Math.min(index, slots.length - 1)]
-  const orderHref = active.orderUrl ?? active.listingUrl
-  const orderIsExternal = active.orderUrl !== null
-  const orderLabel = orderIsExternal ? 'Order Now' : 'View Menu & Hours'
 
   return (
     <section aria-label="Featured business" className="pt-16 bg-sunken">
@@ -95,33 +92,37 @@ export default function HomepageBillboard({
             {active.city}, {active.stateCode}
           </p>
 
+          {/* Brand tan for the primary, translucent white for the secondary.
+              The secondary stays neutral on purpose — it sits on a photo we
+              don't control, and two filled brand buttons would fight each
+              other for the eye. */}
           <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
             <a
               href={active.directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-white/15 hover:bg-white/25 backdrop-blur border border-white/25 text-white text-sm sm:text-base font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-white/15 hover:bg-white/25 backdrop-blur border border-white/30 text-white text-sm sm:text-base font-bold transition-colors"
             >
               <MapPin className="w-4 h-4" />
               Get Directions
             </a>
 
-            {orderIsExternal ? (
+            {active.orderIsExternal ? (
               <a
-                href={orderHref}
+                href={active.orderUrl}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-emerald-700 hover:bg-emerald-600 text-white text-sm sm:text-base font-bold transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-brand hover:bg-brand-hi text-white text-sm sm:text-base font-bold transition-colors"
               >
-                {orderLabel}
+                {active.orderLabel}
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             ) : (
               <Link
-                href={orderHref}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-emerald-700 hover:bg-emerald-600 text-white text-sm sm:text-base font-bold transition-colors"
+                href={active.orderUrl}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-brand hover:bg-brand-hi text-white text-sm sm:text-base font-bold transition-colors"
               >
-                {orderLabel}
+                {active.orderLabel}
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             )}
