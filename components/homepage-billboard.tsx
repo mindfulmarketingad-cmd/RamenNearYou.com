@@ -125,6 +125,15 @@ export default function HomepageBillboard({
             )}
           </div>
 
+          {/* Only rendered when we actually hold a description — an empty slot
+              here is better than copy we made up about someone else's
+              restaurant. */}
+          {active.description && (
+            <p className="text-white/75 text-sm sm:text-base leading-relaxed max-w-xl mt-6">
+              {active.description}
+            </p>
+          )}
+
           {slots.length > 1 && (
             <div className="flex items-center gap-2 mt-10">
               {slots.map((s, i) => (

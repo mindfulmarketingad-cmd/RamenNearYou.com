@@ -19,6 +19,12 @@ type OccupiedSlot = {
    * it is cropped for a card, not for a full-bleed hero.
    */
   image?: string
+  /**
+   * Overrides the dataset description. A subscriber's own one-liner beats the
+   * generated blurb — but only their words or ours-from-their-data ever go
+   * here, never copy we invented about their restaurant.
+   */
+  description?: string
 }
 
 /**
@@ -42,6 +48,8 @@ export type BillboardSlot = {
   city: string
   stateCode: string
   photo: string
+  /** One line under the CTAs. Empty string when we hold nothing worth showing. */
+  description: string
   /** The business's own page on this site. */
   listingUrl: string
   directionsUrl: string
@@ -66,6 +74,23 @@ function firstUrl(raw: string | null | undefined): string | null {
   return null
 }
 
+/**
+ * Keeps the hero to one readable line or two. Prefers to end on a sentence so
+ * the copy doesn't stop mid-thought, and only falls back to an ellipsis when
+ * there is no sentence break to land on.
+ */
+function shorten(raw: string, max = 170): string {
+  const text = raw.replace(/\s+/g, ' ').trim()
+  if (text.length <= max) return text
+
+  const window = text.slice(0, max)
+  const lastStop = Math.max(window.lastIndexOf('. '), window.lastIndexOf('! '), window.lastIndexOf('? '))
+  if (lastStop > max * 0.5) return window.slice(0, lastStop + 1)
+
+  const lastSpace = window.lastIndexOf(' ')
+  return `${window.slice(0, lastSpace > 0 ? lastSpace : max).trimEnd()}…`
+}
+
 function buildDirectionsUrl(r: Restaurant): string {
   // Address-based destinations are the most reliable across devices; the place
   // id, when we have one, pins it to the exact business rather than a
@@ -87,6 +112,7 @@ function toSlot(r: Restaurant, override?: OccupiedSlot): BillboardSlot {
     city: r.city,
     stateCode: r.stateCode,
     photo: override?.image ?? r.photo,
+    description: shorten(override?.description ?? r.description ?? ''),
     listingUrl,
     directionsUrl: buildDirectionsUrl(r),
     orderUrl: external ?? listingUrl,
