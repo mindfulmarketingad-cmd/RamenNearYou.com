@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { safePhotoSrc } from '@/lib/photo-guard'
 import { MapPin, Star, Utensils } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -14,41 +15,41 @@ const brothMeta: Record<BrothType, { label: string; description: string; longDes
     label: 'Tonkotsu',
     description: 'Rich, creamy pork bone broth',
     longDesc: 'Slow-simmered pork bones create a thick, milky broth with deep umami. Expect a rich, indulgent bowl.',
-    color: 'text-amber-700',
-    border: 'border-amber-200 bg-amber-50',
-    badge: 'bg-amber-100 text-amber-800 border-amber-200',
+    color: 'text-amber-700 dark:text-amber-300',
+    border: 'border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10',
+    badge: 'bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30',
   },
   Shoyu: {
     label: 'Shoyu',
     description: 'Clear, soy-seasoned broth',
     longDesc: 'Soy sauce-based tare in a clear chicken or dashi stock. Light body with complex umami and a savory finish.',
-    color: 'text-orange-700',
-    border: 'border-orange-200 bg-orange-50',
-    badge: 'bg-orange-100 text-orange-800 border-orange-200',
+    color: 'text-orange-700 dark:text-orange-300',
+    border: 'border-orange-200 dark:border-orange-500/30 bg-orange-50 dark:bg-orange-500/10',
+    badge: 'bg-orange-100 dark:bg-orange-500/15 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-500/30',
   },
   Miso: {
     label: 'Miso',
     description: 'Fermented soybean paste broth',
     longDesc: 'Earthy, hearty miso paste blended into stock. Bold, warming, and complex — a Hokkaido classic.',
-    color: 'text-yellow-700',
-    border: 'border-yellow-200 bg-yellow-50',
-    badge: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+    color: 'text-yellow-700 dark:text-yellow-300',
+    border: 'border-yellow-200 dark:border-yellow-500/30 bg-yellow-50 dark:bg-yellow-500/10',
+    badge: 'bg-yellow-100 dark:bg-yellow-500/15 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-500/30',
   },
   Spicy: {
     label: 'Spicy',
     description: 'Chili heat for bold palates',
     longDesc: 'Chili oil, doubanjiang, or house spice blends bring serious heat. Perfect for those who want fire in every sip.',
-    color: 'text-red-700',
-    border: 'border-red-200 bg-red-50',
-    badge: 'bg-red-100 text-red-800 border-red-200',
+    color: 'text-red-700 dark:text-red-300',
+    border: 'border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10',
+    badge: 'bg-red-100 dark:bg-red-500/15 text-red-800 dark:text-red-300 border-red-200 dark:border-red-500/30',
   },
   Vegan: {
     label: 'Vegan-Friendly',
     description: 'Plant-based broth options',
     longDesc: 'Kombu, shiitake, and vegetable bases deliver umami without animal products. Great for plant-based diners.',
-    color: 'text-green-700',
-    border: 'border-green-200 bg-green-50',
-    badge: 'bg-green-100 text-green-800 border-green-200',
+    color: 'text-green-700 dark:text-green-300',
+    border: 'border-green-200 dark:border-green-500/30 bg-green-50 dark:bg-green-500/10',
+    badge: 'bg-green-100 dark:bg-green-500/15 text-green-800 dark:text-green-300 border-green-200 dark:border-green-500/30',
   },
 }
 
@@ -78,17 +79,23 @@ export default async function BrothPage({
   const totalForType = selected ? counts[selected] : counts.All
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
 
       {/* Header */}
       <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-4">
+        <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Explore</p>
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
           Find Ramen by Broth Type
         </h1>
-        <p className="text-[#6B6862] text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+        <p className="text-ink-soft text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
           Every bowl starts with the broth. Find ramen restaurants by the style that suits your taste.
+        </p>
+        <p className="mt-4 text-sm text-ink-soft">
+          New to ramen styles?{' '}
+          <Link href="/comparisons" className="text-brand-ink font-medium hover:underline">
+            Compare broth types side by side →
+          </Link>
         </p>
       </section>
 
@@ -103,14 +110,14 @@ export default async function BrothPage({
                 key={type}
                 href={isActive ? '/broth' : `/broth?type=${type}`}
                 className={`text-left p-4 rounded-xl border transition-all duration-200 ${
-                  isActive ? meta.border : 'border-black/5 bg-[#F5F4F0] hover:border-black/10'
+                  isActive ? meta.border : 'border-line/5 bg-sunken hover:border-line/10'
                 }`}
               >
-                <p className={`text-base font-semibold mb-1 ${isActive ? meta.color : 'text-[#1E2026]'}`}>
+                <p className={`text-base font-semibold mb-1 ${isActive ? meta.color : 'text-ink'}`}>
                   {meta.label}
                 </p>
-                <p className="text-[#6B6862] text-xs leading-snug mb-2">{meta.description}</p>
-                <p className={`text-xs font-medium ${isActive ? meta.color : 'text-[#6B6862]/60'}`}>
+                <p className="text-ink-soft text-xs leading-snug mb-2">{meta.description}</p>
+                <p className={`text-xs font-medium ${isActive ? meta.color : 'text-ink-soft/60'}`}>
                   {counts[type].toLocaleString()} restaurant{counts[type] !== 1 ? 's' : ''}
                 </p>
               </Link>
@@ -140,7 +147,7 @@ export default async function BrothPage({
       {/* Result count */}
       <section className="px-4 sm:px-6 lg:px-8 pb-4">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[#6B6862] text-sm">
+          <p className="text-ink-soft text-sm">
             Showing top {filtered.length.toLocaleString()} of {totalForType.toLocaleString()} restaurants
             {selected ? ` with ${brothMeta[selected].label} broth` : ''} — sorted by rating
           </p>
@@ -152,10 +159,10 @@ export default async function BrothPage({
         <div className="max-w-7xl mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-[#6B6862] text-lg mb-2">No restaurants found for this broth type yet.</p>
-              <p className="text-[#6B6862]/50 text-sm">
+              <p className="text-ink-soft text-lg mb-2">No restaurants found for this broth type yet.</p>
+              <p className="text-ink-soft/50 text-sm">
                 Own a restaurant with this broth?{' '}
-                <Link href="/list" className="text-[#B57F50] hover:underline">List it here.</Link>
+                <Link href="/list" className="text-brand-ink hover:underline">List it here.</Link>
               </p>
             </div>
           ) : (
@@ -166,12 +173,12 @@ export default async function BrothPage({
                   <Link
                     key={r.slug}
                     href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                    className="group flex flex-col bg-[#F5F4F0] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
+                    className="group flex flex-col bg-sunken rounded-xl border border-line/5 overflow-hidden hover:border-brand/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
                   >
-                    <div className="relative h-40 bg-[#ffffff] overflow-hidden flex-shrink-0">
-                      {r.photo ? (
+                    <div className="relative h-40 bg-surface overflow-hidden flex-shrink-0">
+                      {safePhotoSrc(r.photo) ? (
                         <Image
-                          src={r.photo}
+                          src={safePhotoSrc(r.photo)!}
                           alt={r.name}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -179,27 +186,27 @@ export default async function BrothPage({
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Utensils className="w-10 h-10 text-[#B57F50]/20" />
+                          <Utensils className="w-10 h-10 text-brand-ink/20" />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0] via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-sunken via-transparent to-transparent" />
                     </div>
                     <div className="p-4 flex flex-col flex-1 gap-2">
                       <div>
-                        <h3 className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1">
+                        <h3 className="font-semibold text-ink text-sm leading-snug group-hover:text-brand-ink transition-colors line-clamp-1">
                           {r.name}
                         </h3>
-                        <p className="flex items-center gap-1 text-xs text-[#6B6862] mt-0.5">
-                          <MapPin className="w-3 h-3 text-[#B57F50] flex-shrink-0" />
+                        <p className="flex items-center gap-1 text-xs text-ink-soft mt-0.5">
+                          <MapPin className="w-3 h-3 text-brand-ink flex-shrink-0" />
                           {r.city}, {r.stateCode}
                         </p>
                       </div>
                       <div className="flex items-center justify-between mt-auto">
                         {r.rating ? (
-                          <span className="flex items-center gap-1 text-xs text-[#1E2026]/60">
+                          <span className="flex items-center gap-1 text-xs text-ink/60">
                             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                             {r.rating.toFixed(1)}
-                            <span className="text-[#1E2026]/30">({(r.reviewCount ?? 0).toLocaleString()})</span>
+                            <span className="text-ink/30">({(r.reviewCount ?? 0).toLocaleString()})</span>
                           </span>
                         ) : <span />}
                         {types.length > 0 && (
@@ -222,12 +229,12 @@ export default async function BrothPage({
           {/* CTA to searchmap for more */}
           {totalForType > DISPLAY_LIMIT && (
             <div className="mt-10 text-center">
-              <p className="text-[#6B6862] text-sm mb-4">
+              <p className="text-ink-soft text-sm mb-4">
                 Showing top {DISPLAY_LIMIT} results. Use the map to find more near you.
               </p>
               <Link
                 href="/searchmap"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
               >
                 Find Ramen Near Me →
               </Link>

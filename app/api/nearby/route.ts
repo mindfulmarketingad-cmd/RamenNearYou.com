@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { restaurants, getBrothTypes } from '@/lib/restaurants'
+import { isOpenNow, getTodayHoursLabel } from '@/lib/hours'
+import { matchesAllFilters } from '@/lib/restaurant-filters'
+
+type SortKey = 'closest' | 'rating' | 'reviews'
 
 function haversine(lat1: number, lng1: number, lat2: number, lng2: number) {
   const R = 3958.8
@@ -20,12 +24,33 @@ function matchesBroth(r: (typeof restaurants)[number], broth: string): boolean {
   return types.includes(b)
 }
 
+function matchesDining(r: (typeof restaurants)[number], dining: string): boolean {
+  if (!dining) return true
+  if (dining === 'dinein') return !!r.amenities.dineIn
+  if (dining === 'takeout') return !!r.amenities.takeout
+  if (dining === 'delivery') return !!r.amenities.delivery
+  return true
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const lat = parseFloat(searchParams.get('lat') ?? '')
   const lng = parseFloat(searchParams.get('lng') ?? '')
   const limit = Math.min(parseInt(searchParams.get('limit') ?? '8'), 20)
   const broth = searchParams.get('broth') ?? ''
+  const dining = searchParams.get('dining') ?? ''
+  const radius = Math.min(parseFloat(searchParams.get('radius') ?? '50') || 50, 50)
+
+  // Taxonomy keys shared with the map's filter chips. AND-ed together.
+  const filters = (searchParams.get('filters') ?? '')
+    .split(',')
+    .map((f) => f.trim())
+    .filter(Boolean)
+    .slice(0, 30)
+
+  const sortParam = searchParams.get('sort')
+  const sort: SortKey =
+    sortParam === 'rating' || sortParam === 'reviews' ? sortParam : 'closest'
 
   if (isNaN(lat) || isNaN(lng)) {
     return NextResponse.json({ error: 'lat and lng required' }, { status: 400 })
@@ -34,6 +59,8 @@ export async function GET(req: NextRequest) {
   const nearby = restaurants
     .filter((r) => r.latitude != null && r.longitude != null && r.businessStatus === 'OPERATIONAL')
     .filter((r) => !broth || matchesBroth(r, broth))
+    .filter((r) => matchesDining(r, dining))
+    .filter((r) => filters.length === 0 || matchesAllFilters(r, filters))
     .map((r) => ({
       slug: r.slug,
       citySlug: r.citySlug,
@@ -47,11 +74,33 @@ export async function GET(req: NextRequest) {
       description: r.description,
       subtypes: r.subtypes,
       priceRange: r.priceRange,
+      // Feed cards show address/contact/hours inline, so send them along
+      // rather than making the client fetch each listing separately.
+      address: r.address,
+      phone: r.phone,
+      website: r.website,
+      googleMapsLink: r.googleMapsLink,
+      openNow: isOpenNow(r.hours),
+      hoursLabel: r.hours ? getTodayHoursLabel(r.hours) : null,
+      dineIn: !!r.amenities.dineIn,
+      takeout: !!r.amenities.takeout,
+      delivery: !!r.amenities.delivery,
       distanceMiles: haversine(lat, lng, r.latitude!, r.longitude!),
     }))
-    .filter((r) => r.distanceMiles <= 50)
-    .sort((a, b) => a.distanceMiles - b.distanceMiles)
-    .slice(0, limit)
+    .filter((r) => r.distanceMiles <= radius)
+    // Distance is the tiebreak for the other two sorts, so equally-rated spots
+    // still come back nearest-first rather than in dataset order.
+    .sort((a, b) => {
+      if (sort === 'rating') {
+        return (b.rating ?? 0) - (a.rating ?? 0) ||
+          (b.reviewCount ?? 0) - (a.reviewCount ?? 0) ||
+          a.distanceMiles - b.distanceMiles
+      }
+      if (sort === 'reviews') {
+        return (b.reviewCount ?? 0) - (a.reviewCount ?? 0) || a.distanceMiles - b.distanceMiles
+      }
+      return a.distanceMiles - b.distanceMiles
+    })
 
-  return NextResponse.json({ results: nearby })
+  return NextResponse.json({ results: nearby.slice(0, limit), total: nearby.length })
 }

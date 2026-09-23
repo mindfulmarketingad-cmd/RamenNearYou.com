@@ -22,7 +22,7 @@ const BROTH_PROSE: Record<string, string> = {
 
 const GENERIC_BROTH = 'The menu covers a range of ramen styles, from rich tonkotsu and earthy miso to clean shoyu and delicate shio broths. Whether you prefer a creamy, opaque broth or a clear, savory one, there\'s a bowl to suit every palate. The noodles are cooked to order, and toppings — including chashu pork, soft-boiled eggs, nori, and bamboo shoots — complete each bowl with thoughtful balance.'
 
-function detectBrothType(r: Restaurant): string | null {
+export function detectBrothType(r: Restaurant): string | null {
   const text = `${r.name} ${r.description ?? ''} ${r.subtypes ?? ''}`.toLowerCase()
   const name = r.name.toLowerCase()
   if (name.includes('jinya ramen') || name.includes('tatsu-ya') || name.includes('ramen tatsu')) return 'tonkotsu'

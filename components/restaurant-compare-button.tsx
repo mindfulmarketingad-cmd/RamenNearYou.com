@@ -10,9 +10,9 @@ export default function RestaurantCompareButton({ restaurant }: Props) {
   return (
     <Link
       href={`/compare?a=${restaurant.slug}`}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-black/8 bg-black/5 hover:border-black/15 hover:text-[#1E2026] text-[#6B6862] text-sm font-medium transition-all duration-200"
+      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-contrast hover:bg-brand text-white text-xs font-semibold transition-colors whitespace-nowrap"
     >
-      <ArrowLeftRight className="w-4 h-4" />
+      <ArrowLeftRight className="w-3.5 h-3.5" />
       Compare
     </Link>
   )

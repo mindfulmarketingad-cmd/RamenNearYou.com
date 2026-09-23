@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import ClaimsList from './claims-list'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 export const metadata: Metadata = {
   title: 'Admin — Review Claims | RamenNearYou',
@@ -20,30 +21,25 @@ export default async function AdminClaimsPage() {
     redirect('/')
   }
 
-  // Use service role key to read all claims
+  // Prefer service role client (bypasses RLS); fall back to admin session
+  // (requires "Admin manages all claims" RLS policy from supabase/admin-rls-policies.sql)
+  const client = createAdminClient() ?? supabase
   let claims: unknown[] = []
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    const { createClient: createAdmin } = await import('@supabase/supabase-js')
-    const admin = createAdmin(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    )
-    const { data } = await admin
-      .from('claims')
-      .select('*')
-      .order('created_at', { ascending: false })
-    claims = data ?? []
-  }
+  const { data } = await client
+    .from('claims')
+    .select('*')
+    .order('created_at', { ascending: false })
+  claims = data ?? []
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-2">Restaurant Claims</h1>
-            <p className="text-[#6B6862]">Review, approve, or reject ownership claims submitted by restaurant owners.</p>
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Admin</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">Restaurant Claims</h1>
+            <p className="text-ink-soft">Review, approve, or reject ownership claims submitted by restaurant owners.</p>
           </div>
 
           <ClaimsList initialClaims={claims as Parameters<typeof ClaimsList>[0]['initialClaims']} />

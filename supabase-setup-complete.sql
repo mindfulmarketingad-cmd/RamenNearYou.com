@@ -301,21 +301,38 @@ END $$;
 
 
 -- ─── restaurant_visits ──────────────────────────────────────
--- Tracks how many unique visitors have marked a restaurant as visited.
--- One row per (restaurant_slug, visitor_token) — token is a UUID stored in
--- the visitor's localStorage so anonymous users can also contribute.
+-- Per-restaurant analytics powering the owner dashboard (/owner).
+-- Holds two kinds of events, distinguished by event_type:
+--   'view'  — a visit to the restaurant's listing page (page view, or a
+--             visitor who marked the spot "visited"). One row per event; the
+--             marked-visit path dedupes per visitor via visitor_token.
+--   'click' — a click on a listing action (directions / website / call /
+--             order / menu). click_target records which action was clicked.
+-- One row per (restaurant_slug, visitor_token); page-view and click events
+-- use a fresh random token per event so each is counted, while the "visited"
+-- toggle reuses a stable per-visitor token so it stays deduped.
 
 CREATE TABLE IF NOT EXISTS public.restaurant_visits (
   id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   restaurant_slug text NOT NULL,
   visitor_token   text NOT NULL,
   user_id         uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  event_type      text NOT NULL DEFAULT 'view',   -- 'view' | 'click'
+  click_target    text,                            -- which action, for clicks
   created_at      timestamptz DEFAULT now(),
   UNIQUE (restaurant_slug, visitor_token)
 );
 
+-- Bring existing installs up to date (added when click tracking landed).
+ALTER TABLE public.restaurant_visits
+  ADD COLUMN IF NOT EXISTS event_type   text NOT NULL DEFAULT 'view';
+ALTER TABLE public.restaurant_visits
+  ADD COLUMN IF NOT EXISTS click_target text;
+
 CREATE INDEX IF NOT EXISTS restaurant_visits_slug_idx
   ON public.restaurant_visits (restaurant_slug);
+CREATE INDEX IF NOT EXISTS restaurant_visits_slug_event_idx
+  ON public.restaurant_visits (restaurant_slug, event_type);
 
 ALTER TABLE public.restaurant_visits ENABLE ROW LEVEL SECURITY;
 

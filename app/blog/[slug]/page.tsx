@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, Phone, ChevronRight } from 'lucide-react'
@@ -8,20 +8,61 @@ import Footer from '@/components/footer'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
+import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
+import { extractToc } from '@/lib/blog-toc'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getPerfectFor, slugifyAuthor } from '@/lib/perfect-for'
+import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
+import { pickStockPhoto } from '@/lib/stock-photos'
+import { getCityListicleParams, matchCityListicle, getCityPhoListicleParams, matchCityPhoListicle } from '@/lib/city-listicles'
+import CityRamenListicle from './city-ramen-listicle'
+import CityPhoListicle from './city-pho-listicle'
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
+  return [
+    ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
+    ...getCityListicleParams().map((slug) => ({ slug })),
+    ...getCityPhoListicleParams().map((slug) => ({ slug })),
+  ]
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
+  if (CITY_GUIDE_REDIRECTS[slug]) return {}
+
+  const cityListicle = matchCityListicle(slug)
+  if (cityListicle) {
+    const { cityName, stateCode, totalCount } = cityListicle
+    const title = `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
+    const description = `The 5 highest-rated ramen restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} ramen spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: { title, description, type: 'article', url },
+    }
+  }
+
+  const cityPhoListicle = matchCityPhoListicle(slug)
+  if (cityPhoListicle) {
+    const { cityName, stateCode, totalCount } = cityPhoListicle
+    const title = `5 Best Pho Restaurants in ${cityName}, ${stateCode}`
+    const description = `The 5 highest-rated pho restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} pho spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: { title, description, type: 'article', url },
+    }
+  }
+
   const post = getBlogPost(slug)
   if (!post) return {}
   const url = `https://www.ramennearyou.com/blog/${post.slug}`
@@ -47,7 +88,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-[#1E2026]/20'}`}
+          className={`w-3.5 h-3.5 ${i <= full ? 'text-amber-400 fill-amber-400' : i === full + 1 && half ? 'text-amber-400 fill-amber-400/50' : 'text-ink/20'}`}
         />
       ))}
     </span>
@@ -56,9 +97,9 @@ function StarRating({ rating }: { rating: number }) {
 
 function RestaurantCardItem({ card }: { card: RestaurantCard }) {
   return (
-    <article className="flex flex-col sm:flex-row bg-[#ffffff] rounded-xl border border-black/5 overflow-hidden hover:border-[#B57F50]/40 transition-colors">
+    <article className="flex flex-col sm:flex-row bg-surface rounded-xl border border-line/5 overflow-hidden hover:border-brand/40 transition-colors">
       {/* Photo */}
-      <div className="relative w-full sm:w-52 shrink-0 h-48 sm:h-auto bg-[#F5F4F0]">
+      <div className="relative w-full sm:w-52 shrink-0 h-48 sm:h-auto bg-sunken">
         {card.photo ? (
           <Image
             src={card.photo}
@@ -68,9 +109,9 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
             unoptimized
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-[#ffffff]" />
+          <div className="w-full h-full flex items-center justify-center bg-surface" />
         )}
-        <div className="absolute top-2 left-2 w-7 h-7 rounded-full bg-[#B57F50] flex items-center justify-center text-[#1E2026] text-xs font-bold">
+        <div className="absolute top-2 left-2 w-7 h-7 rounded-full bg-brand flex items-center justify-center text-ink text-xs font-bold">
           {card.rank}
         </div>
       </div>
@@ -78,26 +119,26 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
       {/* Info */}
       <div className="flex flex-col flex-1 p-5 gap-2.5">
         <div>
-          <h2 className="font-semibold text-[#1E2026] text-lg leading-snug mb-1">{card.name}</h2>
+          <h2 className="font-semibold text-ink text-lg leading-snug mb-1">{card.name}</h2>
           <div className="flex flex-wrap items-center gap-2">
             <StarRating rating={card.rating} />
-            <span className="text-[#1E2026]/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
-            <span className="text-[#1E2026]/20 text-xs">·</span>
+            <span className="text-ink/70 text-xs">{card.rating.toFixed(1)} ({card.reviewCount.toLocaleString()}+ reviews)</span>
+            <span className="text-ink/20 text-xs">·</span>
             {card.tags.map((tag) => (
-              <span key={tag} className="px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50] text-xs font-medium">{tag}</span>
+              <span key={tag} className="px-2 py-0.5 rounded-full bg-brand/15 text-brand-ink text-xs font-medium">{tag}</span>
             ))}
           </div>
         </div>
 
-        <p className="text-[#6B6862] text-sm leading-relaxed">{card.description}</p>
+        <p className="text-ink-soft text-sm leading-relaxed">{card.description}</p>
 
-        <div className="flex flex-col gap-1 text-xs text-[#6B6862]/70">
+        <div className="flex flex-col gap-1 text-xs text-ink-soft/70">
           <span className="flex items-center gap-1.5">
-            <Phone className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+            <Phone className="w-3.5 h-3.5 text-brand-ink shrink-0" />
             {card.phone}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-[#B57F50] shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
             {card.address}
           </span>
         </div>
@@ -105,7 +146,7 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
         <div className="mt-auto pt-1">
           <Link
             href={`/${card.citySlug}/${card.stateSlug}/${card.slug}`}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] text-xs font-semibold transition-colors border border-[#B57F50]/20"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-hi text-xs font-semibold transition-colors border border-brand/20"
           >
             View Listing <ChevronRight className="w-3.5 h-3.5" />
           </Link>
@@ -117,9 +158,118 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
+  if (CITY_GUIDE_REDIRECTS[slug]) permanentRedirect(CITY_GUIDE_REDIRECTS[slug])
+
+  const cityListicle = matchCityListicle(slug)
+  if (cityListicle) {
+    const title = `5 Best Ramen Restaurants in ${cityListicle.cityName}, ${cityListicle.stateCode}`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: title,
+      itemListElement: cityListicle.top5.map((r, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Restaurant',
+          name: r.name,
+          url: `https://www.ramennearyou.com/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: r.street || undefined,
+            addressLocality: r.city,
+            addressRegion: r.stateCode,
+            postalCode: r.postalCode || undefined,
+            addressCountry: 'US',
+          },
+          ...(r.rating != null && r.reviewCount > 0
+            ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: r.rating, reviewCount: r.reviewCount, bestRating: 5, worstRating: 1 } }
+            : {}),
+        },
+      })),
+    }
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.ramennearyou.com/blog' },
+        { '@type': 'ListItem', position: 3, name: title, item: url },
+      ],
+    }
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <CityRamenListicle city={cityListicle} />
+      </>
+    )
+  }
+
+  const cityPhoListicle = matchCityPhoListicle(slug)
+  if (cityPhoListicle) {
+    const title = `5 Best Pho Restaurants in ${cityPhoListicle.cityName}, ${cityPhoListicle.stateCode}`
+    const url = `https://www.ramennearyou.com/blog/${slug}`
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: title,
+      itemListElement: cityPhoListicle.top5.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Restaurant',
+          name: p.name,
+          url: `https://www.ramennearyou.com/partners/${p.slug}`,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: p.street || undefined,
+            addressLocality: p.city,
+            addressRegion: p.stateCode,
+            postalCode: p.postalCode || undefined,
+            addressCountry: 'US',
+          },
+          ...(p.rating != null && p.reviewCount > 0
+            ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: p.reviewCount, bestRating: 5, worstRating: 1 } }
+            : {}),
+        },
+      })),
+    }
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.ramennearyou.com/blog' },
+        { '@type': 'ListItem', position: 3, name: title, item: url },
+      ],
+    }
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <CityPhoListicle city={cityPhoListicle} />
+      </>
+    )
+  }
+
   const post = getBlogPost(slug)
   if (!post) notFound()
 
+  // Every post needs a featured image — fall back to a deterministic stock
+  // photo for the handful of posts that don't have a real headerImage set.
+  const headerImage = post.headerImage ?? pickStockPhoto(post.slug)
+
+  // Table of contents built from the post's own H2s. This also strips any old
+  // hand-rolled "Quick Navigation" block and stamps ids onto headings that lack
+  // one, so every post gets the same numbered TOC and render tocHtml (not
+  // post.content) below.
+  const { headings, html: tocHtml } = extractToc(post.content)
+  // Skip only on short posts that don't have enough headings for a TOC to help.
+  const showToc = headings.length >= 3
+
+  // Two in-article ads, spread evenly through the body copy.
   // Enrich restaurant cards with lat/lng for map layout
   const hasCards = post.restaurantCards && post.restaurantCards.length > 0
   const enrichedCards: MapCard[] = hasCards
@@ -138,9 +288,10 @@ export default async function BlogPostPage({ params }: Props) {
           description: card.description,
           photo: card.photo,
           tags: card.tags,
-          lat: r?.latitude ?? null,
-          lng: r?.longitude ?? null,
+          lat: r?.latitude ?? card.lat ?? null,
+          lng: r?.longitude ?? card.lng ?? null,
           perfectFor: r ? getPerfectFor(r) : undefined,
+          reviewSlug: r && hasReviewPage(getReviewSlug(r)) ? getReviewSlug(r) : undefined,
         }
       })
     : []
@@ -165,7 +316,7 @@ export default async function BlogPostPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://www.ramennearyou.com/blog/${post.slug}`,
     },
-    ...(post.headerImage ? { image: post.headerImage.startsWith('http') ? post.headerImage : `https://www.ramennearyou.com${post.headerImage}` } : {}),
+    image: headerImage.startsWith('http') ? headerImage : `https://www.ramennearyou.com${headerImage}`,
   }
 
   const breadcrumbSchema = {
@@ -186,31 +337,47 @@ export default async function BlogPostPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(post.additionalSchema) }} />
       )}
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className={hasCards ? 'max-w-7xl mx-auto' : 'max-w-2xl mx-auto'}>
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+        <div className={hasCards ? '' : 'max-w-2xl'}>
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/blog" className="hover:text-[#1E2026] transition-colors">Blog</Link>
+            <Link href="/blog" className="hover:text-ink transition-colors">Blog</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{post.h1 ?? post.title}</span>
+            <span className="text-ink">{post.h1 ?? post.title}</span>
           </nav>
 
           <article className="mt-4">
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#B57F50]/20 text-[#B57F50]">
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-brand/20 text-brand-ink">
                   {post.category}
                 </span>
-                <span className="text-xs text-[#6B6862]/60">{post.date}</span>
-                <span className="text-xs text-[#6B6862]/60">·</span>
-                <span className="text-xs text-[#6B6862]/60">{post.readTime}</span>
+                <span className="text-xs text-ink-soft/60">{post.date}</span>
+                <span className="text-xs text-ink-soft/60">·</span>
+                <span className="text-xs text-ink-soft/60">{post.readTime}</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2026] leading-tight mb-4">
+
+              {post.imageFirst && (
+                <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-6">
+                  <Image
+                    src={headerImage}
+                    alt={post.headerImageAlt ?? post.title}
+                    fill
+                    className="object-cover"
+                    priority
+                    unoptimized={!post.headerImage}
+                  />
+                </div>
+              )}
+
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-4">
                 {post.h1 ?? post.title}
               </h1>
-              <p className="text-[#6B6862] text-lg leading-relaxed mb-5">{post.description}</p>
+
+              <p className="text-ink-soft text-lg leading-relaxed mb-5">{post.description}</p>
               {post.author && (
                 <Link
                   href={`/authors/${slugifyAuthor(post.author.name)}`}
@@ -221,46 +388,60 @@ export default async function BlogPostPage({ params }: Props) {
                     alt={post.author.name}
                     width={36}
                     height={36}
-                    className="rounded-full border border-black/8"
+                    className="rounded-full border border-line/8"
                     unoptimized
                   />
                   <div>
-                    <p className="text-sm font-medium text-[#1E2026] group-hover:text-[#B57F50] transition-colors">{post.author.name}</p>
-                    <p className="text-xs text-[#6B6862]/60">Contributor profile →</p>
+                    <p className="text-sm font-medium text-ink group-hover:text-brand-ink transition-colors">{post.author.name}</p>
+                    <p className="text-xs text-ink-soft/60">Contributor profile →</p>
                   </div>
                 </Link>
               )}
             </header>
 
-            {post.headerImage && (
+            {!post.imageFirst && (
               <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8">
                 <Image
-                  src={post.headerImage}
+                  src={headerImage}
                   alt={post.headerImageAlt ?? post.title}
                   fill
                   className="object-cover"
                   priority
+                  unoptimized={!post.headerImage}
                 />
               </div>
             )}
 
-            <div
-              className="prose-ramen"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            {showToc && (
+              <nav
+                aria-label="Table of contents"
+                className="mb-8 rounded-xl border border-brand/25 bg-sunken p-5"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-ink mb-3">
+                  Table of Contents
+                </p>
+                <ol className="space-y-1.5">
+                  {headings.map((h, i) => (
+                    <li key={h.id} className="flex gap-2.5 text-[15px] leading-snug">
+                      <span className="text-brand-ink font-semibold tabular-nums shrink-0">{i + 1}.</span>
+                      <a href={`#${h.id}`} className="text-ink hover:text-brand-ink hover:underline">
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
+            <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: tocHtml }} />
 
             {hasCards && (
-              <section className="mt-10 mb-6 bg-[#F5F4F0] border border-black/5 rounded-2xl p-6 sm:p-8">
-                <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-3">
+              <section className="mt-10 mb-6 bg-sunken border border-line/5 rounded-2xl p-6 sm:p-8">
+                <h2 className="font-serif text-2xl font-bold text-ink mb-3">
                   How we ranked these restaurants
                 </h2>
-                <p className="text-[#6B6862] text-sm leading-relaxed">
-                  We ranked these {enrichedCards.length} spots by analyzing the sentiment of their
-                  Google reviews — reading what real diners said about the broth, noodles, service,
-                  and overall experience, not just star averages. Restaurants that consistently drew
-                  praise for ramen quality across hundreds of reviews ranked highest. Review count,
-                  recency, and recurring criticism (long waits, watery broth, inconsistent service)
-                  were all factored in to surface the spots locals actually keep coming back to.
+                <p className="text-ink-soft text-sm leading-relaxed">
+                  {post.rankingNote ?? `We ranked these ${enrichedCards.length} spots by analyzing the sentiment of their Google reviews — reading what real diners said about the broth, noodles, service, and overall experience, not just star averages. Restaurants that consistently drew praise for ramen quality across hundreds of reviews ranked highest. Review count, recency, and recurring criticism (long waits, watery broth, inconsistent service) were all factored in to surface the spots locals actually keep coming back to.`}
                 </p>
               </section>
             )}
@@ -270,7 +451,7 @@ export default async function BlogPostPage({ params }: Props) {
             )}
 
             {!hasCards && post.listHeading && (
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026] mt-10 mb-6">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mt-10 mb-6">
                 {post.listHeading}
               </h2>
             )}
@@ -281,17 +462,19 @@ export default async function BlogPostPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: post.outroContent }}
               />
             )}
+
           </article>
 
-          <div className="mt-16 pt-8 border-t border-black/8">
-            <p className="text-[#6B6862] text-sm mb-4">Looking for great ramen near you?</p>
+          <div className="mt-16 pt-8 border-t border-line/8">
+            <p className="text-ink-soft text-sm mb-4">Looking for great ramen near you?</p>
             <Link
               href="/cities"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#B57F50] text-white font-medium text-sm hover:bg-[#c8934f] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-none bg-brand text-white font-medium text-sm hover:bg-brand-hi transition-colors"
             >
               Browse Ramen Restaurants →
             </Link>
           </div>
+        </div>
         </div>
       </main>
       <Footer />

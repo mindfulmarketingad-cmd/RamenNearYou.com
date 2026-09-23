@@ -28,7 +28,7 @@ function StatusBadge({ status }: { status: string }) {
     rejected: 'bg-red-500/20 text-red-400 border-red-500/30',
   }
   return (
-    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${map[status] ?? 'bg-black/8 text-[#1E2026]/60 border-black/8'}`}>
+    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${map[status] ?? 'bg-black/8 text-ink/60 border-line/8'}`}>
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   )
@@ -54,38 +54,38 @@ function ListingCard({ listing, onUpdate }: { listing: Listing; onUpdate: (id: s
   }
 
   return (
-    <div className="bg-[#ffffff] rounded-xl border border-black/5 overflow-hidden">
+    <div className="bg-surface rounded-xl border border-line/5 overflow-hidden">
       <div className="p-5">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
-              <p className="font-semibold text-[#1E2026] text-base">{listing.name}</p>
+              <p className="font-semibold text-ink text-base">{listing.name}</p>
               <StatusBadge status={listing.status} />
             </div>
-            <p className="text-[#6B6862] text-xs">{listing.address}, {listing.city}, {listing.state}{listing.zip ? ` ${listing.zip}` : ''}</p>
-            <p className="text-[#6B6862]/50 text-xs mt-0.5">{new Date(listing.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+            <p className="text-ink-soft text-xs">{listing.address}, {listing.city}, {listing.state}{listing.zip ? ` ${listing.zip}` : ''}</p>
+            <p className="text-ink-soft/50 text-xs mt-0.5">{new Date(listing.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
           </div>
           <button
             onClick={() => setExpanded(v => !v)}
-            className="shrink-0 text-[#6B6862] hover:text-[#1E2026] transition-colors"
+            className="shrink-0 text-ink-soft hover:text-ink transition-colors"
           >
             {expanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
           </button>
         </div>
 
         {/* Quick info row */}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#6B6862]/70 mb-4">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-soft/70 mb-4">
           {listing.phone && <span>📞 {listing.phone}</span>}
-          {listing.website && <a href={listing.website} target="_blank" rel="noopener noreferrer" className="text-[#B57F50] hover:underline">🌐 Website</a>}
+          {listing.website && <a href={listing.website} target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">🌐 Website</a>}
           {listing.owner_name && <span>👤 {listing.owner_name}</span>}
-          {listing.owner_email && <a href={`mailto:${listing.owner_email}`} className="text-[#B57F50] hover:underline">✉ {listing.owner_email}</a>}
+          {listing.owner_email && <a href={`mailto:${listing.owner_email}`} className="text-brand-ink hover:underline">✉ {listing.owner_email}</a>}
         </div>
 
         {expanded && (
-          <div className="mb-4 space-y-2 text-xs text-[#6B6862] bg-[#F5F4F0] rounded-lg p-4">
-            {listing.broth_types?.length ? <p><span className="text-[#1E2026] font-medium">Broth types:</span> {listing.broth_types.join(', ')}</p> : null}
-            {listing.hours && <p><span className="text-[#1E2026] font-medium">Hours:</span> {listing.hours}</p>}
-            {listing.description && <p><span className="text-[#1E2026] font-medium">Description:</span> {listing.description}</p>}
+          <div className="mb-4 space-y-2 text-xs text-ink-soft bg-sunken rounded-lg p-4">
+            {listing.broth_types?.length ? <p><span className="text-ink font-medium">Broth types:</span> {listing.broth_types.join(', ')}</p> : null}
+            {listing.hours && <p><span className="text-ink font-medium">Hours:</span> {listing.hours}</p>}
+            {listing.description && <p><span className="text-ink font-medium">Description:</span> {listing.description}</p>}
           </div>
         )}
 
@@ -128,7 +128,7 @@ export default function ListingsList({ initialListings }: { initialListings: Lis
     <div className="space-y-8">
       {pending.length > 0 && (
         <div>
-          <p className="text-[#1E2026] font-semibold text-sm mb-3">{pending.length} pending review</p>
+          <p className="text-ink font-semibold text-sm mb-3">{pending.length} pending review</p>
           <div className="space-y-4">
             {pending.map(l => <ListingCard key={l.id} listing={l} onUpdate={handleUpdate} />)}
           </div>
@@ -136,14 +136,14 @@ export default function ListingsList({ initialListings }: { initialListings: Lis
       )}
       {rest.length > 0 && (
         <div>
-          <p className="text-[#6B6862] text-sm font-medium mb-3">Previously reviewed</p>
+          <p className="text-ink-soft text-sm font-medium mb-3">Previously reviewed</p>
           <div className="space-y-3">
             {rest.map(l => <ListingCard key={l.id} listing={l} onUpdate={handleUpdate} />)}
           </div>
         </div>
       )}
       {listings.length === 0 && (
-        <div className="text-center py-16 text-[#6B6862]">
+        <div className="text-center py-16 text-ink-soft">
           <p className="text-4xl mb-3">📋</p>
           <p>No listing submissions yet.</p>
         </div>

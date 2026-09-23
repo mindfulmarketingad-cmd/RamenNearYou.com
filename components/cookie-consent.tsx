@@ -46,27 +46,27 @@ export default function CookieConsent() {
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 bg-[#F5F4F0] border-t border-black/8 shadow-2xl">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 bg-sunken border-t border-line/8 shadow-2xl">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-        <p className="text-[#6B6862] text-sm leading-relaxed max-w-2xl">
+        <p className="text-ink-soft text-sm leading-relaxed max-w-2xl">
           We use cookies to analyze site traffic and display personalized ads via{' '}
-          <strong className="text-[#1E2026]">Google Analytics</strong> and{' '}
-          <strong className="text-[#1E2026]">Google AdSense</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
+          <strong className="text-ink">Google Analytics</strong> and{' '}
+          <strong className="text-ink">Mediavine</strong>. By clicking &ldquo;Accept All,&rdquo; you consent to our
           use of cookies.{' '}
-          <Link href="/privacy-policy" className="text-[#B57F50] hover:underline">
+          <Link href="/privacy-policy" className="text-brand-ink hover:underline">
             Privacy Policy
           </Link>
         </p>
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={handleDecline}
-            className="px-4 py-2 rounded-lg border border-black/8 text-[#6B6862] hover:text-[#1E2026] text-sm font-medium transition-colors hover:border-black/12"
+            className="px-4 py-2 rounded-lg border border-line/8 text-ink-soft hover:text-ink text-sm font-medium transition-colors hover:border-line/12"
           >
             Decline
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 rounded-lg bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium transition-colors"
+            className="px-4 py-2 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-medium transition-colors"
           >
             Accept All
           </button>

@@ -1,0 +1,523 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import FindCrossLinks from '@/components/find-cross-links'
+import HomeMapHero from '@/components/home-map-hero'
+import ErrorBoundary from '@/components/error-boundary'
+import UgcFeature from '@/components/ugc-feature'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import type { Restaurant } from '@/lib/restaurants'
+import type { SupplementListing } from '@/lib/places-supplements'
+import { CAPITAL_BY_PARAM } from '@/lib/capital-cities'
+import { getCities, getRestaurantsByCity } from '@/lib/restaurants'
+import { getSupplementListings, getSupplementCitiesByState } from '@/lib/places-supplements'
+import { STATE_CODE_TO_SLUG, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
+import { MAJOR_CITIES_PARAMS } from '@/lib/major-cities-list'
+import { getFindCityParams, resolveFindCity } from '@/lib/find-city'
+import { matchModifier, FIND_MODIFIERS } from '@/lib/find-modifiers'
+import ModifierCityFindPage from '@/components/modifier-city-find-page'
+import { matchNeighborhood, getNeighborhoodParams, getNeighborhoodRestaurants, neighborhoodStateName, getNeighborhoodsForCity, neighborhoodParam } from '@/lib/neighborhoods'
+import NeighborhoodFindPage from '@/components/neighborhood-find-page'
+import { matchPhoCity, getPhoCityParams, getNearbyPhoCities, phoCityParam } from '@/lib/pho'
+import PhoCityFindPage from '@/components/pho-city-find-page'
+import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
+import { getBlogPost } from '@/lib/blog-posts'
+import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
+
+function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
+  const lastHyphen = cityState.lastIndexOf('-')
+  if (lastHyphen < 1) return null
+  const stateCode = cityState.slice(lastHyphen + 1).toUpperCase()
+  const citySlug = cityState.slice(0, lastHyphen)
+  if (!STATE_CODE_TO_SLUG[stateCode]) return null
+  return { citySlug, stateCode }
+}
+
+const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
+
+export async function generateStaticParams() {
+  // Pre-render the base city pages plus the curated neighborhood pages. The
+  // {broth}-in-{city}-{state} modifier variants (8 per city, ~11k pages) render
+  // on demand and cache via ISR (dynamicParams defaults to true) — keeping the
+  // build from ballooning.
+  return [
+    ...getFindCityParams(),
+    ...getNeighborhoodParams().map(cityState => ({ cityState })),
+    ...getPhoCityParams().map(cityState => ({ cityState })),
+  ]
+}
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ cityState: string }> }
+): Promise<Metadata> {
+  const { cityState } = await params
+
+  // Pho city page (e.g. pho-restaurants-atlanta-ga)
+  const phoCity = matchPhoCity(cityState)
+  if (phoCity) {
+    const count = phoCity.listings.length
+    const title = `Pho Restaurants in ${phoCity.cityName} ${phoCity.stateCode}`
+    const description = `There ${count === 1 ? 'is' : 'are'} ${count} pho ${count === 1 ? 'restaurant' : 'restaurants'} in ${phoCity.cityName} ${phoCity.stateName}`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
+
+  // Neighborhood page (e.g. ramen-restaurants-midtown-ga)
+  const hood = matchNeighborhood(cityState)
+  if (hood) {
+    const stateName = neighborhoodStateName(hood)
+    const count = getNeighborhoodRestaurants(hood).length
+    const title = `Ramen Restaurants in ${hood.name}`
+    const description = `There are ${count} ramen restaurants in ${hood.name} ${stateName}`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
+
+  // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx)
+  const mod = matchModifier(cityState)
+  if (mod) {
+    const city = resolveFindCity(mod.rest)
+    if (!city || !city.known) return {}
+    const title = mod.modifier.title(city.cityName, city.stateName)
+    const description = `Find ${mod.modifier.metaNoun} in ${city.cityName}, ${city.stateName}. Browse spots near ${city.cityName} — filter by location, price, and hours.`
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+      openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
+    }
+  }
+
+  const parsed = parseParam(cityState)
+  if (!parsed) return {}
+
+  const { citySlug, stateCode } = parsed
+  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+  const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
+  const restaurants = getRestaurantsByCity(citySlug, stateSlug)
+  const supplements = restaurants.length === 0 ? getSupplementListings(citySlug, stateCode) : []
+  // Skip metadata for unrecognized cities (junk URLs 404 in the page body).
+  const isKnown = restaurants.length > 0 || supplements.length > 0 || !!CAPITAL_BY_PARAM[cityState] || MAJOR_SET.has(cityState)
+  if (!isKnown) return {}
+  // Title-case the slug as a last resort so the title never shows a raw slug
+  // (e.g. "quebec" → "Quebec", "maple-grove" → "Maple Grove").
+  const citySlugTitle = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  const cityName = restaurants[0]?.city ?? CAPITAL_BY_PARAM[cityState]?.city ?? supplements[0]?.city ?? citySlugTitle
+
+  // Listing count drives the Zillow-style title/description ("… - 12 Spots").
+  const count = restaurants.length + supplements.length
+  const baseTitle = `Best Ramen Restaurants In ${cityName}, ${stateName}`
+  const title = count > 0 ? `${baseTitle} - ${count} ${count === 1 ? 'Spot' : 'Spots'}` : baseTitle
+  const description = count > 0
+    ? `Find the best ramen restaurants in ${cityName}, ${stateName} — ${count} ${count === 1 ? 'spot' : 'spots'} with ratings, hours, menus, and directions. Use our filters to find the perfect bowl near you.`
+    : `Find ramen restaurants in ${cityName}, ${stateName}. Browse top-rated spots with ratings, hours, and directions.`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+    openGraph: {
+      title,
+      description,
+      url: `https://www.ramennearyou.com/find/${cityState}`,
+      siteName: 'RamenNearYou',
+      type: 'website',
+    },
+  }
+}
+
+export default async function CityFindPage(
+  { params }: { params: Promise<{ cityState: string }> }
+) {
+  const { cityState } = await params
+
+  // Pho city page (e.g. pho-restaurants-atlanta-ga) — rendered by the shared
+  // PhoCityFindPage. Lives in this catch-all for the same reason as the
+  // modifier and neighborhood pages below: Next does not support partial
+  // dynamic route segments.
+  const phoCity = matchPhoCity(cityState)
+  if (phoCity) {
+    const nearby = getNearbyPhoCities(phoCity.citySlug, phoCity.stateCode)
+    return <PhoCityFindPage city={phoCity} nearbyCities={nearby} />
+  }
+
+  // Neighborhood page (e.g. ramen-restaurants-midtown-ga) — rendered by the
+  // shared NeighborhoodFindPage. Lives in this catch-all for the same reason
+  // as the modifier pages below: Next does not support partial dynamic
+  // route segments.
+  const hood = matchNeighborhood(cityState)
+  if (hood) return <NeighborhoodFindPage hood={hood} />
+
+  // Modifier page (e.g. tonkotsu-ramen-in-dallas-tx) — rendered by the shared
+  // ModifierCityFindPage. Lives in this catch-all because Next does not support
+  // partial dynamic route segments.
+  const mod = matchModifier(cityState)
+  if (mod) {
+    const city = resolveFindCity(mod.rest)
+    if (!city || !city.known) notFound()
+    return <ModifierCityFindPage modifier={mod.modifier} city={city} cityState={cityState} />
+  }
+
+  const parsed = parseParam(cityState)
+  if (!parsed) notFound()
+
+  // Preserved editorial content from a migrated /blog/ "Best Ramen in X" post,
+  // if this city has one — spliced into the page rather than lost.
+  const cityGuideSlug = CITY_GUIDE_CONTENT_SOURCE[cityState]
+  const cityGuidePost = cityGuideSlug ? getBlogPost(cityGuideSlug) : undefined
+
+  const { citySlug, stateCode } = parsed!
+  const stateSlug = STATE_CODE_TO_SLUG[stateCode]
+  const stateName = STATE_CODE_TO_NAME[stateCode] ?? stateCode
+
+  const dbRestaurants = getRestaurantsByCity(citySlug, stateSlug)
+  const placesResults = dbRestaurants.length === 0 ? getSupplementListings(citySlug, stateCode) : []
+
+  // Guard: 404 unrecognized "{junk}-{state}" URLs (e.g. japanese-ramen-near-va)
+  // instead of rendering an empty city page. A city is real if it has DB or
+  // supplement listings, or is a known capital or major city.
+  const capital = CAPITAL_BY_PARAM[cityState]
+  if (dbRestaurants.length === 0 && placesResults.length === 0 && !capital && !MAJOR_SET.has(cityState)) {
+    notFound()
+  }
+
+  // Title-case the citySlug as a fallback name ("green-river" → "Green River")
+  const citySlugTitle = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  const cityName = dbRestaurants[0]?.city ?? capital?.city ?? citySlugTitle
+
+  // Map center: capital → DB restaurant → first supplement result → USA center
+  const lat = capital?.lat ?? dbRestaurants.find(r => r.latitude)?.latitude ?? placesResults.find(r => r.latitude)?.latitude ?? 39.5
+  const lng = capital?.lng ?? dbRestaurants.find(r => r.longitude)?.longitude ?? placesResults.find(r => r.longitude)?.longitude ?? -98.35
+
+  const count = dbRestaurants.length + placesResults.length
+
+  // Per-city facts so the editorial copy below is unique to each city rather
+  // than boilerplate: the top-rated spot by name, and a price/known-for hint.
+  const ranked = [...(dbRestaurants.length > 0 ? dbRestaurants : placesResults)]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || ((b.reviewCount ?? 0) - (a.reviewCount ?? 0)))
+  const topSpot = ranked[0] as (typeof ranked[number] & { rating?: number | null; reviewCount?: number }) | undefined
+  const topName = topSpot?.name ?? ''
+  const topRating = topSpot?.rating ?? null
+  const runnerUp = ranked[1]?.name ?? ''
+
+  // Nearby ramen cities in the same state — used for keyword-rich internal links.
+  const nearbyCitiesMap = new Map<string, { city: string; citySlug: string; stateCode: string }>()
+  for (const c of getCities().filter(c => c.stateSlug === stateSlug && c.citySlug !== citySlug)) {
+    nearbyCitiesMap.set(c.citySlug, { city: c.city, citySlug: c.citySlug, stateCode: c.stateCode })
+  }
+  for (const c of getSupplementCitiesByState(stateSlug).filter(c => c.citySlug !== citySlug)) {
+    if (!nearbyCitiesMap.has(c.citySlug)) nearbyCitiesMap.set(c.citySlug, { city: c.city, citySlug: c.citySlug, stateCode: c.stateCode })
+  }
+  const nearbyCities = Array.from(nearbyCitiesMap.values()).slice(0, 12)
+
+  // City-filter pages that exist for this city (major cities only) — e.g.
+  // /{city}/{state}/tonkotsu-ramen — so they have a real inbound link.
+  const majorCity = getMajorCity(citySlug, stateSlug)
+  const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug) : []
+  const cityNeighborhoods = getNeighborhoodsForCity(citySlug, stateCode)
+  // Real pho city page for this exact city+state, if we have one.
+  const cityPhoParam = getPhoCityParams().includes(phoCityParam(citySlug, stateCode)) ? phoCityParam(citySlug, stateCode) : null
+  const brothFilterLinks = filterLinks.filter(l => l.group === 'broth')
+  const dietFilterLinks = filterLinks.filter(l => l.group === 'diet')
+
+  // Every /find/{modifier}-in-{city}-{state} variant for this city — these
+  // render on demand (not statically pre-built) and are otherwise only
+  // reachable via the sitemap, so link them all from their base city page.
+  const modifierLinks = FIND_MODIFIERS.map(m => ({
+    href: `/find/${m.prefix}-${cityState}`,
+    label: m.title(cityName, stateName),
+  }))
+
+  // Single source of truth for the FAQ — rendered on the page and emitted as
+  // FAQPage schema, so the structured data always matches the visible content.
+  const faqs: { q: string; a: string }[] = [
+    {
+      q: `What is the best ramen restaurant in ${cityName}, ${stateCode}?`,
+      a: topName
+        ? `By rating, ${topName} is currently the top ramen spot in ${cityName}${topRating ? ` at ${topRating.toFixed(1)} stars` : ''}. I still recommend opening a couple of listings to skim recent reviews and photos, then sorting the map by rating or distance to pick your bowl.`
+        : `Use the map above to find ramen restaurants near ${cityName}, ${stateCode}, sorted by rating and distance, then check recent reviews and photos to choose.`,
+    },
+    {
+      q: `How many ramen restaurants are in ${cityName}, ${stateCode}?`,
+      a: count > 0
+        ? `There ${count === 1 ? 'is' : 'are'} ${count} ramen ${count === 1 ? 'spot' : 'spots'} listed in ${cityName}, ${stateCode} on RamenNearYou — from quick counter shops to sit-down ramen bars. The map keeps the closest ones at the top once you set your location.`
+        : `We are still building out ${cityName}, ${stateCode}, so the map pulls in the nearest ramen spots around it. Enter your ZIP to sort them by distance.`,
+    },
+    {
+      q: `What types of ramen are available in ${cityName}?`,
+      a: `You will typically find the classic broths in ${cityName} — tonkotsu, miso, shoyu, and shio — plus styles like tsukemen and spicy bowls at some shops. Use the filter bar above the map to narrow by broth type, price, and dietary preference like vegan or vegetarian.`,
+    },
+    {
+      q: `Is there ramen open late or open now in ${cityName}?`,
+      a: `Often, yes. Add the "Open Now" filter to see what is serving this minute in ${cityName}, or "Open Late" for spots going past 10 PM. Hours are checked against each restaurant's posted schedule, and a green "Open" badge confirms it.`,
+    },
+    {
+      q: `How do I find ramen delivery near ${cityName}?`,
+      a: `Add the "Delivers" filter above the map to show ${cityName} spots that offer delivery, then open a listing to order. For the freshest bowl, choose a place close to you or one that packs broth and noodles separately.`,
+    },
+  ]
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
+  // Listicle is the default, SEO-crawlable view; the interactive map only
+  // mounts (fetches, loads Leaflet) once a visitor actually taps "Map" —
+  // see components/pseo-listicle.tsx's conditional render of mapSlot.
+  const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
+  const listicleItems = dbRestaurants.length > 0
+    ? restaurantsToListicleItems(ranked as Restaurant[], { verifiedSlugs })
+    : placesToListicleItems(ranked as SupplementListing[])
+
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialCenter={{ lat, lng }}
+        regionBoundary={{ cityName, stateName, citySlug, stateSlug }}
+        pageTitle={`Best Ramen Restaurants In ${cityName}, ${stateName}`}
+        pageDescription={`Find ramen restaurants in ${cityName}, ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+      />
+    </ErrorBoundary>
+  )
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <main className="min-h-screen bg-surface">
+        <Navbar />
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: 'Browse Cities & States', href: '/cities' },
+            { label: stateName, href: `/${stateSlug}` },
+            { label: cityName },
+          ]}
+          title={count > 0 ? `${count} Ramen Restaurant${count === 1 ? '' : 's'} in ${cityName}, ${stateCode}` : `Ramen in ${cityName}, ${stateCode}`}
+          subtitle={
+            count > 0
+              ? `Every ramen restaurant we track in ${cityName}, ranked by rating and review volume. Search by name, filter by feature, or switch to the map. Always confirm hours before you go.`
+              : `We don't have ramen listings for ${cityName} yet — switch to the map to find the nearest ramen restaurants.`
+          }
+          items={listicleItems}
+          noun="ramen restaurant"
+          nounPlural="ramen restaurants"
+          searchPlaceholder="Search by name..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
+          guideCityLabel={`${cityName}, ${stateCode}`}
+          guideCitySlug={`${citySlug}-${stateCode.toLowerCase()}`}
+          mapSlot={mapSlot}
+        />
+
+        <div className="relative z-10 bg-surface">
+          <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+
+            {/* Preserved editorial guide content, if this city has one */}
+            {cityGuidePost && (
+              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+            )}
+
+            {/* SEO content — first-person, data-driven so each city reads uniquely */}
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">
+              Finding Great Ramen in {cityName}, {stateName}
+            </h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
+              Whenever I am hunting for a bowl in {cityName}, I start with the list above — it shows every
+              ramen spot I can find near {cityName}, {stateCode}, and you can tap &quot;Show distance from me&quot;
+              or switch to the map to sort by distance so the closest bowl is right at the top.
+              {count > 0
+                ? ` Right now I am tracking ${count} ramen ${count === 1 ? 'spot' : 'spots'} in and around ${cityName}, so there is plenty to work with.`
+                : ` ${cityName} is still filling in, so I have the map pull in the nearest ramen spots around it too.`}
+            </p>
+            {topName && (
+              <p className="text-ink-soft text-sm leading-relaxed mb-4">
+                If you just want my quick steer, {topName}
+                {topRating ? ` is the highest-rated ramen in ${cityName} right now at ${topRating.toFixed(1)} stars` : ` is one of the best-reviewed spots in ${cityName}`}
+                {runnerUp ? `, with ${runnerUp} close behind` : ''}. That said, I always check a couple of
+                listings myself — skim the recent reviews and the photos, since the bowl that looks carefully
+                made usually is.
+              </p>
+            )}
+            <h3 className="text-ink font-semibold text-base mb-2 mt-6">How I pick a ramen spot in {cityName}</h3>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
+              My rule of thumb is to favor shops that focus on one or two broths and do them obsessively well,
+              and to trust a strong rating that holds up across a lot of reviews over a perfect score from only
+              a handful. Then I match the bowl to the moment — something rich and creamy when it is cold out,
+              something light and clean for lunch. You can do the same right on the map: filter by broth style
+              like{' '}
+              <Link href="/find/tonkotsu-ramen" className="text-brand-ink hover:underline">tonkotsu</Link>,{' '}
+              <Link href="/find/miso-ramen" className="text-brand-ink hover:underline">miso</Link>,{' '}
+              <Link href="/find/shoyu-ramen" className="text-brand-ink hover:underline">shoyu</Link>, or{' '}
+              <Link href="/find/shio-ramen" className="text-brand-ink hover:underline">shio</Link>, then layer on
+              what matters that day.
+            </p>
+            <h3 className="text-ink font-semibold text-base mb-2 mt-6">Narrowing down what you are craving</h3>
+            <p className="text-ink-soft text-sm leading-relaxed mb-4">
+              Some nights I just need a bowl that is open this minute; other times I am planning ahead. The
+              filters handle both. In {cityName} you can jump straight to{' '}
+              <Link href="/find/ramen-open-now" className="text-brand-ink hover:underline">ramen open now</Link>,{' '}
+              <Link href="/find/ramen-open-late" className="text-brand-ink hover:underline">ramen open late</Link>,{' '}
+              <Link href="/find/spicy-ramen" className="text-brand-ink hover:underline">spicy ramen</Link>,{' '}
+              <Link href="/find/vegan-ramen" className="text-brand-ink hover:underline">vegan ramen</Link>, or the{' '}
+              <Link href="/find/top-rated-ramen" className="text-brand-ink hover:underline">top-rated ramen near you</Link>.
+              If you are driving in, the &quot;Free Parking&quot; and &quot;Delivers&quot; filters save a lot of hassle too.
+            </p>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
+              When you have exhausted {cityName}, it is easy to keep going — explore{' '}
+              <Link href={`/${stateSlug}`} className="text-brand-ink hover:underline">all ramen restaurants in {stateName}</Link> or{' '}
+              <Link href="/cities" className="text-brand-ink hover:underline">browse every city and state</Link> in the directory.
+            </p>
+
+            {/* Nearby cities — keyword-rich internal links */}
+            {nearbyCities.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
+                  More Ramen Near {cityName} in {stateName}
+                </h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
+                  Browse ramen restaurants in other {stateName} cities near {cityName}:
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  {nearbyCities.map(c => (
+                    <Link
+                      key={c.citySlug}
+                      href={`/find/${c.citySlug}-${c.stateCode.toLowerCase()}`}
+                      className="text-sm text-brand-ink hover:underline"
+                    >
+                      Ramen in {c.city}, {c.stateCode}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* City-filter pages (major cities only) — broth & diet type links */}
+            {filterLinks.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
+                  Ramen in {cityName} by Type &amp; Diet
+                </h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
+                  Narrow down what you&apos;re craving in {cityName} with these focused guides:
+                </p>
+                {brothFilterLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-2 mb-3">
+                    {brothFilterLinks.map(l => (
+                      <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
+                        {l.label} in {cityName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {dietFilterLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
+                    {dietFilterLinks.map(l => (
+                      <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
+                        {l.label} in {cityName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Curated neighborhood pages for this city */}
+            {cityNeighborhoods.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
+                  Ramen by Neighborhood in {cityName}
+                </h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
+                  Looking for something closer to a specific part of town? These neighborhood pages only show
+                  restaurants actually near that area:
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  {cityNeighborhoods.map(n => (
+                    <Link
+                      key={n.slug}
+                      href={`/find/${neighborhoodParam(n)}`}
+                      className="text-sm text-brand-ink hover:underline"
+                    >
+                      Ramen in {n.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Pho page for this city, if we track any pho restaurants here */}
+            {cityPhoParam && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-bold text-ink mb-3">
+                  Looking for Pho Instead?
+                </h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-4">
+                  We also track pho restaurants in {cityName} on a separate map —{' '}
+                  <Link href={`/find/${cityPhoParam}`} className="text-brand-ink hover:underline">
+                    pho restaurants in {cityName}, {stateCode}
+                  </Link>.
+                </p>
+              </div>
+            )}
+
+            {/* Modifier variants (open now, tonkotsu-in-city, etc.) for this city */}
+            <div className="mb-10">
+              <h2 className="font-serif text-xl font-bold text-ink mb-3">
+                More Ramen Searches in {cityName}
+              </h2>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {modifierLinks.map(l => (
+                  <Link key={l.href} href={l.href} className="text-sm text-brand-ink hover:underline">
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {cityGuidePost?.outroContent && (
+              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
+            )}
+
+            <h2 className="font-serif text-xl font-bold text-ink mb-5">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {faqs.map(({ q, a }) => (
+                <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
+                    {q}
+                    <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  </summary>
+                  <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <UgcFeature seed={`/find/${cityState}`} />
+          <FindCrossLinks />
+          <Footer />
+        </div>
+      </main>
+    </>
+  )
+}

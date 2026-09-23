@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 // POST /api/visits — record that this visitor visited a restaurant
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'visits', 60, 60_000)
+  if (limited) return limited
   const { slug, token } = await request.json()
   if (!slug || !token) {
     return NextResponse.json({ error: 'Missing slug or token' }, { status: 400 })
@@ -22,7 +25,7 @@ export async function POST(request: Request) {
   const { error } = await client
     .from('restaurant_visits')
     .upsert(
-      { restaurant_slug: slug, visitor_token: token, user_id: userId },
+      { restaurant_slug: slug, visitor_token: token, user_id: userId, event_type: 'view' },
       { onConflict: 'restaurant_slug,visitor_token', ignoreDuplicates: true }
     )
 
@@ -47,6 +50,7 @@ export async function GET(request: Request) {
     .from('restaurant_visits')
     .select('id', { count: 'exact', head: true })
     .eq('restaurant_slug', slug)
+    .eq('event_type', 'view')
 
   return NextResponse.json({ count: count ?? 0 })
 }

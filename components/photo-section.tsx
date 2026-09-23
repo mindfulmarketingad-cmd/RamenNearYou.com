@@ -115,11 +115,11 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
       {/* Section header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h2 className="font-serif text-xl font-bold text-[#1E2026]">
+          <h2 className="font-serif text-xl font-bold text-ink">
             Community Photos
           </h2>
           {photos.length > 0 && (
-            <span className="px-2 py-0.5 rounded-full bg-[#B57F50]/10 border border-[#B57F50]/20 text-[#B57F50] text-xs font-semibold">
+            <span className="px-2 py-0.5 rounded-full bg-brand/10 border border-brand/20 text-brand-ink text-xs font-semibold">
               {photos.length}
             </span>
           )}
@@ -127,7 +127,7 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
         <button
           onClick={handleAddPhotos}
           disabled={uploading}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-[#B57F50]/15 hover:bg-[#B57F50]/25 text-[#c8934f] transition-colors border border-[#B57F50]/20 disabled:opacity-50"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-brand/15 hover:bg-brand/25 text-brand-hi transition-colors border border-brand/20 disabled:opacity-50"
         >
           {uploading ? (
             <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Uploading…</>
@@ -145,15 +145,15 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
 
       {/* Photo grid */}
       {loading ? (
-        <div className="text-[#6B6862] text-sm">Loading photos…</div>
+        <div className="text-ink-soft text-sm">Loading photos…</div>
       ) : photos.length === 0 ? (
-        <div className="bg-[#F5F4F0] rounded-xl border border-black/5 p-8 text-center">
-          <p className="text-[#6B6862] text-sm mb-3">
+        <div className="bg-sunken rounded-xl border border-line/5 p-8 text-center">
+          <p className="text-ink-soft text-sm mb-3">
             No community photos yet. Be the first to share a photo of {restaurantName}!
           </p>
           <button
             onClick={handleAddPhotos}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#B57F50] hover:bg-[#c8934f] text-white text-sm font-medium rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-brand hover:bg-brand-hi text-white text-sm font-medium rounded-none transition-colors"
           >
             <Upload className="w-4 h-4" />
             Add Photos
@@ -166,7 +166,7 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
               <div key={photo.id} className="relative group aspect-square">
                 <button
                   onClick={() => setLightboxIndex(idx)}
-                  className="w-full h-full rounded-xl overflow-hidden bg-[#F5F4F0] hover:opacity-90 transition-opacity"
+                  className="w-full h-full rounded-xl overflow-hidden bg-sunken hover:opacity-90 transition-opacity"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -196,7 +196,7 @@ export default function PhotoSection({ restaurantSlug, restaurantName }: Props) 
           {photos.length > 9 && !showAll && (
             <button
               onClick={() => setShowAll(true)}
-              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[#6B6862] hover:text-[#1E2026] text-sm transition-colors border border-black/5 rounded-xl hover:bg-black/5"
+              className="w-full py-2.5 flex items-center justify-center gap-1.5 text-ink-soft hover:text-ink text-sm transition-colors border border-line/5 rounded-xl hover:bg-black/5"
             >
               <ChevronDown className="w-4 h-4" />
               Show all {photos.length} photos

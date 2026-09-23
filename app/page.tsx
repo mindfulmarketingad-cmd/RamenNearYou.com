@@ -1,12 +1,25 @@
+import Link from 'next/link'
 import Navbar from '@/components/navbar'
-import Hero from '@/components/hero'
+import HomepageBillboard from '@/components/homepage-billboard'
+import HomeNearbySection from '@/components/home-nearby-section'
 import FeaturedListings from '@/components/featured-listings'
-import BrothNearMeCarousel from '@/components/broth-near-me-carousel'
-import NearbyRestaurantsCarousel from '@/components/nearby-restaurants-carousel'
+import ClaimedShowcase from '@/components/claimed-showcase'
+import FilterShowcase from '@/components/filter-showcase'
+import SearchMapShowcase from '@/components/searchmap-showcase'
+import ServiceDirectory from '@/components/service-directory'
 import CityStateDirectory from '@/components/city-state-directory'
 import CommunityCarousel from '@/components/community-carousel'
+import UgcGrid from '@/components/ugc-grid'
+import HomepageReviews from '@/components/homepage-reviews'
+import HomepageAbout from '@/components/homepage-about'
+import HomepageFAQ from '@/components/homepage-faq'
+import FindCrossLinks from '@/components/find-cross-links'
 import Footer from '@/components/footer'
-import { getSiteStats } from '@/lib/restaurants'
+import {
+  getBillboardSlots,
+  billboardSpotsLeft,
+  BILLBOARD_SLOTS,
+} from '@/lib/homepage-billboard'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -33,63 +46,139 @@ const websiteSchema = {
 }
 
 export default function HomePage() {
-  const { restaurants, cities, states } = getSiteStats()
+  const billboardSlots = getBillboardSlots()
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-      <main className="min-h-screen bg-[#ffffff]">
+      <main className="min-h-screen bg-surface">
         <Navbar />
-        <Hero restaurantCount={restaurants} cityCount={cities} stateCount={states} />
-        <NearbyRestaurantsCarousel />
-        <FeaturedListings />
+        {/* Paid billboard, then the map. It sits above the map because that
+            placement is the product being sold — but it is one screen deep, so
+            the map and the nearby feed are still the next thing a visitor
+            scrolls into rather than being pushed far down the page. */}
+        <HomepageBillboard
+          slots={billboardSlots}
+          spotsLeft={billboardSpotsLeft(billboardSlots.length)}
+          totalSlots={BILLBOARD_SLOTS}
+        />
+        {/* Map, then the feed of what's inside its radius. Everything below
+            this — the SEO/editorial sections — comes after the feed, so the
+            first thing a visitor gets is ramen near them, not marketing.
 
-        <div className="broth-stack">
-          <BrothNearMeCarousel
-            brothType="Tonkotsu"
-            title="Tonkotsu Ramen Near Me"
-            description="Discover rich, creamy tonkotsu ramen near you. Slow-simmered pork bone broth with deep umami flavor — the most indulgent and iconic bowl in Japanese ramen."
-          />
-          <BrothNearMeCarousel
-            brothType="Spicy"
-            title="Spicy Ramen Near Me"
-            description="Craving heat? These top-rated ramen restaurants near you serve bold, spicy broths — from tantanmen and chili oil to volcano ramen with tongue-tingling fire."
-          />
-          <BrothNearMeCarousel
-            brothType="Miso"
-            title="Miso Ramen Near Me"
-            description="Find rich, fermented miso ramen near you. Hokkaido-style miso broth with corn, butter, and thick noodles — one of the most warming bowls in Japanese cuisine."
-          />
-          <BrothNearMeCarousel
-            brothType="Shoyu"
-            title="Shoyu Ramen Near Me"
-            description="Discover classic shoyu ramen near you. The original Tokyo-style soy sauce broth — clear, savory, and balanced. The perfect entry point into great ramen."
-          />
-          <BrothNearMeCarousel
-            brothType="Vegan"
-            title="Vegan Ramen Near Me"
-            description="Find delicious vegan ramen near you. Plant-based broths with rich umami depth — from mushroom dashi to creamy sesame — proving ramen doesn't need meat to be extraordinary."
-          />
-          <BrothNearMeCarousel
-            brothType="Vegetarian"
-            title="Vegetarian Ramen Near Me"
-            description="Discover vegetarian ramen near you. Hearty vegetable broths, miso-based soups, and egg-topped bowls — satisfying ramen options for plant-forward diners."
-          />
-          <BrothNearMeCarousel
-            brothType="Korean"
-            title="Korean Ramen Near Me"
-            description="Find Korean-style ramen near you. Explore bold, spicy ramyeon-inspired bowls, kimchi broths, and Korean-Japanese fusion spots serving unforgettable noodle dishes."
-          />
-          <BrothNearMeCarousel
-            brothType="Japanese"
-            title="Japanese Ramen Near Me"
-            description="Discover authentic Japanese ramen near you. From traditional Tokyo shoyu to Sapporo miso and Hakata tonkotsu — real Japanese ramen crafted with generations of technique."
-          />
+            The map hero carries its own pt-16 (it clears the fixed navbar on
+            the ~100 /find pages where it is the top element), which here just
+            reads as breathing room under the billboard's sales bar. Don't try
+            to cancel it with a negative margin — that pulls the map up over
+            the bar and hides it. */}
+        <HomeNearbySection />
+
+        <div className="relative z-10 bg-surface">
+          <ClaimedShowcase />
+          <FilterShowcase />
+          <SearchMapShowcase />
+
+          <UgcGrid />
+
+          {/* Editorial image band */}
+          <section className="bg-surface">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+              <div className="relative rounded-3xl overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.savvytokyo.com/app/uploads/2021/05/iStock-1007793982.jpg"
+                  alt="A steaming bowl of authentic Japanese ramen with chashu, egg, and scallions"
+                  className="w-full h-[280px] sm:h-[400px] object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent flex items-center">
+                  <div className="px-6 sm:px-12 max-w-lg">
+                    <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+                      Slurp your way to the perfect bowl
+                    </h2>
+                    <p className="text-white/85 text-sm sm:text-base mb-6 leading-relaxed">
+                      From rich, porky tonkotsu to delicate shio, discover top-rated ramen near you — open now, close by, and exactly your style.
+                    </p>
+                    <Link
+                      href="/find"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-hi transition-colors"
+                    >
+                      Explore ramen near you →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <FeaturedListings />
+
+          {/* Photo grid — every bowl tells a story */}
+          <section className="bg-sunken py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">Every bowl tells a story</h2>
+              <p className="text-ink-soft text-sm mb-8">Discover the ramen style that speaks to you.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="/find/vegetarian-ramen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://assets.bonappetit.com/photos/5e3c7a3c866b940008106763/1:1/w_1920,c_limit/HLY-Veggie-Ramen-16x9.jpg"
+                    alt="Vibrant vegetarian ramen with soft-boiled egg, corn, and fresh vegetables"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Plant-Based</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Vegetarian Ramen Near Me</p>
+                  </div>
+                </Link>
+
+                <Link href="/find/tantanmen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://56d3203e.delivery.rocketcdn.me/wp-content/uploads/2025/10/Tan-Tan-Tantanmen-Ramen-Recipe-6-scaled.jpg.webp"
+                    alt="Creamy tantanmen ramen with sesame broth, ground pork, and chili oil"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Spicy & Nutty</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Tantanmen Near Me</p>
+                  </div>
+                </Link>
+
+                <Link href="/find/tonkotsu-ramen" className="group relative rounded-2xl overflow-hidden block aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://thewoodenskillet.com/wp-content/uploads/2021/04/pork-belly-ramen-recipe-8-640x640.jpg"
+                    alt="Rich tonkotsu ramen topped with tender pork belly chashu and a soft-boiled egg"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-75">Rich & Porky</span>
+                    <p className="text-white font-serif text-lg font-bold leading-tight">Tonkotsu Ramen Near Me</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <HomepageReviews />
+          <ServiceDirectory />
+          <CityStateDirectory />
+
+          <HomepageAbout />
+
+          <HomepageFAQ />
+
+          <FindCrossLinks />
+          <Footer />
         </div>
-
-        <CommunityCarousel />
-        <CityStateDirectory />
-        <Footer />
       </main>
     </>
   )

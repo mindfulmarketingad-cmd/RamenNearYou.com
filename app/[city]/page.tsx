@@ -1,22 +1,56 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import { ChevronRight } from 'lucide-react'
 import { getStates, getRestaurantsByState } from '@/lib/restaurants'
+import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
+import {
+  getSupplementCitiesByState,
+  getSupplementOnlyStateSlugs,
+  getSupplementStateName,
+  getSupplementListings,
+} from '@/lib/places-supplements'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import ShareButton from '@/components/share-button'
+import BrothStyleLinks from '@/components/broth-style-links'
+import HomeMapHero from '@/components/home-map-hero'
+import ErrorBoundary from '@/components/error-boundary'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 export async function generateStaticParams() {
-  return getStates().map((s) => ({ city: s.stateSlug }))
+  const dbStates = getStates()
+  const dbStateSlugs = new Set(dbStates.map(s => s.stateSlug))
+  const supplementSlugs = getSupplementOnlyStateSlugs(dbStateSlugs)
+  return [
+    ...dbStates.map((s) => ({ city: s.stateSlug })),
+    ...supplementSlugs.map((slug) => ({ city: slug })),
+  ]
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
   const { city } = await params
   const stateSlug = city.toLowerCase()
   const allRestaurants = getRestaurantsByState(stateSlug)
-  if (!allRestaurants.length) return {}
-  const { state, stateCode } = allRestaurants[0]
 
+  // Supplement-only state (no DB rows)
+  if (!allRestaurants.length) {
+    const supplementCities = getSupplementCitiesByState(stateSlug)
+    if (!supplementCities.length) return {}
+    const stateName = getSupplementStateName(stateSlug)
+    const stateCode = STATE_SLUG_TO_CODE[stateSlug] ?? ''
+    const total = supplementCities.reduce((s, c) => s + c.count, 0)
+    return {
+      title: `Best Ramen Restaurants in ${stateName} (${stateCode}) — Full Directory`,
+      description: `Find the best ramen restaurants in ${stateName}. Browse ${total} top-rated spots across ${supplementCities.length} cities in ${stateCode}.`,
+      alternates: { canonical: `https://www.ramennearyou.com/${stateSlug}` },
+      openGraph: {
+        title: `Best Ramen Restaurants in ${stateName} (${stateCode})`,
+        description: `Find the best ramen restaurants in ${stateName} — ${total} locations across ${supplementCities.length} cities.`,
+        url: `https://www.ramennearyou.com/${stateSlug}`,
+      },
+    }
+  }
+
+  const { state, stateCode } = allRestaurants[0]
   const cityCount = new Set(allRestaurants.map(r => r.citySlug)).size
 
   return {
@@ -37,18 +71,84 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
   const { city } = await params
   const stateSlug = city.toLowerCase()
   const allRestaurants = getRestaurantsByState(stateSlug)
-  if (!allRestaurants.length) notFound()
 
-  const { state, stateCode } = allRestaurants[0]
+  // Supplement-only state (no DB rows) — build page from Places supplement data
+  if (!allRestaurants.length) {
+    const supplementCities = getSupplementCitiesByState(stateSlug).filter(c => c.count >= 2).sort((a, b) => a.city.localeCompare(b.city))
+    if (!supplementCities.length) notFound()
 
-  // Build city index sorted alphabetically
-  const cityGroups = new Map<string, { city: string; citySlug: string; count: number }>()
-  for (const r of allRestaurants) {
-    const entry = cityGroups.get(r.citySlug)
-    if (entry) entry.count++
-    else cityGroups.set(r.citySlug, { city: r.city, citySlug: r.citySlug, count: 1 })
+    const stateName = getSupplementStateName(stateSlug)
+    const stateCode = STATE_SLUG_TO_CODE[stateSlug] ?? ''
+    const total = supplementCities.reduce((s, c) => s + c.count, 0)
+    const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
+
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+        { '@type': 'ListItem', position: 2, name: `Best Ramen Restaurants in ${stateName}`, item: pageUrl },
+      ],
+    }
+
+    // No DB rows for this state — pull every Google Places supplement listing
+    // across its cities so the listicle is individual restaurants, same as
+    // the DB-backed branch below, not just a city index.
+    const allPlaces = supplementCities.flatMap(c => getSupplementListings(c.citySlug, stateCode))
+    const rankedPlaces = [...allPlaces].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+    const listicleItems = placesToListicleItems(rankedPlaces)
+
+    const mapSlot = (
+      <ErrorBoundary fallback={null}>
+        <HomeMapHero
+          mapOnly={false}
+          regionBoundary={{ cityName: stateName, stateName, citySlug: '', stateSlug, isState: true }}
+          pageTitle={`Best Ramen Restaurants In ${stateName}`}
+          pageDescription={`Find ramen restaurants across ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+        />
+      </ErrorBoundary>
+    )
+
+    return (
+      <main className="min-h-screen bg-surface">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <Navbar />
+
+        <PseoListicle
+          breadcrumb={[
+            { label: 'Ramen Near You', href: '/' },
+            { label: 'Browse Cities & States', href: '/cities' },
+            { label: stateName },
+          ]}
+          title={`${total} Ramen Restaurants in ${stateName}`}
+          subtitle={`Every ramen restaurant we track across ${stateName}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
+          items={listicleItems}
+          noun="ramen restaurant"
+          nounPlural="ramen restaurants"
+          searchPlaceholder="Search by name or town..."
+          filterLabel="Feature"
+          primaryCtaLabel="View details"
+          mapSlot={mapSlot}
+        />
+
+        <BrothStyleLinks place={stateName} />
+        <Footer />
+      </main>
+    )
   }
-  const cities = Array.from(cityGroups.values()).sort((a, b) => a.city.localeCompare(b.city))
+
+  const { state } = allRestaurants[0]
+  const cityCount = new Set(allRestaurants.map(r => r.citySlug)).size
+
+  // Rough center so the map doesn't flash a full-USA view before the state
+  // boundary fetch resolves and fits the real outline.
+  const withCoords = allRestaurants.filter(r => r.latitude && r.longitude)
+  const initialCenter = withCoords.length
+    ? {
+        lat: withCoords.reduce((s, r) => s + (r.latitude ?? 0), 0) / withCoords.length,
+        lng: withCoords.reduce((s, r) => s + (r.longitude ?? 0), 0) / withCoords.length,
+      }
+    : undefined
 
   const pageUrl = `https://www.ramennearyou.com/${stateSlug}`
 
@@ -61,68 +161,45 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
     ],
   }
 
+  const ranked = [...allRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  const verifiedSlugs = await getAllVerifiedSlugs()
+  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs })
+
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        initialCenter={initialCenter}
+        mapOnly={false}
+        regionBoundary={{ cityName: state, stateName: state, citySlug: '', stateSlug, isState: true }}
+        pageTitle={`Best Ramen Restaurants In ${state}`}
+        pageDescription={`Find ramen restaurants across ${state}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+      />
+    </ErrorBoundary>
+  )
+
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
-      {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0] border-b border-black/5">
-        <div className="max-w-7xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">Ramen in {state}</span>
-          </nav>
+      <PseoListicle
+        breadcrumb={[
+          { label: 'Ramen Near You', href: '/' },
+          { label: 'Browse Cities & States', href: '/cities' },
+          { label: state },
+        ]}
+        title={`${allRestaurants.length} Ramen Restaurants in ${state}`}
+        subtitle={`Every ramen restaurant we track across ${state}'s ${cityCount} ${cityCount === 1 ? 'city' : 'cities'}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
+        items={listicleItems}
+        noun="ramen restaurant"
+        nounPlural="ramen restaurants"
+        searchPlaceholder="Search by name or town..."
+        filterLabel="Feature"
+        primaryCtaLabel="View details"
+        mapSlot={mapSlot}
+      />
 
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Ramen Directory</p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1E2026] mb-3">
-            Best Ramen Restaurants in {state}
-          </h1>
-          <p className="text-[#6B6862] text-lg mb-5">
-            Browse ramen restaurants in {state} ({stateCode}) by city — {allRestaurants.length} locations across {cities.length} {cities.length === 1 ? 'city' : 'cities'}.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-              {allRestaurants.length} restaurants
-            </span>
-            <span className="px-3 py-1.5 rounded-full bg-white border border-black/8 text-[#6B6862] text-xs">
-              {cities.length} {cities.length === 1 ? 'city' : 'cities'}
-            </span>
-            <ShareButton
-              url={pageUrl}
-              title={`Best Ramen Restaurants in ${state} — ${allRestaurants.length} listings on RamenNearYou`}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* City grid */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-            {state}, {stateCode} ({allRestaurants.length} listings)
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
-            {cities.map((c) => (
-              <Link
-                key={c.citySlug}
-                href={`/${c.citySlug}/${stateSlug}`}
-                className="flex items-center justify-between px-5 py-4 border-b border-r border-black/10 hover:bg-[#F5F4F0] transition-colors group"
-              >
-                <span className="text-[#1E2026] text-sm font-medium group-hover:text-[#B57F50] transition-colors">
-                  {c.city}
-                </span>
-                <span className="text-[#6B6862] text-xs ml-4 shrink-0">
-                  {c.count} {c.count === 1 ? 'restaurant' : 'restaurants'}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <BrothStyleLinks place={state} />
       <Footer />
     </main>
   )

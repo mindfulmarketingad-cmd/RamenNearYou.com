@@ -1,0 +1,324 @@
+'use client'
+
+import { Fragment, useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { Search, Star, Loader2, SlidersHorizontal, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { BOWL_META, MOOD_META, FEATURE_META, BOWL_BY_KEY, MOOD_BY_KEY, FEATURE_BY_KEY, type MapPoint } from '@/lib/ramen-taxonomy'
+import { getOpenStatus, getTodayHoursLabel } from '@/lib/hours'
+import InquireButton from '@/components/inquire-button'
+
+const PAGE_SIZE = 25
+
+function Chip({ active, label, emoji, onClick }: { active: boolean; label: string; emoji: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border whitespace-nowrap transition-colors ${
+        active
+          ? 'bg-brand text-white border-brand'
+          : 'bg-surface text-ink-soft border-line/10 hover:border-brand/40'
+      }`}
+    >
+      <span className="leading-none">{emoji}</span>{label}
+    </button>
+  )
+}
+
+function ListingChips({ r }: { r: MapPoint }) {
+  const seen = new Set<string>()
+  const chips: { label: string; emoji: string; hex: string }[] = []
+  const push = (m?: { label: string; emoji: string; hex: string }) => {
+    if (m && !seen.has(m.label)) { seen.add(m.label); chips.push(m) }
+  }
+  for (const b of r.bowls ?? []) push(BOWL_BY_KEY[b])
+  for (const a of r.amenities ?? []) push(FEATURE_BY_KEY[a])
+  for (const m of r.moods ?? []) push(MOOD_BY_KEY[m])
+  const shown = chips.slice(0, 3)
+  if (shown.length === 0) return <span className="text-ink-soft/40 text-xs">—</span>
+  return (
+    <div className="flex flex-wrap gap-1">
+      {shown.map((c) => (
+        <span
+          key={c.label}
+          style={{ backgroundColor: `${c.hex}1a`, color: c.hex, borderColor: `${c.hex}40` }}
+          className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap"
+        >
+          <span className="leading-none">{c.emoji}</span>{c.label}
+        </span>
+      ))}
+      {chips.length > shown.length && (
+        <span className="text-ink-soft/50 text-[10px]">+{chips.length - shown.length}</span>
+      )}
+    </div>
+  )
+}
+
+function HoursCell({ hours }: { hours: Record<string, string[]> | null | undefined }) {
+  const status = getOpenStatus(hours)
+  if (!status) return <span className="text-ink-soft/40 text-xs">Hours unavailable</span>
+  const label = hours ? getTodayHoursLabel(hours) : ''
+  return (
+    <div className="flex flex-col gap-0.5">
+      {status.status === 'closed' ? (
+        <span className="text-red-600 dark:text-red-400 text-xs font-semibold">Closed</span>
+      ) : status.status === 'closing-soon' ? (
+        <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold">Closes soon · {status.closesAt}</span>
+      ) : (
+        <span className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">Open · closes {status.closesAt}</span>
+      )}
+      <span className="text-ink-soft/60 text-[11px]">{label}</span>
+    </div>
+  )
+}
+
+export default function PartnersDirectory() {
+  const [data, setData] = useState<MapPoint[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [query, setQuery] = useState('')
+  const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set())
+  const [stateFilter, setStateFilter] = useState('')
+  const [showFilters, setShowFilters] = useState(false)
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/ramen-map', { cache: 'force-cache' })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then((d: MapPoint[]) => { if (!cancelled) { setData(d); setLoading(false) } })
+      .catch(() => { if (!cancelled) { setError(true); setLoading(false) } })
+    return () => { cancelled = true }
+  }, [])
+
+  function toggleKey(key: string) {
+    setPage(1)
+    setActiveKeys((prev) => {
+      const next = new Set(prev)
+      next.has(key) ? next.delete(key) : next.add(key)
+      return next
+    })
+  }
+
+  const stateOptions = useMemo(() => {
+    const codes = new Set(data.map((r) => r.stateCode).filter(Boolean))
+    return [...codes].sort()
+  }, [data])
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return data.filter((r) => {
+      if (q) {
+        const haystack = `${r.name} ${r.city} ${r.stateCode}`.toLowerCase()
+        if (!haystack.includes(q)) return false
+      }
+      if (stateFilter && r.stateCode !== stateFilter) return false
+      if (activeKeys.size > 0) {
+        const tags = [...(r.bowls ?? []), ...(r.moods ?? []), ...(r.amenities ?? [])]
+        if (!tags.some((t) => activeKeys.has(t))) return false
+      }
+      return true
+    }).sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  }, [data, query, stateFilter, activeKeys])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const currentPage = Math.min(page, totalPages)
+  const paged = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+
+  return (
+    <div>
+      {/* Search + filters toggle */}
+      <div className="flex flex-col sm:flex-row gap-2.5 mb-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-soft" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); setPage(1) }}
+            placeholder="Search by restaurant name, city, or state…"
+            className="w-full pl-10 pr-4 py-2.5 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink placeholder-ink-faint focus:border-brand transition-colors"
+          />
+        </div>
+        <select
+          value={stateFilter}
+          onChange={(e) => { setStateFilter(e.target.value); setPage(1) }}
+          className="px-3 py-2.5 text-sm bg-surface border border-line/12 rounded-xl outline-none text-ink focus:border-brand transition-colors"
+        >
+          <option value="">All States</option>
+          {stateOptions.map((code) => (
+            <option key={code} value={code}>{code}</option>
+          ))}
+        </select>
+        <button
+          onClick={() => setShowFilters((v) => !v)}
+          className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-colors ${
+            activeKeys.size > 0
+              ? 'bg-brand text-white border-brand'
+              : 'bg-surface text-ink border-line/12 hover:border-brand/40'
+          }`}
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          Filters{activeKeys.size > 0 ? ` (${activeKeys.size})` : ''}
+        </button>
+      </div>
+
+      {showFilters && (
+        <div className="bg-surface border border-line/8 rounded-xl p-4 mb-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Broth</p>
+            {activeKeys.size > 0 && (
+              <button
+                onClick={() => { setActiveKeys(new Set()); setPage(1) }}
+                className="flex items-center gap-1 text-xs text-brand-ink font-medium hover:underline"
+              >
+                <X className="w-3 h-3" /> Clear all
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {BOWL_META.map((b) => (
+              <Chip key={b.key} active={activeKeys.has(b.key)} label={b.label} emoji={b.emoji} onClick={() => toggleKey(b.key)} />
+            ))}
+          </div>
+          <p className="text-xs font-bold uppercase tracking-wide text-ink-soft pt-1">Mood</p>
+          <div className="flex flex-wrap gap-1.5">
+            {MOOD_META.map((m) => (
+              <Chip key={m.key} active={activeKeys.has(m.key)} label={m.label} emoji={m.emoji} onClick={() => toggleKey(m.key)} />
+            ))}
+          </div>
+          <p className="text-xs font-bold uppercase tracking-wide text-ink-soft pt-1">Features &amp; Amenities</p>
+          <div className="flex flex-wrap gap-1.5">
+            {FEATURE_META.map((f) => (
+              <Chip key={f.key} active={activeKeys.has(f.key)} label={f.label} emoji={f.emoji} onClick={() => toggleKey(f.key)} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p className="text-ink-soft text-xs mb-3">
+        {loading ? 'Loading businesses…' : `${filtered.length.toLocaleString()} business${filtered.length === 1 ? '' : 'es'}`}
+      </p>
+
+      {/* Table */}
+      <div className="bg-surface border border-line/8 rounded-xl overflow-hidden">
+        {loading ? (
+          <div className="flex flex-col items-center gap-3 py-16">
+            <Loader2 className="w-7 h-7 text-brand-ink animate-spin" />
+            <p className="text-ink-soft text-sm">Loading businesses…</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <p className="text-ink font-semibold text-sm mb-1">Couldn&apos;t load businesses</p>
+            <button onClick={() => location.reload()} className="text-xs text-brand-ink font-medium">Retry →</button>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-ink font-semibold text-sm mb-1">No businesses found</p>
+            <p className="text-ink-soft text-xs">Try a different search or clear your filters.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line/8 bg-raised">
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Business Name</th>
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Reviews</th>
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Filters</th>
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Hours</th>
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Claim Listing</th>
+                  <th className="text-left font-semibold text-ink px-4 py-3 whitespace-nowrap">Inquire</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paged.map((r, i) => {
+                  return (
+                    <Fragment key={`${r.citySlug}-${r.stateSlug}-${r.slug}-${i}`}>
+                      <tr className="border-b border-line/5 last:border-0 hover:bg-black/[0.02]">
+                        <td className="px-4 py-3 align-top">
+                          <h4 className="font-semibold text-ink text-sm leading-tight m-0">
+                            <Link
+                              href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                              className="hover:text-brand-ink transition-colors"
+                            >
+                              {r.name}
+                            </Link>
+                          </h4>
+                          <p className="text-ink-soft text-xs mt-0.5">{r.city}, {r.stateCode}</p>
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          {r.rating ? (
+                            <span className="flex items-center gap-1 text-ink">
+                              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                              {r.rating.toFixed(1)}
+                              <span className="text-ink-soft text-xs">({r.reviewCount.toLocaleString()})</span>
+                            </span>
+                          ) : (
+                            <span className="text-ink-soft/40 text-xs">No reviews</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 align-top max-w-[220px]">
+                          <ListingChips r={r} />
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          <HoursCell hours={r.hours} />
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          {r.claimed ? (
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-black/5 text-ink-soft text-xs font-semibold whitespace-nowrap">
+                              Claimed
+                            </span>
+                          ) : (
+                            <Link
+                              href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                              className="inline-flex items-center px-3 py-1.5 rounded-full bg-brand hover:bg-brand-hi text-white text-xs font-semibold transition-colors whitespace-nowrap"
+                            >
+                              Claim Listing
+                            </Link>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 align-top whitespace-nowrap">
+                          <InquireButton
+                            restaurant={{ name: r.name, slug: r.slug, city: r.city, stateCode: r.stateCode }}
+                            source="partners"
+                          />
+                        </td>
+                      </tr>
+                    </Fragment>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      {!loading && !error && filtered.length > 0 && (
+        <div className="flex items-center justify-between mt-4">
+          <p className="text-ink-soft text-xs">
+            Page {currentPage} of {totalPages}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-line/10 text-sm text-ink disabled:opacity-40 disabled:cursor-not-allowed hover:border-brand/40 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" /> Prev
+            </button>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-line/10 text-sm text-ink disabled:opacity-40 disabled:cursor-not-allowed hover:border-brand/40 transition-colors"
+            >
+              Next <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

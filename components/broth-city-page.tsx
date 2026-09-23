@@ -1,0 +1,295 @@
+import Link from 'next/link'
+import { MapPin, ChevronRight, Map, Navigation } from 'lucide-react'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
+import type { MapCard } from '@/components/blog-scroll-map'
+import { getNearbyCities } from '@/lib/restaurants'
+import { getPerfectFor } from '@/lib/perfect-for'
+import type { Restaurant } from '@/lib/restaurants'
+
+export interface BrothCityConfig {
+  broth: string        // display name e.g. "Miso"
+  slug: string         // URL segment e.g. "miso"
+  nearMeSlug: string   // e.g. "miso-ramen-near-me"
+  tagline: string      // short line under the H1
+  whatIs: string       // body paragraph for "What is X ramen?" section
+}
+
+interface Props {
+  config: BrothCityConfig
+  cityName: string
+  stateName: string
+  stateCode: string
+  citySlug: string
+  stateSlug: string
+  restaurants: Restaurant[]
+}
+
+export default function BrothCityPage({ config, cityName, stateName, stateCode, citySlug, stateSlug, restaurants }: Props) {
+  const nearbyCities = getNearbyCities(citySlug, stateSlug)
+
+  const sorted = [...restaurants].sort((a, b) => {
+    const ra = a.rating ?? 0, rb = b.rating ?? 0
+    if (rb !== ra) return rb - ra
+    return (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
+  })
+
+  // Per-page facts so the editorial copy is unique to this broth + city.
+  const topSpot = sorted[0]
+  const brothLower = config.broth.toLowerCase()
+
+  const faqs: { q: string; a: string }[] = [
+    {
+      q: `Where is the best ${brothLower} ramen in ${cityName}, ${stateCode}?`,
+      a: topSpot
+        ? `${topSpot.name} is one of the top-rated spots for ${brothLower} ramen in ${cityName}${topSpot.rating ? ` at ${topSpot.rating.toFixed(1)} stars` : ''}. Use the map above to compare it with nearby options by rating and distance, then check recent reviews and photos before you go.`
+        : `Use the map above to find ${brothLower} ramen in ${cityName}, ${stateCode}, sorted by rating and distance.`,
+    },
+    {
+      q: `How many ${brothLower} ramen spots are in ${cityName}?`,
+      a: restaurants.length > 0
+        ? `We list ${restaurants.length} ${brothLower} ramen ${restaurants.length === 1 ? 'spot' : 'spots'} in ${cityName}, ${stateCode}. Set your location to sort them by distance.`
+        : `We are still adding ${brothLower} ramen spots in ${cityName} — use the map to find the nearest options.`,
+    },
+    {
+      q: `What should I look for in good ${brothLower} ramen?`,
+      a: `Favor shops that specialize in ${brothLower} ramen, look for a broth with real depth and noodles with genuine bite, and trust a strong rating that holds up across many reviews. Skim the most recent reviews and photos to confirm.`,
+    },
+  ]
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
+  const scrollMapCards: MapCard[] = sorted.slice(0, 30).map((r, i) => ({
+    rank: i + 1,
+    slug: r.slug,
+    citySlug: r.citySlug,
+    stateSlug: r.stateSlug,
+    name: r.name,
+    rating: r.rating ?? 0,
+    reviewCount: r.reviewCount ?? 0,
+    address: r.address ?? '',
+    phone: r.phone ?? '',
+    description: r.description ?? '',
+    photo: r.photo ?? '',
+    tags: r.subtypes ? r.subtypes.split(',').map((s) => s.trim()).filter(Boolean).slice(0, 2) : [],
+    lat: r.latitude ?? null,
+    lng: r.longitude ?? null,
+    perfectFor: getPerfectFor(r),
+  }))
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ramennearyou.com' },
+      { '@type': 'ListItem', position: 2, name: `Ramen in ${stateName}`, item: `https://www.ramennearyou.com/${stateSlug}` },
+      { '@type': 'ListItem', position: 3, name: `Ramen in ${cityName}, ${stateCode}`, item: `https://www.ramennearyou.com/${citySlug}/${stateSlug}` },
+      { '@type': 'ListItem', position: 4, name: `${config.broth} Ramen in ${cityName}`, item: `https://www.ramennearyou.com/${config.slug}/${citySlug}/${stateSlug}` },
+    ],
+  }
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Best ${config.broth} Ramen Restaurants in ${cityName}, ${stateCode}`,
+    description: `Top-rated ${config.broth.toLowerCase()} ramen restaurants in ${cityName}, ${stateCode}`,
+    numberOfItems: restaurants.length,
+    itemListElement: sorted.map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.ramennearyou.com/${citySlug}/${stateSlug}/${r.slug}`,
+      name: r.name,
+    })),
+  }
+
+  return (
+    <main className="min-h-screen bg-surface">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <Navbar />
+
+      {/* Hero */}
+      <section className="pt-28 pb-12 px-4 sm:px-6 lg:px-8 bg-sunken border-b border-line/5">
+        <div className="max-w-7xl mx-auto">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href={`/${stateSlug}`} className="hover:text-ink transition-colors">{stateName}</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href={`/${citySlug}/${stateSlug}`} className="hover:text-ink transition-colors">{cityName}, {stateCode}</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-ink">{config.broth}</span>
+          </nav>
+
+          <div>
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">{config.broth} Ramen</p>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-3">
+              {config.broth} Ramen in {cityName}, {stateCode}
+            </h1>
+            <p className="text-ink-soft text-lg mb-4">{config.tagline.replace('{{city}}', cityName).replace('{{stateCode}}', stateCode)}</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-ink-soft/60 text-sm">
+                {restaurants.length} {config.broth.toLowerCase()} restaurant{restaurants.length !== 1 ? 's' : ''} · {stateName}
+              </span>
+              <Link
+                href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-ink text-xs font-medium transition-colors border border-brand/20"
+              >
+                <Map className="w-3.5 h-3.5" />
+                View on Map
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Find CTA */}
+      <section className="pt-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <Link
+            href={`/searchmap?city=${citySlug}&state=${stateSlug}`}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-none bg-brand hover:bg-brand-hi text-white font-semibold text-sm shadow-md shadow-brand/25 transition-all duration-200"
+          >
+            <Navigation className="w-4 h-4" />
+            Find {config.broth} Ramen in {cityName}, {stateCode}
+          </Link>
+        </div>
+      </section>
+
+      {/* Listings */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-ink font-semibold text-sm mb-2">
+            {restaurants.length} {config.broth.toLowerCase()} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {cityName}, {stateCode}
+          </p>
+          <BlogScrollMapWrapper
+            cards={scrollMapCards}
+            listHeading={`The Best ${config.broth} Ramen in ${cityName}, ${stateCode}`}
+          />
+        </div>
+      </section>
+
+      {/* What is X ramen */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5 bg-sunken">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
+            What Is {config.broth} Ramen?
+          </h2>
+          <p className="text-ink-soft leading-relaxed mb-6">
+            {config.whatIs.replace('{{city}}', cityName).replace('{{stateCode}}', stateCode)}
+          </p>
+          <Link
+            href={`/${config.nearMeSlug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-ink hover:text-brand-hi transition-colors"
+          >
+            Explore {config.broth.toLowerCase()} ramen nationwide
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* First-person guidance + FAQ (unique per broth + city) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
+            How I find the best {brothLower} ramen in {cityName}
+          </h2>
+          <p className="text-ink-soft leading-relaxed mb-4">
+            When I want {brothLower} ramen in {cityName}, I start with the map above — it is focused on{' '}
+            {brothLower} bowls and sorts the closest ones to the top once you drop in your ZIP or use your
+            location.{' '}
+            {topSpot
+              ? `Right now ${topSpot.name} is one of the highest-rated picks${topSpot.rating ? ` at ${topSpot.rating.toFixed(1)} stars` : ''}, but I still open a couple of listings and read the latest reviews before deciding.`
+              : `I open a couple of listings and read the latest reviews and photos before deciding.`}
+          </p>
+          <h3 className="text-ink font-semibold text-base mb-2 mt-6">My quick checklist</h3>
+          <ul className="space-y-2.5 mb-4">
+            {[
+              `Favor shops that specialize in ${brothLower} ramen — focus usually means a better bowl.`,
+              'Trust a strong rating that holds up across many reviews over a perfect score from a few.',
+              'Skim the most recent reviews and photos; the bowl that looks carefully made usually is.',
+              'Set your location to sort by distance so you never trade quality for a long drive.',
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-2.5 text-ink-soft text-sm leading-relaxed">
+                <span className="text-brand-ink shrink-0 mt-0.5">•</span>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="font-serif text-xl font-bold text-ink mb-4 mt-8">Frequently asked questions</h3>
+          <div className="space-y-4">
+            {faqs.map(({ q, a }) => (
+              <details key={q} className="group border border-line/8 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-3 px-4 py-3.5 cursor-pointer font-semibold text-sm text-ink list-none">
+                  {q}
+                  <span className="text-brand-ink shrink-0 group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="px-4 pb-4 text-sm text-ink-soft leading-relaxed">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Nearby cities */}
+      {nearbyCities.length > 0 && (
+        <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-line/5">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Explore Nearby</p>
+            <p className="text-ink font-semibold text-lg mb-6">More ramen near {cityName}</p>
+            <div className="flex flex-wrap gap-3">
+              {nearbyCities.map((c) => (
+                <div key={`${c.citySlug}-${c.stateSlug}`} className="flex items-stretch rounded-xl overflow-hidden border border-line/5 hover:border-brand/40 transition-colors group bg-sunken">
+                  <Link href={`/${c.citySlug}/${c.stateSlug}`} className="flex items-center gap-2 px-4 py-2.5">
+                    <MapPin className="w-3.5 h-3.5 text-brand-ink shrink-0" />
+                    <span>
+                      <span className="text-ink text-sm font-medium group-hover:text-brand-ink transition-colors">{c.city}, {c.stateCode}</span>
+                      <span className="text-ink-soft/60 text-xs ml-1.5">{c.count} spot{c.count !== 1 ? 's' : ''} · {Math.round(c.distanceMiles)} mi</span>
+                    </span>
+                  </Link>
+                  <Link
+                    href={`/searchmap?city=${c.citySlug}&state=${c.stateSlug}`}
+                    title="View on map"
+                    className="flex items-center px-3 border-l border-line/5 text-ink-soft/50 hover:text-brand-ink hover:bg-brand/10 transition-colors"
+                  >
+                    <Map className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Back to city */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8 border-t border-line/5">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Explore More</p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-3">See all ramen in {cityName}</h2>
+          <p className="text-ink-soft text-sm mb-5 max-w-xl mx-auto">
+            Browse every ramen restaurant in {cityName}, {stateCode} — all styles, all broth types.
+          </p>
+          <Link
+            href={`/${citySlug}/${stateSlug}`}
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
+          >
+            All ramen in {cityName}, {stateCode} →
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}
