@@ -68,7 +68,14 @@ const ACTION_LABELS: Record<string, string> = {
 
 export async function getDashboardData(days: RangeDays): Promise<DashboardData> {
   const admin = createAdminClient()
-  if (!admin) return EMPTY
+  if (!admin) {
+    // The page only tells visitors "briefly unavailable" — it's public and
+    // linked from the featured-listing sales page — so this is the one place
+    // the actual cause is recorded. Almost always SUPABASE_SERVICE_ROLE_KEY
+    // missing from the deployed environment.
+    console.error('Dashboard: no admin client — SUPABASE_SERVICE_ROLE_KEY not set for this environment')
+    return EMPTY
+  }
 
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
   const sinceIso = since.toISOString()

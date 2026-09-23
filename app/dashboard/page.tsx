@@ -76,11 +76,29 @@ export default async function DashboardPage({
           </div>
         </div>
 
+        {/* This page is public and is linked from /featured-listing as the
+            "check our traffic before you subscribe" proof, so a prospective
+            advertiser reads whatever is here. Keep the visitor-facing copy
+            plain and keep the setup instructions to development — telling a
+            restaurant owner to run a SQL file reads as a broken site, and it
+            leaks internals on a sales path. The fix itself is logged
+            server-side in lib/dashboard-data.ts. */}
         {!d.ok && (
           <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-            Analytics storage isn&apos;t reachable right now, so the totals below read zero. Run
-            <code className="mx-1 font-mono text-xs">supabase/ramennearyou_dashboard.sql</code>
-            and confirm <code className="font-mono text-xs">SUPABASE_SERVICE_ROLE_KEY</code> is set.
+            {process.env.NODE_ENV === 'production' ? (
+              <>
+                Live numbers are briefly unavailable, so the totals below read
+                zero — this is a reporting hiccup, not the traffic. Please check
+                back shortly.
+              </>
+            ) : (
+              <>
+                Analytics storage isn&apos;t reachable, so the totals below read zero. Run
+                <code className="mx-1 font-mono text-xs">supabase/ramennearyou_dashboard.sql</code>
+                and confirm <code className="font-mono text-xs">SUPABASE_SERVICE_ROLE_KEY</code> is set
+                for this environment.
+              </>
+            )}
           </div>
         )}
 

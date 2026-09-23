@@ -68,9 +68,14 @@ export default async function FeaturedListingPage({
           />
         </div>
 
-        {/* Real traffic numbers, so the decision isn't made on our say-so. */}
+        {/* Real traffic numbers, so the decision isn't made on our say-so.
+            Opens in a new tab on purpose — someone checking the traffic is
+            mid-decision, and navigating them off the offer is a good way to
+            lose them. */}
         <Link
           href="/dashboard"
+          target="_blank"
+          rel="noopener"
           className="flex items-center gap-4 p-5 mb-10 rounded-2xl border border-line/10 bg-sunken hover:border-brand/40 transition-colors group"
         >
           <span className="shrink-0 w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
@@ -87,7 +92,7 @@ export default async function FeaturedListingPage({
             </span>
           </span>
           <span className="shrink-0 inline-flex items-center gap-1 text-brand-ink text-sm font-semibold group-hover:underline">
-            View <ArrowUpRight className="w-3.5 h-3.5" />
+            View traffic <ArrowUpRight className="w-3.5 h-3.5" />
           </span>
         </Link>
 
