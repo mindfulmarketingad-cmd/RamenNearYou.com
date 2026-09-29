@@ -18,6 +18,7 @@ import { pickStockPhoto } from '@/lib/stock-photos'
 import { getCityListicleParams, matchCityListicle, getCityPhoListicleParams, matchCityPhoListicle } from '@/lib/city-listicles'
 import CityRamenListicle from './city-ramen-listicle'
 import CityPhoListicle from './city-pho-listicle'
+import { splitLongParagraphs } from '@/lib/split-paragraphs'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -433,7 +434,7 @@ export default async function BlogPostPage({ params }: Props) {
               </nav>
             )}
 
-            <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: tocHtml }} />
+            <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(tocHtml) }} />
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-sunken border border-line/5 rounded-2xl p-6 sm:p-8">
@@ -459,7 +460,7 @@ export default async function BlogPostPage({ params }: Props) {
             {post.outroContent && (
               <div
                 className="prose-ramen mt-10"
-                dangerouslySetInnerHTML={{ __html: post.outroContent }}
+                dangerouslySetInnerHTML={{ __html: splitLongParagraphs(post.outroContent) }}
               />
             )}
 

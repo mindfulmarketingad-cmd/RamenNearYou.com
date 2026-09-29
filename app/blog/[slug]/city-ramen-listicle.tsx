@@ -11,6 +11,7 @@ import { pickStockPhoto } from '@/lib/stock-photos'
 import { slugifyAuthor } from '@/lib/perfect-for'
 import { buildRestaurantReview, getContextualLinks } from '@/lib/city-listicle-content'
 import type { CityListicle } from '@/lib/city-listicles'
+import { splitLongParagraphList } from '@/lib/split-paragraphs'
 
 const AUTHORS = [
   { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
@@ -149,7 +150,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                           </div>
 
                           <div className="space-y-2 text-ink-mid text-sm leading-relaxed">
-                            {review.map((p, j) => <p key={j} dangerouslySetInnerHTML={{ __html: p }} />)}
+                            {splitLongParagraphList(review).map((p, j) => <p key={j} dangerouslySetInnerHTML={{ __html: p }} />)}
                           </div>
 
                           <div className="flex flex-col gap-1 text-xs text-ink-soft/70">

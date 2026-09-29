@@ -143,7 +143,7 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
 
           {/* Description — hard-clamped to two lines so a chatty entry can't
               make its row twice as tall as its neighbours. */}
-          <p className="text-xs text-ink-mid mt-1.5 leading-snug line-clamp-2 h-[33px] overflow-hidden">
+          <p className="text-xs text-ink-mid mt-1.5 leading-snug line-clamp-2 h-[2.75em] overflow-hidden">
             {it.description}
           </p>
 

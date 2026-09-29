@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { getAllComparisons, getComparison } from '@/lib/broth-comparisons'
 import { slugifyAuthor } from '@/lib/perfect-for'
+import { splitLongParagraphs } from '@/lib/split-paragraphs'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -139,7 +140,7 @@ export default async function ComparisonPage({ params }: Props) {
 
             <div
               className="prose-ramen"
-              dangerouslySetInnerHTML={{ __html: cmp.content }}
+              dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cmp.content) }}
             />
           </article>
 

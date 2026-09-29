@@ -15,6 +15,7 @@ import type { ResolvedCity } from '@/lib/find-city'
 import type { FindModifier } from '@/lib/find-modifiers'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
+import { splitLongParagraphs } from '@/lib/split-paragraphs'
 
 export default async function ModifierCityFindPage({
   modifier,
@@ -97,7 +98,7 @@ export default async function ModifierCityFindPage({
         <div className="relative z-10 bg-surface">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
             {cityGuidePost && (
-              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.content) }} />
             )}
 
             <h2 className="font-serif text-2xl font-bold text-ink mb-4">
@@ -152,7 +153,7 @@ export default async function ModifierCityFindPage({
             </p>
 
             {cityGuidePost?.outroContent && (
-              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
+              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.outroContent) }} />
             )}
 
             <h2 className="font-serif text-xl font-bold text-ink mb-5">

@@ -136,6 +136,30 @@
 @theme inline {
   --font-sans: var(--font-dm-sans), 'DM Sans', sans-serif;
   --font-serif: var(--font-playfair), 'Playfair Display', serif;
+
+  /* Type scale, shifted up so `text-base` is 18px (Tailwind's default is
+     16px). Every step is the default x 1.125, so the hierarchy is unchanged.
+     Only the text scale moves: the root font-size stays 16px, because spacing
+     is rem-based too and the navbar height is hardcoded against it
+     (NAVBAR_HEIGHT in navbar-client.tsx). Line-heights are ratios and follow.
+     Arbitrary sizes like text-[11px] are deliberately not scaled. */
+  --text-xs: 0.84375rem;
+  --text-sm: 0.984375rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.265625rem;
+  --text-xl: 1.40625rem;
+  --text-2xl: 1.6875rem;
+  --text-3xl: 2.109375rem;
+  --text-4xl: 2.53125rem;
+  --text-5xl: 3.375rem;
+  --text-6xl: 4.21875rem;
+  --text-7xl: 5.0625rem;
+
+  /* Reading text gets looser leading than Tailwind's 1.5 default. Only the
+     two sizes used for running copy move; xs stays tight because it is mostly
+     labels and badges, where extra leading just inflates the control. */
+  --text-base--line-height: 1.7;
+  --text-sm--line-height: 1.6;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -306,8 +330,8 @@
 /* Blog prose styles */
 .prose-ramen {
   color: #4A4640;
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 1.125rem;
+  line-height: 1.8;
 }
 .prose-ramen p {
   margin-bottom: 1.25rem;

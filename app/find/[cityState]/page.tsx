@@ -27,6 +27,7 @@ import PhoCityFindPage from '@/components/pho-city-find-page'
 import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
+import { splitLongParagraphs } from '@/lib/split-paragraphs'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -333,7 +334,7 @@ export default async function CityFindPage(
 
             {/* Preserved editorial guide content, if this city has one */}
             {cityGuidePost && (
-              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: cityGuidePost.content }} />
+              <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.content) }} />
             )}
 
             {/* SEO content — first-person, data-driven so each city reads uniquely */}
@@ -494,7 +495,7 @@ export default async function CityFindPage(
             </div>
 
             {cityGuidePost?.outroContent && (
-              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: cityGuidePost.outroContent }} />
+              <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.outroContent) }} />
             )}
 
             <h2 className="font-serif text-xl font-bold text-ink mb-5">

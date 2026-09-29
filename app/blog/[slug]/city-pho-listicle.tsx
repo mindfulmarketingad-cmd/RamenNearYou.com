@@ -10,6 +10,7 @@ import { pickStockPhoto } from '@/lib/stock-photos'
 import { slugifyAuthor } from '@/lib/perfect-for'
 import { buildPhoRestaurantReview, getPhoContextualLinks } from '@/lib/city-listicle-content'
 import type { CityPhoListicle } from '@/lib/city-listicles'
+import { splitLongParagraphList } from '@/lib/split-paragraphs'
 
 const AUTHORS = [
   { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
@@ -145,7 +146,7 @@ export default function CityPhoListicle({ city }: { city: CityPhoListicle }) {
                           </div>
 
                           <div className="space-y-2 text-ink-mid text-sm leading-relaxed">
-                            {review.map((para, j) => <p key={j} dangerouslySetInnerHTML={{ __html: para }} />)}
+                            {splitLongParagraphList(review).map((para, j) => <p key={j} dangerouslySetInnerHTML={{ __html: para }} />)}
                           </div>
 
                           <div className="flex flex-col gap-1 text-xs text-ink-soft/70">

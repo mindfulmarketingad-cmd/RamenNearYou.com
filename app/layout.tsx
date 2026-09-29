@@ -154,7 +154,7 @@ export default function RootLayout({
           src="//scripts.scriptwrapper.com/tags/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71.js"
         ></script>
       </head>
-      <body className="font-sans antialiased bg-surface text-ink">
+      <body className="font-sans text-base antialiased bg-surface text-ink">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
         <AnalyticsTracker />
         <a
