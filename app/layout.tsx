@@ -68,20 +68,13 @@ export default function RootLayout({
         {/* Google Consent Mode defaults.
 
             On ordering: React/Float hoists external `async` scripts (Crazy Egg,
-            Mediavine, Next's own chunks) to the top of the rendered <head> and
-            leaves inline scripts below them, and neither next/script's
-            `beforeInteractive` nor plain source order overrides that — both
-            were measured landing below the Mediavine tag in the built HTML. It
-            still wins in practice, because this block executes while the parser
+            Next's own chunks) to the top of the rendered <head> and leaves
+            inline scripts below them, and neither next/script's
+            `beforeInteractive` nor plain source order overrides that. This
+            block still wins in practice, because it executes while the parser
             is reading the head, whereas the tags above it are network fetches
             that execute on arrival. GA4 and the Ads tag are `afterInteractive`,
             so they are strictly later and never race at all.
-
-            That leaves only Mediavine's own tag as a theoretical race, and it is
-            not one worth contorting the markup over: Mediavine's CMP is the
-            authoritative consent source here and sets its own signal. Don't
-            "fix" the ordering by wrapping Mediavine's tag in this script —
-            support expects the literal tag they issued.
 
             These have to be DENIED in the EEA, the UK and Switzerland. The
             consent signal a CMP produces is an *update* to these defaults, so
@@ -89,12 +82,10 @@ export default function RootLayout({
             never gave and lets tags fire in the window before the CMP has
             even asked.
 
-            Mediavine ships its own certified CMP, and it is now the only one
-            on the site — Google's Funding Choices used to load off the back of
-            the AdSense tag, which is gone. These defaults still matter, and are
-            still Google-shaped: GA4, the Google Ads conversion tag and
-            Mediavine's Google demand partners all read Consent Mode, and
-            Mediavine's CMP is what sends the update that unblocks them.
+            The site currently loads no CMP of its own, so in those regions
+            tags simply stay denied. Whatever CMP is added later is what sends
+            the update that unblocks them; GA4 and the Google Ads conversion
+            tag both read these signals.
 
             Region-scoped so it costs nothing elsewhere: US traffic (almost
             all of this site's) still gets fully personalised ads immediately,
@@ -140,19 +131,6 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18266125976');
         `}</Script>
-        {/* Mediavine. A raw <script> rather than next/script so the tag reaches
-            the browser byte-for-byte as Mediavine specified it — their script
-            auto-injects ad placements and reads its own attributes, and it has
-            to be last in <head>. (data-noptimize / data-cfasync are inert on
-            Vercel; they tell Autoptimize and Cloudflare Rocket Loader to leave
-            the tag alone, and Mediavine asks for them regardless of host.) */}
-        <script
-          type="text/javascript"
-          async={true}
-          data-noptimize="1"
-          data-cfasync="false"
-          src="//scripts.scriptwrapper.com/tags/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71.js"
-        ></script>
       </head>
       <body className="font-sans text-base antialiased bg-surface text-ink">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
