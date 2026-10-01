@@ -150,8 +150,10 @@ export const MOOD_MATCH: Record<string, (r: Restaurant) => boolean> = {
 }
 
 export async function computeMapData(): Promise<MapPoint[]> {
-  const featuredSlugs = await getAllFeaturedSlugs()
-  const verifiedSlugs = await getAllVerifiedSlugs()
+  // Fresh reads: this payload is purged on demand when a claim or featured
+  // listing changes, so the regeneration must see the change, not a cache.
+  const featuredSlugs = await getAllFeaturedSlugs({ fresh: true })
+  const verifiedSlugs = await getAllVerifiedSlugs({ fresh: true })
   const dbPoints = restaurants
     .filter(r => r.latitude && r.longitude)
     .map(r => {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { restaurants as ALL } from '@/lib/restaurants'
+import { revalidateRestaurantClaim } from '@/lib/revalidate'
 
 async function getAdminUser() {
   const supabase = await createServerClient()
@@ -79,6 +80,10 @@ export async function POST(request: Request) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  // A manual registration is an approved claim, so it flips Verified exactly
+  // like an approval does — and this path used to purge nothing.
+  revalidateRestaurantClaim(restaurant)
 
   return NextResponse.json({ ok: true, action: 'inserted', id: data.id })
 }

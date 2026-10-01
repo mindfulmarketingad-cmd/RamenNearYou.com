@@ -34,7 +34,12 @@ interface Props {
 const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
 
 export const dynamicParams = true
-export const revalidate = 86400
+// A month. The only database input here is the restaurant's claim, so Verified
+// state is the one thing that can change — and every claim write purges this
+// exact page (revalidateRestaurantClaim in lib/revalidate.ts). The reviews
+// themselves are generated from the dataset, so they change only on deploy.
+// The timer is a backstop for a failed purge, not the delivery mechanism.
+export const revalidate = 2592000
 
 export async function generateStaticParams() {
   // Pre-render only the most-reviewed pages; the long tail builds on demand.

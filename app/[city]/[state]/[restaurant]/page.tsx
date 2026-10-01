@@ -35,15 +35,18 @@ export const dynamicParams = true
 // through the cookie-free admin client — so pages render once and cache at the
 // CDN.
 //
-// The window is a DAY, not an hour. At ~12k listings an hourly window is up to
-// 12k ISR cache writes an hour just to re-render pages whose inputs didn't
-// change; the underlying data (owner overrides, claim/verified status) changes
-// a handful of times a week. The two mutations that actually need to show up
-// immediately already call revalidatePath() for the exact listing —
-// app/api/admin/claims/[id] on claim approval and app/api/admin/listing-edits/[id]
-// on an approved edit — so the timer is only a backstop, and freshness where it
-// matters does not depend on it.
-export const revalidate = 86400
+// The window is a WEEK. Every input that can change has an exact-page purge in
+// lib/revalidate.ts: owner edits (admin/listing-edits), Verified state
+// (admin/claims, both routes) and owner-submitted listings (admin/listings).
+// So the timer is only a backstop for a purge that fails — and failures are
+// logged — not how changes reach visitors.
+//
+// The one input with no purge is the "views in the last 30 days" count shown to
+// unclaimed listings. It is a rolling 30-day total, so a number up to a week
+// old differs from the live one by the gap between the newest and oldest week
+// in the window: negligible for steady traffic, a mild understatement for
+// growing traffic.
+export const revalidate = 604800
 
 export async function generateStaticParams() {
   // Every restaurant (DB or Places-supplement) renders on demand via

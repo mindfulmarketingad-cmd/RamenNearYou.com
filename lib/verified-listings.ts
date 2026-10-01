@@ -16,8 +16,9 @@ const verifiedFallbackSlugs = new Set<string>(['ikedo-ramen', 'momonoki'])
 const CACHE_TTL_MS = 5 * 60 * 1000
 let _cache: { slugs: Set<string>; expiresAt: number } | null = null
 
-export async function getAllVerifiedSlugs(): Promise<Set<string>> {
-  if (_cache && _cache.expiresAt > Date.now()) return _cache.slugs
+/** `fresh` skips the in-process cache — see getAllFeaturedSlugs for why. */
+export async function getAllVerifiedSlugs(opts: { fresh?: boolean } = {}): Promise<Set<string>> {
+  if (!opts.fresh && _cache && _cache.expiresAt > Date.now()) return _cache.slugs
 
   const slugs = new Set<string>(verifiedFallbackSlugs)
   const admin = createAdminClient()
