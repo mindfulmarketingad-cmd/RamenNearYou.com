@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { upsertGhlContact } from '@/lib/gohighlevel'
-import { getRestaurantBySlug } from '@/lib/restaurants'
-import { revalidateRestaurantClaim } from '@/lib/revalidate'
 
 // Tag added when a claim is approved. Matches the pre-built "Claim Request
 // Approved" system workflow's "Wait until contact has 'business' tag" gate,
@@ -45,13 +43,9 @@ export async function PATCH(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Verified state changed: purge exactly the pages that show it (see
-  // lib/revalidate.ts). The listing and review pages sit behind long revalidate
-  // windows, so this call — not the timer — is what makes an approval visible.
-  if (claim?.restaurant_slug) {
-    const restaurant = getRestaurantBySlug(claim.restaurant_slug)
-    if (restaurant) revalidateRestaurantClaim(restaurant)
-  }
+  // No cache purge: public pages are generated only at build time, so a
+  // claim's Verified badge, ad removal and gold map pin appear on the next
+  // deploy.
 
   // On approval, push the claimant to GoHighLevel tagged "business" — this is
   // what kicks off the Premium Upgrade Offer sequence on the GHL side.

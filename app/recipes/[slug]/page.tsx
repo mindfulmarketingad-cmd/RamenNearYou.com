@@ -25,6 +25,10 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+// Build-only: every valid page is in generateStaticParams, so anything else
+// is a 404 rather than an on-demand render.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return RECIPES.map((r) => ({ slug: r.slug }))
 }

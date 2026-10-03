@@ -1,15 +1,17 @@
 import { notFound } from 'next/navigation'
-import { getRestaurant, getRestaurantsByCity, type Restaurant } from '@/lib/restaurants'
+import { getRestaurant, getRestaurantsByCity, restaurants, type Restaurant } from '@/lib/restaurants'
 import {
   findSupplementListing,
   getSupplementListings,
+  getSupplementListingParams,
   getSupplementStateName,
   supplementToRestaurant,
 } from '@/lib/places-supplements'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 import RestaurantListingPage from '@/components/restaurant-listing-page'
 import { createAdminClient } from '@/lib/supabase-admin'
-import { getApprovedListing, approvedListingToRestaurant } from '@/lib/approved-listings'
+import { getApprovedListing, getAllApprovedListings, approvedListingToRestaurant } from '@/lib/approved-listings'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import CityFilterPage from '@/components/city-filter-page'
 import { getListingMonthlyViews } from '@/lib/listing-stats'
 import {
@@ -17,6 +19,7 @@ import {
   getMajorCity,
   getFilterRestaurants,
   getCityFilterStaticParams,
+  MIN_FILTER_MATCHES,
   filterTitle,
   filterDescription,
 } from '@/lib/city-filter-pages'
@@ -25,33 +28,64 @@ import {
 // claims flow, so the badge/ad-removal don't depend on that lookup at all.
 const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
 
-export const dynamicParams = true
-// ISR: these ~12k listing pages are the site's most important SEO surface,
-// and they used to be force-dynamic (every visit paid a full server render
-// plus 2-3 Supabase round-trips) because the render path read cookies for
-// per-visitor owner status. That per-visitor state now resolves client-side
-// (/api/owner/listing-status via useOwnerStatus), and the remaining Supabase
-// reads (owner overrides, claim/verified status) are per-restaurant and go
-// through the cookie-free admin client — so pages render once and cache at the
-// CDN.
+// Build-only. Every listing page is generated during `next build` and served
+// as a static file until the next deploy: no revalidate window, no on-demand
+// purges, and dynamicParams = false so a URL that wasn't built is a plain 404
+// rather than a render. That means owner edits, claim approvals and approved
+// owner-submitted listings all go live on the next deploy.
 //
-// The window is a WEEK. Every input that can change has an exact-page purge in
-// lib/revalidate.ts: owner edits (admin/listing-edits), Verified state
-// (admin/claims, both routes) and owner-submitted listings (admin/listings).
-// So the timer is only a backstop for a purge that fails — and failures are
-// logged — not how changes reach visitors.
-//
-// The one input with no purge is the "views in the last 30 days" count shown to
-// unclaimed listings. It is a rolling 30-day total, so a number up to a week
-// old differs from the live one by the gap between the newest and oldest week
-// in the window: negligible for steady traffic, a mild understatement for
-// growing traffic.
-export const revalidate = 604800
+// The build list below must cover exactly what the page accepts — anything it
+// misses is now a 404 rather than a render — so it walks the same four sources
+// in the same order as the page: city x filter pages, dataset restaurants,
+// Places supplement listings, then approved owner-submitted listings.
+export const dynamicParams = false
 
 export async function generateStaticParams() {
-  // Every restaurant (DB or Places-supplement) renders on demand via
-  // dynamicParams — only the city × filter pages are pre-rendered here.
-  return getCityFilterStaticParams()
+  const seen = new Set<string>()
+  const params: Array<{ city: string; state: string; restaurant: string }> = []
+  const add = (city: string, state: string, restaurant: string) => {
+    const key = `${city}/${state}/${restaurant}`
+    if (seen.has(key)) return
+    seen.add(key)
+    params.push({ city, state, restaurant })
+  }
+
+  for (const p of getCityFilterStaticParams()) add(p.city, p.state, p.restaurant)
+  for (const r of restaurants) add(r.citySlug, r.stateSlug, r.slug)
+  for (const p of getSupplementListingParams()) add(p.city, p.state, p.restaurant)
+  for (const row of await getAllApprovedListings()) {
+    const r = approvedListingToRestaurant(row)
+    add(r.citySlug, r.stateSlug, r.slug)
+  }
+  return params
+}
+
+// Owner overrides, loaded once per build worker rather than once per page —
+// with every listing built at deploy time, a per-page query would be ~8k
+// round trips per build for a table that holds a handful of rows.
+type OverrideRow = {
+  restaurant_slug: string
+  description: string | null
+  phone: string | null
+  website: string | null
+  menu_link: string | null
+  hours: Record<string, string[]> | null
+}
+let _overrides: Promise<Map<string, OverrideRow>> | null = null
+function getOverrides(): Promise<Map<string, OverrideRow>> {
+  _overrides ??= (async () => {
+    const admin = createAdminClient()
+    if (!admin) return new Map()
+    const { data, error } = await admin
+      .from('restaurant_overrides')
+      .select('restaurant_slug, description, phone, website, menu_link, hours')
+    if (error || !data) {
+      console.error('[listing page] overrides query failed, building without them:', error?.message)
+      return new Map()
+    }
+    return new Map((data as OverrideRow[]).map((row) => [row.restaurant_slug, row]))
+  })()
+  return _overrides
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
@@ -62,7 +96,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const cityInfo = spec ? getMajorCity(city, state) : null
   if (spec && cityInfo) {
     const matches = getFilterRestaurants(city, state, spec)
-    if (matches.length > 0) {
+    if (matches.length >= MIN_FILTER_MATCHES) {
       const url = `https://www.ramennearyou.com/${city}/${state}/${restaurant}`
       const title = filterTitle(spec, cityInfo.city, cityInfo.stateCode)
       const description = filterDescription(spec, cityInfo.city, cityInfo.stateCode, matches.length)
@@ -151,7 +185,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   const cityInfo = spec ? getMajorCity(city, state) : null
   if (spec && cityInfo) {
     const matches = getFilterRestaurants(city, state, spec)
-    if (matches.length > 0) {
+    // Same bar as the build list and every place these pages are linked.
+    if (matches.length >= MIN_FILTER_MATCHES) {
       return <CityFilterPage spec={spec} cityInfo={cityInfo} restaurants={matches} />
     }
     notFound()
@@ -198,18 +233,12 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   }
   const r2 = { ...dbr } as Restaurant
 
-  // Per-restaurant Supabase reads go through the admin client (no cookies),
-  // which is what lets this page stay statically cached. Per-visitor owner
-  // status is resolved client-side instead.
-  const admin = createAdminClient()
+  // Per-visitor owner status is resolved client-side, so nothing here reads
+  // cookies and the page can be built once for everyone.
 
   // Apply owner-submitted overrides.
-  if (admin) {
-    const { data: ov } = await admin
-      .from('restaurant_overrides')
-      .select('description, phone, website, menu_link, hours')
-      .eq('restaurant_slug', r2.slug)
-      .maybeSingle()
+  {
+    const ov = (await getOverrides()).get(r2.slug)
     if (ov) {
       if (ov.description?.trim()) r2.description = ov.description
       if (ov.phone?.trim())       r2.phone       = ov.phone
@@ -224,27 +253,10 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 6)
 
-  // Claim/verification status — per-restaurant, so it caches with the page.
-  // .limit(1) before .maybeSingle() guards against silently failing (data
-  // null, no thrown error surfaced here) if more than one approved claim
-  // row ever exists for the same slug — .maybeSingle() alone errors out
-  // when a query returns more than one row.
-  //
-  // MANUALLY_VERIFIED_SLUGS is a hand-placed override for listings confirmed
-  // claimed outside the DB-driven flow (mirrors the fallback pattern already
-  // used for featured/verified-map-pin slugs) — bypasses the claims lookup
-  // entirely so it can't be affected by caching or query issues.
-  let isVerified = MANUALLY_VERIFIED_SLUGS.has(r2.slug)
-  if (!isVerified && admin) {
-    const { data: claim } = await admin
-      .from('claims')
-      .select('id')
-      .eq('restaurant_slug', r2.slug)
-      .eq('status', 'approved')
-      .limit(1)
-      .maybeSingle()
-    isVerified = !!claim
-  }
+  // Claim/verification status, from the build-wide approved-claims set (one
+  // query per worker). MANUALLY_VERIFIED_SLUGS covers listings confirmed
+  // claimed outside the DB flow.
+  const isVerified = MANUALLY_VERIFIED_SLUGS.has(r2.slug) || (await getAllVerifiedSlugs()).has(r2.slug)
 
   return (
     <RestaurantListingPage

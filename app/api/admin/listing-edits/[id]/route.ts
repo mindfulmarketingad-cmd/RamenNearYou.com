@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
-import { revalidateRestaurantContent } from '@/lib/revalidate'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase-admin'
-import { restaurants as ALL } from '@/lib/restaurants'
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -54,10 +52,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
       if (upsertErr) return NextResponse.json({ error: upsertErr.message }, { status: 500 })
 
-      const base = ALL.find(r => r.slug === restaurant_slug)
-      // Overrides only render on the listing page. Photo and review-response
-      // approvals below are read client-side, so they need no purge.
-      if (base) revalidateRestaurantContent(base)
+      // No cache purge: listing pages are generated only at build time, so
+      // the approved edit appears on the next deploy.
     }
 
     if (type === 'photo') {

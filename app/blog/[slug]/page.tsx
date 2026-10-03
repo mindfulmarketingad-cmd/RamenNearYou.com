@@ -24,8 +24,16 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+// Build-only: every valid page is in generateStaticParams, so anything else
+// is a 404 rather than an on-demand render.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return [
+    // Retired city guides that permanent-redirect to their /find page. They
+    // have to be built too: with dynamicParams off, an unbuilt slug is a 404,
+    // and these are old URLs with inbound links that should keep their 308.
+    ...Object.keys(CITY_GUIDE_REDIRECTS).map((slug) => ({ slug })),
     ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
     ...getCityListicleParams().map((slug) => ({ slug })),
     ...getCityPhoListicleParams().map((slug) => ({ slug })),

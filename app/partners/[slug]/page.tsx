@@ -20,6 +20,10 @@ import { createAdminClient } from '@/lib/supabase-admin'
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const SITE = 'https://www.ramennearyou.com'
 
+// Build-only: every valid page is in generateStaticParams, so anything else
+// is a 404 rather than an on-demand render.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return [...getAllPhoSlugs(), ...getAllMiscPartnerSlugs()].map(slug => ({ slug }))
 }

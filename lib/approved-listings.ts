@@ -52,22 +52,37 @@ function stateToCode(state: string): string {
   return code
 }
 
+// One query per build worker, shared by generateStaticParams and every page
+// render — listing pages are generated only at build time, so the set can't
+// change mid-build and there is nothing to gain from re-reading it per page.
+let _approved: Promise<ApprovedListingRow[]> | null = null
+
+/** Every approved owner-submitted listing that has the fields a URL needs. */
+export function getAllApprovedListings(): Promise<ApprovedListingRow[]> {
+  _approved ??= (async () => {
+    const admin = createAdminClient()
+    if (!admin) return []
+    const { data, error } = await admin
+      .from('listings')
+      .select('id, name, address, city, state, zip, phone, website, description')
+      .eq('status', 'approved')
+    if (error || !data) {
+      // At build time this drops every owner-submitted page from the deploy,
+      // so make it loud in the build log rather than silent.
+      console.error('[approved-listings] query failed, building without them:', error?.message)
+      return []
+    }
+    return (data as ApprovedListingRow[]).filter((row) => row.name && row.city && row.state)
+  })()
+  return _approved
+}
+
 export async function getApprovedListing(
   citySlug: string,
   stateSlug: string,
   slug: string
 ): Promise<ApprovedListingRow | null> {
-  const admin = createAdminClient()
-  if (!admin) return null
-
-  const { data, error } = await admin
-    .from('listings')
-    .select('id, name, address, city, state, zip, phone, website, description')
-    .eq('status', 'approved')
-  if (error || !data) return null
-
-  for (const row of data as ApprovedListingRow[]) {
-    if (!row.name || !row.city || !row.state) continue
+  for (const row of await getAllApprovedListings()) {
     if (slugifyListing(row.name) !== slug) continue
     if (slugifyListing(row.city) !== citySlug) continue
     if (stateToSlug(row.state) !== stateSlug) continue

@@ -23,14 +23,8 @@ export function getFeaturedSlugsForCity(citySlug: string, stateSlug: string): st
 const CACHE_TTL_MS = 5 * 60 * 1000
 let _cache: { slugs: Set<string>; expiresAt: number } | null = null
 
-/**
- * `fresh` skips the in-process cache. The static map payload passes it: that
- * route only regenerates when something purges it, and has no time-based
- * fallback, so serving it a cached set from just before the change that
- * triggered the purge would bake the old answer in until the next purge.
- */
-export async function getAllFeaturedSlugs(opts: { fresh?: boolean } = {}): Promise<Set<string>> {
-  if (!opts.fresh && _cache && _cache.expiresAt > Date.now()) return _cache.slugs
+export async function getAllFeaturedSlugs(): Promise<Set<string>> {
+  if (_cache && _cache.expiresAt > Date.now()) return _cache.slugs
 
   const slugs = new Set(Object.values(featuredCityListings).flat())
 

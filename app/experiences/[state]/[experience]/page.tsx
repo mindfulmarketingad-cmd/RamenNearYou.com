@@ -27,12 +27,12 @@ interface Props {
 // (lib/viator-experiences.json is refreshed by the nightly sync workflow, which
 // commits it and therefore triggers that deploy.)
 export const revalidate = false
-// dynamicParams must stay true. With it false, an unknown state (say
-// /experiences/wyoming, which has no ramen experiences) doesn't match this
-// route at all and falls through to the /[city]/[state] catch-all, which
-// permanent-redirects to /find/experiences-wy — a 308 to a 404. Matching here
-// and calling notFound() gives a clean 404 instead.
-export const dynamicParams = true
+// Build-only: every state and experience with data is in generateStaticParams,
+// so anything else is a 404 rather than an on-demand render. (This used to be
+// true because an unknown state fell through to the /[city]/[state] catch-all
+// and got a 308 to a dead /find URL; that route is now dynamicParams = false
+// too, so the fallthrough ends in a 404. Checked after the build.)
+export const dynamicParams = false
 
 export async function generateStaticParams() {
   return allExperienceParams()

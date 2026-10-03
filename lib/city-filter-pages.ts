@@ -208,7 +208,7 @@ const ALL_FILTER_SLUGS: string[] = [
 ]
 
 // Minimum matches required to pre-render a page (avoids thin/empty pages).
-const MIN_FILTER_MATCHES = 2
+export const MIN_FILTER_MATCHES = 2
 
 export function getCityFilterStaticParams(): Array<{ city: string; state: string; restaurant: string }> {
   const params: Array<{ city: string; state: string; restaurant: string }> = []

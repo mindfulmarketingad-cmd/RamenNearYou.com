@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ChevronRight, Star, ExternalLink, MapPin, QrCode, Check, X, Image as ImageIcon } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { createAdminClient } from '@/lib/supabase-admin'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import {
   getRestaurantByReviewSlug,
   getReviewSlug,
@@ -33,17 +33,15 @@ interface Props {
 // claims flow, so the badge/ad-removal don't depend on that lookup at all.
 const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
 
-export const dynamicParams = true
-// A month. The only database input here is the restaurant's claim, so Verified
-// state is the one thing that can change — and every claim write purges this
-// exact page (revalidateRestaurantClaim in lib/revalidate.ts). The reviews
-// themselves are generated from the dataset, so they change only on deploy.
-// The timer is a backstop for a failed purge, not the delivery mechanism.
-export const revalidate = 2592000
+// Build-only: every review page is generated during `next build` and served
+// as a static file until the next deploy. No revalidate window, and
+// dynamicParams = false so a slug that wasn't built is a 404, not a render.
+// The only database input is the restaurant's claim, so a newly approved
+// claim's Verified badge appears on the next deploy.
+export const dynamicParams = false
 
 export async function generateStaticParams() {
-  // Pre-render only the most-reviewed pages; the long tail builds on demand.
-  return getReviewRestaurants().slice(0, 50).map((r) => ({ restaurant: getReviewSlug(r) }))
+  return getReviewRestaurants().map((r) => ({ restaurant: getReviewSlug(r) }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -114,21 +112,10 @@ export default async function RestaurantReviewsPage({ params }: Props) {
   const { paragraph: summaryParagraph, pros, cons } = generateReviewSummary(r, reviews)
   const rowCount = Math.max(pros.length, cons.length)
 
-  // Claim/verification status — per-restaurant (admin client, no cookies),
-  // so it caches with the page. Whether the current visitor OWNS the claim
-  // is resolved client-side in OwnerCtaCard.
-  let isVerified = MANUALLY_VERIFIED_SLUGS.has(r.slug)
-  const admin = createAdminClient()
-  if (!isVerified && admin) {
-    const { data: claim } = await admin
-      .from('claims')
-      .select('id')
-      .eq('restaurant_slug', r.slug)
-      .eq('status', 'approved')
-      .limit(1)
-      .maybeSingle()
-    isVerified = !!claim
-  }
+  // Claim/verification status, from the build-wide approved-claims set (one
+  // query per build worker, not one per page). Whether the current visitor
+  // OWNS the claim is resolved client-side in OwnerCtaCard.
+  const isVerified = MANUALLY_VERIFIED_SLUGS.has(r.slug) || (await getAllVerifiedSlugs()).has(r.slug)
 
   const reviewSchema = {
     '@context': 'https://schema.org',

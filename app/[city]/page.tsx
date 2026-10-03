@@ -16,6 +16,10 @@ import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
+// Build-only: every valid page is in generateStaticParams, so anything else
+// is a 404 rather than an on-demand render.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const dbStates = getStates()
   const dbStateSlugs = new Set(dbStates.map(s => s.stateSlug))

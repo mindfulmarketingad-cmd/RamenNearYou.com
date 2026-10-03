@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { revalidateRamenMap } from '@/lib/revalidate'
 import Stripe from 'stripe'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { applyContributionReward } from '@/lib/rewards'
@@ -82,9 +81,8 @@ export async function POST(request: Request) {
         })
         .eq('id', listing_id)
       // The gold pin/featured badge reads from this table (see
-      // lib/featured-city.ts). The map payload has no time-based refresh at
-      // all, so this purge is the only thing that puts a new subscriber on it.
-      revalidateRamenMap('featured listing activated')
+      // lib/featured-city.ts). The map data is generated at build time only,
+      // so the new subscriber's pin appears on the next deploy.
     } else if (restaurantSlug) {
       await admin
         .from('claim_subscriptions')
@@ -155,7 +153,6 @@ export async function POST(request: Request) {
         .from('featured_listings')
         .update({ status: 'cancelled', updated_at: new Date().toISOString() })
         .eq('id', sub.metadata.listing_id)
-      revalidateRamenMap('featured listing cancelled')
     } else {
       await admin
         .from('claim_subscriptions')

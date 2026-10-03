@@ -73,10 +73,10 @@ export function findSupplementListing(citySlug: string, stateSlug: string, slug:
   return getSupplementListings(citySlug, stateCode).find(l => l.slug === slug) ?? null
 }
 
-// All supplement listing params (city/state/restaurant) for static generation.
-// Capped by review count to bound build time; the rest render on demand
-// because the detail route sets `dynamicParams = true`.
-export function getSupplementListingParams(limit = 6000): Array<{ city: string; state: string; restaurant: string }> {
+// Supplement listing params (city/state/restaurant), most-reviewed first. The
+// listing route builds all of them (it passes Infinity) because it is
+// build-only — dynamicParams = false — so anything left out would 404.
+export function getSupplementListingParams(limit = Infinity): Array<{ city: string; state: string; restaurant: string }> {
   const all: Array<{ city: string; state: string; restaurant: string; reviews: number }> = []
   for (const key of Object.keys(supplements)) {
     const parsed = parseSupplementKey(key)

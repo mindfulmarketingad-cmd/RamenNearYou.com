@@ -1,8 +1,10 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { Crown, Check, ArrowUpRight, BarChart3 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BillboardDiagram from '@/components/billboard-diagram'
+import { CheckoutCancelledNotice } from '@/components/search-param-notice'
 import {
   BILLBOARD_SLOTS,
   BILLBOARD_PRICE,
@@ -25,13 +27,7 @@ const INCLUDED = [
   'Your slot stays live for as long as your subscription does',
 ]
 
-export default async function FeaturedListingPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ cancelled?: string }>
-}) {
-  const { cancelled } = await searchParams
-
+export default function FeaturedListingPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
@@ -96,12 +92,9 @@ export default async function FeaturedListingPage({
           </span>
         </Link>
 
-        {cancelled === '1' && (
-          <div className="mb-8 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm text-center">
-            Checkout was cancelled — nothing was charged. Pick it back up
-            whenever you&apos;re ready.
-          </div>
-        )}
+        <Suspense>
+          <CheckoutCancelledNotice />
+        </Suspense>
 
         {/* The one and only paywall on this page. */}
         <div className="rounded-2xl border-2 border-amber-400/60 overflow-hidden bg-sunken">

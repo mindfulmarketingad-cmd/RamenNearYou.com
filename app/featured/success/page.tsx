@@ -1,19 +1,15 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { Crown, CheckCircle2 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { ListingIdNotice } from '@/components/search-param-notice'
 
 export const metadata = {
   title: 'Featured Listing Confirmed | Ramen Near You',
 }
 
-export default async function FeaturedSuccessPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ listing_id?: string }>
-}) {
-  const { listing_id } = await searchParams
-
+export default function FeaturedSuccessPage() {
   return (
     <main className="min-h-screen bg-surface">
       <Navbar />
@@ -32,9 +28,9 @@ export default async function FeaturedSuccessPage({
           Your listing is now live on the Ramen Near You homepage. Thousands of ramen lovers will discover your restaurant every month.
         </p>
 
-        {listing_id && (
-          <p className="text-ink/30 text-xs mb-8">Listing ID: {listing_id}</p>
-        )}
+        <Suspense>
+          <ListingIdNotice />
+        </Suspense>
 
         <div className="space-y-3">
           <Link
