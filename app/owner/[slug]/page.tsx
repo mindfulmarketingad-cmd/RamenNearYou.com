@@ -52,22 +52,22 @@ export default async function OwnerEditPage({ params }: { params: Promise<{ slug
   }
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-28 pb-20">
-        <Link href="/owner" className="inline-flex items-center gap-1 text-[#6B6862] hover:text-[#1E2026] text-sm mb-4 transition-colors">
+        <Link href="/owner" className="inline-flex items-center gap-1 text-ink-soft hover:text-ink text-sm mb-4 transition-colors">
           <ChevronLeft className="w-4 h-4" /> Back to dashboard
         </Link>
 
         <div className="flex items-center gap-2 flex-wrap mb-2">
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">{base.name}</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink">{base.name}</h1>
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/40 text-sky-400 text-xs font-semibold">
             <BadgeCheck className="w-3 h-3" /> Verified
           </span>
         </div>
-        <p className="text-[#6B6862] text-sm mb-6">{base.address}</p>
-        <p className="text-[#6B6862] text-sm mb-8 leading-relaxed">
-          Edit the content shown on your listing. Changes go live immediately. Our team is notified of every edit for quality control.
+        <p className="text-ink-soft text-sm mb-6">{base.address}</p>
+        <p className="text-ink-soft text-sm mb-8 leading-relaxed">
+          Edit the content shown on your listing. Changes are reviewed by our team before going live, usually within 24 hours.
         </p>
 
         <OwnerEditForm slug={base.slug} restaurantName={base.name} initial={initial} />

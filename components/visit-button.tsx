@@ -31,7 +31,7 @@ export default function VisitButton({ slug, restaurantName, initialCount = 0 }: 
       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 text-sm font-medium disabled:opacity-60 ${
         visited
           ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/25'
-          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-black/15 hover:text-[#1E2026]'
+          : 'bg-black/5 border-line/8 text-ink-soft hover:border-line/15 hover:text-ink'
       }`}
     >
       {visited ? <CheckCircle2 className="w-4 h-4 fill-emerald-400/20" /> : <Circle className="w-4 h-4" />}

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/apply-monthly-credit",
+      "schedule": "0 8 1 * *"
+    }
+  ]
+}

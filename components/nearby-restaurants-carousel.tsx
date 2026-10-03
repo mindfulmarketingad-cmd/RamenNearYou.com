@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Star, ChevronLeft, ChevronRight, MapPin, Loader2 } from 'lucide-react'
 import CardSaveButton from '@/components/card-save-button'
+import RestaurantImage from '@/components/restaurant-image'
 
 interface NearbyRestaurant {
   slug: string
@@ -24,15 +25,15 @@ interface NearbyRestaurant {
 
 // Broth detection + badge config
 const BROTH_KEYWORDS: { label: string; terms: string[]; color: string; tooltip: string }[] = [
-  { label: 'Tonkotsu', terms: ['tonkotsu','pork bone broth','hakata ramen','hakata style','jinya ramen','tatsu-ya','tatsuya ramen','ramen tatsu'], color: 'bg-amber-100 text-amber-800 border-amber-200', tooltip: 'Tonkotsu: Rich, creamy pork bone broth simmered for hours' },
-  { label: 'Tsukemen', terms: ['tsukemen','dipping ramen','dipping noodle','okiboru'], color: 'bg-indigo-100 text-indigo-800 border-indigo-200', tooltip: 'Tsukemen: Dipping-style ramen — noodles served separately from the broth' },
-  { label: 'Miso', terms: ['miso ramen','miso broth','miso soup','miso base','moonlight miso','sapporo ramen','sapporo style','red miso','white miso','miso tare'], color: 'bg-orange-100 text-orange-800 border-orange-200', tooltip: 'Miso: Bold, fermented soybean paste broth — classic Hokkaido style' },
-  { label: 'Shoyu', terms: ['shoyu','soy sauce broth','soy broth','tokyo ramen','tokyo style','tokyo-style','shoyu tare','soy-based'], color: 'bg-yellow-100 text-yellow-800 border-yellow-200', tooltip: 'Shoyu: Clear, soy sauce-seasoned broth — the original Tokyo ramen' },
-  { label: 'Shio', terms: ['shio','salt broth','shio tare','salt-based ramen','clear broth ramen','shio ramen'], color: 'bg-sky-100 text-sky-800 border-sky-200', tooltip: 'Shio: Light, delicate salt-based broth — the simplest, most refined style' },
-  { label: 'Chicken', terms: ['tori paitan','chicken broth','chicken ramen','chicken-based','tori ramen','paitan','kin notori','kin no tori','chicken bone broth','poultry broth'], color: 'bg-lime-100 text-lime-800 border-lime-200', tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
+  { label: 'Tonkotsu', terms: ['tonkotsu','pork bone broth','hakata ramen','hakata style','jinya ramen','tatsu-ya','tatsuya ramen','ramen tatsu'], color: 'bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30', tooltip: 'Tonkotsu: Rich, creamy pork bone broth simmered for hours' },
+  { label: 'Tsukemen', terms: ['tsukemen','dipping ramen','dipping noodle','okiboru'], color: 'bg-indigo-100 dark:bg-indigo-500/15 text-indigo-800 dark:text-indigo-300 border-indigo-200 dark:border-indigo-500/30', tooltip: 'Tsukemen: Dipping-style ramen — noodles served separately from the broth' },
+  { label: 'Miso', terms: ['miso ramen','miso broth','miso soup','miso base','moonlight miso','sapporo ramen','sapporo style','red miso','white miso','miso tare'], color: 'bg-orange-100 dark:bg-orange-500/15 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-500/30', tooltip: 'Miso: Bold, fermented soybean paste broth — classic Hokkaido style' },
+  { label: 'Shoyu', terms: ['shoyu','soy sauce broth','soy broth','tokyo ramen','tokyo style','tokyo-style','shoyu tare','soy-based'], color: 'bg-yellow-100 dark:bg-yellow-500/15 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-500/30', tooltip: 'Shoyu: Clear, soy sauce-seasoned broth — the original Tokyo ramen' },
+  { label: 'Shio', terms: ['shio','salt broth','shio tare','salt-based ramen','clear broth ramen','shio ramen'], color: 'bg-sky-100 dark:bg-sky-500/15 text-sky-800 dark:text-sky-300 border-sky-200 dark:border-sky-500/30', tooltip: 'Shio: Light, delicate salt-based broth — the simplest, most refined style' },
+  { label: 'Chicken', terms: ['tori paitan','chicken broth','chicken ramen','chicken-based','tori ramen','paitan','kin notori','kin no tori','chicken bone broth','poultry broth'], color: 'bg-lime-100 dark:bg-lime-500/15 text-lime-800 dark:text-lime-300 border-lime-200 dark:border-lime-500/30', tooltip: 'Tori Paitan: Creamy chicken bone broth — lighter than pork, equally rich' },
 ]
 
-const RAMEN_FALLBACK = { label: 'Ramen', color: 'bg-[#B57F50]/10 text-[#B57F50] border-[#B57F50]/30', tooltip: 'Ramen restaurant — bowl style varies by location' }
+const RAMEN_FALLBACK = { label: 'Ramen', color: 'bg-brand/10 text-brand-ink border-brand/30', tooltip: 'Ramen restaurant — bowl style varies by location' }
 
 function detectBroth(r: NearbyRestaurant): { label: string; color: string; tooltip: string } {
   const name = r.name.toLowerCase()
@@ -56,31 +57,25 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
   return (
     <Link
       href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-      className="group flex-shrink-0 w-[280px] sm:w-[300px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
+      className="group flex-shrink-0 w-[280px] sm:w-[300px] bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
     >
       {/* Photo */}
-      <div className="relative w-full h-44 bg-[#F5F4F0] overflow-hidden">
-        {r.photo ? (
-          <Image
-            src={r.photo}
-            alt={r.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="300px"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <MapPin className="w-8 h-8 text-[#B57F50]/30" />
-          </div>
-        )}
+      <div className="relative w-full h-44 bg-sunken overflow-hidden">
+        <RestaurantImage
+          src={r.photo}
+          alt={r.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="300px"
+        />
         {/* Distance badge */}
-        <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#1E2026] shadow-sm">
+        <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-surface/90 backdrop-blur-sm text-[10px] font-semibold text-ink shadow-sm">
           {r.distanceMiles < 1 ? 'Under 1 mi' : `${r.distanceMiles.toFixed(1)} mi`}
         </div>
         {/* Save button */}
         <CardSaveButton slug={r.slug} restaurantName={r.name} />
         {r.priceRange && (
-          <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-[#6B6862] shadow-sm">
+          <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-surface/90 backdrop-blur-sm text-[10px] font-semibold text-ink-soft shadow-sm">
             {r.priceRange}
           </div>
         )}
@@ -88,11 +83,11 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
 
       {/* Content */}
       <div className="p-4">
-        <p className="font-semibold text-[#1E2026] text-sm leading-snug group-hover:text-[#B57F50] transition-colors line-clamp-1 mb-1">
+        <p className="font-semibold text-ink text-sm leading-snug group-hover:text-brand-ink transition-colors line-clamp-1 mb-1">
           {r.name}
         </p>
         <div className="flex items-center gap-2 mb-2">
-          <p className="text-[#9B9490] text-xs">{r.city}, {r.stateCode}</p>
+          <p className="text-ink-soft text-xs">{r.city}, {r.stateCode}</p>
         </div>
 
         {r.rating && (
@@ -104,18 +99,18 @@ function RestaurantCard({ r }: { r: NearbyRestaurant }) {
                   className={`w-3 h-3 ${
                     i <= Math.round(r.rating!)
                       ? 'text-amber-400 fill-amber-400'
-                      : 'text-[#1E2026]/15'
+                      : 'text-ink/15'
                   }`}
                 />
               ))}
             </div>
-            <span className="text-[#1E2026] text-xs font-semibold">{r.rating.toFixed(1)}</span>
-            <span className="text-[#9B9490] text-xs">({r.reviewCount.toLocaleString()})</span>
+            <span className="text-ink text-xs font-semibold">{r.rating.toFixed(1)}</span>
+            <span className="text-ink-soft text-xs">({(r.reviewCount ?? 0).toLocaleString()})</span>
           </div>
         )}
 
         {r.description && (
-          <p className="text-[#6B6862] text-xs leading-relaxed line-clamp-2">{r.description}</p>
+          <p className="text-ink-soft text-xs leading-relaxed line-clamp-2">{r.description}</p>
         )}
       </div>
     </Link>
@@ -207,8 +202,8 @@ export default function NearbyRestaurantsCarousel() {
 
   if (status === 'loading') {
     return (
-      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]">
-        <div className="max-w-7xl mx-auto flex items-center gap-2 text-[#9B9490] text-sm">
+      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-sunken">
+        <div className="max-w-7xl mx-auto flex items-center gap-2 text-ink-soft text-sm">
           <Loader2 className="w-4 h-4 animate-spin" />
           Finding ramen near you…
         </div>
@@ -217,13 +212,13 @@ export default function NearbyRestaurantsCarousel() {
   }
 
   return (
-    <section className="py-10 px-4 sm:px-6 lg:px-8 bg-[#F5F4F0]">
+    <section className="py-10 px-4 sm:px-6 lg:px-8 bg-sunken">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-[#B57F50] text-xs font-semibold uppercase tracking-widest mb-1">Near You</p>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2026]">
+            <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-1">Near You</p>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink">
               Ramen Near Me
             </h2>
           </div>
@@ -231,7 +226,7 @@ export default function NearbyRestaurantsCarousel() {
             <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
-              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-line/10 bg-surface text-ink hover:border-brand/40 hover:text-brand-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -239,7 +234,7 @@ export default function NearbyRestaurantsCarousel() {
             <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
-              className="p-2 rounded-full border border-black/10 bg-white text-[#1E2026] hover:border-[#B57F50]/40 hover:text-[#B57F50] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-line/10 bg-surface text-ink hover:border-brand/40 hover:text-brand-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-4 h-4" />

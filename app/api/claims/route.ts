@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(request, 'claims', 5, 600_000)
+  if (limited) return limited
   const body = await request.json()
   const {
     restaurant_slug,

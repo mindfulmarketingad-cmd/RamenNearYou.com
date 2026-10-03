@@ -1,27 +1,40 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircle2, BadgeCheck, BarChart2, Globe, Clock, MapPin } from 'lucide-react'
+import { BadgeCheck, Crown, Check } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ClaimForm from './claim-form'
 import { createClient } from '@/lib/supabase/server'
-import { createAdminClient } from '@/lib/supabase-admin'
 import { getRestaurant } from '@/lib/restaurants'
+import { findSupplementListing, supplementToRestaurant } from '@/lib/places-supplements'
+import { getPhoBySlug, phoToRestaurant } from '@/lib/pho'
+import { getMiscPartnerBySlug } from '@/lib/misc-partners'
+import { hasActiveClaimSubscription } from '@/lib/claim-subscriptions'
 
-const STRIPE_CLAIM_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
+const CLAIM_PAYMENT_LINK = 'https://buy.stripe.com/28E4gAfuG58I9UG9pIfrW04'
 
-const BENEFITS = [
-  { icon: BadgeCheck, text: 'Verified owner badge on your listing' },
-  { icon: Globe, text: 'Update your website, phone, and description' },
-  { icon: Clock, text: 'Keep your hours accurate and up to date' },
-  { icon: BarChart2, text: 'See weekly page visit analytics' },
-  { icon: MapPin, text: 'Featured placement on your city page' },
+const CLAIM_BENEFITS = [
+  'Verified badge on your listing',
+  'Update your hours, photos, and description anytime',
+  'Correct your business name, phone, and details',
+  'Priority placement in claim-verified search results',
 ]
 
 export default async function ClaimPage({ params }: { params: Promise<{ city: string; state: string; restaurant: string }> }) {
   const { city, state, restaurant } = await params
-  const r = getRestaurant(city, state, restaurant)
+  // Not every listing on the map/partners table has a DB row — Google
+  // Places-supplement listings, pho listings, and misc partner listings are
+  // all just as claimable, each adapted into the same Restaurant shape the
+  // rest of this page expects.
+  const dbr = getRestaurant(city, state, restaurant)
+  const sup = !dbr ? findSupplementListing(city, state, restaurant) : null
+  const pho = !dbr && !sup ? getPhoBySlug(restaurant) : null
+  const misc = !dbr && !sup && !pho ? getMiscPartnerBySlug(restaurant) : null
+  const r = dbr ?? (sup ? supplementToRestaurant(sup) : null) ?? (pho ? phoToRestaurant(pho) : null) ?? misc
   if (!r) notFound()
+  // Pho and misc partner listings live at /partners/{slug} rather than
+  // /{city}/{state}/{slug}.
+  const backHref = pho ? `/partners/${pho.slug}` : misc ? `/partners/${misc.slug}` : `/${city}/${state}/${restaurant}`
 
   const supabase = await createClient()
   if (!supabase) redirect(`/auth/login?redirectTo=/claim/${city}/${state}/${restaurant}`)
@@ -35,72 +48,111 @@ export default async function ClaimPage({ params }: { params: Promise<{ city: st
     .eq('restaurant_slug', r.slug)
     .single()
 
-  // Check for active claim subscription via admin client (bypasses RLS)
-  const admin = createAdminClient()
-  let hasSubscription = false
-  if (admin) {
-    const { data: sub } = await admin
-      .from('claim_subscriptions')
-      .select('id')
-      .eq('restaurant_slug', r.slug)
-      .eq('customer_email', user.email ?? '')
-      .eq('status', 'active')
-      .maybeSingle()
-    hasSubscription = !!sub
-  }
+  const isPaid = !existingClaim && await hasActiveClaimSubscription(r.slug, user.email ?? '')
 
-  const stripeLink = `${STRIPE_CLAIM_LINK}?prefilled_email=${encodeURIComponent(user.email ?? '')}&client_reference_id=${r.slug}`
+  const paymentUrl = `${CLAIM_PAYMENT_LINK}?client_reference_id=${encodeURIComponent(r.slug)}&prefilled_email=${encodeURIComponent(user.email ?? '')}`
 
   return (
-    <main className="min-h-screen bg-[#ffffff]">
+    <main className="min-h-screen bg-surface">
       <Navbar />
       <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
-          <h1 className="font-serif text-4xl font-bold text-[#1E2026] mb-2">Claim {r.name}</h1>
-          <p className="text-[#6B6862] mb-8">{r.address}</p>
+          <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-3">Claim Listing</p>
+          <h1 className="font-serif text-4xl font-bold text-ink mb-2">Claim {r.name}</h1>
+          <p className="text-ink-soft mb-6">{r.address}</p>
 
           {existingClaim ? (
             <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 text-amber-300 text-sm">
               This listing has already been claimed (status: {existingClaim.status}). If you believe this is an error, please contact us.
             </div>
-          ) : hasSubscription ? (
-            <ClaimForm userEmail={user.email ?? ''} restaurant={r} />
-          ) : (
-            // Pricing wall
+          ) : !isPaid ? (
+            // Claiming used to be free — it's now a $19.99/mo subscription,
+            // same benefits, paid via the Stripe Payment Link below. The
+            // webhook (app/api/webhooks/stripe/route.ts) marks the
+            // claim_subscriptions row active on checkout completion; this
+            // page re-checks that on every load, so returning here after
+            // payment unlocks the form automatically.
             <div className="space-y-6">
-              <div className="bg-[#F5F4F0] rounded-2xl border border-black/5 p-8">
-                <div className="flex items-end gap-2 mb-1">
-                  <span className="font-serif text-5xl font-bold text-[#1E2026]">$19.99</span>
-                  <span className="text-[#6B6862] text-sm mb-2">/month</span>
+              <div className="rounded-2xl border border-line/8 overflow-hidden bg-sunken">
+                <div className="px-6 pt-6 pb-5 text-center border-b border-line/8">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+                    <Crown className="w-3 h-3" /> Claim This Listing
+                  </div>
+                  <div className="flex items-baseline justify-center gap-1.5">
+                    <span className="font-serif text-3xl font-bold text-ink">$19.99</span>
+                    <span className="text-ink-soft text-xs">/ month</span>
+                  </div>
                 </div>
-                <p className="text-[#9B9490] text-sm mb-6">Cancel anytime. Billed monthly.</p>
-
-                <ul className="space-y-3 mb-8">
-                  {BENEFITS.map(({ icon: Icon, text }) => (
-                    <li key={text} className="flex items-center gap-3 text-sm text-[#1E2026]">
-                      <CheckCircle2 className="w-4 h-4 text-[#B57F50] shrink-0" />
-                      {text}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={stripeLink}
-                  className="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#B57F50] text-white text-sm font-semibold hover:bg-[#c8934f] transition-colors"
-                >
-                  Subscribe & Claim — $19.99/mo
-                </a>
-
-                <p className="text-center text-xs text-[#9B9490] mt-4">
-                  After subscribing, return to this page to complete your claim.
-                </p>
+                <div className="p-6">
+                  <p className="text-ink-soft text-xs leading-relaxed mb-4">
+                    Everything included in a listing claim — now as a monthly subscription.
+                  </p>
+                  <ul className="space-y-2.5 mb-6">
+                    {CLAIM_BENEFITS.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-ink">
+                        <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" strokeWidth={2.5} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={paymentUrl}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
+                  >
+                    <Crown className="w-3.5 h-3.5" />
+                    Subscribe &amp; Claim This Listing
+                  </a>
+                  <p className="text-center text-ink/30 text-xs mt-4">
+                    Secure payment via Stripe · Cancel anytime
+                  </p>
+                </div>
               </div>
+
+              <p className="text-center text-xs text-ink-soft">
+                Already subscribed? Come back to this page after checkout and your claim form will unlock.
+              </p>
 
               <div className="text-center">
                 <Link
-                  href={`/${city}/${state}/${restaurant}`}
-                  className="text-sm text-[#6B6862] hover:text-[#1E2026] transition-colors"
+                  href={backHref}
+                  className="text-sm text-ink-soft hover:text-ink transition-colors"
+                >
+                  ← Back to listing
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="flex items-start gap-3 bg-emerald-500/8 border border-emerald-500/25 rounded-xl p-4">
+                <BadgeCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <p className="text-sm text-ink">
+                  <strong>Your $19.99/mo subscription is active.</strong>{' '}
+                  <span className="text-ink-soft">
+                    Submit your details below and our team will review your claim to verify ownership.
+                    Once approved, you&apos;ll get a verified badge and can update your hours, photos,
+                    and description anytime.
+                  </span>
+                </p>
+              </div>
+
+              <ClaimForm
+                userEmail={user.email ?? ''}
+                // Google sign-in populates full_name/name in user_metadata —
+                // using it lets most visitors claim with a single click
+                // instead of retyping their name into a form.
+                userDisplayName={
+                  user.user_metadata?.full_name ??
+                  user.user_metadata?.name ??
+                  user.user_metadata?.display_name ??
+                  ''
+                }
+                restaurant={r}
+              />
+
+              <div className="text-center">
+                <Link
+                  href={backHref}
+                  className="text-sm text-ink-soft hover:text-ink transition-colors"
                 >
                   ← Back to listing
                 </Link>

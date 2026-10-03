@@ -44,7 +44,7 @@ export default function CityFollowButton({ city, state }: Props) {
 
   if (loading) {
     return (
-      <button disabled className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/5 border border-black/8 text-[#6B6862] text-xs font-medium opacity-50">
+      <button disabled className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/5 border border-line/8 text-ink-soft text-xs font-medium opacity-50">
         <Loader2 className="w-3.5 h-3.5 animate-spin" />
         Follow City
       </button>
@@ -56,8 +56,8 @@ export default function CityFollowButton({ city, state }: Props) {
       onClick={toggle}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
         following
-          ? 'bg-[#B57F50]/20 border-[#B57F50]/50 text-[#B57F50] hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
-          : 'bg-black/5 border-black/8 text-[#6B6862] hover:border-[#B57F50]/50 hover:text-[#B57F50]'
+          ? 'bg-brand/20 border-brand/50 text-brand-ink hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
+          : 'bg-black/5 border-line/8 text-ink-soft hover:border-brand/50 hover:text-brand-ink'
       }`}
     >
       {following ? <BellOff className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}

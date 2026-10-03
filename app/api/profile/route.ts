@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase/server'
+import { applyContributionReward, hasActiveRamenPass } from '@/lib/rewards'
 
 export async function GET() {
   const supabase = await createClient()
@@ -52,5 +53,29 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: 'Failed to save profile.' }, { status: 500 })
   }
 
-  return NextResponse.json({ profile })
+  // Profile-complete reward (one-time, members only).
+  // Required: display_name, avatar_url, bio (min 20 chars). This codebase's
+  // user_profiles has no `city` column, so avatar_url + bio stand in.
+  let reward = null
+  const isComplete =
+    !!profile?.display_name?.trim() &&
+    !!profile?.avatar_url?.trim() &&
+    (profile?.bio?.trim().length ?? 0) >= 20
+
+  if (isComplete && !profile?.profile_reward_claimed && (await hasActiveRamenPass(user.id))) {
+    // Claim the flag atomically first so it can't double-fire on concurrent saves.
+    const { data: claimed } = await client
+      .from('user_profiles')
+      .update({ profile_reward_claimed: true })
+      .eq('user_id', user.id)
+      .eq('profile_reward_claimed', false)
+      .select('user_id')
+      .maybeSingle()
+
+    if (claimed) {
+      reward = await applyContributionReward(user.id, 1.0, 'profile_complete', user.id)
+    }
+  }
+
+  return NextResponse.json({ profile, reward })
 }

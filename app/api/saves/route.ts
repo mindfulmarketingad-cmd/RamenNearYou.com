@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 import { createClient } from '@/lib/supabase/server'
 
 export async function GET() {
@@ -17,6 +18,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Rate limited: per-account writes.
+  const limited = checkRateLimit(request, 'saves', 60, 60000)
+  if (limited) return limited
+
   const supabase = await createClient()
   if (!supabase) return NextResponse.json({ error: 'Not configured' }, { status: 500 })
 

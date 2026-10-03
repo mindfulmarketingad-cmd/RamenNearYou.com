@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sync:viator": "node scripts/sync-viator.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.105.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-alert-dialog": "1.1.15",
@@ -51,6 +53,7 @@
     "lucide-react": "^0.564.0",
     "next": "16.2.6",
     "next-themes": "^0.4.6",
+    "qrcode": "^1.5.4",
     "react": "19.2.4",
     "react-day-picker": "9.13.2",
     "react-dom": "19.2.4",
@@ -69,6 +72,7 @@
     "@tailwindcss/postcss": "^4.2.0",
     "@types/leaflet": "^1.9.21",
     "@types/node": "^22",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "postcss": "^8.5",

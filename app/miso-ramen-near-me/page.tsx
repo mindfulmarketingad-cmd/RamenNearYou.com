@@ -3,13 +3,13 @@ import { restaurants } from '@/lib/restaurants'
 import BrothTypeNearMePage from '@/components/broth-type-near-me-page'
 
 export const metadata: Metadata = {
-  title: 'Miso Ramen Near Me — Find Local Miso Ramen Restaurants',
-  description: 'Find the best miso ramen near you. Browse top-rated ramen restaurants serving rich Hokkaido-style miso broth with corn, butter, and chashu pork.',
-  alternates: { canonical: 'https://www.ramennearyou.com/miso-ramen-near-me' },
+  title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
+  description: 'Craving miso ramen near you? Browse the best miso ramen restaurants near me — rich Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
+  alternates: { canonical: 'https://www.ramennearyou.com/find/miso-ramen' },
   openGraph: {
-    title: 'Miso Ramen Near Me — Find Local Miso Ramen Restaurants',
-    description: 'Find the best miso ramen near you. Rich, fermented miso broth with toppings like corn, butter, and chashu pork.',
-    url: 'https://www.ramennearyou.com/miso-ramen-near-me',
+    title: 'Best Miso Ramen Near Me — Top-Rated Spots Near You',
+    description: 'Find the best miso ramen near you — rich, fermented Hokkaido-style miso broth, ranked by rating with maps, hours & reviews.',
+    url: 'https://www.ramennearyou.com/find/miso-ramen',
   },
 }
 
@@ -31,7 +31,7 @@ const brothInfo = {
   jsonLdName: 'Best Miso Ramen Restaurants Near Me',
 }
 
-const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 500)
+const sorted = [...restaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 300)
 
 export default function MisoRamenNearMePage() {
   return <BrothTypeNearMePage broth={brothInfo} restaurants={sorted} />

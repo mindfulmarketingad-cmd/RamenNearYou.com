@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     payment_method_types: ['card'],
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${BASE_URL}/featured/success?listing_id=${listing_id}&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/featured/apply?cancelled=1`,
+    cancel_url: `${BASE_URL}/featured-listing?cancelled=1`,
     customer_email: user.email,
     metadata: {
       listing_id,

@@ -1,0 +1,90 @@
+name: Sync Viator experiences
+
+# Refreshes lib/viator-experiences.json from the Viator Partner API and commits
+# it. This is the only place VIATOR_API_KEY is used — the site renders from the
+# committed snapshot, so Vercel never needs the key and the pages stay static.
+#
+# Run it by hand the first time: Actions → "Sync Viator experiences" → Run
+# workflow. Once the commit lands, the data lives in the repo and the site
+# works whether or not this job ever runs again.
+#
+# Prices and review counts move, so this runs nightly. Pushing the commit
+# triggers the usual Vercel deploy.
+
+on:
+  schedule:
+    # 09:15 UTC daily — off the hour so it isn't competing with everyone else's
+    # cron for Viator's rate limit.
+    # NOTE: schedule and workflow_dispatch only ever run from the DEFAULT
+    # branch. Until this file is merged to main, neither fires and no "Run
+    # workflow" button appears in the Actions tab.
+    - cron: '15 9 * * *'
+  workflow_dispatch:
+    inputs:
+      max_per_state:
+        description: 'Max experiences kept per state'
+        required: false
+        default: '50'
+  # Escape hatch so the sync can run before this is on main: a push touching
+  # the sync itself fires it on whatever branch received the push.
+  #
+  # The paths filter is what stops this recursing — the job only ever commits
+  # lib/viator-experiences.json, which isn't listed here. (Pushes made with
+  # GITHUB_TOKEN don't trigger workflows either, so that's belt and braces.)
+  push:
+    paths:
+      - '.github/workflows/sync-viator.yml'
+      - 'scripts/sync-viator.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-viator
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the branch by name, not the bare SHA: the default detached
+      # HEAD has nothing to push back to.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # A missing or misnamed secret is the most likely first failure, and the
+      # script's own error is easy to miss in a long log.
+      - name: Check the API key is present
+        env:
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+        run: |
+          if [ -z "$VIATOR_API_KEY" ]; then
+            echo "::error::VIATOR_API_KEY is empty. Add it under Settings → Secrets and variables → Actions, named exactly VIATOR_API_KEY."
+            exit 1
+          fi
+          echo "Key present (${#VIATOR_API_KEY} chars)."
+
+      - name: Fetch experiences from Viator
+        env:
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+        # No --query here on purpose: passing one collapses the script's eight
+        # search terms down to that single term.
+        run: node scripts/sync-viator.mjs --max-per-state "${{ github.event.inputs.max_per_state || '50' }}"
+
+      - name: Commit if the snapshot changed
+        run: |
+          if git diff --quiet -- lib/viator-experiences.json; then
+            echo "No change — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/viator-experiences.json
+          COUNT=$(node -e "console.log(require('./lib/viator-experiences.json').experiences.length)")
+          git commit -m "Sync Viator experiences ($COUNT products)"
+          git push origin HEAD:${{ github.ref_name }}

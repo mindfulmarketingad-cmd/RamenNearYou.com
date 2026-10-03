@@ -1,0 +1,92 @@
+'use client'
+
+import { X, SlidersHorizontal, Check } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
+
+const STRIPE_LINK = 'https://buy.stripe.com/9B6aEYgyK44EaYK45ofrW08'
+
+interface Props {
+  onClose: () => void
+  featureName?: string
+}
+
+export default function SubscribeGateModal({ onClose, featureName = 'Filters' }: Props) {
+  // Only ever mounted while open, so the dialog is "open" for the hook's
+  // entire lifetime — no separate open/closed state to track here.
+  const panelRef = useModalA11y(true, onClose)
+
+  function handleSubscribe() {
+    window.location.href = STRIPE_LINK
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Unlock all filters"
+    >
+      <div ref={panelRef} tabIndex={-1} className="relative w-full max-w-md bg-surface rounded-2xl shadow-2xl p-7 text-center outline-none">
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-4 top-4 text-ink-soft hover:text-ink transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-brand/20 to-brand/5 flex items-center justify-center mx-auto mb-4">
+          <SlidersHorizontal className="w-6 h-6 text-brand-ink" />
+        </div>
+
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/10 border border-brand/25 text-brand-ink text-xs font-semibold mb-3">
+          RamenNearYou+ — $2.99/month
+        </div>
+
+        <h2 className="font-serif text-2xl font-bold text-ink mb-2">
+          Unlock Filters &amp; Your Feed
+        </h2>
+
+        <p className="text-ink-soft text-sm leading-relaxed mb-4">
+          Filter by bowl type, mood, price, and hours to find exactly the ramen you&apos;re craving — and get a feed of your own ZIP codes. Just $2.99/month, cancel anytime.
+        </p>
+
+        <ul className="text-left space-y-2 mb-6">
+          {[
+            'Your own feed — follow up to 25 ZIP codes and scroll every shop in them',
+            '11 bowl types — Tonkotsu, Miso, Shoyu, Shio, Tsukemen & more',
+            '12 mood filters — Cozy & Intimate, Izakaya Vibe, Date Night & more',
+            'Dietary & cuisine — Halal, Gluten-Free, Korean-Style, Japanese Fusion',
+            'Hours — Open Now, Open Late, Open Early, Past Midnight',
+            'Price, amenities, top-rated & hidden gems',
+          ].map(item => (
+            <li key={item} className="flex items-start gap-2 text-sm text-ink">
+              <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-col gap-2.5">
+          <button
+            onClick={handleSubscribe}
+            className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
+          >
+            Subscribe — $2.99/month
+          </button>
+          <button
+            onClick={onClose}
+            className="w-full px-5 py-3 rounded-xl bg-surface border border-line/10 text-ink hover:border-line/20 text-sm font-semibold transition-colors"
+          >
+            Maybe later
+          </button>
+        </div>
+
+        <p className="text-ink-soft text-[11px] mt-3">
+          Filters unlock instantly after payment.{' '}
+          Already subscribed? <a href="/auth/login" className="underline hover:text-ink">Sign in</a>.
+        </p>
+      </div>
+    </div>
+  )
+}

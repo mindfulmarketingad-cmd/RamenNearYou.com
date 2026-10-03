@@ -30,7 +30,9 @@ export function getCities() {
       map.set(key, { city: r.city, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
     }
   }
-  return Array.from(map.values()).sort((a,b) => b.count - a.count)
+  // Only surface cities with 2+ ramen listings — single-restaurant cities
+  // don't warrant their own directory page.
+  return Array.from(map.values()).filter(c => c.count >= 2).sort((a,b) => b.count - a.count)
 }
 
 export function getStates() {
@@ -109,6 +111,7 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
   ) types.push('Miso')
 
   if (
+    name.includes('jinya ramen') ||
     text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') ||
     text.includes('tori paitan') || text.includes('chili oil') || text.includes('doubanjiang') ||
     text.includes('fire ramen') || text.includes('hot ramen')
@@ -121,6 +124,63 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
 
 export function getRestaurantsByBrothType(type: BrothType): Restaurant[] {
   return restaurants.filter(r => getBrothTypes(r).includes(type))
+}
+
+/**
+ * Matches a restaurant against a service/broth label used by the
+ * `/[broth]-ramen-near-me` service pages. Handles the broth styles in
+ * getBrothTypes plus the cuisine/diet styles (Vegetarian, Korean, Japanese)
+ * that are derived from amenities and subtypes.
+ */
+export function matchesServiceBroth(r: Restaurant, label: string): boolean {
+  const key = label.toLowerCase()
+  if (key === 'vegetarian') return !!r.amenities.vegetarianOptions
+  if (key === 'vegan') return !!r.amenities.veganOptions
+  if (key === 'korean') return (r.subtypes ?? '').toLowerCase().includes('korean')
+  if (key === 'japanese') return (r.subtypes ?? '').toLowerCase().includes('japanese')
+  return getBrothTypes(r).map(t => t.toLowerCase()).includes(key)
+}
+
+export function getRestaurantsByService(label: string): Restaurant[] {
+  return restaurants.filter(r => matchesServiceBroth(r, label))
+}
+
+export function getTonkotsuRestaurantsByCity(citySlug: string, stateSlug: string): Restaurant[] {
+  return restaurants.filter(
+    r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes('Tonkotsu')
+  )
+}
+
+export function getTonkotsuCities(minCount = 2): Array<{ city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }> {
+  const map = new Map<string, { city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
+  for (const r of restaurants) {
+    if (!getBrothTypes(r).includes('Tonkotsu')) continue
+    const key = `${r.citySlug}|${r.stateSlug}`
+    const entry = map.get(key)
+    if (entry) { entry.count++ } else {
+      map.set(key, { city: r.city, state: r.state, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
+    }
+  }
+  return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
+}
+
+export function getRestaurantsByBrothAndCity(broth: BrothType, citySlug: string, stateSlug: string): Restaurant[] {
+  return restaurants.filter(
+    r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes(broth)
+  )
+}
+
+export function getCitiesForBroth(broth: BrothType, minCount = 2): Array<{ city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }> {
+  const map = new Map<string, { city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
+  for (const r of restaurants) {
+    if (!getBrothTypes(r).includes(broth)) continue
+    const key = `${r.citySlug}|${r.stateSlug}`
+    const entry = map.get(key)
+    if (entry) { entry.count++ } else {
+      map.set(key, { city: r.city, state: r.state, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
+    }
+  }
+  return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
 }
 
 export function getNearbyCities(citySlug: string, stateSlug: string, maxCount = 6): Array<{ city: string; stateCode: string; citySlug: string; stateSlug: string; count: number; distanceMiles: number }> {
