@@ -59,15 +59,12 @@ const nextConfig = {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
   async redirects() {
-    // The first Viator experience shipped at a flat /experiences/{slug}. That
-    // shape now belongs to /experiences/{state}, so the old URL would resolve
-    // to a non-existent state and 404. It's in the live sitemap, so send it to
-    // the hub rather than dropping it.
-    const legacyExperience = [{
-      source: '/experiences/authentic-ramen-making-experience-kyoto',
-      destination: '/experiences',
-      permanent: true,
-    }]
+    // The Viator experiences section was removed to keep the build to ~5,000
+    // pages. Its URLs were in the sitemap, so send them home rather than 404.
+    const legacyExperience = [
+      { source: '/experiences', destination: '/', permanent: true },
+      { source: '/experiences/:path*', destination: '/', permanent: true },
+    ]
 
     // Old 2-letter state code → full state name slug
     const stateMap = {

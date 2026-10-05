@@ -34,7 +34,6 @@ const NAV_LINKS = [
   { href: '/state', label: 'By State' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/find', label: 'Find' },
-  { href: '/experiences', label: 'Experiences' },
   { href: '/blog', label: 'Blog' },
   { href: '/partners', label: 'Partners' },
   { href: '/about', label: 'About' },

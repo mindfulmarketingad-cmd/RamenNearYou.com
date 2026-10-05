@@ -21,6 +21,8 @@ const STATE_SLUG_TO_CODE: Record<string, string> = {
   'wisconsin': 'wi', 'wyoming': 'wy', 'district-of-columbia': 'dc',
 }
 
+const STATE_CODES = new Set(Object.values(STATE_SLUG_TO_CODE))
+
 // Top-level app sections. The /{city}/{state} rule below matches any two-
 // segment path whose second segment is a state slug, which would also swallow
 // real routes like /experiences/california (it was rewriting that to
@@ -53,14 +55,16 @@ export async function proxy(request: NextRequest) {
   }
 
   // Same for /find/{modifier}-{city}-{st} pages outside the built set: send
-  // them to the city page. If that city isn't real either, it 404s there.
-  // The two static /find/*-near-me pages share a modifier prefix, hence the
-  // near-me guard.
+  // them to the city page (or straight on to the state page if the city page
+  // is retired too). If that city isn't real either, it 404s there. The two
+  // static /find/*-near-me pages share a modifier prefix, hence the near-me
+  // guard.
   if (parts.length === 2 && parts[0] === 'find' && !isLiveFindModifier(parts[1])) {
     const mod = matchModifier(parts[1])
     if (mod && mod.rest !== 'near-me') {
       const url = request.nextUrl.clone()
-      url.pathname = `/find/${mod.rest}`
+      const cityPath = `/find/${mod.rest}`
+      url.pathname = retiredPageTarget(cityPath) ?? cityPath
       return NextResponse.redirect(url, 308)
     }
   }
@@ -68,7 +72,9 @@ export async function proxy(request: NextRequest) {
   // Redirect /{city}/{state} → /find/{city}-{stateCode}
   if (parts.length === 2 && !RESERVED_SECTIONS.has(parts[0])) {
     const [citySlug, stateSlug] = parts
-    const stateCode = STATE_SLUG_TO_CODE[stateSlug]
+    // Hawaii listings carry the bare code ("hi") as their state slug, so their
+    // city breadcrumbs are /{city}/hi — accept a valid state code as well.
+    const stateCode = STATE_SLUG_TO_CODE[stateSlug] ?? (STATE_CODES.has(stateSlug) ? stateSlug : undefined)
     if (stateCode) {
       const url = request.nextUrl.clone()
       const findPath = `/find/${citySlug}-${stateCode}`

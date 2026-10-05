@@ -47,14 +47,13 @@ const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
 // and was cached on first hit, so crawlers and junk links minted tens of
 // thousands of cache entries.
 //
-// Modifier pages ({modifier}-{city}-{st}) are limited to the ones with search
-// clicks, and small-city pages (cities outside getFindCityParams) to the ones
-// with impressions (lib/retired-pages.ts); proxy.ts redirects the rest.
+// Which city, modifier, neighborhood and pho pages get built is decided by
+// search traffic (lib/retired-pages.ts); proxy.ts redirects the rest.
 export const dynamicParams = false
 
 export async function generateStaticParams() {
   return [
-    ...getFindCityParams(),
+    ...liveParams(getFindCityParams().map(p => p.cityState)),
     ...getLiveFindSmallCityParams().map(cityState => ({ cityState })),
     ...liveParams(getNeighborhoodParams()),
     ...liveParams(getPhoCityParams()),

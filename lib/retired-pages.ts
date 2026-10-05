@@ -1,27 +1,28 @@
 import data from './retired-pages.json'
 
-// Programmatic pages pruned for having no search demand, from a Google Search
-// Console export (date range in retired-pages.json `source`).
+// The directory is capped at ~5,000 built pages. Template pages (listings,
+// reviews, /find city/modifier/neighborhood/pho pages, broth-city, city x
+// filter, partner and city-listicle pages) were ranked by Google Search
+// clicks, then impressions (date range in retired-pages.json `source`), and
+// only the top 4,600 are built, plus every state page and the hand-verified
+// and billboard listings. Hand-written pages (home, blog posts, recipes,
+// comparisons, static pages) and owner-submitted listings aren't ranked and
+// are always built.
 //
-// - `redirects`: template pages (listings, reviews, city x filter, broth-city,
-//   pho-city, partner and city-listicle pages) with zero impressions over the
-//   whole range. Each 308s to its nearest live parent — a review to its
-//   listing, a listing to its city hub — so links already out there (and the
-//   client-side map/search links that point at every restaurant) keep landing
-//   somewhere useful. They're left out of the build and the sitemaps.
-// - `findModifierPages`: the only /find/{modifier}-{city} pages still built —
-//   the ones that earned at least one click. The other ~44k modifier x city
-//   combinations are near-duplicates of the city page (most have no restaurant
-//   matching the modifier at all) and redirect to /find/{city}.
-// - `findSmallCityPages`: /find pages for cities outside getFindCityParams()
-//   (one dataset listing, or Places listings only) that have impressions.
-//   Those without impressions are in `redirects`, pointing at the state page.
+// - `redirects`: every other template page, with where it 308s to — its
+//   nearest built parent: a review to its listing, a listing to its city
+//   page, a city page to its state page. Links already out there (and the
+//   client-side map/search links that point at every restaurant) keep
+//   landing somewhere useful. These are left out of the build, the sitemaps
+//   and server-rendered link lists.
+// - `findModifierPages`: the /find/{modifier}-{city}-{st} pages that are
+//   built. Every other modifier x city combination redirects by rule in
+//   proxy.ts rather than being listed.
+// - `findSmallCityPages`: built /find pages for cities outside
+//   getFindCityParams() (one dataset listing, or Places listings only).
 //
-// Never retired: state and /find city hubs, experiences (too new to have
-// search data), and hand-verified or billboard listings.
-//
-// To bring a page back, delete its line from `redirects` (or add the modifier
-// page to `findModifierPages`) and redeploy.
+// To bring a page back, delete its line from `redirects` (or add the param
+// to `findModifierPages` / `findSmallCityPages`) and redeploy.
 
 const REDIRECTS: Record<string, string> = data.redirects
 const FIND_MODIFIER_PAGES = new Set<string>(data.findModifierPages)

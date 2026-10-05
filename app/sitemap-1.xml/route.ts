@@ -24,7 +24,7 @@ export async function GET() {
     priority: 0.7,
   }))
 
-  const findCityParamList = getFindCityParams()
+  const findCityParamList = getFindCityParams().filter((p) => !isRetiredPage(`/find/${p.cityState}`))
   const findCityPages: SitemapEntry[] = findCityParamList.map((p) => ({
     url: `${SITEMAP_BASE_URL}/find/${p.cityState}`,
     lastModified: LAST_CONTENT,
