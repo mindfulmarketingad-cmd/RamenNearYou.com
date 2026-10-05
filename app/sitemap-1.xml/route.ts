@@ -1,14 +1,14 @@
 import { FIND_PAGES } from '@/components/find-cross-links'
 import { getFindCityParams } from '@/lib/find-city'
-import { FIND_MODIFIERS } from '@/lib/find-modifiers'
+import { isRetiredPage, getLiveFindModifierParams } from '@/lib/retired-pages'
 import { getNeighborhoodParams } from '@/lib/neighborhoods'
 import { getPhoCityParams } from '@/lib/pho'
 import { SITEMAP_BASE_URL, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
 // Every /find page: the filter/broth/brand/"near me" pages, the per-city
-// searchmap pages, and the modifier × city cross product — ~44.9k URLs on
-// its own, big enough that it needs its own sitemap (see /sitemap-2.xml for
-// everything else on the site).
+// searchmap pages, neighborhood and pho pages, and the modifier × city pages
+// still built (lib/retired-pages.ts) — see /sitemap-2.xml for everything else
+// on the site.
 //
 // Generated once at build time and served as a static asset. Computing this
 // on every request took ~19s locally, which is enough to time out both
@@ -32,17 +32,15 @@ export async function GET() {
     priority: 0.6,
   }))
 
-  const modifierFindPages: SitemapEntry[] = FIND_MODIFIERS.flatMap((m) =>
-    findCityParamList.map((p) => ({
-      url: `${SITEMAP_BASE_URL}/find/${m.prefix}-${p.cityState}`,
-      lastModified: LAST_CONTENT,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    }))
-  )
+  const modifierFindPages: SitemapEntry[] = getLiveFindModifierParams().map((param) => ({
+    url: `${SITEMAP_BASE_URL}/find/${param}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }))
 
   // Curated neighborhood pages (/find/ramen-restaurants-{hood}-{state})
-  const neighborhoodPages: SitemapEntry[] = getNeighborhoodParams().map((param) => ({
+  const neighborhoodPages: SitemapEntry[] = getNeighborhoodParams().filter((param) => !isRetiredPage(`/find/${param}`)).map((param) => ({
     url: `${SITEMAP_BASE_URL}/find/${param}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly',
@@ -50,7 +48,7 @@ export async function GET() {
   }))
 
   // Pho city pages (/find/pho-restaurants-{city}-{state})
-  const phoCityPages: SitemapEntry[] = getPhoCityParams().map((param) => ({
+  const phoCityPages: SitemapEntry[] = getPhoCityParams().filter((param) => !isRetiredPage(`/find/${param}`)).map((param) => ({
     url: `${SITEMAP_BASE_URL}/find/${param}`,
     lastModified: LAST_CONTENT,
     changeFrequency: 'weekly',

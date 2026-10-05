@@ -12,6 +12,7 @@ import { slugifyAuthor } from '@/lib/perfect-for'
 import { buildRestaurantReview, getContextualLinks } from '@/lib/city-listicle-content'
 import type { CityListicle } from '@/lib/city-listicles'
 import { splitLongParagraphList } from '@/lib/split-paragraphs'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 const AUTHORS = [
   { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
@@ -123,7 +124,9 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
               <div className="space-y-6">
                 {top5.map((r, i) => {
                   const reviewSlug = getReviewSlug(r)
-                  const hasReview = hasReviewPage(reviewSlug)
+                  const hasReview = hasReviewPage(reviewSlug) && !isRetiredPage(`/reviews/${reviewSlug}`)
+                  const listingPath = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+                  const hasListing = !isRetiredPage(listingPath)
                   const review = buildRestaurantReview(r, i)
                   const ctxLinks = getContextualLinks(r)
                   return (
@@ -161,12 +164,14 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                           </div>
 
                           <div className="flex flex-wrap gap-2 mt-auto pt-1">
+                            {hasListing && (
                             <Link
-                              href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                              href={listingPath}
                               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand/15 hover:bg-brand/25 text-brand-ink text-xs font-semibold transition-colors border border-brand/20"
                             >
                               View Listing <ChevronRight className="w-3.5 h-3.5" />
                             </Link>
+                            )}
                             {hasReview && (
                               <Link
                                 href={`/reviews/${reviewSlug}`}

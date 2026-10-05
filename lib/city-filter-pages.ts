@@ -6,6 +6,7 @@ import {
   type Restaurant,
   type BrothType,
 } from './restaurants'
+import { isRetiredPage } from './retired-pages'
 
 // ---------------------------------------------------------------------------
 // City × filter programmatic pages
@@ -244,6 +245,7 @@ export function getCityFilterLinks(citySlug: string, stateSlug: string): CityFil
     const matches = getFilterRestaurants(citySlug, stateSlug, spec)
     if (matches.length < MIN_FILTER_MATCHES) continue
     const href = `/${citySlug}/${stateSlug}/${slug}`
+    if (isRetiredPage(href)) continue
     let label: string
     let group: 'broth' | 'diet'
     switch (spec.kind) {

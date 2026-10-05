@@ -28,6 +28,7 @@ import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
+import { isRetiredPage, isLiveFindModifier, getLiveFindModifierParams, getLiveFindSmallCityParams } from '@/lib/retired-pages'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -40,16 +41,29 @@ function parseParam(cityState: string): { citySlug: string; stateCode: string } 
 
 const MAJOR_SET = new Set(MAJOR_CITIES_PARAMS)
 
+// Build-only: every page this route serves is in the list below, and
+// dynamicParams = false makes anything else a plain 404 rather than an
+// on-demand render. Before this, any URL shaped like /find/{x}-{st} rendered
+// and was cached on first hit, so crawlers and junk links minted tens of
+// thousands of cache entries.
+//
+// Modifier pages ({modifier}-{city}-{st}) are limited to the ones with search
+// clicks, and small-city pages (cities outside getFindCityParams) to the ones
+// with impressions (lib/retired-pages.ts); proxy.ts redirects the rest.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
-  // Pre-render the base city pages plus the curated neighborhood pages. The
-  // {broth}-in-{city}-{state} modifier variants (8 per city, ~11k pages) render
-  // on demand and cache via ISR (dynamicParams defaults to true) — keeping the
-  // build from ballooning.
   return [
     ...getFindCityParams(),
-    ...getNeighborhoodParams().map(cityState => ({ cityState })),
-    ...getPhoCityParams().map(cityState => ({ cityState })),
+    ...getLiveFindSmallCityParams().map(cityState => ({ cityState })),
+    ...liveParams(getNeighborhoodParams()),
+    ...liveParams(getPhoCityParams()),
+    ...getLiveFindModifierParams().map(cityState => ({ cityState })),
   ]
+}
+
+function liveParams(params: string[]): Array<{ cityState: string }> {
+  return params.filter(p => !isRetiredPage(`/find/${p}`)).map(cityState => ({ cityState }))
 }
 
 export async function generateMetadata(
@@ -167,7 +181,7 @@ export default async function CityFindPage(
   const mod = matchModifier(cityState)
   if (mod) {
     const city = resolveFindCity(mod.rest)
-    if (!city || !city.known) notFound()
+    if (!city || !city.known || !isLiveFindModifier(cityState)) notFound()
     return <ModifierCityFindPage modifier={mod.modifier} city={city} cityState={cityState} />
   }
 
@@ -226,20 +240,23 @@ export default async function CityFindPage(
   // City-filter pages that exist for this city (major cities only) — e.g.
   // /{city}/{state}/tonkotsu-ramen — so they have a real inbound link.
   const majorCity = getMajorCity(citySlug, stateSlug)
-  const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug) : []
+  const filterLinks = majorCity ? getCityFilterLinks(citySlug, stateSlug).filter(l => !isRetiredPage(l.href)) : []
   const cityNeighborhoods = getNeighborhoodsForCity(citySlug, stateCode)
+    .filter(n => !isRetiredPage(`/find/${neighborhoodParam(n)}`))
   // Real pho city page for this exact city+state, if we have one.
-  const cityPhoParam = getPhoCityParams().includes(phoCityParam(citySlug, stateCode)) ? phoCityParam(citySlug, stateCode) : null
+  const phoParam = phoCityParam(citySlug, stateCode)
+  const cityPhoParam = getPhoCityParams().includes(phoParam) && !isRetiredPage(`/find/${phoParam}`) ? phoParam : null
   const brothFilterLinks = filterLinks.filter(l => l.group === 'broth')
   const dietFilterLinks = filterLinks.filter(l => l.group === 'diet')
 
-  // Every /find/{modifier}-in-{city}-{state} variant for this city — these
-  // render on demand (not statically pre-built) and are otherwise only
-  // reachable via the sitemap, so link them all from their base city page.
-  const modifierLinks = FIND_MODIFIERS.map(m => ({
-    href: `/find/${m.prefix}-${cityState}`,
-    label: m.title(cityName, stateName),
-  }))
+  // The /find/{modifier}-in-{city}-{state} variants still built for this
+  // city, linked from their base city page.
+  const modifierLinks = FIND_MODIFIERS
+    .filter(m => isLiveFindModifier(`${m.prefix}-${cityState}`))
+    .map(m => ({
+      href: `/find/${m.prefix}-${cityState}`,
+      label: m.title(cityName, stateName),
+    }))
 
   // Single source of truth for the FAQ — rendered on the page and emitted as
   // FAQPage schema, so the structured data always matches the visible content.
@@ -481,6 +498,7 @@ export default async function CityFindPage(
             )}
 
             {/* Modifier variants (open now, tonkotsu-in-city, etc.) for this city */}
+            {modifierLinks.length > 0 && (
             <div className="mb-10">
               <h2 className="font-serif text-xl font-bold text-ink mb-3">
                 More Ramen Searches in {cityName}
@@ -493,6 +511,7 @@ export default async function CityFindPage(
                 ))}
               </div>
             </div>
+            )}
 
             {cityGuidePost?.outroContent && (
               <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.outroContent) }} />

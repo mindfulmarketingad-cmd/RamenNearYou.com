@@ -6,6 +6,7 @@ import {
   type Restaurant,
 } from './restaurants'
 import { isOpenLate } from './hours'
+import { isRetiredPage } from './retired-pages'
 
 export type RelatedGroup = {
   key: string
@@ -32,6 +33,7 @@ export function getRelatedGroups(r: Restaurant, perGroup = 5): RelatedGroup[] {
       if (out.length >= perGroup) break
       if (seen.has(c.slug)) continue
       if (c.businessStatus && c.businessStatus !== 'OPERATIONAL') continue
+      if (isRetiredPage(`/${c.citySlug}/${c.stateSlug}/${c.slug}`)) continue
       seen.add(c.slug)
       out.push(c)
     }

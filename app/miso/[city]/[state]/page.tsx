@@ -2,13 +2,17 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getCitiesForBroth, getRestaurantsByBrothAndCity } from '@/lib/restaurants'
 import BrothCityPage, { type BrothCityConfig } from '@/components/broth-city-page'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 interface Props { params: Promise<{ city: string; state: string }> }
 
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return getCitiesForBroth('Miso', 2).map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  // Zero-impression city pages are retired (lib/retired-pages.ts).
+  return getCitiesForBroth('Miso', 2)
+    .filter((c) => !isRetiredPage(`/miso/${c.citySlug}/${c.stateSlug}`))
+    .map((c) => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
 const config: BrothCityConfig = {

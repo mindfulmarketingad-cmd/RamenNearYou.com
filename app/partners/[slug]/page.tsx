@@ -16,6 +16,7 @@ import { getOpenStatus } from '@/lib/hours'
 import { jsonLdString } from '@/lib/json-ld'
 import { STATE_CODE_TO_SLUG } from '@/lib/state-lookups'
 import { createAdminClient } from '@/lib/supabase-admin'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const SITE = 'https://www.ramennearyou.com'
@@ -25,7 +26,11 @@ const SITE = 'https://www.ramennearyou.com'
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return [...getAllPhoSlugs(), ...getAllMiscPartnerSlugs()].map(slug => ({ slug }))
+  // Zero-impression partner pages are retired (lib/retired-pages.ts) and
+  // redirect to /partners.
+  return [...getAllPhoSlugs(), ...getAllMiscPartnerSlugs()]
+    .filter(slug => !isRetiredPage(`/partners/${slug}`))
+    .map(slug => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -67,7 +72,9 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
 
   const stateSlug = STATE_CODE_TO_SLUG[p.stateCode]
   const sections = isPho ? buildPhoSections(p) : buildGenericPartnerSections(p)
-  const nearby = isPho ? getNearbyPho(p, 8) : []
+  const nearby = isPho
+    ? getNearbyPho(p, 16).filter(o => !isRetiredPage(`/partners/${o.slug}`)).slice(0, 8)
+    : []
   const amenityGroups = getActiveAmenityGroups(p)
   const openStatus = p.hours ? getOpenStatus(p.hours) : null
   const sameCityCount = isPho ? phoRestaurants.filter(o => o.citySlug === p.citySlug && o.stateCode === p.stateCode).length : 0

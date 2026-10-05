@@ -19,6 +19,7 @@ import { getCityListicleParams, matchCityListicle, getCityPhoListicleParams, mat
 import CityRamenListicle from './city-ramen-listicle'
 import CityPhoListicle from './city-pho-listicle'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -35,8 +36,11 @@ export async function generateStaticParams() {
     // and these are old URLs with inbound links that should keep their 308.
     ...Object.keys(CITY_GUIDE_REDIRECTS).map((slug) => ({ slug })),
     ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
-    ...getCityListicleParams().map((slug) => ({ slug })),
-    ...getCityPhoListicleParams().map((slug) => ({ slug })),
+    // City listicles with zero search impressions are retired
+    // (lib/retired-pages.ts) and redirect to the city's /find page.
+    ...[...getCityListicleParams(), ...getCityPhoListicleParams()]
+      .filter((slug) => !isRetiredPage(`/blog/${slug}`))
+      .map((slug) => ({ slug })),
   ]
 }
 

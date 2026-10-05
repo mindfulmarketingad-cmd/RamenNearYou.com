@@ -20,15 +20,12 @@ import { jsonLdString } from '@/lib/json-ld'
 import { resolveFindCity } from '@/lib/find-city'
 import RestaurantReviewsClient from '@/components/restaurant-reviews-client'
 import OwnerCtaCard from '@/components/owner-cta-card'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 interface Props {
   params: Promise<{ restaurant: string }>
 }
 
-// ISR: ~7.9k review pages render on demand and cache at the CDN (pre-building
-// all of them would balloon the build). Unknown slugs still 404 via the
-// hasReviewPage() check in the page body. Per-visitor owner state lives in
-// the client-side OwnerCtaCard so nothing here reads cookies.
 // Hand-placed verified overrides — confirmed claimed outside the DB-driven
 // claims flow, so the badge/ad-removal don't depend on that lookup at all.
 const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
@@ -38,10 +35,16 @@ const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
 // dynamicParams = false so a slug that wasn't built is a 404, not a render.
 // The only database input is the restaurant's claim, so a newly approved
 // claim's Verified badge appears on the next deploy.
+//
+// Review pages with zero search impressions are retired (lib/retired-pages.ts):
+// not built, and proxy.ts redirects them to the restaurant's listing.
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return getReviewRestaurants().map((r) => ({ restaurant: getReviewSlug(r) }))
+  return getReviewRestaurants()
+    .map((r) => getReviewSlug(r))
+    .filter((slug) => !isRetiredPage(`/reviews/${slug}`))
+    .map((slug) => ({ restaurant: slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -87,7 +90,8 @@ export default async function RestaurantReviewsPage({ params }: Props) {
 
   const reviews = generateReviews(r)
   const url = `https://www.ramennearyou.com/reviews/${slug}`
-  const listingUrl = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+  const listingPath = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+  const listingUrl = isRetiredPage(listingPath) ? null : listingPath
 
   // Link out to this restaurant's own city search-map page. resolveFindCity()
   // tells us whether that /find page actually renders (vs. 404ing on an
@@ -108,7 +112,9 @@ export default async function RestaurantReviewsPage({ params }: Props) {
     (r.placeId ? `&destination_place_id=${encodeURIComponent(r.placeId)}` : '')
   const dist = r.reviewsPerScore ?? { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
   const distTotal = Object.values(dist).reduce((a, b) => a + b, 0)
-  const related = getRelatedReviewRestaurants(r, 12)
+  const related = getRelatedReviewRestaurants(r, 24)
+    .filter((other) => !isRetiredPage(`/reviews/${getReviewSlug(other)}`))
+    .slice(0, 12)
   const { paragraph: summaryParagraph, pros, cons } = generateReviewSummary(r, reviews)
   const rowCount = Math.max(pros.length, cons.length)
 
@@ -247,12 +253,14 @@ export default async function RestaurantReviewsPage({ params }: Props) {
                 <ImageIcon className="w-4 h-4" />
                 View Photos
               </a>
+              {listingUrl && (
               <Link
                 href={listingUrl}
                 className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-none bg-contrast hover:bg-[#33363d] text-white text-sm font-semibold transition-colors"
               >
                 View Full Listing
               </Link>
+              )}
             </div>
           </section>
 

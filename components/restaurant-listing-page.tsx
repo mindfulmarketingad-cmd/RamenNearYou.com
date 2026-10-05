@@ -15,6 +15,7 @@ import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
+import { isRetiredPage } from '@/lib/retired-pages'
 import { jsonLdString } from '@/lib/json-ld'
 import { getRelatedGroups, getNearbyCityLinks } from '@/lib/related-listings'
 import type { Restaurant } from '@/lib/restaurants'
@@ -145,6 +146,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
   const about = expandDescription(r)
   const aboutParas = about ? about.split('\n\n').filter(Boolean) : []
   const reviewSlug = getReviewSlug(r)
+  const hasLiveReview = hasReviewPage(reviewSlug) && !isRetiredPage(`/reviews/${reviewSlug}`)
 
   // Deterministic per-listing review digest — unique editorial copy for this
   // restaurant (same generator the /reviews pages use), so every listing
@@ -259,7 +261,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   <span className="font-bold text-ink text-sm">{r.rating?.toFixed(1) ?? '—'}</span>
                   <StarRating rating={r.rating} />
                   <span className="text-ink-soft text-sm">({(r.reviewCount ?? 0).toLocaleString()})</span>
-                  {hasReviewPage(reviewSlug) && (
+                  {hasLiveReview && (
                     <Link href={`/reviews/${reviewSlug}`} className="text-xs text-brand-ink font-medium hover:underline">
                       Read reviews →
                     </Link>
@@ -459,7 +461,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       ))}
                     </ul>
                   )}
-                  {hasReviewPage(reviewSlug) && (
+                  {hasLiveReview && (
                     <Link href={`/reviews/${reviewSlug}`} className="text-xs text-brand-ink font-medium hover:underline">
                       Read the full {r.name} review breakdown →
                     </Link>

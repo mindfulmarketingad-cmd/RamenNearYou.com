@@ -9,6 +9,7 @@ import { getAllPhoSlugs } from '@/lib/pho'
 import { getAllMiscPartnerSlugs } from '@/lib/misc-partners'
 import { getCityListicleParams, getCityPhoListicleParams } from '@/lib/city-listicles'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
+import { isRetiredPage } from '@/lib/retired-pages'
 import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
 // Everything except /find (which alone runs ~44.9k URLs and needs its own
@@ -193,6 +194,9 @@ export async function GET() {
     ...cityListiclePages,
     ...phoPages,
   ]
+    // Pages retired for zero search impressions (lib/retired-pages.ts) now
+    // redirect, so they don't belong in a sitemap.
+    .filter((e) => !isRetiredPage(e.url.slice(SITEMAP_BASE_URL.length)))
 
   return xmlResponse(buildUrlsetXml(entries))
 }

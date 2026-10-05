@@ -8,6 +8,7 @@ import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getTonkotsuCities, getTonkotsuRestaurantsByCity, getNearbyCities } from '@/lib/restaurants'
 import { getPerfectFor } from '@/lib/perfect-for'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 interface Props {
   params: Promise<{ city: string; state: string }>
@@ -16,7 +17,10 @@ interface Props {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return getTonkotsuCities(1).map((c) => ({ city: c.citySlug, state: c.stateSlug }))
+  // Zero-impression city pages are retired (lib/retired-pages.ts).
+  return getTonkotsuCities(1)
+    .filter((c) => !isRetiredPage(`/tonkotsu/${c.citySlug}/${c.stateSlug}`))
+    .map((c) => ({ city: c.citySlug, state: c.stateSlug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

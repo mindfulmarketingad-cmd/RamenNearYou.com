@@ -14,6 +14,7 @@ import { getApprovedListing, getAllApprovedListings, approvedListingToRestaurant
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import CityFilterPage from '@/components/city-filter-page'
 import { getListingMonthlyViews } from '@/lib/listing-stats'
+import { isRetiredPage } from '@/lib/retired-pages'
 import {
   parseFilterSlug,
   getMajorCity,
@@ -38,15 +39,20 @@ const MANUALLY_VERIFIED_SLUGS = new Set(['momonoki', 'ikedo-ramen'])
 // misses is now a 404 rather than a render — so it walks the same four sources
 // in the same order as the page: city x filter pages, dataset restaurants,
 // Places supplement listings, then approved owner-submitted listings.
+//
+// Pages retired for zero search impressions (lib/retired-pages.ts) are left
+// out; proxy.ts redirects them to the city page before they'd reach here.
+// Owner-submitted listings are never retired.
 export const dynamicParams = false
 
 export async function generateStaticParams() {
   const seen = new Set<string>()
   const params: Array<{ city: string; state: string; restaurant: string }> = []
-  const add = (city: string, state: string, restaurant: string) => {
+  const add = (city: string, state: string, restaurant: string, retirable = true) => {
     const key = `${city}/${state}/${restaurant}`
     if (seen.has(key)) return
     seen.add(key)
+    if (retirable && isRetiredPage(`/${key}`)) return
     params.push({ city, state, restaurant })
   }
 
@@ -55,10 +61,12 @@ export async function generateStaticParams() {
   for (const p of getSupplementListingParams()) add(p.city, p.state, p.restaurant)
   for (const row of await getAllApprovedListings()) {
     const r = approvedListingToRestaurant(row)
-    add(r.citySlug, r.stateSlug, r.slug)
+    add(r.citySlug, r.stateSlug, r.slug, false)
   }
   return params
 }
+
+const isLiveListing = (r: Restaurant) => !isRetiredPage(`/${r.citySlug}/${r.stateSlug}/${r.slug}`)
 
 // Owner overrides, loaded once per build worker rather than once per page —
 // with every listing built at deploy time, a per-page query would be ~8k
@@ -211,7 +219,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
           r={approvedListingToRestaurant(approved)}
           city={city}
           state={state}
-          nearby={getRestaurantsByCity(city, state).slice(0, 6)}
+          nearby={getRestaurantsByCity(city, state).filter(isLiveListing).slice(0, 6)}
           isVerified={false}
           monthlyViews={await getListingMonthlyViews(restaurant)}
         />
@@ -219,8 +227,9 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
     }
     const nearbyListings = getSupplementListings(city, sup.stateCode)
       .filter(n => n.slug !== sup.slug)
-      .slice(0, 6)
       .map(supplementToRestaurant)
+      .filter(isLiveListing)
+      .slice(0, 6)
     return (
       <RestaurantListingPage
         r={supplementToRestaurant(sup)}
@@ -249,7 +258,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
   }
 
   const nearbyListings = getRestaurantsByCity(city, state)
-    .filter(n => n.slug !== r2.slug)
+    .filter(n => n.slug !== r2.slug && isLiveListing(n))
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 6)
 

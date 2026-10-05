@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { retiredPageTarget, isLiveFindModifier } from '@/lib/retired-pages'
+import { matchModifier } from '@/lib/find-modifiers'
 
 const PROTECTED = ['/list', '/claim']
 
@@ -36,13 +38,43 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const parts = pathname.split('/').filter(Boolean)
 
+  // Pages retired for having no search demand (lib/retired-pages.ts) go to
+  // their nearest live parent. Done here, before routing, because they're no
+  // longer built: the page itself would only ever 404.
+  // The list holds decoded paths; pathname arrives percent-encoded, which only
+  // matters for the handful of slugs with non-ASCII characters.
+  let decodedPath = pathname
+  try { decodedPath = decodeURIComponent(pathname) } catch { /* malformed escape: use as-is */ }
+  const retiredTo = retiredPageTarget(decodedPath)
+  if (retiredTo) {
+    const url = request.nextUrl.clone()
+    url.pathname = retiredTo
+    return NextResponse.redirect(url, 308)
+  }
+
+  // Same for /find/{modifier}-{city}-{st} pages outside the built set: send
+  // them to the city page. If that city isn't real either, it 404s there.
+  // The two static /find/*-near-me pages share a modifier prefix, hence the
+  // near-me guard.
+  if (parts.length === 2 && parts[0] === 'find' && !isLiveFindModifier(parts[1])) {
+    const mod = matchModifier(parts[1])
+    if (mod && mod.rest !== 'near-me') {
+      const url = request.nextUrl.clone()
+      url.pathname = `/find/${mod.rest}`
+      return NextResponse.redirect(url, 308)
+    }
+  }
+
   // Redirect /{city}/{state} → /find/{city}-{stateCode}
   if (parts.length === 2 && !RESERVED_SECTIONS.has(parts[0])) {
     const [citySlug, stateSlug] = parts
     const stateCode = STATE_SLUG_TO_CODE[stateSlug]
     if (stateCode) {
       const url = request.nextUrl.clone()
-      url.pathname = `/find/${citySlug}-${stateCode}`
+      const findPath = `/find/${citySlug}-${stateCode}`
+      // Straight to the final page when that city's /find page is retired,
+      // rather than a second hop.
+      url.pathname = retiredPageTarget(findPath) ?? findPath
       return NextResponse.redirect(url, 301)
     }
   }

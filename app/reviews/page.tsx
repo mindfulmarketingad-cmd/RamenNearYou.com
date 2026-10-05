@@ -7,6 +7,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
 import ReviewsHubSearch, { type ReviewListing } from './reviews-hub-search'
+import { isRetiredPage } from '@/lib/retired-pages'
 
 const FAQS = [
   {
@@ -54,6 +55,7 @@ export default function ReviewsIndexPage() {
   // Every review page as a plain link — passed flat so the client can
   // filter by state and sort by rating/review count as well as search.
   const listings: ReviewListing[] = reviewRestaurants
+    .filter((r) => !isRetiredPage(`/reviews/${getReviewSlug(r)}`))
     .map((r) => ({
       href: `/reviews/${getReviewSlug(r)}`,
       name: r.name,

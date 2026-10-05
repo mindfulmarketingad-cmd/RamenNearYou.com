@@ -10,6 +10,7 @@ import { getOpenStatus, getTodayHoursLabel } from './hours'
 import { FEATURE_META, FEATURE_AMENITY_FIELD } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG } from './state-lookups'
 import { getReviewSlug, hasReviewPage } from './reviews'
+import { isRetiredPage } from './retired-pages'
 
 // City/state/neighborhood listicles are naturally bounded (California's 319
 // is the kind of number these top out at) and render in full. The nationwide
@@ -81,8 +82,12 @@ const FEATURE_FIND_HREF: Record<string, string> = {
   'free-parking': '/find/ramen-free-parking',
 }
 
-function cityHrefFor(citySlug: string, stateCode: string): string {
-  return `/find/${citySlug}-${stateCode.toLowerCase()}`
+// Null for a retired city page (lib/retired-pages.ts) — it redirects to the
+// state page, which is often the page the card is on — so the city name
+// renders as plain text.
+function cityHrefFor(citySlug: string, stateCode: string): string | null {
+  const href = `/find/${citySlug}-${stateCode.toLowerCase()}`
+  return isRetiredPage(href) ? null : href
 }
 
 function tagsFromAmenities(r: Restaurant): ListicleTag[] {
@@ -108,19 +113,25 @@ export function restaurantsToListicleItems(
 ): ListicleItem[] {
   return restaurants.map((r, i) => {
     const status = getOpenStatus(r.hours)
+    const directionsUrl = r.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`
+    const listingPath = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+    const reviewPath = `/reviews/${getReviewSlug(r)}`
     return {
       key: r.slug,
-      href: `/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+      // A retired listing (lib/retired-pages.ts) redirects back to its city
+      // page — usually the very page this card is on — so send the card to
+      // Google Maps instead, as supplement listings did before they had pages.
+      href: isRetiredPage(listingPath) ? directionsUrl : listingPath,
       photo: r.photo,
       name: r.name,
       rating: r.rating,
       reviewCount: r.reviewCount,
-      reviewHref: hasReviewPage(getReviewSlug(r)) ? `/reviews/${getReviewSlug(r)}` : null,
+      reviewHref: hasReviewPage(getReviewSlug(r)) && !isRetiredPage(reviewPath) ? reviewPath : null,
       locationLabel: `${r.city}, ${r.stateCode}`,
       cityHref: cityHrefFor(r.citySlug, r.stateCode),
       stateHref: `/${r.stateSlug}`,
       address: r.address || null,
-      directionsUrl: r.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`,
+      directionsUrl,
       phone: r.phone || null,
       website: r.website || null,
       hoursLabel: r.hours ? (status?.status === 'closed' ? `Closed — ${getTodayHoursLabel(r.hours)}` : `Open today: ${getTodayHoursLabel(r.hours)}`) : 'Hours not listed — confirm directly before you go.',
@@ -138,40 +149,46 @@ export function restaurantsToListicleItems(
 export function placesToListicleItems(
   listings: (PlacesRestaurant & { slug: string; citySlug: string; stateSlug: string; city: string; stateCode: string })[],
 ): ListicleItem[] {
-  return listings.map((r, i) => ({
-    key: r.placeId,
-    href: `/${r.citySlug}/${r.stateSlug}/${r.slug}`,
-    photo: r.photo,
-    name: r.name,
-    rating: r.rating,
-    reviewCount: r.reviewCount,
-    locationLabel: `${r.city}, ${r.stateCode}`,
-    cityHref: cityHrefFor(r.citySlug, r.stateCode),
-    stateHref: `/${r.stateSlug}`,
-    address: r.address || null,
-    directionsUrl: r.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`,
-    phone: null,
-    website: null,
-    hoursLabel: r.openNow == null ? 'Hours not listed — confirm directly before you go.' : r.openNow ? 'Open now' : 'Closed now',
-    hoursOpen: r.openNow ?? null,
-    description: i === 0
-      ? `${r.name}, in ${r.city}, is our top pick${r.rating ? ` — rated ${r.rating.toFixed(1)} out of 5` : ''}.`
-      : `${r.name}, in ${r.city}, is next up${r.rating ? `, rated ${r.rating.toFixed(1)} out of 5` : ''}.`,
-    tags: r.priceLevel ? [{ label: '$'.repeat(r.priceLevel) }] : [],
-    lat: r.latitude,
-    lng: r.longitude,
-    claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
-    isClaimed: false,
-  }))
+  return listings.map((r, i) => {
+    const directionsUrl = r.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.name} ${r.city} ${r.stateCode}`)}`
+    const listingPath = `/${r.citySlug}/${r.stateSlug}/${r.slug}`
+    return {
+      key: r.placeId,
+      href: isRetiredPage(listingPath) ? directionsUrl : listingPath,
+      photo: r.photo,
+      name: r.name,
+      rating: r.rating,
+      reviewCount: r.reviewCount,
+      locationLabel: `${r.city}, ${r.stateCode}`,
+      cityHref: cityHrefFor(r.citySlug, r.stateCode),
+      stateHref: `/${r.stateSlug}`,
+      address: r.address || null,
+      directionsUrl,
+      phone: null,
+      website: null,
+      hoursLabel: r.openNow == null ? 'Hours not listed — confirm directly before you go.' : r.openNow ? 'Open now' : 'Closed now',
+      hoursOpen: r.openNow ?? null,
+      description: i === 0
+        ? `${r.name}, in ${r.city}, is our top pick${r.rating ? ` — rated ${r.rating.toFixed(1)} out of 5` : ''}.`
+        : `${r.name}, in ${r.city}, is next up${r.rating ? `, rated ${r.rating.toFixed(1)} out of 5` : ''}.`,
+      tags: r.priceLevel ? [{ label: '$'.repeat(r.priceLevel) }] : [],
+      lat: r.latitude,
+      lng: r.longitude,
+      claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+      isClaimed: false,
+    }
+  })
 }
 
 export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
   return listings.map((p, i) => {
     const status = getOpenStatus(p.hours)
     const stateSlug = STATE_CODE_TO_SLUG[p.stateCode] ?? p.stateCode.toLowerCase()
+    const directionsUrl = p.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.city} ${p.stateCode}`)}`
+    const partnerPath = `/partners/${p.slug}`
     return {
       key: p.slug,
-      href: `/partners/${p.slug}`,
+      href: isRetiredPage(partnerPath) ? directionsUrl : partnerPath,
       photo: p.photo,
       name: p.name,
       rating: p.rating,
@@ -180,7 +197,7 @@ export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
       cityHref: cityHrefFor(p.citySlug, p.stateCode),
       stateHref: `/${stateSlug}`,
       address: p.address || null,
-      directionsUrl: p.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.city} ${p.stateCode}`)}`,
+      directionsUrl,
       phone: p.phone || null,
       website: p.website || null,
       hoursLabel: p.hours ? (status?.status === 'closed' ? `Closed — ${getTodayHoursLabel(p.hours)}` : `Open today: ${getTodayHoursLabel(p.hours)}`) : 'Hours not listed — confirm directly before you go.',
