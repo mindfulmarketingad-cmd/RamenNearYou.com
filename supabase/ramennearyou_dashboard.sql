@@ -49,8 +49,9 @@ create policy "public read analytics"
   for select
   using (true);
 
--- Writes go through the service-role key in /api/analytics/track only, so no
--- insert policy is granted to anon/authenticated.
+-- Writes originally went through the service-role key in /api/analytics/track.
+-- The site is now static and inserts from the browser instead — see
+-- ramennearyou_dashboard_public_insert.sql for the anon INSERT policy.
 
 -- Add to the realtime publication, guarded so re-running this file is safe.
 do $$

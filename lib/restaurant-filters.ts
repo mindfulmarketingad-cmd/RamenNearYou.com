@@ -3,7 +3,9 @@ import { BOWL_MATCH, MOOD_MATCH, txt } from './ramen-discovery'
 import { FEATURE_AMENITY_FIELD, FEATURE_KEYS } from './ramen-taxonomy'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend } from './hours'
 
-// Server-side filter matching for the homepage "near you" feed.
+// Filter matching for the homepage "near you" feed. Evaluated at build time
+// into each restaurant's static `filterKeys` (lib/nearby-data.ts); the browser
+// only re-checks the time-dependent "open-now".
 //
 // The map does the same job in the browser against a slimmed-down payload
 // that only carries a name, so several of its matchers fall back to regexing
@@ -59,4 +61,17 @@ export function matchesFilter(r: Restaurant, key: string): boolean {
 export function matchesAllFilters(r: Restaurant, keys: string[]): boolean {
   for (const k of keys) if (!matchesFilter(r, k)) return false
   return true
+}
+
+/** Every filter key `r` satisfies that doesn't depend on the current time —
+ *  baked into the static nearby data. "open-now" is checked in the browser. */
+export function staticFilterKeys(r: Restaurant): string[] {
+  const keys = [
+    ...FEATURE_KEYS,
+    ...Object.keys(MISC_MATCH).filter((k) => k !== 'open-now'),
+    ...Object.keys(PRICE_MATCH),
+    ...Object.keys(BOWL_MATCH),
+    ...Object.keys(MOOD_MATCH),
+  ]
+  return keys.filter((k) => matchesFilter(r, k))
 }

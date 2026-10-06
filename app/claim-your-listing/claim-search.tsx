@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Search, CheckCircle2 } from 'lucide-react'
+import { searchRestaurants } from '@/lib/restaurant-search-client'
+import { claimMailto, sendViaMail } from '@/lib/mailto'
 
 interface SearchMatch {
   slug: string
@@ -37,27 +39,20 @@ export default function ClaimSearch() {
 
   const [matches, setMatches] = useState<SearchMatch[]>([])
 
-  // Debounced server-side search — the full restaurant dataset (~8,000 rows
-  // with photos, hours, and reviews) used to be searched client-side here,
-  // which meant shipping the whole thing to the browser just to power this
-  // one autocomplete box. Fetching matches from the API keeps that data
-  // server-only.
+  // Debounced search over the static map data (lib/restaurant-search-client).
   useEffect(() => {
     const trimmed = query.trim()
     if (!trimmed) {
       setMatches([])
       return
     }
-    const controller = new AbortController()
+    let cancelled = false
     const timer = setTimeout(() => {
-      fetch(`/api/restaurants/search?q=${encodeURIComponent(trimmed)}`, { signal: controller.signal })
-        .then(res => res.json())
-        .then(data => setMatches(Array.isArray(data) ? data.slice(0, 50) : []))
-        .catch(() => {})
+      searchRestaurants(trimmed).then((res) => { if (!cancelled) setMatches(res.slice(0, 50)) })
     }, 200)
     return () => {
+      cancelled = true
       clearTimeout(timer)
-      controller.abort()
     }
   }, [query])
 
@@ -65,25 +60,15 @@ export default function ClaimSearch() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  // No backend: the new listing opens in the owner's mail app, filled in.
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStatus('submitting')
-    setErrorMsg('')
-    try {
-      const res = await fetch('/api/listings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({}))
-        throw new Error(json.error || 'Submission failed')
-      }
-      setStatus('success')
-    } catch (err: unknown) {
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      setStatus('error')
-    }
+    sendViaMail(`New listing: ${form.name} (${form.city}, ${form.state})`, [
+      ['Restaurant', form.name], ['Address', form.address], ['City', form.city], ['State', form.state],
+      ['ZIP', form.zip], ['Phone', form.phone], ['Website', form.website],
+      ['Owner name', form.ownerName], ['Owner email', form.ownerEmail],
+    ], 'Please add my restaurant to RamenNearYou and mark me as the owner.')
+    setStatus('success')
   }
 
   if (status === 'success') {
@@ -92,19 +77,11 @@ export default function ClaimSearch() {
         <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
           <CheckCircle2 className="w-7 h-7 text-emerald-500" />
         </div>
-        <h2 className="font-serif text-2xl font-bold text-ink mb-2">Submission Received!</h2>
+        <h2 className="font-serif text-2xl font-bold text-ink mb-2">Almost done</h2>
         <p className="text-ink-soft leading-relaxed max-w-sm mx-auto mb-6">
-          Thanks — we&apos;ve got {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}.
-          We&apos;ll add it to the directory and email you at{' '}
-          {form.ownerEmail.trim() ? <strong>{form.ownerEmail.trim()}</strong> : 'your email'} with next steps
-          to claim it for $19.99/mo.
-        </p>
-
-        <p className="text-sm text-ink-soft mb-4">
-          Want more Google reviews too?{' '}
-          <Link href="/review-cards" className="text-brand-ink font-semibold hover:underline">
-            Get QR review cards for your tables →
-          </Link>
+          Your email app should open with{' '}
+          {form.name.trim() ? <strong>{form.name.trim()}</strong> : 'your restaurant'}&apos;s details filled in —
+          hit send there, and we&apos;ll add it to the directory and reply with next steps to claim it.
         </p>
 
         <Link href="/" className="inline-block text-sm text-ink-soft hover:text-ink transition-colors">
@@ -121,9 +98,6 @@ export default function ClaimSearch() {
           {/* Search — the very first action on the page */}
           <div className="flex items-center justify-between mb-3">
             <p className="text-base font-bold text-ink">Start here — find your restaurant 👇</p>
-            <span className="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 text-xs font-semibold whitespace-nowrap">
-              $19.99/mo
-            </span>
           </div>
           <div className="relative">
             <div className="relative">
@@ -152,15 +126,15 @@ export default function ClaimSearch() {
                   </div>
                 ) : (
                   matches.map(r => (
-                    <Link
+                    <a
                       key={r.slug}
-                      href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                      href={claimMailto(r.name, r.city, r.stateCode)}
                       className="block px-4 py-3 hover:bg-sunken transition-colors border-b border-line/5 last:border-b-0"
                       onClick={() => setOpen(false)}
                     >
                       <div className="text-sm text-ink font-medium">{r.name}</div>
                       <div className="text-xs text-ink-soft">{r.city}, {r.stateCode}</div>
-                    </Link>
+                    </a>
                   ))
                 )}
               </div>
@@ -217,7 +191,7 @@ export default function ClaimSearch() {
               {status === 'submitting' ? 'Submitting…' : 'Submit Restaurant'}
             </button>
             <p className="text-center text-xs text-ink-soft">
-              We&apos;ll add your restaurant and email you to finish claiming it for $19.99/mo.
+              We&apos;ll add your restaurant and reply with next steps to claim it.
             </p>
           </form>
         </>

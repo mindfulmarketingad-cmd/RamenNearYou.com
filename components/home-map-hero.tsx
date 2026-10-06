@@ -12,9 +12,7 @@ import {
 import type { MapBounds } from '@/components/ramen-map'
 import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend, getOpenStatus } from '@/lib/hours'
-import { useCurrentUser } from '@/lib/use-current-user'
 import { useModalA11y } from '@/lib/use-modal-a11y'
-import LoginGateModal from '@/components/login-gate-modal'
 import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
@@ -26,6 +24,8 @@ import {
   mapPointReviewSlug, mapPointMapsUrl, mapPointHref, priceRangeLabel,
   type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
+
+const SAVES_KEY = 'rny_saved_restaurants'
 
 type SortOption = 'default' | 'name-az' | 'name-za' | 'most-reviews' | 'highest-rated'
 
@@ -344,25 +344,14 @@ export default function HomeMapHero({
 
   const [saves, setSaves] = useState<Set<string>>(new Set())
 
-  // Directions/Save/Claim on each card require login — logged-out clicks
-  // open this modal instead of following the link.
-  const { user, authChecked } = useCurrentUser()
-  const [gateOpen, setGateOpen] = useState(false)
-
-  // Filters are the paid feature. Sorting, search and the map itself stay
-  // free — only the chips below are behind RamenNearYou+.
+  // Filters are open to everyone now (no accounts on a static site); the
+  // hook keeps the old gated call sites working.
   const filterGate = useFilterGate()
-  function requireAuth(e: React.MouseEvent): boolean {
-    if (!authChecked || !user) {
-      e.preventDefault()
-      if (authChecked) setGateOpen(true)
-      return false
-    }
-    return true
-  }
 
-  // City boundary outline (Zillow-style) — fetched once for city pages.
-  const [boundary, setBoundary] = useState<unknown | null>(null)
+  // City boundary outlines came from a server route that queried
+  // OpenStreetMap's Nominatim; a static site can't proxy that (and Nominatim's
+  // policy rules out calling it from every visitor's browser), so no outline.
+  const boundary = null
 
   const [helpOpen, setHelpOpen] = useState(false)
   const helpPanelRef = useModalA11y(helpOpen, () => setHelpOpen(false))
@@ -428,8 +417,7 @@ export default function HomeMapHero({
   // the "Search this area" button.
   const [updateOnMapMove, setUpdateOnMapMove] = useState(false)
 
-  function handleSaveSearch(e: React.MouseEvent) {
-    if (!requireAuth(e)) return
+  function handleSaveSearch(_e: React.MouseEvent) {
     const state = {
       locationSearch,
       flags: [...flags],
@@ -452,7 +440,7 @@ export default function HomeMapHero({
       const controller = new AbortController()
       const timer = setTimeout(() => controller.abort(), 6000)
       try {
-        const res = await fetch('/api/ramen-map', { cache: 'force-cache', signal: controller.signal })
+        const res = await fetch('/data/ramen-map.json', { cache: 'force-cache', signal: controller.signal })
         clearTimeout(timer)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const d: MapPoint[] = await res.json()
@@ -468,28 +456,13 @@ export default function HomeMapHero({
     return () => { cancelled = true }
   }, [])
 
-  // Load saved restaurants for the current user (empty set if not signed in).
+  // Saved restaurants live in this browser (no accounts on a static site).
   useEffect(() => {
-    fetch('/api/saves').then(r => r.json()).then(({ saves: slugs }) => {
+    try {
+      const slugs = JSON.parse(localStorage.getItem(SAVES_KEY) || '[]')
       if (Array.isArray(slugs)) setSaves(new Set(slugs))
-    }).catch(() => {})
+    } catch { /* storage blocked — start empty */ }
   }, [])
-
-  // Fetch the city (or, for whole-state pages, state) boundary outline
-  // whenever the selected region changes. Cached server-side either way.
-  useEffect(() => {
-    if (!selectedRegion) { setBoundary(null); return }
-    const { cityName, stateName, citySlug, stateSlug, isState } = selectedRegion
-    let cancelled = false
-    const url = isState
-      ? `/api/state-boundary?state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(stateSlug)}`
-      : `/api/city-boundary?city=${encodeURIComponent(cityName)}&state=${encodeURIComponent(stateName)}&key=${encodeURIComponent(`${citySlug}:${stateSlug}`)}`
-    fetch(url)
-      .then(r => r.json())
-      .then(d => { if (!cancelled && d?.geojson) setBoundary(d.geojson) })
-      .catch(() => {})
-    return () => { cancelled = true }
-  }, [selectedRegion])
 
   // Unique city/state options derived from the already-loaded map dataset —
   // no extra network request needed for the location picker.
@@ -607,39 +580,16 @@ export default function HomeMapHero({
     }
   }, [selectedRegion, flags, bowls, moods, prices, localQuery, router])
 
-  function revertSave(slug: string, wasSaved: boolean) {
-    setSaves(prev => {
-      const next = new Set(prev)
-      wasSaved ? next.add(slug) : next.delete(slug)
-      return next
-    })
-  }
-
-  async function handleToggleSave(e: React.MouseEvent, slug: string) {
+  function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
     e.stopPropagation()
-    if (!requireAuth(e)) return
-    const isSaved = saves.has(slug)
     setSaves(prev => {
       const next = new Set(prev)
-      isSaved ? next.delete(slug) : next.add(slug)
+      if (next.has(slug)) next.delete(slug)
+      else next.add(slug)
+      try { localStorage.setItem(SAVES_KEY, JSON.stringify([...next])) } catch { /* storage blocked */ }
       return next
     })
-    try {
-      const res = await fetch('/api/saves', {
-        method: isSaved ? 'DELETE' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug }),
-      })
-      if (res.status === 401) {
-        revertSave(slug, isSaved)
-        setGateOpen(true)
-        return
-      }
-      if (!res.ok) throw new Error('Save failed')
-    } catch {
-      revertSave(slug, isSaved)
-    }
   }
 
   function requestLocation() {
@@ -1800,7 +1750,6 @@ export default function HomeMapHero({
                         href={directionsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => requireAuth(e)}
                         className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-brand text-white text-xs font-semibold hover:bg-brand-hi transition-colors"
                       >
                         <Navigation className="w-3.5 h-3.5" /> Get Directions
@@ -1978,7 +1927,6 @@ export default function HomeMapHero({
         </div>
       )}
 
-      <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />
       <FilterGateModals gate={filterGate.gate} onClose={() => filterGate.setGate(null)} redirectTo={pathname} />
     </section>
   )

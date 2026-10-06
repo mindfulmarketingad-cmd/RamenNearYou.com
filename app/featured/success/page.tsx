@@ -34,12 +34,6 @@ export default function FeaturedSuccessPage() {
 
         <div className="space-y-3">
           <Link
-            href="/featured/dashboard"
-            className="block w-full py-3 bg-amber-500 hover:bg-amber-400 text-sunken font-semibold rounded-xl transition-colors"
-          >
-            View My Dashboard
-          </Link>
-          <Link
             href="/"
             className="block w-full py-3 border border-line/8 text-ink-soft hover:text-ink rounded-xl transition-colors text-sm"
           >

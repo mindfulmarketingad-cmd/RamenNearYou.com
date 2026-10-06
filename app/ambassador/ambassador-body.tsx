@@ -1,20 +1,15 @@
 'use client'
 
-import { useState, useEffect, FormEvent } from 'react'
-import Link from 'next/link'
+import { useState, FormEvent } from 'react'
 import RestaurantImage from '@/components/restaurant-image'
-import { createClient } from '@/lib/supabase/client'
-import type { User } from '@supabase/supabase-js'
 import { pickStockPhoto } from '@/lib/stock-photos'
+import { sendViaMail } from '@/lib/mailto'
 
 const inputClass =
   'w-full px-4 py-3 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors'
 
 export default function AmbassadorBody() {
-  const [user, setUser] = useState<User | null | undefined>(undefined)
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -23,36 +18,14 @@ export default function AmbassadorBody() {
   const [whyApply, setWhyApply] = useState('')
   const [experience, setExperience] = useState('')
 
-  useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user)
-      if (data.user?.email) setEmail(data.user.email)
-    })
-  }, [])
-
-  async function handleSubmit(e: FormEvent) {
+  // No backend: the application opens in the visitor's own mail app.
+  function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    setError('')
-    setLoading(true)
-
-    try {
-      const res = await fetch('/api/ambassador', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, city, instagram, why_apply: whyApply, experience }),
-      })
-      const data = await res.json()
-      if (!res.ok) {
-        setError(data.error ?? 'Something went wrong.')
-      } else {
-        setSubmitted(true)
-      }
-    } catch {
-      setError('Network error. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+    sendViaMail(`City Ambassador application: ${city}`, [
+      ['Name', name], ['Email', email], ['City', city], ['Instagram', instagram],
+      ['Why I want to apply', whyApply], ['Experience', experience],
+    ])
+    setSubmitted(true)
   }
 
   return (
@@ -71,28 +44,17 @@ export default function AmbassadorBody() {
           </p>
         </div>
 
-        {user === undefined ? (
-          <div className="text-center text-ink-soft text-sm py-12">Loading&hellip;</div>
-        ) : user === null ? (
-          <div className="bg-sunken border border-line/8 rounded-xl p-8 text-center">
-            <p className="text-ink-soft mb-4">You need to be signed in to apply.</p>
-            <Link
-              href="/auth/login?redirectTo=/ambassador"
-              className="inline-block px-6 py-3 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand-hi transition-colors"
-            >
-              Sign in to apply
-            </Link>
-          </div>
-        ) : submitted ? (
+        {submitted ? (
           <div className="bg-sunken border border-brand/30 rounded-xl p-8 text-center">
             <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-brand-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="font-serif text-xl font-bold text-ink mb-2">Application received!</h2>
+            <h2 className="font-serif text-xl font-bold text-ink mb-2">Almost done</h2>
             <p className="text-ink-soft text-sm">
-              We&apos;ll review it and get back to you within 3&ndash;5 business days.
+              Your email app should open with your application filled in &mdash; hit send there
+              and we&apos;ll get back to you within 3&ndash;5 business days.
             </p>
           </div>
         ) : (
@@ -189,16 +151,11 @@ export default function AmbassadorBody() {
               />
             </div>
 
-            {error && (
-              <p className="text-red-400 text-sm">{error}</p>
-            )}
-
             <button
               type="submit"
-              disabled={loading}
               className="w-full px-6 py-3 rounded-none bg-brand text-white text-sm font-medium hover:bg-brand-hi transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? 'Submitting…' : 'Submit Application'}
+              Submit Application
             </button>
           </form>
         )}

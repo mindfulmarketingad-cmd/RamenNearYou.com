@@ -6,6 +6,7 @@ import { Search, Star, Loader2, SlidersHorizontal, X, ChevronLeft, ChevronRight 
 import { BOWL_META, MOOD_META, FEATURE_META, BOWL_BY_KEY, MOOD_BY_KEY, FEATURE_BY_KEY, type MapPoint } from '@/lib/ramen-taxonomy'
 import { getOpenStatus, getTodayHoursLabel } from '@/lib/hours'
 import InquireButton from '@/components/inquire-button'
+import { claimMailto } from '@/lib/mailto'
 
 const PAGE_SIZE = 25
 
@@ -84,7 +85,7 @@ export default function PartnersDirectory() {
 
   useEffect(() => {
     let cancelled = false
-    fetch('/api/ramen-map', { cache: 'force-cache' })
+    fetch('/data/ramen-map.json', { cache: 'force-cache' })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -271,12 +272,12 @@ export default function PartnersDirectory() {
                               Claimed
                             </span>
                           ) : (
-                            <Link
-                              href={`/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`}
+                            <a
+                              href={claimMailto(r.name, r.city, r.stateCode)}
                               className="inline-flex items-center px-3 py-1.5 rounded-full bg-brand hover:bg-brand-hi text-white text-xs font-semibold transition-colors whitespace-nowrap"
                             >
                               Claim Listing
-                            </Link>
+                            </a>
                           )}
                         </td>
                         <td className="px-4 py-3 align-top whitespace-nowrap">

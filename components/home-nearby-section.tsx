@@ -9,6 +9,7 @@ import ListicleCard, { type ListicleCardData } from '@/components/listicle-card'
 import ProductsCarousel from '@/components/products-carousel'
 import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
 import { BOWL_META, MOOD_META, FEATURE_META, MISC_FLAG_BY_KEY } from '@/lib/ramen-taxonomy'
+import { fetchNearby, type NearbyResult, type SortKey } from '@/lib/nearby-client'
 
 // The homepage's feed: the map on top, then the ramen actually inside the
 // radius drawn on it. The two share one position, so what the circle covers
@@ -19,7 +20,6 @@ const RADIUS_CHOICES = [5, 10, 25, 50] as const
 const DEFAULT_RADIUS = 25
 
 // Sorting is free for everyone; the filter chips below are not.
-type SortKey = 'closest' | 'rating' | 'reviews'
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: 'closest', label: 'Closest' },
   { value: 'rating', label: 'Top Rated' },
@@ -56,27 +56,6 @@ const CHIP_LABEL: Record<string, string> = Object.fromEntries(
   FILTER_GROUPS.flatMap((g) => g.chips.map((c) => [c.key, c.label]))
 )
 
-interface NearbyResult {
-  slug: string
-  citySlug: string
-  stateSlug: string
-  name: string
-  city: string
-  stateCode: string
-  rating: number | null
-  reviewCount: number
-  photo: string
-  description: string
-  subtypes: string
-  priceRange: string
-  address: string
-  phone: string
-  website: string
-  googleMapsLink: string
-  openNow: boolean | null
-  hoursLabel: string | null
-  distanceMiles: number
-}
 
 function toCard(r: NearbyResult): ListicleCardData {
   const tags = (r.subtypes ?? '')
@@ -133,16 +112,14 @@ export default function HomeNearbySection() {
     if (!pos) return
     let cancelled = false
     setLoading(true)
-    const qs = new URLSearchParams({
-      lat: String(pos.lat),
-      lng: String(pos.lng),
-      radius: String(radius),
-      limit: String(FEED_LIMIT),
+    fetchNearby({
+      lat: pos.lat,
+      lng: pos.lng,
+      radius,
+      limit: FEED_LIMIT,
       sort,
+      filters: filterParam ? filterParam.split(',') : [],
     })
-    if (filterParam) qs.set('filters', filterParam)
-    fetch(`/api/nearby?${qs}`)
-      .then((r) => r.json())
       .then((d) => {
         if (cancelled) return
         setResults(Array.isArray(d.results) ? d.results : [])

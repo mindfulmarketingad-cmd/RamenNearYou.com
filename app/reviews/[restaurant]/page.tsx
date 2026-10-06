@@ -313,18 +313,6 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               restaurantName={r.name}
               isVerified={isVerified}
             />
-            <Link
-              href={`/review-cards?restaurant=${encodeURIComponent(r.slug)}`}
-              className="flex items-center gap-3 rounded-xl border border-brand/25 bg-brand/8 p-4 hover:bg-brand/14 transition-colors"
-            >
-              <span className="w-10 h-10 rounded-full bg-brand/15 flex items-center justify-center shrink-0">
-                <QrCode className="w-5 h-5 text-brand-ink" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-sm font-bold text-ink">Want More Reviews?</span>
-                <span className="block text-xs text-ink-soft">Get a QR review card for your tables</span>
-              </span>
-            </Link>
           </section>
 
           {/* Reviews */}

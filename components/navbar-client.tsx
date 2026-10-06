@@ -3,11 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter, usePathname } from 'next/navigation'
-import { Menu, X, Utensils, ArrowRight, Flame, Rss } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { Menu, X, Utensils, ArrowRight, Flame } from 'lucide-react'
 import ThemeToggle from '@/components/theme-toggle'
-import { createClient } from '@/lib/supabase/client'
-import type { User } from '@supabase/supabase-js'
 
 const BANNER_HEIGHT = 40 // px — keep in sync with the banner's h-10
 const NAVBAR_HEIGHT = 64 // px — keep in sync with the nav row's h-16
@@ -40,10 +38,8 @@ const NAV_LINKS = [
 ]
 
 export default function NavbarClient({ restaurantCount, phoCount }: { restaurantCount?: number; phoCount?: number }) {
-  const router = useRouter()
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
   const [isHomepage, setIsHomepage] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(true) // start hidden to avoid SSR/first-paint flash
@@ -74,16 +70,6 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
     return () => clearInterval(timer)
   }, [dealPaused])
 
-  useEffect(() => {
-    const supabase = createClient()
-    if (!supabase) return
-    supabase.auth.getUser().then(({ data }) => { setUser(data.user) })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
-    return () => subscription.unsubscribe()
-  }, [])
-
   // Promo banner: single top strip. When shown, push the page down by the
   // banner height so every page's existing top padding (calibrated for the
   // 64px navbar) still clears the now-taller fixed header.
@@ -105,16 +91,6 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
     setBannerDismissed(true)
     try { localStorage.setItem('shopBannerDismissed', '1') } catch {}
   }
-
-  async function handleSignOut() {
-    const supabase = createClient()
-    if (supabase) await supabase.auth.signOut()
-    setMenuOpen(false)
-    router.push('/')
-    router.refresh()
-  }
-
-  const userInitial = user?.email ? user.email[0].toUpperCase() : null
 
   function isActive(href: string) {
     if (href === '/') return pathname === '/'
@@ -221,46 +197,19 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 >
                   Shop
                 </a>
-                {user && (
-                  <>
-                    {/* Members-only, so it's only worth showing once we know
-                        someone is signed in. */}
-                    <Link
-                      href="/feed"
-                      className={`flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm rounded-lg whitespace-nowrap transition-colors ${
-                        isActive('/feed')
-                          ? 'text-ink font-semibold bg-brand/10'
-                          : 'text-ink-soft hover:text-ink hover:bg-black/5'
-                      }`}
-                    >
-                      <Rss className="w-3.5 h-3.5" /> My Feed
-                    </Link>
-                    <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm text-ink-soft hover:text-ink transition-colors rounded-lg hover:bg-black/5">
-                      <span className="w-6 h-6 rounded-full bg-brand/30 border border-brand/50 flex items-center justify-center text-xs font-bold text-brand-ink">
-                        {userInitial}
-                      </span>
-                    </Link>
-                    <button onClick={handleSignOut} className="px-3 py-2 text-sm text-brand-ink hover:text-brand-ink/80 transition-colors rounded-lg hover:bg-black/5">
-                      Sign Out
-                    </button>
-                  </>
-                )}
               </nav>
 
               <ThemeToggle />
 
               {/* Single header CTA. Restaurant owners reach /claim-your-listing
-                  through the footer now — the header keeps one action so the
-                  nav reads as a feed app rather than a sales page. */}
-              {!user && (
-                <Link
-                  href="/auth/login"
-                  className="hidden lg:flex items-center gap-1.5 xl:gap-2 px-4 xl:px-6 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm xl:text-base font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
-                >
-                  <Utensils className="w-4 h-4" />
-                  Log In
-                </Link>
-              )}
+                  through the footer — the header keeps one action. */}
+              <Link
+                href="/find"
+                className="hidden lg:flex items-center gap-1.5 xl:gap-2 px-4 xl:px-6 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm xl:text-base font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+              >
+                <Utensils className="w-4 h-4" />
+                Find Ramen
+              </Link>
 
               {/* Mobile hamburger only */}
               <button
@@ -278,16 +227,14 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
 
         {menuOpen && (
           <div id="mobile-nav-menu" className="bg-surface border-t border-line/8 px-4 pb-6 max-h-[80vh] overflow-y-auto">
-            {!user && (
-              <Link
-                href="/auth/login"
-                className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-brand text-white text-sm font-semibold"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Utensils className="w-4 h-4" />
-                Log In
-              </Link>
-            )}
+            <Link
+              href="/find"
+              className="flex items-center justify-center gap-2 mt-3 mb-1 px-4 py-3 rounded-none bg-brand text-white text-sm font-semibold"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Utensils className="w-4 h-4" />
+              Find Ramen
+            </Link>
 
             <nav className="flex flex-col gap-1 pt-3">
               {NAV_LINKS.map((link) => (
@@ -322,29 +269,6 @@ export default function NavbarClient({ restaurantCount, phoCount }: { restaurant
                 </p>
               )}
 
-              {user && (
-                <div className="mt-2 flex flex-col gap-1">
-                  <Link href="/feed" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors flex items-center gap-2" onClick={() => setMenuOpen(false)}>
-                    <Rss className="w-3.5 h-3.5" /> My Feed
-                  </Link>
-                  <Link href="/saved" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors" onClick={() => setMenuOpen(false)}>
-                    Saved Restaurants
-                  </Link>
-                  <Link href="/profile" className="py-2 text-sm text-ink-soft hover:text-ink transition-colors" onClick={() => setMenuOpen(false)}>
-                    <span className="inline-flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-brand/30 border border-brand/50 flex items-center justify-center text-xs font-bold text-brand-ink">
-                        {userInitial}
-                      </span>
-                      {user.email}
-                    </span>
-                  </Link>
-                  <div className="border-t border-line/5 pt-2">
-                    <button onClick={handleSignOut} className="py-2 text-sm text-brand-ink hover:text-brand-ink/80 transition-colors">
-                      Sign Out
-                    </button>
-                  </div>
-                </div>
-              )}
             </nav>
           </div>
         )}

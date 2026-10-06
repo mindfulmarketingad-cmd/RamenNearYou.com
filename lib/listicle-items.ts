@@ -11,6 +11,7 @@ import { FEATURE_META, FEATURE_AMENITY_FIELD } from './ramen-taxonomy'
 import { STATE_CODE_TO_SLUG } from './state-lookups'
 import { getReviewSlug, hasReviewPage } from './reviews'
 import { isRetiredPage } from './retired-pages'
+import { claimMailto } from './mailto'
 
 // City/state/neighborhood listicles are naturally bounded (California's 319
 // is the kind of number these top out at) and render in full. The nationwide
@@ -140,7 +141,7 @@ export function restaurantsToListicleItems(
       tags: tagsFromAmenities(r),
       lat: r.latitude,
       lng: r.longitude,
-      claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+      claimHref: claimMailto(r.name, r.city, r.stateCode),
       isClaimed: opts.verifiedSlugs?.has(r.slug) ?? false,
     }
   })
@@ -174,7 +175,7 @@ export function placesToListicleItems(
       tags: r.priceLevel ? [{ label: '$'.repeat(r.priceLevel) }] : [],
       lat: r.latitude,
       lng: r.longitude,
-      claimHref: `/claim/${r.citySlug}/${r.stateSlug}/${r.slug}`,
+      claimHref: claimMailto(r.name, r.city, r.stateCode),
       isClaimed: false,
     }
   })
@@ -210,7 +211,7 @@ export function phoToListicleItems(listings: PhoRestaurant[]): ListicleItem[] {
       tags: (p.reviewTags ?? []).slice(0, 3).map(label => ({ label })),
       lat: p.latitude,
       lng: p.longitude,
-      claimHref: `/claim/${p.citySlug}/${p.stateCode.toLowerCase()}/${p.slug}`,
+      claimHref: claimMailto(p.name, p.city, p.stateCode),
       isClaimed: p.verified,
     }
   })

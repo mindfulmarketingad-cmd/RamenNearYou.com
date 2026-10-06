@@ -1,9 +1,7 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MapPin, Crown, ChevronRight, Utensils } from 'lucide-react'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 type FeaturedListing = {
   id: string
@@ -18,30 +16,26 @@ type FeaturedListing = {
   restaurant_slug: string | null
 }
 
-function fireAnalytics(listing_id: string, event_type: 'view' | 'click') {
-  fetch('/api/featured/analytics', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ listing_id, event_type }),
-  }).catch(() => {})
+// Active featured listings, read once at build time — the page is static, so
+// a newly activated listing shows up on the next deploy.
+async function getFeaturedListings(): Promise<FeaturedListing[]> {
+  const admin = createAdminClient()
+  if (!admin) return []
+  const { data, error } = await admin
+    .from('featured_listings')
+    .select('*')
+    .eq('status', 'active')
+    .order('featured_order', { ascending: true })
+    .order('created_at', { ascending: false })
+    .limit(8)
+  if (error) console.error('[featured-listings] query failed, building without them:', error.message)
+  return (data as FeaturedListing[] | null) ?? []
 }
 
-export default function FeaturedListings() {
-  const [listings, setListings] = useState<FeaturedListing[]>([])
-  const [loading, setLoading] = useState(true)
+export default async function FeaturedListings() {
+  const listings = await getFeaturedListings()
 
-  useEffect(() => {
-    fetch('/api/featured')
-      .then(r => r.json())
-      .then(({ listings: data }) => {
-        setListings(data ?? [])
-        // Fire a view event for each listing that rendered
-        ;(data ?? []).forEach((l: FeaturedListing) => fireAnalytics(l.id, 'view'))
-      })
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading || listings.length === 0) return null
+  if (listings.length === 0) return null
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-surface">
@@ -112,7 +106,6 @@ export default function FeaturedListings() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => fireAnalytics(listing.id, 'click')}
                       className="flex items-center justify-center gap-1.5 w-full py-2 border border-brand/30 text-brand-ink text-xs font-medium rounded-lg hover:bg-brand/5 transition-colors"
                     >
                       Visit Website <ChevronRight className="w-3 h-3" />
@@ -120,7 +113,6 @@ export default function FeaturedListings() {
                   ) : (
                     <Link
                       href={href}
-                      onClick={() => fireAnalytics(listing.id, 'click')}
                       className="flex items-center justify-center gap-1.5 w-full py-2 border border-brand/30 text-brand-ink text-xs font-medium rounded-lg hover:bg-brand/5 transition-colors"
                     >
                       View Listing <ChevronRight className="w-3 h-3" />

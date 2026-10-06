@@ -1,6 +1,6 @@
 // SERVER-ONLY. Imports the heavy restaurants dataset, so this must never be
 // imported by a client component. It precomputes the slim MapPoint records
-// (with bowl/mood tags) that the homepage map fetches via /api/ramen-map.
+// (with bowl/mood tags) that the homepage map fetches as /data/ramen-map.json.
 import { restaurants, getBrothTypes, type Restaurant } from './restaurants'
 import { isOpenLate } from './hours'
 import { getReviewSlug } from './reviews'

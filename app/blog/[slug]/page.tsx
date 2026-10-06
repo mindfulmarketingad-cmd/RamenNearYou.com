@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound, permanentRedirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, Phone, ChevronRight } from 'lucide-react'
@@ -31,13 +31,10 @@ export const dynamicParams = false
 
 export async function generateStaticParams() {
   return [
-    // Retired city guides that permanent-redirect to their /find page. They
-    // have to be built too: with dynamicParams off, an unbuilt slug is a 404,
-    // and these are old URLs with inbound links that should keep their 308.
-    ...Object.keys(CITY_GUIDE_REDIRECTS).map((slug) => ({ slug })),
+    // Retired city guides (CITY_GUIDE_REDIRECTS) aren't built: their 308s to
+    // the /find page live in vercel.json (scripts/generate-vercel-json.ts).
     ...blogPosts.filter((post) => !CITY_GUIDE_REDIRECTS[post.slug]).map((post) => ({ slug: post.slug })),
-    // City listicles with zero search impressions are retired
-    // (lib/retired-pages.ts) and redirect to the city's /find page.
+    // City listicles outside the page budget are retired (lib/retired-pages.ts).
     ...[...getCityListicleParams(), ...getCityPhoListicleParams()]
       .filter((slug) => !isRetiredPage(`/blog/${slug}`))
       .map((slug) => ({ slug })),
@@ -171,7 +168,6 @@ function RestaurantCardItem({ card }: { card: RestaurantCard }) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  if (CITY_GUIDE_REDIRECTS[slug]) permanentRedirect(CITY_GUIDE_REDIRECTS[slug])
 
   const cityListicle = matchCityListicle(slug)
   if (cityListicle) {

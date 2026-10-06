@@ -8,7 +8,7 @@ import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getTonkotsuCities, getTonkotsuRestaurantsByCity, getNearbyCities } from '@/lib/restaurants'
 import { getPerfectFor } from '@/lib/perfect-for'
-import { isRetiredPage } from '@/lib/retired-pages'
+import { isRetiredPage, isLiveFindModifier } from '@/lib/retired-pages'
 
 interface Props {
   params: Promise<{ city: string; state: string }>
@@ -30,8 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city: cityName, state: stateName, stateCode } = tonkotsuRestaurants[0]
   const title = `Ramen Tonkotsu in ${cityName} ${stateName} | Find and Order Ramen Now`
   // Canonical points to the /find modifier page, the chosen canonical for the
-  // "{broth} ramen in {city}" intent (this broth-city hub duplicates it).
-  const canonicalUrl = `https://www.ramennearyou.com/find/tonkotsu-ramen-in-${city}-${stateCode.toLowerCase()}`
+  // "{broth} ramen in {city}" intent (this broth-city hub duplicates it) —
+  // when that page is still built; otherwise this page is its own canonical.
+  const modifierParam = `tonkotsu-ramen-in-${city}-${stateCode.toLowerCase()}`
+  const canonicalUrl = isLiveFindModifier(modifierParam)
+    ? `https://www.ramennearyou.com/find/${modifierParam}`
+    : `https://www.ramennearyou.com/tonkotsu/${city}/${state}`
   return {
     title,
     description: `Find the best tonkotsu ramen in ${cityName}, ${stateCode}. Browse ${tonkotsuRestaurants.length} top-rated restaurants serving rich, creamy pork bone broth. Ratings, menus, and directions.`,

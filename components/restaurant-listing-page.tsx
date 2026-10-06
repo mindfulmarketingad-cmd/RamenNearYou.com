@@ -9,9 +9,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
-import RestaurantVoteButtons from '@/components/restaurant-vote-buttons'
 import PageViewTracker from '@/components/page-view-tracker'
-import SelfLinkPanel from '@/components/self-link-panel'
 import OpenNowBadge from '@/components/open-now-badge'
 import { expandDescription } from '@/lib/expand-description'
 import { getReviewSlug, hasReviewPage, generateReviews, generateReviewSummary } from '@/lib/reviews'
@@ -19,6 +17,7 @@ import { isRetiredPage } from '@/lib/retired-pages'
 import { jsonLdString } from '@/lib/json-ld'
 import { getRelatedGroups, getNearbyCityLinks } from '@/lib/related-listings'
 import type { Restaurant } from '@/lib/restaurants'
+import { claimMailto } from '@/lib/mailto'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -210,7 +209,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(schema) }} />
       {/* Records one page view per browser session for owner analytics */}
-      <PageViewTracker slug={r.slug} />
+      <PageViewTracker slug={r.slug} name={r.name} city={r.city} />
       <main className="min-h-screen bg-surface">
         <Navbar />
 
@@ -252,9 +251,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     <BadgeCheck className="w-3.5 h-3.5" /> Verified
                   </span>
                 )}
-                {/* Community thumbs up / down. Counts are public; casting a
-                    vote needs an account (one vote per person per listing). */}
-                <RestaurantVoteButtons slug={r.slug} restaurantName={r.name} />
               </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -294,10 +290,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 isVerified={isVerified}
               />
 
-              {/* Self-link: logged-in user's email matches the approved claim
-                  but their account isn't connected to it yet (client-side) */}
-              <SelfLinkPanel slug={r.slug} restaurantName={r.name} />
-
               {/* Own this business? — the site's main passive-claim lever.
                   Placed right under the action row (above the ads, the
                   description, everything) so an owner who lands on their own
@@ -317,20 +309,20 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       <p className="text-xs text-ink-soft leading-relaxed mb-3">
                         This page got{' '}
                         <strong className="text-ink">{monthlyViews.toLocaleString()} view{monthlyViews === 1 ? '' : 's'}</strong>{' '}
-                        in the last 30 days — diners looking for a restaurant just like yours. Claim it for $19.99/mo
-                        to control what they see and get a verified badge.
+                        in the last 30 days — diners looking for a restaurant just like yours. Claim it to
+                        control what they see and get a verified badge.
                       </p>
                     ) : (
                       <p className="text-xs text-ink-soft leading-relaxed mb-3">
-                        This listing hasn&apos;t been claimed yet. Claiming is $19.99/mo — create an
-                        account, subscribe, submit your claim, and once our team verifies ownership you&apos;re in control.
+                        This listing hasn&apos;t been claimed yet. Send us a quick email and once our team
+                        verifies ownership you&apos;re in control.
                       </p>
                     )}
                     <ul className="space-y-1.5 mb-4">
                       {[
-                        '$19.99/mo — quick ownership review, cancel anytime',
+                        'Quick ownership review by email — no account needed',
                         'Verified badge on this page and the search map',
-                        'Update hours, photos, menu, and description anytime',
+                        'Send us new hours, photos, menu, or description anytime',
                         'Ad-free listing page (no ads on your dedicated listing page)',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-ink">
@@ -339,12 +331,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href={`/claim/${city}/${state}/${r.slug}`}
+                    <a
+                      href={claimMailto(r.name, r.city, r.stateCode)}
                       className="inline-flex items-center justify-center w-full px-4 py-3 rounded-none bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
                     >
-                      Claim This Listing — $19.99/mo
-                    </Link>
+                      Claim This Listing
+                    </a>
                   </div>
                 </div>
               )}
@@ -468,23 +460,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   )}
                 </div>
               )}
-
-              {/* Want More Reviews? — Google review card CTA */}
-              <div className="mt-6 pt-5 border-t border-line/8">
-                <Link
-                  href={`/review-cards?restaurant=${encodeURIComponent(r.slug)}`}
-                  className="flex items-center gap-3 rounded-xl border border-brand/25 bg-brand/8 px-4 py-3.5 hover:bg-brand/14 transition-colors"
-                >
-                  <span className="w-10 h-10 rounded-full bg-brand/15 flex items-center justify-center shrink-0">
-                    <QrCode className="w-5 h-5 text-brand-ink" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm font-bold text-ink">Want More Reviews?</span>
-                    <span className="block text-xs text-ink-soft">Get a QR review card for {r.name}&apos;s tables</span>
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-brand-ink shrink-0 ml-auto" />
-                </Link>
-              </div>
 
               {/* Share */}
               <div className="mt-6 pt-5 border-t border-line/8 flex items-center gap-3">

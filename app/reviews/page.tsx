@@ -136,12 +136,12 @@ export default function ReviewsIndexPage() {
                   <p className="text-sm text-ink"><strong>Scan tracking.</strong> We track every scan, so you can see the QR working without reprinting a thing.</p>
                 </div>
               </div>
-              <Link
-                href="/review-cards"
+              <a
+                href="mailto:hello@ramennearyou.com?subject=Google%20Review%20Cards"
                 className="flex w-full sm:w-auto sm:inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors"
               >
                 <Star className="w-4 h-4" /> Get Your Google Review Cards
-              </Link>
+              </a>
             </div>
 
             <h2 className="font-serif text-xl font-bold text-ink mb-5">

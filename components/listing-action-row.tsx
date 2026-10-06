@@ -1,15 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Navigation2, Globe, Phone, Heart, BookOpen, Store, Edit3, ShoppingBag, Bike, Image as ImageIcon } from 'lucide-react'
-import { useCurrentUser } from '@/lib/use-current-user'
-import { useOwnerStatus } from '@/lib/use-owner-status'
-import { getSavedSlugs, toggleSaved } from '@/lib/saves'
-import LoginGateModal from '@/components/login-gate-modal'
+import { Navigation2, Globe, Phone, BookOpen, Store, ShoppingBag, Bike, Image as ImageIcon } from 'lucide-react'
 import InquireButton from '@/components/inquire-button'
 import { trackEvent } from '@/lib/analytics-client'
+import { claimMailto } from '@/lib/mailto'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors'
@@ -34,49 +28,17 @@ interface Props {
 }
 
 // Google-Maps-style action row on the individual restaurant listing page.
-// The outbound actions (Images/Directions/Order/Website/Call/Menu) are open to
-// everyone — making a visitor sign in just to get directions or call a shop is
-// friction with no payoff, and it blocks the exact conversions the listing
-// exists to drive. Only Save and Claim still require an account, because both
-// write to a specific user's record and literally cannot work without one.
-// Clicks are still tracked for owner analytics in every case.
-// Owner status is resolved client-side (useOwnerStatus) so the page itself
-// can stay statically cached.
+// The site is static (no accounts), so every action is an outbound link;
+// clicks that count as a lead land in the dashboard's analytics table.
 export default function ListingActionRow({
-  slug, restaurantName, city, state, displayCity, stateCode, directionsUrl, website, phone, menuUrl, isVerified,
+  slug, restaurantName, displayCity, stateCode, directionsUrl, website, phone, menuUrl, isVerified,
 }: Props) {
-  const router = useRouter()
-  const { user, authChecked } = useCurrentUser()
-  const { isOwner } = useOwnerStatus(slug)
-  const [gateOpen, setGateOpen] = useState(false)
-  const [saved, setSaved] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const pathname = `/${city}/${state}/${slug}`
   // Google Images results for this specific restaurant (name + city/state so
   // same-named shops in other cities don't dominate the results).
   const imagesUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(
     [restaurantName, displayCity, stateCode].filter(Boolean).join(' ')
   )}`
 
-  useEffect(() => {
-    getSavedSlugs().then((slugs) => setSaved(slugs.includes(slug)))
-  }, [slug])
-
-  function guard(e: React.MouseEvent, action: () => void) {
-    if (!authChecked) { e.preventDefault(); return }
-    if (!user) {
-      e.preventDefault()
-      setGateOpen(true)
-      return
-    }
-    action()
-  }
-
-  // Fire-and-forget click tracking for owner analytics (restaurant_visits,
-  // event_type='click'). Records the click for every visitor, signed in or not.
-  // Two sinks, one handler: /api/track-click still feeds the per-listing
-  // featured-listing counters, and the destinations that count as a lead
-  // action also land in the dashboard's analytics table.
   const DASHBOARD_EVENT: Record<string, string> = {
     directions: 'directions_click',
     call: 'call_click',
@@ -84,12 +46,6 @@ export default function ListingActionRow({
   }
 
   function trackClick(destination: string) {
-    fetch('/api/track-click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ restaurantSlug: slug, restaurantName, destination }),
-    }).catch(() => {})
-
     const event = DASHBOARD_EVENT[destination]
     if (event) {
       trackEvent(event, {
@@ -100,28 +56,17 @@ export default function ListingActionRow({
     }
   }
 
-  function handleSave(e: React.MouseEvent) {
-    guard(e, async () => {
-      if (busy) return
-      setBusy(true)
-      const result = await toggleSaved(slug, saved)
-      setBusy(false)
-      if (result.unauthorized) { setGateOpen(true); return }
-      setSaved(result.saved)
-    })
-  }
-
   return (
     <>
       <div className="flex items-center gap-5 mt-5 pb-5 border-b border-line/8 overflow-x-auto scrollbar-hide">
-        {!isOwner && !isVerified && (
-          <button type="button" className={iconBtn} onClick={(e) => guard(e, () => router.push(`/claim/${city}/${state}/${slug}`))}>
+        {!isVerified && (
+          <a href={claimMailto(restaurantName, displayCity, stateCode)} className={iconBtn}>
             <span className="relative">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-60" />
               <span className={`relative ${iconCircle}`}><Store className="w-5 h-5" /></span>
             </span>
             Claim
-          </button>
+          </a>
         )}
         <a
           href={imagesUrl}
@@ -163,24 +108,13 @@ export default function ListingActionRow({
             Call
           </a>
         )}
-        <button onClick={handleSave} disabled={busy} className={`${iconBtn} disabled:opacity-60`}>
-          <span className={iconCircle}><Heart className={`w-5 h-5 transition-all ${saved ? 'fill-brand' : ''}`} /></span>
-          {saved ? 'Saved' : 'Save'}
-        </button>
         {menuUrl && (
           <a href={menuUrl} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('menu')}>
             <span className={iconCircle}><BookOpen className="w-5 h-5" /></span>
             Menu
           </a>
         )}
-        {isOwner && (
-          <Link href={`/owner/${slug}`} className={iconBtn}>
-            <span className={iconCircle}><Edit3 className="w-5 h-5" /></span>
-            Manage
-          </Link>
-        )}
       </div>
-      <LoginGateModal open={gateOpen} onClose={() => setGateOpen(false)} redirectTo={pathname} />
     </>
   )
 }

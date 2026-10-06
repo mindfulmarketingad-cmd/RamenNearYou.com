@@ -1,7 +1,10 @@
 'use client'
 
-// Browser-side analytics. Deliberately free of any dataset import so it stays
-// tiny — path-to-listing resolution happens server-side in the track route.
+// Browser-side analytics. The site is static HTML with no API routes, so
+// events go straight into Supabase's REST API with the public anon key —
+// the same way pumpkinpatchesnearme.com does it. The table's RLS allows
+// anonymous INSERT (supabase/ramennearyou_dashboard_public_insert.sql) and
+// its CHECK constraint limits event_type; it holds no PII.
 //
 // Every function here is fire-and-forget and swallows its own errors: an
 // analytics failure (blocked storage, offline, ad blocker) must never break
@@ -58,26 +61,51 @@ export type TrackPayload = {
   path?: string
 }
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://ucqlkhhjoriakjyeogbx.supabase.co'
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjcWxraGhqb3JpYWtqeWVvZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjQ3MTMsImV4cCI6MjA5NDU0MDcxM30.gczEiOrXeym_pflc473bp-ct3cuo0_XyRAB0XY9gVPs'
+const TABLE = 'ramennearyou_dashboard'
+
+// Listing pages render a hidden marker (components/page-view-tracker.tsx) so
+// a pageview there is recorded as a listing_view with the listing attached —
+// what the old server route worked out from the path.
+function listingContext(): { slug: string; name: string | null; city: string | null } | null {
+  const el = document.querySelector<HTMLElement>('[data-rny-listing-slug]')
+  if (!el?.dataset.rnyListingSlug) return null
+  return { slug: el.dataset.rnyListingSlug, name: el.dataset.rnyListingName ?? null, city: el.dataset.rnyListingCity ?? null }
+}
+
+function str(v: string | null | undefined, max: number): string | null {
+  const s = v?.trim()
+  return s ? s.slice(0, max) : null
+}
+
 export function trackEvent(eventType: string, payload: TrackPayload = {}): void {
   if (typeof window === 'undefined') return
   try {
+    const listing = listingContext()
+    const type = eventType === 'pageview' && listing ? 'listing_view' : eventType
     const body = JSON.stringify({
-      eventType,
-      path: payload.path ?? window.location.pathname,
-      referrer: document.referrer || null,
-      sessionId: getSessionId(),
-      visitorId: getVisitorId(),
-      listingSlug: payload.listingSlug ?? null,
-      listingName: payload.listingName ?? null,
-      city: payload.city ?? null,
-      query: payload.query ?? null,
+      event_type: type,
+      path: str(payload.path ?? window.location.pathname, 512),
+      referrer: str(document.referrer, 512),
+      session_id: str(getSessionId(), 100),
+      visitor_id: str(getVisitorId(), 100),
+      listing_slug: str(payload.listingSlug ?? listing?.slug, 200),
+      listing_name: str(payload.listingName ?? listing?.name, 300),
+      city: str(payload.city ?? listing?.city, 200),
+      query: str(payload.query, 300),
     })
 
     // keepalive so the request still goes out when the click is navigating
     // the page away (call/directions links especially).
-    void fetch('/api/analytics/track', {
+    void fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: 'return=minimal',
+      },
       body,
       keepalive: true,
     }).catch(() => {})

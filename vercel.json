@@ -1,8 +1,1204 @@
 {
-  "crons": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
     {
-      "path": "/api/cron/apply-monthly-credit",
-      "schedule": "0 8 1 * *"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com https://api.zippopotam.us; frame-src https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net; worker-src 'self' blob:"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), payment=(), geolocation=(self), browsing-topics=()"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        }
+      ]
+    },
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/experiences",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/compare",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/auth/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/profile",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/saved",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/plus",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/owner",
+      "destination": "/claim-your-listing",
+      "permanent": true
+    },
+    {
+      "source": "/owner/:path*",
+      "destination": "/claim-your-listing",
+      "permanent": true
+    },
+    {
+      "source": "/claim/:path*",
+      "destination": "/claim-your-listing",
+      "permanent": true
+    },
+    {
+      "source": "/list",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/review-cards",
+      "destination": "/reviews",
+      "permanent": true
+    },
+    {
+      "source": "/review-cards/:path*",
+      "destination": "/reviews",
+      "permanent": true
+    },
+    {
+      "source": "/featured/dashboard",
+      "destination": "/featured-listing",
+      "permanent": true
+    },
+    {
+      "source": "/searchmap",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ramen-pass",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pass",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/join",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/featured/apply",
+      "destination": "/featured-listing",
+      "permanent": true
+    },
+    {
+      "source": "/tonkotsu-ramen-near-me",
+      "destination": "/find/tonkotsu-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/spicy-ramen-near-me",
+      "destination": "/find/spicy-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/miso-ramen-near-me",
+      "destination": "/find/miso-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/shoyu-ramen-near-me",
+      "destination": "/find/shoyu-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/vegan-ramen-near-me",
+      "destination": "/find/vegan-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/vegetarian-ramen-near-me",
+      "destination": "/find/vegetarian-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/korean-ramen-near-me",
+      "destination": "/find/korean-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/japanese-ramen-near-me",
+      "destination": "/find/japanese-ramen",
+      "permanent": true
+    },
+    {
+      "source": "/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9",
+      "destination": "/sandy-springs/georgia/one-sushi-korean-japanese-cafe",
+      "permanent": true
+    },
+    {
+      "source": "/:city/:state/sushi-one-bobalicious-caf%C3%A9",
+      "destination": "/:city/:state/sushi-one-bobalicious-cafe",
+      "permanent": true
+    },
+    {
+      "source": "/sacramento/california/old-sacramento-waterfront",
+      "destination": "/partners/old-sacramento-waterfront",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-atlanta-georgia",
+      "destination": "/find/atlanta-ga",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-noodles-in-atlanta",
+      "destination": "/find/atlanta-ga",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-atlanta",
+      "destination": "/find/atlanta-ga",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ramen-duluth-ga",
+      "destination": "/find/duluth-ga",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-houston-tx",
+      "destination": "/find/houston-tx",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-sacramento-ca",
+      "destination": "/find/sacramento-ca",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-detroit",
+      "destination": "/find/detroit-mi",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-providence",
+      "destination": "/find/providence-ri",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-las-vegas",
+      "destination": "/find/las-vegas-nv",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-las-vegas-nevada",
+      "destination": "/find/las-vegas-nv",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-brooklyn",
+      "destination": "/find/brooklyn-ny",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-rochester",
+      "destination": "/find/rochester-ny",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-new-york-city",
+      "destination": "/find/new-york-ny",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-new-york-new-york",
+      "destination": "/find/new-york-ny",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-sioux-falls-south-dakota",
+      "destination": "/find/sioux-falls-sd",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-san-francisco-california",
+      "destination": "/find/san-francisco-ca",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-chicago-illinois",
+      "destination": "/find/chicago-il",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-denver-colorado",
+      "destination": "/find/denver-co",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-washington-dc",
+      "destination": "/find/washington-dc",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-portland-oregon",
+      "destination": "/find/portland-or",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-seattle-washington",
+      "destination": "/find/seattle-wa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-nashville-tennessee",
+      "destination": "/find/nashville-tn",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-honolulu-hawaii",
+      "destination": "/find/honolulu-hi",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-charlotte-north-carolina",
+      "destination": "/find/charlotte-nc",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-los-angeles-california",
+      "destination": "/find/los-angeles-ca",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-sacramento-california",
+      "destination": "/find/sacramento-ca",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-oklahoma-city-oklahoma",
+      "destination": "/find/oklahoma-city-ok",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-colorado-springs-colorado",
+      "destination": "/find/colorado-springs-co",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-indianapolis-indiana",
+      "destination": "/find/indianapolis-in",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-raleigh-north-carolina",
+      "destination": "/find/raleigh-nc",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-flint-michigan",
+      "destination": "/find/flint-mi",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-everett-washington",
+      "destination": "/find/everett-wa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-ann-arbor-michigan",
+      "destination": "/find/ann-arbor-mi",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-ramen-in-vancouver-washington",
+      "destination": "/find/vancouver-wa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vegan-ramen-atlanta",
+      "destination": "/find/vegan-ramen-in-atlanta-ga",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tonkotsu-ramen-atlanta",
+      "destination": "/find/tonkotsu-ramen-in-atlanta-ga",
+      "permanent": true
+    },
+    {
+      "source": "/al",
+      "destination": "/alabama",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/al/:restaurant",
+      "destination": "/:city/alabama/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ca",
+      "destination": "/california",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ca/:restaurant",
+      "destination": "/:city/california/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ct",
+      "destination": "/connecticut",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ct/:restaurant",
+      "destination": "/:city/connecticut/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/dc",
+      "destination": "/district-of-columbia",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/dc/:restaurant",
+      "destination": "/:city/district-of-columbia/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/fl",
+      "destination": "/florida",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/fl/:restaurant",
+      "destination": "/:city/florida/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ga",
+      "destination": "/georgia",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ga/:restaurant",
+      "destination": "/:city/georgia/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/il",
+      "destination": "/illinois",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/il/:restaurant",
+      "destination": "/:city/illinois/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/in",
+      "destination": "/indiana",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/in/:restaurant",
+      "destination": "/:city/indiana/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ks",
+      "destination": "/kansas",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ks/:restaurant",
+      "destination": "/:city/kansas/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ky",
+      "destination": "/kentucky",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ky/:restaurant",
+      "destination": "/:city/kentucky/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/md",
+      "destination": "/maryland",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/md/:restaurant",
+      "destination": "/:city/maryland/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/mi",
+      "destination": "/michigan",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mi/:restaurant",
+      "destination": "/:city/michigan/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/mn",
+      "destination": "/minnesota",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mn/:restaurant",
+      "destination": "/:city/minnesota/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/nc",
+      "destination": "/north-carolina",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nc/:restaurant",
+      "destination": "/:city/north-carolina/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/nd",
+      "destination": "/north-dakota",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nd/:restaurant",
+      "destination": "/:city/north-dakota/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/nj",
+      "destination": "/new-jersey",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nj/:restaurant",
+      "destination": "/:city/new-jersey/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/nv",
+      "destination": "/nevada",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nv/:restaurant",
+      "destination": "/:city/nevada/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ny",
+      "destination": "/new-york",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ny/:restaurant",
+      "destination": "/:city/new-york/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/oh",
+      "destination": "/ohio",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/oh/:restaurant",
+      "destination": "/:city/ohio/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/or",
+      "destination": "/oregon",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/or/:restaurant",
+      "destination": "/:city/oregon/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/pa",
+      "destination": "/pennsylvania",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/pa/:restaurant",
+      "destination": "/:city/pennsylvania/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ri",
+      "destination": "/rhode-island",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ri/:restaurant",
+      "destination": "/:city/rhode-island/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/sc",
+      "destination": "/south-carolina",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/sc/:restaurant",
+      "destination": "/:city/south-carolina/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/tn",
+      "destination": "/tennessee",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/tn/:restaurant",
+      "destination": "/:city/tennessee/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/tx",
+      "destination": "/texas",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/tx/:restaurant",
+      "destination": "/:city/texas/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/ut",
+      "destination": "/utah",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ut/:restaurant",
+      "destination": "/:city/utah/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/va",
+      "destination": "/virginia",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/va/:restaurant",
+      "destination": "/:city/virginia/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/vt",
+      "destination": "/vermont",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/vt/:restaurant",
+      "destination": "/:city/vermont/:restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/alabama",
+      "destination": "/find/:city-al",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/al",
+      "destination": "/find/:city-al",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/alaska",
+      "destination": "/find/:city-ak",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ak",
+      "destination": "/find/:city-ak",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/arizona",
+      "destination": "/find/:city-az",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/az",
+      "destination": "/find/:city-az",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/arkansas",
+      "destination": "/find/:city-ar",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ar",
+      "destination": "/find/:city-ar",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/california",
+      "destination": "/find/:city-ca",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ca",
+      "destination": "/find/:city-ca",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/colorado",
+      "destination": "/find/:city-co",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/co",
+      "destination": "/find/:city-co",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/connecticut",
+      "destination": "/find/:city-ct",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ct",
+      "destination": "/find/:city-ct",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/delaware",
+      "destination": "/find/:city-de",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/de",
+      "destination": "/find/:city-de",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/florida",
+      "destination": "/find/:city-fl",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/fl",
+      "destination": "/find/:city-fl",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/georgia",
+      "destination": "/find/:city-ga",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ga",
+      "destination": "/find/:city-ga",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/hawaii",
+      "destination": "/find/:city-hi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/hi",
+      "destination": "/find/:city-hi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/idaho",
+      "destination": "/find/:city-id",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/id",
+      "destination": "/find/:city-id",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/illinois",
+      "destination": "/find/:city-il",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/il",
+      "destination": "/find/:city-il",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/indiana",
+      "destination": "/find/:city-in",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/in",
+      "destination": "/find/:city-in",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/iowa",
+      "destination": "/find/:city-ia",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ia",
+      "destination": "/find/:city-ia",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/kansas",
+      "destination": "/find/:city-ks",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ks",
+      "destination": "/find/:city-ks",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/kentucky",
+      "destination": "/find/:city-ky",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ky",
+      "destination": "/find/:city-ky",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/louisiana",
+      "destination": "/find/:city-la",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/la",
+      "destination": "/find/:city-la",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/maine",
+      "destination": "/find/:city-me",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/me",
+      "destination": "/find/:city-me",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/maryland",
+      "destination": "/find/:city-md",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/md",
+      "destination": "/find/:city-md",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/massachusetts",
+      "destination": "/find/:city-ma",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ma",
+      "destination": "/find/:city-ma",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/michigan",
+      "destination": "/find/:city-mi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mi",
+      "destination": "/find/:city-mi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/minnesota",
+      "destination": "/find/:city-mn",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mn",
+      "destination": "/find/:city-mn",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mississippi",
+      "destination": "/find/:city-ms",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ms",
+      "destination": "/find/:city-ms",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/missouri",
+      "destination": "/find/:city-mo",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mo",
+      "destination": "/find/:city-mo",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/montana",
+      "destination": "/find/:city-mt",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/mt",
+      "destination": "/find/:city-mt",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nebraska",
+      "destination": "/find/:city-ne",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ne",
+      "destination": "/find/:city-ne",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nevada",
+      "destination": "/find/:city-nv",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nv",
+      "destination": "/find/:city-nv",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/new-hampshire",
+      "destination": "/find/:city-nh",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nh",
+      "destination": "/find/:city-nh",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/new-jersey",
+      "destination": "/find/:city-nj",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nj",
+      "destination": "/find/:city-nj",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/new-mexico",
+      "destination": "/find/:city-nm",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nm",
+      "destination": "/find/:city-nm",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/new-york",
+      "destination": "/find/:city-ny",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ny",
+      "destination": "/find/:city-ny",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/north-carolina",
+      "destination": "/find/:city-nc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nc",
+      "destination": "/find/:city-nc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/north-dakota",
+      "destination": "/find/:city-nd",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/nd",
+      "destination": "/find/:city-nd",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ohio",
+      "destination": "/find/:city-oh",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/oh",
+      "destination": "/find/:city-oh",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/oklahoma",
+      "destination": "/find/:city-ok",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ok",
+      "destination": "/find/:city-ok",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/oregon",
+      "destination": "/find/:city-or",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/or",
+      "destination": "/find/:city-or",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/pennsylvania",
+      "destination": "/find/:city-pa",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/pa",
+      "destination": "/find/:city-pa",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/rhode-island",
+      "destination": "/find/:city-ri",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ri",
+      "destination": "/find/:city-ri",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/south-carolina",
+      "destination": "/find/:city-sc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/sc",
+      "destination": "/find/:city-sc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/south-dakota",
+      "destination": "/find/:city-sd",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/sd",
+      "destination": "/find/:city-sd",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/tennessee",
+      "destination": "/find/:city-tn",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/tn",
+      "destination": "/find/:city-tn",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/texas",
+      "destination": "/find/:city-tx",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/tx",
+      "destination": "/find/:city-tx",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/utah",
+      "destination": "/find/:city-ut",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/ut",
+      "destination": "/find/:city-ut",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/vermont",
+      "destination": "/find/:city-vt",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/vt",
+      "destination": "/find/:city-vt",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/virginia",
+      "destination": "/find/:city-va",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/va",
+      "destination": "/find/:city-va",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/washington",
+      "destination": "/find/:city-wa",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wa",
+      "destination": "/find/:city-wa",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/west-virginia",
+      "destination": "/find/:city-wv",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wv",
+      "destination": "/find/:city-wv",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wisconsin",
+      "destination": "/find/:city-wi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wi",
+      "destination": "/find/:city-wi",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wyoming",
+      "destination": "/find/:city-wy",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/wy",
+      "destination": "/find/:city-wy",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/district-of-columbia",
+      "destination": "/find/:city-dc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/dc",
+      "destination": "/find/:city-dc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/quebec",
+      "destination": "/find/:city-qc",
+      "permanent": true
+    },
+    {
+      "source": "/:city((?!(?:_next|about|ambassador|api|authors|blog|broth|catering|cities|claim-your-listing|collections|comparisons|contact|dashboard|data|disclaimer|faq|featured|featured-listing|find|menu|partners|privacy-policy|products|recipes|reviews|search|shio-ramen-near-me|sitemap-1\\.xml|sitemap-2\\.xml|sitemap\\.xml|spicy|state|terms-of-service|tonkotsu|vegan)/)[^/.]+)/qc",
+      "destination": "/find/:city-qc",
+      "permanent": true
     }
   ]
 }

@@ -7,7 +7,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RecipeCard from '@/components/recipe-card'
 import RestaurantImage from '@/components/restaurant-image'
-import SaveRecipeButton from '@/components/save-recipe-button'
 import { RECIPES, getRecipe } from '@/lib/recipes'
 
 function StarRow({ rating }: { rating: number }) {
@@ -165,7 +164,6 @@ export default async function RecipePage({ params }: Props) {
                 </div>
               </div>
             </div>
-            <SaveRecipeButton slug={recipe.slug} />
           </div>
 
           {/* Brief description */}

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { ChevronRight } from 'lucide-react'
+import RetiredPageRedirect from '@/components/retired-page-redirect'
 
 const SITEMAP = [
   {
@@ -26,9 +27,9 @@ const SITEMAP = [
   {
     heading: 'For Restaurants',
     links: [
-      { label: 'List Your Restaurant', href: '/list' },
+      { label: 'List Your Restaurant', href: '/contact' },
       { label: 'Get Featured', href: '/featured-listing' },
-      { label: 'Claim Your Listing', href: '/claim' },
+      { label: 'Claim Your Listing', href: '/claim-your-listing' },
     ],
   },
   {
@@ -54,6 +55,7 @@ const SITEMAP = [
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-surface">
+      <RetiredPageRedirect />
       <Navbar />
 
       <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8 text-center border-b border-line/5">

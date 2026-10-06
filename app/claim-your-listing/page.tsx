@@ -1,36 +1,32 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { CheckCircle2, Zap, ShieldCheck, Gift, Crown, MapPin, Map, Home, BarChart3 } from 'lucide-react'
+import { CheckCircle2, Zap, ShieldCheck, Crown, Home, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 import ClaimSearch from './claim-search'
 import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
-  title: 'Claim Your Ramen Restaurant Listing — $19.99/mo | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou for $19.99/month. Search your name, sign in with Google, subscribe — done. Control your hours, photos, and menu — plus the option to get featured on your city, state, and homepage search map.',
+  title: 'Claim Your Ramen Restaurant Listing | Ramen Near You',
+  description: 'Claim your restaurant on RamenNearYou. Find your listing, send us a quick email, and we\'ll verify you and keep your hours, photos, and menu up to date — plus the option to get featured on the homepage.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
 const BENEFITS = [
   'Verified badge on your listing and the ramen search map',
-  'Update your hours, photos, menu, and description anytime',
-  'A dedicated owner dashboard with visit & click analytics',
+  'Send us new hours, photos, menu, or description and we update your listing',
   'An ad-free listing page — nothing competing for your customers',
   'You control what diners see — your listing, your details',
 ]
 
 const STEPS = [
   { title: 'Search your restaurant', text: 'Type your name and tap it from the list.' },
-  { title: 'Sign in with Google', text: 'One tap — no password to create. Skip this if you\'re already signed in.' },
-  { title: 'Subscribe for $19.99/mo', text: 'Everything\'s pre-filled from your Google account and our listing data. Subscribe and submit — no lengthy form to fill out.' },
+  { title: 'Send the email', text: 'Your email app opens with the claim filled in — add your name and role, then send.' },
+  { title: 'We verify you', text: 'We confirm you\'re the owner or an authorized manager and reply with next steps and pricing.' },
 ]
 
-// The optional upgrade a claimed owner can add — the three search-map surfaces
-// a Featured listing shows up on.
+// The optional upgrade a claimed owner can add (see /featured-listing).
 const FEATURED_SURFACES = [
-  { icon: MapPin, label: 'Your city\'s search map', desc: 'Top spot when locals search your city.' },
-  { icon: Map, label: 'Your state\'s search map', desc: 'Stand out across your whole state.' },
-  { icon: Home, label: 'The homepage search map', desc: '#1 position seen by every visitor.' },
+  { icon: Home, label: 'The homepage billboard', desc: 'The first thing every visitor sees, above the map.' },
 ]
 
 // The questions owners actually ask before paying. Answers stay factual —
@@ -39,35 +35,19 @@ const FEATURED_SURFACES = [
 const CLAIM_FAQS = [
   {
     q: 'Does this site actually get traffic?',
-    a: 'Yes — and you don\'t have to take our word for it. Our traffic numbers are public and live at /dashboard: sessions, unique visitors, searches, and how many people tapped call, directions, or reviews on a listing. Check it before you subscribe, and check it again after you claim.',
-  },
-  {
-    q: 'Can I cancel anytime?',
-    a: 'Yes. It\'s a $19.99/month subscription with no contract and no cancellation fee. Cancel whenever you like and your claim stays active through the end of the period you already paid for.',
-  },
-  {
-    q: 'What do I get for $19.99 a month?',
-    a: 'A verified badge on your listing and on the search map, full control of your hours, photos, menu, and description, an owner dashboard with visit and click analytics for your listing, and an ad-free listing page so nothing competes with your restaurant.',
-  },
-  {
-    q: 'Can I see analytics for my own restaurant?',
-    a: 'Yes. Claimed owners get a dashboard with visits and clicks for their own listing. Site-wide analytics for the whole directory are public to everyone at /dashboard, so you can see the traffic your listing is sitting in front of.',
+    a: 'Yes — and you don\'t have to take our word for it. Our traffic numbers are public and live at /dashboard: sessions, unique visitors, searches, and how many people tapped call, directions, or reviews on a listing. Check it before you claim.',
   },
   {
     q: 'How long does verification take?',
-    a: 'Most claims are reviewed within a few business days. We confirm you\'re the owner or an authorized manager, then your listing gets the verified badge and edit access.',
+    a: 'Most claims are reviewed within a few business days. We confirm you\'re the owner or an authorized manager, then your listing gets the verified badge.',
   },
   {
     q: 'What if my restaurant isn\'t in the search?',
     a: 'Use the contact page and tell us your restaurant name and address — we\'ll add it to the directory so you can claim it.',
   },
   {
-    q: 'Do I need a website or a Google Business account?',
-    a: 'No. All you need is a Google account to sign in with — one tap, no password to create. Everything else is pre-filled from our listing data, so claiming takes about 30 seconds.',
-  },
-  {
     q: 'Is Featured placement included?',
-    a: 'No — Featured is a separate optional upgrade that puts a gold crown pin at the top of your city page, state page, and the homepage search map. Your $19.99/mo claim gets you everything listed above without it.',
+    a: 'No — Featured is a separate optional upgrade that puts your restaurant on the homepage billboard. Claiming gets you everything listed above without it.',
   },
   {
     q: 'What happens if I don\'t claim my listing?',
@@ -86,7 +66,7 @@ export default function ClaimYourListingPage() {
             <span className="text-brand-ink text-xs font-medium uppercase tracking-widest">For Restaurant Owners</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-2">
-            Claim Your Restaurant — $19.99/mo
+            Claim Your Restaurant
           </h1>
           <p className="text-ink-soft text-sm leading-relaxed max-w-md mx-auto">
             Thousands of diners use RamenNearYou to decide where to eat tonight.
@@ -96,14 +76,11 @@ export default function ClaimYourListingPage() {
 
           {/* Trust chips — reinforce how effortless and low-friction it is */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-xs font-semibold">
-              <Gift className="w-3.5 h-3.5" /> $19.99/mo
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink text-xs font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-ink" /> Verified badge
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink text-xs font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-ink" /> Cancel anytime
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line/8 text-ink text-xs font-semibold">
-              <Zap className="w-3.5 h-3.5 text-brand-ink" /> ~30 seconds
+              <Zap className="w-3.5 h-3.5 text-brand-ink" /> ~1 minute
             </span>
           </div>
         </div>
@@ -122,9 +99,8 @@ export default function ClaimYourListingPage() {
             Want to be impossible to miss?
           </h2>
           <p className="text-ink-soft text-sm leading-relaxed mb-5">
-            Claiming is $19.99/mo. Once you&apos;ve claimed, you can choose to also get{' '}
-            <strong className="text-ink">Featured</strong> — a stand-out gold crown pin that puts you at the
-            very top of the search map on three levels:
+            Once you&apos;ve claimed, you can choose to also get{' '}
+            <strong className="text-ink">Featured</strong> — the billboard at the very top of the homepage:
           </p>
           <div className="space-y-3 mb-5">
             {FEATURED_SURFACES.map(({ icon: Icon, label, desc }) => (
@@ -146,13 +122,13 @@ export default function ClaimYourListingPage() {
             <Crown className="w-4 h-4" /> See Featured plans
           </Link>
           <p className="text-xs text-ink-soft/70 mt-3">
-            Totally optional — your $19.99/mo claim already gets you everything below.
+            Totally optional — claiming already gets you everything below.
           </p>
         </div>
 
         {/* What a paid claim gets you */}
         <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
-          <h2 className="font-serif text-xl font-bold text-ink mb-4">What you get for $19.99/mo</h2>
+          <h2 className="font-serif text-xl font-bold text-ink mb-4">What claiming gets you</h2>
           <ul className="space-y-3">
             {BENEFITS.map((text) => (
               <li key={text} className="flex items-start gap-3 text-sm text-ink">
@@ -166,7 +142,7 @@ export default function ClaimYourListingPage() {
         {/* How it works — 3 dead-simple steps */}
         <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
           <h2 className="font-serif text-xl font-bold text-ink mb-1">How it works</h2>
-          <p className="text-ink-soft text-sm mb-5">One-click claiming. No form to fill out.</p>
+          <p className="text-ink-soft text-sm mb-5">No account to create.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">
@@ -182,8 +158,8 @@ export default function ClaimYourListingPage() {
           </ol>
         </div>
 
-        {/* Owners deciding whether the traffic is worth $19.99/mo can check
-            the real numbers instead of taking our word for it. */}
+        {/* Owners can check the real traffic numbers instead of taking our
+            word for it. */}
         <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-lg bg-brand/15 flex items-center justify-center shrink-0">
@@ -191,7 +167,7 @@ export default function ClaimYourListingPage() {
             </div>
             <div className="min-w-0">
               <h2 className="font-serif text-xl font-bold text-ink mb-1.5">
-                See our traffic before you pay
+                See our traffic first
               </h2>
               <p className="text-ink-soft text-sm leading-relaxed mb-4">
                 Restaurant owners can view this site&apos;s analytics at{' '}

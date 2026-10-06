@@ -30,12 +30,8 @@ export async function GET() {
     priority: 0.85,
   }))
 
-  const cityPages: SitemapEntry[] = cities.map((c) => ({
-    url: `${SITEMAP_BASE_URL}/${c.citySlug}/${c.stateSlug}`,
-    lastModified: LAST_CONTENT,
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }))
+  // City pages live at /find/{city}-{st} (sitemap-1.xml); /{city}/{state}
+  // only ever redirects there, so it isn't listed.
 
   const restaurantPages: SitemapEntry[] = cities.flatMap((c) =>
     getRestaurantsByCity(c.citySlug, c.stateSlug).map((r) => ({
@@ -136,7 +132,6 @@ export async function GET() {
     { url: SITEMAP_BASE_URL, lastModified: LAST_CONTENT, changeFrequency: 'daily', priority: 1.0 },
     { url: `${SITEMAP_BASE_URL}/cities`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITEMAP_BASE_URL}/featured-listing`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${SITEMAP_BASE_URL}/review-cards`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITEMAP_BASE_URL}/broth`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/comparisons`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/menu/jinya-ramen-bar-menu`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.6 },
@@ -161,7 +156,6 @@ export async function GET() {
     ...staticPages,
     ...comparisonPages,
     ...statePages,
-    ...cityPages,
     ...cityFilterPages,
     ...tonkotsuCityPages,
     ...misoCityPages,

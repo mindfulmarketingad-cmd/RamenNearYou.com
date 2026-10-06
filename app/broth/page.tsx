@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { safePhotoSrc } from '@/lib/photo-guard'
@@ -59,18 +58,20 @@ for (const type of BROTH_TYPES) {
   counts[type] = restaurants.filter(r => getBrothTypes(r).includes(type)).length
 }
 
-export default async function BrothPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>
-}) {
-  const { type } = await searchParams
-  const selected = (BROTH_TYPES as readonly string[]).includes(type ?? '') ? (type as BrothType) : null
+// Static page: the top-rated list across every broth. Each broth card and tab
+// links to that broth's own map page (/find/{broth}-ramen) rather than
+// filtering this page by ?type=, which a static page can't read on the server.
+const BROTH_PAGE: Record<BrothType, string> = {
+  Tonkotsu: '/find/tonkotsu-ramen',
+  Shoyu: '/find/shoyu-ramen',
+  Miso: '/find/miso-ramen',
+  Spicy: '/find/spicy-ramen',
+  Vegan: '/find/vegan-ramen',
+}
 
-  // Filter server-side, sort by rating, limit to DISPLAY_LIMIT
-  const base = selected
-    ? restaurants.filter(r => getBrothTypes(r).includes(selected))
-    : restaurants
+export default function BrothPage() {
+  const selected = null as BrothType | null
+  const base = restaurants
 
   const filtered = [...base]
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
@@ -108,7 +109,7 @@ export default async function BrothPage({
             return (
               <Link
                 key={type}
-                href={isActive ? '/broth' : `/broth?type=${type}`}
+                href={BROTH_PAGE[type]}
                 className={`text-left p-4 rounded-xl border transition-all duration-200 ${
                   isActive ? meta.border : 'border-line/5 bg-sunken hover:border-line/10'
                 }`}
@@ -129,9 +130,7 @@ export default async function BrothPage({
       {/* Filter tabs */}
       <section className="px-4 sm:px-6 lg:px-8 pb-6">
         <div className="max-w-7xl mx-auto">
-          <Suspense>
-            <BrothFilterTabs selected={selected} counts={counts} />
-          </Suspense>
+          <BrothFilterTabs counts={counts} />
         </div>
       </section>
 
@@ -162,7 +161,7 @@ export default async function BrothPage({
               <p className="text-ink-soft text-lg mb-2">No restaurants found for this broth type yet.</p>
               <p className="text-ink-soft/50 text-sm">
                 Own a restaurant with this broth?{' '}
-                <Link href="/list" className="text-brand-ink hover:underline">List it here.</Link>
+                <Link href="/contact" className="text-brand-ink hover:underline">List it here.</Link>
               </p>
             </div>
           ) : (

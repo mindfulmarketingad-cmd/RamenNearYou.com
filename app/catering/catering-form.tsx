@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { CheckCircle } from 'lucide-react'
+import { sendViaMail } from '@/lib/mailto'
 
 const EVENT_TYPES = ['Corporate Event', 'Wedding', 'Birthday Party', 'Office Lunch', 'Festival / Pop-Up', 'Private Dinner', 'Other']
 const GUEST_RANGES = ['Under 25', '25–50', '51–100', '101–250', '250+']
@@ -36,21 +37,13 @@ export default function CateringForm() {
       return
     }
     setError('')
-    setLoading(true)
-
-    try {
-      const res = await fetch('/api/catering', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error(await res.text())
-      setSuccess(true)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+    // No backend: the request opens in the visitor's own mail app, filled in.
+    sendViaMail(`Catering request: ${form.eventType}, ${form.guestCount} guests`, [
+      ['Name', form.name], ['Email', form.email], ['Phone', form.phone],
+      ['Event type', form.eventType], ['Guests', form.guestCount], ['Date', form.eventDate],
+      ['Location', form.location], ['Budget', form.budget], ['Notes', form.notes],
+    ])
+    setSuccess(true)
   }
 
   if (success) {

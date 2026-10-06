@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Mail, MessageSquare, Building2, HelpCircle } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
+import { sendViaMail } from '@/lib/mailto'
 
 const subjects = [
   'General inquiry',
@@ -23,20 +24,11 @@ export default function ContactForm() {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
-  async function handleSubmit(e: React.FormEvent) {
+  // No backend: the message opens in the visitor's own mail app, filled in.
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStatus('sending')
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message }),
-      })
-      if (!res.ok) throw new Error()
-      setStatus('sent')
-    } catch {
-      setStatus('error')
-    }
+    sendViaMail(subject || 'Contact form', [['Name', name], ['Email', email], ['Topic', subject], ['Message', message]])
+    setStatus('sent')
   }
 
   return (
@@ -79,7 +71,7 @@ export default function ContactForm() {
               <p className="text-ink-soft text-xs leading-relaxed">
                 Own a ramen restaurant? Get listed and reach hungry customers searching near you.
               </p>
-              <Link href="/list" className="inline-block mt-3 text-xs text-brand-ink hover:underline">
+              <Link href="/contact" className="inline-block mt-3 text-xs text-brand-ink hover:underline">
                 Submit your listing →
               </Link>
             </div>
@@ -118,9 +110,10 @@ export default function ContactForm() {
                 <div className="w-12 h-12 rounded-full bg-emerald-500/15 flex items-center justify-center">
                   <Mail className="w-5 h-5 text-emerald-400" />
                 </div>
-                <h2 className="font-serif text-2xl font-bold text-ink">Message sent!</h2>
+                <h2 className="font-serif text-2xl font-bold text-ink">Almost done</h2>
                 <p className="text-ink-soft text-sm max-w-xs">
-                  Thanks for reaching out. We&apos;ll get back to you as soon as we can.
+                  Your email app should open with your message filled in — hit send there and
+                  we&apos;ll get back to you as soon as we can.
                 </p>
                 <button
                   onClick={() => { setStatus('idle'); setName(''); setEmail(''); setSubject(''); setMessage('') }}

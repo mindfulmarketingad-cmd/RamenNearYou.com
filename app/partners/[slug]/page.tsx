@@ -17,6 +17,7 @@ import { jsonLdString } from '@/lib/json-ld'
 import { STATE_CODE_TO_SLUG } from '@/lib/state-lookups'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { isRetiredPage } from '@/lib/retired-pages'
+import { claimMailto } from '@/lib/mailto'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const SITE = 'https://www.ramennearyou.com'
@@ -353,7 +354,7 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
               )}
 
               {/* Own this business? — same claim-value strip as ramen listings,
-                  linked through the shared /claim/{city}/{state}/{slug} flow. */}
+                  claimed by emailing us (claimMailto). */}
               {!isClaimed && (
                 <div className="bg-surface rounded-2xl border border-line/5 p-6 sm:p-8 mb-6">
                   <div className="rounded-xl border border-brand/30 bg-gradient-to-br from-brand/8 to-brand/14 p-5">
@@ -362,14 +363,14 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                       <p className="text-sm font-bold text-ink">Own {p.name}?</p>
                     </div>
                     <p className="text-xs text-ink-soft leading-relaxed mb-3">
-                      This listing hasn&apos;t been claimed yet. Claiming is $19.99/mo — create an
-                      account, subscribe, submit your claim, and once our team verifies ownership you&apos;re in control.
+                      This listing hasn&apos;t been claimed yet. Send us a quick email and once our team
+                      verifies ownership you&apos;re in control.
                     </p>
                     <ul className="space-y-1.5 mb-4">
                       {[
-                        '$19.99/mo — quick ownership review, cancel anytime',
+                        'Quick ownership review by email — no account needed',
                         'Verified badge on this page and the search map',
-                        'Update hours, photos, menu, and description anytime',
+                        'Send us new hours, photos, menu, or description anytime',
                         'Ad-free listing page (no ads on your dedicated listing page)',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-ink">
@@ -378,12 +379,12 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href={`/claim/${p.citySlug}/${stateSlug ?? p.stateCode.toLowerCase()}/${p.slug}`}
+                    <a
+                      href={claimMailto(p.name, p.city, p.stateCode)}
                       className="inline-flex items-center justify-center px-4 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-xs font-bold transition-colors"
                     >
-                      Claim This Listing — $19.99/mo
-                    </Link>
+                      Claim This Listing
+                    </a>
                   </div>
                 </div>
               )}

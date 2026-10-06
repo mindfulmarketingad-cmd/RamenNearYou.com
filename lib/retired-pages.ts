@@ -9,15 +9,15 @@ import data from './retired-pages.json'
 // comparisons, static pages) and owner-submitted listings aren't ranked and
 // are always built.
 //
-// - `redirects`: every other template page, with where it 308s to — its
-//   nearest built parent: a review to its listing, a listing to its city
-//   page, a city page to its state page. Links already out there (and the
-//   client-side map/search links that point at every restaurant) keep
-//   landing somewhere useful. These are left out of the build, the sitemaps
-//   and server-rendered link lists.
+// - `redirects`: every other template page, mapped to its nearest built
+//   parent: a review to its listing, a listing to its city page, a city page
+//   to its state page. These are left out of the build, the sitemaps and
+//   server-rendered link lists, so they answer 404 (removed, for search
+//   engines); the 404 page forwards people who follow an old link to the
+//   mapped parent (components/retired-page-redirect.tsx).
 // - `findModifierPages`: the /find/{modifier}-{city}-{st} pages that are
-//   built. Every other modifier x city combination redirects by rule in
-//   proxy.ts rather than being listed.
+//   built. Every other modifier x city combination is forwarded by rule in
+//   the same 404 handler rather than being listed.
 // - `findSmallCityPages`: built /find pages for cities outside
 //   getFindCityParams() (one dataset listing, or Places listings only).
 //

@@ -6,7 +6,7 @@ import { Navigation, Star, Loader2, MapPin } from 'lucide-react'
 
 // A "near me" query can only be answered in the browser, so this block asks for
 // geolocation and then ranks against the same slim dataset the map already
-// uses (/api/ramen-map — cached, so on the homepage-warmed cache it's free).
+// uses (/data/ramen-map.json — a static file, so on the homepage-warmed cache it's free).
 // Everything degrades gracefully: if permission is denied or unavailable the
 // server-rendered text results below are still the answer.
 
@@ -39,7 +39,7 @@ export default function NearMeResults({ phoOnly = false }: { phoOnly?: boolean }
       async pos => {
         setState('loading')
         try {
-          const res = await fetch('/api/ramen-map')
+          const res = await fetch('/data/ramen-map.json')
           if (!res.ok) throw new Error(String(res.status))
           const data = await res.json()
           const points: Point[] = Array.isArray(data) ? data : (data.points ?? data.data ?? [])

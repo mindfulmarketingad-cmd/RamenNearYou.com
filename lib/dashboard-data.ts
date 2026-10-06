@@ -1,12 +1,15 @@
-// SERVER-ONLY. Aggregates the analytics table for /dashboard.
-//
-// Rows are pulled once per range and reduced in JS rather than issuing a
-// query per stat — one round trip keeps the page fast, and the volumes here
-// (a directory site's event stream over 90 days) stay well inside a single
-// paged read.
-import { createAdminClient } from './supabase-admin'
-import { createLeadsClient } from './leads-supabase'
-import { ANALYTICS_TABLE, LEAD_ACTION_EVENTS, type AnalyticsEvent } from './analytics'
+// Aggregates the analytics table for /dashboard, in the browser. The site is
+// static, so this reads the table directly with the public anon key — it is
+// public-read by design (supabase/ramennearyou_dashboard.sql) and holds no
+// PII. Rows are pulled per range in pages of 1,000 (Supabase's default row
+// cap) and reduced in JS rather than issuing a query per stat.
+import { createClient } from './supabase/client'
+import { ANALYTICS_TABLE } from './analytics-table'
+
+type AnalyticsEvent = 'pageview' | 'listing_view' | 'call_click' | 'directions_click' | 'search' | 'review_click'
+const LEAD_ACTION_EVENTS: AnalyticsEvent[] = ['call_click', 'directions_click', 'review_click']
+const PAGE_SIZE = 1000
+const MAX_ROWS = 50000
 
 export type RangeDays = 7 | 30 | 90
 
@@ -41,9 +44,8 @@ export type DashboardData = {
   leadActions: number
   searches: number
   impressions: number
-  /** Real inbound leads from the shared CRM, null when unavailable. Kept
-   *  distinct from click-based leadActions — one is a submitted form, the
-   *  other is someone tapping "call". */
+  /** Inbound leads from the shared CRM. That project needs a server-side key,
+   *  so a static site can't read it: always null, and the card stays hidden. */
   leadsReceived: number | null
   actionBreakdown: { label: string; value: number }[]
   daily: { date: string; pageviews: number; leadActions: number }[]
@@ -67,32 +69,26 @@ const ACTION_LABELS: Record<string, string> = {
 }
 
 export async function getDashboardData(days: RangeDays): Promise<DashboardData> {
-  const admin = createAdminClient()
-  if (!admin) {
-    // The page only tells visitors "briefly unavailable" — it's public and
-    // linked from the featured-listing sales page — so this is the one place
-    // the actual cause is recorded. Almost always SUPABASE_SERVICE_ROLE_KEY
-    // missing from the deployed environment.
-    console.error('Dashboard: no admin client — SUPABASE_SERVICE_ROLE_KEY not set for this environment')
-    return EMPTY
-  }
-
+  const db = createClient()
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
   const sinceIso = since.toISOString()
 
-  const { data, error } = await admin
-    .from(ANALYTICS_TABLE)
-    .select('created_at,event_type,path,session_id,visitor_id,listing_slug,listing_name,city,query')
-    .gte('created_at', sinceIso)
-    .order('created_at', { ascending: false })
-    .limit(50000)
-
-  if (error) {
-    console.error('Dashboard query error:', error.message)
-    return EMPTY
+  const rows: EventRow[] = []
+  for (let from = 0; from < MAX_ROWS; from += PAGE_SIZE) {
+    const { data, error } = await db
+      .from(ANALYTICS_TABLE)
+      .select('created_at,event_type,path,session_id,visitor_id,listing_slug,listing_name,city,query')
+      .gte('created_at', sinceIso)
+      .order('created_at', { ascending: false })
+      .range(from, from + PAGE_SIZE - 1)
+    if (error) {
+      console.error('Dashboard query error:', error.message)
+      return EMPTY
+    }
+    rows.push(...((data ?? []) as EventRow[]))
+    if (!data || data.length < PAGE_SIZE) break
   }
 
-  const rows = (data ?? []) as EventRow[]
 
   const sessions = new Set<string>()
   const visitors = new Set<string>()
@@ -163,7 +159,7 @@ export async function getDashboardData(days: RangeDays): Promise<DashboardData> 
     leadActions,
     searches,
     impressions,
-    leadsReceived: await getLeadsReceived(sinceIso),
+    leadsReceived: null,
     actionBreakdown: Array.from(byAction.entries())
       .map(([k, value]) => ({ label: ACTION_LABELS[k] ?? k, value }))
       .sort((a, b) => b.value - a.value),
@@ -173,25 +169,5 @@ export async function getDashboardData(days: RangeDays): Promise<DashboardData> 
       .map(([query, count]) => ({ query, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10),
-  }
-}
-
-/**
- * Real inbound leads from the shared cross-site CRM (see lib/leads-supabase.ts),
- * filtered to this directory. Returns null rather than 0 when the table can't
- * be reached, so the dashboard can hide the card instead of implying no leads.
- */
-async function getLeadsReceived(sinceIso: string): Promise<number | null> {
-  try {
-    const leads = createLeadsClient()
-    const { count, error } = await leads
-      .from('leads')
-      .select('id', { count: 'exact', head: true })
-      .eq('source', 'ramennearyou.com')
-      .gte('created_at', sinceIso)
-    if (error) return null
-    return count ?? 0
-  } catch {
-    return null
   }
 }

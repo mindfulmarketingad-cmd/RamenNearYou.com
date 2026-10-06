@@ -1,21 +1,5 @@
-'use client'
-
-import { useEffect } from 'react'
-
-export default function PageViewTracker({ slug }: { slug: string }) {
-  useEffect(() => {
-    // Track once per browser session per restaurant slug
-    const key = `pv:${slug}`
-    if (typeof sessionStorage === 'undefined') return
-    if (sessionStorage.getItem(key)) return
-    sessionStorage.setItem(key, '1')
-
-    fetch('/api/track-view', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug }),
-    }).catch(() => {})
-  }, [slug])
-
-  return null
+// Hidden marker that tells lib/analytics-client.ts this page is a listing, so
+// the site-wide pageview is recorded as a listing_view for this restaurant.
+export default function PageViewTracker({ slug, name, city }: { slug: string; name: string; city: string }) {
+  return <span hidden data-rny-listing-slug={slug} data-rny-listing-name={name} data-rny-listing-city={city} />
 }

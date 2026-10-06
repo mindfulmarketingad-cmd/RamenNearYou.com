@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { CalendarCheck, X, Loader2, CheckCircle2 } from 'lucide-react'
 import { useModalA11y } from '@/lib/use-modal-a11y'
+import { sendViaMail } from '@/lib/mailto'
 
 export interface InquireTarget {
   name: string
@@ -22,9 +23,9 @@ interface Props {
   variant?: 'pill' | 'iconColumn'
 }
 
-// One-page booking-inquiry form. Clicking the trigger opens a modal that
-// posts to /api/inquire, which saves the lead to a dedicated Supabase
-// project and (best-effort) emails the site owner.
+// One-page booking-inquiry form. Clicking the trigger opens a modal; submitting
+// composes the inquiry as an email in the visitor's own mail app (the site is
+// static, so there's no backend to post to).
 export default function InquireButton({ restaurant, source, className, label = 'Inquire', variant = 'pill' }: Props) {
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
@@ -42,34 +43,19 @@ export default function InquireButton({ restaurant, source, className, label = '
     const form = new FormData(e.currentTarget)
     setStatus('submitting')
     setErrorMsg('')
-    try {
-      const res = await fetch('/api/inquire', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          source,
-          restaurantName: restaurant.name,
-          city: restaurant.city,
-          stateCode: restaurant.stateCode,
-          partySize: form.get('partySize'),
-          reservationDate: form.get('reservationDate'),
-          reservationTime: form.get('reservationTime'),
-          customerName: form.get('customerName'),
-          customerEmail: form.get('customerEmail'),
-          customerPhone: form.get('customerPhone'),
-          notes: form.get('notes'),
-          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
-        }),
-      })
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({}))
-        throw new Error(json.error || 'Something went wrong. Please try again.')
-      }
-      setStatus('success')
-    } catch (err: unknown) {
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      setStatus('error')
-    }
+    sendViaMail(`Booking inquiry: ${restaurant.name}`, [
+      ['Restaurant', restaurant.name],
+      ['Location', [restaurant.city, restaurant.stateCode].filter(Boolean).join(', ')],
+      ['Party size', form.get('partySize')],
+      ['Date', form.get('reservationDate')],
+      ['Time', form.get('reservationTime')],
+      ['Name', form.get('customerName')],
+      ['Email', form.get('customerEmail')],
+      ['Phone', form.get('customerPhone')],
+      ['Notes', form.get('notes')],
+      ['Sent from', `${source} — ${window.location.href}`],
+    ])
+    setStatus('success')
   }
 
   return (
@@ -124,9 +110,10 @@ export default function InquireButton({ restaurant, source, className, label = '
                 <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-7 h-7 text-emerald-500" />
                 </div>
-                <h2 className="font-serif text-xl font-bold text-ink mb-2">Inquiry sent!</h2>
+                <h2 className="font-serif text-xl font-bold text-ink mb-2">Almost done</h2>
                 <p className="text-ink-soft text-sm leading-relaxed mb-6">
-                  {restaurant.name} will reach out to confirm your booking.
+                  Your email app should open with the inquiry filled in — hit send there and
+                  we&apos;ll pass it to {restaurant.name}.
                 </p>
                 <button
                   onClick={close}
