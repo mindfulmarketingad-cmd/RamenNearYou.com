@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Star, MapPin, Phone, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import { getBlogPost, blogPosts } from '@/lib/blog-posts'
 import type { RestaurantCard } from '@/lib/blog-posts'
 import { getRestaurantBySlug } from '@/lib/restaurants'
@@ -347,7 +348,9 @@ export default async function BlogPostPage({ params }: Props) {
       )}
       <Navbar />
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        {/* Posts with a restaurant list already have a sticky map column on
+            desktop, so their ad sidebar waits for ≥1440px (wide). */}
+        <AdLayout className={hasCards ? 'max-w-7xl lg:max-w-ad-page-6xl mx-auto' : 'max-w-7xl mx-auto'} wide={hasCards}>
         <div className={hasCards ? '' : 'max-w-2xl'}>
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
@@ -442,7 +445,9 @@ export default async function BlogPostPage({ params }: Props) {
               </nav>
             )}
 
-            <div className="prose-ramen" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(tocHtml) }} />
+            {/* Journey content selector: in-content ads are auto-placed
+                between the article's paragraphs and headings. */}
+            <div id="page-list-view" className="prose-ramen" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(tocHtml) }} />
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-sunken border border-line/5 rounded-2xl p-6 sm:p-8">
@@ -484,7 +489,7 @@ export default async function BlogPostPage({ params }: Props) {
             </Link>
           </div>
         </div>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

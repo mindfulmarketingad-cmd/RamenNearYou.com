@@ -63,7 +63,8 @@ export default function RecipesHubSearch({ groups }: { groups: RecipeGroup[] }) 
           </ul>
         )
       ) : (
-        <div className="space-y-8">
+        // Journey content selector: ads are auto-placed between groups.
+        <div id="page-list-view" className="space-y-8">
           {groups.map((g) => (
             <div key={g.heading}>
               <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ChevronRight, Star, ExternalLink, MapPin, QrCode, Check, X, Image as ImageIcon } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import {
   getRestaurantByReviewSlug,
@@ -176,7 +177,7 @@ export default async function RestaurantReviewsPage({ params }: Props) {
       <Navbar />
 
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <AdLayout className="max-w-4xl lg:max-w-ad-page mx-auto">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-8 pt-2 flex-wrap">
             <Link href="/" className="hover:text-ink transition-colors">Home</Link>
@@ -204,6 +205,9 @@ export default async function RestaurantReviewsPage({ params }: Props) {
             </a>
           </header>
 
+          {/* Journey content selector: ads are auto-placed between these
+              sections, never above the H1. */}
+          <div id="page-list-view">
           {/* Rating summary card */}
           <section className="bg-surface rounded-2xl border border-line/5 p-6 sm:p-8 mb-8">
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-8 items-center">
@@ -380,7 +384,8 @@ export default async function RestaurantReviewsPage({ params }: Props) {
               <ChevronRight className="w-4 h-4 text-brand-ink shrink-0 ml-auto" />
             </Link>
           )}
-        </div>
+          </div>
+        </AdLayout>
       </main>
 
       <Footer />

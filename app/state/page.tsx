@@ -1,7 +1,10 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { getStates } from '@/lib/restaurants'
 import { getSupplementCitiesByState, getSupplementStateStats } from '@/lib/places-supplements'
 
@@ -65,23 +68,27 @@ export default function StateIndexPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto px-4 sm:px-6 py-8">
         <p className="text-sm text-ink-soft mb-6">
           Currently tracking <strong className="text-ink">{totalRestaurants.toLocaleString()}</strong> ramen
           restaurants across <strong className="text-ink">{allStates.length}</strong> states and{' '}
           <strong className="text-ink">{totalTowns.toLocaleString()}</strong> towns.
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {allStates.map((s) => (
+        {/* Journey content selector: a hint about every screenview (tiles
+            are ~60px rows); hints and injected ads span the full row. */}
+        <div id="page-list-view" className="ad-grid grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+          {allStates.map((s, i) => (
+            <Fragment key={s.stateSlug}>
             <Link
-              key={s.stateSlug}
               href={`/${s.stateSlug}`}
-              className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-line/10 bg-surface hover:border-brand/50 hover:bg-raised transition-colors"
+              className="ad-item flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-line/10 bg-surface hover:border-brand/50 hover:bg-raised transition-colors"
             >
               <span className="text-sm font-medium text-ink">{s.state}</span>
               <span className="text-xs text-ink-soft shrink-0">{s.count.toLocaleString()}</span>
             </Link>
+            <ContentHints index={i} total={allStates.length} mobileEvery={24} desktopEvery={36} />
+            </Fragment>
           ))}
         </div>
 
@@ -97,7 +104,7 @@ export default function StateIndexPage() {
             <Link href="/find" className="text-brand-ink hover:underline">search the live map</Link>.
           </p>
         </div>
-      </div>
+      </AdLayout>
       <Footer />
     </main>
   )

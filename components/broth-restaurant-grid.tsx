@@ -1,10 +1,12 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, MapPin, Utensils, Search, X, LocateFixed } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 
 export interface GridRestaurant {
   slug: string
@@ -108,7 +110,7 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
   }, [origin, restaurants])
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <AdLayout className="max-w-7xl lg:max-w-ad-page-6xl mx-auto">
       {/* ZIP filter bar */}
       <form
         onSubmit={handleSubmit}
@@ -176,12 +178,15 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {visible.map((r) => (
+        // Journey content selector. Cards are ~330px rows: a hint every 4
+        // cards on mobile, every 12 on desktop (4–6 rows), spanning the row.
+        // Two columns at lg because the ad sidebar takes 332px there.
+        <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+          {visible.map((r, i) => (
+            <Fragment key={r.slug}>
             <Link
-              key={r.slug}
               href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-              className="group flex flex-col bg-surface rounded-xl border border-line/5 hover:border-brand/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 overflow-hidden"
+              className="ad-item group flex flex-col bg-surface rounded-xl border border-line/5 hover:border-brand/50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 overflow-hidden"
             >
               <div className="relative w-full h-44 bg-sunken overflow-hidden">
                 <RestaurantImage
@@ -223,9 +228,11 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
                 </div>
               </div>
             </Link>
+            <ContentHints index={i} total={visible.length} mobileEvery={4} desktopEvery={12} />
+            </Fragment>
           ))}
         </div>
       )}
-    </div>
+    </AdLayout>
   )
 }

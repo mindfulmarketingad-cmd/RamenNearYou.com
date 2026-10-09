@@ -157,9 +157,10 @@ export default function FindHubSearch({
           )}
         </div>
       ) : (
-        /* ── Default browse view ── */
-        <>
-          <div className="space-y-8">
+        /* ── Default browse view ── Journey content selector: every
+           category and state group is a direct child, so in-content ads can
+           be auto-placed between them. */
+        <div id="page-list-view" className="space-y-8">
             {categories.map((cat) => (
               <div key={cat.heading}>
                 <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
@@ -179,16 +180,15 @@ export default function FindHubSearch({
                 </ul>
               </div>
             ))}
-          </div>
 
           {/* All city pages, grouped by state */}
-          <div className="mt-14 pt-10 border-t border-line/10">
+          <div className="!mt-14 pt-10 border-t border-line/10">
             <h2 className="font-serif text-2xl font-bold text-ink mb-1">Ramen by City</h2>
-            <p className="text-ink-soft text-sm mb-8">
+            <p className="text-ink-soft text-sm">
               Browse all {totalCityPages.toLocaleString()} city pages across {cityPagesByState.length} states.
             </p>
+          </div>
 
-            <div className="space-y-8">
               {cityPagesByState.map((state) => (
                 <div key={state.stateCode}>
                   <h3 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">
@@ -210,11 +210,9 @@ export default function FindHubSearch({
                   </ul>
                 </div>
               ))}
-            </div>
-          </div>
 
           {phoCityPages.length > 0 && (
-            <div className="mt-14 pt-10 border-t border-line/10">
+            <div className="!mt-14 pt-10 border-t border-line/10">
               <h2 className="font-serif text-2xl font-bold text-ink mb-1">Pho by City</h2>
               <p className="text-ink-soft text-sm mb-8">
                 Browse pho restaurants city by city — {phoCityPages.length} cities covered.
@@ -233,7 +231,7 @@ export default function FindHubSearch({
               </ul>
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   )

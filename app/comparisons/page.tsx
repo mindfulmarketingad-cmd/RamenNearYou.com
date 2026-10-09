@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import ComparisonsSearch from './comparisons-search'
 import { getAllComparisons, BROTHS, BROTH_ORDER } from '@/lib/broth-comparisons'
 
@@ -29,7 +30,7 @@ export default function ComparisonsIndexPage() {
   return (
     <main className="min-h-screen bg-sunken">
       <Navbar />
-      <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+      <AdLayout className="pt-24 pb-16 max-w-2xl lg:max-w-ad-page-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-ink mb-2">Ramen Broth Comparisons</h1>
         <p className="text-ink-soft text-sm mb-8">
           Tonkotsu, shoyu, miso, shio, spicy or vegan — compare any two broth types side by side and
@@ -37,7 +38,7 @@ export default function ComparisonsIndexPage() {
         </p>
 
         <ComparisonsSearch categories={categories} />
-      </div>
+      </AdLayout>
       <Footer />
     </main>
   )

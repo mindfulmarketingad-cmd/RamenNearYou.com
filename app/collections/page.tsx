@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import CollectionsSearch from './collections-search'
 
 export const metadata: Metadata = {
@@ -29,14 +30,18 @@ export default function CollectionsPage() {
   return (
     <main className="min-h-screen bg-sunken">
       <Navbar />
-      <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+      <AdLayout className="pt-24 pb-16 max-w-2xl lg:max-w-ad-page-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-ink mb-2">Collections</h1>
-        <p className="text-ink-soft text-sm mb-8">
-          Hand-picked ramen gear — bowls, cookers and accessories for eating ramen at home.
-        </p>
+        {/* Journey content selector (a short page: Journey decides whether
+            an in-content ad fits). */}
+        <div id="page-list-view">
+          <p className="text-ink-soft text-sm mb-8">
+            Hand-picked ramen gear — bowls, cookers and accessories for eating ramen at home.
+          </p>
 
-        <CollectionsSearch collections={COLLECTIONS} />
-      </div>
+          <CollectionsSearch collections={COLLECTIONS} />
+        </div>
+      </AdLayout>
       <Footer />
     </main>
   )

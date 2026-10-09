@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -5,6 +6,8 @@ import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { blogPosts } from '@/lib/blog-posts'
 import { slugifyAuthor } from '@/lib/perfect-for'
 
@@ -68,7 +71,7 @@ export default async function AuthorPage({ params }: Props) {
     <>
       <Navbar />
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
+        <AdLayout className="max-w-3xl lg:max-w-ad-page-3xl mx-auto">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
             <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
@@ -96,9 +99,11 @@ export default async function AuthorPage({ params }: Props) {
           <h2 className="font-serif text-2xl font-bold text-ink mb-5">
             Articles by {info.name} ({info.posts.length})
           </h2>
-          <ul className="flex flex-col gap-3">
-            {info.posts.map((p) => (
-              <li key={p.slug}>
+          {/* Journey content selector, with a hint about every screenview. */}
+          <ul id="page-list-view" className="flex flex-col gap-3">
+            {info.posts.map((p, i) => (
+              <Fragment key={p.slug}>
+              <li>
                 <Link
                   href={`/blog/${p.slug}`}
                   className="block bg-surface rounded-xl border border-line/5 p-5 hover:border-brand/40 transition-colors"
@@ -115,9 +120,11 @@ export default async function AuthorPage({ params }: Props) {
                   <p className="text-ink-soft text-sm leading-relaxed line-clamp-2">{p.description}</p>
                 </Link>
               </li>
+              <ContentHints as="li" index={i} total={info.posts.length} mobileEvery={4} desktopEvery={5} />
+              </Fragment>
             ))}
           </ul>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

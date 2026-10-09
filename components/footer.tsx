@@ -36,7 +36,7 @@ export default function Footer() {
   const stats = getSiteStats()
 
   return (
-    <footer className="bg-sunken border-t border-line/5 relative">
+    <footer id="footer" className="bg-sunken border-t border-line/5 relative">
       {/* Thin copper accent line — a small signature so the footer doesn't
           just look like the page ran out of content. */}
       <div className="h-[3px] bg-gradient-to-r from-transparent via-brand to-transparent opacity-60" />

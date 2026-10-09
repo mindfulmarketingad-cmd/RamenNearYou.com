@@ -1,13 +1,20 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { Fragment, useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, ChevronRight, Star, BadgeCheck, Map as MapIcon } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
+import ContentHints from '@/components/ads/content-hints'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
-import L from 'leaflet'
+// Leaflet touches `window` when it loads, so it's imported lazily in the map
+// effect. That keeps this component server-renderable: the card list ships in
+// the static HTML (and is there when the Journey ad script looks for
+// #page-list-view), and only the desktop map waits for the browser.
+import type * as Leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+
+type LeafletModule = typeof Leaflet
 
 export interface MapCard {
   rank: number
@@ -43,7 +50,7 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-function makeNumberIcon(n: number, active: boolean, featured = false) {
+function makeNumberIcon(L: LeafletModule, n: number, active: boolean, featured = false) {
   const size = active ? 38 : featured ? 32 : 28
   const bg = featured ? '#B57F50' : active ? '#B57F50' : '#1E2026'
   const border = featured ? (active ? '3px solid #fff' : '2.5px solid #fff') : (active ? '3px solid white' : '2px solid white')
@@ -80,10 +87,22 @@ function makeNumberIcon(n: number, active: boolean, featured = false) {
   })
 }
 
-export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]; listHeading?: string }) {
-  const mapRef = useRef<L.Map | null>(null)
+export default function BlogScrollMap({
+  cards,
+  listHeading,
+  adList = false,
+}: {
+  cards: MapCard[]
+  listHeading?: string
+  // Make the card list the page's Journey content element (#page-list-view)
+  // with content hints between cards. Only for pages with no other
+  // #page-list-view (blog posts use their article body instead).
+  adList?: boolean
+}) {
+  const leafletRef = useRef<LeafletModule | null>(null)
+  const mapRef = useRef<Leaflet.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
-  const markersRef = useRef<Map<number, L.Marker>>(new Map())
+  const markersRef = useRef<Map<number, Leaflet.Marker>>(new Map())
   const cardRefs = useRef<Map<number, HTMLElement>>(new Map())
   const [activeRank, setActiveRank] = useState<number>(1)
   const [mapReady, setMapReady] = useState(false)
@@ -101,6 +120,13 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
   useEffect(() => {
     if (!isDesktop) return
     if (!mapContainerRef.current || mapRef.current) return
+    let cancelled = false
+    let map: Leaflet.Map | null = null
+
+    import('leaflet').then((mod) => {
+    if (cancelled || !mapContainerRef.current || mapRef.current) return
+    const L = ((mod as unknown as { default?: LeafletModule }).default ?? mod) as LeafletModule
+    leafletRef.current = L
 
     // Fix leaflet icons
     delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl
@@ -114,7 +140,7 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
     if (withCoords.length === 0) return
 
     const first = withCoords[0]
-    const map = L.map(mapContainerRef.current, {
+    map = L.map(mapContainerRef.current, {
       center: [first.lat!, first.lng!],
       zoom: 13,
       zoomControl: true,
@@ -128,9 +154,9 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
     // Add markers
     withCoords.forEach(card => {
       const marker = L.marker([card.lat!, card.lng!], {
-        icon: makeNumberIcon(card.rank, card.rank === 1, card.featured),
+        icon: makeNumberIcon(L, card.rank, card.rank === 1, card.featured),
         title: card.name,
-      }).addTo(map)
+      }).addTo(map!)
 
       marker.bindPopup(`
         <div style="min-width:180px;font-family:sans-serif">
@@ -150,16 +176,23 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
 
     mapRef.current = map
     setMapReady(true)
-    return () => { map.remove(); mapRef.current = null; markersRef.current.clear() }
+    })
+    return () => {
+      cancelled = true
+      map?.remove()
+      mapRef.current = null
+      markersRef.current.clear()
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDesktop])
 
   // Update active marker styles when activeRank changes
   useEffect(() => {
-    if (!mapReady) return
+    const L = leafletRef.current
+    if (!mapReady || !L) return
     markersRef.current.forEach((marker, rank) => {
       const isFeatured = cards.find(c => c.rank === rank)?.featured
-      marker.setIcon(makeNumberIcon(rank, rank === activeRank, isFeatured))
+      marker.setIcon(makeNumberIcon(L, rank, rank === activeRank, isFeatured))
     })
 
     // Fly to active card's location
@@ -220,10 +253,10 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
             <MapIcon className="w-4 h-4" /> View these spots on the interactive map
           </Link>
         )}
-        <div className="flex flex-col gap-5">
-          {cards.map((card) => (
+        <div id={adList ? 'page-list-view' : undefined} className="flex flex-col gap-5">
+          {cards.map((card, i) => (
+            <Fragment key={card.slug}>
             <article
-              key={card.slug}
               ref={setCardRef(card.rank)}
               className={`flex flex-col bg-surface rounded-xl border overflow-hidden transition-all duration-300 ${
                 card.rank === activeRank
@@ -327,6 +360,10 @@ export default function BlogScrollMap({ cards, listHeading }: { cards: MapCard[]
                 </div>
               </div>
             </article>
+            {/* Cards are ~500px tall, so a hint every 2 cards is about one
+                ad per screenview at both widths. */}
+            {adList && <ContentHints index={i} total={cards.length} mobileEvery={2} desktopEvery={2} />}
+            </Fragment>
           ))}
         </div>
       </div>

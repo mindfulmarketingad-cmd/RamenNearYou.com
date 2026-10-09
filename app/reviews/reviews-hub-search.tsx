@@ -152,7 +152,8 @@ export default function ReviewsHubSearch({ listings, total }: { listings: Review
           </>
         )
       ) : (
-        <div className="space-y-8">
+        // Journey content selector: ads are auto-placed between letter groups.
+        <div id="page-list-view" className="space-y-8">
           {groups!.map((g) => (
             <div key={g.letter}>
               <h2 className="text-xs font-semibold tracking-widest uppercase text-ink-soft mb-3">

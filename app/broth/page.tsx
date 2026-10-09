@@ -1,9 +1,12 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { safePhotoSrc } from '@/lib/photo-guard'
 import { MapPin, Star, Utensils } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import BrothFilterTabs from '@/components/broth-filter-tabs'
 import { restaurants, getBrothTypes, BROTH_TYPES, type BrothType } from '@/lib/restaurants'
 
@@ -155,7 +158,7 @@ export default function BrothPage() {
 
       {/* Restaurant grid */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="max-w-7xl mx-auto">
+        <AdLayout className="max-w-7xl lg:max-w-ad-page-6xl mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-ink-soft text-lg mb-2">No restaurants found for this broth type yet.</p>
@@ -165,14 +168,18 @@ export default function BrothPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map((r) => {
+            // Journey content selector. Cards are ~270px rows, so a hint every
+            // 4 cards on mobile and every 12 on desktop (4–6 rows) keeps it
+            // to one ad per screenview; hints and injected ads span the row.
+            // Two columns at lg because the ad sidebar takes 332px there.
+            <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              {filtered.map((r, i) => {
                 const types = getBrothTypes(r)
                 return (
+                  <Fragment key={r.slug}>
                   <Link
-                    key={r.slug}
                     href={`/${r.citySlug}/${r.stateSlug}/${r.slug}`}
-                    className="group flex flex-col bg-sunken rounded-xl border border-line/5 overflow-hidden hover:border-brand/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
+                    className="ad-item group flex flex-col bg-sunken rounded-xl border border-line/5 overflow-hidden hover:border-brand/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10"
                   >
                     <div className="relative h-40 bg-surface overflow-hidden flex-shrink-0">
                       {safePhotoSrc(r.photo) ? (
@@ -220,6 +227,8 @@ export default function BrothPage() {
                       </div>
                     </div>
                   </Link>
+                  <ContentHints index={i} total={filtered.length} mobileEvery={4} desktopEvery={12} />
+                  </Fragment>
                 )
               })}
             </div>
@@ -239,7 +248,7 @@ export default function BrothPage() {
               </Link>
             </div>
           )}
-        </div>
+        </AdLayout>
       </section>
 
       <Footer />

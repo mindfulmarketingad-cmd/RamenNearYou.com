@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import { getAllComparisons, getComparison } from '@/lib/broth-comparisons'
 import { slugifyAuthor } from '@/lib/perfect-for'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
@@ -87,7 +88,7 @@ export default async function ComparisonPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
+        <AdLayout className="max-w-2xl lg:max-w-ad-page-2xl mx-auto">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
             <Link href="/" className="hover:text-ink transition-colors">Home</Link>
@@ -142,7 +143,10 @@ export default async function ComparisonPage({ params }: Props) {
               </div>
             </header>
 
+            {/* Journey content selector: in-content ads are auto-placed
+                between the article's paragraphs and headings. */}
             <div
+              id="page-list-view"
               className="prose-ramen"
               dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cmp.content) }}
             />
@@ -165,7 +169,7 @@ export default async function ComparisonPage({ params }: Props) {
               </Link>
             </div>
           </div>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

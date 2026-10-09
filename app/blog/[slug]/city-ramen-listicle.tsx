@@ -1,8 +1,11 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronRight, Star, Phone, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import RestaurantImage from '@/components/restaurant-image'
 import CityGuideCta from '@/components/city-guide-cta'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
@@ -52,7 +55,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
     <>
       <Navbar />
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
+        <AdLayout className="max-w-3xl lg:max-w-ad-page-3xl mx-auto">
           <div>
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
@@ -121,7 +124,10 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
               </section>
 
               {/* Restaurant cards */}
-              <div className="space-y-6">
+              {/* Journey content selector. Each pick is about a screen tall on
+                  mobile, so a hint follows every pick there and every second
+                  pick on desktop. */}
+              <div id="page-list-view" className="space-y-6">
                 {top5.map((r, i) => {
                   const reviewSlug = getReviewSlug(r)
                   const hasReview = hasReviewPage(reviewSlug) && !isRetiredPage(`/reviews/${reviewSlug}`)
@@ -130,7 +136,8 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                   const review = buildRestaurantReview(r, i)
                   const ctxLinks = getContextualLinks(r)
                   return (
-                    <article key={r.slug} id={r.slug} className="scroll-mt-24 bg-surface rounded-2xl border border-line/5 overflow-hidden">
+                    <Fragment key={r.slug}>
+                    <article id={r.slug} className="scroll-mt-24 bg-surface rounded-2xl border border-line/5 overflow-hidden">
                       <div className="flex flex-col sm:flex-row">
                         <div className="relative w-full sm:w-56 shrink-0 h-48 sm:h-auto bg-sunken">
                           <RestaurantImage src={r.photo} alt={r.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 224px" />
@@ -193,6 +200,8 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                         </div>
                       </div>
                     </article>
+                    <ContentHints index={i} total={top5.length} mobileEvery={1} desktopEvery={2} />
+                    </Fragment>
                   )
                 })}
               </div>
@@ -234,7 +243,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
               </Link>
             </div>
           </div>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

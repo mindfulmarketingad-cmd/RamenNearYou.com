@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdSidebar from '@/components/ads/ad-sidebar'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
@@ -222,10 +223,13 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
             includes the navbar and would double-count it, leaving a gap at
             the bottom of the map pane). --total-header-h minus the fixed
             navbar height isolates just the banner's contribution. */}
-        <div className="pt-16 flex flex-col lg:flex-row lg:h-[calc(100dvh-var(--total-header-h,4rem)+4rem)]">
+        {/* On desktop the details scroll with the window (not inside their
+            own scroll box) and the map stays pinned beside them, so Journey's
+            in-content and sticky sidebar ads see normal page scrolling. */}
+        <div className="pt-16 flex flex-col lg:flex-row lg:items-stretch">
 
-          {/* ── LEFT: scrollable details panel ── */}
-          <div className="w-full lg:w-[440px] xl:w-[480px] lg:shrink-0 lg:h-full lg:overflow-y-auto bg-surface border-r border-line/8 order-2 lg:order-1">
+          {/* ── LEFT: details panel ── */}
+          <div className="w-full lg:w-[440px] xl:w-[480px] lg:shrink-0 bg-surface border-r border-line/8 order-2 lg:order-1">
 
             {/* Hero photo */}
             <div className="relative h-52 sm:h-60 bg-sunken">
@@ -233,6 +237,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
             </div>
 
             <div className="px-5 py-5">
+              <div>
               {/* Breadcrumb */}
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-3 flex-wrap">
                 <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
@@ -289,6 +294,13 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 menuUrl={menuUrl}
                 isVerified={isVerified}
               />
+              </div>
+
+              {/* Journey content selector (#page-list-view): ads are
+                  auto-placed between these sections, never above the name and
+                  action row. Verified listings are promised an ad-free page
+                  (see the claim box), so they get no ad selectors. */}
+              <div id={isVerified ? undefined : 'page-list-view'}>
 
               {/* Own this business? — the site's main passive-claim lever.
                   Placed right under the action row (above the ads, the
@@ -512,11 +524,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   </Link>
                 </div>
               )}
+              </div>
             </div>
           </div>
 
-          {/* ── RIGHT: single-pin map ── */}
-          <div className="w-full h-72 lg:h-full lg:flex-1 order-1 lg:order-2 relative">
+          {/* ── RIGHT: single-pin map, pinned under the navbar on desktop ── */}
+          <div className="w-full h-72 lg:flex-1 lg:sticky lg:top-[var(--total-header-h,4rem)] lg:h-[calc(100dvh-var(--total-header-h,4rem))] lg:min-w-0 order-1 lg:order-2 relative">
             {r.latitude && r.longitude ? (
               <RestaurantMapPaneClient lat={r.latitude} lng={r.longitude} name={r.name} address={r.address} />
             ) : (
@@ -525,6 +538,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               </div>
             )}
           </div>
+
+          {!isVerified && (
+            <div className="order-3 hidden lg:block border-l border-line/8">
+              <AdSidebar className="h-full" />
+            </div>
+          )}
         </div>
 
         <Footer />

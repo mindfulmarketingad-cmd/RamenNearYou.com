@@ -87,7 +87,9 @@ export default function CitiesDirectory({ statesWithCities }: { statesWithCities
             ))}
           </div>
 
-          <div className="space-y-10">
+          {/* Journey content selector: state groups vary a lot in height,
+              so Journey auto-places ads between them (no hints). */}
+          <div id="page-list-view" className="space-y-10">
             {statesWithCities.map((s) => (
               <div key={s.stateSlug} id={`state-${s.stateSlug}`} className="scroll-mt-24">
                 <h2 className="flex items-baseline gap-2 mb-3">

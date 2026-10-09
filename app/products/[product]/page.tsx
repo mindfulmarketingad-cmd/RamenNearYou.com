@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Star, ChevronRight, Check } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import { getProduct, products } from '@/lib/products'
 
 interface Props {
@@ -110,7 +111,7 @@ export default async function ProductPage({ params }: Props) {
       <Navbar />
 
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
+        <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
 
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-8 pt-2 flex-wrap">
@@ -179,6 +180,9 @@ export default async function ProductPage({ params }: Props) {
             </div>
           </div>
 
+          {/* Journey content selector: ads are auto-placed between these
+              sections, below the product hero. */}
+          <div id="page-list-view">
           {/* Features */}
           <section className="mb-14">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-8">Why This Product?</h2>
@@ -226,8 +230,9 @@ export default async function ProductPage({ params }: Props) {
               CHECK PRICE
             </a>
           </div>
+          </div>
 
-        </div>
+        </AdLayout>
       </main>
 
       <Footer />

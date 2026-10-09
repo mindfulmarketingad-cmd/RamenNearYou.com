@@ -6,6 +6,8 @@ import { List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import ListicleCard from '@/components/listicle-card'
 import ProductsCarousel from '@/components/products-carousel'
 import CityGuideCta from '@/components/city-guide-cta'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
@@ -262,7 +264,7 @@ export default function PseoListicle({
     <div>
       {/* Header */}
       <div className="bg-sunken px-4 sm:px-6 pt-24 pb-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl lg:max-w-ad-page mx-auto">
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-ink-soft mb-4">
             {breadcrumb.map((b, i) => (
               <span key={i} className="flex items-center gap-1.5">
@@ -285,7 +287,7 @@ export default function PseoListicle({
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <AdLayout className="max-w-4xl lg:max-w-ad-page mx-auto px-4 sm:px-6 py-6">
         {/* Toolbar: count + List/Map */}
         <div className="flex items-center justify-between gap-3 mb-4">
           <p className="text-sm text-ink-soft">
@@ -409,8 +411,10 @@ export default function PseoListicle({
               </div>
             )}
 
-            {/* Ranked list */}
-            <div className="space-y-3">
+            {/* Ranked list. #page-list-view is Journey's content selector:
+                in-content ads go only between its direct children, at the
+                hints (about one per screenview). */}
+            <div id="page-list-view" className="space-y-3">
               {pagedRest.map((it, i) => {
                 // Shop-our-picks drops in once, a few listings down rather
                 // than at the very top — it reads as a natural break in the
@@ -425,6 +429,7 @@ export default function PseoListicle({
                     <ProductsCarousel variant="inline" />
                   </div>
                 )}
+                <ContentHints index={i} total={pagedRest.length} mobileEvery={4} desktopEvery={5} />
                 </Fragment>
                 )
               })}
@@ -452,7 +457,7 @@ export default function PseoListicle({
         )}
 
         {view === 'map' && <div className="rounded-2xl overflow-hidden border border-line/8">{mapSlot}</div>}
-      </div>
+      </AdLayout>
     </div>
   )
 }

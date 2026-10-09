@@ -4,6 +4,7 @@ import { getCities, getStates } from '@/lib/restaurants'
 import { getSupplementStateStats, getSupplementCitiesByState } from '@/lib/places-supplements'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import CitiesDirectory from './cities-directory'
@@ -81,9 +82,9 @@ export default function CitiesPage() {
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
+        <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
           <CitiesDirectory statesWithCities={statesWithCities} />
-        </div>
+        </AdLayout>
       </section>
 
       <Footer />

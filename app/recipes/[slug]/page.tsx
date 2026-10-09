@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { ChevronRight, Star, CheckCircle2 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RecipeCard from '@/components/recipe-card'
 import RestaurantImage from '@/components/restaurant-image'
 import { RECIPES, getRecipe } from '@/lib/recipes'
@@ -130,7 +131,7 @@ export default async function RecipePage({ params }: Props) {
           <Navbar />
         </div>
 
-        <div className="pt-24 pb-16 max-w-3xl mx-auto px-4 sm:px-6 print:pt-0 print:max-w-none">
+        <AdLayout className="pt-24 pb-16 max-w-3xl lg:max-w-ad-page-3xl mx-auto px-4 sm:px-6 print:pt-0 print:max-w-none">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap print:hidden">
             <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
@@ -171,6 +172,9 @@ export default async function RecipePage({ params }: Props) {
             {recipe.description}
           </p>
 
+          {/* Journey content selector: ads are auto-placed between the
+              recipe's sections, below the title and intro. */}
+          <div id="page-list-view">
           {/* Featured image */}
           <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-sunken mb-10 print:hidden">
             <RestaurantImage
@@ -285,7 +289,8 @@ export default async function RecipePage({ params }: Props) {
             <h2 className="font-serif text-2xl font-bold text-ink mb-4 print:hidden">Printable Recipe Card</h2>
             <RecipeCard recipe={recipe} pageUrl={url} />
           </section>
-        </div>
+          </div>
+        </AdLayout>
 
         <div className="print:hidden">
           <Footer />

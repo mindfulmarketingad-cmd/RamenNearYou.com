@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import FindHubSearch from './find-hub-search'
 import { CAPITAL_CITIES } from '@/lib/capital-cities'
 import { MAJOR_CITIES } from '@/lib/major-cities-list'
@@ -208,7 +209,7 @@ export default function FindHubPage() {
   return (
     <main className="min-h-screen bg-sunken">
       <Navbar />
-      <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+      <AdLayout className="pt-24 pb-16 max-w-2xl lg:max-w-ad-page-2xl mx-auto px-4 sm:px-6">
         <h1 className="font-serif text-3xl font-bold text-ink mb-2">Find Ramen Near Me</h1>
         <p className="text-ink-soft text-sm mb-6">
           Browse ramen restaurants filtered by what you need right now.
@@ -228,7 +229,7 @@ export default function FindHubPage() {
           totalCityPages={totalCityPages}
           phoCityPages={phoCityPages}
         />
-      </div>
+      </AdLayout>
       <Footer />
     </main>
   )

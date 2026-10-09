@@ -51,6 +51,10 @@ export default function HomePage() {
         <HomeNearbySection />
 
         <div className="relative z-10 bg-surface">
+          {/* Journey content selector: in-content ads are auto-placed
+              between these full-width sections. No ad sidebar on the home
+              page: every section is a full-bleed band. */}
+          <div id="page-list-view">
           <ClaimedShowcase />
           <FilterShowcase />
           <SearchMapShowcase />
@@ -153,6 +157,7 @@ export default function HomePage() {
           <HomepageFAQ />
 
           <FindCrossLinks />
+          </div>
           <Footer />
         </div>
       </main>

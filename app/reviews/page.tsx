@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { QrCode, Star, Printer, TrendingUp } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import { getReviewSlug, getReviewRestaurants } from '@/lib/reviews'
@@ -71,7 +72,7 @@ export default function ReviewsIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main className="min-h-screen bg-sunken pt-24 pb-20 px-4 sm:px-6">
-        <div className="max-w-2xl mx-auto">
+        <AdLayout className="max-w-2xl lg:max-w-ad-page-2xl mx-auto">
           <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-6">
             <RestaurantImage src={pickStockPhoto('reviews-hub')} alt="A bowl of ramen" fill className="object-cover" sizes="672px" priority />
           </div>
@@ -159,7 +160,7 @@ export default function ReviewsIndexPage() {
               ))}
             </div>
           </div>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

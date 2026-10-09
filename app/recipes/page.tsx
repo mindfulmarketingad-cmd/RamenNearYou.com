@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import RecipesHubSearch from './recipes-hub-search'
 import { getAllRecipes } from '@/lib/recipes'
@@ -33,7 +34,7 @@ export default function RecipesHubPage() {
   return (
     <main className="min-h-screen bg-sunken">
       <Navbar />
-      <div className="pt-24 pb-16 max-w-2xl mx-auto px-4 sm:px-6">
+      <AdLayout className="pt-24 pb-16 max-w-2xl lg:max-w-ad-page-2xl mx-auto px-4 sm:px-6">
         <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-6">
           <RestaurantImage src={pickStockPhoto('recipes-hub')} alt="A bowl of homemade ramen" fill className="object-cover" sizes="672px" priority />
         </div>
@@ -44,7 +45,7 @@ export default function RecipesHubPage() {
         </p>
 
         <RecipesHubSearch groups={groups} />
-      </div>
+      </AdLayout>
       <Footer />
     </main>
   )

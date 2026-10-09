@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { MapPin, ChevronRight, Map, Navigation, Info } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import BlogScrollMapWrapper from '@/components/blog-scroll-map-wrapper'
 import type { MapCard } from '@/components/blog-scroll-map'
 import { getNearbyCities, type Restaurant } from '@/lib/restaurants'
@@ -191,12 +192,12 @@ export default function CityFilterPage({
 
       {/* Listings */}
       <section className="py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <AdLayout className="max-w-7xl lg:max-w-ad-page-6xl mx-auto" wide>
           <p className="text-ink font-semibold text-sm mb-2">
             {restaurants.length} ramen restaurant{restaurants.length !== 1 ? 's' : ''} in {city}, {stateCode}
           </p>
-          <BlogScrollMapWrapper cards={cards} listHeading={h1} />
-        </div>
+          <BlogScrollMapWrapper adList cards={cards} listHeading={h1} />
+        </AdLayout>
       </section>
 
       {/* Related filters in this city (interlink siblings) */}

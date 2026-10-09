@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMiniMapClient from '@/components/restaurant-mini-map-client'
 import { getPhoBySlug, getAllPhoSlugs, getNearbyPho, getActiveAmenityGroups, phoRestaurants, phoCityParam } from '@/lib/pho'
@@ -173,7 +174,7 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
         <Navbar />
 
         <div className="pt-24 pb-16 px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
+          <AdLayout className={isClaimed ? 'max-w-3xl mx-auto' : 'max-w-3xl lg:max-w-ad-page-3xl mx-auto'} sidebar={!isClaimed}>
             <div>
               {/* Breadcrumb */}
               <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-ink-soft mb-5">
@@ -262,6 +263,10 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                 </div>
               </div>
 
+              {/* Journey content selector: ads are auto-placed between these
+                  blocks, below the name and actions. Claimed listings are
+                  promised an ad-free page, so they get no ad selectors. */}
+              <div id={isClaimed ? undefined : 'page-list-view'}>
               {/* Hours + rating breakdown */}
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 {p.hours && (
@@ -471,8 +476,9 @@ export default async function PhoPartnerPage({ params }: { params: Promise<{ slu
                   </p>
                 )}
               </div>
+              </div>
             </div>
-          </div>
+          </AdLayout>
         </div>
 
         <Footer />

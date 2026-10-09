@@ -1,8 +1,11 @@
+import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, ChevronRight, ShoppingBag, ChevronDown } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { ceramicRamenBowls } from '@/lib/collections/ceramic-ramen-bowls'
 
 export const metadata = {
@@ -47,15 +50,17 @@ export default function CeramicRamenBowlsPage() {
 
       {/* Product grid */}
       <section className="py-12 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-            {ceramicRamenBowls.map((product) => (
+        <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
+          {/* Journey content selector. Hints (and injected ads) take a full
+              row; 3 columns on desktop because the ad sidebar takes 332px. */}
+          <div id="page-list-view" className="ad-grid grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
+            {ceramicRamenBowls.map((product, i) => (
+              <Fragment key={product.id}>
               <a
-                key={product.id}
                 href={product.affiliateUrl}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="group flex flex-col bg-surface rounded-2xl overflow-hidden border border-line/5 hover:border-brand/40 hover:shadow-lg hover:shadow-black/10 transition-all duration-200"
+                className="ad-item group flex flex-col bg-surface rounded-2xl overflow-hidden border border-line/5 hover:border-brand/40 hover:shadow-lg hover:shadow-black/10 transition-all duration-200"
               >
                 {/* Image */}
                 <div className="relative w-full aspect-square bg-sunken overflow-hidden">
@@ -93,6 +98,8 @@ export default function CeramicRamenBowlsPage() {
                   </div>
                 </div>
               </a>
+              <ContentHints index={i} total={ceramicRamenBowls.length} mobileEvery={6} desktopEvery={6} />
+              </Fragment>
             ))}
           </div>
 
@@ -167,7 +174,7 @@ export default function CeramicRamenBowlsPage() {
               Read our guide to <Link href="/blog/tonkotsu-vs-shoyu-vs-shio-vs-miso-4-types-of-ramen" className="text-brand-ink underline font-medium">the 4 types of ramen</Link> to know exactly what to make — or find a great ramen restaurant near you in our <Link href="/cities" className="text-brand-ink underline font-medium">city directory</Link>. Looking for <Link href="/tonkotsu-ramen-near-me" className="text-brand-ink underline font-medium">tonkotsu ramen near you</Link> or <Link href="/miso-ramen-near-me" className="text-brand-ink underline font-medium">miso ramen near you</Link>? Browse by broth type.
             </p>
           </div>
-        </div>
+        </AdLayout>
       </section>
 
       <Footer />

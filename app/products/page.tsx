@@ -1,9 +1,12 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { products } from '@/lib/products'
 
 export const metadata: Metadata = {
@@ -46,7 +49,7 @@ export default function ProductsPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
+        <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
 
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-8 pt-2">
@@ -63,10 +66,13 @@ export default function ProductsPage() {
             </p>
           </div>
 
-          {/* Product grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <article key={product.slug} className="flex flex-col bg-surface rounded-2xl border border-line/5 overflow-hidden hover:border-brand/30 transition-colors group">
+          {/* Product grid — Journey content selector. Hints (and any ad
+              Journey injects) span the full row; two columns at lg because the
+              ad sidebar takes 332px there. */}
+          <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {products.map((product, i) => (
+              <Fragment key={product.slug}>
+              <article className="ad-item flex flex-col bg-surface rounded-2xl border border-line/5 overflow-hidden hover:border-brand/30 transition-colors group">
                 {/* Image */}
                 <div className="relative w-full aspect-[4/3] bg-sunken">
                   <Image
@@ -113,6 +119,8 @@ export default function ProductsPage() {
                   </a>
                 </div>
               </article>
+              <ContentHints index={i} total={products.length} mobileEvery={2} desktopEvery={6} />
+              </Fragment>
             ))}
           </div>
 
@@ -149,7 +157,7 @@ export default function ProductsPage() {
           <p className="text-center text-xs text-ink-soft mt-10">
             * Links are affiliate links. We may earn a small commission at no extra cost to you.
           </p>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>

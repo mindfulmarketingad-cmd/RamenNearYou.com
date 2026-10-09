@@ -30,6 +30,9 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Journey content selector: in-content ads are auto-placed between
+          these full-width sections (no sidebar: each is a full-bleed band). */}
+      <div id="page-list-view">
       {/* Meet the author */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
@@ -176,6 +179,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </div>
 
       <Footer />
     </main>

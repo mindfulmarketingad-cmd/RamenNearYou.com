@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 
 export const metadata: Metadata = {
   title: 'JINYA Ramen Bar Menu — Full Menu With Items & Descriptions',
@@ -328,7 +329,10 @@ export default function JinyaMenuPage() {
 
         {/* Menu sections */}
         <section className="px-4 sm:px-6 lg:px-8 pt-10">
-          <div className="max-w-4xl mx-auto space-y-12">
+          <AdLayout className="max-w-4xl lg:max-w-ad-page mx-auto">
+          {/* Journey content selector: ads are auto-placed between menu
+              sections. */}
+          <div id="page-list-view" className="space-y-12">
             {menu.map((section) => (
               <div key={section.heading}>
                 <div className="flex items-baseline gap-3 mb-5 pb-3 border-b border-line/8">
@@ -360,6 +364,7 @@ export default function JinyaMenuPage() {
               </div>
             ))}
           </div>
+          </AdLayout>
         </section>
 
         {/* CTA */}

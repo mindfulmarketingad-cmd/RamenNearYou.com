@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 import CateringForm from './catering-form'
@@ -74,7 +75,10 @@ export default function CateringPage() {
 
       {/* SEO article — first-person, genuinely useful guide to ramen catering */}
       <section className="pb-20 px-4 sm:px-6 lg:px-8">
-        <article className="max-w-3xl mx-auto">
+        {/* Journey content selector is the guide below the quote form, so
+            no ad lands inside or next to the form. */}
+        <AdLayout className="max-w-3xl lg:max-w-ad-page-3xl mx-auto">
+        <article id="page-list-view">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
             Why I think ramen is the best catering you can book
           </h2>
@@ -171,6 +175,7 @@ export default function CateringPage() {
             ))}
           </div>
         </article>
+        </AdLayout>
       </section>
       <Footer />
     </main>
