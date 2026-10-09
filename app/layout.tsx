@@ -82,10 +82,12 @@ export default function RootLayout({
             never gave and lets tags fire in the window before the CMP has
             even asked.
 
-            The site currently loads no CMP of its own, so in those regions
-            tags simply stay denied. Whatever CMP is added later is what sends
-            the update that unblocks them; GA4 and the Google Ads conversion
-            tag both read these signals.
+            Journey by Mediavine ships its own certified CMP, and it is the
+            only one on the site: it sends the update that unblocks GA4, the
+            Google Ads conversion tag and Mediavine's Google demand partners,
+            which all read Consent Mode. Don't "fix" the ordering by wrapping
+            Mediavine's tag in this script — support expects the literal tag
+            they issued.
 
             Region-scoped so it costs nothing elsewhere: US traffic (almost
             all of this site's) still gets fully personalised ads immediately,
@@ -131,6 +133,19 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18266125976');
         `}</Script>
+        {/* Journey by Mediavine. A raw <script> rather than next/script so the
+            tag reaches the browser byte-for-byte as Mediavine specified it —
+            their script auto-injects ad placements (using the selectors saved
+            in the Journey dashboard) and reads its own attributes, and it has
+            to be last in <head>. (data-noptimize / data-cfasync are inert on
+            Vercel; Mediavine asks for them regardless of host.) */}
+        <script
+          type="text/javascript"
+          async={true}
+          data-noptimize="1"
+          data-cfasync="false"
+          src="//scripts.scriptwrapper.com/tags/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71.js"
+        ></script>
       </head>
       <body className="font-sans text-base antialiased bg-surface text-ink">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
