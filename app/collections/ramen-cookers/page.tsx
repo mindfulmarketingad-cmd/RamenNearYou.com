@@ -5,7 +5,6 @@ import { ExternalLink, ChevronRight, ShoppingBag, ChevronDown } from 'lucide-rea
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import { ramenCookers } from '@/lib/collections/ramen-cookers'
 
 export const metadata = {
@@ -51,8 +50,9 @@ export default function RamenCookersPage() {
       {/* Product grid */}
       <section className="py-12 px-4 sm:px-6">
         <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
-          {/* Journey content selector. Hints (and injected ads) take a full
-              row; 3 columns on desktop because the ad sidebar takes 332px. */}
+          {/* Journey content selector. Too few products for hints, so
+              Journey auto-places; injected ads take a full row. 3 columns on
+              desktop because the ad sidebar takes 332px. */}
           <div id="page-list-view" className="ad-grid grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
             {ramenCookers.map((product, i) => (
               <Fragment key={product.id}>
@@ -98,7 +98,6 @@ export default function RamenCookersPage() {
                   </div>
                 </div>
               </a>
-              <ContentHints index={i} total={ramenCookers.length} mobileEvery={6} desktopEvery={6} />
               </Fragment>
             ))}
           </div>

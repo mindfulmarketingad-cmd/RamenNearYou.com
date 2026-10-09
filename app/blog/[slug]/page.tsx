@@ -445,9 +445,10 @@ export default async function BlogPostPage({ params }: Props) {
               </nav>
             )}
 
-            {/* Journey content selector: in-content ads are auto-placed
-                between the article's paragraphs and headings. */}
-            <div id="page-list-view" className="prose-ramen" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(tocHtml) }} />
+            {/* Journey content selector: the article body, unless the post is
+                a restaurant list — then the intro is a few paragraphs and the
+                cards below are the content (BlogScrollMap adList). */}
+            <div id={hasCards ? undefined : 'page-list-view'} className="prose-ramen" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(tocHtml) }} />
 
             {hasCards && (
               <section className="mt-10 mb-6 bg-sunken border border-line/5 rounded-2xl p-6 sm:p-8">
@@ -461,7 +462,7 @@ export default async function BlogPostPage({ params }: Props) {
             )}
 
             {hasCards && (
-              <BlogScrollMapWrapper cards={enrichedCards} listHeading={post.listHeading} />
+              <BlogScrollMapWrapper adList cards={enrichedCards} listHeading={post.listHeading} />
             )}
 
             {!hasCards && post.listHeading && (

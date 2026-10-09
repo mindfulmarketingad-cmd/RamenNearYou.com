@@ -68,8 +68,9 @@ export default function ProductsPage() {
 
           {/* Product grid — Journey content selector. Hints (and any ad
               Journey injects) span the full row; two columns at lg because the
-              ad sidebar takes 332px there. */}
-          <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              ad sidebar takes 332px there. Products are ~470px rows: a hint every
+              2 on mobile (one column), every 4 on desktop (two columns). */}
+          <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
             {products.map((product, i) => (
               <Fragment key={product.slug}>
               <article className="ad-item flex flex-col bg-surface rounded-2xl border border-line/5 overflow-hidden hover:border-brand/30 transition-colors group">
@@ -119,7 +120,7 @@ export default function ProductsPage() {
                   </a>
                 </div>
               </article>
-              <ContentHints index={i} total={products.length} mobileEvery={2} desktopEvery={6} />
+              <ContentHints index={i} total={products.length} mobileEvery={2} desktopEvery={4} />
               </Fragment>
             ))}
           </div>
