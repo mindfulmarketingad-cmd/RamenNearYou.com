@@ -33,7 +33,7 @@ function parseSlot(slot: string): { start: number; end: number } | null {
   return { start, end }
 }
 
-export function isOpenNow(hours: Record<string, string[]>): boolean | null {
+export function isOpenNow(hours: Record<string, string[]> | null | undefined): boolean | null {
   if (!hours || Object.keys(hours).length === 0) return null
   const now = new Date()
   const dayName = DAYS[now.getDay()]
@@ -48,6 +48,69 @@ export function isOpenNow(hours: Record<string, string[]>): boolean | null {
     if (currentMinutes >= parsed.start && currentMinutes < parsed.end) return true
   }
   return false
+}
+
+/** Latest closing time today in minutes from midnight (overnight slots > 1440). */
+export function latestCloseToday(hours: Record<string, string[]> | null | undefined): number | null {
+  if (!hours || Object.keys(hours).length === 0) return null
+  const slots = hours[DAYS[new Date().getDay()]]
+  if (!slots || slots.length === 0) return null
+  let latest: number | null = null
+  for (const slot of slots) {
+    if (slot === 'Closed') continue
+    const p = parseSlot(slot)
+    if (!p) continue
+    let end = p.end
+    if (p.start === 0 && p.end === 1440) end = 2880 // "Open 24 hours" → very late
+    else if (end <= p.start) end += 1440 // closes after midnight
+    if (latest === null || end > latest) latest = end
+  }
+  return latest
+}
+
+/** Open until `minClose` (default 9 PM) or later today. */
+export function isOpenLate(hours: Record<string, string[]> | null | undefined, minClose = 21 * 60): boolean {
+  const c = latestCloseToday(hours)
+  return c != null && c >= minClose
+}
+
+/** Open past midnight today. */
+export function isOpenPastMidnight(hours: Record<string, string[]> | null | undefined): boolean {
+  const c = latestCloseToday(hours)
+  return c != null && c > 1440
+}
+
+/** Earliest opening time on a given day in minutes, or null if closed/unknown. */
+function firstOpenMinute(slots: string[] | undefined): number | null {
+  if (!slots || slots.length === 0) return null
+  let min: number | null = null
+  for (const slot of slots) {
+    if (slot === 'Closed') continue
+    const p = parseSlot(slot)
+    if (!p) continue
+    if (min === null || p.start < min) min = p.start
+  }
+  return min
+}
+
+/** Opens at or before `byMin` (default 10:30 AM) on at least one day. */
+export function opensEarly(hours: Record<string, string[]> | null | undefined, byMin = 10 * 60 + 30): boolean {
+  if (!hours || Object.keys(hours).length === 0) return false
+  for (const day of DAYS) {
+    const fo = firstOpenMinute(hours[day])
+    if (fo != null && fo <= byMin) return true
+  }
+  return false
+}
+
+/** Open on both Saturday and Sunday. */
+export function isOpenOnWeekend(hours: Record<string, string[]> | null | undefined): boolean {
+  if (!hours || Object.keys(hours).length === 0) return false
+  const open = (day: string) => {
+    const slots = hours[day]
+    return !!slots && slots.length > 0 && slots[0] !== 'Closed'
+  }
+  return open('Saturday') && open('Sunday')
 }
 
 function minutesToLabel(minutes: number): string {
@@ -77,6 +140,42 @@ export function getClosingTime(hours: Record<string, string[]>): string | null {
     }
   }
   return null
+}
+
+export type OpenStatus =
+  | { status: 'open'; closesAt: string }
+  | { status: 'closing-soon'; closesAt: string; minutesLeft: number }
+  | { status: 'closed' }
+
+/**
+ * Current open/closed status with a closing-soon warning when the active
+ * slot ends within `soonMinutes` (default 60). Returns null when hours are
+ * unknown so callers can simply render nothing.
+ */
+export function getOpenStatus(hours: Record<string, string[]> | null | undefined, soonMinutes = 60): OpenStatus | null {
+  if (!hours || Object.keys(hours).length === 0) return null
+  const now = new Date()
+  const dayName = DAYS[now.getDay()]
+  const slots = hours[dayName]
+  if (!slots || slots.length === 0) return null
+  const currentMinutes = now.getHours() * 60 + now.getMinutes()
+  let sawParseable = false
+  for (const slot of slots) {
+    if (slot === 'Closed') { sawParseable = true; continue }
+    const parsed = parseSlot(slot)
+    if (!parsed) continue
+    sawParseable = true
+    if (parsed.start === 0 && parsed.end === 1440) return { status: 'open', closesAt: 'midnight' }
+    let end = parsed.end
+    if (end <= parsed.start) end += 1440 // closes after midnight
+    if (currentMinutes >= parsed.start && currentMinutes < end) {
+      const minutesLeft = end - currentMinutes
+      const closesAt = minutesToLabel(parsed.end)
+      if (minutesLeft <= soonMinutes) return { status: 'closing-soon', closesAt, minutesLeft }
+      return { status: 'open', closesAt }
+    }
+  }
+  return sawParseable ? { status: 'closed' } : null
 }
 
 function formatSlotLabel(slot: string): string {

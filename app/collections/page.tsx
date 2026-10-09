@@ -1,0 +1,48 @@
+import type { Metadata } from 'next'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import CollectionsSearch from './collections-search'
+
+export const metadata: Metadata = {
+  title: 'Ramen Collections | Bowls, Cookers & Accessories',
+  description:
+    'Shop our hand-picked ramen collections — ceramic bowls, electric ramen cookers and more. Everything you need to enjoy ramen at home.',
+  alternates: { canonical: 'https://www.ramennearyou.com/collections' },
+}
+
+const COLLECTIONS = [
+  {
+    heading: 'Bowls',
+    pages: [
+      { href: '/collections/ceramic-ramen-bowls', label: 'Ceramic Ramen Bowls' },
+    ],
+  },
+  {
+    heading: 'Cooking',
+    pages: [
+      { href: '/collections/ramen-cookers', label: 'Ramen Cookers' },
+    ],
+  },
+]
+
+export default function CollectionsPage() {
+  return (
+    <main className="min-h-screen bg-sunken">
+      <Navbar />
+      <AdLayout className="pt-24 pb-16 max-w-2xl lg:max-w-ad-page-2xl mx-auto px-4 sm:px-6">
+        <h1 className="font-serif text-3xl font-bold text-ink mb-2">Collections</h1>
+        {/* Journey content selector (a short page: Journey decides whether
+            an in-content ad fits). */}
+        <div id="page-list-view">
+          <p className="text-ink-soft text-sm mb-8">
+            Hand-picked ramen gear — bowls, cookers and accessories for eating ramen at home.
+          </p>
+
+          <CollectionsSearch collections={COLLECTIONS} />
+        </div>
+      </AdLayout>
+      <Footer />
+    </main>
+  )
+}

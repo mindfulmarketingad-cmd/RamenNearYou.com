@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -5,6 +6,8 @@ import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import AdLayout from '@/components/ads/ad-layout'
+import ContentHints from '@/components/ads/content-hints'
 import { blogPosts } from '@/lib/blog-posts'
 import { slugifyAuthor } from '@/lib/perfect-for'
 
@@ -33,6 +36,10 @@ function getAuthorInfo(slug: string) {
     posts,
   }
 }
+
+// Build-only: every valid page is in generateStaticParams, so anything else
+// is a 404 rather than an on-demand render.
+export const dynamicParams = false
 
 export function generateStaticParams() {
   const slugs = new Set<string>()
@@ -63,57 +70,61 @@ export default async function AuthorPage({ params }: Props) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#ECEAE4] pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6862] mb-6 flex-wrap pt-2">
-            <Link href="/" className="hover:text-[#1E2026] transition-colors">Home</Link>
+      <main className="min-h-screen bg-page pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+        <AdLayout className="max-w-3xl lg:max-w-ad-page-3xl mx-auto">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-soft mb-6 flex-wrap pt-2">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/blog" className="hover:text-[#1E2026] transition-colors">Blog</Link>
+            <Link href="/blog" className="hover:text-ink transition-colors">Blog</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1E2026]">{info.name}</span>
+            <span className="text-ink">{info.name}</span>
           </nav>
 
-          <header className="flex flex-col sm:flex-row items-start sm:items-center gap-5 bg-white rounded-2xl border border-black/8 p-6 sm:p-8 mb-10">
+          <header className="flex flex-col sm:flex-row items-start sm:items-center gap-5 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8 mb-10">
             <Image
               src={info.avatar}
               alt={info.name}
               width={96}
               height={96}
-              className="rounded-full border border-black/8 shrink-0"
+              className="rounded-full border border-line/8 shrink-0"
               unoptimized
             />
             <div>
-              <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Contributor Profile</p>
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026] mb-3">{info.name}</h1>
-              <p className="text-[#6B6862] text-sm leading-relaxed">{info.bio}</p>
+              <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Contributor Profile</p>
+              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">{info.name}</h1>
+              <p className="text-ink-soft text-sm leading-relaxed">{info.bio}</p>
             </div>
           </header>
 
-          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-5">
+          <h2 className="font-serif text-2xl font-bold text-ink mb-5">
             Articles by {info.name} ({info.posts.length})
           </h2>
-          <ul className="flex flex-col gap-3">
-            {info.posts.map((p) => (
-              <li key={p.slug}>
+          {/* Journey content selector, with a hint about every screenview. */}
+          <ul id="page-list-view" className="flex flex-col gap-3">
+            {info.posts.map((p, i) => (
+              <Fragment key={p.slug}>
+              <li>
                 <Link
                   href={`/blog/${p.slug}`}
-                  className="block bg-white rounded-xl border border-black/5 p-5 hover:border-[#B57F50]/40 transition-colors"
+                  className="block bg-surface rounded-xl border border-line/5 p-5 hover:border-brand/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[#B57F50]/15 text-[#B57F50]">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-brand/15 text-brand-ink">
                       {p.category}
                     </span>
-                    <span className="text-xs text-[#6B6862]/60">{p.date}</span>
+                    <span className="text-xs text-ink-soft/60">{p.date}</span>
                   </div>
-                  <p className="font-semibold text-[#1E2026] text-base leading-snug mb-1">
+                  <p className="font-semibold text-ink text-base leading-snug mb-1">
                     {p.h1 ?? p.title}
                   </p>
-                  <p className="text-[#6B6862] text-sm leading-relaxed line-clamp-2">{p.description}</p>
+                  <p className="text-ink-soft text-sm leading-relaxed line-clamp-2">{p.description}</p>
                 </Link>
               </li>
+              <ContentHints as="li" index={i} total={info.posts.length} mobileEvery={4} desktopEvery={5} />
+              </Fragment>
             ))}
           </ul>
-        </div>
+        </AdLayout>
       </main>
       <Footer />
     </>
