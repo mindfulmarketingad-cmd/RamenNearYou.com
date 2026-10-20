@@ -5,6 +5,7 @@ import { getStates, getRestaurantsByState } from '@/lib/restaurants'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import ShareButton from '@/components/share-button'
+import StateRestaurantGrid from '@/components/state-restaurant-grid'
 
 export async function generateStaticParams() {
   return getStates().map((s) => ({ city: s.stateSlug }))
@@ -97,11 +98,21 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         </div>
       </section>
 
+      {/* Restaurant grid with sort and filters */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-6">
+            All Ramen Restaurants in {state}
+          </h2>
+          <StateRestaurantGrid restaurants={allRestaurants} />
+        </div>
+      </section>
+
       {/* City grid */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-serif text-2xl font-bold text-[#1E2026] mb-8">
-            {state}, {stateCode} ({allRestaurants.length} listings)
+            Browse by City
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
