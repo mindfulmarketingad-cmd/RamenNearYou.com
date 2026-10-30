@@ -5,7 +5,6 @@ import { ChevronRight, Star, Phone, MapPin } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import RestaurantImage from '@/components/restaurant-image'
 import CityGuideCta from '@/components/city-guide-cta'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
@@ -124,9 +123,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
               </section>
 
               {/* Restaurant cards */}
-              {/* Journey content selector. Each pick is about a screen tall on
-                  mobile, so a hint follows every pick there and every second
-                  pick on desktop. */}
+              {/* Journey content selector (ads auto-placed between picks). */}
               <div id="page-list-view" className="space-y-6">
                 {top5.map((r, i) => {
                   const reviewSlug = getReviewSlug(r)
@@ -200,7 +197,6 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                         </div>
                       </div>
                     </article>
-                    <ContentHints index={i} total={top5.length} mobileEvery={1} desktopEvery={2} />
                     </Fragment>
                   )
                 })}

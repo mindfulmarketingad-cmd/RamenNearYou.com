@@ -6,7 +6,6 @@ import { MapPin, Star, Utensils } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import BrothFilterTabs from '@/components/broth-filter-tabs'
 import { restaurants, getBrothTypes, BROTH_TYPES, type BrothType } from '@/lib/restaurants'
 
@@ -168,9 +167,7 @@ export default function BrothPage() {
               </p>
             </div>
           ) : (
-            // Journey content selector. Cards are ~270px rows, so a hint every
-            // 4 cards on mobile and every 12 on desktop (4–6 rows) keeps it
-            // to one ad per screenview; hints and injected ads span the row.
+            // Journey content selector; injected ads span the full row.
             // Two columns at lg because the ad sidebar takes 332px there.
             <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filtered.map((r, i) => {
@@ -227,7 +224,6 @@ export default function BrothPage() {
                       </div>
                     </div>
                   </Link>
-                  <ContentHints index={i} total={filtered.length} mobileEvery={4} desktopEvery={12} />
                   </Fragment>
                 )
               })}

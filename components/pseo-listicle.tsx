@@ -7,7 +7,6 @@ import ListicleCard from '@/components/listicle-card'
 import ProductsCarousel from '@/components/products-carousel'
 import CityGuideCta from '@/components/city-guide-cta'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import { trackEvent } from '@/lib/analytics-client'
 import { STATE_CODE_TO_NAME } from '@/lib/state-lookups'
 
@@ -412,8 +411,8 @@ export default function PseoListicle({
             )}
 
             {/* Ranked list. #page-list-view is Journey's content selector:
-                in-content ads go only between its direct children, at the
-                hints (about one per screenview). */}
+                Journey auto-places in-content ads between its direct
+                children (no content hints: Journey ignores the container if any exist). */}
             <div id="page-list-view" className="space-y-3">
               {pagedRest.map((it, i) => {
                 // Shop-our-picks drops in once, a few listings down rather
@@ -429,7 +428,6 @@ export default function PseoListicle({
                     <ProductsCarousel variant="inline" />
                   </div>
                 )}
-                <ContentHints index={i} total={pagedRest.length} mobileEvery={4} desktopEvery={5} />
                 </Fragment>
                 )
               })}

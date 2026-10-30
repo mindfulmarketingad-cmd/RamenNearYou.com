@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import { getStates } from '@/lib/restaurants'
 import { getSupplementCitiesByState, getSupplementStateStats } from '@/lib/places-supplements'
 
@@ -75,8 +74,7 @@ export default function StateIndexPage() {
           <strong className="text-ink">{totalTowns.toLocaleString()}</strong> towns.
         </p>
 
-        {/* Journey content selector: a hint about every screenview (tiles
-            are ~60px rows); hints and injected ads span the full row. */}
+        {/* Journey content selector; injected ads span the full row. */}
         <div id="page-list-view" className="ad-grid grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
           {allStates.map((s, i) => (
             <Fragment key={s.stateSlug}>
@@ -87,7 +85,6 @@ export default function StateIndexPage() {
               <span className="text-sm font-medium text-ink">{s.state}</span>
               <span className="text-xs text-ink-soft shrink-0">{s.count.toLocaleString()}</span>
             </Link>
-            <ContentHints index={i} total={allStates.length} mobileEvery={24} desktopEvery={36} />
             </Fragment>
           ))}
         </div>

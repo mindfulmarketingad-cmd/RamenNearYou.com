@@ -7,7 +7,6 @@ import { ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import { blogPosts } from '@/lib/blog-posts'
 import { slugifyAuthor } from '@/lib/perfect-for'
 
@@ -99,7 +98,7 @@ export default async function AuthorPage({ params }: Props) {
           <h2 className="font-serif text-2xl font-bold text-ink mb-5">
             Articles by {info.name} ({info.posts.length})
           </h2>
-          {/* Journey content selector, with a hint about every screenview. */}
+          {/* Journey content selector (ads auto-placed between items). */}
           <ul id="page-list-view" className="flex flex-col gap-3">
             {info.posts.map((p, i) => (
               <Fragment key={p.slug}>
@@ -120,7 +119,6 @@ export default async function AuthorPage({ params }: Props) {
                   <p className="text-ink-soft text-sm leading-relaxed line-clamp-2">{p.description}</p>
                 </Link>
               </li>
-              <ContentHints as="li" index={i} total={info.posts.length} mobileEvery={4} desktopEvery={5} />
               </Fragment>
             ))}
           </ul>

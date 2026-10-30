@@ -40,7 +40,8 @@ const built = new Set(['/'])
 // /reviews catch-all (scripts/generate-vercel-json.ts); fallback() reads the
 // same map directly, which is much faster than testing ~1.6k long patterns per
 // link, and gives retired review links their precise target instead of /reviews.
-const rules = vercel.redirects.filter((r) => !r.source.includes(':retired(')).map((r) => {
+// External destinations (/ads.txt → Journey) aren't internal links to resolve.
+const rules = vercel.redirects.filter((r) => !r.source.includes(':retired(') && !/^https?:\/\//.test(r.destination)).map((r) => {
   const keys = []
   return { re: pathToRegexp(r.source, keys), keys, to: compile(r.destination, { validate: false }) }
 })

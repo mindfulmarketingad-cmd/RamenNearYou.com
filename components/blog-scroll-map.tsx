@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, ChevronRight, Star, BadgeCheck, Map as MapIcon } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
-import ContentHints from '@/components/ads/content-hints'
 import { STATE_SLUG_TO_CODE } from '@/lib/state-lookups'
 // Leaflet touches `window` when it loads, so it's imported lazily in the map
 // effect. That keeps this component server-renderable: the card list ships in
@@ -95,7 +94,7 @@ export default function BlogScrollMap({
   cards: MapCard[]
   listHeading?: string
   // Make the card list the page's Journey content element (#page-list-view)
-  // with content hints between cards. Only for pages with no other
+  // (Journey auto-places ads between cards). Only for pages with no other
   // #page-list-view (blog posts use their article body instead).
   adList?: boolean
 }) {
@@ -360,9 +359,6 @@ export default function BlogScrollMap({
                 </div>
               </div>
             </article>
-            {/* Cards are ~500px tall, so a hint every 2 cards is about one
-                ad per screenview at both widths. */}
-            {adList && <ContentHints index={i} total={cards.length} mobileEvery={2} desktopEvery={2} />}
             </Fragment>
           ))}
         </div>
