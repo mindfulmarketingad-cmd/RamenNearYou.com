@@ -5,7 +5,6 @@ import { ChevronDown } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import RestaurantImage from '@/components/restaurant-image'
 import { pickStockPhoto } from '@/lib/stock-photos'
 
@@ -177,8 +176,7 @@ export default function FaqPage() {
         {/* FAQ list */}
         <section className="px-4 sm:px-6 lg:px-8 pb-24">
           <AdLayout className="max-w-3xl lg:max-w-ad-page-3xl mx-auto">
-          {/* Journey content selector. Collapsed questions are ~70px, so one
-              hint about a screen down the list. */}
+          {/* Journey content selector (ads auto-placed between questions). */}
           <div id="page-list-view" className="space-y-3">
             {faqs.map((faq, i) => (
               <Fragment key={i}>
@@ -187,7 +185,6 @@ export default function FaqPage() {
                 question={faq.name}
                 answer={faq.acceptedAnswer.text}
               />
-              <ContentHints index={i} total={faqs.length} mobileEvery={10} desktopEvery={11} />
               </Fragment>
             ))}
           </div>

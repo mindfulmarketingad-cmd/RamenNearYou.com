@@ -50,8 +50,8 @@ export default function CeramicRamenBowlsPage() {
       {/* Product grid */}
       <section className="py-12 px-4 sm:px-6">
         <AdLayout className="max-w-5xl lg:max-w-ad-page-5xl mx-auto">
-          {/* Journey content selector. Too few products for hints, so
-              Journey auto-places; injected ads take a full row. 3 columns on
+          {/* Journey content selector. Journey
+              auto-places; injected ads take a full row. 3 columns on
               desktop because the ad sidebar takes 332px. */}
           <div id="page-list-view" className="ad-grid grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5">
             {ceramicRamenBowls.map((product, i) => (

@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { Star, MapPin, Utensils, Search, X, LocateFixed } from 'lucide-react'
 import RestaurantImage from '@/components/restaurant-image'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 
 export interface GridRestaurant {
   slug: string
@@ -228,7 +227,6 @@ export default function BrothRestaurantGrid({ restaurants, brothType }: Props) {
                 </div>
               </div>
             </Link>
-            <ContentHints index={i} total={visible.length} mobileEvery={4} desktopEvery={12} />
             </Fragment>
           ))}
         </div>

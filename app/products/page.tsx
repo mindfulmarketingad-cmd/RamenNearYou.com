@@ -6,7 +6,6 @@ import { Star, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
-import ContentHints from '@/components/ads/content-hints'
 import { products } from '@/lib/products'
 
 export const metadata: Metadata = {
@@ -66,10 +65,9 @@ export default function ProductsPage() {
             </p>
           </div>
 
-          {/* Product grid — Journey content selector. Hints (and any ad
-              Journey injects) span the full row; two columns at lg because the
-              ad sidebar takes 332px there. Products are ~470px rows: a hint every
-              2 on mobile (one column), every 4 on desktop (two columns). */}
+          {/* Product grid — Journey content selector. Ads Journey
+              injects span the full row; two columns at lg because the ad
+              sidebar takes 332px there. */}
           <div id="page-list-view" className="ad-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
             {products.map((product, i) => (
               <Fragment key={product.slug}>
@@ -120,7 +118,6 @@ export default function ProductsPage() {
                   </a>
                 </div>
               </article>
-              <ContentHints index={i} total={products.length} mobileEvery={2} desktopEvery={4} />
               </Fragment>
             ))}
           </div>

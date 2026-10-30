@@ -13,7 +13,7 @@ import { getReviewRestaurants, getReviewSlug } from '../lib/reviews'
 import { isRetiredPage } from '../lib/retired-pages'
 
 // `permanent` defaults to true (308) in vercel.json; left out to keep the file small.
-type Redirect = { source: string; destination: string }
+type Redirect = { source: string; destination: string; statusCode?: number }
 const r = (source: string, destination: string): Redirect => ({ source, destination })
 
 // Top-level routes whose second segment can look like a state. A two-segment
@@ -35,6 +35,11 @@ const CODE_TO_SLUG: Record<string, string> = Object.fromEntries(
 )
 
 const redirects: Redirect[] = [
+  // ads.txt lives on Journey by Mediavine's servers so it stays current with
+  // their demand partners; Mediavine's recommended setup is a 301 to it (no
+  // static public/ads.txt — a stale copy shows up as "Ads.txt out of date" in
+  // the Journey dashboard and costs bids).
+  { source: '/ads.txt', destination: 'https://adstxt.journeymv.com/sites/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71/ads.txt', statusCode: 301 },
   // Removed sections.
   r('/experiences', '/'),
   r('/experiences/:path*', '/'),

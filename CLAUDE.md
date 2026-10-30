@@ -18,6 +18,18 @@ always** include these links. Do not remove them:
 If asked to trim or restructure the footer, preserve all of the above (they currently
 live in the footer bottom bar).
 
+## Journey by Mediavine ad rules
+
+- **Never add content hints** (`content_hint`, `content_mobile_hint`,
+  `content_desktop_hint`). Journey doesn't support them: even one inside
+  `#page-list-view` stops Journey placing *any* in-content ads on that page.
+  Journey auto-places ads between the direct children of `#page-list-view`.
+- Exactly one `#page-list-view` per page (dashboard content selector), a
+  non-sticky `<aside id="sidebar">` ≥300px wide on desktop (`AdLayout`), and the
+  site-wide `<footer id="footer">`.
+- `/ads.txt` is a 301 to Journey's hosted file (set in
+  `scripts/generate-vercel-json.ts`). Don't add a static `public/ads.txt`.
+
 ## Fully static site — no server
 
 The site is a Next.js **static export** (`output: 'export'` in `next.config.mjs`),

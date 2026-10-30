@@ -651,19 +651,11 @@ html.dark .leaflet-container a.leaflet-popup-close-button:focus {
   .ad-layout-wide > .ad-sidebar { display: none; }
 }
 
-/* Content hints: each device only sees its own hint class, and hints span the
-   full row when the list is a grid or a wrapping flex row. */
-#page-list-view > .content_hint,
-#page-list-view > .content_mobile_hint,
-#page-list-view > .content_desktop_hint {
-  grid-column: 1 / -1;
-  flex-basis: 100%;
-  width: 100%;
-  margin: 0 !important; /* no extra gap from space-y-* on an empty hint */
-  list-style: none;
-}
-@media (min-width: 768px) { #page-list-view > .content_mobile_hint { display: none; } }
-@media (max-width: 767px) { #page-list-view > .content_desktop_hint { display: none; } }
+/* No content hints: Journey by Mediavine does not support them, and even one
+   hint inside #page-list-view stops Journey from placing any in-content ads
+   (journeymv.zendesk.com "Ads are missing in the content or sidebar only").
+   Journey places in-content ads between the direct children of
+   #page-list-view on its own. */
 
 /* Ads Journey injects between the items of a grid/flex list (anything that
    isn't one of our own items) take the full row, centered. */
