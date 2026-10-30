@@ -44,7 +44,12 @@ middleware/proxy, no server actions, no ISR, and no logins. Keep it that way:
 - Not every template page is built (`lib/retired-pages.json`). Retired pages
   are real 308s: generate-vercel-json.ts packs the retired map into
   `/:retired(...)` rules in vercel.json (one per target; vercel.json allows
-  2,048 rules of up to 4,096 chars). `scripts/resolve-dead-links.mjs` runs
+  2,048 rules of up to 4,096 chars). Retired review pages are listed only when
+  they go to a live listing; a `/reviews/:retired(...)` catch-all sends every
+  other unbuilt /reviews/x to /reviews. vercel.json is written minified and
+  must stay under 450KB: Vercel rejected a 688KB one ("Invalid vercel.json
+  file provided", no build log); 362KB and 441KB deployed. The generator
+  throws past that. `scripts/resolve-dead-links.mjs` runs
   after `next build` and rewrites any internal link to a page that isn't
   built to its live destination.
 - Listing lookups in lib/restaurants.ts are indexed by slug; keep new

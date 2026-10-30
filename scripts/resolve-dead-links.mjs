@@ -36,10 +36,11 @@ const built = new Set(['/'])
   }
 })(OUT)
 
-// The `/:retired(...)` rules are lib/retired-pages.json packed into patterns
-// (scripts/generate-vercel-json.ts); fallback() reads the same map directly,
-// which is much faster than testing ~1.7k long patterns per link.
-const rules = vercel.redirects.filter((r) => !r.source.startsWith('/:retired(')).map((r) => {
+// The `:retired` rules are lib/retired-pages.json packed into patterns, plus a
+// /reviews catch-all (scripts/generate-vercel-json.ts); fallback() reads the
+// same map directly, which is much faster than testing ~1.6k long patterns per
+// link, and gives retired review links their precise target instead of /reviews.
+const rules = vercel.redirects.filter((r) => !r.source.includes(':retired(')).map((r) => {
   const keys = []
   return { re: pathToRegexp(r.source, keys), keys, to: compile(r.destination, { validate: false }) }
 })

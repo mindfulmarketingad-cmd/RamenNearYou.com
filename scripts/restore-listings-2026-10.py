@@ -35,6 +35,7 @@ restaurants = json.loads(raw)
 def fix_hi(p):
     if p == '/hi':
         return '/hawaii'
+    p = re.sub(r'^/(tonkotsu|miso|spicy|vegan)/([^/]+)/hi$', r'/\1/\2/hawaii', p)
     return re.sub(r'^/([^/]+)/hi(/|$)', r'/\1/hawaii\2', p)
 
 # --- retired map

@@ -9,6 +9,7 @@
 // Both run from `npm run build`. Each failure names the file and the rule.
 import fs from 'fs'
 import path from 'path'
+import { createRequire } from 'module'
 
 const ROOT = process.cwd()
 const mode = process.argv[2]
@@ -145,8 +146,23 @@ function checkOutput() {
   }
   if (shadow > 10) fail(`...${shadow - 10} more built pages in the retired list`)
   if (dead > 10) fail(`...${dead - 10} more retired redirects to unbuilt pages`)
-  const retiredRules = vj.redirects.filter((r) => r.source.startsWith('/:retired(')).length
-  console.log(`check-static-build: ${pages} static pages, ${all.length} files, 0 functions, 0 ISR routes; vercel.json ${vj.redirects.length} redirects (${retiredRules} retired-page rules, ${Object.keys(retired).length} paths)`)
+  // Every vercel.json redirect, tested against every built page (Vercel runs
+  // redirects before the filesystem, so a match would hide the page). Matched
+  // case-insensitively, which is stricter than Vercel.
+  {
+    const { pathToRegexp } = createRequire(import.meta.url)('next/dist/compiled/path-to-regexp')
+    const res = vj.redirects.map((r) => ({ r, re: pathToRegexp(r.source, [], { strict: true, sensitive: false, delimiter: '/' }) }))
+    let hidden = 0
+    for (const p of built) {
+      const u = encodeURI(p)
+      const hit = res.find(({ re }) => re.test(u))
+      if (hit && hidden++ < 10) fail(`built page ${p} is caught by vercel.json redirect ${hit.r.source.slice(0, 100)} -> ${hit.r.destination}`)
+    }
+    if (hidden > 10) fail(`...${hidden - 10} more built pages caught by vercel.json redirects`)
+  }
+  const bytes = fs.statSync(path.join(ROOT, 'vercel.json')).size
+  const retiredRules = vj.redirects.filter((r) => r.source.includes(':retired(')).length
+  console.log(`check-static-build: ${pages} static pages, ${all.length} files, 0 functions, 0 ISR routes; vercel.json ${bytes} bytes, ${vj.redirects.length} redirects (${retiredRules} retired-page rules, ${Object.keys(retired).length} paths)`)
 }
 
 if (mode === '--source') checkSource()
