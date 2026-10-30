@@ -25,7 +25,8 @@ const RESERVED = [
 const CITY = `:city((?!(?:${RESERVED.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})/)[^/.]+)`
 
 // Old two-letter state slugs that once appeared in listing URLs.
-const LEGACY_STATE_CODES = ['al', 'ca', 'ct', 'dc', 'fl', 'ga', 'il', 'in', 'ks', 'ky', 'md', 'mi', 'mn', 'nc', 'nd', 'nj', 'nv', 'ny', 'oh', 'or', 'pa', 'ri', 'sc', 'tn', 'tx', 'ut', 'va', 'vt']
+// 'hi': Hawaii listings lived under /{city}/hi/{listing} until Oct 2026.
+const LEGACY_STATE_CODES = ['al', 'ca', 'ct', 'dc', 'fl', 'ga', 'hi', 'il', 'in', 'ks', 'ky', 'md', 'mi', 'mn', 'nc', 'nd', 'nj', 'nv', 'ny', 'oh', 'or', 'pa', 'ri', 'sc', 'tn', 'tx', 'ut', 'va', 'vt']
 const CODE_TO_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(STATE_SLUG_TO_CODE).map(([slug, code]) => [code.toLowerCase(), slug]),
 )
@@ -75,12 +76,64 @@ const redirects: Redirect[] = [
     r(`/${code}`, `/${CODE_TO_SLUG[code]}`),
     r(`/${CITY}/${code}/:restaurant`, `/:city/${CODE_TO_SLUG[code]}/:restaurant`),
   ]),
+  // Hawaii broth-city pages used the same "hi" slug.
+  r('/:broth(tonkotsu|miso|spicy|vegan)/:city/hi', '/:broth/:city/hawaii'),
   // City links: /{city}/{state-slug} and /{city}/{st} → /find/{city}-{st}.
   ...Object.entries(STATE_SLUG_TO_CODE).flatMap(([slug, code]) => [
     r(`/${CITY}/${slug}`, `/find/:city-${code.toLowerCase()}`),
     r(`/${CITY}/${code.toLowerCase()}`, `/find/:city-${code.toLowerCase()}`),
   ]),
 ]
+
+// Retired pages (lib/retired-pages.json) as real server-side 308s. They used
+// to answer 404 (the 404 page only forwarded people, client-side), which left
+// Google with ~20k 404s. vercel.json allows at most 2,048 redirects of up to
+// 4,096 characters each, and the ~18k retired paths go to ~1.5k distinct
+// targets, so they're packed one rule per target (split when a pattern gets
+// long): `/:retired(a/b/(?:c|d)|e/f/g)` -> target. Exact paths only, so a
+// built page can never be caught by one (scripts/check-static-build.mjs
+// verifies that against out/ after every build). The `:retired` param name
+// marks these rules for scripts/resolve-dead-links.mjs.
+const MAX_SOURCE = 4000
+const reEscape = (s: string) => s.replace(/[.*+?^${}()|[\]\\:]/g, '\\$&')
+const retiredMap: Record<string, string> = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'lib', 'retired-pages.json'), 'utf8')).redirects
+const byTarget = new Map<string, string[]>()
+for (const [from, to] of Object.entries(retiredMap)) {
+  if (!byTarget.has(to)) byTarget.set(to, [])
+  byTarget.get(to)!.push(encodeURI(from).slice(1))
+}
+const retiredRedirects: Redirect[] = []
+for (const [to, paths] of [...byTarget.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  // Group by parent directory: dir/(?:leaf1|leaf2).
+  const byDir = new Map<string, string[]>()
+  for (const p of paths.sort()) {
+    const i = p.lastIndexOf('/')
+    const dir = i < 0 ? '' : p.slice(0, i + 1)
+    if (!byDir.has(dir)) byDir.set(dir, [])
+    byDir.get(dir)!.push(reEscape(p.slice(i + 1)))
+  }
+  const parts: string[] = []
+  for (const [dir, leaves] of byDir) {
+    // A single directory can exceed the limit on its own; split its leaves.
+    let cur: string[] = []
+    const flush = () => { if (cur.length) parts.push(reEscape(dir) + (cur.length === 1 ? cur[0] : `(?:${cur.join('|')})`)); cur = [] }
+    for (const leaf of leaves) {
+      if (cur.length && reEscape(dir).length + cur.join('|').length + leaf.length + 20 > MAX_SOURCE) flush()
+      cur.push(leaf)
+    }
+    flush()
+  }
+  let group: string[] = []
+  const emit = () => { if (group.length) retiredRedirects.push(r(`/:retired(${group.join('|')})`, to)); group = [] }
+  for (const part of parts) {
+    if (group.length && group.join('|').length + part.length + 20 > MAX_SOURCE) emit()
+    group.push(part)
+  }
+  emit()
+}
+redirects.push(...retiredRedirects)
+if (redirects.length > 2000) throw new Error(`vercel.json: ${redirects.length} redirects; Vercel allows 2,048 routes per deployment. Move the overflow to bulk redirects (redirects.csv).`)
+for (const x of redirects) if (x.source.length > 4096) throw new Error(`redirect source over 4,096 chars: ${x.source.slice(0, 80)}`)
 
 // Baseline security headers (moved from next.config.mjs). Intentionally NOT a
 // strict Content-Security-Policy: it ships report-only, with no report-uri.
@@ -128,12 +181,13 @@ const config = {
 }
 
 fs.writeFileSync(path.join(__dirname, '..', 'vercel.json'), JSON.stringify(config, null, 2) + '\n')
-console.log(`vercel.json: ${redirects.length} redirects`)
+console.log(`vercel.json: ${redirects.length} redirects (${retiredRedirects.length} for ${Object.keys(retiredMap).length} retired pages)`)
 
-// Optional: every retired page (lib/retired-pages.json) as a CSV for Vercel's
-// project-level bulk redirects. Without it, retired URLs answer 404 and the
-// 404 page forwards visitors; uploading it (`vercel redirects upload
-// redirects.csv`) turns them into real 308s instead.
+// Every retired page as a CSV in Vercel's bulk-redirect format. Not wired in
+// (vercel.json already 308s every retired page and bulk redirects past the
+// 1,000 included with Pro are a paid add-on); kept as a ready fallback if the
+// retired list ever outgrows vercel.json's 2,048-rule limit: set
+// `bulkRedirectsPath: "redirects.csv"` in the config above.
 const retired: { redirects: Record<string, string> } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'lib', 'retired-pages.json'), 'utf8'))
 const csvRow = (s: string) => (/[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s)
 fs.writeFileSync(

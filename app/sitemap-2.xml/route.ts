@@ -1,4 +1,4 @@
-import { getCities, getRestaurantsByCity, getStates, getTonkotsuCities, getCitiesForBroth } from '@/lib/restaurants'
+import { restaurants, getStates, getTonkotsuCities, getCitiesForBroth } from '@/lib/restaurants'
 import { getCityFilterStaticParams } from '@/lib/city-filter-pages'
 import { getAllComparisons } from '@/lib/broth-comparisons'
 import { getReviewRestaurants, getReviewSlug } from '@/lib/reviews'
@@ -20,7 +20,6 @@ import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlRespons
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const cities = getCities()
   const states = getStates()
 
   const statePages: SitemapEntry[] = states.map((s) => ({
@@ -33,14 +32,15 @@ export async function GET() {
   // City pages live at /find/{city}-{st} (sitemap-1.xml); /{city}/{state}
   // only ever redirects there, so it isn't listed.
 
-  const restaurantPages: SitemapEntry[] = cities.flatMap((c) =>
-    getRestaurantsByCity(c.citySlug, c.stateSlug).map((r) => ({
-      url: `${SITEMAP_BASE_URL}/${c.citySlug}/${c.stateSlug}/${r.slug}`,
-      lastModified: LAST_CONTENT,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
-  )
+  // Every dataset listing, including cities with a single listing (getCities()
+  // only returns 2+ listing cities, which left those listings out).
+  const restaurantPaths = new Set(restaurants.map((r) => `/${r.citySlug}/${r.stateSlug}/${r.slug}`))
+  const restaurantPages: SitemapEntry[] = [...restaurantPaths].map((p) => ({
+    url: `${SITEMAP_BASE_URL}${p}`,
+    lastModified: LAST_CONTENT,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
   // City × filter pages (e.g. /atlanta/georgia/tonkotsu-ramen)
   const cityFilterPages: SitemapEntry[] = getCityFilterStaticParams().map((p) => ({
