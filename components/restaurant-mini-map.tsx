@@ -68,8 +68,8 @@ export default function RestaurantMiniMap({ lat, lng, name, address, directionsU
       .addTo(map)
       .bindPopup(
         `<div style="min-width:140px;font-family:sans-serif">
-          <strong style="font-size:13px;color:#1E2026">${name}</strong>
-          <p style="font-size:11px;color:#666;margin:4px 0 0">${address}</p>
+          <strong style="font-size:13px;color:var(--ink)">${name}</strong>
+          <p style="font-size:11px;color:var(--ink-soft);margin:4px 0 0">${address}</p>
         </div>`,
         { offset: [0, -10] }
       )
@@ -85,21 +85,21 @@ export default function RestaurantMiniMap({ lat, lng, name, address, directionsU
   }, [])
 
   return (
-    <div className="rounded-xl overflow-hidden border border-black/5">
+    <div className="rounded-xl overflow-hidden border border-line/5">
       {/* Map */}
       <div ref={containerRef} style={{ height: 200 }} className="w-full" />
 
       {/* Directions bar */}
-      <div className="bg-[#F5F4F0] px-4 py-3 flex items-center justify-between gap-3 border-t border-black/5">
+      <div className="bg-sunken px-4 py-3 flex items-center justify-between gap-3 border-t border-line/5">
         <div className="min-w-0">
-          <p className="text-[#1E2026] text-xs font-semibold truncate">{name}</p>
-          <p className="text-[#6B6862] text-xs truncate">{address}</p>
+          <p className="text-ink text-xs font-semibold truncate">{name}</p>
+          <p className="text-ink-soft text-xs truncate">{address}</p>
         </div>
         <a
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B57F50] text-white text-xs font-semibold hover:bg-[#c8934f] transition-colors whitespace-nowrap"
+          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-brand text-white text-xs font-semibold hover:bg-brand-hi transition-colors whitespace-nowrap"
         >
           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden>
             <path d="M21.71 11.29l-9-9a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42l9 9a1 1 0 0 0 1.42 0l9-9a1 1 0 0 0 0-1.42zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>

@@ -1,9 +1,7 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MapPin, Crown, ChevronRight, Utensils } from 'lucide-react'
+import { createAdminClient } from '@/lib/supabase-admin'
 
 type FeaturedListing = {
   id: string
@@ -18,44 +16,40 @@ type FeaturedListing = {
   restaurant_slug: string | null
 }
 
-function fireAnalytics(listing_id: string, event_type: 'view' | 'click') {
-  fetch('/api/featured/analytics', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ listing_id, event_type }),
-  }).catch(() => {})
+// Active featured listings, read once at build time — the page is static, so
+// a newly activated listing shows up on the next deploy.
+async function getFeaturedListings(): Promise<FeaturedListing[]> {
+  const admin = createAdminClient()
+  if (!admin) return []
+  const { data, error } = await admin
+    .from('featured_listings')
+    .select('*')
+    .eq('status', 'active')
+    .order('featured_order', { ascending: true })
+    .order('created_at', { ascending: false })
+    .limit(8)
+  if (error) console.error('[featured-listings] query failed, building without them:', error.message)
+  return (data as FeaturedListing[] | null) ?? []
 }
 
-export default function FeaturedListings() {
-  const [listings, setListings] = useState<FeaturedListing[]>([])
-  const [loading, setLoading] = useState(true)
+export default async function FeaturedListings() {
+  const listings = await getFeaturedListings()
 
-  useEffect(() => {
-    fetch('/api/featured')
-      .then(r => r.json())
-      .then(({ listings: data }) => {
-        setListings(data ?? [])
-        // Fire a view event for each listing that rendered
-        ;(data ?? []).forEach((l: FeaturedListing) => fireAnalytics(l.id, 'view'))
-      })
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading || listings.length === 0) return null
+  if (listings.length === 0) return null
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-surface">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <p className="text-[#B57F50] text-xs font-medium uppercase tracking-widest mb-2">Featured Listings</p>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1E2026]">
+            <p className="text-brand-ink text-xs font-medium uppercase tracking-widest mb-2">Featured Listings</p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-ink">
               Top Ramen Spots Near You
             </h2>
           </div>
           <Link
-            href="/featured/apply"
-            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-[#B57F50]/40 text-[#B57F50] text-sm font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+            href="/featured-listing"
+            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-brand/40 text-brand-ink text-sm font-medium rounded-lg hover:bg-brand/5 transition-colors"
           >
             <Crown className="w-3.5 h-3.5" />
             Get Featured
@@ -72,9 +66,9 @@ export default function FeaturedListings() {
             return (
               <article
                 key={listing.id}
-                className="bg-[#F5F4F0] rounded-xl overflow-hidden border border-black/5"
+                className="bg-sunken rounded-xl overflow-hidden border border-line/5"
               >
-                <div className="relative h-48 bg-[#ECEAE4]">
+                <div className="relative h-48 bg-page">
                   {listing.photos[0] ? (
                     <Image
                       src={listing.photos[0]}
@@ -85,25 +79,25 @@ export default function FeaturedListings() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Utensils className="w-8 h-8 text-[#B57F50]/25" />
+                      <Utensils className="w-8 h-8 text-brand-ink/25" />
                     </div>
                   )}
-                  <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#B57F50] text-white text-xs font-semibold">
+                  <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand text-white text-xs font-semibold">
                     <Crown className="w-3 h-3" />
                     Featured
                   </div>
                 </div>
 
                 <div className="p-4">
-                  <h3 className="font-semibold text-[#1E2026] text-base leading-snug mb-1">
+                  <h3 className="font-semibold text-ink text-base leading-snug mb-1">
                     {listing.restaurant_name}
                   </h3>
-                  <p className="flex items-center gap-1 text-[#6B6862] text-xs mb-2">
-                    <MapPin className="w-3 h-3 text-[#B57F50] shrink-0" />
+                  <p className="flex items-center gap-1 text-ink-soft text-xs mb-2">
+                    <MapPin className="w-3 h-3 text-brand-ink shrink-0" />
                     {listing.city}, {listing.state_code}
                   </p>
                   {listing.description && (
-                    <p className="text-[#6B6862] text-xs leading-relaxed line-clamp-2 mb-3">
+                    <p className="text-ink-soft text-xs leading-relaxed line-clamp-2 mb-3">
                       {listing.description}
                     </p>
                   )}
@@ -112,16 +106,14 @@ export default function FeaturedListings() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => fireAnalytics(listing.id, 'click')}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-brand/30 text-brand-ink text-xs font-medium rounded-lg hover:bg-brand/5 transition-colors"
                     >
                       Visit Website <ChevronRight className="w-3 h-3" />
                     </a>
                   ) : (
                     <Link
                       href={href}
-                      onClick={() => fireAnalytics(listing.id, 'click')}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-[#B57F50]/30 text-[#B57F50] text-xs font-medium rounded-lg hover:bg-[#B57F50]/5 transition-colors"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 border border-brand/30 text-brand-ink text-xs font-medium rounded-lg hover:bg-brand/5 transition-colors"
                     >
                       View Listing <ChevronRight className="w-3 h-3" />
                     </Link>
