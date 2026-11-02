@@ -7,6 +7,8 @@ import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
 import RestaurantImage from '@/components/restaurant-image'
 import CityGuideCta from '@/components/city-guide-cta'
+import PremiumPartnerBox from '@/components/premium-partner-box'
+import SupportTip from '@/components/support-tip'
 import { getReviewSlug, hasReviewPage } from '@/lib/reviews'
 import { phoCityParam } from '@/lib/pho'
 import { pickStockPhoto } from '@/lib/stock-photos'
@@ -124,6 +126,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
 
               {/* Restaurant cards */}
               {/* Journey content selector (ads auto-placed between picks). */}
+              <PremiumPartnerBox citySlug={citySlug} stateSlug={stateSlug} cityLabel={`${cityName}, ${stateCode}`} />
               <div id="page-list-view" className="space-y-6">
                 {top5.map((r, i) => {
                   const reviewSlug = getReviewSlug(r)
@@ -206,6 +209,7 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                   peaks, rather than before anyone has read them. */}
               <div className="mt-10">
                 <CityGuideCta cityLabel={`${cityName}, ${stateCode}`} citySlug={citySlug} />
+                <SupportTip className="mt-6 text-center" />
               </div>
 
               {/* Keep exploring */}

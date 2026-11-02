@@ -1,4 +1,5 @@
 import { createAdminClient } from './supabase-admin'
+import { getFeaturedSlugSet } from './paid-listings'
 
 // Hand-placed fallback for house/demo listings that predate full claims-flow
 // testing — same pattern as featuredCityListings in featured-city.ts. New
@@ -19,7 +20,9 @@ let _cache: { slugs: Set<string>; expiresAt: number } | null = null
 export async function getAllVerifiedSlugs(): Promise<Set<string>> {
   if (_cache && _cache.expiresAt > Date.now()) return _cache.slugs
 
-  const slugs = new Set<string>(verifiedFallbackSlugs)
+  // Paying Featured/Premium restaurants are verified owners by definition, so
+  // they get the badge and the ad-free page too.
+  const slugs = new Set<string>([...verifiedFallbackSlugs, ...getFeaturedSlugSet()])
   const admin = createAdminClient()
   if (admin) {
     const { data, error } = await admin

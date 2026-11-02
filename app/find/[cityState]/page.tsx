@@ -9,6 +9,7 @@ import ErrorBoundary from '@/components/error-boundary'
 import UgcFeature from '@/components/ugc-feature'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getFeaturedSlugSet } from '@/lib/paid-listings'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 import type { Restaurant } from '@/lib/restaurants'
 import type { SupplementListing } from '@/lib/places-supplements'
@@ -301,7 +302,7 @@ export default async function CityFindPage(
   // see components/pseo-listicle.tsx's conditional render of mapSlot.
   const verifiedSlugs = dbRestaurants.length > 0 ? await getAllVerifiedSlugs() : undefined
   const listicleItems = dbRestaurants.length > 0
-    ? restaurantsToListicleItems(ranked as Restaurant[], { verifiedSlugs })
+    ? restaurantsToListicleItems(ranked as Restaurant[], { verifiedSlugs, featuredSlugs: getFeaturedSlugSet() })
     : placesToListicleItems(ranked as SupplementListing[])
 
   const mapSlot = (

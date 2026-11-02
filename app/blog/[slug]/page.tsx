@@ -21,6 +21,11 @@ import CityRamenListicle from './city-ramen-listicle'
 import CityPhoListicle from './city-pho-listicle'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
 import { isRetiredPage } from '@/lib/retired-pages'
+import PremiumPartnerBox from '@/components/premium-partner-box'
+import ProductsCarousel from '@/components/products-carousel'
+
+const AT_HOME_CATEGORIES = new Set(['Cooking Guides', 'Cooking Tips', 'Recipes', 'Buying Guides'])
+import SupportTip from '@/components/support-tip'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -339,6 +344,23 @@ export default async function BlogPostPage({ params }: Props) {
     ],
   }
 
+  // Premium tier: a labelled partner box on a city ramen guide. A post counts
+  // as a city guide when most of its cards share one city.
+  const partnerCity = (() => {
+    if (!hasCards) return null
+    const counts = new Map<string, { n: number; citySlug: string; stateSlug: string; label: string }>()
+    for (const c of post.restaurantCards!) {
+      const r = getRestaurantBySlug(c.slug)
+      if (!r) continue
+      const k = `${r.citySlug}/${r.stateSlug}`
+      const e = counts.get(k) ?? { n: 0, citySlug: r.citySlug, stateSlug: r.stateSlug, label: `${r.city}, ${r.stateCode}` }
+      e.n++
+      counts.set(k, e)
+    }
+    const top = [...counts.values()].sort((a, b) => b.n - a.n)[0]
+    return top && top.n * 2 > post.restaurantCards!.length ? top : null
+  })()
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
@@ -461,6 +483,10 @@ export default async function BlogPostPage({ params }: Props) {
               </section>
             )}
 
+            {hasCards && partnerCity && (
+              <PremiumPartnerBox citySlug={partnerCity.citySlug} stateSlug={partnerCity.stateSlug} cityLabel={partnerCity.label} />
+            )}
+
             {hasCards && (
               <BlogScrollMapWrapper adList cards={enrichedCards} listHeading={post.listHeading} />
             )}
@@ -478,6 +504,13 @@ export default async function BlogPostPage({ params }: Props) {
               />
             )}
 
+            {/* Affiliate picks on at-home posts only (cooking, recipes, gear),
+                where bowls and chopsticks are a natural fit. */}
+            {AT_HOME_CATEGORIES.has(post.category) && (
+              <div className="mt-10">
+                <ProductsCarousel variant="inline" />
+              </div>
+            )}
           </article>
 
           <div className="mt-16 pt-8 border-t border-line/8">
@@ -489,6 +522,7 @@ export default async function BlogPostPage({ params }: Props) {
               Browse Ramen Restaurants →
             </Link>
           </div>
+          <SupportTip className="mt-8" />
         </div>
         </AdLayout>
       </main>

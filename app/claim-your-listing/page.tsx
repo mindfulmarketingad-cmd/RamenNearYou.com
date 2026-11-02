@@ -1,13 +1,14 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { CheckCircle2, Zap, ShieldCheck, Crown, Home, BarChart3 } from 'lucide-react'
+import { CheckCircle2, Zap, ShieldCheck, Crown, BarChart3 } from 'lucide-react'
+import ListingPlans from '@/components/listing-plans'
 import Link from 'next/link'
 import ClaimSearch from './claim-search'
 import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
   title: 'Claim Your Ramen Restaurant Listing | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou. Find your listing, send us a quick email, and we\'ll verify you and keep your hours, photos, and menu up to date — plus the option to get featured on the homepage.',
+  description: 'Claim your restaurant on RamenNearYou. Find your listing, send us a quick email, and we\'ll verify you and keep your hours, photos, and menu up to date — plus optional Featured ($29/mo) and Premium ($79/mo) placement.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
@@ -22,11 +23,6 @@ const STEPS = [
   { title: 'Search your restaurant', text: 'Type your name and tap it from the list.' },
   { title: 'Send the email', text: 'Your email app opens with the claim filled in — add your name and role, then send.' },
   { title: 'We verify you', text: 'We confirm you\'re the owner or an authorized manager and reply with next steps and pricing.' },
-]
-
-// The optional upgrade a claimed owner can add (see /featured-listing).
-const FEATURED_SURFACES = [
-  { icon: Home, label: 'The homepage billboard', desc: 'The first thing every visitor sees, above the map.' },
 ]
 
 // The questions owners actually ask before paying. Answers stay factual —
@@ -47,7 +43,7 @@ const CLAIM_FAQS = [
   },
   {
     q: 'Is Featured placement included?',
-    a: 'No — Featured is a separate optional upgrade that puts your restaurant on the homepage billboard. Claiming gets you everything listed above without it.',
+    a: 'No — claiming is free. Featured ($29/month) is an optional upgrade that puts your restaurant first on its city page, labelled Featured, with a gold map pin. Premium ($79/month) adds your state page and your city\'s blog ramen guide. The homepage billboard ($99/month) is a separate add-on. All are monthly and cancel anytime.',
   },
   {
     q: 'What happens if I don\'t claim my listing?',
@@ -87,42 +83,16 @@ export default function ClaimYourListingPage() {
 
         <ClaimSearch />
 
-        {/* Featured upsell — mentioned right after the claim action, framed as
-            an optional bonus so it never muddies the "claiming is free" message */}
-        <div className="mt-6 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 dark:from-amber-500/10 to-white p-6 sm:p-8">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
-              <Crown className="w-3 h-3" /> Optional Upgrade
-            </span>
-          </div>
-          <h2 className="font-serif text-xl font-bold text-ink mb-1.5">
-            Want to be impossible to miss?
-          </h2>
-          <p className="text-ink-soft text-sm leading-relaxed mb-5">
-            Once you&apos;ve claimed, you can choose to also get{' '}
-            <strong className="text-ink">Featured</strong> — the billboard at the very top of the homepage:
-          </p>
-          <div className="space-y-3 mb-5">
-            {FEATURED_SURFACES.map(({ icon: Icon, label, desc }) => (
-              <div key={label} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-ink">{label}</p>
-                  <p className="text-xs text-ink-soft leading-snug">{desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <Link
-            href="/featured-listing"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
-          >
-            <Crown className="w-4 h-4" /> See Featured plans
-          </Link>
+        {/* Paid upgrades — shown right after the claim action, framed as
+            optional so they never muddy the "claiming is free" message */}
+        <div id="plans" className="mt-6 scroll-mt-24 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 dark:from-amber-500/10 to-transparent p-6 sm:p-8">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
+            <Crown className="w-3 h-3" /> Optional Upgrade
+          </span>
+          <ListingPlans showClaim={false} cardBg="bg-surface" />
           <p className="text-xs text-ink-soft/70 mt-3">
-            Totally optional — claiming already gets you everything below.
+            Totally optional — claiming already gets you everything below.{' '}
+            <Link href="/featured-listing" className="underline hover:text-ink">Compare all plans</Link>
           </p>
         </div>
 

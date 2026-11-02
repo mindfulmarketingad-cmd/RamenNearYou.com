@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import AdLayout from '@/components/ads/ad-layout'
 import RecipeCard from '@/components/recipe-card'
+import ProductsCarousel from '@/components/products-carousel'
 import RestaurantImage from '@/components/restaurant-image'
 import { RECIPES, getRecipe } from '@/lib/recipes'
 
@@ -259,6 +260,13 @@ export default async function RecipePage({ params }: Props) {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* Affiliate picks — bowls and chopsticks to serve the recipe in.
+              Existing Amazon links from lib/products with the standard
+              disclosure line (rendered by ProductsCarousel). */}
+          <section className="mb-12 print:hidden">
+            <ProductsCarousel variant="inline" />
           </section>
 
           {/* Reviews */}
