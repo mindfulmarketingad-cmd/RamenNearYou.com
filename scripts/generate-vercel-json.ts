@@ -50,8 +50,6 @@ const redirects: Redirect[] = [
   r('/saved', '/'),
   r('/feed', '/'),
   r('/plus', '/'),
-  r('/owner', '/claim-your-listing'),
-  r('/owner/:path*', '/claim-your-listing'),
   r('/claim/:path*', '/claim-your-listing'),
   r('/list', '/contact'),
   r('/admin', '/'),

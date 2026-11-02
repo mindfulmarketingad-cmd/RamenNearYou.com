@@ -8,21 +8,21 @@ import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
   title: 'Claim Your Ramen Restaurant Listing | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou. Find your listing, send us a quick email, and we\'ll verify you and keep your hours, photos, and menu up to date — plus optional Featured ($29/mo) and Premium ($79/mo) placement.',
+  description: 'Claim your restaurant on RamenNearYou. Find your listing, sign in with your email, and manage your hours, menu, and description from your own owner dashboard — plus optional Featured ($29/mo) and Premium ($79/mo) placement.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
 const BENEFITS = [
   'Verified badge on your listing and the ramen search map',
-  'Send us new hours, photos, menu, or description and we update your listing',
+  'Your own owner dashboard: edit hours, phone, menu link, and description, and see your page views and call taps',
   'An ad-free listing page — nothing competing for your customers',
   'You control what diners see — your listing, your details',
 ]
 
 const STEPS = [
   { title: 'Search your restaurant', text: 'Type your name and tap it from the list.' },
-  { title: 'Send the email', text: 'Your email app opens with the claim filled in — add your name and role, then send.' },
-  { title: 'We verify you', text: 'We confirm you\'re the owner or an authorized manager and reply with next steps and pricing.' },
+  { title: 'Sign in with your email', text: 'We email you a sign-in link — no password. Use your restaurant\'s email address if you have one.' },
+  { title: 'Get verified', text: 'If your email matches your restaurant\'s website domain you\'re verified right away. Otherwise we check by hand, usually within a day, and email you.' },
 ]
 
 // The questions owners actually ask before paying. Answers stay factual —
@@ -35,7 +35,7 @@ const CLAIM_FAQS = [
   },
   {
     q: 'How long does verification take?',
-    a: 'Most claims are reviewed within a few business days. We confirm you\'re the owner or an authorized manager, then your listing gets the verified badge.',
+    a: 'If you sign in with an email at your restaurant\'s own website domain (say, you@yourramen.com), it\'s instant. Gmail and other personal addresses, and restaurants whose website is a Facebook, Instagram, or ordering page, are checked by hand — usually within a day. Either way you get an email when you\'re approved, and your verified badge appears with the next daily site update.',
   },
   {
     q: 'What if my restaurant isn\'t in the search?',
@@ -112,7 +112,7 @@ export default function ClaimYourListingPage() {
         {/* How it works — 3 dead-simple steps */}
         <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
           <h2 className="font-serif text-xl font-bold text-ink mb-1">How it works</h2>
-          <p className="text-ink-soft text-sm mb-5">No account to create.</p>
+          <p className="text-ink-soft text-sm mb-5">Free, and no password to remember.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">

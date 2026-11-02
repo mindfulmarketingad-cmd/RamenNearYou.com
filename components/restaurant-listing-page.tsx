@@ -18,7 +18,7 @@ import { isRetiredPage } from '@/lib/retired-pages'
 import { jsonLdString } from '@/lib/json-ld'
 import { getRelatedGroups, getNearbyCityLinks } from '@/lib/related-listings'
 import type { Restaurant } from '@/lib/restaurants'
-import { claimMailto } from '@/lib/mailto'
+import { ownerClaimHref } from '@/lib/owner-links'
 
 const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -333,15 +333,15 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       </p>
                     ) : (
                       <p className="text-xs text-ink-soft leading-relaxed mb-3">
-                        This listing hasn&apos;t been claimed yet. Send us a quick email and once our team
-                        verifies ownership you&apos;re in control.
+                        This listing hasn&apos;t been claimed yet. Sign in with your restaurant email to claim
+                        it free and manage it from your own owner dashboard.
                       </p>
                     )}
                     <ul className="space-y-1.5 mb-4">
                       {[
-                        'Quick ownership review by email — no account needed',
+                        'Free — sign in with your email, no password',
                         'Verified badge on this page and the search map',
-                        'Send us new hours, photos, menu, or description anytime',
+                        'Edit your hours, phone, menu link and description yourself',
                         'Ad-free listing page (no ads on your dedicated listing page)',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-ink">
@@ -351,7 +351,8 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       ))}
                     </ul>
                     <a
-                      href={claimMailto(r.name, r.city, r.stateCode)}
+                      href={ownerClaimHref(r.slug, r.name, r.city, r.stateCode)}
+                      rel="nofollow"
                       className="inline-flex items-center justify-center w-full px-4 py-3 rounded-none bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold transition-colors"
                     >
                       Claim This Listing
