@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Search, CheckCircle2 } from 'lucide-react'
 import { searchRestaurants } from '@/lib/restaurant-search-client'
-import { claimMailto, sendViaMail } from '@/lib/mailto'
+import { sendViaMail } from '@/lib/mailto'
+import { ownerClaimHref } from '@/lib/owner-links'
 
 interface SearchMatch {
   slug: string
@@ -140,7 +141,8 @@ export default function ClaimSearch() {
                   matches.map(r => (
                     <a
                       key={r.slug}
-                      href={claimMailto(r.name, r.city, r.stateCode)}
+                      href={ownerClaimHref(r.slug, r.name, r.city, r.stateCode)}
+                      rel="nofollow"
                       className="block px-4 py-3 hover:bg-sunken transition-colors border-b border-line/5 last:border-b-0"
                       onClick={() => setOpen(false)}
                     >
