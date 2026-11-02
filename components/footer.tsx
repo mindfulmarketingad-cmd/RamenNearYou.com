@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Instagram, Facebook, Twitter, Utensils, MapPin, Landmark } from 'lucide-react'
 import { getSiteStats } from '@/lib/restaurants'
+import { SUPPORT_TIP_URL } from '@/lib/paid-listings'
 
 const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://instagram.com/ramennearyou', Icon: Instagram },
@@ -20,6 +21,8 @@ const footerLinks = {
   ],
   Restaurants: [
     { label: 'Claim Your Listing', href: '/claim-your-listing' },
+    { label: 'Featured & Premium Plans', href: '/featured-listing' },
+    { label: 'Advertise With Us', href: '/advertise' },
     { label: 'Become an Ambassador', href: '/ambassador' },
   ],
 }
@@ -122,6 +125,7 @@ export default function Footer() {
             <Link href="/privacy-policy" className="hover:text-ink transition-colors">Privacy</Link>
             <Link href="/terms-of-service" className="hover:text-ink transition-colors">Terms</Link>
             <a href="/sitemap.xml" className="hover:text-ink transition-colors">Sitemap</a>
+            <a href={SUPPORT_TIP_URL} target="_blank" rel="noopener" className="hover:text-ink transition-colors">Support RamenNearYou</a>
           </div>
           <p className="text-center">&copy; {new Date().getFullYear()} RamenNearYou. All rights reserved.</p>
           <div className="flex items-center justify-center gap-3">

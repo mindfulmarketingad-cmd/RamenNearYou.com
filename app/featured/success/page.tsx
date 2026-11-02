@@ -4,9 +4,11 @@ import { Crown, CheckCircle2 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { ListingIdNotice } from '@/components/search-param-notice'
+import FeaturedSuccessCopy from '@/components/featured-success-copy'
 
 export const metadata = {
-  title: 'Featured Listing Confirmed | Ramen Near You',
+  title: 'Payment Received | Ramen Near You',
+  robots: { index: false },
 }
 
 export default function FeaturedSuccessPage() {
@@ -21,12 +23,7 @@ export default function FeaturedSuccessPage() {
           <CheckCircle2 className="w-5 h-5 text-emerald-400" />
           <span className="text-emerald-400 text-sm font-medium">Payment confirmed</span>
         </div>
-        <h1 className="font-serif text-4xl font-bold text-ink mb-4">
-          You&apos;re Featured!
-        </h1>
-        <p className="text-ink-soft leading-relaxed mb-8">
-          Your listing is now live on the Ramen Near You homepage. Thousands of ramen lovers will discover your restaurant every month.
-        </p>
+        <FeaturedSuccessCopy />
 
         <Suspense>
           <ListingIdNotice />
@@ -43,7 +40,7 @@ export default function FeaturedSuccessPage() {
             href="/featured-listing"
             className="block w-full py-3 border border-line/8 text-ink-soft hover:text-ink rounded-xl transition-colors text-sm"
           >
-            Apply for Another Listing
+            See all plans
           </Link>
         </div>
       </div>

@@ -15,7 +15,7 @@ export interface ApprovedListingRow {
   address: string
   city: string
   state: string
-  zip: string | null
+  zip?: string | null
   phone: string | null
   website: string | null
   description: string | null
@@ -64,7 +64,10 @@ export function getAllApprovedListings(): Promise<ApprovedListingRow[]> {
     if (!admin) return []
     const { data, error } = await admin
       .from('listings')
-      .select('id, name, address, city, state, zip, phone, website, description')
+      // `*` rather than a column list: the live table predates the `zip` column
+      // (supabase-listings.sql never backfills it), and naming a missing column
+      // fails the whole query — which silently dropped every owner listing.
+      .select('*')
       .eq('status', 'approved')
     if (error || !data) {
       // At build time this drops every owner-submitted page from the deploy,

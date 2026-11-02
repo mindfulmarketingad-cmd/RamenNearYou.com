@@ -12,6 +12,7 @@ import RestaurantListingPage from '@/components/restaurant-listing-page'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { getApprovedListing, getAllApprovedListings, approvedListingToRestaurant } from '@/lib/approved-listings'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import { getPaidTier } from '@/lib/paid-listings'
 import CityFilterPage from '@/components/city-filter-page'
 import { getListingMonthlyViews } from '@/lib/listing-stats'
 import { isRetiredPage } from '@/lib/retired-pages'
@@ -274,6 +275,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ cit
       state={state}
       nearby={nearbyListings}
       isVerified={isVerified}
+      isFeatured={getPaidTier(r2.slug) !== null}
       monthlyViews={isVerified ? null : await getListingMonthlyViews(r2.slug)}
     />
   )

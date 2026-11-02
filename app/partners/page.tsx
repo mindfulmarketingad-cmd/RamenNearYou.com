@@ -34,8 +34,8 @@ const partnersFaqs = [
     a: "Yes. Once your claim is approved, your restaurant's dedicated listing page runs ad-free — one of the perks of verifying ownership.",
   },
   {
-    q: 'How do I get my restaurant featured on the homepage?',
-    a: 'Featured placement is a separate, paid option from claiming — it puts your restaurant on the billboard at the very top of the homepage, above the map, with your own photo and buttons for directions and online ordering. It is $99/month and you can cancel anytime; see /featured-listing for details.',
+    q: 'How do I get my restaurant featured?',
+    a: 'Featured placement is a separate, paid option from claiming. Featured ($29/month) puts your restaurant first on its city page, labelled Featured, with a gold crown pin on every map and a Featured badge. Premium ($79/month) adds the top of your state page and a featured-partner box on your city\'s blog ramen guide. The homepage billboard — the full-width spot above the map — is a $99/month add-on. All are monthly, cancel anytime; see /featured-listing for details.',
   },
 ]
 
@@ -121,11 +121,13 @@ export default async function PartnersPage() {
               something changes.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured on the Homepage?</h2>
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
-              Featured placement is a separate, paid upgrade from claiming — it puts your restaurant on the
-              billboard at the very top of the homepage, above the map, with your own photo and buttons for
-              directions and online ordering. It&apos;s $99/month, cancel anytime; see{' '}
+              Featured placement is a separate, paid upgrade from claiming. <strong className="text-ink">Featured</strong>{' '}
+              ($29/month) puts your restaurant first on its city page — always labelled Featured — with a gold
+              crown pin on every map and a Featured badge on your listing. <strong className="text-ink">Premium</strong>{' '}
+              ($79/month) adds the top of your state page and a featured-partner box on your city&apos;s blog ramen
+              guide. The homepage billboard, above the map, is a $99/month add-on. Monthly, cancel anytime; see{' '}
               <Link href="/featured-listing" className="text-brand-ink hover:underline">our featured listing page</Link>{' '}
               for full details and to get started.
             </p>

@@ -110,7 +110,7 @@ function oneLinerDescription(r: Restaurant, rank: number): string {
 
 export function restaurantsToListicleItems(
   restaurants: Restaurant[],
-  opts: { verifiedSlugs?: Set<string> } = {},
+  opts: { verifiedSlugs?: Set<string>; featuredSlugs?: Set<string> } = {},
 ): ListicleItem[] {
   return restaurants.map((r, i) => {
     const status = getOpenStatus(r.hours)
@@ -143,6 +143,7 @@ export function restaurantsToListicleItems(
       lng: r.longitude,
       claimHref: claimMailto(r.name, r.city, r.stateCode),
       isClaimed: opts.verifiedSlugs?.has(r.slug) ?? false,
+      featured: opts.featuredSlugs?.has(r.slug) || undefined,
     }
   })
 }

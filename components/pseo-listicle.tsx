@@ -61,6 +61,8 @@ export type ListicleItem = {
   lng?: number | null
   claimHref?: string | null
   isClaimed?: boolean
+  /** Paid Featured/Premium placement: pinned above the ranked list, labelled. */
+  featured?: boolean
 }
 
 type SortKey = 'rating' | 'reviews' | 'name' | 'distance'
@@ -198,6 +200,11 @@ export default function PseoListicle({
       if (sort === 'name') return a.name.localeCompare(b.name)
       return (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0)
     })
+    // Paid placements stay on top of the default ranking (labelled "Featured"
+    // on the card) — but a visitor's own distance/name/review sort wins.
+    if (sort === initialSort && !(sort === 'distance' && userLoc)) {
+      list = [...list.filter(it => it.featured), ...list.filter(it => !it.featured)]
+    }
     return list
   }, [items, query, attraction, stateFilter, cityFilter, sort, userLoc, maxDistanceMiles])
 

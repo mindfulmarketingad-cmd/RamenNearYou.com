@@ -4,6 +4,7 @@ import { Crown, Check, ArrowUpRight, BarChart3 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import BillboardDiagram from '@/components/billboard-diagram'
+import ListingPlans from '@/components/listing-plans'
 import { CheckoutCancelledNotice } from '@/components/search-param-notice'
 import {
   BILLBOARD_SLOTS,
@@ -13,9 +14,9 @@ import {
 } from '@/lib/homepage-billboard'
 
 export const metadata = {
-  title: 'Get Featured on the Homepage | Ramen Near You',
+  title: 'Featured & Premium Listings for Ramen Restaurants | Ramen Near You',
   description:
-    'Put your restaurant on the billboard at the top of RamenNearYou.com. $99/month, cancel anytime.',
+    'Featured ($29/month) puts your restaurant first on its city page with a gold map pin. Premium ($79/month) adds your state page and city ramen guide. Homepage billboard $99/month. Cancel anytime.',
   alternates: { canonical: 'https://www.ramennearyou.com/featured-listing' },
 }
 
@@ -36,16 +37,29 @@ export default function FeaturedListingPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
             <Crown className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span className="text-amber-600 dark:text-amber-400 text-xs font-medium uppercase tracking-widest">
-              Homepage Billboard
+              Featured Listings
             </span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mb-4">
             Put Your Restaurant at the Top
           </h1>
           <p className="text-ink-soft leading-relaxed">
-            One placement, one price. Your restaurant takes over the billboard
-            at the very top of the homepage — the first thing every visitor
-            sees before they reach the map.
+            Be the first ramen shop diners see in your city. Paid placements
+            are always labelled “Featured” — our rankings and reviews stay
+            independent.
+          </p>
+        </div>
+
+        <div className="mb-14">
+          <ListingPlans />
+        </div>
+
+        <div id="billboard" className="scroll-mt-24 text-center mb-6">
+          <p className="text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">Add-on</p>
+          <h2 className="font-serif text-3xl font-bold text-ink mb-3">The Homepage Billboard</h2>
+          <p className="text-ink-soft leading-relaxed">
+            Your restaurant takes over the billboard at the very top of the
+            homepage — the first thing every visitor sees before they reach the map.
           </p>
         </div>
 
@@ -96,7 +110,7 @@ export default function FeaturedListingPage() {
           <CheckoutCancelledNotice />
         </Suspense>
 
-        {/* The one and only paywall on this page. */}
+        {/* Billboard checkout (plan checkouts are in ListingPlans above). */}
         <div className="rounded-2xl border-2 border-amber-400/60 overflow-hidden bg-sunken">
           <div className="px-6 py-6 text-center border-b border-amber-400/30 bg-amber-500/10">
             <p className="text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-3">
@@ -138,7 +152,7 @@ export default function FeaturedListingPage() {
         <p className="text-center text-ink-soft text-sm mt-8 leading-relaxed">
           Questions first?{' '}
           <a
-            href="mailto:hello@ramennearyou.com?subject=Homepage%20Billboard"
+            href="mailto:hello@ramennearyou.com?subject=Featured%20listing%20question"
             className="text-brand-ink font-semibold hover:underline"
           >
             hello@ramennearyou.com

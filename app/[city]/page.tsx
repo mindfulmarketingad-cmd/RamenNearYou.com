@@ -14,6 +14,7 @@ import HomeMapHero from '@/components/home-map-hero'
 import ErrorBoundary from '@/components/error-boundary'
 import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
+import { getPremiumSlugSet } from '@/lib/paid-listings'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
 
 // Build-only: every valid page is in generateStaticParams, so anything else
@@ -167,7 +168,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
 
   const ranked = [...allRestaurants].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
   const verifiedSlugs = await getAllVerifiedSlugs()
-  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs })
+  const listicleItems = restaurantsToListicleItems(ranked, { verifiedSlugs, featuredSlugs: getPremiumSlugSet() })
 
   const mapSlot = (
     <ErrorBoundary fallback={null}>

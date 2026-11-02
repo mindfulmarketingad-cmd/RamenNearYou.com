@@ -116,6 +116,8 @@ interface Props {
   state: string
   nearby: Restaurant[]
   isVerified?: boolean
+  /** Paid Featured/Premium listing (lib/paid-listings.ts): adds a Featured badge. */
+  isFeatured?: boolean
   /** Real pageviews on this listing in the last 30 days, for the claim
    *  banner's traffic pitch. Null when analytics is unreachable or the
    *  listing is verified (banner doesn't render, so it's not fetched). */
@@ -126,7 +128,7 @@ interface Props {
 // the left, a single-pin map on the right. Mirrors the searchmap layout.
 // Per-visitor owner state (manage button, self-link panel) resolves
 // client-side so this page can be statically cached.
-export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false, monthlyViews = null }: Props) {
+export default function RestaurantListingPage({ r, city, state, nearby, isVerified = false, isFeatured = false, monthlyViews = null }: Props) {
   const url = `https://www.ramennearyou.com/${city}/${state}/${r.slug}`
   const category = (r.subtypes?.split(',')[0] ?? 'Ramen restaurant').trim()
   const menuUrl = r.menuLink?.trim() ?? ''
@@ -254,6 +256,11 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 {isVerified && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/30 text-sky-600 dark:text-sky-400 text-xs font-semibold shrink-0">
                     <BadgeCheck className="w-3.5 h-3.5" /> Verified
+                  </span>
+                )}
+                {isFeatured && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/40 text-amber-700 dark:text-amber-300 text-xs font-semibold shrink-0">
+                    👑 Featured
                   </span>
                 )}
               </div>
