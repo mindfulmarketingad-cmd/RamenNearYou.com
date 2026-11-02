@@ -304,7 +304,7 @@ begin
     insert into public.claims (user_id, restaurant_slug, restaurant_name, restaurant_city, contact_name,
                                contact_email, message, status, admin_note, reviewed_at)
     values (v_uid, p_slug, v_dir.name, v_dir.city || coalesce(', ' || v_dir.state_code, ''),
-            left(nullif(trim(p_contact_name), ''), 120), v_email, left(p_message, 1000),
+            coalesce(left(nullif(trim(p_contact_name), ''), 120), ''), v_email, left(p_message, 1000),
             v_status, 'auto: ' || v_reason, case when v_status = 'approved' then now() end)
     returning id into v_id;
   end if;
