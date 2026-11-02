@@ -19,6 +19,15 @@ import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlRespons
 // Generated once at build time and served as a static asset.
 export const dynamic = 'force-static'
 
+// A post's own date (e.g. "October 30, 2026" or "2025-06-01") as a UTC
+// midnight, so <lastmod> doesn't depend on the build machine's timezone.
+// Falls back to LAST_CONTENT if the date can't be parsed.
+function blogPostLastModified(value: string): Date {
+  const d = new Date(value)
+  if (Number.isNaN(d.getTime())) return LAST_CONTENT
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) ? d : new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
+}
+
 export async function GET() {
   const states = getStates()
 
@@ -106,7 +115,7 @@ export async function GET() {
     .filter((post) => !CITY_GUIDE_REDIRECTS[post.slug])
     .map((post) => ({
       url: `${SITEMAP_BASE_URL}/blog/${post.slug}`,
-      lastModified: LAST_CONTENT,
+      lastModified: blogPostLastModified(post.lastModified ?? post.date),
       changeFrequency: 'monthly',
       priority: 0.5,
     }))
