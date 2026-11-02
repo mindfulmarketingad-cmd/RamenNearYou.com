@@ -21,6 +21,8 @@ export interface BlogPost {
   h1?: string
   description: string
   date: string
+  // Optional last-updated date; the sitemap uses it as <lastmod> when set.
+  lastModified?: string
   readTime: string
   category: string
   content: string
