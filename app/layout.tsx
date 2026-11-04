@@ -82,12 +82,9 @@ export default function RootLayout({
             never gave and lets tags fire in the window before the CMP has
             even asked.
 
-            Journey by Mediavine ships its own certified CMP, and it is the
-            only one on the site: it sends the update that unblocks GA4, the
-            Google Ads conversion tag and Mediavine's Google demand partners,
-            which all read Consent Mode. Don't "fix" the ordering by wrapping
-            Mediavine's tag in this script — support expects the literal tag
-            they issued.
+            The CMP is Google's own (AdSense > Privacy & messaging, served from
+            fundingchoicesmessages.google.com via the AdSense loader); it sends the
+            update that unblocks GA4, the Ads conversion tag and AdSense.
 
             Region-scoped so it costs nothing elsewhere: US traffic (almost
             all of this site's) still gets fully personalised ads immediately,
@@ -133,18 +130,12 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18266125976');
         `}</Script>
-        {/* Journey by Mediavine. A raw <script> rather than next/script so the
-            tag reaches the browser byte-for-byte as Mediavine specified it —
-            their script auto-injects ad placements (using the selectors saved
-            in the Journey dashboard) and reads its own attributes, and it has
-            to be last in <head>. (data-noptimize / data-cfasync are inert on
-            Vercel; Mediavine asks for them regardless of host.) */}
+        {/* Google AdSense Auto ads. Raw <script> so it is in the static HTML. */}
+        <meta name="google-adsense-account" content="ca-pub-2173008413459742" />
         <script
-          type="text/javascript"
-          async={true}
-          data-noptimize="1"
-          data-cfasync="false"
-          src="//scripts.scriptwrapper.com/tags/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71.js"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2173008413459742"
+          crossOrigin="anonymous"
         ></script>
       </head>
       <body className="font-sans text-base antialiased bg-surface text-ink">

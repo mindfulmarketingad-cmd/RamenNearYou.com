@@ -35,11 +35,6 @@ const CODE_TO_SLUG: Record<string, string> = Object.fromEntries(
 )
 
 const redirects: Redirect[] = [
-  // ads.txt lives on Journey by Mediavine's servers so it stays current with
-  // their demand partners; Mediavine's recommended setup is a 301 to it (no
-  // static public/ads.txt — a stale copy shows up as "Ads.txt out of date" in
-  // the Journey dashboard and costs bids).
-  { source: '/ads.txt', destination: 'https://adstxt.journeymv.com/sites/e55dbddf-57ec-4b5a-a0b1-35bcd3ad3e71/ads.txt', statusCode: 301 },
   // Removed sections.
   r('/experiences', '/'),
   r('/experiences/:path*', '/'),
@@ -197,12 +192,12 @@ const csp = [
   "object-src 'none'",
   "frame-ancestors 'self'",
   "form-action 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://scripts.scriptwrapper.com https://*.mediavine.com https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.crazyegg.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://js.stripe.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://tpc.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google https://www.googleadservices.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https:",
-  "connect-src 'self' https://scripts.scriptwrapper.com https://*.mediavine.com https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com https://api.zippopotam.us",
-  "frame-src https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net",
+  "connect-src 'self' https://*.crazyegg.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.supabase.co https://api.stripe.com https://*.googlesyndication.com https://*.google-analytics.com https://*.googleapis.com https://pagead2.googlesyndication.com https://api.zippopotam.us https://adservice.google.com https://*.googleadservices.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google https://www.googleadservices.com",
+  "frame-src https://fundingchoicesmessages.google.com https://js.stripe.com https://*.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google https://www.youtube.com https://www.youtube-nocookie.com",
   "worker-src 'self' blob:",
 ].join('; ')
 

@@ -2,9 +2,9 @@
 
 ## Ad network compliance — REQUIRED footer links
 
-The site's ads are served by **Mediavine** (it moved off Google AdSense; the AdSense
-loader and ad units are gone). Mediavine requires the same set of policy pages AdSense
-did, so this requirement is unchanged: the footer (`components/footer.tsx`) **must
+The site's ads are served by **Google AdSense** Auto ads (switched back from Journey by
+Mediavine in Nov 2026; loader + `google-adsense-account` meta in `app/layout.tsx`).
+AdSense requires these policy pages, so: the footer (`components/footer.tsx`) **must
 always** include these links. Do not remove them:
 
 - Home → `/`
@@ -18,17 +18,12 @@ always** include these links. Do not remove them:
 If asked to trim or restructure the footer, preserve all of the above (they currently
 live in the footer bottom bar).
 
-## Journey by Mediavine ad rules
+## Google AdSense ad rules
 
-- **Never add content hints** (`content_hint`, `content_mobile_hint`,
-  `content_desktop_hint`). Journey doesn't support them: even one inside
-  `#page-list-view` stops Journey placing *any* in-content ads on that page.
-  Journey auto-places ads between the direct children of `#page-list-view`.
-- Exactly one `#page-list-view` per page (dashboard content selector), a
-  non-sticky `<aside id="sidebar">` ≥300px wide on desktop (`AdLayout`), and the
-  site-wide `<footer id="footer">`.
-- `/ads.txt` is a 301 to Journey's hosted file (set in
-  `scripts/generate-vercel-json.ts`). Don't add a static `public/ads.txt`.
+- Auto ads place themselves; the `#page-list-view` / `<aside id="sidebar">` structure is
+  leftover from Journey and harmless — keep it simple, no manual units needed.
+- `/ads.txt` is static `public/ads.txt` (`google.com, pub-2173008413459742, DIRECT, f08c47fec0942fa0`).
+- CSP in `scripts/generate-vercel-json.ts` must allow AdSense hosts.
 
 ## Fully static site — no server
 

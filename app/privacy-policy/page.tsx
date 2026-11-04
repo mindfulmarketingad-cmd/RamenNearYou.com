@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
                 <li>Create and manage user accounts.</li>
                 <li>Process and review restaurant listing submissions and claims.</li>
                 <li>Analyze site traffic and user behavior to improve our services (via Google Analytics).</li>
-                <li>Display relevant advertisements on the Site (via Mediavine, our advertising partner).</li>
+                <li>Display relevant advertisements on the Site (via Google AdSense).</li>
                 <li>Send newsletters if you have subscribed (you may unsubscribe at any time).</li>
                 <li>Comply with legal obligations.</li>
               </ul>
@@ -101,16 +101,12 @@ export default function PrivacyPolicyPage() {
                 <div>
                   <p className="text-ink text-sm font-medium">Advertising Cookies</p>
                   <p className="text-sm">
-                    We use <strong className="text-ink">Mediavine</strong> to manage the advertisements on our Site.
-                    Mediavine and its advertising partners use cookies (including the DoubleClick cookie) to serve ads
-                    based on your prior visits to this website or other websites, which allows them to serve ads based
-                    on your interests. A current list of the partners Mediavine works with is available on the{' '}
-                    <a href="https://www.mediavine.com/ad-partners/" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">
-                      Mediavine ad partners page
-                    </a>
-                    , and their handling of personal data is described in the{' '}
-                    <a href="https://www.mediavine.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">
-                      Mediavine Privacy Policy
+                    We use <strong className="text-ink">Google AdSense</strong> to serve advertisements on our Site.
+                    Google, as a third-party vendor, uses cookies (including the DoubleClick cookie) to serve ads
+                    based on your prior visits to this website or other websites. Google&apos;s use of advertising cookies
+                    enables it and its partners to serve ads based on your visits to this and other sites. See{' '}
+                    <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">
+                      How Google uses information from sites that use its services
                     </a>
                     . You can opt out of personalized advertising by visiting{' '}
                     <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">
@@ -139,8 +135,8 @@ export default function PrivacyPolicyPage() {
                   <span>Site analytics and traffic measurement. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="text-ink font-medium min-w-[140px]">Mediavine</span>
-                  <span>Display advertising. <a href="https://www.mediavine.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">Privacy Policy</a></span>
+                  <span className="text-ink font-medium min-w-[140px]">Google AdSense</span>
+                  <span>Display advertising. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">Privacy Policy</a></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-ink font-medium min-w-[140px]">Supabase</span>
