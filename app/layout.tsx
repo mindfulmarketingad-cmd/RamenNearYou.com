@@ -131,10 +131,10 @@ export default function RootLayout({
           gtag('config', 'AW-18266125976');
         `}</Script>
         {/* Google AdSense Auto ads. Raw <script> so it is in the static HTML. */}
-        <meta name="google-adsense-account" content="ca-pub-2173008413459742" />
+        <meta name="google-adsense-account" content="ca-pub-9332749804326149" />
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2173008413459742"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9332749804326149"
           crossOrigin="anonymous"
         ></script>
       </head>
