@@ -22,7 +22,7 @@ live in the footer bottom bar).
 
 - Auto ads place themselves; the `#page-list-view` / `<aside id="sidebar">` structure is
   leftover from Journey and harmless — keep it simple, no manual units needed.
-- `/ads.txt` is static `public/ads.txt` (`google.com, pub-2173008413459742, DIRECT, f08c47fec0942fa0`).
+- `/ads.txt` is static `public/ads.txt` (`google.com, pub-9332749804326149, DIRECT, f08c47fec0942fa0`).
 - CSP in `scripts/generate-vercel-json.ts` must allow AdSense hosts.
 
 ## Fully static site — no server
