@@ -24351,3 +24351,251 @@ blogPosts.push({
     ]
   }
 })
+
+blogPosts.push({
+  "slug": "best-ramen-in-tulsa-oklahoma",
+  "title": "Best Ramen in Tulsa, OK: 10 Top-Rated Spots (2026)",
+  "h1": "Best Ramen in Tulsa, OK: 10 Top-Rated Ramen Restaurants",
+  "description": "The 10 best ramen restaurants in Tulsa, ranked by Google rating and reviews, from downtown's Blue Dome area to south Tulsa, plus what to order this fall.",
+  "date": "November 5, 2026",
+  "readTime": "8 min read",
+  "category": "City Guides",
+  "headerImage": "/images/blog/tulsa/shoyu-ramen.webp",
+  "headerImageAlt": "Bowl of shoyu ramen with soy-marinated eggs, chashu pork, and scallions",
+  "author": {
+    "name": "Marcus Rivera",
+    "avatar": "/authors/marcus-rivera.svg"
+  },
+  "listHeading": "The Best Ramen Restaurants in Tulsa, OK",
+  "rankingNote": "We ranked these 10 restaurants with a weighted score that combines each one's Google star rating with its review count, so ratings backed by more diners count for more. Only Tulsa listings that serve ramen and are marked as operating in our directory were included. Ratings and review counts come from Google and change over time.",
+  "content": "<p><strong>The best ramen in Tulsa, based on Google ratings and review volume, includes JINYA Ramen Bar downtown (4.7 stars, 4,800+ reviews), Yokozuna on E 2nd St S (4.5 stars, 2,900+ reviews), and Roppongi on S Boston Ave (4.4 stars, nearly 900 reviews).</strong> For the highest star rating, <a href=\"/tulsa/oklahoma/oishi-sushi-and-ramen-ok\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Oishi Sushi and Ramen</a> on S Sheridan Rd leads this guide at 4.8 stars, and south Tulsa has the city&#39;s biggest cluster of ramen shops along E 71st St and S Memorial Dr.</p>\n\n<p>This guide ranks the 10 top-rated ramen restaurants in Tulsa, Oklahoma from the listings in our directory. It also breaks down where to find ramen by part of town and which bowls to order as the weather cools in November. Every restaurant links to its full listing page with address, hours, and contact details.</p>\n\n<figure style=\"margin:2rem 0;border-radius:1rem;overflow:hidden;background:#F5F4F0;\"><img src=\"/images/blog/tulsa/tulsa-skyline-sunset.webp\" alt=\"Downtown Tulsa, Oklahoma skyline at sunset\" width=\"1200\" height=\"737\" loading=\"lazy\" decoding=\"async\" style=\"width:100%;height:auto;display:block;margin:0;\" /><figcaption>The downtown Tulsa skyline at sunset. Photo: Janice Waltzer, <a href=\"https://commons.wikimedia.org/wiki/File:Tulsa_skyline_sunset.jpg\" rel=\"nofollow noopener\" target=\"_blank\">Wikimedia Commons</a>, <a href=\"https://creativecommons.org/licenses/by/2.0/\" rel=\"nofollow noopener\" target=\"_blank\">CC BY 2.0</a>.</figcaption></figure>\n\n<h2 id=\"neighborhoods\">Where to find ramen in Tulsa by neighborhood</h2>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">Downtown and the Blue Dome District</h3>\n\n<p>Downtown is home to Tulsa&#39;s two most-reviewed ramen restaurants. <a href=\"/tulsa/oklahoma/jinya-ramen-bar-tulsa\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">JINYA Ramen Bar</a> and <a href=\"/tulsa/oklahoma/yokozuna\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Yokozuna</a> are a block apart on E 2nd St S, close to the Blue Dome District&#39;s bars and restaurants, which makes them easy to combine with a night out. A few blocks south, <a href=\"/tulsa/oklahoma/roppongi\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Roppongi</a> on S Boston Ave is a quicker counter-service option with boba tea.</p>\n\n<figure style=\"margin:2rem 0;border-radius:1rem;overflow:hidden;background:#F5F4F0;\"><img src=\"/images/blog/tulsa/blue-dome-building.webp\" alt=\"The historic Blue Dome building on E 2nd St in downtown Tulsa, with an office tower behind it\" width=\"1200\" height=\"900\" loading=\"lazy\" decoding=\"async\" style=\"width:100%;height:auto;display:block;margin:0;\" /><figcaption>The Blue Dome building on E 2nd St, which gives the Blue Dome District its name. Photo: G. Edward Johnson, <a href=\"https://commons.wikimedia.org/wiki/File:Blue_Dome_building_Tulsa_OK_2026-05-26_10-03-41.jpg\" rel=\"nofollow noopener\" target=\"_blank\">Wikimedia Commons</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"nofollow noopener\" target=\"_blank\">CC BY 4.0</a>.</figcaption></figure>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">Midtown and S Sheridan Rd</h3>\n\n<p><a href=\"/tulsa/oklahoma/oishi-sushi-and-ramen-ok\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Oishi Sushi and Ramen</a> on S Sheridan Rd is the highest-rated listing in this guide by stars and a good choice if your group wants sushi too. Closer to midtown, <a href=\"/tulsa/oklahoma/akira-sushi-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Akira Sushi &amp; Ramen</a> on S Lewis Ave is another sushi-and-ramen option.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">South Tulsa: E 71st St and S Memorial Dr</h3>\n\n<p>South Tulsa has the most ramen restaurants in our directory. On E 71st St, <a href=\"/tulsa/oklahoma/bolicious\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Bolicious</a> and <a href=\"/tulsa/oklahoma/kazama-ramen-bar\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Kazama Ramen Bar</a> are only a short drive apart. Along S Memorial Dr, you&#39;ll find <a href=\"/tulsa/oklahoma/baobao-dumpling-and-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">BaoBao Dumpling and Ramen</a>, <a href=\"/tulsa/oklahoma/akira-sushi-ramen-woodland\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Akira Sushi &amp; Ramen Woodland</a>, and the <a href=\"/tulsa/oklahoma/gung-ho\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Gung Ho</a> location farther south near the Bixby side of town.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">West Tulsa and Tulsa Hills</h3>\n\n<p>On the west side, <a href=\"/tulsa/oklahoma/gung-ho-tulsa-hills\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Gung Ho - Tulsa Hills</a> on S Olympia Ave is the main ramen option in our directory, pairing ramen with bubble tea and poke.</p>\n\n<h2 id=\"what-to-order\">What to order as Tulsa cools down in November</h2>\n\n<p>Early November is when Tulsa nights start to turn chilly, and that&#39;s prime ramen season. A few styles to look for:</p>\n\n<ul>\n<li><strong>Tonkotsu:</strong> a creamy, opaque pork-bone broth and the most common style at US ramen shops. Learn more in our guide to <a href=\"/blog/what-is-tonkotsu-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">tonkotsu ramen</a> or browse <a href=\"/find/tonkotsu-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">tonkotsu ramen near you</a>.</li>\n<li><strong>Miso:</strong> the hearty, savory style made famous in Sapporo. Read <a href=\"/blog/what-is-miso-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">what miso ramen is</a> or find <a href=\"/find/miso-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">miso ramen near you</a>.</li>\n<li><strong>Spicy miso and tantanmen:</strong> chili and sesame add extra warmth. See our explainer on <a href=\"/blog/what-is-tantanmen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">what tantanmen is</a> or browse <a href=\"/find/spicy-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">spicy ramen</a>.</li>\n<li><strong>Shoyu:</strong> a clear, soy-seasoned broth for when you want something lighter than tonkotsu.</li>\n</ul>\n\n<p>Menus vary by restaurant, so check each listing or the restaurant&#39;s own website to see which styles it serves. For more on the heartiest bowls, see our guide to the <a href=\"/blog/best-ramen-for-cold-weather\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">best ramen for cold weather</a>, or compare styles in our <a href=\"/broth\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">ramen broth guide</a>.</p>\n\n<figure style=\"margin:2rem 0;border-radius:1rem;overflow:hidden;background:#F5F4F0;\"><img src=\"/images/blog/tulsa/shoyu-ramen.webp\" alt=\"Bowl of shoyu ramen with soy-marinated eggs, chashu pork, narutomaki, scallions, and greens\" width=\"1200\" height=\"800\" loading=\"lazy\" decoding=\"async\" style=\"width:100%;height:auto;display:block;margin:0;\" /><figcaption>Shoyu ramen (illustrative photo, not from a Tulsa restaurant). Photo: Guilhem Vellut, <a href=\"https://commons.wikimedia.org/wiki/File:Shoyu_Ramen.jpg\" rel=\"nofollow noopener\" target=\"_blank\">Wikimedia Commons</a>, <a href=\"https://creativecommons.org/licenses/by/2.0/\" rel=\"nofollow noopener\" target=\"_blank\">CC BY 2.0</a>.</figcaption></figure>\n\n<h2 id=\"tips\">Tips for eating ramen in Tulsa</h2>\n\n<ul>\n<li><strong>Check hours before you go.</strong> Some shops close between lunch and dinner or are closed one day a week, so confirm on each restaurant&#39;s listing page or website. Out late? See our guide to <a href=\"/blog/ramen-open-late-in-tulsa-oklahoma\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">ramen open late in Tulsa</a>.</li>\n<li><strong>Downtown is walkable, south Tulsa is not.</strong> If you&#39;re staying downtown, JINYA, Yokozuna, and Roppongi are the closest options in this guide. Most of the others are spread along E 71st St and S Memorial Dr and are easiest to reach by car.</li>\n<li><strong>Takeout travels best with the broth separate.</strong> Ask whether the shop packs noodles and broth separately so the noodles don&#39;t go soft on the way home.</li>\n<li><strong>Ask about dietary options.</strong> Broths are often pork- or chicken-based, so ask directly about vegetarian or gluten-free options. Our <a href=\"/find/vegan-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">vegan ramen</a> and <a href=\"/find/gluten-free-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">gluten-free ramen</a> pages can help.</li>\n</ul>",
+  "restaurantCards": [
+    {
+      "rank": 1,
+      "name": "JINYA Ramen Bar - Tulsa",
+      "rating": 4.7,
+      "reviewCount": 4889,
+      "address": "416 E 2nd St S, Tulsa, OK 74120",
+      "phone": "+1 918-861-4100",
+      "description": "The highest-ranked ramen restaurant in Tulsa in our directory, with a 4.7-star average across nearly 4,900 Google reviews, by far the most of any Tulsa ramen listing. JINYA is a multi-city ramen chain, and its Tulsa location is downtown on E 2nd St S, a short walk from the Blue Dome District.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFRtnVwvp4s5gPFjsYKLUwDj5nFhnZle0xMbtMR6rItkT3vvxBHJuV5rJiL11SgStojby0pPLzau1z7LeU4HyLvyi5QEcs0elsfW4YpSFX7HbjHFcmaJwuc7TvN4ulKPsjIN9xrExDdnINA=w800-h500-k-no",
+      "slug": "jinya-ramen-bar-tulsa",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "Downtown",
+        "Most Reviewed",
+        "$$"
+      ]
+    },
+    {
+      "rank": 2,
+      "name": "Yokozuna",
+      "rating": 4.5,
+      "reviewCount": 2935,
+      "address": "309 E 2nd St S, Tulsa, OK 74120",
+      "phone": "+1 918-508-7676",
+      "description": "Yokozuna sits a block away on the same stretch of E 2nd St S downtown and holds 4.5 stars across more than 2,900 Google reviews. It's a modern space with exposed-brick walls serving a wider range of Asian dishes, including noodles and sushi, which makes it a good pick for mixed groups.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFyIDA-svrg_I3SmthkiGgPiFcXifbQAnMk-4iPltjISx7KFXYVKfBVliexalxuyipNLyGxVGg2SHs5and5lef5AXqLFQB3mA8vYZxt73Qi1H5dRNGuCD3VKwnyjEftf93N22Oy=w800-h500-k-no",
+      "slug": "yokozuna",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "Downtown",
+        "Sushi",
+        "Bar"
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "Roppongi",
+      "rating": 4.4,
+      "reviewCount": 877,
+      "address": "601 S Boston Ave, Tulsa, OK 74119",
+      "phone": "+1 539-322-7320",
+      "description": "Roppongi on S Boston Ave in downtown Tulsa is rated 4.4 stars across nearly 900 Google reviews. It's a bright, counter-serve ramen shop that also offers boba tea drinks and spring rolls, and it's listed as having vegetarian options.",
+      "photo": "",
+      "slug": "roppongi",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "Downtown",
+        "Counter Service",
+        "Boba"
+      ]
+    },
+    {
+      "rank": 4,
+      "name": "Gung Ho - Tulsa Hills",
+      "rating": 4.5,
+      "reviewCount": 714,
+      "address": "7547 S Olympia Ave Suite B, Tulsa, OK 74132",
+      "phone": "+1 918-699-9862",
+      "description": "The Tulsa Hills location of Gung Ho, on S Olympia Ave in west Tulsa, is rated 4.5 stars across more than 700 Google reviews. It's categorized as a ramen restaurant, bubble tea shop, and poke bar, so you can pair a bowl with a drink.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGCc9rD-_RMKiU2LSxis1VZ2jVyQFGJr-2dbwFWD_FTJpiD86EUXhMGBjsl3IReWzyqjgYceYHUWa-9Ul-B07dCakCuLarJrTus8eCBsygglpy79SpC3Se5fRQSPfJDL17o1apsQw=w800-h500-k-no",
+      "slug": "gung-ho-tulsa-hills",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "West Tulsa",
+        "Tulsa Hills",
+        "Bubble Tea"
+      ]
+    },
+    {
+      "rank": 5,
+      "name": "Oishi Sushi and Ramen OK",
+      "rating": 4.8,
+      "reviewCount": 387,
+      "address": "5209 S Sheridan Rd, Tulsa, OK 74145",
+      "phone": "+1 539-867-2519",
+      "description": "Oishi Sushi and Ramen on S Sheridan Rd has the highest star rating in this guide, 4.8 stars across nearly 390 Google reviews. As the name says, it serves both sushi and ramen.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEv8mngZsDMyqICScb9VOFHBsuiUIN71mnksjYx9itq1meFI7T_w7lr7Esh5kbjkyazD43QhW-_c72RNqRDD27xxvB0sWf4ZRY4Bwmlh32RxII10aIXvu_jc4AaQGlH87ElDw=w800-h500-k-no",
+      "slug": "oishi-sushi-and-ramen-ok",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "S Sheridan Rd",
+        "Sushi",
+        "Highest Rated"
+      ]
+    },
+    {
+      "rank": 6,
+      "name": "Bolicious",
+      "rating": 4.6,
+      "reviewCount": 406,
+      "address": "8518 E 71st St b2, Tulsa, OK 74133",
+      "phone": "+1 918-957-1582",
+      "description": "Bolicious on E 71st St in south Tulsa is rated 4.6 stars across about 400 Google reviews. It's categorized as a ramen restaurant, sushi restaurant, and salad shop, a flexible option when not everyone wants soup.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH5fOsNMxH0D-PcKuYwq5FO6L5hZiY2ZXxxAfGPw6n1NYFiDNgXjFwdmOeCMvvpC3NeYPYCSqYNIQBUZbCi0fNtY3ktuSypRlMj4q9uYKOXwCC5NtC7x0fxMjVQFNq-mzCRBLqh=w800-h500-k-no",
+      "slug": "bolicious",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "South Tulsa",
+        "E 71st St",
+        "Sushi"
+      ]
+    },
+    {
+      "rank": 7,
+      "name": "Kazama Ramen Bar",
+      "rating": 4.5,
+      "reviewCount": 372,
+      "address": "8216 E 71st St, Tulsa, OK 74133",
+      "phone": "+1 918-940-7277",
+      "description": "Kazama Ramen Bar, also on E 71st St in south Tulsa, is a dedicated Japanese ramen bar rated 4.5 stars across more than 370 Google reviews. It's listed as a mid-priced ($$) spot.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH7VK5FCKplFKPu0lZkMLmBXKZg3fQcyCxkJ5xYuDqZvo3ed3GMoVPrFh0fK_FRLIDwOL6HZE5FxoDVI-8yZuWWKDJhQ12Q_daDxqnV5KkAllTeaCNgq62wLVjelZbxljTz3o8Sxw=w800-h500-k-no",
+      "slug": "kazama-ramen-bar",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "South Tulsa",
+        "Ramen Bar",
+        "$$"
+      ]
+    },
+    {
+      "rank": 8,
+      "name": "Gung Ho",
+      "rating": 4.6,
+      "reviewCount": 312,
+      "address": "10846 S Memorial Dr Ste 117, Tulsa, OK 74133",
+      "phone": "+1 918-568-8017",
+      "description": "Gung Ho's second Tulsa location is on S Memorial Dr in far south Tulsa, rated 4.6 stars across about 310 Google reviews. Like the Tulsa Hills shop, it combines ramen with bubble tea and poke.",
+      "photo": "",
+      "slug": "gung-ho",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "South Memorial",
+        "Bubble Tea",
+        "Poke"
+      ]
+    },
+    {
+      "rank": 9,
+      "name": "BaoBao Dumpling and Ramen",
+      "rating": 4.6,
+      "reviewCount": 264,
+      "address": "7037 S Memorial Dr, Tulsa, OK 74133",
+      "phone": "+1 918-250-9959",
+      "description": "BaoBao Dumpling and Ramen on S Memorial Dr is rated 4.6 stars across more than 260 Google reviews. It's categorized as a Chinese restaurant and pairs dumplings with ramen, so it's worth a visit if you like both.",
+      "photo": "",
+      "slug": "baobao-dumpling-and-ramen",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "South Memorial",
+        "Dumplings",
+        "Chinese"
+      ]
+    },
+    {
+      "rank": 10,
+      "name": "Akira Sushi & Ramen Woodland",
+      "rating": 4.6,
+      "reviewCount": 32,
+      "address": "7021 S Memorial Dr Suite 263, Tulsa, OK 74133",
+      "phone": "+1 918-994-6877",
+      "description": "Akira Sushi & Ramen Woodland on S Memorial Dr, near the Woodland Hills area, rounds out the list with a 4.6-star rating. It has far fewer reviews than the other spots here (about 30), so its rating is based on a smaller sample.",
+      "photo": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEo47cqhdGn1LgTknQn1svLuRGHDUhrAb0z-zYMnRkPVUA3I9zY3J2emZ1f_VmHgoSSe2ftPcQorPt8d8G6ZQK1FC98zYFKlFfbt7xiOp--OnxnN-zkmnzOsYAj3tyJFjXCayXspxSFWuKq=w800-h500-k-no",
+      "slug": "akira-sushi-ramen-woodland",
+      "citySlug": "tulsa",
+      "stateSlug": "oklahoma",
+      "tags": [
+        "South Memorial",
+        "Sushi",
+        "Newer Listing"
+      ]
+    }
+  ],
+  "outroContent": "<h2 id=\"more-options\">More ramen in Tulsa</h2>\n<p>Beyond the top 10, our directory also lists <a href=\"/tulsa/oklahoma/akira-sushi-ramen\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">Akira Sushi &amp; Ramen</a> on S Lewis Ave. Ratings and review counts are as of our latest data update and change over time, so check each listing for the most recent details.</p>\n\n<figure style=\"margin:2rem 0;border-radius:1rem;overflow:hidden;background:#F5F4F0;\"><img src=\"/images/blog/minneapolis/spicy-miso-ramen.webp\" alt=\"Bowl of spicy miso ramen with a red chili-tinted broth\" width=\"1200\" height=\"675\" loading=\"lazy\" decoding=\"async\" style=\"width:100%;height:auto;display:block;margin:0;\" /><figcaption>Spicy miso ramen (illustrative photo). Photo: Douglas Perkins, <a href=\"https://commons.wikimedia.org/wiki/File:Spicy_miso_ramen.jpg\" rel=\"nofollow noopener\" target=\"_blank\">Wikimedia Commons</a>, CC0.</figcaption></figure>\n\n<p>Looking beyond Tulsa? Browse all <a href=\"/oklahoma\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">ramen in Oklahoma</a>, see every <a href=\"/find/tulsa-ok\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">ramen restaurant in Tulsa</a>, use the <a href=\"/find\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">ramen finder</a>, or check the <a href=\"/find/best-ramen-near-me\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">best ramen near me</a>. Heading to the state capital? See the <a href=\"/find/oklahoma-city-ok\" style=\"color:#B57F50;text-decoration:underline;font-weight:600;\">best ramen in Oklahoma City</a>.</p>\n\n<h2 id=\"faq\">Frequently Asked Questions</h2>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">What is the best ramen in Tulsa?</h3>\n<p>Based on Google ratings and review volume in our directory, the top-ranked ramen in Tulsa is JINYA Ramen Bar on E 2nd St S downtown (4.7 stars, 4,800+ reviews), followed by Yokozuna on the same street (4.5 stars, 2,900+ reviews) and Roppongi on S Boston Ave (4.4 stars). Oishi Sushi and Ramen on S Sheridan Rd has the highest star rating in this guide at 4.8.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">Where is the best ramen in downtown Tulsa?</h3>\n<p>Downtown Tulsa has three of the top-ranked ramen spots in our directory: JINYA Ramen Bar and Yokozuna, both on E 2nd St S near the Blue Dome District, and Roppongi on S Boston Ave.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">Where can I find ramen in south Tulsa?</h3>\n<p>South Tulsa has the largest cluster of ramen restaurants in our directory. Bolicious and Kazama Ramen Bar are on E 71st St, while Gung Ho, BaoBao Dumpling and Ramen, and Akira Sushi & Ramen Woodland are along S Memorial Dr. Oishi Sushi and Ramen is on S Sheridan Rd.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">What ramen should I order when it gets cold in Tulsa?</h3>\n<p>Rich, hearty styles are the best match for chilly November nights. Creamy tonkotsu pork-bone ramen and savory miso ramen are the classic cold-weather choices, while spicy miso and tantanmen add chili heat. If you want something lighter, shoyu ramen has a clear soy-seasoned broth.</p>\n\n<h3 style=\"font-size:1.1rem;font-weight:700;color:#1E2026;margin:1.5rem 0 0.5rem;\">How did you rank the best ramen in Tulsa?</h3>\n<p>We ranked restaurants with a weighted score that combines each one's Google star rating with its review count, so ratings backed by more diners count for more. Only Tulsa listings that serve ramen and are marked as operating in our directory were included.</p>",
+  "additionalSchema": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best ramen in Tulsa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Based on Google ratings and review volume in our directory, the top-ranked ramen in Tulsa is JINYA Ramen Bar on E 2nd St S downtown (4.7 stars, 4,800+ reviews), followed by Yokozuna on the same street (4.5 stars, 2,900+ reviews) and Roppongi on S Boston Ave (4.4 stars). Oishi Sushi and Ramen on S Sheridan Rd has the highest star rating in this guide at 4.8."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is the best ramen in downtown Tulsa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Downtown Tulsa has three of the top-ranked ramen spots in our directory: JINYA Ramen Bar and Yokozuna, both on E 2nd St S near the Blue Dome District, and Roppongi on S Boston Ave."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I find ramen in south Tulsa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "South Tulsa has the largest cluster of ramen restaurants in our directory. Bolicious and Kazama Ramen Bar are on E 71st St, while Gung Ho, BaoBao Dumpling and Ramen, and Akira Sushi & Ramen Woodland are along S Memorial Dr. Oishi Sushi and Ramen is on S Sheridan Rd."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What ramen should I order when it gets cold in Tulsa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rich, hearty styles are the best match for chilly November nights. Creamy tonkotsu pork-bone ramen and savory miso ramen are the classic cold-weather choices, while spicy miso and tantanmen add chili heat. If you want something lighter, shoyu ramen has a clear soy-seasoned broth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How did you rank the best ramen in Tulsa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We ranked restaurants with a weighted score that combines each one's Google star rating with its review count, so ratings backed by more diners count for more. Only Tulsa listings that serve ramen and are marked as operating in our directory were included."
+        }
+      }
+    ]
+  }
+})
