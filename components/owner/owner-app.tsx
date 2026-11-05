@@ -1,5 +1,6 @@
 'use client'
 
+import DealForm from '@/components/owner/deal-form'
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -212,6 +213,7 @@ function ClaimPanel({ claim, email, onSaved }: { claim: OwnerClaim; email: strin
           {claim.path && <Link href={claim.path} className="text-sm font-semibold text-brand-ink underline">View your public listing →</Link>}
           <Stats slug={claim.slug} />
           <EditForm claim={claim} onSaved={onSaved} />
+          <DealForm slug={claim.slug} />
           <Upgrades slug={claim.slug} email={email} />
         </div>
       )}

@@ -10,6 +10,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
+import { ListingDeal } from '@/components/pass/save-check-in'
 import PageViewTracker from '@/components/page-view-tracker'
 import OpenNowBadge from '@/components/open-now-badge'
 import { expandDescription } from '@/lib/expand-description'
@@ -301,6 +302,8 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 menuUrl={menuUrl}
                 isVerified={isVerified}
               />
+              {/* Ramen Pass member deal — only claimed shops can post one. */}
+              {isVerified && <ListingDeal slug={r.slug} />}
               </div>
 
               {/* Journey content selector (#page-list-view): ads are

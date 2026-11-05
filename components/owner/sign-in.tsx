@@ -6,7 +6,15 @@ import { supabase } from '@/lib/owner-portal'
 
 // Passwordless sign-in: a magic link plus a 6-digit code fallback (for
 // owners whose email app opens links in a different browser), and Google.
-export default function SignIn({ redirectPath, intro, fallbackHref }: { redirectPath: string; intro?: React.ReactNode; fallbackHref?: string }) {
+export default function SignIn({
+  redirectPath, intro, fallbackHref,
+  label = 'Your work email',
+  placeholder = 'you@yourrestaurant.com',
+  hint = 'Using an address at your restaurant’s website domain (e.g. you@yourramen.com) gets you verified instantly.',
+}: {
+  redirectPath: string; intro?: React.ReactNode; fallbackHref?: string
+  label?: string; placeholder?: string; hint?: React.ReactNode
+}) {
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
   const [sent, setSent] = useState(false)
@@ -46,15 +54,13 @@ export default function SignIn({ redirectPath, intro, fallbackHref }: { redirect
       {intro}
       {!sent ? (
         <form onSubmit={send} className="space-y-3">
-          <label className="block text-sm font-semibold text-ink" htmlFor="owner-email">Your work email</label>
+          <label className="block text-sm font-semibold text-ink" htmlFor="owner-email">{label}</label>
           <input
             id="owner-email" type="email" required autoComplete="email" value={email}
-            onChange={e => setEmail(e.target.value)} placeholder="you@yourrestaurant.com"
+            onChange={e => setEmail(e.target.value)} placeholder={placeholder}
             className="w-full rounded-xl border border-line/15 bg-page px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand/40"
           />
-          <p className="text-xs text-ink-soft">
-            Using an address at your restaurant’s website domain (e.g. you@yourramen.com) gets you verified instantly.
-          </p>
+          {hint && <p className="text-xs text-ink-soft">{hint}</p>}
           <button disabled={busy} className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 font-semibold text-white hover:bg-brand-hi disabled:opacity-60">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />} Email me a sign-in link
           </button>
