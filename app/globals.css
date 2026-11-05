@@ -666,3 +666,10 @@ html.dark .leaflet-container a.leaflet-popup-close-button:focus {
    Mediavine's wrappers carry these class/attribute names. */
 #page-list-view .mv-ad-box,
 #page-list-view [data-slotid^="content"] { min-height: 250px; text-align: center; }
+
+/* Ramen Pass members browse ad-free (flag set by lib/ramen-pass.ts and the
+   inline script in app/layout.tsx). */
+.rny-pass ins.adsbygoogle,
+.rny-pass .google-auto-placed,
+.rny-pass .adsbygoogle-noablate,
+.rny-pass .ad-sidebar { display: none !important; }

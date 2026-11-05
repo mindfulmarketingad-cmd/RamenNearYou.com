@@ -4,6 +4,7 @@ import { Navigation2, Globe, Phone, BookOpen, Store, ShoppingBag, Bike, Image as
 import InquireButton from '@/components/inquire-button'
 import { trackEvent } from '@/lib/analytics-client'
 import { claimMailto } from '@/lib/mailto'
+import { SaveCheckInButtons } from '@/components/pass/save-check-in'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors'
@@ -28,8 +29,8 @@ interface Props {
 }
 
 // Google-Maps-style action row on the individual restaurant listing page.
-// The site is static (no accounts), so every action is an outbound link;
-// clicks that count as a lead land in the dashboard's analytics table.
+// Save and Check in go to the visitor's free account (Ramen Pass); the rest
+// are outbound links. Clicks that count as a lead land in the dashboard's analytics table.
 export default function ListingActionRow({
   slug, restaurantName, displayCity, stateCode, directionsUrl, website, phone, menuUrl, isVerified,
 }: Props) {
@@ -82,6 +83,7 @@ export default function ListingActionRow({
           <span className={iconCircle}><Navigation2 className="w-5 h-5" /></span>
           Directions
         </a>
+        <SaveCheckInButtons slug={slug} />
         <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className={iconBtn} onClick={() => trackClick('order')}>
           <span className={iconCircle}><ShoppingBag className="w-5 h-5" /></span>
           Order Pickup

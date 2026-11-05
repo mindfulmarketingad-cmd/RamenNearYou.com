@@ -131,7 +131,7 @@ export default function HomeNearbySection() {
   }, [pos, radius, sort, filterParam])
 
   function toggleFilter(key: string) {
-    if (!gate.requireAccess()) return
+    if (!gate.requireAccess(key)) return
     setActive((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]))
   }
 

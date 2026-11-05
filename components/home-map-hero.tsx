@@ -14,6 +14,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import { isOpenNow, isOpenLate, isOpenPastMidnight, opensEarly, isOpenOnWeekend, getOpenStatus } from '@/lib/hours'
 import { useModalA11y } from '@/lib/use-modal-a11y'
 import { useFilterGate, FilterGateModals } from '@/components/filter-gate'
+import { usePass, initPass, toggleSave } from '@/lib/ramen-pass'
 import InquireButton from '@/components/inquire-button'
 import ShareButton from '@/components/share-button'
 import { STATE_SLUG_TO_CODE, STATE_CODE_TO_NAME } from '@/lib/state-lookups'
@@ -25,7 +26,6 @@ import {
   type MapPoint, type MatchedChip,
 } from '@/lib/ramen-taxonomy'
 
-const SAVES_KEY = 'rny_saved_restaurants'
 
 type SortOption = 'default' | 'name-az' | 'name-za' | 'most-reviews' | 'highest-rated'
 
@@ -342,7 +342,7 @@ export default function HomeMapHero({
 
   const [searchSaved, setSearchSaved] = useState(false)
 
-  const [saves, setSaves] = useState<Set<string>>(new Set())
+  const { saves } = usePass()
 
   // Filters are open to everyone now (no accounts on a static site); the
   // hook keeps the old gated call sites working.
@@ -456,13 +456,11 @@ export default function HomeMapHero({
     return () => { cancelled = true }
   }, [])
 
-  // Saved restaurants live in this browser (no accounts on a static site).
-  useEffect(() => {
-    try {
-      const slugs = JSON.parse(localStorage.getItem(SAVES_KEY) || '[]')
-      if (Array.isArray(slugs)) setSaves(new Set(slugs))
-    } catch { /* storage blocked — start empty */ }
-  }, [])
+  // Saves belong to the visitor's free account (Ramen Pass). Signed-out
+  // visitors get the "create a free account" card on their first save;
+  // saves made in this browser before accounts existed migrate on sign-in.
+  useEffect(() => { void initPass() }, [])
+
 
   // Unique city/state options derived from the already-loaded map dataset —
   // no extra network request needed for the location picker.
@@ -583,13 +581,7 @@ export default function HomeMapHero({
   function handleToggleSave(e: React.MouseEvent, slug: string) {
     e.preventDefault()
     e.stopPropagation()
-    setSaves(prev => {
-      const next = new Set(prev)
-      if (next.has(slug)) next.delete(slug)
-      else next.add(slug)
-      try { localStorage.setItem(SAVES_KEY, JSON.stringify([...next])) } catch { /* storage blocked */ }
-      return next
-    })
+    void toggleSave(slug)
   }
 
   function requestLocation() {
@@ -689,7 +681,7 @@ export default function HomeMapHero({
   // Every chip goes through the paywall check first, so it holds even if a
   // chip is ever rendered outside the gated filter panel.
   const gated = (fn: (key: string) => void) => (key: string) => {
-    if (!filterGate.requireAccess()) return
+    if (!filterGate.requireAccess(key)) return
     fn(key)
   }
 
