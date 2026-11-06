@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {
   MapPin, Phone, Globe, Star, Clock, ChevronRight, ExternalLink,
-  ShoppingBag, BookOpen, QrCode, BadgeCheck,
+  ShoppingBag, BookOpen, QrCode,
 } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -10,7 +10,7 @@ import RestaurantImage from '@/components/restaurant-image'
 import RestaurantMapPaneClient from '@/components/restaurant-map-pane-client'
 import ShareButton from '@/components/share-button'
 import ListingActionRow from '@/components/listing-action-row'
-import { ListingDeal } from '@/components/pass/save-check-in'
+import LiveListingPerks from '@/components/live-listing-perks'
 import PageViewTracker from '@/components/page-view-tracker'
 import OpenNowBadge from '@/components/open-now-badge'
 import { expandDescription } from '@/lib/expand-description'
@@ -254,16 +254,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
               {/* Name + meta */}
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="font-serif text-2xl font-bold text-ink leading-tight">{r.name}</h1>
-                {isVerified && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/30 text-sky-600 dark:text-sky-400 text-xs font-semibold shrink-0">
-                    <BadgeCheck className="w-3.5 h-3.5" /> Verified
-                  </span>
-                )}
-                {isFeatured && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/40 text-amber-700 dark:text-amber-300 text-xs font-semibold shrink-0">
-                    👑 Featured
-                  </span>
-                )}
+                <LiveListingPerks slug={r.slug} bakedVerified={isVerified} bakedFeatured={isFeatured} />
               </div>
               {(r.rating || r.reviewCount > 0) && (
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -302,8 +293,6 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                 menuUrl={menuUrl}
                 isVerified={isVerified}
               />
-              {/* Ramen Pass member deal — only claimed shops can post one. */}
-              {isVerified && <ListingDeal slug={r.slug} />}
               </div>
 
               {/* Journey content selector (#page-list-view): ads are
@@ -319,7 +308,7 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                   QR code — sees it without scrolling. Verified listings show
                   the badge above instead. */}
               {!isVerified && (
-                <div className="mt-5">
+                <div className="mt-5" id="unclaimed-listing">
                   <div className="rounded-xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-50 dark:from-amber-500/10 to-brand/10 p-5 shadow-sm shadow-amber-500/10">
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
@@ -336,13 +325,12 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                       </p>
                     ) : (
                       <p className="text-xs text-ink-soft leading-relaxed mb-3">
-                        This listing hasn&apos;t been claimed yet. Sign in with your restaurant email to claim
-                        it free and manage it from your own owner dashboard.
+                        This listing hasn&apos;t been claimed yet. Claim it for $49.99/month and manage it from your own owner dashboard.
                       </p>
                     )}
                     <ul className="space-y-1.5 mb-4">
                       {[
-                        'Free — sign in with your email, no password',
+                        '$49.99/month — sign in with your email, no password',
                         'Verified badge on this page and the search map',
                         'Edit your hours, phone, menu link and description yourself',
                         'Ad-free listing page (no ads on your dedicated listing page)',

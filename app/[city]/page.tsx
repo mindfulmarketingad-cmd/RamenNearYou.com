@@ -133,6 +133,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           searchPlaceholder="Search by name or town..."
           filterLabel="Feature"
           primaryCtaLabel="View details"
+          placementPin="state"
           mapSlot={mapSlot}
         />
 
@@ -201,6 +202,7 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         searchPlaceholder="Search by name or town..."
         filterLabel="Feature"
         primaryCtaLabel="View details"
+        placementPin="state"
         mapSlot={mapSlot}
       />
 

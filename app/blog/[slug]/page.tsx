@@ -26,7 +26,6 @@ import ProductsCarousel from '@/components/products-carousel'
 
 const AT_HOME_CATEGORIES = new Set(['Cooking Guides', 'Cooking Tips', 'Recipes', 'Buying Guides'])
 import SupportTip from '@/components/support-tip'
-import PassCta from '@/components/pass/pass-cta'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -523,7 +522,6 @@ export default async function BlogPostPage({ params }: Props) {
               Browse Ramen Restaurants →
             </Link>
           </div>
-          <PassCta className="mt-8" />
           <SupportTip className="mt-8" />
         </div>
         </AdLayout>

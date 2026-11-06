@@ -131,14 +131,6 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18266125976');
         `}</Script>
-        {/* Ramen Pass ad-free: members carry a short-lived flag in localStorage
-            (lib/ramen-pass.ts). Runs before AdSense so no ad request is made;
-            the snippet below stays in the HTML for everyone (AdSense review). */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "try{if(+localStorage.getItem('rny_pass_until')>Date.now()){(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;document.documentElement.classList.add('rny-pass')}}catch(e){}",
-          }}
-        />
         {/* Google AdSense Auto ads. Raw <script> so it is in the static HTML. */}
         <meta name="google-adsense-account" content="ca-pub-9332749804326149" />
         <script

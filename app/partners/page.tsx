@@ -19,11 +19,11 @@ export const metadata = {
 const partnersFaqs = [
   {
     q: 'How do I claim my restaurant listing?',
-    a: "Find your restaurant above and tap Claim — your email app opens with the claim filled in. Send it, and our team verifies ownership and replies with next steps and pricing.",
+    a: 'Open your restaurant and choose Claim. Sign in, then subscribe at $49.99/month. You are verified as soon as payment clears, and the owner dashboard is ready.',
   },
   {
     q: 'How long does claim verification take?',
-    a: 'Most claims are reviewed within a few business days. Once approved, your listing gets a verified badge, ads are removed from your dedicated page, and you can send us updated hours, photos, menu, or description anytime.',
+    a: 'As soon as the $49.99/month payment clears. Your listing gets a verified badge, ads come off your dedicated page, and you can edit hours, phone, menu link and description from the owner dashboard.',
   },
   {
     q: "What if my restaurant isn't listed at all?",
@@ -35,7 +35,7 @@ const partnersFaqs = [
   },
   {
     q: 'How do I get my restaurant featured?',
-    a: 'Featured placement is a separate, paid option from claiming. Featured ($29/month) puts your restaurant first on its city page, labelled Featured, with a gold crown pin on every map and a Featured badge. Premium ($79/month) adds the top of your state page and a featured-partner box on your city\'s blog ramen guide. The homepage billboard — the full-width spot above the map — is a $99/month add-on. All are monthly, cancel anytime; see /featured-listing for details.',
+    a: 'From the owner dashboard, after you have claimed. Featured is $29/month on top of the $49.99 claim ($78.99 total): first on your city page, labelled Featured, with a gold crown pin and a Featured badge. Premium is $79/month on top ($128.99 total) and adds the top of your state page and a featured-partner box on your city\'s blog ramen guide. The homepage billboard is a $99/month add-on. Monthly, cancel anytime.',
   },
 ]
 
@@ -105,28 +105,26 @@ export default async function PartnersPage() {
               FAQ below for what to do if it isn&apos;t listed at all.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Claim My Restaurant Listing for Free?</h2>
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Claim My Restaurant Listing?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
               Open your restaurant&apos;s listing page and look for the &ldquo;Own this business?&rdquo;
-              section. Create a free account, submit your claim, and our team reviews it to verify ownership.
-              There&apos;s no cost and no card required — claiming just gives you control over your own
-              listing.
+              section. Sign in, then subscribe at $49.99/month. You&apos;re verified as soon as payment
+              clears, and the owner dashboard unlocks edits and analytics.
             </p>
 
-            <h2 className="font-serif text-xl font-bold text-ink mb-3">What Happens After I Submit a Claim?</h2>
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">What Happens After I Pay?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
-              Your claim goes into a review queue while our team verifies you&apos;re actually associated with
-              the business. Once approved, you get a verified badge on your listing and the search map, your
-              page runs ad-free, and you can update your hours, photos, menu, and description whenever
-              something changes.
+              The listing is verified immediately. You get a verified badge on your listing and the search map,
+              your page runs ad-free, and the owner dashboard lets you update hours, phone, menu link and
+              description and see your views, calls, directions and review taps.
             </p>
 
             <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
-              Featured placement is a separate, paid upgrade from claiming. <strong className="text-ink">Featured</strong>{' '}
-              ($29/month) puts your restaurant first on its city page — always labelled Featured — with a gold
+              After you claim ($49.99/month), add an upgrade from the owner dashboard. <strong className="text-ink">Featured</strong>{' '}
+              ($29/month, $78.99 with the claim) puts your restaurant first on its city page — always labelled Featured — with a gold
               crown pin on every map and a Featured badge on your listing. <strong className="text-ink">Premium</strong>{' '}
-              ($79/month) adds the top of your state page and a featured-partner box on your city&apos;s blog ramen
+              ($79/month, $128.99 with the claim) adds the top of your state page and a featured-partner box on your city&apos;s blog ramen
               guide. The homepage billboard, above the map, is a $99/month add-on. Monthly, cancel anytime; see{' '}
               <Link href="/featured-listing" className="text-brand-ink hover:underline">our featured listing page</Link>{' '}
               for full details and to get started.
@@ -135,8 +133,8 @@ export default async function PartnersPage() {
             <h2 className="font-serif text-xl font-bold text-ink mb-3">Can I List a Pho Restaurant Here Too?</h2>
             <p className="text-ink-soft text-sm leading-relaxed">
               Yes. Pho restaurants get their own profile pages under this same directory, and the claim
-              process works identically — search for your restaurant, open its listing, and claim it for
-              free. See the pho section below for our current pho coverage.
+              process works the same way — search for your restaurant, open its listing, and claim it
+              for $49.99/month. See the pho section below for our current pho coverage.
             </p>
           </section>
 

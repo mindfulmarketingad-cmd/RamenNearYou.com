@@ -140,7 +140,6 @@ export async function GET() {
   const staticPages: SitemapEntry[] = [
     { url: SITEMAP_BASE_URL, lastModified: LAST_CONTENT, changeFrequency: 'daily', priority: 1.0 },
     { url: `${SITEMAP_BASE_URL}/cities`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${SITEMAP_BASE_URL}/ramen-pass`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/featured-listing`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITEMAP_BASE_URL}/advertise`, lastModified: LAST_CONTENT, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITEMAP_BASE_URL}/broth`, lastModified: LAST_CONTENT, changeFrequency: 'weekly', priority: 0.7 },

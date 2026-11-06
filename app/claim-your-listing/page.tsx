@@ -8,7 +8,7 @@ import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
   title: 'Claim Your Ramen Restaurant Listing | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou. Find your listing, sign in with your email, and manage your hours, menu, and description from your own owner dashboard — plus optional Featured ($29/mo) and Premium ($79/mo) placement.',
+  description: 'Claim your restaurant on RamenNearYou for $49.99/month. Verified badge, owner dashboard, listing analytics, and edits. Add Featured ($29/mo) or Premium ($79/mo) from the dashboard.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
@@ -22,7 +22,7 @@ const BENEFITS = [
 const STEPS = [
   { title: 'Search your restaurant', text: 'Type your name and tap it from the list.' },
   { title: 'Sign in with your email', text: 'We email you a sign-in link — no password. Use your restaurant\'s email address if you have one.' },
-  { title: 'Get verified', text: 'If your email matches your restaurant\'s website domain you\'re verified right away. Otherwise we check by hand, usually within a day, and email you.' },
+  { title: 'Subscribe', text: 'Pay $49.99/month at checkout. You\'re verified as soon as payment clears, and we email you a link to your dashboard.' },
 ]
 
 // The questions owners actually ask before paying. Answers stay factual —
@@ -35,7 +35,7 @@ const CLAIM_FAQS = [
   },
   {
     q: 'How long does verification take?',
-    a: 'If you sign in with an email at your restaurant\'s own website domain (say, you@yourramen.com), it\'s instant. Gmail and other personal addresses, and restaurants whose website is a Facebook, Instagram, or ordering page, are checked by hand — usually within a day. Either way you get an email when you\'re approved, and your verified badge appears with the next daily site update.',
+    a: 'Right after checkout. You sign in, pay $49.99/month, and the listing is verified on the spot. We email you a link to the owner dashboard. Edits to hours and description show up with the next daily site update; the verified badge is live immediately.',
   },
   {
     q: 'What if my restaurant isn\'t in the search?',
@@ -43,7 +43,7 @@ const CLAIM_FAQS = [
   },
   {
     q: 'Is Featured placement included?',
-    a: 'No — claiming is free. Featured ($29/month) is an optional upgrade that puts your restaurant first on its city page, labelled Featured, with a gold map pin. Premium ($79/month) adds your state page and your city\'s blog ramen guide. The homepage billboard ($99/month) is a separate add-on. All are monthly and cancel anytime.',
+    a: 'No. Claiming is $49.99/month and includes the verified badge, dashboard, analytics and an ad-free listing page. Featured is a $29/month add-on ($78.99 total) that puts your restaurant first on its city page, labelled Featured, with a gold map pin. Premium is a $79/month add-on ($128.99 total) and also adds your state page and your city\'s blog ramen guide. The homepage billboard ($99/month) is a separate add-on. All are monthly and cancel anytime.',
   },
   {
     q: 'What happens if I don\'t claim my listing?',
@@ -83,15 +83,14 @@ export default function ClaimYourListingPage() {
 
         <ClaimSearch />
 
-        {/* Paid upgrades — shown right after the claim action, framed as
-            optional so they never muddy the "claiming is free" message */}
+        {/* Featured and Premium are add-ons on the $49.99 claim. */}
         <div id="plans" className="mt-6 scroll-mt-24 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 dark:from-amber-500/10 to-transparent p-6 sm:p-8">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
             <Crown className="w-3 h-3" /> Optional Upgrade
           </span>
           <ListingPlans showClaim={false} cardBg="bg-surface" />
           <p className="text-xs text-ink-soft/70 mt-3">
-            Totally optional — claiming already gets you everything below.{' '}
+            These are add-ons after you claim ($49.99/month).{' '}
             <Link href="/featured-listing" className="underline hover:text-ink">Compare all plans</Link>
           </p>
         </div>
@@ -112,7 +111,7 @@ export default function ClaimYourListingPage() {
         {/* How it works — 3 dead-simple steps */}
         <div className="mt-6 bg-surface rounded-2xl border border-line/8 p-6 sm:p-8">
           <h2 className="font-serif text-xl font-bold text-ink mb-1">How it works</h2>
-          <p className="text-ink-soft text-sm mb-5">Free, and no password to remember.</p>
+          <p className="text-ink-soft text-sm mb-5">$49.99/month. No password to remember.</p>
           <ol className="space-y-5">
             {STEPS.map((step, i) => (
               <li key={step.title} className="flex items-start gap-4">

@@ -444,7 +444,24 @@ export default function HomeMapHero({
         clearTimeout(timer)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const d: MapPoint[] = await res.json()
-        if (!cancelled) { setData(d); setDataError(false); setDataLoading(false) }
+        if (cancelled) return
+        setData(d); setDataError(false); setDataLoading(false)
+        try {
+          const { loadPlacements, placementBySlug, displayTier } = await import('@/lib/live-placements')
+          const feed = await loadPlacements()
+          if (cancelled) return
+          const bySlug = placementBySlug(feed)
+          setData(d.map(p => {
+            const row = bySlug.get(p.slug)
+            const lapsed = feed.lapsed.has(p.slug)
+            const tier = displayTier(p.slug, lapsed ? null : row?.tier)
+            return {
+              ...p,
+              featured: !!tier || undefined,
+              claimed: lapsed ? undefined : (p.claimed || row?.claim || undefined),
+            }
+          }))
+        } catch { /* baked-in flags stay */ }
       } catch {
         clearTimeout(timer)
         if (cancelled) return

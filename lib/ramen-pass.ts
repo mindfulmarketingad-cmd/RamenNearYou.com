@@ -75,15 +75,10 @@ function hasAuthCookie() {
   try { return document.cookie.includes(`sb-${PROJECT}-auth-token`) || !!localStorage.getItem(`sb-${PROJECT}-auth-token`) } catch { return false }
 }
 
-function setAdFree(pass: PassInfo | null) {
+function setAdFree(_pass: PassInfo | null) {
   try {
-    if (pass?.active) {
-      localStorage.setItem(AD_FREE_KEY, String(Date.now() + 3 * 864e5))
-      document.documentElement.classList.add('rny-pass')
-    } else {
-      localStorage.removeItem(AD_FREE_KEY)
-      document.documentElement.classList.remove('rny-pass')
-    }
+    localStorage.removeItem(AD_FREE_KEY)
+    document.documentElement.classList.remove('rny-pass')
   } catch { /* storage blocked */ }
 }
 
@@ -163,12 +158,11 @@ export async function toggleSave(slug: string): Promise<boolean> {
     const { error } = await c.from('pass_saves').delete().eq('restaurant_slug', slug)
     if (error) { saves.add(slug); set({ saves: new Set(saves) }) }
   } else {
-    if (!state.pass?.active && saves.size >= FREE_SAVE_LIMIT) { openGate({ kind: 'save-limit' }); return false }
     saves.add(slug); set({ saves })
     const { error } = await c.from('pass_saves').insert({ restaurant_slug: slug })
     if (error) {
       saves.delete(slug); set({ saves: new Set(saves) })
-      if (error.message.includes('save_limit')) openGate({ kind: 'save-limit' })
+      if (error.message.includes('save_limit')) return false
       return false
     }
   }
@@ -176,14 +170,9 @@ export async function toggleSave(slug: string): Promise<boolean> {
   return true
 }
 
-/** True when the filter is free, or the visitor has the Pass. */
-export function canUseFilter(key: string): boolean {
-  if (!ADVANCED_FILTER_KEYS.has(key)) return true
-  if (state.pass?.active) return true
-  // Members whose state hasn't loaded yet: the ad-free flag says they paid recently.
-  try { if (+(localStorage.getItem(AD_FREE_KEY) || 0) > Date.now()) return true } catch { /* ignore */ }
-  openGate({ kind: 'filter', detail: key })
-  return false
+/** Every filter is open. Ramen Pass is no longer sold. */
+export function canUseFilter(_key: string): boolean {
+  return true
 }
 
 export function checkoutUrl(plan: PassPlan, session: Session | null): string {

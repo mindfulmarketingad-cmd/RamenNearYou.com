@@ -53,7 +53,9 @@ const redirects: Redirect[] = [
   r('/review-cards/:path*', '/reviews'),
   r('/featured/dashboard', '/featured-listing'),
   r('/searchmap', '/'),
-  r('/pass', '/ramen-pass'),
+  r('/pass', '/'),
+  r('/ramen-pass', '/'),
+  r('/ramen-pass/:path*', '/'),
   r('/join', '/'),
   r('/featured/apply', '/featured-listing'),
   // Broth-type service pages → their /find map pages.

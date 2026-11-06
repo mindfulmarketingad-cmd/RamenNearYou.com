@@ -235,6 +235,9 @@ returns json language sql stable security definer set search_path = public as $$
 $$;
 
 -- ── Claim ───────────────────────────────────────────────────────────────────
+-- Paid claims replace this function. supabase/listing-subscriptions.sql
+-- (run after this file) makes claim_listing require a $49.99 subscription
+-- and approves immediately. Re-run that file if you re-run this one.
 create or replace function public.claim_listing(p_slug text, p_contact_name text default null, p_message text default null)
 returns json language plpgsql security definer set search_path = public, auth as $$
 declare

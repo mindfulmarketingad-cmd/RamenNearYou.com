@@ -33,7 +33,6 @@ const NAV_LINKS = [
   { href: '/reviews', label: 'Reviews' },
   { href: '/find', label: 'Find' },
   { href: '/blog', label: 'Blog' },
-  { href: '/ramen-pass', label: 'Ramen Pass' },
   { href: '/partners', label: 'Partners' },
   { href: '/about', label: 'About' },
 ]

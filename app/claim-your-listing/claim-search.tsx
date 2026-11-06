@@ -85,7 +85,7 @@ export default function ClaimSearch() {
           hit send there, and we&apos;ll add it to the directory and reply with next steps to claim it.
         </p>
 
-        {/* Upgrade offer — claiming stays free; this is the optional next step. */}
+        {/* Upgrade offer after the listing is added. */}
         <div className="max-w-sm mx-auto mb-6 rounded-xl border border-amber-400/50 bg-amber-500/10 p-4 text-left">
           <p className="text-sm font-semibold text-ink mb-1">Want to be the first shop diners see?</p>
           <p className="text-xs text-ink-soft leading-relaxed mb-3">

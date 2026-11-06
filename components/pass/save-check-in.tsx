@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { Heart, Stamp, Tag } from 'lucide-react'
-import { usePass, initPass, toggleSave, checkIn, sb } from '@/lib/ramen-pass'
+import { Heart, Stamp } from 'lucide-react'
+import { usePass, initPass, toggleSave, checkIn } from '@/lib/ramen-pass'
 import { BOWL_META } from '@/lib/ramen-taxonomy'
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@/lib/supabase/config'
 
 const iconBtn = 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'
 const iconCircle = 'w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors'
@@ -51,39 +49,3 @@ export function SaveCheckInButtons({ slug }: { slug: string }) {
   )
 }
 
-/** "Members get a deal here" teaser; the deal text only reaches members. */
-export function ListingDeal({ slug }: { slug: string }) {
-  const { ready, pass, session } = usePass()
-  const [deal, setDeal] = useState<{ has_deal: boolean; deal?: string; fine_print?: string | null } | null>(null)
-  useEffect(() => { void initPass() }, [])
-  useEffect(() => {
-    if (!ready) return
-    let cancelled = false
-    // Signed-out visitors only need the yes/no teaser: one tiny REST call,
-    // without downloading supabase-js on every listing page.
-    const req = session
-      ? sb().then(c => c.rpc('listing_deal', { p_slug: slug })).then(r => r.data)
-      : fetch(`${SUPABASE_URL}/rest/v1/rpc/listing_deal`, {
-          method: 'POST',
-          headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ p_slug: slug }),
-        }).then(r => (r.ok ? r.json() : null))
-    req.then(data => { if (!cancelled && data) setDeal(data) }).catch(() => {})
-    return () => { cancelled = true }
-  }, [ready, pass?.active, session, slug])
-  if (!deal?.has_deal) return null
-  return (
-    <div className="mt-4 rounded-xl border border-brand/30 bg-brand/5 p-4 flex gap-3">
-      <Tag className="w-5 h-5 text-brand-ink shrink-0 mt-0.5" />
-      {deal.deal ? (
-        <div>
-          <p className="font-semibold text-ink">Ramen Pass deal: {deal.deal}</p>
-          {deal.fine_print && <p className="text-xs text-ink-soft mt-1">{deal.fine_print}</p>}
-          <p className="text-xs text-ink-soft mt-1">Show your Ramen Pass on the Account page when you order.</p>
-        </div>
-      ) : (
-        <p className="text-sm text-ink">This shop has a <strong>member deal</strong>. <Link href="/ramen-pass" className="underline font-semibold">Get the Ramen Pass</Link> to see it.</p>
-      )}
-    </div>
-  )
-}
