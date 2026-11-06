@@ -7,7 +7,7 @@ import { Loader2, Heart, Stamp, Map as MapIcon, Tag, Mail, Crown, Trash2, Plus, 
 import SignIn from '@/components/owner/sign-in'
 import {
   usePass, initPass, refresh, sb, signOut, toggleSave, checkoutUrl, afterCheckoutClaim, passError,
-  FREE_SAVE_LIMIT, PASS_PRICES, PASS_TRIAL_DAYS, type PassInfo, type PassPlan,
+  FREE_SAVE_LIMIT, PASS_PRICES, type PassInfo, type PassPlan,
 } from '@/lib/ramen-pass'
 
 type Spot = { slug: string; name: string | null; city: string | null; state_code: string | null; path: string | null }
@@ -81,7 +81,7 @@ export default function AccountApp() {
             <h2 className="font-serif text-2xl font-bold text-ink">{plan ? 'First, create your free account' : 'Sign in or create a free account'}</h2>
             <p className="text-sm text-ink-mid mt-1">
               {plan
-                ? `Then you’ll start your ${PASS_TRIAL_DAYS}-day free trial of the Ramen Pass (${PASS_PRICES[plan].label}/${PASS_PRICES[plan].per} after).`
+                ? `Then you can subscribe to the Ramen Pass (${PASS_PRICES[plan].label}/${PASS_PRICES[plan].per}).`
                 : 'Save spots, check in to bowls and earn badges.'}
             </p>
           </div>
@@ -130,7 +130,7 @@ function PlanCard({ pass, plan }: { pass: PassInfo | null; plan: PassPlan | null
   if (pass?.active) {
     return (
       <div className={`${box} border-brand/30`}>
-        <div className="flex items-center gap-2 text-brand-ink font-semibold"><Crown className="w-5 h-5" /> Ramen Pass {pass.status === 'trialing' ? '— free trial' : 'member'}</div>
+        <div className="flex items-center gap-2 text-brand-ink font-semibold"><Crown className="w-5 h-5" /> Ramen Pass member</div>
         <p className="text-sm text-ink-mid mt-1">
           {pass.plan === 'yearly' ? `${PASS_PRICES.yearly.label}/year` : `${PASS_PRICES.monthly.label}/month`}
           {pass.current_period_end && (pass.cancel_at_period_end
@@ -157,11 +157,11 @@ function PlanCard({ pass, plan }: { pass: PassInfo | null; plan: PassPlan | null
       <div className="mt-4 grid sm:grid-cols-2 gap-3">
         {order.map((p, i) => (
           <a key={p} href={checkoutUrl(p, session)} className={`${btn} py-3 ${i === 0 ? 'bg-brand text-white hover:bg-brand-hi' : 'border border-line/15 text-ink hover:bg-sunken'}`}>
-            Start free trial · {PASS_PRICES[p].label}/{PASS_PRICES[p].per === 'month' ? 'mo' : 'yr'}
+            Get Ramen Pass · {PASS_PRICES[p].label}/{PASS_PRICES[p].per === 'month' ? 'mo' : 'yr'}
           </a>
         ))}
       </div>
-      <p className="text-xs text-ink-soft mt-3">{PASS_TRIAL_DAYS} days free, then billed by Stripe. Cancel anytime before the trial ends and you won’t be charged. <Link href="/ramen-pass" className="underline">Compare plans</Link></p>
+      <p className="text-xs text-ink-soft mt-3">Billed by Stripe. Cancel anytime. <Link href="/ramen-pass" className="underline">Compare plans</Link></p>
       {pass?.has_billing && (
         <button onClick={portal} disabled={busy} className="text-xs underline text-ink-soft mt-2">Billing history</button>
       )}

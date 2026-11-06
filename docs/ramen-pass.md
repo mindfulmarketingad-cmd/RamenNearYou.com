@@ -8,7 +8,7 @@ to Stripe.
 
 | | Free account | Ramen Pass |
 |---|---|---|
-| Price | $0 | $4.99/mo or $39/yr, 7-day free trial |
+| Price | $0 | $4.99/mo or $39/yr |
 | Saves | 5 (enforced by a trigger) | unlimited |
 | Check-ins & passport badges | ✓ | ✓ |
 | Stats map (cities/states) | — | ✓ |
@@ -27,7 +27,7 @@ interactive chips on the homepage map/feed are gated.
 - Prices `price_1UYGQCLlgxXvIOfeP6P9UHDx` ($4.99/mo, lookup `ramen_pass_monthly`),
   `price_1UYGQELlgxXvIOfeYFVTXUfa` ($39/yr, lookup `ramen_pass_yearly`)
 - Payment Links `plink_1UYGQMLlgxXvIOfeQYOJhnpB` (monthly) and
-  `plink_1UYGQPLlgxXvIOfeORZqVl0f` (yearly): 7-day trial, promo codes on,
+  `plink_1UYGQPLlgxXvIOfeORZqVl0f` (yearly): promo codes on,
   card always collected, redirect to `/account?session_id={CHECKOUT_SESSION_ID}`.
   The site appends `client_reference_id=<supabase user id>&prefilled_email=…`.
 - Customer portal configuration `bpc_1UYGQWLlgxXvIOfeNr9DnXzh` (cancel at

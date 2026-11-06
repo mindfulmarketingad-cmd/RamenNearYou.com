@@ -4,11 +4,11 @@ import { Check, Minus, Crown } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { jsonLdString } from '@/lib/json-ld'
-import { PASS_PRICES, PASS_TRIAL_DAYS, FREE_SAVE_LIMIT } from '@/lib/ramen-pass-config'
+import { PASS_PRICES, FREE_SAVE_LIMIT } from '@/lib/ramen-pass-config'
 
 export const metadata: Metadata = {
   title: 'Ramen Pass — Unlimited Saves, Every Filter & Member Deals | Ramen Near You',
-  description: `Free account: ${FREE_SAVE_LIMIT} saves, check-ins and badges. Ramen Pass (${PASS_PRICES.monthly.label}/mo or ${PASS_PRICES.yearly.label}/yr): unlimited saves, broth/vegan/open-late filters, trip lists, member deals and ad-free browsing. ${PASS_TRIAL_DAYS}-day free trial.`,
+  description: `Free account: ${FREE_SAVE_LIMIT} saves, check-ins and badges. Ramen Pass (${PASS_PRICES.monthly.label}/mo or ${PASS_PRICES.yearly.label}/yr): unlimited saves, broth/vegan/open-late filters, trip lists, member deals and ad-free browsing. Cancel anytime.`,
   alternates: { canonical: 'https://www.ramennearyou.com/ramen-pass' },
 }
 
@@ -25,7 +25,7 @@ const ROWS: { label: string; free: boolean | string; pass: boolean | string }[] 
 ]
 
 const FAQ = [
-  { q: 'Is there really a free trial?', a: `Yes — ${PASS_TRIAL_DAYS} days free on either plan. Cancel from your account page before it ends and you’re never charged.` },
+  { q: 'When am I charged?', a: 'You’re charged when you subscribe — monthly or yearly. Cancel anytime from your account; your Pass stays active until the end of the period you paid for.' },
   { q: 'How do I cancel?', a: 'Account → “Manage billing or cancel”. It opens Stripe’s billing page; your Pass stays active until the end of the period you paid for.' },
   { q: 'What are member deals?', a: 'Restaurants that claim their listing can offer Ramen Pass members a perk — a free topping, a discount, a secret menu bowl. They show on the shop’s page and in your account.' },
   { q: 'Do I need a password?', a: 'No. Sign in with a one-time email code or link, or with Google.' },
@@ -70,15 +70,15 @@ export default function RamenPassPage() {
           <div className="rounded-2xl border border-line/10 p-6">
             <p className="font-semibold text-ink">Ramen Pass · Monthly</p>
             <p className="text-3xl font-bold text-ink mt-2">{PASS_PRICES.monthly.label}<span className="text-base font-normal text-ink-soft">/month</span></p>
-            <p className="text-sm text-ink-soft mt-1">{PASS_TRIAL_DAYS}-day free trial</p>
-            <Link href="/account?plan=monthly" className="mt-5 block text-center rounded-xl border border-brand px-4 py-3 font-semibold text-brand-ink hover:bg-brand/5">Start free trial</Link>
+            <p className="text-sm text-ink-soft mt-1">Cancel anytime</p>
+            <Link href="/account?plan=monthly" className="mt-5 block text-center rounded-xl border border-brand px-4 py-3 font-semibold text-brand-ink hover:bg-brand/5">Get Ramen Pass</Link>
           </div>
           <div className="rounded-2xl border-2 border-brand p-6 relative">
             <span className="absolute -top-3 left-6 bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">Save 35%</span>
             <p className="font-semibold text-ink">Ramen Pass · Yearly</p>
             <p className="text-3xl font-bold text-ink mt-2">{PASS_PRICES.yearly.label}<span className="text-base font-normal text-ink-soft">/year</span></p>
-            <p className="text-sm text-ink-soft mt-1">{PASS_TRIAL_DAYS}-day free trial · $3.25/mo</p>
-            <Link href="/account?plan=yearly" className="mt-5 block text-center rounded-xl bg-brand px-4 py-3 font-semibold text-white hover:bg-brand-hi">Start free trial</Link>
+            <p className="text-sm text-ink-soft mt-1">$3.25/mo · cancel anytime</p>
+            <Link href="/account?plan=yearly" className="mt-5 block text-center rounded-xl bg-brand px-4 py-3 font-semibold text-white hover:bg-brand-hi">Get Ramen Pass</Link>
           </div>
         </div>
 

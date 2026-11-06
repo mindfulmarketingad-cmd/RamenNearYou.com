@@ -11,7 +11,7 @@ billboard link (Letters2numbersconverter, `acct_1MOoSILlgxXvIOfe`, live mode).
 | Featured listing | $29/month | https://buy.stripe.com/bJeeVegyKdFe3wi6dwfrW0s | `lib/paid-listings.ts` |
 | Premium listing | $79/month | https://buy.stripe.com/8x2fZi3LY30Aff0bxQfrW0t | `lib/paid-listings.ts` |
 | Homepage billboard (add-on) | $99/month | https://buy.stripe.com/5kQ8wQciu9oYd6SdFYfrW0n | `lib/homepage-billboard.ts` |
-| **Ramen Pass** (diner membership) | $4.99/month or $39/year, 7-day trial | monthly https://buy.stripe.com/5kQ9AUeqCbx6d6S9pIfrW0y · yearly https://buy.stripe.com/4gMfZi96i8kU5Eq0TcfrW0z | `lib/ramen-pass*.ts`, `components/pass/`, see `docs/ramen-pass.md` — activates itself (no repo edit) |
+| **Ramen Pass** (diner membership) | $4.99/month or $39/year | monthly https://buy.stripe.com/5kQ9AUeqCbx6d6S9pIfrW0y · yearly https://buy.stripe.com/4gMfZi96i8kU5Eq0TcfrW0z | `lib/ramen-pass*.ts`, `components/pass/`, see `docs/ramen-pass.md` — activates itself (no repo edit) |
 | Tip ("Support RamenNearYou") | one-time, payer chooses ($5 preset, $3 min) | https://donate.stripe.com/bJe14ogyK7gQ8QCdFYfrW0u | `SUPPORT_TIP_URL` in `lib/paid-listings.ts` |
 | Banners / sponsored posts | quoted by email | — (`/advertise`) | hand-placed |
 | Amazon affiliate | commission | `lib/products.ts` | `components/products-carousel.tsx` |
