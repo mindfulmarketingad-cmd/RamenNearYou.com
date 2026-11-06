@@ -35,7 +35,7 @@ const partnersFaqs = [
   },
   {
     q: 'How do I get my restaurant featured?',
-    a: 'From the owner dashboard, after you have claimed. Featured is $29/month on top of the $49.99 claim ($78.99 total): first on your city page, labelled Featured, with a gold crown pin and a Featured badge. Premium is $79/month on top ($128.99 total) and adds the top of your state page and a featured-partner box on your city\'s blog ramen guide. The homepage billboard is a $99/month add-on. Monthly, cancel anytime.',
+    a: 'It is included with claiming. $49.99/month puts a gold crown pin on the homepage map and places you at the top of your city page and your state page, labelled Featured. You also get the owner dashboard, analytics, and a verified badge. Monthly, cancel anytime.',
   },
 ]
 
@@ -121,13 +121,9 @@ export default async function PartnersPage() {
 
             <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured?</h2>
             <p className="text-ink-soft text-sm leading-relaxed mb-8">
-              After you claim ($49.99/month), add an upgrade from the owner dashboard. <strong className="text-ink">Featured</strong>{' '}
-              ($29/month, $78.99 with the claim) puts your restaurant first on its city page — always labelled Featured — with a gold
-              crown pin on every map and a Featured badge on your listing. <strong className="text-ink">Premium</strong>{' '}
-              ($79/month, $128.99 with the claim) adds the top of your state page and a featured-partner box on your city&apos;s blog ramen
-              guide. The homepage billboard, above the map, is a $99/month add-on. Monthly, cancel anytime; see{' '}
-              <Link href="/featured-listing" className="text-brand-ink hover:underline">our featured listing page</Link>{' '}
-              for full details and to get started.
+              Claiming is $49.99/month and includes Featured placement, labelled Featured / Sponsored: a gold crown pin on the homepage map, the top of your city page, and the top of your state page. You also get the owner dashboard and a verified badge. See{' '}
+              <Link href="/claim-your-listing" className="text-brand-ink hover:underline">claim your listing</Link>{' '}
+              to get started.
             </p>
 
             <h2 className="font-serif text-xl font-bold text-ink mb-3">Can I List a Pho Restaurant Here Too?</h2>

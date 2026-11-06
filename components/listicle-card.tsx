@@ -107,7 +107,7 @@ export default function ListicleCard({ item: it, rank, distanceLabel, noun = 're
           <h3 className="font-bold text-sm text-ink leading-snug truncate">
             {it.featured && (
               <span className="inline-block align-middle mr-1.5 px-1.5 py-px rounded bg-amber-100 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/40 text-amber-700 dark:text-amber-300 text-[10px] font-bold uppercase tracking-wide">
-                Featured
+                Featured · Sponsored
               </span>
             )}
             <Link href={it.href} className="hover:text-brand-ink transition-colors">

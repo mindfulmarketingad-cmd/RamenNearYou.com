@@ -9,8 +9,7 @@ import {
   DAYS, portalError, rpc, supabase,
   type ListingStats, type ListingSub, type OwnerClaim, type PortalListing,
 } from '@/lib/owner-portal'
-import { BILLBOARD_CHECKOUT_URL, BILLBOARD_PERIOD, BILLBOARD_PRICE } from '@/lib/homepage-billboard'
-import { CLAIM_PLAN, listingCheckoutUrl, PAID_TIER_PRICES } from '@/lib/paid-listings'
+import { CLAIM_PLAN, listingCheckoutUrl } from '@/lib/paid-listings'
 import { claimMailto, CONTACT_EMAIL } from '@/lib/mailto'
 import SignIn from './sign-in'
 
@@ -175,7 +174,7 @@ function Dashboard({ session, claimSlug, sessionId, listing, claimedByOther }: {
 function ClaimCard({ listing, email, claimedByOther }: {
   listing: PortalListing; email: string; claimedByOther: boolean
 }) {
-  const pay = listingCheckoutUrl('claim', listing.slug, email)
+  const pay = listingCheckoutUrl(listing.slug, email)
   return (
     <Card>
       <h2 className="font-serif text-2xl font-bold text-ink">Claim {listing.name}</h2>
@@ -185,7 +184,7 @@ function ClaimCard({ listing, email, claimedByOther }: {
       ) : (
         <div className="space-y-3">
           <p className="text-ink-mid">
-            <strong className="text-ink">{CLAIM_PLAN.price}/{CLAIM_PLAN.period}</strong>. You get the verified badge, an ad-free listing page, and this dashboard — edits plus views, calls, directions and review taps.
+            <strong className="text-ink">{CLAIM_PLAN.price}/{CLAIM_PLAN.period}</strong>. You get the verified badge, this dashboard (edits plus views, calls, and directions), and Featured placement: a gold crown pin on the homepage map, the top of your city page, and the top of your state page.
           </p>
           <p className="text-xs text-ink-soft">
             Checkout uses <strong>{email}</strong>. Keep that email on the payment page so the claim attaches to this account. You’re verified as soon as payment clears — nothing to wait on.
@@ -216,7 +215,7 @@ function ClaimPanel({ claim, subs, email, onSaved }: { claim: OwnerClaim; subs: 
           <p className="text-ink-mid">
             This claim isn’t verified yet. Subscribe at {CLAIM_PLAN.price}/month and it will be verified as soon as payment clears.
           </p>
-          <a href={listingCheckoutUrl('claim', claim.slug, email)} className="inline-block rounded-xl bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-hi">
+          <a href={listingCheckoutUrl(claim.slug, email)} className="inline-block rounded-xl bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-hi">
             Subscribe and verify — {CLAIM_PLAN.price}/mo
           </a>
         </div>
@@ -232,7 +231,7 @@ function ClaimPanel({ claim, subs, email, onSaved }: { claim: OwnerClaim; subs: 
           {claim.path && <Link href={claim.path} className="text-sm font-semibold text-brand-ink underline">View your public listing →</Link>}
           <Stats slug={claim.slug} />
           <EditForm claim={claim} onSaved={onSaved} />
-          <Upgrades slug={claim.slug} email={email} subs={subs} />
+          <Billing subs={subs} />
         </div>
       )}
     </Card>
@@ -344,13 +343,9 @@ function EditForm({ claim, onSaved }: { claim: OwnerClaim; onSaved: () => void }
   )
 }
 
-function Upgrades({ slug, email, subs }: { slug: string; email: string; subs: ListingSub[] }) {
+function Billing({ subs }: { subs: ListingSub[] }) {
   const [billing, setBilling] = useState<string | null>(null)
-  const live = (product: ListingSub['product']) => subs.find(s => s.product === product && s.live)
-  const tiers = [
-    { key: 'featured' as const, name: 'Featured', perks: 'Top of your city page, gold map pin, Featured badge.' },
-    { key: 'premium' as const, name: 'Premium', perks: 'Everything in Featured, plus the top of your state page and a spot in your city’s ramen guide.' },
-  ]
+  const on = subs.some(s => s.product === 'claim' && s.live)
   async function portal() {
     try {
       const url = await rpc<string>('listing_portal_url')
@@ -361,34 +356,15 @@ function Upgrades({ slug, email, subs }: { slug: string; email: string; subs: Li
   }
   return (
     <section>
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-ink-soft mb-3">Get in front of more diners</h3>
-      <div className="grid sm:grid-cols-2 gap-3">
-        {tiers.map(t => {
-          const p = PAID_TIER_PRICES[t.key]
-          const on = !!live(t.key) || (t.key === 'featured' && !!live('premium'))
-          return (
-            <div key={t.key} className="rounded-xl border border-line/8 p-4 flex flex-col">
-              <p className="font-semibold text-ink">{t.name} <span className="text-ink-soft font-normal">· {p.price}/{p.period}</span></p>
-              <p className="text-xs text-ink-soft">{p.withClaim}/month with your claim</p>
-              <p className="text-sm text-ink-mid flex-1 mt-1">{t.perks}</p>
-              {on ? (
-                <p className="mt-3 text-sm font-semibold text-green-800">On</p>
-              ) : (
-                <a href={listingCheckoutUrl(t.key, slug, email)} className="mt-3 block text-center rounded-lg bg-brand px-4 py-2.5 text-sm font-bold text-white hover:bg-brand-hi">Add {t.name}</a>
-              )}
-            </div>
-          )
-        })}
-      </div>
-      <p className="mt-3 text-sm text-ink-mid">
-        Homepage billboard <span className="text-ink-soft">· {BILLBOARD_PRICE}/{BILLBOARD_PERIOD}</span>
-        {live('billboard') ? <span className="ml-2 font-semibold text-green-800">On</span> : (
-          <a href={listingCheckoutUrl('billboard', slug, email) || BILLBOARD_CHECKOUT_URL} className="ml-2 font-semibold text-brand-ink underline">Add the billboard</a>
-        )}
+      <h3 className="text-xs font-semibold uppercase tracking-widest text-ink-soft mb-2">Your placement</h3>
+      <p className="text-sm text-ink-mid">
+        {on
+          ? 'Featured is on: a gold crown pin on the homepage map, the top of your city page, and the top of your state page. Each spot is labelled Featured.'
+          : 'Featured placement turns on with your subscription: a gold crown pin on the homepage map, the top of your city page, and the top of your state page.'}
       </p>
       <button type="button" onClick={() => void portal()} className="mt-3 text-sm text-ink-soft underline">Manage billing or cancel</button>
       {billing && <p className="mt-1 text-sm text-red-600">{billing}</p>}
-      <p className="mt-2 text-xs text-ink-soft">Featured and Premium turn on as soon as checkout finishes. Stripe emails receipts and renewal notices.</p>
+      <p className="mt-2 text-xs text-ink-soft">Stripe emails receipts and renewal notices.</p>
     </section>
   )
 }

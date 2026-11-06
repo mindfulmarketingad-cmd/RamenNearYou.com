@@ -87,13 +87,12 @@ export default function ClaimSearch() {
 
         {/* Upgrade offer after the listing is added. */}
         <div className="max-w-sm mx-auto mb-6 rounded-xl border border-amber-400/50 bg-amber-500/10 p-4 text-left">
-          <p className="text-sm font-semibold text-ink mb-1">Want to be the first shop diners see?</p>
+          <p className="text-sm font-semibold text-ink mb-1">Claim it for $49.99/month</p>
           <p className="text-xs text-ink-soft leading-relaxed mb-3">
-            Featured ($29/mo) puts you at the top of your city page with a gold map pin.
-            Premium ($79/mo) adds your state page and city ramen guide. Optional, cancel anytime.
+            That includes a gold crown pin on the homepage map and Featured placement at the top of your city and state pages.
           </p>
-          <Link href="/featured-listing" className="inline-block px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-bold transition-colors">
-            See Featured plans
+          <Link href="/claim-your-listing" className="inline-block px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-white text-xs font-bold transition-colors">
+            Claim your listing
           </Link>
         </div>
 

@@ -178,7 +178,7 @@ export default function SearchExploreLinks() {
                   { href: '/broth', label: 'Browse by broth type' },
                   { href: '/comparisons', label: 'Broth comparisons' },
                   { href: '/faq', label: 'Frequently asked questions' },
-                  { href: '/featured-listing', label: 'Get your restaurant featured' },
+                  { href: '/claim-your-listing', label: 'Claim your restaurant listing' },
                 ]}
               />
             </Group>

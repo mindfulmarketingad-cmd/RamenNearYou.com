@@ -331,9 +331,9 @@ export default function RestaurantListingPage({ r, city, state, nearby, isVerifi
                     <ul className="space-y-1.5 mb-4">
                       {[
                         '$49.99/month — sign in with your email, no password',
-                        'Verified badge on this page and the search map',
+                        'Verified badge, and a gold crown pin on the homepage map',
+                        'Featured spot at the top of your city page and your state page',
                         'Edit your hours, phone, menu link and description yourself',
-                        'Ad-free listing page (no ads on your dedicated listing page)',
                       ].map((b) => (
                         <li key={b} className="flex items-start gap-2 text-xs text-ink">
                           <span className="text-brand-ink shrink-0">✓</span>

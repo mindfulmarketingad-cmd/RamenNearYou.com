@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment, useEffect, useMemo, useState } from 'react'
+import { getFeaturedSlugSet } from '@/lib/paid-listings'
 import Link from 'next/link'
 import { List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import ListicleCard from '@/components/listicle-card'
@@ -136,8 +137,8 @@ export default function PseoListicle({
       const slugs = new Set<string>()
       for (const row of feed.live) {
         if (feed.lapsed.has(row.slug)) continue
-        const pin = placementPin === 'state' ? row.tier === 'premium' : (row.tier === 'featured' || row.tier === 'premium')
-        if (pin) slugs.add(row.slug)
+        if (row.tier === 'featured' || row.tier === 'premium') slugs.add(row.slug)
+      for (const slug of getFeaturedSlugSet()) slugs.add(slug)
       }
       setLivePins(slugs)
     }).catch(() => {})

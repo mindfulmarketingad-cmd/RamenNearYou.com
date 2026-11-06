@@ -16,7 +16,8 @@
 --
 -- Stripe (live):
 --   Claim    prod_Va2SyTAj3XBfep  price_1UYsNILlgxXvIOfePjTxwMqP  plink_1UYsNULlgxXvIOfeAIQZ8BV5  $49.99/mo
---   Featured $29/mo (2900)   Premium $79/mo (7900)   Billboard $99/mo (9900)
+--   That one subscription is the Featured placement (map pin, city page, state page).
+--   Older $29 / $79 / $99 prices are not accepted.
 --   No trial. payment_status must be 'paid'.
 -- ════════════════════════════════════════════════════════════════════════════
 
@@ -84,11 +85,7 @@ returns text language sql immutable as $$
     when p_price_id in ('price_1UYGQCLlgxXvIOfeP6P9UHDx', 'price_1UYGQELlgxXvIOfeYFVTXUfa') then null
     when coalesce(p_name, '') ~* 'ramen pass' then null
     when p_price_id = 'price_1UYsNILlgxXvIOfePjTxwMqP' then 'claim'
-    when coalesce(p_interval, '') <> 'month' then null
-    when p_amount = 4999 then 'claim'
-    when p_amount = 2900 then 'featured'
-    when p_amount = 7900 then 'premium'
-    when p_amount = 9900 then 'billboard'
+    when coalesce(p_interval, '') = 'month' and p_amount = 4999 then 'claim'
     else null
   end
 $$;
@@ -219,47 +216,21 @@ begin
     || '<p>Sign in there with this email address (' || public.rny_html(new.contact_email) || ') and you can:</p>'
     || '<ul><li>Edit your description, hours, phone, website and menu link</li>'
     || '<li>See how many people viewed your listing and tapped call, directions or reviews</li>'
-    || '<li>Show the Verified badge, with no ads on your listing page</li></ul>'
+    || '<li>Show the Verified badge</li>'
+    || '<li>Featured placement, labelled Featured / Sponsored: a gold crown pin on the homepage map, the top of your city page, and the top of your state page</li></ul>'
     || '<p>Edits to your hours and description appear with the next daily site update. '
-    || 'The verified badge is already live.</p>'
-    || '<p><strong>Want to be the first shop diners see?</strong> Add either upgrade from the dashboard:</p>'
-    || '<ul><li>Featured — $29/month ($78.99 with your claim). Top of your city page, gold map pin, Featured badge.</li>'
-    || '<li>Premium — $79/month ($128.99 with your claim). Everything in Featured, plus the top of your state page and a Featured-partner box on your city''s ramen guide.</li></ul>'
+    || 'The pin and the Featured spots are already live. New photos? Reply to this email and we will add them.</p>'
     || '<p>Stripe emails your receipts and renewal notices. You can cancel from those emails, or from the billing button on your dashboard.</p>'
     || '<p>Questions? Just reply to this email.</p>'
     || '<p>— David<br>RamenNearYou</p></div>');
   return new;
 end $$;
 
+-- Kept so older deployments can replace it. Add-on products are not sold.
 create or replace function public.rny_listing_confirm_email(p_email text, p_slug text, p_product text)
 returns void language plpgsql security definer set search_path = public as $$
-declare
-  v_name text;
-  v_label text;
-  v_what text;
 begin
-  select coalesce(name, p_slug) into v_name from public.listing_directory where restaurant_slug = p_slug;
-  v_name := public.rny_html(coalesce(v_name, p_slug));
-  if p_product = 'featured' then
-    v_label := 'Featured placement is on';
-    v_what := 'Featured ($29/month) is active. You''re at the top of your city page, with a gold map pin and a Featured badge.';
-  elsif p_product = 'premium' then
-    v_label := 'Premium placement is on';
-    v_what := 'Premium ($79/month) is active. You get Featured placement, plus the top of your state page and a Featured-partner box on your city''s ramen guide.';
-  elsif p_product = 'billboard' then
-    v_label := 'Homepage billboard subscription is active';
-    v_what := 'Your homepage billboard subscription ($99/month) is active. Stripe will email receipts and renewals. The homepage hero uses the billboard slots already published on the site.';
-  else
-    return;
-  end if;
-  perform public.rny_send_email(p_email,
-    v_label || ' — ' || coalesce(v_name, 'your listing'),
-    '<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#222;max-width:560px">'
-    || '<p>Hi,</p>'
-    || '<p>' || v_what || ' It''s on <strong>' || v_name || '</strong> now.</p>'
-    || '<p><a href="https://www.ramennearyou.com/owner" style="display:inline-block;background:#b5532a;color:#fff;padding:10px 18px;text-decoration:none;border-radius:6px;font-weight:bold">Open your owner dashboard</a></p>'
-    || '<p>Stripe emails receipts and renewal notices. Cancel anytime from those emails or the billing button on your dashboard.</p>'
-    || '<p>— David<br>RamenNearYou</p></div>');
+  return;
 end $$;
 revoke all on function public.rny_listing_confirm_email(text, text, text) from public, anon, authenticated;
 
@@ -554,12 +525,11 @@ returns json language sql stable security definer set search_path = public as $$
        )
   ),
   tiers as (
-    select s.restaurant_slug,
-           case when bool_or(s.product = 'premium') then 'premium'
-                when bool_or(s.product = 'featured') then 'featured' end as tier
+    -- The $49.99 claim is the Featured placement: gold map pin, city page, state page.
+    select s.restaurant_slug, 'featured'::text as tier
       from public.listing_subscriptions s
       join live_claim l on l.restaurant_slug = s.restaurant_slug
-     where s.product in ('featured', 'premium')
+     where s.product = 'claim'
        and public.rny_sub_is_live(s.status, s.current_period_end)
      group by s.restaurant_slug
   ),

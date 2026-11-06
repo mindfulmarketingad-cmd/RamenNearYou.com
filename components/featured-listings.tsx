@@ -48,11 +48,11 @@ export default async function FeaturedListings() {
             </h2>
           </div>
           <Link
-            href="/featured-listing"
+            href="/claim-your-listing"
             className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-brand/40 text-brand-ink text-sm font-medium rounded-lg hover:bg-brand/5 transition-colors"
           >
             <Crown className="w-3.5 h-3.5" />
-            Get Featured
+            Claim your listing
           </Link>
         </div>
 

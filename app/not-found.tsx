@@ -28,7 +28,7 @@ const SITEMAP = [
     heading: 'For Restaurants',
     links: [
       { label: 'List Your Restaurant', href: '/contact' },
-      { label: 'Get Featured', href: '/featured-listing' },
+      { label: 'Claim Your Listing', href: '/claim-your-listing' },
       { label: 'Claim Your Listing', href: '/claim-your-listing' },
     ],
   },

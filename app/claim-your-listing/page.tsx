@@ -1,6 +1,6 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { CheckCircle2, Zap, ShieldCheck, Crown, BarChart3 } from 'lucide-react'
+import { CheckCircle2, Zap, ShieldCheck, BarChart3 } from 'lucide-react'
 import ListingPlans from '@/components/listing-plans'
 import Link from 'next/link'
 import ClaimSearch from './claim-search'
@@ -8,14 +8,14 @@ import RecentlyClaimed from './recently-claimed'
 
 export const metadata = {
   title: 'Claim Your Ramen Restaurant Listing | Ramen Near You',
-  description: 'Claim your restaurant on RamenNearYou for $49.99/month. Verified badge, owner dashboard, listing analytics, and edits. Add Featured ($29/mo) or Premium ($79/mo) from the dashboard.',
+  description: 'Claim your restaurant on RamenNearYou for $49.99/month. Dashboard, analytics, verified badge, a gold crown pin on the homepage map, and Featured placement at the top of your city and state pages.',
   alternates: { canonical: 'https://www.ramennearyou.com/claim-your-listing' },
 }
 
 const BENEFITS = [
-  'Verified badge on your listing and the ramen search map',
-  'Your own owner dashboard: edit hours, phone, menu link, and description, and see your page views and call taps',
-  'An ad-free listing page — nothing competing for your customers',
+  'Verified badge, plus a gold crown pin on the homepage map',
+  'Featured placement at the top of your city page and your state page, labelled Featured',
+  'Your own owner dashboard: edit hours, phone, menu link, and description, and see page views, calls, and direction taps',
   'You control what diners see — your listing, your details',
 ]
 
@@ -42,8 +42,8 @@ const CLAIM_FAQS = [
     a: 'Use the contact page and tell us your restaurant name and address — we\'ll add it to the directory so you can claim it.',
   },
   {
-    q: 'Is Featured placement included?',
-    a: 'No. Claiming is $49.99/month and includes the verified badge, dashboard, analytics and an ad-free listing page. Featured is a $29/month add-on ($78.99 total) that puts your restaurant first on its city page, labelled Featured, with a gold map pin. Premium is a $79/month add-on ($128.99 total) and also adds your state page and your city\'s blog ramen guide. The homepage billboard ($99/month) is a separate add-on. All are monthly and cancel anytime.',
+    q: 'What does the $49.99/month include?',
+    a: 'The owner dashboard and listing analytics, a verified badge, edits to your hours and listing details, and Featured placement labelled Featured / Sponsored: a gold crown pin on the homepage map, the top of your city page, and the top of your state page. Monthly, cancel anytime.',
   },
   {
     q: 'What happens if I don\'t claim my listing?',
@@ -83,16 +83,8 @@ export default function ClaimYourListingPage() {
 
         <ClaimSearch />
 
-        {/* Featured and Premium are add-ons on the $49.99 claim. */}
-        <div id="plans" className="mt-6 scroll-mt-24 rounded-2xl border-2 border-amber-400/50 bg-gradient-to-b from-amber-50 dark:from-amber-500/10 to-transparent p-6 sm:p-8">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest">
-            <Crown className="w-3 h-3" /> Optional Upgrade
-          </span>
-          <ListingPlans showClaim={false} cardBg="bg-surface" />
-          <p className="text-xs text-ink-soft/70 mt-3">
-            These are add-ons after you claim ($49.99/month).{' '}
-            <Link href="/featured-listing" className="underline hover:text-ink">Compare all plans</Link>
-          </p>
+        <div id="plans" className="mt-6 scroll-mt-24">
+          <ListingPlans cardBg="bg-surface" />
         </div>
 
         {/* What a paid claim gets you */}

@@ -157,12 +157,10 @@ begin
       || '<p>Sign in there with this email address (' || public.rny_html(new.contact_email) || ') and you can:</p>'
       || '<ul><li>Edit your description, hours, phone, website and menu link</li>'
       || '<li>See how many people viewed your listing and tapped call, directions or reviews</li>'
-      || '<li>Show the Verified badge, with no ads on your listing page</li></ul>'
-      || '<p>Changes appear on the site with our next daily update.</p>'
-      || '<p><strong>Want to be the first shop diners see?</strong><br>'
-      || 'Featured ($29/month) puts you at the top of your city page with a gold map pin. '
-      || 'Premium ($79/month) adds your state page and your city''s ramen guide. '
-      || 'Both are in your dashboard, cancel anytime.</p>'
+      || '<li>Show the Verified badge</li>'
+      || '<li>Featured placement, labelled Featured / Sponsored: a gold crown pin on the homepage map, the top of your city page, and the top of your state page</li></ul>'
+      || '<p>Your $49.99/month subscription includes that placement. Edits appear with the next daily site update. The pin is already live.</p>'
+      || '<p>Stripe emails your receipts and renewal notices.</p>'
       || '<p>Questions? Just reply to this email.</p>'
       || '<p>— David<br>RamenNearYou</p></div>');
   elsif new.status = 'pending' then

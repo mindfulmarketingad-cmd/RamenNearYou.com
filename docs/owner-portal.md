@@ -23,18 +23,18 @@ again afterwards.
    claim immediately**. There is no pending review and no email asking David
    to approve anyone.
 5. A trigger on `claims` sends the welcome email through Resend (vault secret
-   `resend_api_key`): dashboard link, what they can edit, analytics, and the
-   Featured ($29) and Premium ($79) add-ons. It is signed David / RamenNearYou.
+   `resend_api_key`): dashboard link, what they can edit, analytics, and
+   the Featured placement the subscription includes (gold crown pin on the homepage map, top of the city page, top of the state page). It is signed David / RamenNearYou.
 6. Approved owners on /owner can:
    - edit the description, phone, website, menu link and hours
      (`save_listing_override()` → `restaurant_overrides`; the build applies them)
    - see 30-day views, call taps, direction taps and review clicks
-   - add Featured or Premium. Those checkout links also return to `/owner`,
-     and the perk shows on the site from `listing_placements()` without a deploy
+   - see Featured placement turn on from `listing_placements()` without a deploy:
+     gold crown pin on the homepage map, top of the city page, top of the state page
    - open Stripe billing to cancel
 
    Listing-detail edits appear with the next production build. The verified
-   badge, Featured pin and Premium box do not wait on that build.
+   badge and Featured pin do not wait on that build.
 
 Claims that were already approved before subscriptions (`source` is null)
 keep the dashboard. New claims are `source = 'stripe'` and lose the
@@ -83,10 +83,9 @@ Do these **in order**.
 
 `/owner/admin` can still list claims. New claims do not wait there.
 
-## Featured and Premium payment links
+## Claim payment link
 
-Point their success URL at
-`https://www.ramennearyou.com/owner?session_id={CHECKOUT_SESSION_ID}`
-if it is not already. The dashboard also scans recent Checkout Sessions for
-the signed-in email, so placement still turns on when the owner opens
-`/owner` after paying.
+https://buy.stripe.com/5kQaEY3LY7gQ3wi6dwfrW0A returns to
+`https://www.ramennearyou.com/owner?session_id={CHECKOUT_SESSION_ID}`.
+The dashboard also scans recent Checkout Sessions for the signed-in email,
+so the claim still turns on when the owner opens `/owner` after paying.
