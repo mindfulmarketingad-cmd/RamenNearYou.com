@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import { X, Check, Lock } from 'lucide-react'
-import { usePass, closeGate, FREE_SAVE_LIMIT, PASS_PRICES, PASS_TRIAL_DAYS } from '@/lib/ramen-pass'
+import { usePass, closeGate, FREE_SAVE_LIMIT, PASS_PRICES } from '@/lib/ramen-pass'
 
 // The one sign-up / upgrade card for the whole site. It only ever opens
 // because the visitor *did* something (saved a 6th spot, tapped an advanced
@@ -63,7 +63,7 @@ export default function PassGateHost() {
                 {PASS_PRICES.yearly.label}<span className="text-xs font-normal opacity-80">/yr</span>
               </Link>
             </div>
-            <p className="text-xs text-ink-soft text-center mt-3">{PASS_TRIAL_DAYS}-day free trial · cancel anytime · <Link href="/ramen-pass" onClick={closeGate} className="underline">What’s included</Link></p>
+            <p className="text-xs text-ink-soft text-center mt-3">Cancel anytime · <Link href="/ramen-pass" onClick={closeGate} className="underline">What’s included</Link></p>
           </>
         )}
       </div>

@@ -12,8 +12,8 @@
 import { useSyncExternalStore } from 'react'
 import type { Session, SupabaseClient } from '@supabase/supabase-js'
 
-import { PASS_PRICES, FREE_SAVE_LIMIT, PASS_TRIAL_DAYS, ADVANCED_FILTER_KEYS, type PassPlan } from '@/lib/ramen-pass-config'
-export { PASS_PRICES, FREE_SAVE_LIMIT, PASS_TRIAL_DAYS, ADVANCED_FILTER_KEYS, PASS_LOGIN_URL } from '@/lib/ramen-pass-config'
+import { PASS_PRICES, FREE_SAVE_LIMIT, ADVANCED_FILTER_KEYS, type PassPlan } from '@/lib/ramen-pass-config'
+export { PASS_PRICES, FREE_SAVE_LIMIT, ADVANCED_FILTER_KEYS, PASS_LOGIN_URL } from '@/lib/ramen-pass-config'
 export type { PassPlan } from '@/lib/ramen-pass-config'
 
 export type PassInfo = {
