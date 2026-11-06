@@ -79,8 +79,9 @@ export default function AdvertisePage() {
         </Link>
 
         <p className="text-center text-ink-soft text-sm leading-relaxed">
-          Own a ramen restaurant? Get placed first in your city with a{' '}
-          <Link href="/featured-listing" className="text-brand-ink font-semibold hover:underline">Featured or Premium listing</Link>.
+          Own a ramen restaurant?{' '}
+          <Link href="/claim-your-listing" className="text-brand-ink font-semibold hover:underline">Claim your listing</Link>{' '}
+          for $49.99/month. That includes a gold crown pin on the homepage map and Featured placement on your city and state pages.
           <br />
           Anything else:{' '}
           <a href={`mailto:${CONTACT_EMAIL}?subject=Advertising`} className="text-brand-ink font-semibold hover:underline">{CONTACT_EMAIL}</a>

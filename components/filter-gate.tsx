@@ -1,11 +1,7 @@
 'use client'
 
-// Filter paywall for the Ramen Pass. Basic filters (delivery, takeout, price,
-// moods…) are free for everyone; the advanced ones in ADVANCED_FILTER_KEYS
-// (broth styles, vegan/gluten-free, open now/late, extra spicy) need the Pass.
-// The upgrade card itself is rendered once, site-wide, by <PassGateHost/>
-// in the root layout, so FilterGateModals is a no-op kept for the call sites.
-// Opening the filter panel is always free — people should see what's there.
+// Filters are open to everyone. requireAccess stays so existing call sites
+// don't change; it no longer blocks anything.
 
 import { canUseFilter } from '@/lib/ramen-pass'
 

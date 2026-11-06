@@ -1,65 +1,53 @@
 # Monetization
 
-RamenNearYou is a static export (no API routes, no webhooks), so every paid
-product is a **Stripe Payment Link** and activation is a **repo edit + deploy**.
-All Stripe objects live in the Stripe account that already owns the homepage
-billboard link (Letters2numbersconverter, `acct_1MOoSILlgxXvIOfe`, live mode).
+RamenNearYou is a static export (no API routes, no webhooks). Restaurant
+owners pay with one **Stripe Payment Link**. Postgres verifies the Checkout
+Session with the Vault secret `stripe_secret_key` and turns the listing on.
+Nobody edits the repo when a customer pays.
 
-| Product | Price | Payment Link | Where the code lives |
-|---|---|---|---|
-| Claim listing | Free | — (email via `/claim-your-listing`) | `lib/verified-listings.ts` |
-| Featured listing | $29/month | https://buy.stripe.com/bJeeVegyKdFe3wi6dwfrW0s | `lib/paid-listings.ts` |
-| Premium listing | $79/month | https://buy.stripe.com/8x2fZi3LY30Aff0bxQfrW0t | `lib/paid-listings.ts` |
-| Homepage billboard (add-on) | $99/month | https://buy.stripe.com/5kQ8wQciu9oYd6SdFYfrW0n | `lib/homepage-billboard.ts` |
-| **Ramen Pass** (diner membership) | $4.99/month or $39/year, 7-day trial | monthly https://buy.stripe.com/5kQ9AUeqCbx6d6S9pIfrW0y · yearly https://buy.stripe.com/4gMfZi96i8kU5Eq0TcfrW0z | `lib/ramen-pass*.ts`, `components/pass/`, see `docs/ramen-pass.md` — activates itself (no repo edit) |
-| Tip ("Support RamenNearYou") | one-time, payer chooses ($5 preset, $3 min) | https://donate.stripe.com/bJe14ogyK7gQ8QCdFYfrW0u | `SUPPORT_TIP_URL` in `lib/paid-listings.ts` |
-| Banners / sponsored posts | quoted by email | — (`/advertise`) | hand-placed |
-| Amazon affiliate | commission | `lib/products.ts` | `components/products-carousel.tsx` |
+There is one restaurant offer: **claim a listing for $49.99/month**. That
+subscription includes Featured placement, labelled Featured / Sponsored:
 
-## What each tier gets
+- a larger gold crown pin on the homepage map (and every other map)
+- the top of the restaurant’s city page
+- the top of the restaurant’s state page
 
-- **Featured** – pinned to the top of its city page (`/find/<city>-<state>`),
-  labelled "Featured"; gold crown pin on every map; Verified + Featured badges;
-  ad-free listing page.
-- **Premium** – everything in Featured, plus the top of its state page and a
-  labelled "Featured partner" box on the city's blog ramen guide (both the
-  auto-generated city listicles and hand-written posts whose cards are mostly
-  in that city). Paid placement never changes the ranked "best" lists.
+plus the owner dashboard, listing analytics, a verified badge, and listing edits.
 
-## Activating a paid listing
+The homepage billboard in `lib/homepage-billboard.ts` is not part of this
+offer. Do not sell it, or the old $29 / $79 add-ons, on the site.
 
-1. Stripe emails you about the new subscription. The checkout asks the buyer
-   for **"Restaurant name and city"** (custom field). If they came from a link
-   with `?restaurant=<slug>`, the slug is also in the session's
-   `client_reference_id`.
-2. Find the restaurant's slug (the last part of its listing URL).
-3. Add a line to `PAID_LISTINGS` in `lib/paid-listings.ts`:
-   ```ts
-   { slug: 'shibuya-ramen-atlanta', tier: 'featured', since: '2026-11-02', stripeSubscription: 'sub_…' },
-   ```
-4. Commit, open a PR, deploy as usual. It goes live with the next deploy
-   (there is no webhook).
-5. Reply to the owner to confirm (the thank-you page tells them you will).
+Ramen Pass is no longer sold. Do not put Pass checkout or trials back on the site.
 
-**Cancelling:** when Stripe reports a cancelled subscription, delete the line
-and redeploy.
+| Product | Price | Payment Link |
+|---|---|---|
+| Claimed listing | $49.99/month, no trial | https://buy.stripe.com/5kQaEY3LY7gQ3wi6dwfrW0A — product `prod_Va2SyTAj3XBfep`, price `price_1UYsNILlgxXvIOfePjTxwMqP`, link `plink_1UYsNULlgxXvIOfeAIQZ8BV5` |
+| Tip ("Support RamenNearYou") | one-time, payer chooses | https://donate.stripe.com/bJe14ogyK7gQ8QCdFYfrW0u |
+| Banners / sponsored posts | quoted by email | `/advertise` |
+| Amazon affiliate | commission | `lib/products.ts` |
 
-Billboard slots are managed separately in `lib/homepage-billboard.ts`.
+## How activation works
 
-## Owner monthly report (drafts only)
+1. The owner signs in at `/owner?claim=<slug>`.
+2. Checkout gets `client_reference_id=<restaurant slug>` and `prefilled_email` of the signed-in account. The link returns to `https://www.ramennearyou.com/owner?session_id={CHECKOUT_SESSION_ID}`.
+3. `listing_claim_session()` loads that session from Stripe, checks it is paid, the email matches, and the price is the $49.99 claim. It writes `listing_subscriptions` and approves the claim. There is no pending queue.
+4. Opening `/owner` also runs `listing_sync_mine()`. `listing_sync_all()` runs hourly (pg_cron `rny-listing-sync`, minute 41) for renewals, cancellations, and checkouts nobody returned from.
+5. The homepage map, city pages, and state pages read `listing_placements()`. A live claim is `tier: featured`, which is the gold pin and the top-of-page spot. `PAID_LISTINGS` in `lib/paid-listings.ts` is only a manual overlay. The demo row is `shibuya-ramen-atlanta` (not a Stripe subscription).
 
-```
-SUPABASE_SERVICE_ROLE_KEY=... node scripts/owner-monthly-report.mjs [YYYY-MM]
-```
+A lapsed claim subscription drops the dashboard and the live pin. Claims approved before subscriptions (`source` is null) keep the dashboard but do not get Featured placement.
 
-Reads approved `claims` + `PAID_LISTINGS`, counts last month's listing views
-and call/directions/review taps from `ramennearyou_dashboard`, and writes
-`reports/owner-reports/<month>/summary.csv` plus one draft email per listing.
-**It never sends anything** — review and send the drafts yourself.
-`reports/` is git-ignored (owner emails).
+## Email
+
+- **Claim approved:** welcome from David / RamenNearYou with the dashboard link, analytics, and the Featured pin / city / state placement that the subscription includes.
+- **Receipts, invoices, renewal notices:** Stripe’s own customer emails.
+- Nothing is sent to David to review.
+
+## Demo
+
+`shibuya-ramen-atlanta` (Marietta, Georgia) is in `PAID_LISTINGS` so its pin is the gold crown on the homepage map and it sits at the top of the Marietta city page and the Georgia state page, labelled Featured. Its homepage billboard slot in `lib/homepage-billboard.ts` is unchanged and is not this offer.
 
 ## Rules
 
-- Always label paid placement ("Featured", "Sponsored", "Featured partner").
-- No backend: don't add API routes/webhooks (`scripts/check-static-build.mjs`).
-- Don't change prices in copy without changing them in Stripe, and vice versa.
+- Always label paid placement (“Featured”, “Sponsored”).
+- No backend: don't add API routes or webhooks (`scripts/check-static-build.mjs`).
+- Apply `supabase/listing-subscriptions.sql` after `supabase/owner-portal.sql`. Re-run the listing file if owner-portal.sql is applied again.

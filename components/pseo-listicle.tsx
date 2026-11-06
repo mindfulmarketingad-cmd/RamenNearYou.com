@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment, useEffect, useMemo, useState } from 'react'
+import { getFeaturedSlugSet } from '@/lib/paid-listings'
 import Link from 'next/link'
 import { List as ListIcon, Map as MapIcon, Navigation } from 'lucide-react'
 import ListicleCard from '@/components/listicle-card'
@@ -103,6 +104,8 @@ interface Props {
    *  Left unset on pages that aren't about one city (state, nationwide). */
   guideCityLabel?: string | null
   guideCitySlug?: string | null
+  /** Pin live Featured (city) or Premium (state) subscriptions to the top. */
+  placementPin?: 'city' | 'state'
 }
 
 export default function PseoListicle({
@@ -123,7 +126,28 @@ export default function PseoListicle({
   pageSize,
   guideCityLabel,
   guideCitySlug,
+  placementPin,
 }: Props) {
+  const [livePins, setLivePins] = useState<Set<string> | null>(null)
+  useEffect(() => {
+    if (!placementPin) return
+    let cancelled = false
+    import('@/lib/live-placements').then(({ loadPlacements }) => loadPlacements()).then(feed => {
+      if (cancelled) return
+      const slugs = new Set<string>()
+      for (const row of feed.live) {
+        if (feed.lapsed.has(row.slug)) continue
+        if (row.tier === 'featured' || row.tier === 'premium') slugs.add(row.slug)
+      for (const slug of getFeaturedSlugSet()) slugs.add(slug)
+      }
+      setLivePins(slugs)
+    }).catch(() => {})
+    return () => { cancelled = true }
+  }, [placementPin])
+  const pinnedItems = useMemo(() => {
+    if (!livePins) return items
+    return items.map(it => livePins.has(it.key) ? { ...it, featured: true } : it)
+  }, [items, livePins])
   const [view, setView] = useState<'list' | 'map'>('list')
   const [query, setQuery] = useState('')
   const [attraction, setAttraction] = useState('all')
@@ -179,7 +203,7 @@ export default function PseoListicle({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    let list = items.filter(it => {
+    let list = pinnedItems.filter(it => {
       if (attraction !== 'all' && !(it.tags ?? []).some(t => t.label === attraction)) return false
       if (stateFilter !== 'all' && stateCodeOf(it.locationLabel) !== stateFilter) return false
       if (cityFilter !== 'all' && it.locationLabel !== cityFilter) return false
@@ -206,7 +230,7 @@ export default function PseoListicle({
       list = [...list.filter(it => it.featured), ...list.filter(it => !it.featured)]
     }
     return list
-  }, [items, query, attraction, stateFilter, cityFilter, sort, userLoc, maxDistanceMiles])
+  }, [pinnedItems, query, attraction, stateFilter, cityFilter, sort, userLoc, maxDistanceMiles])
 
   function handleReset() {
     setQuery('')

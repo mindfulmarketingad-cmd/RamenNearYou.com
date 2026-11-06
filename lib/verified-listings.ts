@@ -27,10 +27,33 @@ export async function getAllVerifiedSlugs(): Promise<Set<string>> {
   if (admin) {
     const { data, error } = await admin
       .from('claims')
-      .select('restaurant_slug')
+      .select('restaurant_slug, source')
       .eq('status', 'approved')
     if (!error && data) {
+      const stripeSlugs = data.filter(row => row.source === 'stripe').map(row => row.restaurant_slug)
+      let livePaid = new Set<string>(stripeSlugs)
+      if (stripeSlugs.length) {
+        const { data: subs, error: subErr } = await admin
+          .from('listing_subscriptions')
+          .select('restaurant_slug, status, current_period_end')
+          .eq('product', 'claim')
+          .in('restaurant_slug', stripeSlugs)
+        if (!subErr && subs) {
+          const now = Date.now() - 2 * 864e5
+          livePaid = new Set(subs.filter(s =>
+            (s.status === 'active' || s.status === 'past_due')
+            && (!s.current_period_end || new Date(s.current_period_end).getTime() > now)
+          ).map(s => s.restaurant_slug))
+        }
+      }
       for (const row of data) {
+        if (!row.restaurant_slug) continue
+        if (row.source === 'stripe' && !livePaid.has(row.restaurant_slug)) continue
+        slugs.add(row.restaurant_slug)
+      }
+    } else {
+      const fallback = await admin.from('claims').select('restaurant_slug').eq('status', 'approved')
+      for (const row of fallback.data ?? []) {
         if (row.restaurant_slug) slugs.add(row.restaurant_slug)
       }
     }

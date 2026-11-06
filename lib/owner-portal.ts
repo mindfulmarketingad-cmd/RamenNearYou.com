@@ -47,6 +47,22 @@ const MESSAGES: Record<string, string> = {
   bad_hours: 'Hours look off — use something like “11:30 AM – 9 PM” for each day.',
   too_long: 'One of the fields is too long.',
   not_found: 'That claim no longer exists.',
+  payment_required: 'Claiming is $49.99/month. Subscribe to verify this listing.',
+  checkout_incomplete: 'Stripe hasn’t finished that checkout yet. Refresh in a minute.',
+  session_not_yours: 'That checkout used a different email. Sign in with the email you paid with.',
+  bad_session: 'We couldn’t find that checkout.',
+  not_listing_product: 'That payment isn’t a listing subscription.',
+  stripe_not_configured: 'Payments are being switched on. Try again shortly.',
+  no_billing: 'No billing account yet.',
+}
+
+export type ListingSub = {
+  slug: string
+  product: 'claim' | 'featured' | 'premium' | 'billboard'
+  status: string
+  current_period_end: string | null
+  cancel_at_period_end: boolean
+  live: boolean
 }
 
 export function portalError(e: unknown): string {

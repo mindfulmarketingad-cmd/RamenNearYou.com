@@ -1,6 +1,5 @@
 'use client'
 
-import DealForm from '@/components/owner/deal-form'
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -8,18 +7,17 @@ import type { Session } from '@supabase/supabase-js'
 import { BadgeCheck, Clock, Eye, Loader2, MapPin, Phone, Star, XCircle } from 'lucide-react'
 import {
   DAYS, portalError, rpc, supabase,
-  type ListingStats, type OwnerClaim, type PortalListing,
+  type ListingStats, type ListingSub, type OwnerClaim, type PortalListing,
 } from '@/lib/owner-portal'
-import { PAID_TIER_PRICES } from '@/lib/paid-listings'
+import { CLAIM_PLAN, listingCheckoutUrl } from '@/lib/paid-listings'
 import { claimMailto, CONTACT_EMAIL } from '@/lib/mailto'
 import SignIn from './sign-in'
 
 // The owner portal (/owner). Static page; everything happens in the browser
 // against Supabase RPCs that enforce the rules server-side
 // (supabase/owner-portal.sql):
-//   ?claim=<slug>  → sign in, then claim_listing(slug). Auto-approved when
-//                    the verified email domain matches the listing's website,
-//                    otherwise queued for review.
+//   ?claim=<slug>  → sign in, then pay $49.99/month. Checkout returns to
+//                    /owner?session_id=… and listing_claim_session approves it.
 //   (no param)     → the owner's dashboard: claims, stats, edit form, upgrades.
 
 type Portal = { ready: boolean; listing: PortalListing | null; claimed: boolean }
@@ -27,6 +25,7 @@ type Portal = { ready: boolean; listing: PortalListing | null; claimed: boolean 
 export default function OwnerApp() {
   const params = useSearchParams()
   const claimSlug = (params.get('claim') ?? '').trim().toLowerCase()
+  const sessionId = params.get('session_id') ?? ''
   const fallbackName = params.get('name') ?? ''
   const fallbackCity = params.get('city') ?? ''
   const fallbackState = params.get('st') ?? ''
@@ -69,7 +68,9 @@ export default function OwnerApp() {
     )
   }
 
-  const redirectPath = claimSlug ? `/owner?claim=${encodeURIComponent(claimSlug)}` : '/owner'
+  const redirectPath = sessionId
+    ? `/owner?session_id=${encodeURIComponent(sessionId)}`
+    : claimSlug ? `/owner?claim=${encodeURIComponent(claimSlug)}` : '/owner'
 
   if (!session) {
     return (
@@ -81,7 +82,7 @@ export default function OwnerApp() {
             <h2 className="font-serif text-2xl font-bold text-ink">{name ? `Claim ${name}` : 'Owner sign-in'}</h2>
             <p className="mt-1 text-ink-mid text-sm">
               {name
-                ? 'Sign in with your email to claim this listing. It’s free, and there’s no password to remember.'
+                ? `Sign in with your email, then subscribe for ${CLAIM_PLAN.price}/month. There’s no password to remember.`
                 : 'Sign in to manage your RamenNearYou listing.'}
             </p>
           </div>
@@ -90,21 +91,54 @@ export default function OwnerApp() {
     )
   }
 
-  return <Dashboard session={session} claimSlug={claimSlug} listing={listing} claimedByOther={portal.claimed} />
+  return <Dashboard session={session} claimSlug={claimSlug} sessionId={sessionId} listing={listing} claimedByOther={portal.claimed} />
 }
 
-function Dashboard({ session, claimSlug, listing, claimedByOther }: {
-  session: Session; claimSlug: string; listing: PortalListing | null; claimedByOther: boolean
+function Dashboard({ session, claimSlug, sessionId, listing, claimedByOther }: {
+  session: Session; claimSlug: string; sessionId: string; listing: PortalListing | null; claimedByOther: boolean
 }) {
   const [claims, setClaims] = useState<OwnerClaim[] | null>(null)
+  const [subs, setSubs] = useState<ListingSub[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState(!!sessionId)
 
   const load = useCallback(() => {
     rpc<OwnerClaim[]>('my_claims').then(c => setClaims(c ?? [])).catch(e => setError(portalError(e)))
+    rpc<ListingSub[]>('my_listing_subscriptions').then(s => setSubs(s ?? [])).catch(() => {})
   }, [])
   useEffect(load, [load])
 
-  const pendingClaim = claimSlug && claims && !claims.some(c => c.slug === claimSlug) ? claimSlug : null
+  useEffect(() => {
+    let cancelled = false
+    async function confirm() {
+      try {
+        if (sessionId) {
+          const result = await rpc<{ ok?: boolean; claim?: string; product?: string }>('listing_claim_session', { p_session_id: sessionId })
+          if (!cancelled) {
+            if (result?.claim === 'already_claimed') setNotice('That listing is already claimed by someone else. Use billing below if you need to cancel this charge.')
+            else if (result?.product === 'claim') setNotice('You’re verified. Your dashboard is ready.')
+            else if (result?.product) setNotice('That upgrade is on.')
+          }
+        }
+        try { await rpc('listing_sync_mine') } catch { /* the session check above is the one that matters */ }
+      } catch (err) {
+        if (!cancelled && sessionId) setError(portalError(err))
+      } finally {
+        if (!cancelled) {
+          setConfirming(false)
+          if (sessionId) window.history.replaceState(null, '', '/owner')
+          load()
+        }
+      }
+    }
+    void confirm()
+    return () => { cancelled = true }
+    // sessionId is the checkout return; sync once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId])
+
+  const pendingClaim = claimSlug && claims && !claims.some(c => c.slug === claimSlug && c.status !== 'rejected') ? claimSlug : null
 
   return (
     <div className="space-y-6">
@@ -113,16 +147,18 @@ function Dashboard({ session, claimSlug, listing, claimedByOther }: {
         <button onClick={() => supabase().auth.signOut()} className="text-sm text-ink-soft underline">Sign out</button>
       </div>
 
+      {confirming && <Card><p className="text-ink-mid flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Confirming your payment…</p></Card>}
+      {notice && <Card><p className="text-green-800">{notice}</p></Card>}
       {error && <Card><p className="text-red-600">{error}</p></Card>}
       {claims === null && !error && <Spinner />}
 
       {pendingClaim && (
         listing
-          ? <ClaimCard listing={listing} email={session.user.email ?? ''} claimedByOther={claimedByOther} onDone={load} />
+          ? <ClaimCard listing={listing} email={session.user.email ?? ''} claimedByOther={claimedByOther} />
           : <Card><p className="text-ink-mid">We couldn’t find that listing. <Link className="underline" href="/claim-your-listing">Search for your restaurant</Link>.</p></Card>
       )}
 
-      {claims?.map(c => <ClaimPanel key={c.id} claim={c} email={session.user.email ?? ''} onSaved={load} />)}
+      {claims?.map(c => <ClaimPanel key={c.id} claim={c} subs={subs.filter(s => s.slug === c.slug)} email={session.user.email ?? ''} onSaved={load} />)}
 
       {claims && claims.length === 0 && !pendingClaim && (
         <Card>
@@ -135,28 +171,10 @@ function Dashboard({ session, claimSlug, listing, claimedByOther }: {
   )
 }
 
-function ClaimCard({ listing, email, claimedByOther, onDone }: {
-  listing: PortalListing; email: string; claimedByOther: boolean; onDone: () => void
+function ClaimCard({ listing, email, claimedByOther }: {
+  listing: PortalListing; email: string; claimedByOther: boolean
 }) {
-  const [contactName, setContactName] = useState('')
-  const [message, setMessage] = useState('')
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  async function claim(e: React.FormEvent) {
-    e.preventDefault()
-    setBusy(true); setError(null)
-    try {
-      await rpc('claim_listing', { p_slug: listing.slug, p_contact_name: contactName, p_message: message })
-      window.history.replaceState(null, '', '/owner')
-      onDone()
-    } catch (err) {
-      setError(portalError(err))
-    } finally {
-      setBusy(false)
-    }
-  }
-
+  const pay = listingCheckoutUrl(listing.slug, email)
   return (
     <Card>
       <h2 className="font-serif text-2xl font-bold text-ink">Claim {listing.name}</h2>
@@ -164,27 +182,23 @@ function ClaimCard({ listing, email, claimedByOther, onDone }: {
       {claimedByOther ? (
         <p className="text-ink-mid">This listing has already been claimed. If you’re the owner and that’s news to you, reply to any RamenNearYou email or write to {CONTACT_EMAIL}.</p>
       ) : (
-        <form onSubmit={claim} className="space-y-3">
-          <Field label="Your name"><input value={contactName} onChange={e => setContactName(e.target.value)} maxLength={120} className={input} placeholder="Jane Tanaka" /></Field>
-          <Field label="Your role & anything that helps us verify you (optional)">
-            <textarea value={message} onChange={e => setMessage(e.target.value)} maxLength={1000} rows={2} className={input} placeholder="Owner since 2019 — the number on the listing rings my cell." />
-          </Field>
-          <p className="text-xs text-ink-soft">
-            {listing.has_website
-              ? <>If <strong>{email}</strong> is at your restaurant’s website domain you’ll be verified instantly. Otherwise we’ll review it by hand, usually within a day.</>
-              : <>We’ll review this claim by hand, usually within a day, and email {email} when it’s done.</>}
+        <div className="space-y-3">
+          <p className="text-ink-mid">
+            <strong className="text-ink">{CLAIM_PLAN.price}/{CLAIM_PLAN.period}</strong>. You get the verified badge, this dashboard (edits plus views, calls, and directions), and Featured placement: a gold crown pin on the homepage map, the top of your city page, and the top of your state page.
           </p>
-          <button disabled={busy} className="rounded-xl bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-hi disabled:opacity-60">
-            {busy ? 'Claiming…' : 'Claim this listing'}
-          </button>
-          {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
-        </form>
+          <p className="text-xs text-ink-soft">
+            Checkout uses <strong>{email}</strong>. Keep that email on the payment page so the claim attaches to this account. You’re verified as soon as payment clears — nothing to wait on.
+          </p>
+          <a href={pay} className="inline-block rounded-xl bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-hi">
+            Subscribe and claim — {CLAIM_PLAN.price}/mo
+          </a>
+        </div>
       )}
     </Card>
   )
 }
 
-function ClaimPanel({ claim, email, onSaved }: { claim: OwnerClaim; email: string; onSaved: () => void }) {
+function ClaimPanel({ claim, subs, email, onSaved }: { claim: OwnerClaim; subs: ListingSub[]; email: string; onSaved: () => void }) {
   const where = [claim.city, claim.state_code].filter(Boolean).join(', ')
   return (
     <Card>
@@ -197,10 +211,14 @@ function ClaimPanel({ claim, email, onSaved }: { claim: OwnerClaim; email: strin
       </div>
 
       {claim.status === 'pending' && (
-        <p className="text-ink-mid">
-          Thanks! We’re checking that you’re the owner — usually within a day. We’ll email <strong>{email}</strong> as soon as it’s approved,
-          and this page will unlock editing and your stats.
-        </p>
+        <div className="space-y-3">
+          <p className="text-ink-mid">
+            This claim isn’t verified yet. Subscribe at {CLAIM_PLAN.price}/month and it will be verified as soon as payment clears.
+          </p>
+          <a href={listingCheckoutUrl(claim.slug, email)} className="inline-block rounded-xl bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-hi">
+            Subscribe and verify — {CLAIM_PLAN.price}/mo
+          </a>
+        </div>
       )}
       {claim.status === 'rejected' && (
         <p className="text-ink-mid">
@@ -213,8 +231,7 @@ function ClaimPanel({ claim, email, onSaved }: { claim: OwnerClaim; email: strin
           {claim.path && <Link href={claim.path} className="text-sm font-semibold text-brand-ink underline">View your public listing →</Link>}
           <Stats slug={claim.slug} />
           <EditForm claim={claim} onSaved={onSaved} />
-          <DealForm slug={claim.slug} />
-          <Upgrades slug={claim.slug} email={email} />
+          <Billing subs={subs} />
         </div>
       )}
     </Card>
@@ -326,28 +343,28 @@ function EditForm({ claim, onSaved }: { claim: OwnerClaim; onSaved: () => void }
   )
 }
 
-function Upgrades({ slug, email }: { slug: string; email: string }) {
-  const link = (url: string) => `${url}?client_reference_id=${encodeURIComponent(slug)}&prefilled_email=${encodeURIComponent(email)}`
-  const tiers = [
-    { key: 'featured' as const, name: 'Featured', perks: 'Top of your city page, gold map pin, Featured badge.' },
-    { key: 'premium' as const, name: 'Premium', perks: 'Everything in Featured, plus the top of your state page and a spot in your city’s ramen guide.' },
-  ]
+function Billing({ subs }: { subs: ListingSub[] }) {
+  const [billing, setBilling] = useState<string | null>(null)
+  const on = subs.some(s => s.product === 'claim' && s.live)
+  async function portal() {
+    try {
+      const url = await rpc<string>('listing_portal_url')
+      if (url) window.location.href = url
+    } catch (err) {
+      setBilling(portalError(err))
+    }
+  }
   return (
     <section>
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-ink-soft mb-3">Get in front of more diners</h3>
-      <div className="grid sm:grid-cols-2 gap-3">
-        {tiers.map(t => {
-          const p = PAID_TIER_PRICES[t.key]
-          return (
-            <div key={t.key} className="rounded-xl border border-line/8 p-4 flex flex-col">
-              <p className="font-semibold text-ink">{t.name} <span className="text-ink-soft font-normal">· {p.price}/{p.period}</span></p>
-              <p className="text-sm text-ink-mid flex-1 mt-1">{t.perks}</p>
-              <a href={link(p.checkoutUrl)} className="mt-3 block text-center rounded-lg bg-brand px-4 py-2.5 text-sm font-bold text-white hover:bg-brand-hi">Upgrade to {t.name}</a>
-            </div>
-          )
-        })}
-      </div>
-      <p className="mt-2 text-xs text-ink-soft">Cancel anytime. Upgrades switch on within a day of payment.</p>
+      <h3 className="text-xs font-semibold uppercase tracking-widest text-ink-soft mb-2">Your placement</h3>
+      <p className="text-sm text-ink-mid">
+        {on
+          ? 'Featured is on: a gold crown pin on the homepage map, the top of your city page, and the top of your state page. Each spot is labelled Featured.'
+          : 'Featured placement turns on with your subscription: a gold crown pin on the homepage map, the top of your city page, and the top of your state page.'}
+      </p>
+      <button type="button" onClick={() => void portal()} className="mt-3 text-sm text-ink-soft underline">Manage billing or cancel</button>
+      {billing && <p className="mt-1 text-sm text-red-600">{billing}</p>}
+      <p className="mt-2 text-xs text-ink-soft">Stripe emails receipts and renewal notices.</p>
     </section>
   )
 }

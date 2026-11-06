@@ -21,7 +21,6 @@ const footerLinks = {
   ],
   Restaurants: [
     { label: 'Claim Your Listing', href: '/claim-your-listing' },
-    { label: 'Featured & Premium Plans', href: '/featured-listing' },
     { label: 'Advertise With Us', href: '/advertise' },
     { label: 'Become an Ambassador', href: '/ambassador' },
   ],

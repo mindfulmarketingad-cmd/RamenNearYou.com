@@ -444,7 +444,26 @@ export default function HomeMapHero({
         clearTimeout(timer)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const d: MapPoint[] = await res.json()
-        if (!cancelled) { setData(d); setDataError(false); setDataLoading(false) }
+        if (cancelled) return
+        const { getPaidTier } = await import('@/lib/paid-listings')
+        const seeded = d.map(p => (getPaidTier(p.slug) ? { ...p, featured: true } : p))
+        setData(seeded); setDataError(false); setDataLoading(false)
+        try {
+          const { loadPlacements, placementBySlug, displayTier } = await import('@/lib/live-placements')
+          const feed = await loadPlacements()
+          if (cancelled) return
+          const bySlug = placementBySlug(feed)
+          setData(d.map(p => {
+            const row = bySlug.get(p.slug)
+            const lapsed = feed.lapsed.has(p.slug)
+            const tier = displayTier(p.slug, lapsed ? null : row?.tier)
+            return {
+              ...p,
+              featured: !!tier || undefined,
+              claimed: lapsed ? undefined : (p.claimed || row?.claim || undefined),
+            }
+          }))
+        } catch { /* baked-in flags stay */ }
       } catch {
         clearTimeout(timer)
         if (cancelled) return
@@ -1707,7 +1726,7 @@ export default function HomeMapHero({
                     </button>
                     {r.featured && (
                       <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#f5b301] to-[#d4880b] text-white text-[10px] font-bold uppercase tracking-wide shadow-sm">
-                        👑 #1 Featured
+                        👑 Featured · Sponsored
                       </span>
                     )}
                   </div>

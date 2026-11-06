@@ -7,7 +7,7 @@ import { Spinner } from '@/components/owner/owner-app'
 
 export const metadata: Metadata = {
   title: 'Your account — RamenNearYou',
-  description: 'Your saved ramen spots, passport, lists and Ramen Pass membership.',
+  description: 'Your saved ramen spots, passport and lists.',
   robots: { index: false, follow: false },
   alternates: { canonical: '/account' },
 }

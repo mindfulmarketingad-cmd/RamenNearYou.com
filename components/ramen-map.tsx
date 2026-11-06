@@ -402,7 +402,7 @@ export default function RamenMap({ restaurants, userLat, userLng, initialZoom = 
         marker
           .bindPopup(`
             <div style="min-width:160px">
-              ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED</span><br/>` : ''}
+              ${r.featured ? `<span style="display:inline-block;font-size:9px;font-weight:700;color:#d4880b;background:#fff7e0;border:1px solid #f5b301;border-radius:4px;padding:1px 5px;margin-bottom:3px">👑 FEATURED · SPONSORED</span><br/>` : ''}
               <a href="${siteUrl}" target="${linkTarget}" rel="noopener noreferrer" data-ramen-slug="${r.slug}" style="font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;cursor:pointer" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='var(--ink)'">${r.name}</a><br/>
               <span style="font-size:11px;color:var(--ink-soft)">${r.city}, ${r.stateCode}</span>
               ${r.rating ? `<br/><span style="font-size:11px;color:${accentColor}">${r.rating.toFixed(1)}${r.reviewCount ? ` (${r.reviewCount.toLocaleString()})` : ''}</span>` : ''}

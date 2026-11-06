@@ -2,17 +2,15 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { Loader2, Heart, Stamp, Map as MapIcon, Tag, Mail, Crown, Trash2, Plus, LogOut, Lock } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { Loader2, Heart, Stamp, Map as MapIcon, Mail, Trash2, Plus, LogOut } from 'lucide-react'
 import SignIn from '@/components/owner/sign-in'
 import {
-  usePass, initPass, refresh, sb, signOut, toggleSave, checkoutUrl, afterCheckoutClaim, passError,
-  FREE_SAVE_LIMIT, PASS_PRICES, PASS_TRIAL_DAYS, type PassInfo, type PassPlan,
+  usePass, initPass, sb, signOut, toggleSave, passError,
 } from '@/lib/ramen-pass'
 
 type Spot = { slug: string; name: string | null; city: string | null; state_code: string | null; path: string | null }
 type CheckIn = Spot & { id: number; bowl: string | null; note: string | null; at: string }
-type Deal = Spot & { deal: string; fine_print: string | null }
 type List = { id: string; name: string; city: string | null; trip_date: string | null; notes: string | null; pass_list_items: { restaurant_slug: string; note: string | null; position: number }[] }
 
 const box = 'bg-surface border border-line/8 rounded-2xl p-5 sm:p-6'
@@ -39,33 +37,14 @@ function badgesFor(c: CheckIn[]) {
 
 export default function AccountApp() {
   const params = useSearchParams()
-  const router = useRouter()
-  const { ready, session, pass } = usePass()
-  const [claim, setClaim] = useState<{ busy: boolean; msg?: string; ok?: boolean } | null>(null)
+  const { ready, session } = usePass()
 
   // sb() also subscribes to auth changes, so finishing sign-in (code,
   // magic link or Google) flips this page to the signed-in view.
   useEffect(() => { void initPass(); void sb() }, [])
 
-  const plan = (params.get('plan') === 'monthly' || params.get('plan') === 'yearly' ? params.get('plan') : null) as PassPlan | null
-  const sessionId = params.get('session_id')
   const next = params.get('next')
   const here = `/account${params.toString() ? `?${params.toString()}` : ''}`
-
-  // Back from Stripe Checkout: link the subscription to this account.
-  useEffect(() => {
-    if (!session || !sessionId || claim) return
-    setClaim({ busy: true })
-    ;(async () => {
-      const c = await sb()
-      const { data, error } = await c.rpc('pass_claim_session', { p_session_id: sessionId })
-      if (error) { setClaim({ busy: false, msg: passError(error) }); return }
-      afterCheckoutClaim(data as PassInfo)
-      await refresh(true)
-      setClaim({ busy: false, ok: true, msg: 'Welcome to the Ramen Pass! Everything is unlocked.' })
-      router.replace('/account')
-    })()
-  }, [session, sessionId, claim, router])
 
   if (!ready) return <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-ink-soft" /></div>
 
@@ -75,15 +54,11 @@ export default function AccountApp() {
         redirectPath={here}
         label="Your email"
         placeholder="you@example.com"
-        hint="No password — we email you a link and a 6-digit code. Free accounts get 5 saves, check-ins and badges."
+        hint="No password — we email you a link and a 6-digit code."
         intro={
           <div className="mb-5">
-            <h2 className="font-serif text-2xl font-bold text-ink">{plan ? 'First, create your free account' : 'Sign in or create a free account'}</h2>
-            <p className="text-sm text-ink-mid mt-1">
-              {plan
-                ? `Then you’ll start your ${PASS_TRIAL_DAYS}-day free trial of the Ramen Pass (${PASS_PRICES[plan].label}/${PASS_PRICES[plan].per} after).`
-                : 'Save spots, check in to bowls and earn badges.'}
-            </p>
+            <h2 className="font-serif text-2xl font-bold text-ink">Sign in or create a free account</h2>
+            <p className="text-sm text-ink-mid mt-1">Save spots, check in to bowls and earn badges.</p>
           </div>
         }
       />
@@ -92,20 +67,13 @@ export default function AccountApp() {
 
   return (
     <div className="space-y-5">
-      {claim && (
-        <div className={`rounded-xl p-4 text-sm ${claim.ok ? 'bg-green-50 text-green-900 border border-green-200' : claim.busy ? 'bg-sunken text-ink' : 'bg-red-50 text-red-900 border border-red-200'}`}>
-          {claim.busy ? 'Activating your Ramen Pass…' : claim.msg}
-        </div>
-      )}
       {next && next.startsWith('/') && !next.startsWith('//') && (
         <Link href={next} className="block text-sm text-brand-ink font-semibold">← Back to where you were</Link>
       )}
-      <PlanCard pass={pass} plan={plan} />
       <Saves />
-      <Passport active={!!pass?.active} />
-      <Lists active={!!pass?.active} />
-      <Deals active={!!pass?.active} />
-      <Settings active={!!pass?.active} />
+      <Passport />
+      <Lists />
+      <Settings />
       <div className="flex items-center justify-between text-sm text-ink-soft">
         <span>Signed in as {session.user.email}</span>
         <button onClick={() => void signOut()} className="inline-flex items-center gap-1 underline"><LogOut className="w-4 h-4" /> Sign out</button>
@@ -114,64 +82,8 @@ export default function AccountApp() {
   )
 }
 
-function PlanCard({ pass, plan }: { pass: PassInfo | null; plan: PassPlan | null }) {
-  const { session } = usePass()
-  const [busy, setBusy] = useState(false)
-  const [err, setErr] = useState<string | null>(null)
-
-  async function portal() {
-    setBusy(true); setErr(null)
-    const c = await sb()
-    const { data, error } = await c.rpc('pass_portal_url')
-    setBusy(false)
-    if (error || !data) setErr(passError(error)); else window.location.href = data as string
-  }
-
-  if (pass?.active) {
-    return (
-      <div className={`${box} border-brand/30`}>
-        <div className="flex items-center gap-2 text-brand-ink font-semibold"><Crown className="w-5 h-5" /> Ramen Pass {pass.status === 'trialing' ? '— free trial' : 'member'}</div>
-        <p className="text-sm text-ink-mid mt-1">
-          {pass.plan === 'yearly' ? `${PASS_PRICES.yearly.label}/year` : `${PASS_PRICES.monthly.label}/month`}
-          {pass.current_period_end && (pass.cancel_at_period_end
-            ? ` · ends ${fmtDate(pass.current_period_end)} (won’t renew)`
-            : ` · ${pass.status === 'trialing' ? 'first charge' : 'renews'} ${fmtDate(pass.current_period_end)}`)}
-          {pass.status === 'past_due' && ' · payment failed — please update your card'}
-        </p>
-        <button onClick={portal} disabled={busy} className={`${btn} mt-4 border border-line/15 text-ink hover:bg-sunken`}>
-          {busy && <Loader2 className="w-4 h-4 animate-spin" />} Manage billing or cancel
-        </button>
-        {err && <p className="text-sm text-red-700 mt-2">{err}</p>}
-      </div>
-    )
-  }
-
-  const order: PassPlan[] = plan === 'monthly' ? ['monthly', 'yearly'] : ['yearly', 'monthly']
-  return (
-    <div className={box}>
-      <div className="flex items-center gap-2 font-semibold text-ink"><Crown className="w-5 h-5 text-brand-ink" /> Free account</div>
-      <p className="text-sm text-ink-mid mt-1">
-        Upgrade to the Ramen Pass for unlimited saves, every filter, trip lists, member deals and no ads.
-        {pass?.has_billing && pass.status === 'canceled' && ' Your previous Pass has ended.'}
-      </p>
-      <div className="mt-4 grid sm:grid-cols-2 gap-3">
-        {order.map((p, i) => (
-          <a key={p} href={checkoutUrl(p, session)} className={`${btn} py-3 ${i === 0 ? 'bg-brand text-white hover:bg-brand-hi' : 'border border-line/15 text-ink hover:bg-sunken'}`}>
-            Start free trial · {PASS_PRICES[p].label}/{PASS_PRICES[p].per === 'month' ? 'mo' : 'yr'}
-          </a>
-        ))}
-      </div>
-      <p className="text-xs text-ink-soft mt-3">{PASS_TRIAL_DAYS} days free, then billed by Stripe. Cancel anytime before the trial ends and you won’t be charged. <Link href="/ramen-pass" className="underline">Compare plans</Link></p>
-      {pass?.has_billing && (
-        <button onClick={portal} disabled={busy} className="text-xs underline text-ink-soft mt-2">Billing history</button>
-      )}
-      {err && <p className="text-sm text-red-700 mt-2">{err}</p>}
-    </div>
-  )
-}
-
 function Saves() {
-  const { saves, pass } = usePass()
+  const { saves } = usePass()
   const [rows, setRows] = useState<Spot[] | null>(null)
   const key = [...saves].sort().join('|')
   useEffect(() => {
@@ -182,7 +94,7 @@ function Saves() {
   return (
     <section className={box}>
       <h2 className="flex items-center gap-2 font-semibold text-ink"><Heart className="w-5 h-5 text-brand-ink" /> Saved spots
-        <span className="text-xs font-normal text-ink-soft">{saves.size}{pass?.active ? '' : ` / ${FREE_SAVE_LIMIT}`}</span>
+        <span className="text-xs font-normal text-ink-soft">{saves.size}</span>
       </h2>
       {!rows ? <Loader2 className="w-4 h-4 animate-spin mt-3 text-ink-soft" /> : rows.length === 0 ? (
         <p className="text-sm text-ink-mid mt-2">Tap the ♥ on any restaurant to save it here. <Link href="/" className="underline">Browse the map</Link></p>
@@ -200,7 +112,7 @@ function Saves() {
   )
 }
 
-function Passport({ active }: { active: boolean }) {
+function Passport() {
   const [rows, setRows] = useState<CheckIn[] | null>(null)
   useEffect(() => {
     sb().then(c => c.rpc('my_checkins')).then(({ data }) => setRows((data as CheckIn[]) ?? []))
@@ -229,14 +141,10 @@ function Passport({ active }: { active: boolean }) {
         <>
           <div className="mt-4">
             <h3 className="flex items-center gap-1 text-sm font-semibold text-ink"><MapIcon className="w-4 h-4" /> Your ramen map</h3>
-            {active ? (
-              <p className="text-sm text-ink-mid mt-1">
-                {rows.length} bowls · {new Set(rows.map(r => r.slug)).size} shops · {byState.reduce((n, [, c]) => n + c.size, 0)} cities · {byState.length} states
-                <span className="block mt-1">{byState.map(([st, c]) => `${st} (${[...c].join(', ')})`).join(' · ')}</span>
-              </p>
-            ) : (
-              <p className="text-sm text-ink-mid mt-1"><Lock className="inline w-3.5 h-3.5" /> Your cities-and-states stats map comes with the <Link href="/ramen-pass" className="underline">Ramen Pass</Link>.</p>
-            )}
+            <p className="text-sm text-ink-mid mt-1">
+              {rows.length} bowls · {new Set(rows.map(r => r.slug)).size} shops · {byState.reduce((n, [, c]) => n + c.size, 0)} cities · {byState.length} states
+              <span className="block mt-1">{byState.map(([st, c]) => `${st} (${[...c].join(', ')})`).join(' · ')}</span>
+            </p>
           </div>
           <ul className="mt-3 divide-y divide-line/8">
             {rows.slice(0, 30).map(r => (
@@ -252,7 +160,7 @@ function Passport({ active }: { active: boolean }) {
   )
 }
 
-function Lists({ active }: { active: boolean }) {
+function Lists() {
   const { saves } = usePass()
   const [lists, setLists] = useState<List[] | null>(null)
   const [savedSpots, setSavedSpots] = useState<Spot[]>([])
@@ -301,10 +209,7 @@ function Lists({ active }: { active: boolean }) {
   return (
     <section className={box}>
       <h2 className="flex items-center gap-2 font-semibold text-ink"><MapIcon className="w-5 h-5 text-brand-ink" /> Lists &amp; trip planner</h2>
-      {!active ? (
-        <p className="text-sm text-ink-mid mt-2"><Lock className="inline w-3.5 h-3.5" /> Build lists like “Tokyo-style in LA” or plan a ramen crawl with dates and notes. <Link href="/ramen-pass" className="underline">Included with the Ramen Pass</Link>.</p>
-      ) : (
-        <>
+      <>
           <form onSubmit={create} className="mt-3 grid sm:grid-cols-[1fr_9rem_9rem_auto] gap-2">
             <input required maxLength={80} placeholder="List or trip name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="rounded-xl border border-line/15 bg-page px-3 py-2 text-sm" />
             <input maxLength={80} placeholder="City (optional)" value={form.city} onChange={e => setForm({ ...form, city: e.target.value })} className="rounded-xl border border-line/15 bg-page px-3 py-2 text-sm" />
@@ -347,42 +252,12 @@ function Lists({ active }: { active: boolean }) {
               )
             })}
           </div>
-        </>
-      )}
+      </>
     </section>
   )
 }
 
-function Deals({ active }: { active: boolean }) {
-  const [rows, setRows] = useState<Deal[] | null>(null)
-  useEffect(() => {
-    if (!active) return
-    sb().then(c => c.rpc('member_deals')).then(({ data }) => setRows((data as Deal[]) ?? []))
-  }, [active])
-  return (
-    <section className={box}>
-      <h2 className="flex items-center gap-2 font-semibold text-ink"><Tag className="w-5 h-5 text-brand-ink" /> Member deals</h2>
-      {!active ? (
-        <p className="text-sm text-ink-mid mt-2"><Lock className="inline w-3.5 h-3.5" /> Owner-run shops offer perks to Ramen Pass members — a free topping, a discount, a secret bowl. <Link href="/ramen-pass" className="underline">Get the Pass</Link>.</p>
-      ) : !rows ? <Loader2 className="w-4 h-4 animate-spin mt-3 text-ink-soft" /> : rows.length === 0 ? (
-        <p className="text-sm text-ink-mid mt-2">No deals yet — shops are just starting to add them. Check back soon.</p>
-      ) : (
-        <ul className="mt-3 divide-y divide-line/8">
-          {rows.map(d => (
-            <li key={d.slug} className="py-2 text-sm">
-              <Link href={spotHref(d)} className="font-semibold text-ink hover:underline">{spotName(d)}</Link>
-              <span className="text-ink-soft"> · {d.city}, {d.state_code}</span>
-              <p className="text-ink">{d.deal}</p>
-              {d.fine_print && <p className="text-xs text-ink-soft">{d.fine_print}</p>}
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-
-function Settings({ active }: { active: boolean }) {
+function Settings() {
   const { session } = usePass()
   const [optIn, setOptIn] = useState<boolean | null>(null)
   useEffect(() => {
@@ -398,7 +273,7 @@ function Settings({ active }: { active: boolean }) {
       <h2 className="flex items-center gap-2 font-semibold text-ink"><Mail className="w-5 h-5 text-brand-ink" /> New-openings email</h2>
       <label className="mt-2 flex items-start gap-2 text-sm text-ink-mid">
         <input type="checkbox" className="mt-1" checked={!!optIn} disabled={optIn === null} onChange={e => void toggle(e.target.checked)} />
-        <span>Send me the monthly roundup of new ramen shops near me{active ? '' : ' (a Ramen Pass perk — you’ll get it once you’re a member)'}. Unsubscribe anytime.</span>
+        <span>Send me the monthly roundup of new ramen shops near me. Unsubscribe anytime.</span>
       </label>
     </section>
   )

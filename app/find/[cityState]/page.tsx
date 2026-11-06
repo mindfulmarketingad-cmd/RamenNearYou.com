@@ -343,6 +343,7 @@ export default async function CityFindPage(
           primaryCtaLabel="View details"
           guideCityLabel={`${cityName}, ${stateCode}`}
           guideCitySlug={`${citySlug}-${stateCode.toLowerCase()}`}
+          placementPin="city"
           mapSlot={mapSlot}
         />
 
