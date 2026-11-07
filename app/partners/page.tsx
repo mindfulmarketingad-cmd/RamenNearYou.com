@@ -1,0 +1,197 @@
+import Link from 'next/link'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import ErrorBoundary from '@/components/error-boundary'
+import HomeMapHero from '@/components/home-map-hero'
+import PseoListicle from '@/components/pseo-listicle'
+import { restaurantsToListicleItems, phoToListicleItems, pickNationwideSample } from '@/lib/listicle-items'
+import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import { restaurants } from '@/lib/restaurants'
+import { miscPartners, miscPartnerToPhoShape } from '@/lib/misc-partners'
+import { phoRestaurants, getPhoStats, getPhoCities, phoCityParam } from '@/lib/pho'
+
+export const metadata = {
+  title: 'Ramen Restaurant Locator',
+  description: 'Find your ramen or pho restaurant on RamenNearYou, claim your listing, and keep your hours, photos, and description up to date. Learn how claiming and featured placement work.',
+  alternates: { canonical: 'https://www.ramennearyou.com/partners' },
+}
+
+const partnersFaqs = [
+  {
+    q: 'How do I claim my restaurant listing?',
+    a: 'Open your restaurant and choose Claim. Sign in, then subscribe at $49.99/month. You are verified as soon as payment clears, and the owner dashboard is ready.',
+  },
+  {
+    q: 'How long does claim verification take?',
+    a: 'As soon as the $49.99/month payment clears. Your listing gets a verified badge, ads come off your dedicated page, and you can edit hours, phone, menu link and description from the owner dashboard.',
+  },
+  {
+    q: "What if my restaurant isn't listed at all?",
+    a: "If you can't find your restaurant using the search above, contact us and we'll get it added to the directory so you can claim it.",
+  },
+  {
+    q: 'Does claiming remove ads from my listing page?',
+    a: "Yes. Once your claim is approved, your restaurant's dedicated listing page runs ad-free — one of the perks of verifying ownership.",
+  },
+  {
+    q: 'How do I get my restaurant featured?',
+    a: 'It is included with claiming. $49.99/month puts a gold crown pin on the homepage map and places you at the top of your city page and your state page, labelled Featured. You also get the owner dashboard, analytics, and a verified badge. Monthly, cancel anytime.',
+  },
+]
+
+export default async function PartnersPage() {
+  const phoStats = getPhoStats()
+  const phoCities = getPhoCities().slice(0, 12)
+
+  // Every restaurant on the site in one directory: DB ramen listings, pho
+  // listings, and misc partners (non-restaurant POIs that still get a
+  // /partners/{slug} page) — the same three sources /find pages pull from,
+  // combined instead of scoped to a city or state.
+  const verifiedSlugs = await getAllVerifiedSlugs()
+  const ramenItems = restaurantsToListicleItems(restaurants, { verifiedSlugs })
+  const phoItems = phoToListicleItems(phoRestaurants)
+  const miscItems = phoToListicleItems(miscPartners.map(miscPartnerToPhoShape))
+  const totalTracked = ramenItems.length + phoItems.length + miscItems.length
+  const allItems = [...ramenItems, ...phoItems, ...miscItems]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
+  // These are already ListicleItems, so the state comes off the display
+  // label ("Aurora, CO") rather than a stateCode field.
+  const sampled = pickNationwideSample(allItems, {
+    stateOf: it => it.locationLabel?.slice(it.locationLabel.lastIndexOf(', ') + 2) ?? '',
+  })
+
+  const mapSlot = (
+    <ErrorBoundary fallback={null}>
+      <HomeMapHero
+        mapOnly={false}
+        pageTitle="Ramen Restaurant Locator"
+        pageDescription="Every ramen and pho restaurant we track. Enter your ZIP or use your location, then filter by broth, price, and hours."
+      />
+    </ErrorBoundary>
+  )
+
+  return (
+    <main className="min-h-screen bg-sunken">
+      <Navbar />
+
+      <PseoListicle
+        breadcrumb={[
+          { label: 'Ramen Near You', href: '/' },
+          { label: 'Partners' },
+        ]}
+        title={`Ramen Restaurant Locator — ${totalTracked.toLocaleString()} Spots`}
+        subtitle="Every ramen and pho restaurant we track, ranked by rating and review volume — claimed or not. Search by name or city, then claim your listing to take control of it."
+        items={sampled}
+        noun="restaurant"
+        nounPlural="restaurants"
+        searchPlaceholder="Search by name or city..."
+        filterLabel="Feature"
+        primaryCtaLabel="View details"
+        mapSlot={mapSlot}
+      />
+
+      <div className="pt-4 pb-16 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Owner-facing SEO content: real, honest answers about how the
+              claim and featured-placement flows actually work — not generic
+              filler, since these are the exact questions an owner searching
+              for their restaurant has. */}
+          <section className="mt-16 pt-12 border-t border-line/10 max-w-3xl">
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Find My Ramen Restaurant on This Page?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
+              Use the search bar above to look up your restaurant by name or city. Every ramen restaurant we
+              track is searchable here, whether or not it&apos;s been claimed yet. If it doesn&apos;t come up,
+              it may be listed under a slightly different name or spelling — try just the city, or see the
+              FAQ below for what to do if it isn&apos;t listed at all.
+            </p>
+
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Claim My Restaurant Listing?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
+              Open your restaurant&apos;s listing page and look for the &ldquo;Own this business?&rdquo;
+              section. Sign in, then subscribe at $49.99/month. You&apos;re verified as soon as payment
+              clears, and the owner dashboard unlocks edits and analytics.
+            </p>
+
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">What Happens After I Pay?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
+              The listing is verified immediately. You get a verified badge on your listing and the search map,
+              your page runs ad-free, and the owner dashboard lets you update hours, phone, menu link and
+              description and see your views, calls, directions and review taps.
+            </p>
+
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">How Do I Get My Restaurant Featured?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed mb-8">
+              Claiming is $49.99/month and includes Featured placement, labelled Featured / Sponsored: a gold crown pin on the homepage map, the top of your city page, and the top of your state page. You also get the owner dashboard and a verified badge. See{' '}
+              <Link href="/claim-your-listing" className="text-brand-ink hover:underline">claim your listing</Link>{' '}
+              to get started.
+            </p>
+
+            <h2 className="font-serif text-xl font-bold text-ink mb-3">Can I List a Pho Restaurant Here Too?</h2>
+            <p className="text-ink-soft text-sm leading-relaxed">
+              Yes. Pho restaurants get their own profile pages under this same directory, and the claim
+              process works the same way — search for your restaurant, open its listing, and claim it
+              for $49.99/month. See the pho section below for our current pho coverage.
+            </p>
+          </section>
+
+          {/* Pho partner listings — a separate cuisine from the ramen directory
+              above, with their own detail pages under /partners/{slug}. */}
+          <section className="mt-16 pt-12 border-t border-line/10">
+            <p className="text-[#16a34a] text-xs font-semibold uppercase tracking-widest mb-2">Pho Restaurants</p>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-2">
+              Pho Restaurants Near You
+            </h2>
+            <p className="text-ink-soft text-sm max-w-2xl mb-8">
+              We list {phoStats.restaurants} pho restaurants across {phoStats.cities} cities and{' '}
+              {phoStats.states} states. Each has a full profile with hours, amenities, ratings, and
+              what to order. Pho spots show as{' '}
+              <span className="text-[#16a34a] font-semibold">green pins</span> on the{' '}
+              <Link href="/find" className="text-brand-ink hover:underline">search map</Link>.
+            </p>
+
+            <h3 className="text-ink font-semibold text-sm mb-3">Pho by city</h3>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              {phoCities.map(c => (
+                <Link
+                  key={`${c.citySlug}-${c.stateCode}`}
+                  href={`/find/${phoCityParam(c.citySlug, c.stateCode)}`}
+                  className="text-sm text-brand-ink hover:underline"
+                >
+                  {c.city}, {c.stateCode} ({c.count})
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="mt-16 pt-12 border-t border-line/10 max-w-3xl">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {partnersFaqs.map(({ q, a }) => (
+                <div key={q}>
+                  <h3 className="text-ink font-semibold text-base mb-1.5">{q}</h3>
+                  <p className="text-ink-soft text-sm leading-relaxed">{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: partnersFaqs.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
+          }),
+        }}
+      />
+    </main>
+  )
+}

@@ -1,0 +1,238 @@
+'use client'
+
+import { useState } from 'react'
+import { CalendarCheck, X, Loader2, CheckCircle2 } from 'lucide-react'
+import { useModalA11y } from '@/lib/use-modal-a11y'
+import { sendViaMail } from '@/lib/mailto'
+
+export interface InquireTarget {
+  name: string
+  slug: string
+  city?: string
+  stateCode?: string
+}
+
+interface Props {
+  restaurant: InquireTarget
+  source: 'listing' | 'partners' | 'find'
+  className?: string
+  label?: string
+  // 'pill' matches the site's default pill buttons (partners rows, find
+  // cards). 'iconColumn' matches the listing page's action row — a circular
+  // icon above a small label (Directions/Call/Save/Claim style).
+  variant?: 'pill' | 'iconColumn'
+}
+
+// One-page booking-inquiry form. Clicking the trigger opens a modal; submitting
+// composes the inquiry as an email in the visitor's own mail app (the site is
+// static, so there's no backend to post to).
+export default function InquireButton({ restaurant, source, className, label = 'Inquire', variant = 'pill' }: Props) {
+  const [open, setOpen] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const containerRef = useModalA11y(open, () => setOpen(false))
+
+  function close() {
+    setOpen(false)
+    setStatus('idle')
+    setErrorMsg('')
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = new FormData(e.currentTarget)
+    setStatus('submitting')
+    setErrorMsg('')
+    sendViaMail(`Booking inquiry: ${restaurant.name}`, [
+      ['Restaurant', restaurant.name],
+      ['Location', [restaurant.city, restaurant.stateCode].filter(Boolean).join(', ')],
+      ['Party size', form.get('partySize')],
+      ['Date', form.get('reservationDate')],
+      ['Time', form.get('reservationTime')],
+      ['Name', form.get('customerName')],
+      ['Email', form.get('customerEmail')],
+      ['Phone', form.get('customerPhone')],
+      ['Notes', form.get('notes')],
+      ['Sent from', `${source} — ${window.location.href}`],
+    ])
+    setStatus('success')
+  }
+
+  return (
+    <>
+      {variant === 'iconColumn' ? (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); setOpen(true) }}
+          className={className ?? 'flex flex-col items-center gap-1 text-brand-ink text-[11px] font-medium shrink-0'}
+        >
+          <span className="w-11 h-11 rounded-full bg-brand/10 flex items-center justify-center hover:bg-brand/20 transition-colors">
+            <CalendarCheck className="w-5 h-5" />
+          </span>
+          {label}
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); setOpen(true) }}
+          className={className ?? 'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-line/12 bg-surface text-ink-soft hover:border-brand hover:text-brand-ink transition-colors'}
+        >
+          <CalendarCheck className="w-3.5 h-3.5" />
+          {label}
+        </button>
+      )}
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[3000] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+          onClick={close}
+          role="presentation"
+        >
+          <div
+            ref={containerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Inquire about ${restaurant.name}`}
+            onClick={(e) => e.stopPropagation()}
+            tabIndex={-1}
+            className="relative w-full max-w-md bg-surface rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
+          >
+            <button
+              onClick={close}
+              aria-label="Close"
+              className="absolute top-3 right-3 p-1.5 rounded-full text-ink-soft hover:bg-black/5 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {status === 'success' ? (
+              <div className="p-8 text-center">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-7 h-7 text-emerald-500" />
+                </div>
+                <h2 className="font-serif text-xl font-bold text-ink mb-2">Almost done</h2>
+                <p className="text-ink-soft text-sm leading-relaxed mb-6">
+                  Your email app should open with the inquiry filled in — hit send there and
+                  we&apos;ll pass it to {restaurant.name}.
+                </p>
+                <button
+                  onClick={close}
+                  className="px-5 py-2.5 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-semibold transition-colors"
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <div className="p-6 sm:p-8">
+                <p className="text-brand-ink text-xs font-semibold uppercase tracking-widest mb-1">Booking Inquiry</p>
+                <h2 className="font-serif text-xl font-bold text-ink mb-1">{restaurant.name}</h2>
+                <p className="text-ink-soft text-sm mb-5">
+                  Send a booking request — the restaurant will follow up to confirm.
+                </p>
+
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  {status === 'error' && (
+                    <div className="px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-sm">
+                      {errorMsg}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="reservationDate">Date</label>
+                      <input
+                        id="reservationDate"
+                        name="reservationDate"
+                        type="date"
+                        required
+                        min={new Date().toISOString().slice(0, 10)}
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="reservationTime">Arrival time</label>
+                      <input
+                        id="reservationTime"
+                        name="reservationTime"
+                        type="time"
+                        required
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="partySize">Party size</label>
+                    <input
+                      id="partySize"
+                      name="partySize"
+                      type="number"
+                      min={1}
+                      max={50}
+                      required
+                      defaultValue={2}
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerName">Your name</label>
+                    <input
+                      id="customerName"
+                      name="customerName"
+                      type="text"
+                      required
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerEmail">Email</label>
+                      <input
+                        id="customerEmail"
+                        name="customerEmail"
+                        type="email"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-ink mb-1" htmlFor="customerPhone">Phone</label>
+                      <input
+                        id="customerPhone"
+                        name="customerPhone"
+                        type="tel"
+                        className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none focus:border-brand transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-ink-soft -mt-1.5">Provide at least an email or phone number.</p>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-ink mb-1" htmlFor="notes">Notes (optional)</label>
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      rows={2}
+                      placeholder="Special occasion, dietary needs, seating preference…"
+                      className="w-full px-3 py-2.5 bg-sunken border border-line/8 rounded-lg text-ink text-sm outline-none placeholder-ink-faint focus:border-brand transition-colors resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === 'submitting'}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-none bg-brand hover:bg-brand-hi text-white text-sm font-bold transition-colors disabled:opacity-60"
+                  >
+                    {status === 'submitting' ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                    {status === 'submitting' ? 'Sending…' : 'Send Inquiry'}
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
