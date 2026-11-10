@@ -29,6 +29,7 @@ import { getCityFilterLinks, getMajorCity } from '@/lib/city-filter-pages'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
+import { isThinFindPage, NOINDEX_ROBOTS } from '@/lib/thin-pages'
 import { isRetiredPage, isLiveFindModifier, getLiveFindModifierParams, getLiveFindSmallCityParams } from '@/lib/retired-pages'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
@@ -81,6 +82,7 @@ export async function generateMetadata(
       title,
       description,
       alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+    ...(isThinFindPage(cityState) ? { robots: NOINDEX_ROBOTS } : {}),
       openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
     }
   }
@@ -96,6 +98,7 @@ export async function generateMetadata(
       title,
       description,
       alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+    ...(isThinFindPage(cityState) ? { robots: NOINDEX_ROBOTS } : {}),
       openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
     }
   }
@@ -111,6 +114,7 @@ export async function generateMetadata(
       title,
       description,
       alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+    ...(isThinFindPage(cityState) ? { robots: NOINDEX_ROBOTS } : {}),
       openGraph: { title, description, url: `https://www.ramennearyou.com/find/${cityState}`, siteName: 'RamenNearYou', type: 'website' },
     }
   }
@@ -143,6 +147,7 @@ export async function generateMetadata(
     title,
     description,
     alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
+    ...(isThinFindPage(cityState) ? { robots: NOINDEX_ROBOTS } : {}),
     openGraph: {
       title,
       description,

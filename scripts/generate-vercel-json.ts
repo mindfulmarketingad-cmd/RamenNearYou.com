@@ -71,6 +71,10 @@ const redirects: Redirect[] = [
   r('/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9', '/sandy-springs/georgia/one-sushi-korean-japanese-cafe'),
   r('/:city/:state/sushi-one-bobalicious-caf%C3%A9', '/:city/:state/sushi-one-bobalicious-cafe'),
   r('/sacramento/california/old-sacramento-waterfront', '/partners/old-sacramento-waterfront'),
+  // Never-built modifier page that still earned Google clicks (404 since the
+  // Oct 2026 rebuild): Ouray has a single, non-halal listing, so send it to
+  // the nationwide halal ramen finder.
+  r('/find/halal-ramen-in-ouray-co', '/find/halal-ramen'),
   // Retired blog city guides → their /find page.
   ...Object.entries(CITY_GUIDE_REDIRECTS).map(([slug, to]) => r(`/blog/${slug}`, to)),
   // Legacy two-letter state slugs.

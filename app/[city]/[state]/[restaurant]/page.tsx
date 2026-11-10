@@ -16,6 +16,7 @@ import { getPaidTier } from '@/lib/paid-listings'
 import CityFilterPage from '@/components/city-filter-page'
 import { getListingMonthlyViews } from '@/lib/listing-stats'
 import { isRetiredPage } from '@/lib/retired-pages'
+import { isThinListing, NOINDEX_ROBOTS } from '@/lib/thin-pages'
 import {
   parseFilterSlug,
   getMajorCity,
@@ -176,6 +177,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
     title,
     description: metaDesc,
     alternates: { canonical: url },
+    ...(isThinListing(r) ? { robots: NOINDEX_ROBOTS } : {}),
     openGraph: {
       title,
       description: metaDesc,
