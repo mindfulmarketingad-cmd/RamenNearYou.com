@@ -9,6 +9,7 @@ import { getAllMiscPartnerSlugs } from '@/lib/misc-partners'
 import { getCityListicleParams, getCityPhoListicleParams } from '@/lib/city-listicles'
 import { CITY_GUIDE_REDIRECTS } from '@/lib/city-guide-migration'
 import { isRetiredPage } from '@/lib/retired-pages'
+import { isThinListing } from '@/lib/thin-pages'
 import { SITEMAP_BASE_URL, SITE_LAUNCH, LAST_CONTENT, buildUrlsetXml, xmlResponse, type SitemapEntry } from '@/lib/sitemap-xml'
 
 // Everything except /find (which alone runs ~44.9k URLs and needs its own
@@ -43,7 +44,9 @@ export async function GET() {
 
   // Every dataset listing, including cities with a single listing (getCities()
   // only returns 2+ listing cities, which left those listings out).
-  const restaurantPaths = new Set(restaurants.map((r) => `/${r.citySlug}/${r.stateSlug}/${r.slug}`))
+  // Thin listings (lib/thin-pages.ts) are built but noindexed, so they're
+  // left out.
+  const restaurantPaths = new Set(restaurants.filter((r) => !isThinListing(r)).map((r) => `/${r.citySlug}/${r.stateSlug}/${r.slug}`))
   const restaurantPages: SitemapEntry[] = [...restaurantPaths].map((p) => ({
     url: `${SITEMAP_BASE_URL}${p}`,
     lastModified: LAST_CONTENT,

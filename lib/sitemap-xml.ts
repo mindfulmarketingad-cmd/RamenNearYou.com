@@ -40,12 +40,18 @@ ${urls}
 </urlset>`
 }
 
-export function buildSitemapIndexXml(sitemapUrls: string[]): string {
+// Build date (UTC day). The child sitemaps are regenerated on every deploy
+// and their contents change with it (new blog posts, listings, pages going
+// noindex), so the index reports when they were last built rather than the
+// fixed LAST_CONTENT date.
+export const SITEMAP_BUILD_DATE = new Date().toISOString().slice(0, 10)
+
+export function buildSitemapIndexXml(sitemapUrls: string[], lastmod: string = SITEMAP_BUILD_DATE): string {
   const entries = sitemapUrls
     .map(
       (url) => `  <sitemap>
     <loc>${escapeXml(url)}</loc>
-    <lastmod>${LAST_CONTENT.toISOString()}</lastmod>
+    <lastmod>${lastmod}</lastmod>
   </sitemap>`
     )
     .join('\n')
