@@ -34,6 +34,17 @@ const CODE_TO_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(STATE_SLUG_TO_CODE).map(([slug, code]) => [code.toLowerCase(), slug]),
 )
 
+function find404Redirects(): Redirect[] {
+  const map: Record<string, string> = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'lib', 'find-404-redirects.json'), 'utf8')).redirects
+  const byTo = new Map<string, string[]>()
+  for (const [from, to] of Object.entries(map)) {
+    if (!from.startsWith('/find/')) throw new Error(`find-404-redirects: ${from} is not a /find page`)
+    if (!byTo.has(to)) byTo.set(to, [])
+    byTo.get(to)!.push(from.slice('/find/'.length))
+  }
+  return [...byTo].map(([to, slugs]) => (slugs.length === 1 ? r(`/find/${slugs[0]}`, to) : r(`/find/:page(${slugs.join('|')})`, to)))
+}
+
 const redirects: Redirect[] = [
   // Removed sections.
   r('/experiences', '/'),
@@ -71,10 +82,9 @@ const redirects: Redirect[] = [
   r('/sandy-springs/georgia/one-sushi-korean-japanese-caf%C3%A9', '/sandy-springs/georgia/one-sushi-korean-japanese-cafe'),
   r('/:city/:state/sushi-one-bobalicious-caf%C3%A9', '/:city/:state/sushi-one-bobalicious-cafe'),
   r('/sacramento/california/old-sacramento-waterfront', '/partners/old-sacramento-waterfront'),
-  // Never-built modifier page that still earned Google clicks (404 since the
-  // Oct 2026 rebuild): Ouray has a single, non-halal listing, so send it to
-  // the nationwide halal ramen finder.
-  r('/find/halal-ramen-in-ouray-co', '/find/halal-ramen'),
+  // Never-built /find modifier pages that still earned Google clicks
+  // (lib/find-404-redirects.json), one rule per target.
+  ...find404Redirects(),
   // Retired blog city guides → their /find page.
   ...Object.entries(CITY_GUIDE_REDIRECTS).map(([slug, to]) => r(`/blog/${slug}`, to)),
   // Legacy two-letter state slugs.
