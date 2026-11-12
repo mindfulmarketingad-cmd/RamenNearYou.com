@@ -30,7 +30,9 @@ export function getCities() {
       map.set(key, { city: r.city, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
     }
   }
-  return Array.from(map.values()).sort((a,b) => b.count - a.count)
+  // Only surface cities with 2+ ramen listings — single-restaurant cities
+  // don't warrant their own directory page.
+  return Array.from(map.values()).filter(c => c.count >= 2).sort((a,b) => b.count - a.count)
 }
 
 export function getStates() {
@@ -50,20 +52,48 @@ export function getStates() {
     .sort((a, b) => b.count - a.count)
 }
 
+// Indexed once per build worker. These run on every listing, city and state
+// page, so a linear scan of ~8k rows per call made the build O(pages x rows).
+let byState: Map<string, Restaurant[]> | null = null
+let byCity: Map<string, Restaurant[]> | null = null
+let byPath: Map<string, Restaurant> | null = null
+let bySlug: Map<string, Restaurant> | null = null
+function index() {
+  if (byState) return
+  byState = new Map(); byCity = new Map(); byPath = new Map(); bySlug = new Map()
+  const push = (m: Map<string, Restaurant[]>, k: string, r: Restaurant) => {
+    const list = m.get(k)
+    if (list) list.push(r); else m.set(k, [r])
+  }
+  for (const r of restaurants) {
+    push(byState, r.stateSlug, r)
+    push(byCity, `${r.citySlug}/${r.stateSlug}`, r)
+    // First match wins, as with the Array.find these replace.
+    const key = `${r.citySlug}/${r.stateSlug}/${r.slug}`
+    if (!byPath.has(key)) byPath.set(key, r)
+    if (!bySlug.has(r.slug)) bySlug.set(r.slug, r)
+  }
+}
+
+// Callers get a fresh array (several sort the result in place).
 export function getRestaurantsByState(stateSlug: string) {
-  return restaurants.filter(r => r.stateSlug === stateSlug)
+  index()
+  return [...(byState!.get(stateSlug) ?? [])]
 }
 
 export function getRestaurantsByCity(citySlug: string, stateSlug: string) {
-  return restaurants.filter(r => r.citySlug === citySlug && r.stateSlug === stateSlug)
+  index()
+  return [...(byCity!.get(`${citySlug}/${stateSlug}`) ?? [])]
 }
 
 export function getRestaurant(citySlug: string, stateSlug: string, slug: string): Restaurant | null {
-  return restaurants.find(r => r.slug === slug && r.citySlug === citySlug && r.stateSlug === stateSlug) ?? null
+  index()
+  return byPath!.get(`${citySlug}/${stateSlug}/${slug}`) ?? null
 }
 
 export function getRestaurantBySlug(slug: string): Restaurant | null {
-  return restaurants.find(r => r.slug === slug) ?? null
+  index()
+  return bySlug!.get(slug) ?? null
 }
 
 export const BROTH_TYPES = ['Tonkotsu', 'Shoyu', 'Miso', 'Spicy', 'Vegan'] as const
@@ -109,6 +139,7 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
   ) types.push('Miso')
 
   if (
+    name.includes('jinya ramen') ||
     text.includes('spicy') || text.includes('tantanmen') || text.includes('tan tan') ||
     text.includes('tori paitan') || text.includes('chili oil') || text.includes('doubanjiang') ||
     text.includes('fire ramen') || text.includes('hot ramen')
@@ -121,6 +152,63 @@ export function getBrothTypes(r: Restaurant): BrothType[] {
 
 export function getRestaurantsByBrothType(type: BrothType): Restaurant[] {
   return restaurants.filter(r => getBrothTypes(r).includes(type))
+}
+
+/**
+ * Matches a restaurant against a service/broth label used by the
+ * `/[broth]-ramen-near-me` service pages. Handles the broth styles in
+ * getBrothTypes plus the cuisine/diet styles (Vegetarian, Korean, Japanese)
+ * that are derived from amenities and subtypes.
+ */
+export function matchesServiceBroth(r: Restaurant, label: string): boolean {
+  const key = label.toLowerCase()
+  if (key === 'vegetarian') return !!r.amenities.vegetarianOptions
+  if (key === 'vegan') return !!r.amenities.veganOptions
+  if (key === 'korean') return (r.subtypes ?? '').toLowerCase().includes('korean')
+  if (key === 'japanese') return (r.subtypes ?? '').toLowerCase().includes('japanese')
+  return getBrothTypes(r).map(t => t.toLowerCase()).includes(key)
+}
+
+export function getRestaurantsByService(label: string): Restaurant[] {
+  return restaurants.filter(r => matchesServiceBroth(r, label))
+}
+
+export function getTonkotsuRestaurantsByCity(citySlug: string, stateSlug: string): Restaurant[] {
+  return restaurants.filter(
+    r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes('Tonkotsu')
+  )
+}
+
+export function getTonkotsuCities(minCount = 2): Array<{ city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }> {
+  const map = new Map<string, { city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
+  for (const r of restaurants) {
+    if (!getBrothTypes(r).includes('Tonkotsu')) continue
+    const key = `${r.citySlug}|${r.stateSlug}`
+    const entry = map.get(key)
+    if (entry) { entry.count++ } else {
+      map.set(key, { city: r.city, state: r.state, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
+    }
+  }
+  return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
+}
+
+export function getRestaurantsByBrothAndCity(broth: BrothType, citySlug: string, stateSlug: string): Restaurant[] {
+  return restaurants.filter(
+    r => r.citySlug === citySlug && r.stateSlug === stateSlug && getBrothTypes(r).includes(broth)
+  )
+}
+
+export function getCitiesForBroth(broth: BrothType, minCount = 2): Array<{ city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }> {
+  const map = new Map<string, { city: string; state: string; stateCode: string; citySlug: string; stateSlug: string; count: number }>()
+  for (const r of restaurants) {
+    if (!getBrothTypes(r).includes(broth)) continue
+    const key = `${r.citySlug}|${r.stateSlug}`
+    const entry = map.get(key)
+    if (entry) { entry.count++ } else {
+      map.set(key, { city: r.city, state: r.state, stateCode: r.stateCode, citySlug: r.citySlug, stateSlug: r.stateSlug, count: 1 })
+    }
+  }
+  return Array.from(map.values()).filter(c => c.count >= minCount).sort((a, b) => b.count - a.count)
 }
 
 export function getNearbyCities(citySlug: string, stateSlug: string, maxCount = 6): Array<{ city: string; stateCode: string; citySlug: string; stateSlug: string; count: number; distanceMiles: number }> {
