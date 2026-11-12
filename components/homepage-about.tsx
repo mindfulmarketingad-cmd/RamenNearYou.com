@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Utensils, MapPin, Landmark } from 'lucide-react'
 import { getSiteStats } from '@/lib/restaurants'
+import { CTR_UPDATED_LABEL, HOMEPAGE_CTR_LINKS } from '@/lib/ctr-pages'
 
 const STATS_ICONS = [
   { Icon: Utensils, key: 'restaurants', label: 'restaurants tracked' },
@@ -80,6 +81,21 @@ export default function HomepageAbout() {
           place on what actually matters to you before you get in the car. Combine that with real-time hours,
           distance sorting, and broth filters, and finding ramen near you stops being a guessing game.
         </p>
+        <h3 className="font-serif text-xl font-bold text-ink mt-8 mb-3 flex items-center gap-2.5">
+          <span className="w-1.5 h-5 rounded-full bg-brand" />
+          Best Ramen Near Me in These Cities
+        </h3>
+        <p className="text-ink-deep text-[15px] leading-relaxed mb-3">
+          {CTR_UPDATED_LABEL}. These guides answer &ldquo;best ramen near me&rdquo; with the restaurants we
+          actually track, including ratings and posted hours where we have them.
+        </p>
+        <ul className="flex flex-col gap-2 mb-6">
+          {HOMEPAGE_CTR_LINKS.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="link-underline text-brand-ink font-medium">{l.label}</Link>
+            </li>
+          ))}
+        </ul>
         <p className="text-ink-deep text-[15px] leading-relaxed">
           Ready to find your next bowl? <Link href="/find" className="link-underline text-brand-ink font-semibold">Search ramen near you</Link> or{' '}
           <Link href="/cities" className="link-underline text-brand-ink font-semibold">browse every city and state</Link> in

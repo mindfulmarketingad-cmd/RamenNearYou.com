@@ -16,6 +16,8 @@ import PseoListicle from '@/components/pseo-listicle'
 import { restaurantsToListicleItems, placesToListicleItems } from '@/lib/listicle-items'
 import { getFeaturedSlugSet } from '@/lib/paid-listings'
 import { getAllVerifiedSlugs } from '@/lib/verified-listings'
+import { getStateCtr, stateSpotlightLinks } from '@/lib/ctr-pages'
+import { CtrGuide, CtrLinkBox } from '@/components/ctr-guide'
 
 // Build-only: every valid page is in generateStaticParams, so anything else
 // is a 404 rather than an on-demand render.
@@ -34,6 +36,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
   const { city } = await params
   const stateSlug = city.toLowerCase()
+  const ctr = getStateCtr(stateSlug)
+  if (ctr) {
+    return {
+      title: { absolute: ctr.title },
+      description: ctr.description,
+      alternates: { canonical: `https://www.ramennearyou.com/${stateSlug}` },
+      openGraph: {
+        title: ctr.title,
+        description: ctr.description,
+        url: `https://www.ramennearyou.com/${stateSlug}`,
+      },
+    }
+  }
   const allRestaurants = getRestaurantsByState(stateSlug)
 
   // Supplement-only state (no DB rows)
@@ -75,6 +90,8 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 export default async function StatePage({ params }: { params: Promise<{ city: string }> }) {
   const { city } = await params
   const stateSlug = city.toLowerCase()
+  const ctr = getStateCtr(stateSlug)
+  const spotlight = stateSpotlightLinks(stateSlug)
   const allRestaurants = getRestaurantsByState(stateSlug)
 
   // Supplement-only state (no DB rows) — build page from Places supplement data
@@ -108,8 +125,8 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         <HomeMapHero
           mapOnly={false}
           regionBoundary={{ cityName: stateName, stateName, citySlug: '', stateSlug, isState: true }}
-          pageTitle={`Best Ramen Restaurants In ${stateName}`}
-          pageDescription={`Find ramen restaurants across ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
+          pageTitle={ctr?.h1 ?? `Best Ramen Restaurants In ${stateName}`}
+          pageDescription={ctr?.description ?? `Find ramen restaurants across ${stateName}. Enter your ZIP or use your location to sort by distance, then filter by broth type, price, and hours.`}
         />
       </ErrorBoundary>
     )
@@ -125,8 +142,10 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
             { label: 'Browse Cities & States', href: '/cities' },
             { label: stateName },
           ]}
-          title={`${total} Ramen Restaurants in ${stateName}`}
-          subtitle={`Every ramen restaurant we track across ${stateName}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
+          title={ctr ? ctr.h1 : `${total} Ramen Restaurants in ${stateName}`}
+          subtitle={ctr
+            ? `${total} ramen restaurants across ${supplementCities.length} cities, ranked by rating and review volume. Updated November 12, 2026.`
+            : `Every ramen restaurant we track across ${stateName}, ranked by rating and review volume. Search by name or town, or switch to the map.`}
           items={listicleItems}
           noun="ramen restaurant"
           nounPlural="ramen restaurants"
@@ -136,6 +155,15 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
           placementPin="state"
           mapSlot={mapSlot}
         />
+
+        {ctr && (
+          <div className="bg-surface">
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+              <CtrGuide copy={ctr} />
+            </section>
+          </div>
+        )}
+        {spotlight && <CtrLinkBox intro={spotlight.intro} links={spotlight.links} />}
 
         <BrothStyleLinks place={stateName} />
         <Footer />
@@ -205,6 +233,8 @@ export default async function StatePage({ params }: { params: Promise<{ city: st
         placementPin="state"
         mapSlot={mapSlot}
       />
+
+      {spotlight && <CtrLinkBox intro={spotlight.intro} links={spotlight.links} />}
 
       <BrothStyleLinks place={state} />
       <Footer />

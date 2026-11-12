@@ -31,6 +31,8 @@ import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
 import { isThinFindPage, NOINDEX_ROBOTS } from '@/lib/thin-pages'
 import { isRetiredPage, isLiveFindModifier, getLiveFindModifierParams, getLiveFindSmallCityParams } from '@/lib/retired-pages'
+import { getFindModifierCtr, citySpotlightLinks } from '@/lib/ctr-pages'
+import { CtrLinkBox } from '@/components/ctr-guide'
 
 function parseParam(cityState: string): { citySlug: string; stateCode: string } | null {
   const lastHyphen = cityState.lastIndexOf('-')
@@ -108,10 +110,13 @@ export async function generateMetadata(
   if (mod) {
     const city = resolveFindCity(mod.rest)
     if (!city || !city.known) return {}
-    const title = mod.modifier.title(city.cityName, city.stateName)
-    const description = `Find ${mod.modifier.metaNoun} in ${city.cityName}, ${city.stateName}. Browse spots near ${city.cityName} — filter by location, price, and hours.`
+    // Title and description overrides stay on the named URL. Every other
+    // modifier page keeps the shared template.
+    const ctr = getFindModifierCtr(cityState)
+    const title = ctr?.title ?? mod.modifier.title(city.cityName, city.stateName)
+    const description = ctr?.description ?? `Find ${mod.modifier.metaNoun} in ${city.cityName}, ${city.stateName}. Browse spots near ${city.cityName} — filter by location, price, and hours.`
     return {
-      title,
+      title: ctr ? { absolute: title } : title,
       description,
       alternates: { canonical: `https://www.ramennearyou.com/find/${cityState}` },
     ...(isThinFindPage(cityState) ? { robots: NOINDEX_ROBOTS } : {}),
@@ -321,6 +326,8 @@ export default async function CityFindPage(
     </ErrorBoundary>
   )
 
+  const spotlight = citySpotlightLinks(cityState)
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -353,6 +360,7 @@ export default async function CityFindPage(
         />
 
         <div className="relative z-10 bg-surface">
+          {spotlight && <CtrLinkBox intro={spotlight.intro} links={spotlight.links} />}
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
 
             {/* Preserved editorial guide content, if this city has one */}

@@ -21,6 +21,7 @@ import CityRamenListicle from './city-ramen-listicle'
 import CityPhoListicle from './city-pho-listicle'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
 import { isRetiredPage } from '@/lib/retired-pages'
+import { getBlogCtr } from '@/lib/ctr-pages'
 import PremiumPartnerBox from '@/components/premium-partner-box'
 import ProductsCarousel from '@/components/products-carousel'
 
@@ -54,14 +55,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cityListicle = matchCityListicle(slug)
   if (cityListicle) {
     const { cityName, stateCode, totalCount } = cityListicle
-    const title = `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
-    const description = `The 5 highest-rated ramen restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} ramen spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
+    const ctr = getBlogCtr(slug)
+    const title = ctr?.h1 ?? `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
+    const description = ctr?.description ?? `The 5 highest-rated ramen restaurants in ${cityName}, ${stateCode}, ranked by Google rating and review count from the ${totalCount} ramen spots we track in the area — with hours, ratings, and what makes each one worth a visit.`
     const url = `https://www.ramennearyou.com/blog/${slug}`
     return {
-      title,
+      title: ctr ? { absolute: ctr.title } : title,
       description,
       alternates: { canonical: url },
-      openGraph: { title, description, type: 'article', url },
+      openGraph: { title: ctr?.title ?? title, description, type: 'article', url },
     }
   }
 
@@ -177,7 +179,8 @@ export default async function BlogPostPage({ params }: Props) {
 
   const cityListicle = matchCityListicle(slug)
   if (cityListicle) {
-    const title = `5 Best Ramen Restaurants in ${cityListicle.cityName}, ${cityListicle.stateCode}`
+    const ctr = getBlogCtr(slug)
+    const title = ctr?.h1 ?? `5 Best Ramen Restaurants in ${cityListicle.cityName}, ${cityListicle.stateCode}`
     const url = `https://www.ramennearyou.com/blog/${slug}`
     const itemListSchema = {
       '@context': 'https://schema.org',
