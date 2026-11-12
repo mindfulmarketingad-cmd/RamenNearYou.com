@@ -17,6 +17,8 @@ import { buildRestaurantReview, getContextualLinks } from '@/lib/city-listicle-c
 import type { CityListicle } from '@/lib/city-listicles'
 import { splitLongParagraphList } from '@/lib/split-paragraphs'
 import { isRetiredPage } from '@/lib/retired-pages'
+import { CTR_UPDATED_LABEL, getBlogCtrForCity } from '@/lib/ctr-pages'
+import { CtrGuide } from '@/components/ctr-guide'
 
 const AUTHORS = [
   { name: 'Marcus Rivera', avatar: '/authors/marcus-rivera.svg' },
@@ -47,7 +49,8 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function CityRamenListicle({ city }: { city: CityListicle }) {
   const { citySlug, stateSlug, stateCode, cityName, stateName, top5, totalCount, hasPho } = city
-  const title = `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
+  const ctr = getBlogCtrForCity(citySlug, stateCode)
+  const title = ctr?.h1 ?? `5 Best Ramen Restaurants in ${cityName}, ${stateCode}`
   const author = pickAuthor(`${citySlug}-${stateCode}`)
   const headerImage = top5[0]?.photo || pickStockPhoto(`${citySlug}-${stateCode}-listicle`)
   const findParam = `${citySlug}-${stateCode.toLowerCase()}`
@@ -77,6 +80,9 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                 <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-4">
                   {title}
                 </h1>
+                {ctr && (
+                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-ink mb-4">{CTR_UPDATED_LABEL}</p>
+                )}
 
                 <p className="text-ink-soft text-lg leading-relaxed mb-5">
                   We looked at every ramen restaurant we track in {cityName}, {stateName}, and ranked the five with
@@ -211,6 +217,12 @@ export default function CityRamenListicle({ city }: { city: CityListicle }) {
                 <CityGuideCta cityLabel={`${cityName}, ${stateCode}`} citySlug={citySlug} />
                 <SupportTip className="mt-6 text-center" />
               </div>
+
+              {ctr && (
+                <div className="mt-10">
+                  <CtrGuide copy={ctr} />
+                </div>
+              )}
 
               {/* Keep exploring */}
               <section id="keep-exploring" className="scroll-mt-24 mt-10 bg-surface rounded-2xl border border-line/5 p-6 sm:p-8">

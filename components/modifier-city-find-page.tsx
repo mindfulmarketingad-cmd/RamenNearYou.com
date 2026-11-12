@@ -16,6 +16,8 @@ import type { FindModifier } from '@/lib/find-modifiers'
 import { getBlogPost } from '@/lib/blog-posts'
 import { CITY_GUIDE_CONTENT_SOURCE } from '@/lib/city-guide-migration'
 import { splitLongParagraphs } from '@/lib/split-paragraphs'
+import { getFindModifierCtr } from '@/lib/ctr-pages'
+import { CtrGuide } from '@/components/ctr-guide'
 
 export default async function ModifierCityFindPage({
   modifier,
@@ -26,8 +28,10 @@ export default async function ModifierCityFindPage({
   city: ResolvedCity
   cityState: string
 }) {
-  const title = modifier.title(city.cityName, city.stateName)
-  const faqs = modifier.faqs(city.cityName, city.stateCode)
+  // Scoped to one URL (best-ramen-mobile-al). Other modifier pages keep the shared title and FAQs.
+  const ctr = getFindModifierCtr(cityState)
+  const title = ctr?.h1 ?? modifier.title(city.cityName, city.stateName)
+  const faqs = ctr?.faqs ?? modifier.faqs(city.cityName, city.stateCode)
   const about = typeof modifier.about === 'function'
     ? modifier.about(city.cityName, city.stateName, city.stateCode)
     : modifier.about
@@ -73,7 +77,7 @@ export default async function ModifierCityFindPage({
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {!ctr && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="min-h-screen bg-surface">
         <Navbar />
 
@@ -85,7 +89,9 @@ export default async function ModifierCityFindPage({
             { label: city.cityName },
           ]}
           title={count > 0 ? `${title} — ${count} Spot${count === 1 ? '' : 's'}` : title}
-          subtitle={`Every spot we track for ${modifier.metaNoun} in ${city.cityName}, ranked by rating and review volume. Search by name, or switch to the map.`}
+          subtitle={ctr
+            ? `2 top-rated ramen spots in Mobile, updated November 12, 2026. Happy Sushi Yester Oaks (4.4 from 440 reviews) and Kai Restaurant (4.4 from 372 reviews).`
+            : `Every spot we track for ${modifier.metaNoun} in ${city.cityName}, ranked by rating and review volume. Search by name, or switch to the map.`}
           items={listicleItems}
           noun="restaurant"
           nounPlural="restaurants"
@@ -97,6 +103,7 @@ export default async function ModifierCityFindPage({
 
         <div className="relative z-10 bg-surface">
           <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+            {ctr && <CtrGuide copy={ctr} />}
             {cityGuidePost && (
               <div className="prose-ramen mb-10 pb-8 border-b border-line/8" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.content) }} />
             )}
@@ -156,6 +163,8 @@ export default async function ModifierCityFindPage({
               <div className="prose-ramen mb-10 pt-2" dangerouslySetInnerHTML={{ __html: splitLongParagraphs(cityGuidePost.outroContent) }} />
             )}
 
+            {!ctr && (
+              <>
             <h2 className="font-serif text-xl font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
@@ -170,6 +179,8 @@ export default async function ModifierCityFindPage({
                 </details>
               ))}
             </div>
+              </>
+            )}
 
             <div className="mt-10 pt-8 border-t border-line/8">
               <p className="text-xs text-ink-soft">
